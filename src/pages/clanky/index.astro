@@ -8,7 +8,7 @@ const all = (await getCollection('clanky', ({ data }) => !data.draft))
 
 const categories = [...new Set(all.map((c) => c.data.category))];
 ---
-<Base title="Všechny články — REALTECH CZ">
+<Base title="Všechny články — REALTECH CZ" description="Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí.">
   <section class="articles" style="padding-top: 56px;">
     <div class="wrap">
       <div class="section-head">

@@ -15,6 +15,9 @@ const {
 } = Astro.props;
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
+const path = Astro.url.pathname;
+const current = (href: string) =>
+  (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`)) ? 'page' : undefined;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
@@ -49,6 +52,8 @@ const ogImage = new URL(image, Astro.site);
 </head>
 <body>
 
+<a class="skip-link" href="#obsah">Přeskočit na obsah</a>
+
 <div class="topbar">
   <div class="wrap">
     <span><span class="live-dot"></span>NOVÉ VIDEO KAŽDÝ TÝDEN</span>
@@ -63,10 +68,10 @@ const ogImage = new URL(image, Astro.site);
     </a>
     <nav class="main" aria-label="Hlavní navigace">
       <ul>
-        <li><a href="/">Novinky</a></li>
-        <li><a href="/clanky">Články</a></li>
+        <li><a href="/" aria-current={current('/')}>Novinky</a></li>
+        <li><a href="/clanky" aria-current={current('/clanky')}>Články</a></li>
         <li><a href={YT}>Videa</a></li>
-        <li><a href="/o-nas">O nás</a></li>
+        <li><a href="/o-nas" aria-current={current('/o-nas')}>O nás</a></li>
       </ul>
     </nav>
     <a href={YT_SUB} class="yt-btn">
@@ -76,7 +81,9 @@ const ogImage = new URL(image, Astro.site);
   </div>
 </header>
 
-<slot />
+<main id="obsah">
+  <slot />
+</main>
 
 <section class="newsletter">
   <div class="wrap">
@@ -100,6 +107,7 @@ const ogImage = new URL(image, Astro.site);
     <span class="mono">© {new Date().getFullYear()} REALTECH CZ — Daniel &amp; Sam</span>
     <ul>
       <li><a href={YT}>YouTube</a></li>
+      <li><a href="/clanky">Články</a></li>
       <li><a href="/o-nas">O nás</a></li>
       <li><a href="/rss.xml">RSS</a></li>
     </ul>

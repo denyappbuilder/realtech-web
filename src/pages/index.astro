@@ -16,8 +16,30 @@ const dateStr = hero?.data.date.toLocaleDateString('cs-CZ', {
 
 const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
 const heroThumb = heroVideoId ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg` : undefined;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: 'REALTECH CZ',
+      url: Astro.site?.href,
+      description: 'Tech novinky a analýzy bez marketingových řečí.',
+      inLanguage: 'cs',
+      publisher: { '@id': `${Astro.site?.href}#org` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${Astro.site?.href}#org`,
+      name: 'REALTECH CZ',
+      url: Astro.site?.href,
+      sameAs: ['https://www.youtube.com/@realtech-cz'],
+    },
+  ],
+};
 ---
 <Base title="REALTECH CZ — Tech novinky a analýzy">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
 
   {hero && (
     <section class="hero">
@@ -39,7 +61,7 @@ const heroThumb = heroVideoId ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdef
             )}
           </div>
         </div>
-        <a href={hero.data.video ?? `/clanky/${hero.id}`} class="hero-visual" aria-label={`Přehrát video: ${hero.data.title}`}>
+        <a href={hero.data.video ?? `/clanky/${hero.id}`} class="hero-visual" aria-label={hero.data.video ? `Přehrát video: ${hero.data.title}` : `Přečíst článek: ${hero.data.title}`}>
           {heroThumb && <img src={heroThumb} alt="" loading="eager" decoding="async" />}
           {heroThumb && <span class="shade"></span>}
           <span class="rec"><span class="live-dot"></span>REALTECH</span>
