@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // Po nasazení změň na svou doménu, např. https://realtech.cz
-  site: 'https://realtech.pages.dev',
+  site: 'https://realtech.cz',
+  integrations: [sitemap()],
 });
