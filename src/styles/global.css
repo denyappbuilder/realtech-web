@@ -28,6 +28,13 @@ a:focus-visible, button:focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: 3px;
 }
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 200;
+  background: var(--ink); color: #fff;
+  padding: 10px 18px; font-weight: 600; font-size: 0.9rem;
+  border-radius: 0 0 var(--radius) 0;
+}
+.skip-link:focus { left: 0; }
 .mono {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.72rem;
@@ -369,7 +376,13 @@ footer.site ul a:hover { color: var(--ink); }
   .hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
-  nav.main { display: none; }
+  header.site .wrap {
+    flex-wrap: wrap; height: auto;
+    padding-top: 12px; padding-bottom: 12px; row-gap: 6px;
+  }
+  nav.main { order: 3; width: 100%; }
+  nav.main ul { gap: 22px; }
+  nav.main a { font-size: 0.85rem; padding: 2px 0 6px; }
 }
 @media (max-width: 580px) {
   .grid { grid-template-columns: 1fr; }

@@ -38,9 +38,19 @@ const jsonLd = {
   author: { '@type': 'Organization', name: 'REALTECH CZ', url: 'https://www.youtube.com/@realtech-cz' },
   publisher: { '@type': 'Organization', name: 'REALTECH CZ', url: Astro.site?.href },
 };
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'Články', item: new URL('/clanky', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: title },
+  ],
+};
 ---
 <Base title={`${title} — REALTECH CZ`} description={description} image={ogImage} ogType="article">
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
   <div class="read-progress" aria-hidden="true"><span></span></div>
   <div class="article-page">
     <div class="wrap">
