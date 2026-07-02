@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+const YT = 'https://www.youtube.com/@realtech-cz';
+const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
+---
+<Base title="O nás — REALTECH CZ" description="Kdo stojí za REALTECH CZ a proč děláme tech obsah bez marketingových řečí.">
+  <section class="about wrap">
+    <div class="lower-third">
+      <span class="tag">O nás</span>
+    </div>
+    <h1>Tech bez marketingových řečí.</h1>
+    <p>
+      REALTECH CZ je český YouTube kanál a web o technologiích a umělé inteligenci.
+      Děláme ho dva — <strong>Daniel a Sam</strong>. Točíme videa a píšeme analýzy o tom,
+      co se v techu skutečně děje: od AI přes drony a Starlink až po mobily.
+    </p>
+
+    <h2>Jak pracujeme</h2>
+    <p>
+      Nepřebíráme tiskové zprávy. Témata si rozebíráme do hloubky — co se stalo, proč,
+      kdo za tím stojí a co to znamená pro lidi v Česku. Hardware, který recenzujeme,
+      reálně používáme a testujeme na vlastní kůži. Když je něco slabé, řekneme to narovinu.
+    </p>
+
+    <h2>Co tady najdeš</h2>
+    <p>
+      Články na tomhle webu vycházejí z našich videí — kdo radši čte, najde tu to podstatné
+      v textu, kdo radši kouká, má u každého článku video. Novinky vycházejí průběžně,
+      nové video je na kanále každý týden.
+    </p>
+
+    <h2>Kontakt</h2>
+    <p>
+      Nejrychleji nás zastihneš v komentářích na YouTube — čteme je všechny.
+    </p>
+
+    <div class="hero-actions">
+      <a href={YT_SUB} class="btn-primary">Odebírat na YouTube</a>
+      <a href="/clanky" class="btn-ghost">Přečíst články</a>
+    </div>
+  </section>
+</Base>
