@@ -7,6 +7,7 @@ interface Props {
 }
 const { title, description = 'Tech novinky a analýzy bez marketingových řečí. Web YouTube kanálu REALTECH CZ.' } = Astro.props;
 const YT = 'https://youtube.com/@realtechcz';
+const YT_SUB = 'https://www.youtube.com/@realtechcz?sub_confirmation=1';
 ---
 <!DOCTYPE html>
 <html lang="cs">
@@ -44,7 +45,7 @@ const YT = 'https://youtube.com/@realtechcz';
         <li><a href={YT}>Videa</a></li>
       </ul>
     </nav>
-    <a href={YT} class="yt-btn">
+    <a href={YT_SUB} class="yt-btn">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
       Odebírat
     </a>
@@ -56,16 +57,16 @@ const YT = 'https://youtube.com/@realtechcz';
 <section class="newsletter">
   <div class="wrap">
     <div>
-      <span class="mono">// Newsletter</span>
-      <h2>Tech report do e-mailu.<br />Jednou týdně, bez balastu.</h2>
-      <p>Shrnutí nejdůležitějších tech novinek týdne plus upozornění na nové video. Žádný spam, odhlášení jedním klikem.</p>
+      <span class="mono">// YouTube</span>
+      <h2>Nové video každý týden.<br />Ať ti nic neuteče.</h2>
+      <p>Odebírej REALTECH CZ na YouTube — tech novinky a analýzy bez marketingových řečí.</p>
     </div>
     <div>
-      <div class="nl-form">
-        <input type="email" placeholder="vas@email.cz" aria-label="E-mailová adresa" />
-        <button type="button">Přihlásit odběr</button>
-      </div>
-      <p class="nl-note">Odesláním souhlasíte se zpracováním e-mailu pro účely newsletteru.</p>
+      <a href={YT_SUB} class="nl-cta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+        Odebírat na YouTube
+      </a>
+      <p class="nl-note">Zdarma, jedním kliknutím. Zvoneček navrch, ať ti nové video nepropadne.</p>
     </div>
   </div>
 </section>
