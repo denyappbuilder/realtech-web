@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+
+const all = (await getCollection('clanky', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Hero = článek označený featured: true, jinak nejnovější
+const hero = all.find((c) => c.data.featured) ?? all[0];
+const rest = all.filter((c) => c.id !== hero?.id).slice(0, 6);
+
+const dateStr = hero?.data.date.toLocaleDateString('cs-CZ', {
+  day: '2-digit', month: '2-digit', year: 'numeric',
+});
+---
+<Base title="REALTECH CZ — Tech novinky a analýzy">
+
+  {hero && (
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="lower-third">
+            <span class="tag">{hero.data.category}</span>
+            <span class="time">{dateStr}</span>
+          </div>
+          <h1>{hero.data.title}</h1>
+          <p class="lead">{hero.data.description}</p>
+          <div class="hero-actions">
+            <a href={`/clanky/${hero.id}`} class="btn-primary">Přečíst analýzu</a>
+            {hero.data.video && (
+              <a href={hero.data.video} class="btn-ghost">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                Video{hero.data.videoLength && ` · ${hero.data.videoLength}`}
+              </a>
+            )}
+          </div>
+        </div>
+        <a href={hero.data.video ?? `/clanky/${hero.id}`} class="hero-visual" aria-label={`Přehrát video: ${hero.data.title}`}>
+          <span class="rec"><span class="live-dot"></span>REALTECH</span>
+          <span class="headline-mark">{hero.data.title}</span>
+          {hero.data.videoLength && <span class="tc">TC {hero.data.videoLength}</span>}
+          <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <section class="articles">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Poslední reporty</h2>
+        <a href="/clanky">Všechny články →</a>
+      </div>
+      <div class="grid">
+        {rest.map((article) => <ArticleCard article={article} />)}
+      </div>
+    </div>
+  </section>
+
+</Base>

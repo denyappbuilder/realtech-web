@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const all = (await getCollection('clanky', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base title="Všechny články — REALTECH CZ">
+  <section class="articles" style="padding-top: 56px;">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Všechny články</h2>
+        <a href="/rss.xml">RSS →</a>
+      </div>
+      <div class="grid">
+        {all.map((article) => <ArticleCard article={article} />)}
+      </div>
+    </div>
+  </section>
+</Base>

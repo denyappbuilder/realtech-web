@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Tech novinky a analýzy bez marketingových řečí. Web YouTube kanálu REALTECH CZ.' } = Astro.props;
+const YT = 'https://youtube.com/@realtechcz';
+---
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <link rel="alternate" type="application/rss+xml" title="REALTECH CZ" href="/rss.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span><span class="live-dot"></span>NOVÉ VIDEO KAŽDÝ TÝDEN</span>
+    <span>REALTECH REPORT — TECH BEZ MARKETINGOVÝCH ŘEČÍ</span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a href="/" class="logo" aria-label="REALTECH CZ — domů">
+      <span class="real">REAL</span><span class="tech">TECH</span><span class="cz">CZ</span>
+    </a>
+    <nav class="main" aria-label="Hlavní navigace">
+      <ul>
+        <li><a href="/">Novinky</a></li>
+        <li><a href="/clanky">Články</a></li>
+        <li><a href={YT}>Videa</a></li>
+      </ul>
+    </nav>
+    <a href={YT} class="yt-btn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+      Odebírat
+    </a>
+  </div>
+</header>
+
+<slot />
+
+<section class="newsletter">
+  <div class="wrap">
+    <div>
+      <span class="mono">// Newsletter</span>
+      <h2>Tech report do e-mailu.<br />Jednou týdně, bez balastu.</h2>
+      <p>Shrnutí nejdůležitějších tech novinek týdne plus upozornění na nové video. Žádný spam, odhlášení jedním klikem.</p>
+    </div>
+    <div>
+      <div class="nl-form">
+        <input type="email" placeholder="vas@email.cz" aria-label="E-mailová adresa" />
+        <button type="button">Přihlásit odběr</button>
+      </div>
+      <p class="nl-note">Odesláním souhlasíte se zpracováním e-mailu pro účely newsletteru.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="mono">© {new Date().getFullYear()} REALTECH CZ — Daniel &amp; Sam</span>
+    <ul>
+      <li><a href={YT}>YouTube</a></li>
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+</html>

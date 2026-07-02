@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'clanky'>;
+}
+const { article } = Astro.props;
+const { title, description, category, date, videoLength, readingTime } = article.data;
+
+const slugify = (s: string) =>
+  s.toLowerCase()
+   .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+   .replace(/\s+/g, '-');
+
+const thumbClass = `th-${slugify(category)}`;
+const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
+---
+<article class="card">
+  <div class={`card-thumb ${thumbClass}`}>
+    <div class="lt">
+      <span class="k">{category}</span>
+      {videoLength && <span class="t">{videoLength}</span>}
+    </div>
+  </div>
+  <div class="card-body">
+    <h3><a href={`/clanky/${article.id}`}>{title}</a></h3>
+    <p>{description}</p>
+    <div class="card-meta">
+      <span>{dateStr}</span>
+      {readingTime && <span>ČTENÍ {readingTime} MIN</span>}
+    </div>
+  </div>
+</article>
