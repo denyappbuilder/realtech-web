@@ -446,6 +446,7 @@ footer.site ul a:hover { color: var(--ink); }
 .article-body strong { font-weight: 700; }
 
 /* ── Category filter chips ───────────── */
+[hidden] { display: none !important; }
 .cat-filter {
   display: flex; flex-wrap: wrap; gap: 8px;
   margin: -8px 0 24px;
