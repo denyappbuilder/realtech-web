@@ -13,6 +13,9 @@ const rest = all.filter((c) => c.id !== hero?.id).slice(0, 6);
 const dateStr = hero?.data.date.toLocaleDateString('cs-CZ', {
   day: '2-digit', month: '2-digit', year: 'numeric',
 });
+
+const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
+const heroThumb = heroVideoId ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg` : undefined;
 ---
 <Base title="REALTECH CZ — Tech novinky a analýzy">
 
@@ -37,6 +40,8 @@ const dateStr = hero?.data.date.toLocaleDateString('cs-CZ', {
           </div>
         </div>
         <a href={hero.data.video ?? `/clanky/${hero.id}`} class="hero-visual" aria-label={`Přehrát video: ${hero.data.title}`}>
+          {heroThumb && <img src={heroThumb} alt="" loading="eager" decoding="async" />}
+          {heroThumb && <span class="shade"></span>}
           <span class="rec"><span class="live-dot"></span>REALTECH</span>
           <span class="headline-mark">{hero.data.title}</span>
           {hero.data.videoLength && <span class="tc">TC {hero.data.videoLength}</span>}

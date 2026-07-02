@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -17,6 +18,13 @@ const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-dig
 
 const videoId = video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
 const ogImage = videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : undefined;
+
+const others = (await getCollection('clanky', ({ data, id }) => !data.draft && id !== article.id))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const related = [
+  ...others.filter((c) => c.data.category === category),
+  ...others.filter((c) => c.data.category !== category),
+].slice(0, 3);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -71,6 +79,18 @@ const jsonLd = {
       <div class="article-body">
         <Content />
       </div>
+
+      {related.length > 0 && (
+        <div class="related">
+          <div class="section-head">
+            <h2>Další reporty</h2>
+            <a href="/clanky">Všechny →</a>
+          </div>
+          <div class="grid">
+            {related.map((c) => <ArticleCard article={c} />)}
+          </div>
+        </div>
+      )}
 
       <div class="article-back">
         <a href="/clanky" class="btn-ghost">← Zpět na články</a>
