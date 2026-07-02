@@ -5,6 +5,8 @@ import ArticleCard from '../../components/ArticleCard.astro';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categories = [...new Set(all.map((c) => c.data.category))];
 ---
 <Base title="Všechny články — REALTECH CZ">
   <section class="articles" style="padding-top: 56px;">
@@ -13,9 +15,34 @@ const all = (await getCollection('clanky', ({ data }) => !data.draft))
         <h2>Všechny články</h2>
         <a href="/rss.xml">RSS →</a>
       </div>
-      <div class="grid">
+      <div class="cat-filter" role="group" aria-label="Filtr podle kategorie">
+        <button class="chip active" data-cat="">Vše</button>
+        {categories.map((cat) => <button class="chip" data-cat={cat}>{cat}</button>)}
+      </div>
+      <div class="grid" id="articles-grid">
         {all.map((article) => <ArticleCard article={article} />)}
       </div>
+      <p class="filter-empty" hidden>V této kategorii zatím nic není.</p>
     </div>
   </section>
+
+  <script>
+    const chips = document.querySelectorAll('.cat-filter .chip');
+    const cards = document.querySelectorAll('#articles-grid .card');
+    const empty = document.querySelector('.filter-empty');
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+        const cat = chip.getAttribute('data-cat');
+        let shown = 0;
+        cards.forEach((card) => {
+          const show = !cat || card.getAttribute('data-category') === cat;
+          card.toggleAttribute('hidden', !show);
+          if (show) shown++;
+        });
+        if (empty) empty.toggleAttribute('hidden', shown > 0);
+      });
+    });
+  </script>
 </Base>

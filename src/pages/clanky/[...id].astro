@@ -41,6 +41,7 @@ const jsonLd = {
 ---
 <Base title={`${title} — REALTECH CZ`} description={description} image={ogImage} ogType="article">
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
+  <div class="read-progress" aria-hidden="true"><span></span></div>
   <div class="article-page">
     <div class="wrap">
 
@@ -80,6 +81,15 @@ const jsonLd = {
         <Content />
       </div>
 
+      <div class="article-share">
+        <span class="mono">// Sdílej dál</span>
+        <div class="share-btns">
+          <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">X</a>
+          <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">Facebook</a>
+          <button class="share-btn" id="copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
+        </div>
+      </div>
+
       {related.length > 0 && (
         <div class="related">
           <div class="section-head">
@@ -98,4 +108,27 @@ const jsonLd = {
 
     </div>
   </div>
+
+  <script>
+    const bar = document.querySelector('.read-progress span') as HTMLElement | null;
+    const onScroll = () => {
+      if (!bar) return;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : '0%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const copyBtn = document.getElementById('copy-link');
+    copyBtn?.addEventListener('click', async () => {
+      const url = copyBtn.getAttribute('data-url') ?? location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        copyBtn.textContent = 'Zkopírováno ✓';
+        setTimeout(() => { copyBtn.textContent = 'Kopírovat odkaz'; }, 2000);
+      } catch {
+        location.href = url;
+      }
+    });
+  </script>
 </Base>
