@@ -15,34 +15,65 @@ const categories = [...new Set(all.map((c) => c.data.category))];
         <h2>Všechny články</h2>
         <a href="/rss.xml">RSS →</a>
       </div>
-      <div class="cat-filter" role="group" aria-label="Filtr podle kategorie">
-        <button class="chip active" data-cat="">Vše</button>
-        {categories.map((cat) => <button class="chip" data-cat={cat}>{cat}</button>)}
+      <div class="filter-bar">
+        <div class="cat-filter" role="group" aria-label="Filtr podle kategorie">
+          <button class="chip active" data-cat="">Vše</button>
+          {categories.map((cat) => <button class="chip" data-cat={cat}>{cat}</button>)}
+        </div>
+        <input type="search" class="search-input" id="art-search" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
       </div>
       <div class="grid" id="articles-grid">
         {all.map((article) => <ArticleCard article={article} />)}
       </div>
-      <p class="filter-empty" hidden>V této kategorii zatím nic není.</p>
+      <p class="filter-empty" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
     </div>
   </section>
 
   <script>
-    const chips = document.querySelectorAll('.cat-filter .chip');
-    const cards = document.querySelectorAll('#articles-grid .card');
+    const chips = [...document.querySelectorAll('.cat-filter .chip')];
+    const cards = [...document.querySelectorAll('#articles-grid .card')];
     const empty = document.querySelector('.filter-empty');
+    const search = document.getElementById('art-search') as HTMLInputElement | null;
+
+    const apply = () => {
+      const cat = document.querySelector('.chip.active')?.getAttribute('data-cat') ?? '';
+      const q = (search?.value ?? '').trim().toLowerCase();
+      let shown = 0;
+      cards.forEach((card) => {
+        const okCat = !cat || card.getAttribute('data-category') === cat;
+        const okQ = !q || (card.textContent ?? '').toLowerCase().includes(q);
+        const show = okCat && okQ;
+        card.toggleAttribute('hidden', !show);
+        if (show) shown++;
+      });
+      empty?.toggleAttribute('hidden', shown > 0);
+      const params = new URLSearchParams();
+      if (cat) params.set('kat', cat);
+      if (q) params.set('q', q);
+      const qs = params.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
+    };
+
     chips.forEach((chip) => {
       chip.addEventListener('click', () => {
         chips.forEach((c) => c.classList.remove('active'));
         chip.classList.add('active');
-        const cat = chip.getAttribute('data-cat');
-        let shown = 0;
-        cards.forEach((card) => {
-          const show = !cat || card.getAttribute('data-category') === cat;
-          card.toggleAttribute('hidden', !show);
-          if (show) shown++;
-        });
-        if (empty) empty.toggleAttribute('hidden', shown > 0);
+        apply();
       });
     });
+    search?.addEventListener('input', apply);
+
+    const params = new URLSearchParams(location.search);
+    const initCat = params.get('kat');
+    const initQ = params.get('q');
+    if (initQ && search) search.value = initQ;
+    if (initCat) {
+      const target = chips.find((c) => c.getAttribute('data-cat') === initCat);
+      if (target) {
+        chips.forEach((c) => c.classList.remove('active'));
+        target.classList.add('active');
+      }
+    }
+    if (initCat || initQ) apply();
   </script>
 </Base>
