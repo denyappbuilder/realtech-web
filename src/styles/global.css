@@ -8,7 +8,20 @@
   --signal: #E5322D;
   --signal-dark: #B7211D;
   --steel: #2B4A6F;
+  --panel: #14171C;
   --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0F1216;
+    --surface: #171B21;
+    --ink: #E8ECF1;
+    --ink-soft: #A9B2BF;
+    --ink-faint: #79828F;
+    --line: #262C35;
+    --panel: #1D232C;
+    --signal-dark: #F0554F;
+  }
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -30,7 +43,7 @@ a:focus-visible, button:focus-visible {
 }
 .skip-link {
   position: absolute; left: -9999px; top: 0; z-index: 200;
-  background: var(--ink); color: #fff;
+  background: var(--panel); color: #fff;
   padding: 10px 18px; font-weight: 600; font-size: 0.9rem;
   border-radius: 0 0 var(--radius) 0;
 }
@@ -45,7 +58,7 @@ a:focus-visible, button:focus-visible {
 
 /* ── Top bar ─────────────────────────── */
 .topbar {
-  background: var(--ink);
+  background: var(--panel);
   color: #fff;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem;
@@ -122,7 +135,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   padding: 5px 12px; text-transform: uppercase;
 }
 .lower-third .time {
-  background: var(--ink); color: #fff;
+  background: var(--panel); color: #fff;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem; padding: 5px 12px; letter-spacing: 0.06em;
 }
@@ -141,7 +154,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 .btn-primary {
-  background: var(--ink); color: #fff;
+  background: var(--ink); color: var(--bg);
   padding: 12px 24px; border-radius: var(--radius);
   font-weight: 600; font-size: 0.92rem;
   transition: background 0.15s;
@@ -272,7 +285,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .article-head p.lead { font-size: 1.08rem; color: var(--ink-soft); }
 .article-videobar {
   max-width: 760px; margin: 0 auto 36px;
-  background: var(--ink); color: #fff; border-radius: 10px;
+  background: var(--panel); color: #fff; border-radius: 10px;
   padding: 16px 20px;
   display: flex; align-items: center; justify-content: space-between;
   gap: 16px; flex-wrap: wrap;
@@ -311,7 +324,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   border-radius: 4px; padding: 0.1em 0.4em;
 }
 .article-body pre {
-  background: var(--ink); color: #E8ECF1;
+  background: var(--panel); color: #E8ECF1;
   border-radius: 8px; padding: 18px 20px; overflow-x: auto;
   margin: 0 0 1.2em; font-size: 0.85rem;
 }
@@ -321,7 +334,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .article-back { max-width: 760px; margin: 28px auto 0; }
 
 /* ── Newsletter ──────────────────────── */
-.newsletter { background: var(--ink); color: #fff; padding: 56px 0; }
+.newsletter { background: var(--panel); color: #fff; padding: 56px 0; }
 .newsletter .wrap {
   display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
 }
@@ -486,7 +499,7 @@ footer.site ul a:hover { color: var(--ink); }
   transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
 .chip:hover { border-color: var(--ink); color: var(--ink); }
-.chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.chip.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 .filter-empty { color: var(--ink-soft); font-size: 0.9rem; padding: 12px 0; }
 
 /* ── Reading progress ────────────────── */
@@ -542,4 +555,12 @@ footer.site ul a:hover { color: var(--ink); }
 .related .card-body p { display: none; }
 @media (max-width: 700px) {
   .related .grid { grid-template-columns: 1fr; }
+}
+
+/* ── Dark mode component tweaks ──────── */
+@media (prefers-color-scheme: dark) {
+  .btn-primary:hover { background: #fff; }
+  .card:hover { box-shadow: 0 16px 40px -24px rgba(0,0,0,0.8); }
+  .hero-visual { box-shadow: 0 24px 60px -30px rgba(0,0,0,0.8); }
+  .article-body code { background: var(--panel); }
 }
