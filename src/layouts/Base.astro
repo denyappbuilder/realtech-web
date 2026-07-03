@@ -93,16 +93,16 @@ const ogImage = new URL(image, Astro.site);
 <section class="newsletter">
   <div class="wrap">
     <div>
-      <span class="mono">// YouTube</span>
-      <h2>Nové video každý týden.<br />Ať ti nic neuteče.</h2>
-      <p>Odebírej REALTECH CZ na YouTube — tech novinky a analýzy bez marketingových řečí.</p>
+      <span class="mono">// Newsletter</span>
+      <h2>Tech bez marketingových řečí.<br />Přímo do mailu.</h2>
+      <p>Nejdůležitější novinky a analýzy z AI a techu — česky, stručně a jen když je co říct. Žádný spam.</p>
     </div>
     <div>
-      <a href={YT_SUB} class="nl-cta">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
-        Odebírat na YouTube
-      </a>
-      <p class="nl-note">Zdarma, jedním kliknutím. Zvoneček navrch, ať ti nové video nepropadne.</p>
+      <form class="nl-form" action="https://app.kit.com/forms/9640609/subscriptions" method="post">
+        <input type="email" name="email_address" placeholder="tvuj@email.cz" required aria-label="Tvůj e-mail" />
+        <button type="submit">Odebírat</button>
+      </form>
+      <p class="nl-note" data-nl-note>Potvrzení ti přijde e-mailem. Odhlášení jedním klikem, e-mail nikomu nedáme. <a href={YT_SUB}>Radši YouTube? →</a></p>
     </div>
   </div>
 </section>
@@ -118,6 +118,27 @@ const ogImage = new URL(image, Astro.site);
     </ul>
   </div>
 </footer>
+
+<script>
+  const nlForm = document.querySelector<HTMLFormElement>('.nl-form');
+  nlForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = nlForm.querySelector('button')!;
+    btn.disabled = true;
+    btn.textContent = 'Odesílám…';
+    try {
+      const res = await fetch(nlForm.action, {
+        method: 'POST',
+        body: new FormData(nlForm),
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      nlForm.innerHTML = '<p class="nl-done">✓ Skoro hotovo — mrkni do mailu a potvrď odběr.</p>';
+    } catch {
+      nlForm.submit();
+    }
+  });
+</script>
 
 </body>
 </html>

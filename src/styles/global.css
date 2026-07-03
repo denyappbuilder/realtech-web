@@ -577,3 +577,8 @@ a.chip { display: inline-block; }
 /* Krátká zpráva badge */
 .card-thumb .lt .z { background: #fff; color: #14171C; font-weight: 500; }
 .lower-third .tag-zprava { background: var(--ink); color: var(--bg); }
+
+/* Newsletter stavy */
+.nl-done { color: #fff; font-weight: 600; font-size: 1rem; margin: 0; }
+.nl-note a { color: #A9B2BF; text-decoration: underline; }
+.nl-note a:hover { color: #fff; }
