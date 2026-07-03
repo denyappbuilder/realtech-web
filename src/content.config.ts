@@ -20,6 +20,7 @@ const clanky = defineCollection({
     videoLength: z.string().optional(),
     readingTime: z.number().optional(),
     featured: z.boolean().default(false),
+    zprava: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
 });

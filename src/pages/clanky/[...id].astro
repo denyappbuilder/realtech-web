@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title, description, category, date, video, videoLength, readingTime } = article.data;
+const { title, description, category, date, video, videoLength, readingTime, zprava } = article.data;
 const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
 const videoId = video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
@@ -59,6 +59,7 @@ const breadcrumbLd = {
       <div class="article-head">
         <div class="lower-third">
           <span class="tag">{category}</span>
+          {zprava && <span class="tag tag-zprava">Zpráva</span>}
           <time class="time" datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
           {readingTime && <span class="time">ČTENÍ {readingTime} MIN</span>}
         </div>
