@@ -573,3 +573,7 @@ footer.site ul a:hover { color: var(--ink); }
 .topics .mono { color: var(--ink-faint); }
 .topics .cat-filter { margin: 0; }
 a.chip { display: inline-block; }
+
+/* Krátká zpráva badge */
+.card-thumb .lt .z { background: #fff; color: #14171C; font-weight: 500; }
+.lower-third .tag-zprava { background: var(--ink); color: var(--bg); }
