@@ -9,6 +9,7 @@ const all = (await getCollection('clanky', ({ data }) => !data.draft))
 // Hero = článek označený featured: true, jinak nejnovější
 const hero = all.find((c) => c.data.featured) ?? all[0];
 const rest = all.filter((c) => c.id !== hero?.id).slice(0, 6);
+const categories = [...new Set(all.map((c) => c.data.category))];
 
 const dateStr = hero?.data.date.toLocaleDateString('cs-CZ', {
   day: '2-digit', month: '2-digit', year: 'numeric',
@@ -81,6 +82,15 @@ const jsonLd = {
       </div>
       <div class="grid">
         {rest.map((article) => <ArticleCard article={article} />)}
+      </div>
+
+      <div class="topics">
+        <span class="mono">// Témata</span>
+        <div class="cat-filter">
+          {categories.map((cat) => (
+            <a class="chip" href={`/clanky/?kat=${encodeURIComponent(cat)}`}>{cat}</a>
+          ))}
+        </div>
       </div>
     </div>
   </section>

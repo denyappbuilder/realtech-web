@@ -86,7 +86,7 @@ header.site .wrap {
   height: 64px; gap: 16px;
 }
 .logo {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif;
   font-weight: 900;
   font-stretch: 115%;
   font-size: 1.45rem;
@@ -140,7 +140,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   font-size: 0.7rem; padding: 5px 12px; letter-spacing: 0.06em;
 }
 .hero h1 {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif;
   font-weight: 850;
   font-stretch: 108%;
   font-size: clamp(2rem, 4.4vw, 3.4rem);
@@ -197,7 +197,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .hero-visual .headline-mark {
   position: absolute; bottom: 40px; left: 24px; right: 24px;
   color: #fff;
-  font-family: 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
   font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.01em;
 }
 .hero-visual .play {
@@ -217,7 +217,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   padding-bottom: 10px; margin-bottom: 28px;
 }
 .section-head h2 {
-  font-family: 'Archivo', sans-serif; font-weight: 800; font-stretch: 108%;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 108%;
   font-size: 1.35rem; letter-spacing: -0.01em;
 }
 .section-head a { color: var(--signal); font-weight: 600; font-size: 0.85rem; }
@@ -253,7 +253,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .card-thumb .lt .t { background: rgba(20,23,28,0.85); }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card-body h3 {
-  font-family: 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
   font-size: 1.08rem; line-height: 1.25; letter-spacing: -0.01em;
 }
 .card-body h3 a:hover { color: var(--signal-dark); }
@@ -278,7 +278,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .article-page { padding: 56px 0 64px; }
 .article-head { max-width: 760px; margin: 0 auto 36px; }
 .article-head h1 {
-  font-family: 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.8rem, 3.6vw, 2.8rem); line-height: 1.08;
   letter-spacing: -0.02em; margin-bottom: 16px;
 }
@@ -298,7 +298,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   font-size: 1.02rem;
 }
 .article-body h2 {
-  font-family: 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
   font-size: 1.4rem; letter-spacing: -0.01em;
   margin: 2em 0 0.6em;
   padding-top: 0.6em;
@@ -306,7 +306,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 }
 .article-body h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
 .article-body h3 {
-  font-family: 'Archivo', sans-serif; font-weight: 750;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 750;
   font-size: 1.1rem; margin: 1.6em 0 0.5em;
 }
 .article-body p { margin: 0 0 1.1em; }
@@ -339,7 +339,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
 }
 .newsletter h2 {
-  font-family: 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: 1.8rem; letter-spacing: -0.015em; line-height: 1.1;
   margin: 10px 0 12px;
 }
@@ -533,13 +533,13 @@ footer.site ul a:hover { color: var(--ink); }
   max-width: 720px;
 }
 .about h1 {
-  font-family: 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.05;
   margin: 12px 0 18px;
 }
 .about p { margin: 0 0 1.1em; color: var(--ink-soft); font-size: 1.02rem; }
 .about h2 {
-  font-family: 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
   font-size: 1.25rem; margin: 2em 0 0.6em;
 }
 .about h2::before { content: "// "; color: var(--signal); }
@@ -564,3 +564,12 @@ footer.site ul a:hover { color: var(--ink); }
   .hero-visual { box-shadow: 0 24px 60px -30px rgba(0,0,0,0.8); }
   .article-body code { background: var(--panel); }
 }
+
+/* ── Homepage topics strip ───────────── */
+.topics {
+  margin-top: 40px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.topics .mono { color: var(--ink-faint); }
+.topics .cat-filter { margin: 0; }
+a.chip { display: inline-block; }
