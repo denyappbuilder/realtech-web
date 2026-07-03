@@ -16,7 +16,7 @@ const dateStr = hero?.data.date.toLocaleDateString('cs-CZ', {
 });
 
 const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
-const heroThumb = heroVideoId ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg` : undefined;
+const heroThumb = heroVideoId ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg` : hero?.data.image;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -68,7 +68,7 @@ const jsonLd = {
           <span class="rec"><span class="live-dot"></span>REALTECH</span>
           <span class="headline-mark">{hero.data.title}</span>
           {hero.data.videoLength && <span class="tc">TC {hero.data.videoLength}</span>}
-          <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+          {hero.data.video && <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>}
         </a>
       </div>
     </section>

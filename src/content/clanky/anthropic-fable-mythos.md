@@ -4,6 +4,7 @@ description: "Anthropic vydal nejsilnější model své historie a za tři dny m
 category: "AI Report"
 date: 2026-07-02
 readingTime: 6
+image: "/images/clanky/anthropic-fable-mythos.jpg"
 ---
 
 Anthropic vydal vůbec nejsilnější model, jaký kdy postavil. A pár dní nato ho musel vypnout — ne protože chtěl, ale protože mu to nařídila vláda USA. Nejdivnější na tom je, že zákaz dopadl i na vlastní zaměstnance Anthropicu. Tohle není příběh o jednom modelu: je to precedens, který mění pravidla pro celou AI hru. A ano, týká se i uživatelů v Česku.
