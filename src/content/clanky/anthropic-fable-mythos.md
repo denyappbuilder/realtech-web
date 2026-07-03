@@ -4,7 +4,6 @@ description: "Anthropic vydal nejsilnější model své historie a za tři dny m
 category: "AI Report"
 date: 2026-07-02
 readingTime: 6
-featured: true
 ---
 
 Anthropic vydal vůbec nejsilnější model, jaký kdy postavil. A pár dní nato ho musel vypnout — ne protože chtěl, ale protože mu to nařídila vláda USA. Nejdivnější na tom je, že zákaz dopadl i na vlastní zaměstnance Anthropicu. Tohle není příběh o jednom modelu: je to precedens, který mění pravidla pro celou AI hru. A ano, týká se i uživatelů v Česku.
@@ -44,3 +43,5 @@ To otevírá otázky, které se budou týkat každého dalšího silného modelu
 ## Co si z toho odnést
 
 Model se vrátil, ale precedens zůstal viset ve vzduchu. Vláda ukázala, že když se rozhodne, dokáže ze dne na den zhasnout přístup k softwaru. To, že tentokrát couvla, neznamená, že příště couvne zas. Firma, která varovala, že AI je moc nebezpečná, narazila na vládu, která ji vzala za slovo — a zatáhla za brzdu tvrději, než kdokoli čekal. A přesně o tenhle precedens jde víc než o jeden model.
+
+**Pokračování:** [Fable 5 je zpátky. Vláda USA zákaz zrušila — a tohle se mezitím změnilo](/clanky/fable-5-je-zpatky)
