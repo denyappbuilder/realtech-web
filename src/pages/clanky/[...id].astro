@@ -13,11 +13,13 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title, description, category, date, video, videoLength, readingTime, zprava } = article.data;
+const { title, description, category, date, video, videoLength, readingTime, zprava, image } = article.data;
 const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
 const videoId = video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
-const ogImage = videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : undefined;
+const ogImage = videoId
+  ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+  : image ? new URL(image, Astro.site).href : undefined;
 
 const others = (await getCollection('clanky', ({ data, id }) => !data.draft && id !== article.id))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -66,6 +68,12 @@ const breadcrumbLd = {
         <h1>{title}</h1>
         <p class="lead">{description}</p>
       </div>
+
+      {!videoId && image && (
+        <div class="article-hero">
+          <img src={image} alt="" width="1280" height="720" loading="eager" decoding="async" />
+        </div>
+      )}
 
       {videoId && (
         <div class="video-embed">

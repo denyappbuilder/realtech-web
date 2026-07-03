@@ -5,7 +5,7 @@ interface Props {
   article: CollectionEntry<'clanky'>;
 }
 const { article } = Astro.props;
-const { title, description, category, date, video, videoLength, readingTime, zprava } = article.data;
+const { title, description, category, date, video, videoLength, readingTime, zprava, image } = article.data;
 
 const slugify = (s: string) =>
   s.toLowerCase()
@@ -15,7 +15,7 @@ const slugify = (s: string) =>
 const thumbClass = `th-${slugify(category)}`;
 const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 const videoId = video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
-const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : undefined;
+const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : image;
 ---
 <article class="card" data-category={category}>
   <a href={`/clanky/${article.id}`} class={`card-thumb ${thumbClass}`} aria-hidden="true" tabindex="-1">

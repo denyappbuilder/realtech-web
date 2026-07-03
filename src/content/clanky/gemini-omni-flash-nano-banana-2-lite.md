@@ -5,6 +5,7 @@ category: "AI Report"
 date: 2026-07-03
 readingTime: 2
 zprava: true
+image: "/images/clanky/gemini-omni-flash-nano-banana-2-lite.jpg"
 ---
 
 Google 30. června vypustil dvě věci, které stojí za pozornost, protože si je můžete rovnou vyzkoušet — žádný „výzkumný preview pro vyvolené".

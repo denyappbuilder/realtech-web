@@ -5,6 +5,7 @@ category: "AI Report"
 date: 2026-07-03
 readingTime: 5
 featured: true
+image: "/images/clanky/fable-5-je-zpatky.jpg"
 ---
 
 Tři týdny. Tak dlouho trval první vládní zákaz AI modelu v historii. Od 1. července je Fable 5 — nejsilnější model Anthropicu — zase dostupný po celém světě, včetně Česka. Jenže tohle není jen „zapnuli to zpátky". Během těch tří týdnů se ukázalo něco mnohem zajímavějšího: ten „nebezpečný trik", kvůli kterému se všechno vypínalo, umí prakticky každý velký AI model na trhu.
