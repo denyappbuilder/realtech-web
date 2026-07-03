@@ -29,7 +29,7 @@ const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : u
     <h3><a href={`/clanky/${article.id}`}>{title}</a></h3>
     <p>{description}</p>
     <div class="card-meta">
-      <span>{dateStr}</span>
+      <time datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
       {readingTime && <span>ČTENÍ {readingTime} MIN</span>}
     </div>
   </div>

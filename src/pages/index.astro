@@ -47,7 +47,7 @@ const jsonLd = {
         <div>
           <div class="lower-third">
             <span class="tag">{hero.data.category}</span>
-            <span class="time">{dateStr}</span>
+            <time class="time" datetime={hero?.data.date.toISOString().slice(0, 10)}>{dateStr}</time>
           </div>
           <h1>{hero.data.title}</h1>
           <p class="lead">{hero.data.description}</p>
@@ -62,7 +62,7 @@ const jsonLd = {
           </div>
         </div>
         <a href={hero.data.video ?? `/clanky/${hero.id}`} class="hero-visual" aria-label={hero.data.video ? `Přehrát video: ${hero.data.title}` : `Přečíst článek: ${hero.data.title}`}>
-          {heroThumb && <img src={heroThumb} alt="" loading="eager" decoding="async" />}
+          {heroThumb && <img src={heroThumb} alt="" loading="eager" decoding="async" fetchpriority="high" />}
           {heroThumb && <span class="shade"></span>}
           <span class="rec"><span class="live-dot"></span>REALTECH</span>
           <span class="headline-mark">{hero.data.title}</span>
