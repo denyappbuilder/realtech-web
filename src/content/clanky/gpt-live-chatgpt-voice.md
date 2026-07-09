@@ -5,6 +5,7 @@ category: "AI Report"
 date: 2026-07-09
 readingTime: 2
 zprava: true
+image: "/images/clanky/gpt-live-chatgpt-voice.jpg"
 ---
 
 OpenAI vypustila **GPT-Live** — novou generaci hlasových modelů, která nahrazuje dosavadní Advanced Voice Mode v ChatGPT. Rollout na všechny uživatele ChatGPT **běží globálně už teď**, takže stačí kliknout na tlačítko mikrofonu a měl bys dostat novou verzi. Žádný příplatek, žádný waitlist.
