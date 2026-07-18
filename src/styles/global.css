@@ -9,7 +9,7 @@
   --signal-dark: #B7211D;
   --steel: #2B4A6F;
   --panel: #14171C;
-  --radius: 6px;
+  --radius: 8px;
 }
 /* Dark mode: systémový (pokud uživatel nepřepnul na light) i ruční přepnutí */
 @media (prefers-color-scheme: dark) {
@@ -90,9 +90,14 @@ a:focus-visible, button:focus-visible {
 
 /* ── Header ──────────────────────────── */
 header.site {
-  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 84%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
   border-bottom: 1px solid var(--line);
   position: sticky; top: 0; z-index: 50;
+}
+@supports not (backdrop-filter: blur(1px)) {
+  header.site { background: var(--surface); }
 }
 header.site .wrap {
   display: flex; align-items: center; justify-content: space-between;
@@ -134,6 +139,44 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .yt-btn:hover { background: var(--signal-dark); }
 .yt-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
+/* ── News ticker ─────────────────────── */
+.ticker {
+  display: flex; align-items: center;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  height: 38px;
+  overflow: hidden;
+}
+.ticker-label {
+  display: inline-flex; align-items: center;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
+  letter-spacing: 0.12em; color: var(--signal); font-weight: 600;
+  padding: 0 16px 0 24px;
+  border-right: 1px solid var(--line);
+  height: 100%; align-self: stretch; align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.ticker-viewport { overflow: hidden; flex: 1; }
+.ticker-track {
+  display: flex; width: max-content;
+  margin-left: 24px;
+  animation: ticker-scroll 45s linear infinite;
+}
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker-track a {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+  letter-spacing: 0.04em; color: var(--ink-soft);
+  white-space: nowrap;
+  margin-right: 48px;
+}
+.ticker-track a:hover { color: var(--signal-dark); }
+.ticker-track a::before { content: "▪ "; color: var(--signal); }
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 /* ── Hero / featured report ──────────── */
 .hero {
   padding: 56px 0 48px;
@@ -160,11 +203,11 @@ a.tag:hover { background: var(--signal-dark); }
 }
 .hero h1 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif;
-  font-weight: 850;
-  font-stretch: 108%;
-  font-size: clamp(2rem, 4.4vw, 3.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  font-weight: 870;
+  font-stretch: 110%;
+  font-size: clamp(2.1rem, 4.8vw, 3.7rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
   margin-bottom: 20px;
   text-wrap: balance;
 }
@@ -259,15 +302,15 @@ a.tag:hover { background: var(--signal-dark); }
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 14px;
   overflow: hidden;
   display: flex; flex-direction: column;
-  transition: transform 0.18s, box-shadow 0.18s;
+  transition: transform 0.22s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.22s, border-color 0.22s;
 }
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px -24px rgba(20,23,28,0.35);
-  border-color: color-mix(in srgb, var(--signal) 35%, var(--line));
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px -24px rgba(20,23,28,0.4);
+  border-color: color-mix(in srgb, var(--signal) 38%, var(--line));
 }
 .card-thumb {
   aspect-ratio: 16/9;
@@ -327,8 +370,9 @@ a.tag:hover { background: var(--signal-dark); }
 .article-body {
   max-width: 760px; margin: 0 auto;
   background: var(--surface); border: 1px solid var(--line);
-  border-radius: 10px; padding: clamp(24px, 5vw, 48px);
-  font-size: 1.02rem;
+  border-radius: 14px; padding: clamp(24px, 5vw, 48px);
+  font-size: 1.04rem;
+  line-height: 1.72;
 }
 .article-body h2 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
@@ -531,7 +575,7 @@ footer.site ul a:hover { color: var(--ink); }
   object-fit: cover;
   transition: transform 0.25s;
 }
-.card:hover .card-thumb img { transform: scale(1.04); }
+.card:hover .card-thumb img { transform: scale(1.05); }
 .card-thumb::after {
   content: "";
   position: absolute; inset: 0;
