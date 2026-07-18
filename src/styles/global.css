@@ -3,9 +3,9 @@
   --surface: #FFFFFF;
   --ink: #14171C;
   --ink-soft: #4A515C;
-  --ink-faint: #8A93A1;
+  --ink-faint: #656D79;
   --line: #E2E6EB;
-  --signal: #E5322D;
+  --signal: #D42622;
   --signal-dark: #B7211D;
   --steel: #2B4A6F;
   --panel: #14171C;
@@ -18,7 +18,8 @@
     --surface: #171B21;
     --ink: #E8ECF1;
     --ink-soft: #A9B2BF;
-    --ink-faint: #79828F;
+    --ink-faint: #828B98;
+    --signal: #E5322D;
     --line: #262C35;
     --panel: #1D232C;
     --signal-dark: #F0554F;
@@ -29,7 +30,7 @@
   --surface: #171B21;
   --ink: #E8ECF1;
   --ink-soft: #A9B2BF;
-  --ink-faint: #79828F;
+  --ink-faint: #828B98;
   --line: #262C35;
   --panel: #1D232C;
   --signal-dark: #F0554F;
@@ -150,7 +151,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .ticker-label {
   display: inline-flex; align-items: center;
   font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
-  letter-spacing: 0.12em; color: var(--signal); font-weight: 600;
+  letter-spacing: 0.12em; color: var(--signal-dark); font-weight: 600;
   padding: 0 16px 0 24px;
   border-right: 1px solid var(--line);
   height: 100%; align-self: stretch; align-items: center;
@@ -293,7 +294,7 @@ a.tag:hover { background: var(--signal-dark); }
   font-size: 1.35rem; letter-spacing: -0.01em;
   text-wrap: balance;
 }
-.section-head a { color: var(--signal); font-weight: 600; font-size: 0.85rem; }
+.section-head a { color: var(--signal-dark); font-weight: 600; font-size: 0.85rem; }
 .section-head a:hover { text-decoration: underline; }
 
 /* ── Article grid ────────────────────── */
@@ -431,7 +432,7 @@ a.tag:hover { background: var(--signal-dark); }
   text-wrap: balance;
 }
 .newsletter p { color: #A9B2BF; font-size: 0.95rem; max-width: 46ch; }
-.newsletter .mono { color: var(--signal); }
+.newsletter .mono { color: #F0554F; }
 .nl-form { display: flex; gap: 10px; }
 .nl-form input {
   flex: 1; padding: 13px 16px; border-radius: var(--radius);
@@ -600,7 +601,7 @@ footer.site ul a:hover { color: var(--ink); }
 /* ── Article typography polish ───────── */
 .article-body h2::before {
   content: "// ";
-  color: var(--signal);
+  color: var(--signal-dark);
 }
 .article-body > p:first-child {
   font-size: 1.12rem;
@@ -679,7 +680,7 @@ footer.site ul a:hover { color: var(--ink); }
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
   font-size: 1.25rem; margin: 2em 0 0.6em;
 }
-.about h2::before { content: "// "; color: var(--signal); }
+.about h2::before { content: "// "; color: var(--signal-dark); }
 .about .hero-actions { margin-top: 28px; }
 
 /* ── Related articles ────────────────── */
