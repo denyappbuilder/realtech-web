@@ -1,0 +1,14 @@
+{
+  "name": "REALTECH CZ",
+  "short_name": "REALTECH",
+  "description": "Tech novinky a analýzy bez marketingových řečí.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0F1216",
+  "theme_color": "#D42622",
+  "lang": "cs",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
