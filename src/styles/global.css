@@ -37,6 +37,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; text-decoration: none; }
+::selection { background: var(--signal); color: #fff; }
 a:focus-visible, button:focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: 3px;
@@ -63,6 +64,7 @@ a:focus-visible, button:focus-visible {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem;
   letter-spacing: 0.08em;
+  border-bottom: 2px solid var(--signal);
 }
 .topbar .wrap {
   display: flex; justify-content: space-between; align-items: center;
@@ -122,7 +124,11 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .yt-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* ── Hero / featured report ──────────── */
-.hero { padding: 56px 0 48px; }
+.hero {
+  padding: 56px 0 48px;
+  background-image: radial-gradient(color-mix(in srgb, var(--line) 75%, transparent) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
 .hero-grid {
   display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px;
   align-items: center;
@@ -147,6 +153,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   line-height: 1.04;
   letter-spacing: -0.02em;
   margin-bottom: 20px;
+  text-wrap: balance;
 }
 .hero p.lead {
   font-size: 1.05rem; color: var(--ink-soft); max-width: 54ch;
@@ -174,8 +181,10 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   border-radius: 10px;
   background: linear-gradient(140deg, #1A2230 0%, #0F1520 55%, #23150F 100%);
   position: relative; overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: 0 24px 60px -30px rgba(20,23,28,0.45);
+  border: 1px solid color-mix(in srgb, var(--signal) 28%, var(--line));
+  box-shadow:
+    0 24px 60px -30px rgba(20,23,28,0.45),
+    0 18px 70px -24px rgba(229,50,45,0.28);
   display: block;
 }
 .hero-visual::before {
@@ -215,10 +224,18 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   display: flex; align-items: baseline; justify-content: space-between;
   border-bottom: 2px solid var(--ink);
   padding-bottom: 10px; margin-bottom: 28px;
+  position: relative;
+}
+.section-head::after {
+  content: "";
+  position: absolute; left: 0; bottom: -2px;
+  width: 56px; height: 2px;
+  background: var(--signal);
 }
 .section-head h2 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 108%;
   font-size: 1.35rem; letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 .section-head a { color: var(--signal); font-weight: 600; font-size: 0.85rem; }
 .section-head a:hover { text-decoration: underline; }
@@ -237,6 +254,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 16px 40px -24px rgba(20,23,28,0.35);
+  border-color: color-mix(in srgb, var(--signal) 35%, var(--line));
 }
 .card-thumb {
   aspect-ratio: 16/9;
@@ -256,6 +274,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
   font-size: 1.08rem; line-height: 1.25; letter-spacing: -0.01em;
 }
+.card-body h3 a { transition: color 0.15s; }
 .card-body h3 a:hover { color: var(--signal-dark); }
 .card-body p { font-size: 0.88rem; color: var(--ink-soft); flex: 1; }
 .card-meta {
@@ -281,6 +300,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.8rem, 3.6vw, 2.8rem); line-height: 1.08;
   letter-spacing: -0.02em; margin-bottom: 16px;
+  text-wrap: balance;
 }
 .article-head p.lead { font-size: 1.08rem; color: var(--ink-soft); }
 .article-videobar {
@@ -334,7 +354,16 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .article-back { max-width: 760px; margin: 28px auto 0; }
 
 /* ── Newsletter ──────────────────────── */
-.newsletter { background: var(--panel); color: #fff; padding: 56px 0; }
+.newsletter {
+  background: var(--panel); color: #fff; padding: 56px 0;
+  position: relative; overflow: hidden;
+}
+.newsletter::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,0.022) 3px 4px);
+  pointer-events: none;
+}
 .newsletter .wrap {
   display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
 }
@@ -342,6 +371,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: 1.8rem; letter-spacing: -0.015em; line-height: 1.1;
   margin: 10px 0 12px;
+  text-wrap: balance;
 }
 .newsletter p { color: #A9B2BF; font-size: 0.95rem; max-width: 46ch; }
 .newsletter .mono { color: var(--signal); }
@@ -373,15 +403,23 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 /* ── Footer ──────────────────────────── */
 footer.site {
   background: var(--surface); border-top: 1px solid var(--line);
-  padding: 36px 0;
+  padding: 40px 0 28px;
 }
-footer.site .wrap {
+footer.site .f-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 24px;
+  padding-bottom: 24px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.f-brand { max-width: 380px; }
+.f-tag { font-size: 0.88rem; color: var(--ink-soft); margin-top: 10px; }
+footer.site .f-bottom {
   display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 16px;
+  flex-wrap: wrap; gap: 12px;
 }
 footer.site .mono { color: var(--ink-faint); }
-footer.site ul { display: flex; gap: 22px; list-style: none; }
-footer.site ul a { font-size: 0.85rem; color: var(--ink-soft); }
+footer.site ul { display: flex; gap: 22px; list-style: none; flex-wrap: wrap; }
+footer.site ul a { font-size: 0.85rem; color: var(--ink-soft); transition: color 0.15s; }
 footer.site ul a:hover { color: var(--ink); }
 
 /* ── Responsive ──────────────────────── */
