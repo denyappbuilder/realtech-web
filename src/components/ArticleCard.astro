@@ -1,4 +1,5 @@
 ---
+import fs from 'node:fs';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -15,11 +16,16 @@ const slugify = (s: string) =>
 const thumbClass = `th-${slugify(category)}`;
 const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 const videoId = video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
-const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : image;
+
+// Karta renderuje ~400 px — použij 640px variantu obrázku, pokud existuje
+const small = image?.replace(/\.jpg$/, '-640.jpg');
+const localThumb = small && fs.existsSync(`public${small}`) ? small : image;
+const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : localThumb;
+const [thumbW, thumbH] = videoId ? [480, 360] : localThumb === small ? [640, 360] : [1280, 720];
 ---
 <article class="card" data-category={category}>
-  <a href={`/clanky/${article.id}`} class={`card-thumb ${thumbClass}`} aria-hidden="true" tabindex="-1">
-    {thumbUrl && <img src={thumbUrl} alt="" loading="lazy" decoding="async" />}
+  <a href={`/clanky/${article.id}/`} class={`card-thumb ${thumbClass}`} aria-hidden="true" tabindex="-1">
+    {thumbUrl && <img src={thumbUrl} alt="" width={thumbW} height={thumbH} loading="lazy" decoding="async" />}
     <div class="lt">
       <span class="k">{category}</span>
       {zprava && <span class="z">Zpráva</span>}
@@ -27,7 +33,7 @@ const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : i
     </div>
   </a>
   <div class="card-body">
-    <h3><a href={`/clanky/${article.id}`}>{title}</a></h3>
+    <h3><a href={`/clanky/${article.id}/`}>{title}</a></h3>
     <p>{description}</p>
     <div class="card-meta">
       <time datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
