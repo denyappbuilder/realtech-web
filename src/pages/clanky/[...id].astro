@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import { slugify } from '../../lib/slugify.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -62,7 +63,7 @@ const breadcrumbLd = {
 
       <div class="article-head">
         <div class="lower-third">
-          <span class="tag">{category}</span>
+          <a class="tag" href={`/temata/${slugify(category)}/`}>{category}</a>
           {zprava && <span class="tag tag-zprava">Zpráva</span>}
           <time class="time" datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
           {readingTime && <span class="time">ČTENÍ {readingTime} MIN</span>}
@@ -109,6 +110,22 @@ const breadcrumbLd = {
           <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">X</a>
           <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">Facebook</a>
           <button class="share-btn" id="copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
+        </div>
+      </div>
+
+      <div class="author-box">
+        <div class="ab-logo" aria-hidden="true">
+          <span class="real">REAL</span><span class="tech">TECH</span>
+        </div>
+        <div class="ab-body">
+          <p>Jsme <strong>Deny a Sam</strong>. Točíme videa a píšeme o AI a techu — bez marketingových řečí, česky a jen když je co říct. Nejvíc toho najdeš na našem YouTube.</p>
+          <div class="ab-actions">
+            <a href="https://www.youtube.com/@realtech-cz?sub_confirmation=1" class="yt-btn">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+              Odebírat na YouTube
+            </a>
+            <a href="/o-nas/" class="btn-ghost">Víc o nás</a>
+          </div>
         </div>
       </div>
 
