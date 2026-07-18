@@ -4,7 +4,6 @@ description: "Nejsilnější model Anthropicu se po třech týdnech vrací všem
 category: "AI Report"
 date: 2026-07-03
 readingTime: 5
-featured: true
 image: "/images/clanky/fable-5-je-zpatky.jpg"
 ---
 
