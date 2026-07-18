@@ -17,8 +17,8 @@ const categories = [...new Set(all.map((c) => c.data.category))];
       </div>
       <div class="filter-bar">
         <div class="cat-filter" role="group" aria-label="Filtr podle kategorie">
-          <button class="chip active" data-cat="">Vše</button>
-          {categories.map((cat) => <button class="chip" data-cat={cat}>{cat}</button>)}
+          <button class="chip active" data-cat="" aria-pressed="true">Vše</button>
+          {categories.map((cat) => <button class="chip" data-cat={cat} aria-pressed="false">{cat}</button>)}
         </div>
         <input type="search" class="search-input" id="art-search" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
       </div>
@@ -54,10 +54,15 @@ const categories = [...new Set(all.map((c) => c.data.category))];
       history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
     };
 
+    const activate = (chip: Element) => {
+      chips.forEach((c) => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
+      chip.classList.add('active');
+      chip.setAttribute('aria-pressed', 'true');
+    };
+
     chips.forEach((chip) => {
       chip.addEventListener('click', () => {
-        chips.forEach((c) => c.classList.remove('active'));
-        chip.classList.add('active');
+        activate(chip);
         apply();
       });
     });
@@ -69,10 +74,7 @@ const categories = [...new Set(all.map((c) => c.data.category))];
     if (initQ && search) search.value = initQ;
     if (initCat) {
       const target = chips.find((c) => c.getAttribute('data-cat') === initCat);
-      if (target) {
-        chips.forEach((c) => c.classList.remove('active'));
-        target.classList.add('active');
-      }
+      if (target) activate(target);
     }
     if (initCat || initQ) apply();
   </script>

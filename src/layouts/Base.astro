@@ -23,7 +23,7 @@ const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
 const path = Astro.url.pathname;
 const current = (href: string) =>
-  (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`)) ? 'page' : undefined;
+  (href === '/' ? path === '/' : path === href || path.startsWith(href)) ? 'page' : undefined;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
@@ -40,6 +40,9 @@ const ogImage = new URL(image, Astro.site);
   <meta property="og:type" content={ogType} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="720" />
+  <meta property="og:image:alt" content={title} />
   <meta property="og:site_name" content="REALTECH CZ" />
   <meta property="og:locale" content="cs_CZ" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -75,9 +78,9 @@ const ogImage = new URL(image, Astro.site);
     <nav class="main" aria-label="Hlavní navigace">
       <ul>
         <li><a href="/" aria-current={current('/')}>Novinky</a></li>
-        <li><a href="/clanky" aria-current={current('/clanky')}>Články</a></li>
+        <li><a href="/clanky/" aria-current={current('/clanky/')}>Články</a></li>
         <li><a href={YT}>Videa</a></li>
-        <li><a href="/o-nas" aria-current={current('/o-nas')}>O nás</a></li>
+        <li><a href="/o-nas/" aria-current={current('/o-nas/')}>O nás</a></li>
       </ul>
     </nav>
     <a href={YT_SUB} class="yt-btn">
@@ -113,8 +116,8 @@ const ogImage = new URL(image, Astro.site);
     <span class="mono">© {new Date().getFullYear()} REALTECH CZ — Daniel &amp; Sam</span>
     <ul>
       <li><a href={YT}>YouTube</a></li>
-      <li><a href="/clanky">Články</a></li>
-      <li><a href="/o-nas">O nás</a></li>
+      <li><a href="/clanky/">Články</a></li>
+      <li><a href="/o-nas/">O nás</a></li>
       <li><a href="mailto:realtechcz@gmail.com">Kontakt</a></li>
       <li><a href="/rss.xml">RSS</a></li>
     </ul>

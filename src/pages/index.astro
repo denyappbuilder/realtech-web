@@ -55,7 +55,7 @@ const jsonLd = {
           <h1>{hero.data.title}</h1>
           <p class="lead">{hero.data.description}</p>
           <div class="hero-actions">
-            <a href={`/clanky/${hero.id}`} class="btn-primary">Přečíst analýzu</a>
+            <a href={`/clanky/${hero.id}/`} class="btn-primary">Přečíst analýzu</a>
             {hero.data.video && (
               <a href={hero.data.video} class="btn-ghost">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -64,8 +64,8 @@ const jsonLd = {
             )}
           </div>
         </div>
-        <a href={hero.data.video ?? `/clanky/${hero.id}`} class="hero-visual" aria-label={hero.data.video ? `Přehrát video: ${hero.data.title}` : `Přečíst článek: ${hero.data.title}`}>
-          {heroThumb && <img src={heroThumb} alt="" loading="eager" decoding="async" fetchpriority="high" />}
+        <a href={hero.data.video ?? `/clanky/${hero.id}/`} class="hero-visual" aria-label={hero.data.video ? `Přehrát video: ${hero.data.title}` : `Přečíst článek: ${hero.data.title}`}>
+          {heroThumb && <img src={heroThumb} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />}
           {heroThumb && <span class="shade"></span>}
           <span class="rec"><span class="live-dot"></span>REALTECH</span>
           <span class="headline-mark">{hero.data.title}</span>
@@ -80,7 +80,7 @@ const jsonLd = {
     <div class="wrap">
       <div class="section-head">
         <h2>Poslední reporty</h2>
-        <a href="/clanky">Všechny články →</a>
+        <a href="/clanky/">Všechny články →</a>
       </div>
       <div class="grid">
         {rest.map((article) => <ArticleCard article={article} />)}
