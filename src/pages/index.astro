@@ -6,8 +6,10 @@ import ArticleCard from '../components/ArticleCard.astro';
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// Hero = článek označený featured: true, jinak nejnovější
-const hero = all.find((c) => c.data.featured) ?? all[0];
+// Hero = článek označený featured: true, jinak nejnovější.
+// featured drží hero max 14 dní od data článku, pak už nesmí přebít novinky.
+const FEATURED_MAX_AGE = 14 * 24 * 60 * 60 * 1000;
+const hero = all.find((c) => c.data.featured && Date.now() - c.data.date.valueOf() <= FEATURED_MAX_AGE) ?? all[0];
 const rest = all.filter((c) => c.id !== hero?.id).slice(0, 6);
 const categories = [...new Set(all.map((c) => c.data.category))];
 
