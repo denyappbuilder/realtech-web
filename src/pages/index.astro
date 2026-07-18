@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import { slugify } from '../lib/slugify.js';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -90,7 +91,7 @@ const jsonLd = {
         <span class="mono">// Témata</span>
         <div class="cat-filter">
           {categories.map((cat) => (
-            <a class="chip" href={`/clanky/?kat=${encodeURIComponent(cat)}`}>{cat}</a>
+            <a class="chip" href={`/temata/${slugify(cat)}/`}>{cat}</a>
           ))}
         </div>
       </div>
