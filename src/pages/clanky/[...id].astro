@@ -29,6 +29,13 @@ const related = [
   ...others.filter((c) => c.data.category !== category),
 ].slice(0, 3);
 
+// Chronologická navigace (novější/starší)
+const chrono = (await getCollection('clanky', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const idx = chrono.findIndex((c) => c.id === article.id);
+const newer = idx > 0 ? chrono[idx - 1] : null;
+const older = idx >= 0 && idx < chrono.length - 1 ? chrono[idx + 1] : null;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
@@ -140,6 +147,21 @@ const breadcrumbLd = {
           </div>
         </div>
       )}
+
+      <nav class="article-nav" aria-label="Další čtení">
+        {older ? (
+          <a href={`/clanky/${older.id}/`} class="an-item an-prev">
+            <span class="mono">← Starší</span>
+            <span class="an-title">{older.data.title}</span>
+          </a>
+        ) : <span />}
+        {newer ? (
+          <a href={`/clanky/${newer.id}/`} class="an-item an-next">
+            <span class="mono">Novější →</span>
+            <span class="an-title">{newer.data.title}</span>
+          </a>
+        ) : <span />}
+      </nav>
 
       <div class="article-back">
         <a href="/clanky/" class="btn-ghost">← Zpět na články</a>

@@ -7,12 +7,18 @@ import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/global.css';
 
+import { getCollection } from 'astro:content';
+import { slugify } from '../lib/slugify.js';
+
 interface Props {
   title: string;
   description?: string;
   image?: string;
   ogType?: string;
 }
+
+const vsechnyClanky = await getCollection('clanky', ({ data }) => !data.draft);
+const temata = [...new Set(vsechnyClanky.map((c) => c.data.category))];
 const {
   title,
   description = 'Tech novinky a analýzy bez marketingových řečí. Web YouTube kanálu REALTECH CZ.',
@@ -132,14 +138,23 @@ const ogImage = new URL(image, Astro.site);
       </a>
       <p class="f-tag">Tech bez marketingových řečí. Novinky a analýzy z AI a techu — česky.</p>
     </div>
-    <nav aria-label="Patička">
-      <ul>
-        <li><a href={YT}>YouTube</a></li>
-        <li><a href="/clanky/">Články</a></li>
-        <li><a href="/o-nas/">O nás</a></li>
-        <li><a href="mailto:realtechcz@gmail.com">Kontakt</a></li>
-        <li><a href="/rss.xml">RSS</a></li>
-      </ul>
+    <nav aria-label="Patička" class="f-nav">
+      <div>
+        <span class="mono f-nav-head">Web</span>
+        <ul>
+          <li><a href={YT}>YouTube</a></li>
+          <li><a href="/clanky/">Články</a></li>
+          <li><a href="/o-nas/">O nás</a></li>
+          <li><a href="mailto:realtechcz@gmail.com">Kontakt</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="mono f-nav-head">Témata</span>
+        <ul>
+          {temata.map((t) => <li><a href={`/temata/${slugify(t)}/`}>{t}</a></li>)}
+        </ul>
+      </div>
     </nav>
   </div>
   <div class="wrap f-bottom">

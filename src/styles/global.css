@@ -761,6 +761,72 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .author-box .btn-ghost:hover { border-color: #fff; color: #fff; }
 
+/* ── Nejnovější videa ────────────────── */
+.video-strip { margin-top: 48px; }
+.video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.video-card { display: block; }
+.vc-thumb {
+  display: block; position: relative;
+  aspect-ratio: 16/9; border-radius: 14px; overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.vc-thumb img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.25s;
+}
+.video-card:hover .vc-thumb img { transform: scale(1.05); }
+.vc-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(212,38,34,0.92);
+  display: grid; place-items: center;
+  transition: transform 0.2s;
+}
+.video-card:hover .vc-play { transform: translate(-50%, -50%) scale(1.1); }
+.vc-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 2px; }
+.vc-title {
+  display: block; margin-top: 12px;
+  font-family: 'Archivo Variable', 'Archivo', sans-serif;
+  font-weight: 750; font-stretch: 105%;
+  font-size: 0.98rem; line-height: 1.3; letter-spacing: -0.01em;
+  transition: color 0.15s;
+}
+.video-card:hover .vc-title { color: var(--signal-dark); }
+@media (max-width: 700px) {
+  .video-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Navigace mezi články ────────────── */
+.article-nav {
+  max-width: 760px; margin: 32px auto 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.an-item {
+  display: block; padding: 14px 18px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.15s;
+}
+.an-item:hover { border-color: color-mix(in srgb, var(--signal) 38%, var(--line)); }
+.an-next { text-align: right; }
+.an-item .mono { color: var(--ink-faint); display: block; margin-bottom: 6px; }
+.an-title {
+  font-family: 'Archivo Variable', 'Archivo', sans-serif;
+  font-weight: 750; font-size: 0.9rem; line-height: 1.3;
+  display: block;
+}
+@media (max-width: 600px) {
+  .article-nav { grid-template-columns: 1fr; }
+  .an-next { text-align: left; }
+}
+
+/* ── Footer sloupce ──────────────────── */
+.f-nav { display: flex; gap: 56px; flex-wrap: wrap; }
+.f-nav-head { color: var(--ink-faint); display: block; margin-bottom: 10px; }
+footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
+
 /* ── Homepage topics strip ───────────── */
 .topics {
   margin-top: 40px;
