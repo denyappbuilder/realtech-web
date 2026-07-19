@@ -27,6 +27,24 @@ const heroSrcset = heroSmall && fs.existsSync(`public${heroSmall}`)
   ? `${heroSmall} 640w, ${heroThumb} 1280w`
   : undefined;
 
+// Nejnovější videa z YT RSS (build-time; při chybě se sekce prostě nevykreslí)
+const decode = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+let videos = [];
+try {
+  const res = await fetch('https://www.youtube.com/feeds/videos.xml?channel_id=UCwWvw3SkWgfDinhnAHpceeA', { signal: AbortSignal.timeout(8000) });
+  if (res.ok) {
+    const xml = await res.text();
+    videos = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)]
+      .map((m) => ({
+        id: m[1].match(/<yt:videoId>([^<]+)/)?.[1],
+        title: m[1].match(/<title>([^<]+)/)?.[1],
+      }))
+      .filter((v) => v.id && v.title && !/#?shorts/i.test(v.title))
+      .slice(0, 3)
+      .map((v) => ({ ...v, title: decode(v.title) }));
+  }
+} catch { /* offline build → bez sekce */ }
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -103,6 +121,26 @@ const jsonLd = {
       <div class="grid">
         {rest.map((article) => <ArticleCard article={article} />)}
       </div>
+
+      {videos.length > 0 && (
+        <div class="video-strip">
+          <div class="section-head">
+            <h2>Nejnovější videa</h2>
+            <a href="https://www.youtube.com/@realtech-cz">Celý kanál →</a>
+          </div>
+          <div class="video-grid">
+            {videos.map((v) => (
+              <a class="video-card" href={`https://www.youtube.com/watch?v=${v.id}`}>
+                <span class="vc-thumb">
+                  <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt="" width="480" height="360" loading="lazy" decoding="async" />
+                  <span class="vc-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+                </span>
+                <span class="vc-title">{v.title}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div class="topics">
         <span class="mono">// Témata</span>
