@@ -827,6 +827,17 @@ footer.site ul a:hover { color: var(--ink); }
 .f-nav-head { color: var(--ink-faint); display: block; margin-bottom: 10px; }
 footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 
+/* ── Tisk ────────────────────────────── */
+@media print {
+  .topbar, header.site, .ticker, .newsletter, footer.site,
+  .article-share, .related, .author-box, .article-nav, .article-back,
+  .article-videobar, .read-progress, .video-embed { display: none !important; }
+  body { background: #fff; color: #000; }
+  .article-body { border: none; padding: 0; font-size: 11pt; }
+  .article-page { padding: 0; }
+  .article-body a::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; }
+}
+
 /* ── Homepage topics strip ───────────── */
 .topics {
   margin-top: 40px;

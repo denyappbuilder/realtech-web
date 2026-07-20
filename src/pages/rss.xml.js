@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import fs from 'node:fs';
+import { marked } from 'marked';
 
 export async function GET(context) {
   const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
@@ -19,6 +20,12 @@ export async function GET(context) {
             length: fs.statSync(localPath).size,
           }
         : undefined;
+      // Plný text (HTML) — čtečky i Kit digest z něj poskládají hezčí výstup.
+      // Relativní odkazy v markdownu na absolutní.
+      const html = marked
+        .parse(c.body ?? '')
+        .replaceAll('href="/', `href="${context.site}`)
+        .replaceAll('src="/', `src="${context.site}`);
       return {
         title: c.data.title,
         description: c.data.description,
@@ -26,6 +33,7 @@ export async function GET(context) {
         link: `/clanky/${c.id}/`,
         categories: [c.data.category],
         enclosure,
+        content: html,
       };
     }),
     customData: '<language>cs</language>',

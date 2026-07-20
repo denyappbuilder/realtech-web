@@ -26,6 +26,11 @@ const heroSmall = !heroVideoId && hero?.data.image ? hero.data.image.replace(/\.
 const heroSrcset = heroSmall && fs.existsSync(`public${heroSmall}`)
   ? `${heroSmall} 640w, ${heroThumb} 1280w`
   : undefined;
+const heroWebp = !heroVideoId && hero?.data.image ? hero.data.image.replace(/\.jpg$/, '.webp') : null;
+const heroWebpSmall = heroWebp?.replace(/\.webp$/, '-640.webp');
+const heroWebpSrcset = heroWebp && fs.existsSync(`public${heroWebp}`) && fs.existsSync(`public${heroWebpSmall}`)
+  ? `${heroWebpSmall} 640w, ${heroWebp} 1280w`
+  : undefined;
 
 // Nejnovější videa z YT RSS (build-time; při chybě se sekce prostě nevykreslí)
 const decode = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
@@ -101,7 +106,12 @@ const jsonLd = {
           </div>
         </div>
         <a href={hero.data.video ?? `/clanky/${hero.id}/`} class="hero-visual">
-          {heroThumb && <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? '(max-width: 900px) 100vw, 40vw' : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />}
+          {heroThumb && (
+            <picture>
+              {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes="(max-width: 900px) 100vw, 40vw" type="image/webp" />}
+              <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? '(max-width: 900px) 100vw, 40vw' : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+            </picture>
+          )}
           {heroThumb && <span class="shade"></span>}
           <span class="rec"><span class="live-dot"></span>REALTECH</span>
           <span class="headline-mark">{hero.data.title}</span>
