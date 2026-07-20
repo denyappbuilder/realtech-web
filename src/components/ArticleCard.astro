@@ -22,10 +22,17 @@ const small = image?.replace(/\.jpg$/, '-640.jpg');
 const localThumb = small && fs.existsSync(`public${small}`) ? small : image;
 const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : localThumb;
 const [thumbW, thumbH] = videoId ? [480, 360] : localThumb === small ? [640, 360] : [1280, 720];
+const thumbWebp = !videoId && localThumb ? localThumb.replace(/\.jpg$/, '.webp') : null;
+const hasWebp = thumbWebp && fs.existsSync(`public${thumbWebp}`);
 ---
 <article class="card" data-category={category}>
   <a href={`/clanky/${article.id}/`} class={`card-thumb ${thumbClass}`} aria-hidden="true" tabindex="-1">
-    {thumbUrl && <img src={thumbUrl} alt="" width={thumbW} height={thumbH} loading="lazy" decoding="async" />}
+    {thumbUrl && (
+      <picture>
+        {hasWebp && <source srcset={thumbWebp} type="image/webp" />}
+        <img src={thumbUrl} alt="" width={thumbW} height={thumbH} loading="lazy" decoding="async" />
+      </picture>
+    )}
     <div class="lt">
       <span class="k">{category}</span>
       {zprava && <span class="z">Zpráva</span>}
