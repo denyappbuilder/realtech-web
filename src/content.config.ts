@@ -22,6 +22,8 @@ const clanky = defineCollection({
     readingTime: z.number().optional(),
     featured: z.boolean().default(false),
     zprava: z.boolean().default(false),
+    evergreen: z.boolean().default(false),
+    updated: z.coerce.date().optional(),
     draft: z.boolean().default(false),
   }),
 });

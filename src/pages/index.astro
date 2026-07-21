@@ -8,6 +8,8 @@ import { slugify } from '../lib/slugify.js';
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
+const pruvodci = all.filter((c) => c.data.evergreen).slice(0, 3);
+
 // Hero = článek označený featured: true, jinak nejnovější.
 // featured drží hero max 14 dní od data článku, pak už nesmí přebít novinky.
 const FEATURED_MAX_AGE = 14 * 24 * 60 * 60 * 1000;
@@ -32,7 +34,10 @@ const heroWebpSrcset = heroWebp && fs.existsSync(`public${heroWebp}`) && fs.exis
   ? `${heroWebpSmall} 640w, ${heroWebp} 1280w`
   : undefined;
 
-// Nejnovější videa z YT RSS (build-time; při chybě se sekce prostě nevykreslí)
+// Nejnovější videa: primárně YT RSS (build-time), fallback statický snapshot
+// v src/data/videos.json (YouTube RSS občas vrací 404 — snapshot aktualizuje Kepler
+// při publikacích / po vydání nového videa).
+import videosSnapshot from '../data/videos.json';
 const decode = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 let videos = [];
 try {
@@ -48,7 +53,8 @@ try {
       .slice(0, 3)
       .map((v) => ({ ...v, title: decode(v.title) }));
   }
-} catch { /* offline build → bez sekce */ }
+} catch { /* fallthrough na snapshot */ }
+if (videos.length === 0) videos = videosSnapshot;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -131,6 +137,18 @@ const jsonLd = {
       <div class="grid">
         {rest.map((article) => <ArticleCard article={article} />)}
       </div>
+
+      {pruvodci.length > 0 && (
+        <div class="video-strip">
+          <div class="section-head">
+            <h2>Průvodci a srovnání</h2>
+            <a href="/temata/site/">Téma Sítě →</a>
+          </div>
+          <div class="grid">
+            {pruvodci.map((article) => <ArticleCard article={article} />)}
+          </div>
+        </div>
+      )}
 
       {videos.length > 0 && (
         <div class="video-strip">
