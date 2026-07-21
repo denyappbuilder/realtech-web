@@ -15,12 +15,15 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title, description, category, date, video, videoLength, readingTime, zprava, image } = article.data;
+const { title, description, category, date, video, videoLength, readingTime, zprava, image, updated } = article.data;
 const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
+const updatedStr = updated?.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
 const videoId = video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
+const brandedOg = `/images/og/${article.id}.jpg`;
 const ogImage = videoId
   ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+  : fs.existsSync(`public${brandedOg}`) ? new URL(brandedOg, Astro.site).href
   : image ? new URL(image, Astro.site).href : undefined;
 
 const others = (await getCollection('clanky', ({ data, id }) => !data.draft && id !== article.id))
@@ -43,7 +46,7 @@ const jsonLd = {
   headline: title,
   description,
   datePublished: date.toISOString(),
-  dateModified: date.toISOString(),
+  dateModified: (updated ?? date).toISOString(),
   inLanguage: 'cs',
   mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
   image: [ogImage ?? new URL('/og-default.jpg', Astro.site).href],
@@ -74,6 +77,7 @@ const breadcrumbLd = {
           <a class="tag" href={`/temata/${slugify(category)}/`}>{category}</a>
           {zprava && <span class="tag tag-zprava">Zpráva</span>}
           <time class="time" datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
+          {updatedStr && <span class="time">AKTUALIZOVÁNO {updatedStr}</span>}
           {readingTime && <span class="time">ČTENÍ {readingTime} MIN</span>}
         </div>
         <h1>{title}</h1>
