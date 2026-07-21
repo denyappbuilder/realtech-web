@@ -72,6 +72,8 @@ const jsonLd = {
       '@id': `${Astro.site?.href}#org`,
       name: 'REALTECH CZ',
       url: Astro.site?.href,
+      email: 'info@realtech.cz',
+      logo: { '@type': 'ImageObject', url: new URL('/apple-touch-icon.png', Astro.site).href, width: 180, height: 180 },
       sameAs: ['https://www.youtube.com/@realtech-cz'],
     },
   ],

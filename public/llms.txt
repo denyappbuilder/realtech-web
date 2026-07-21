@@ -14,3 +14,4 @@ Web je statický (Astro). Všechny články jsou dostupné jako HTML na /clanky/
 ## Jinde
 
 - [YouTube kanál](https://www.youtube.com/@realtech-cz): videa REALTECH CZ
+- Kontakt: info@realtech.cz

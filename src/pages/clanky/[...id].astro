@@ -51,7 +51,12 @@ const jsonLd = {
   mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
   image: [ogImage ?? new URL('/og-default.jpg', Astro.site).href],
   author: { '@type': 'Organization', name: 'REALTECH CZ', url: 'https://www.youtube.com/@realtech-cz' },
-  publisher: { '@type': 'Organization', name: 'REALTECH CZ', url: Astro.site?.href },
+  publisher: {
+    '@type': 'Organization',
+    name: 'REALTECH CZ',
+    url: Astro.site?.href,
+    logo: { '@type': 'ImageObject', url: new URL('/apple-touch-icon.png', Astro.site).href, width: 180, height: 180 },
+  },
 };
 const breadcrumbLd = {
   '@context': 'https://schema.org',
