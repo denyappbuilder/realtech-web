@@ -26,6 +26,11 @@ const categories = [...new Set(all.map((c) => c.data.category))];
         {all.map((article) => <ArticleCard article={article} />)}
       </div>
       <p class="filter-empty" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
+      {all.length > 12 && (
+        <div class="load-more-wrap">
+          <button id="load-more" class="btn-ghost" hidden>Zobrazit starší články ({all.length - 12})</button>
+        </div>
+      )}
     </div>
   </section>
 
@@ -35,7 +40,25 @@ const categories = [...new Set(all.map((c) => c.data.category))];
     const empty = document.querySelector('.filter-empty');
     const search = document.getElementById('art-search') as HTMLInputElement | null;
 
+    // Progresivní načítání: bez JS se zobrazí vše; s JS prvních 12 + tlačítko.
+    // Jakékoli filtrování/hledání stránkování zruší (hledá se ve všem).
+    const loadMore = document.getElementById('load-more');
+    let paged = false;
+    if (loadMore && cards.length > 12) {
+      cards.slice(12).forEach((c) => c.setAttribute('hidden', ''));
+      loadMore.hidden = false;
+      paged = true;
+    }
+    const unpage = () => {
+      if (!paged) return;
+      paged = false;
+      if (loadMore) loadMore.hidden = true;
+      cards.forEach((c) => c.removeAttribute('hidden'));
+    };
+    loadMore?.addEventListener('click', unpage);
+
     const apply = () => {
+      unpage();
       const cat = document.querySelector('.chip.active')?.getAttribute('data-cat') ?? '';
       const q = (search?.value ?? '').trim().toLowerCase();
       let shown = 0;

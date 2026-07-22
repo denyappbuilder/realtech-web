@@ -639,6 +639,7 @@ footer.site ul a:hover { color: var(--ink); }
 .chip:hover { border-color: var(--ink); color: var(--ink); }
 .chip.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 .filter-empty { color: var(--ink-soft); font-size: 0.9rem; padding: 12px 0; }
+.load-more-wrap { display: flex; justify-content: center; margin-top: 32px; }
 
 /* ── Reading progress ────────────────── */
 .read-progress {
