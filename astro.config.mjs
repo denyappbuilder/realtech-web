@@ -15,7 +15,7 @@ for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith(
 // v odkazech enkóduje na nečitelné %C3%A1… Přepíšeme je na ASCII podobu.
 function rehypeAsciiHeadingIds() {
   const slug = (s) =>
-    s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-')
       .replace(/^-|-$/g, '').slice(0, 60);
   const text = (node) =>
