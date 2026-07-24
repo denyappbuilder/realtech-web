@@ -20,11 +20,11 @@ Každé video začíná researchem — a tady AI šetří nejvíc času. Necháv
 
 ## Obrázky: náhledy a covery za minuty
 
-Náhledové obrázky článků na tomhle webu generuje AI (aktuálně Gemini) podle jednotného zadání — tmavé ladění, červený akcent, žádné nápisy. U YouTube thumbnailů AI připraví podklad či pozadí, ale finální kompozici s obličeji a textem si děláme sami — **thumbnail rozhoduje o kliknutí a tam chceme mít poslední slovo my.**
+Náhledové obrázky článků na tomhle webu generuje AI (aktuálně Gemini) podle jednotného zadání — tmavé ladění, červený akcent, žádné nápisy. U YouTube thumbnailů AI připraví podklad či pozadí, ale finální kompozici s obličeji a textem si děláme sami — **thumbnail rozhoduje o kliknutí a tam chceme mít poslední slovo my.** Celý postup jsme ukázali ve videu [Jak udělat lepší náhledovku s AI od Googlu](https://youtu.be/LrQZCOjf1uo) na našem druhém kanále REALTVORBA.
 
 ## Shorts: z dlouhého videa krátké, poloautomaticky
 
-Z retenčních dat vidíme, která pasáž long-formu diváky drží nejvíc — a z ní umíme poloautomaticky vystřihnout vertikální Short: výřez, titulky slovo po slovu, hlasitost srovnaná na standard YouTube. U některých Shorts zkoušíme i český AI voiceover. Poznávací pravidlo, které dodržujeme: **co je syntetické, to přiznáme** — YouTube to ostatně u realistického AI obsahu vyžaduje.
+Z retenčních dat vidíme, která pasáž long-formu diváky drží nejvíc — a z ní umíme poloautomaticky vystřihnout vertikální Short: výřez, titulky slovo po slovu, hlasitost srovnaná na standard YouTube.
 
 ## Co AI u nás nedělá (a dělat nebude)
 
