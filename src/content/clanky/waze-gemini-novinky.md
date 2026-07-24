@@ -3,9 +3,9 @@ title: "Waze dostal Gemini a přestane být ukecaný. Motorkářský režim ale 
 description: "Waze dnes oznámil balík novinek: personalizované trasy, tišší navigaci a hlasové hlášení změn na mapě přes Gemini. Většina funkcí jede globálně hned."
 category: "AI Report"
 date: 2026-07-13
+image: "/images/clanky/waze-gemini-novinky.jpg"
 readingTime: 2
 zprava: true
-image: "/images/clanky/waze-gemini-novinky.jpg"
 ---
 
 Google dnes oznámil největší balík novinek pro Waze za poslední dobu — a většina z nich se roluje **globálně hned teď**, na Androidu i iOS. Takže i u nás.

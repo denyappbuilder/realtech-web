@@ -1,12 +1,14 @@
 ---
 import fs from 'node:fs';
 import type { CollectionEntry } from 'astro:content';
+import { readingTime } from '../lib/reading-time.js';
 
 interface Props {
   article: CollectionEntry<'clanky'>;
 }
 const { article } = Astro.props;
-const { title, description, category, date, video, videoLength, readingTime, zprava, image } = article.data;
+const { title, description, category, date, video, videoLength, zprava, image } = article.data;
+const readMinutes = readingTime(article.body);
 
 const slugify = (s: string) =>
   s.toLowerCase()
@@ -44,7 +46,7 @@ const hasWebp = thumbWebp && fs.existsSync(`public${thumbWebp}`);
     <p>{description}</p>
     <div class="card-meta">
       <time datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
-      {readingTime && <span>ČTENÍ {readingTime} MIN</span>}
+      <span>ČTENÍ {readMinutes} MIN</span>
     </div>
   </div>
 </article>

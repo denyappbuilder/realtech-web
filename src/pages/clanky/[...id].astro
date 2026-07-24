@@ -4,6 +4,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { slugify } from '../../lib/slugify.js';
+import { readingTime } from '../../lib/reading-time.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -15,7 +16,8 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title, description, category, date, video, videoLength, readingTime, zprava, image, updated } = article.data;
+const { title, description, category, date, video, videoLength, zprava, image, updated } = article.data;
+const readMinutes = readingTime(article.body);
 const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 const updatedStr = updated?.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
@@ -83,7 +85,7 @@ const breadcrumbLd = {
           {zprava && <span class="tag tag-zprava">Zpráva</span>}
           <time class="time" datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
           {updatedStr && <span class="time">AKTUALIZOVÁNO {updatedStr}</span>}
-          {readingTime && <span class="time">ČTENÍ {readingTime} MIN</span>}
+          <span class="time">ČTENÍ {readMinutes} MIN</span>
         </div>
         <h1>{title}</h1>
         <p class="lead">{description}</p>
