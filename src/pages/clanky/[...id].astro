@@ -188,6 +188,31 @@ const breadcrumbLd = {
   </div>
 
   <script>
+    // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů)
+    const slugifyHeading = (s: string) =>
+      s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+
+    document.querySelectorAll<HTMLElement>('.article-body h2, .article-body h3').forEach((h) => {
+      if (!h.id) h.id = slugifyHeading(h.textContent ?? '');
+      const a = document.createElement('a');
+      a.href = `#${h.id}`;
+      a.className = 'heading-anchor';
+      a.textContent = '#';
+      a.setAttribute('aria-label', `Odkaz na sekci ${h.textContent}`);
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = `${location.origin}${location.pathname}#${h.id}`;
+        history.replaceState(null, '', `#${h.id}`);
+        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        navigator.clipboard?.writeText(url).then(() => {
+          a.textContent = '✓';
+          setTimeout(() => { a.textContent = '#'; }, 1500);
+        }).catch(() => {});
+      });
+      h.appendChild(a);
+    });
+
     const bar = document.querySelector('.read-progress span') as HTMLElement | null;
     const onScroll = () => {
       if (!bar) return;

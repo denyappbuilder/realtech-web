@@ -12,7 +12,7 @@ const readMinutes = readingTime(article.body);
 
 const slugify = (s: string) =>
   s.toLowerCase()
-   .normalize('NFD').replace(/[̀-ͯ]/g, '')
+   .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
    .replace(/\s+/g, '-');
 
 const thumbClass = `th-${slugify(category)}`;

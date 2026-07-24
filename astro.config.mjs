@@ -11,8 +11,30 @@ for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith(
   if (d) lastmods[f.replace(/\.md$/, '')] = new Date(d);
 }
 
+// Astro generuje id nadpisů i s diakritikou („#aktuální-ceny-v-česku"), což se
+// v odkazech enkóduje na nečitelné %C3%A1… Přepíšeme je na ASCII podobu.
+function rehypeAsciiHeadingIds() {
+  const slug = (s) =>
+    s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-')
+      .replace(/^-|-$/g, '').slice(0, 60);
+  const text = (node) =>
+    node.type === 'text' ? node.value : (node.children ?? []).map(text).join('');
+  return (tree) => {
+    const walk = (node) => {
+      if (node.type === 'element' && /^h[2-4]$/.test(node.tagName)) {
+        const id = slug(text(node));
+        if (id) node.properties = { ...node.properties, id };
+      }
+      (node.children ?? []).forEach(walk);
+    };
+    walk(tree);
+  };
+}
+
 export default defineConfig({
   site: 'https://realtech.cz',
+  markdown: { rehypePlugins: [rehypeAsciiHeadingIds] },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({
