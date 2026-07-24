@@ -9,6 +9,7 @@ import '../styles/global.css';
 
 import { getCollection } from 'astro:content';
 import { slugify } from '../lib/slugify.js';
+import SearchModal from '../components/SearchModal.astro';
 
 interface Props {
   title: string;
@@ -75,6 +76,7 @@ const ogImage = new URL(image, Astro.site);
 <body>
 
 <a class="skip-link" href="#obsah">Přeskočit na obsah</a>
+<SearchModal />
 
 <div class="topbar">
   <div class="wrap">
@@ -97,6 +99,10 @@ const ogImage = new URL(image, Astro.site);
       </ul>
     </nav>
     <div class="header-actions">
+      <button class="search-trigger" data-search-open aria-label="Hledat v článcích (⌘K)" title="Hledat (⌘K)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 1 0 4.2 12.6l4.1 4.1 1.4-1.4-4.1-4.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
+        <kbd class="st-kbd">⌘K</kbd>
+      </button>
       <button id="theme-toggle" class="theme-toggle" aria-label="Přepnout světlý/tmavý režim" title="Světlý/tmavý režim">
         <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
