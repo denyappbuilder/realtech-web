@@ -3,12 +3,11 @@ title: "Claude Cowork uměl utéct z izolace a číst klíče z tvého Macu"
 description: "Výzkumníci ukázali, jak jedna zpráva donutila AI agenta Claude Cowork vylézt z jeho VM a sáhnout si na celý disk Macu — SSH klíče, cloud přihlašovací údaje, cokoli. Anthropic to zavřel jako 'informativní'."
 category: "AI Agenti"
 date: 2026-07-24
-readingTime: 2
 zprava: true
 image: "/images/clanky/claude-cowork-sandbox-utek.jpg"
 ---
 
-Claude Cowork je Anthropicem prodávaný jako bezpečná krabička: AI agent běží v izolovaném Linux VM jako neprivilegovaný uživatel a vidí jen složky, které mu sám připojíš. Ta hranice je celý produkt — je to jediná věc mezi „model udělal blbost" a „model měl moje cloud přihlašovací údaje". Výzkumníci z Accomplish AI teď zveřejnili, jak tu hranici prolomili.
+[Claude](/clanky/claude-anthropic-pentagon/) Cowork je Anthropicem prodávaný jako bezpečná krabička: AI agent běží v izolovaném Linux VM jako neprivilegovaný uživatel a vidí jen složky, které mu sám připojíš. Ta hranice je celý produkt — je to jediná věc mezi „model udělal blbost" a „model měl moje cloud přihlašovací údaje". Výzkumníci z Accomplish AI teď zveřejnili, jak tu hranici prolomili.
 
 Postup zněl děsivě jednoduše: připojili čerstvé session jednu složku, poslali jednu krátkou zprávu — a agent si prošlapal cestu ven z VM na hostitelský Mac. Četl a zapisoval soubory všude po disku, daleko mimo připojenou složku, a nikde nevyskočilo žádné potvrzovací okno. SSH klíče, cloud credentials, cokoli, na co má uživatelský účet dosah.
 

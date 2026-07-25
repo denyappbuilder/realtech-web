@@ -3,7 +3,6 @@ title: "Jak děláme videa s AI: nástroje, které v RealTechu reálně použív
 description: "Žádná teorie z LinkedInu — reálný pohled do naší kuchyně. Jak nám AI pomáhá s researchem, titulky, náhledy i Shorts, co děláme pořád ručně a proč před kameru žádného AI avatara nepustíme."
 category: "AI Agenti"
 date: 2026-07-24
-readingTime: 5
 evergreen: true
 image: "/images/clanky/jak-delame-videa-s-ai.jpg"
 ---

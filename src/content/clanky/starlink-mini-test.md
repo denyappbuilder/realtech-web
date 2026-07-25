@@ -5,7 +5,6 @@ category: "Sítě"
 date: 2026-07-21
 video: "https://youtu.be/uwcxvbt8zyQ"
 videoLength: "8:29"
-readingTime: 4
 ---
 
 Starlink používáme na vesnici přes rok jako hlavní internet — a Mini je jeho verze do batohu: **30 × 20 cm, necelé kilo a půl**, router zabudovaný přímo v anténě. Otestovali jsme, co reálně umí.

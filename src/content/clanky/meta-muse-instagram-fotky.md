@@ -3,7 +3,6 @@ title: "Meta po třech dnech stáhla AI funkci, která si brala fotky z cizích 
 description: "Nový generátor Muse Image uměl přes @-mention použít veřejné fotky kohokoli na Instagramu. Po vlně kritiky Meta funkci vypnula."
 category: "AI Report"
 date: 2026-07-11
-readingTime: 2
 zprava: true
 image: "/images/clanky/meta-muse-instagram-fotky.jpg"
 ---

@@ -41,9 +41,29 @@ const breadcrumbLd = {
     { '@type': 'ListItem', position: 3, name: category },
   ],
 };
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: category,
+  description: popis,
+  url: new URL(`/temata/${slugify(category)}/`, Astro.site).href,
+  inLanguage: 'cs',
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: clanky.length,
+    itemListElement: clanky.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: new URL(`/clanky/${c.id}/`, Astro.site).href,
+      name: c.data.title,
+    })),
+  },
+};
 ---
 <Base title={`${category} — články | REALTECH CZ`} description={popis}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   <section class="articles" style="padding-top: 56px;">
     <div class="wrap">
       <div class="lower-third">
@@ -51,7 +71,7 @@ const breadcrumbLd = {
         <span class="time">{clanky.length} článků</span>
       </div>
       <div class="section-head" style="margin-top: 18px;">
-        <h2>{category}</h2>
+        <h1>{category}</h1>
         <a href="/clanky/">Všechny články →</a>
       </div>
       <p class="cat-lead">{popis}</p>

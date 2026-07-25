@@ -5,14 +5,13 @@ category: "Vesmír"
 date: 2026-07-03
 video: "https://youtu.be/dyU7RAa5l0Y"
 videoLength: "6:51"
-readingTime: 5
 ---
 
 Poslat balík na druhou stranu planety rychleji, než stihneš dojet na letiště? Přesně na tom SpaceX právě pracuje — a hned dvěma způsoby. Když 23. června 2026 vzlétl další Falcon 9, na první pohled nešlo o nic výjimečného; SpaceX startuje skoro obden. Tahle raketa ale nesla placatou kapsli, která vypadá spíš jako létající talíř než jako kus rakety. Projekt se jmenuje Starfall a je to první kousek skládačky, na jejímž konci může být doručení nákladu kamkoliv na Zemi do hodiny.
 
 ## Létající talíř se Starlinkem na zádech
 
-Starfall je disk o průměru 3 metry a výšce pouhých 75 centimetrů. Váží kolem dvou tun a sám unese až tunu nákladu. Spodek tvoří tepelný štít z uhlíkových vláken, o řízení se starají trysky na stlačený plyn a pro přistání má padáky. A jeden detail navíc: na kapsli jsou přilepené antény Starlinku, takže je celou dobu online.
+Starfall je disk o průměru 3 metry a výšce pouhých 75 centimetrů. Váží kolem dvou tun a sám unese až tunu nákladu. Spodek tvoří tepelný štít z uhlíkových vláken, o řízení se starají trysky na stlačený plyn a pro přistání má padáky. A jeden detail navíc: na kapsli jsou přilepené [antény Starlinku](/clanky/starlink-v-cesku-pruvodce/), takže je celou dobu online.
 
 Proti konkurenčním kapslím, které se umí vrátit z oběžné dráhy, má Starfall zhruba 30× větší kapacitu. To mění použití: nejde o vzorek z laboratoře, ale o reálný náklad. A otevírá to i druhý scénář — sklad na oběžné dráze, ze kterého na povel spadne materiál přesně tam, kde je zrovna potřeba.
 

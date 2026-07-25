@@ -4,7 +4,6 @@ description: "Waze dnes oznámil balík novinek: personalizované trasy, tišš�
 category: "AI Report"
 date: 2026-07-13
 image: "/images/clanky/waze-gemini-novinky.jpg"
-readingTime: 2
 zprava: true
 ---
 

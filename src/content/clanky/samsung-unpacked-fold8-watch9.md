@@ -3,7 +3,6 @@ title: "Samsung otočil skládačku na šířku. Tři nové Galaxy Z a dvoje hod
 description: "Galaxy Unpacked v Londýně: Fold 8 Ultra s 8\" displejem a 200MP foťákem, překvapivý Fold 8 s displejem na šířku, tenčí Flip 8 a hodinky Watch 9 a Ultra 2 s AI zdravotním asistentem. Všechny české ceny, termíny a předobjednávkové bonusy."
 category: "Mobily"
 date: 2026-07-22
-readingTime: 3
 zprava: true
 image: "/images/clanky/samsung-unpacked-fold8-watch9.jpg"
 ---
@@ -12,7 +11,7 @@ Samsung dnes v Londýně vybalil letní várku: **tři skládačky, dvoje hodink
 
 ## Flex Titanium: konec viditelného ohybu?
 
-Všechny tři telefony stojí na avizované technologii **Flex Titanium**: pod ohebným OLED je nově vrstva titanové slitiny (k dosavadní titanové desce), která podle Samsungu zpevňuje displej, tlumí nárazy a **snižuje viditelnost ohybu**. K tomu nový pant Armor FlexHinge a stejný čip pro všechny: Snapdragon 8 Elite Gen 5.
+Všechny tři telefony stojí na [avizované technologii **Flex Titanium**](/clanky/samsung-flex-titanium-skladacky/): pod ohebným OLED je nově vrstva titanové slitiny (k dosavadní titanové desce), která podle Samsungu zpevňuje displej, tlumí nárazy a **snižuje viditelnost ohybu**. K tomu nový pant Armor FlexHinge a stejný čip pro všechny: Snapdragon 8 Elite Gen 5.
 
 ## Tři skládačky, tři ceny
 

@@ -3,7 +3,6 @@ title: "Samsung týden před Unpacked odhalil Flex Titanium. Nové skládačky m
 description: "Samsung ukázal novou konstrukci ohebného displeje s titanem: 20× tužší fólie pod OLED panelem, méně viditelná rýha a nižší spotřeba. Debut v příštích Galaxy skládačkách 22. července."
 category: "Mobily"
 date: 2026-07-15
-readingTime: 2
 zprava: true
 image: "/images/clanky/samsung-flex-titanium-skladacky.jpg"
 ---
@@ -20,7 +19,7 @@ Třetí věc stojí za pozornost u baterie: Samsung mluví o nové architektuře
 
 ## Proč to řešit teď
 
-Tohle není výzkumný koncept do šuplíku. Samsung přímo píše, že Flex Titanium **debutuje v příští generaci Galaxy skládaček** — a detaily slibuje na Unpacked, které proběhne **22. července** (psali jsme o něm [tady](/clanky/samsung-galaxy-unpacked-cervenec)). Když firma týden před premiérou cíleně ukazuje displej, je jasné, kde bude hlavní prodejní argument nových Foldů a Flipů.
+Tohle není výzkumný koncept do šuplíku. Samsung přímo píše, že Flex Titanium **debutuje v příští generaci Galaxy skládaček** — a detaily slibuje na [Unpacked, které proběhne **22. července**](/clanky/samsung-galaxy-unpacked-cervenec/). Když firma týden před premiérou cíleně ukazuje displej, je jasné, kde bude hlavní prodejní argument nových Foldů a Flipů.
 
 Praktický závěr zůstává stejný jako u pozvánky: pokud zvažuješ skládačku, **počkej těch pár dní**. Menší rýha a tenčí konstrukce jsou přesně ty věci, kvůli kterým se starší generace po premiéře hůř obhajuje — a obvykle i zlevňuje. Za týden bude jasno, co přesně titanový displej umí v reálném telefonu.
 

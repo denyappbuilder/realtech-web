@@ -3,7 +3,6 @@ title: "Gemini teď stříhá video přes chat. A obrázky generuje za 4 sekundy
 description: "Google pustil do světa dva nové modely: Nano Banana 2 Lite na bleskové generování obrázků a Gemini Omni Flash na tvorbu i úpravy videa přirozeným jazykem. Oba už jedou v aplikaci Gemini."
 category: "AI Report"
 date: 2026-07-03
-readingTime: 2
 zprava: true
 image: "/images/clanky/gemini-omni-flash-nano-banana-2-lite.jpg"
 ---
@@ -14,7 +13,7 @@ Google 30. června vypustil dvě věci, které stojí za pozornost, protože si 
 
 První novinka je **Nano Banana 2 Lite** — nejrychlejší a nejlevnější obrázkový model z rodiny Nano Banana. Text-to-image výstup dá za **4 sekundy** a vývojáře stojí **0,034 dolaru za obrázek** v 1K rozlišení, tedy zhruba 70 haléřů.
 
-Důležitější pro normální lidi: model se od 30. června rozjíždí přímo v **aplikaci Gemini, Google Photos, NotebookLM, AI Mode ve vyhledávání** a dalších službách Googlu. Takže když si příště necháte v Gemini vygenerovat obrázek a půjde to znatelně rychleji, tohle je důvod.
+Důležitější pro normální lidi: model se od 30. června rozjíždí přímo v **aplikaci Gemini, Google Photos, [NotebookLM](/clanky/notebooklm-gemini-notebook/), AI Mode ve vyhledávání** a dalších službách Googlu. Takže když si příště necháte v Gemini vygenerovat obrázek a půjde to znatelně rychleji, tohle je důvod.
 
 Google zároveň říká jasně: starou první Nano Banana (Gemini 2.5 Flash Image) považuje za legacy a doporučuje přejít — Lite je prý rychlejší, levnější i kvalitnější zároveň.
 

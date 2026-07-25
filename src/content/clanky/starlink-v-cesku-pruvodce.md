@@ -4,7 +4,6 @@ description: "Půl roku testujeme Starlink Standard i Mini. Aktuální české t
 category: "Sítě"
 evergreen: true
 date: 2026-07-20
-readingTime: 7
 image: "/images/clanky/starlink-v-cesku-pruvodce.jpg"
 ---
 
@@ -12,7 +11,7 @@ Starlink už v Česku není exotika — je to reálná alternativa pevné linky 
 
 ## Co Starlink je — za 30 sekund
 
-Satelitní internet od SpaceX. Anténa na vaší střeše komunikuje s tisíci družic ~500 km nad zemí, které letí rychlostí kolem 30 000 km/h. V anténě Standard je na to zhruba 1 500 malých vysílačů. Výsledek: použitelný internet prakticky kdekoli pod otevřeným nebem — bez kabelu, bez vyjednávání s operátorem.
+Satelitní internet od [SpaceX](/clanky/proc-je-spacex-tak-napred/). Anténa na vaší střeše komunikuje s tisíci družic ~500 km nad zemí, které letí rychlostí kolem 30 000 km/h. V anténě Standard je na to zhruba 1 500 malých vysílačů. Výsledek: použitelný internet prakticky kdekoli pod otevřeným nebem — bez kabelu, bez vyjednávání s operátorem.
 
 ## Aktuální ceny v Česku (ověřeno na starlink.com)
 

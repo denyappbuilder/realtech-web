@@ -5,7 +5,6 @@ category: "Hardware"
 date: 2026-07-02
 video: "https://youtu.be/biYMveTpRWc"
 videoLength: "9:04"
-readingTime: 6
 ---
 
 Jedna z těch dvou firem je technologický gigant: drony, kamery, gimbaly, mikrofony — a k tomu skoro celý světový trh civilních dronů. Ta druhá je vedle ní trpaslík: menší, mladší, s užší nabídkou. A přesto se letos do giganta pustila a vstoupila mu přímo do domény, kterou DJI samo založilo — s kapesní kamerou Luna. Větší z firem místo lepšího produktu sáhla po právnících. Souboj, ve kterém už nerozhoduje lepší kamera.
@@ -38,7 +37,7 @@ V bitvě hraje roli i nepoměr sil. DJI je mnohonásobně větší, má hlubší
 
 ## Třetí hráč: Spojené státy
 
-Do souboje mluví ještě někdo, koho si ani jedna firma nevybrala. DJI se kvůli obavám o národní bezpečnost dostalo v prosinci 2025 na seznam amerického regulátora — s konkrétním důsledkem: nejnovější vlajková kapesní kamera Osmo Pocket 4 se v USA oficiálně prodávat nesmí (starší Pocket 3 stihl povolení včas). A netýká se to jen kamer — v USA se postupně zadrhává dostupnost mikrofonů, gimbalů i powerstanic DJI, přestože s drony, kvůli kterým problém začal, nemají nic společného.
+Do souboje mluví ještě někdo, koho si ani jedna firma nevybrala. DJI se kvůli obavám o národní bezpečnost dostalo v prosinci 2025 [na seznam amerického regulátora](/clanky/dji-ban-usa/) — s konkrétním důsledkem: nejnovější vlajková kapesní kamera Osmo Pocket 4 se v USA oficiálně prodávat nesmí (starší Pocket 3 stihl povolení včas). A netýká se to jen kamer — v USA se postupně zadrhává dostupnost mikrofonů, gimbalů i powerstanic DJI, přestože s drony, kvůli kterým problém začal, nemají nic společného.
 
 Insta360 na černé listině není a jeho kapesní kamery se v Americe prodávají normálně. Drobné zákazy má taky: dron Antigravity A1 do USA kvůli plošnému zákazu zahraničních dronů nesmí a zakázaný je dovoz starších kamer řady Ace, kde GoPro uhrálo porušení designového patentu na Hero. Ale zatímco se DJI brání u soudu, Insta360 v USA poroste přímo na jeho úkor.
 

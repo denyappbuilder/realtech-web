@@ -3,12 +3,11 @@ title: "Anthropic vydal Claude Opus 5: skoro výkon vlajkové lodi za polovinu c
 description: "Nový model se blíží schopnostem nejsilnějšího Fable 5, ale stojí půlku — a na programování a kancelářské práci je podle Anthropicu úplně nejlepší na trhu. Novinkou je i posuvník, kterým si volíte mezi chytrostí a cenou."
 category: "AI Report"
 date: 2026-07-24
-readingTime: 3
 zprava: true
 image: "/images/clanky/anthropic-claude-opus-5.jpg"
 ---
 
-Anthropic dnes vydal **Claude Opus 5** — čtvrtý model rodiny Claude 5 vedle Fable 5 a Mythos 5. Hlavní sdělení je jednoduché: **skoro stejná inteligence jako u nejsilnějšího Fable 5, ale za poloviční cenu.** A na části úloh dokonce vlajkovou loď poráží.
+Anthropic dnes vydal **Claude Opus 5** — čtvrtý model rodiny Claude 5 vedle [Fable 5 a Mythos 5](/clanky/anthropic-fable-mythos/). Hlavní sdělení je jednoduché: **skoro stejná inteligence jako u nejsilnějšího Fable 5, ale za poloviční cenu.** A na části úloh dokonce vlajkovou loď poráží.
 
 ## Co umí
 

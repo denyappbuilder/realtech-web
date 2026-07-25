@@ -5,7 +5,6 @@ category: "Hardware"
 date: 2026-07-02
 video: "https://youtu.be/ytDd3Uj8LKw"
 videoLength: "7:26"
-readingTime: 5
 ---
 
 Nvidia právě udělala něco, co naposledy zkoušela před více než deseti lety: postavila vlastní procesor do notebooku. Ne jen grafiku — mozek celého počítače. A šla s ním na trh Windows ARM, který roky držel skoro sám Qualcomm. Na papíře to vypadá jako bomba. Otázka je, jestli to bude fungovat tak dobře jako MacBook a kolik to bude stát.
@@ -18,7 +17,7 @@ Stalo se to 1. června 2026. Šéf Nvidie Jensen Huang na veletrhu Computex pře
 
 ## Koho to ohrožuje? Ne Intel, ale Qualcomm
 
-Intel dělá starší typ procesorů x86 — to je úplně jiný svět. Nvidia míří jinam: Windows ARM čipy dosud pořádně vyráběl jen Qualcomm se Snapdragonem.
+Intel dělá starší typ procesorů x86 — to je úplně jiný svět. Nvidia míří jinam: [Windows ARM čipy](/clanky/windows-arm-vs-macbook/) dosud pořádně vyráběl jen Qualcomm se Snapdragonem.
 
 Ať jsme féroví — Snapdragon není špatný čip. Na běžnou práci, psaní a kancelář je super a notebook s ním vydrží na baterku opravdu dlouho. Problém je jinde: ARM Windows je roky nedotažený slib. Většina programů je napsaná pro starší svět x86, a aby na ARMu vůbec běžely, musí projít překladačem přímo ve Windows — emulací. A emulace bere výkon. Přesně tady jsme u Snapdragonu narazili i my: nabíhá to v pohodě, ale jakmile přijde něco těžšího, třeba obyčejný střih v CapCutu, začne se to kousat a padá to.
 

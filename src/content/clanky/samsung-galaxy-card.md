@@ -3,7 +3,6 @@ title: "Samsung vydává vlastní kreditku. Galaxy Card kopíruje Apple a den p�
 description: "Samsung představil svou první kreditní kartu — Galaxy Card s cashbackem až 5 %, kovovým provedením a integrací do Samsung Wallet. Zatím jen v USA, ale směr je jasný."
 category: "Mobily"
 date: 2026-07-21
-readingTime: 2
 zprava: true
 image: "/images/clanky/samsung-galaxy-card.jpg"
 ---
@@ -27,7 +26,7 @@ K tomu Samsung přihazuje uvítací bonus **200 dolarů** za útratu 2 000 dolar
 
 ## A zítra Unpacked
 
-Načasování není náhoda. **Zítra 22. července v 15:00 našeho času** startuje Galaxy Unpacked v Londýně — Samsung slibuje „nový tvar" skládačky a novou generaci Z série. Oznámit den předem vlastní kreditku, kterou si fanoušci můžou hned aktivovat na nákup nového Foldu, je docela chytrý tah. Stream poběží na Samsung.com, v Samsung Newsroom a na YouTube kanálu Samsungu.
+Načasování není náhoda. **Zítra 22. července v 15:00 našeho času** startuje [Galaxy Unpacked v Londýně](/clanky/samsung-galaxy-unpacked-cervenec/) — Samsung slibuje „nový tvar" skládačky a novou generaci Z série. Oznámit den předem vlastní kreditku, kterou si fanoušci můžou hned aktivovat na nákup nového Foldu, je docela chytrý tah. Stream poběží na Samsung.com, v Samsung Newsroom a na YouTube kanálu Samsungu.
 
 Takže shrnuto: pro český trh dnes žádná akce, ale Samsung právě ukázal, že chce být i banka. A jestli zvažuješ novou skládačku, zítra odpoledne u streamu.
 

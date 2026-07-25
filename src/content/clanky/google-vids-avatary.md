@@ -3,7 +3,6 @@ title: "Nahrajete selfie a hlas — a ve videu za vás mluví váš avatar. Goog
 description: "Google přidal do nástroje Vids dvě novinky: model Gemini Omni, který generuje a upravuje video podle textového zadání, a osobní avatary — digitální dvojče vytvořené z jedné selfie a krátké hlasové nahrávky."
 category: "AI Report"
 date: 2026-07-17
-readingTime: 2
 zprava: true
 image: "/images/clanky/google-vids-avatary.jpg"
 ---

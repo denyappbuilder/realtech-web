@@ -5,7 +5,6 @@ category: "Vesmír"
 date: 2026-07-02
 video: "https://youtu.be/3Z6VkTiKrDc"
 videoLength: "7:59"
-readingTime: 5
 ---
 
 V roce 2025 vynesla SpaceX 90 % veškeré hmoty na oběžnou dráhu. Vyvíjí rakety, které létají opakovaně, a zvládá to s výrazně menším počtem lidí než třeba NASA. Jak to dokáže? Není to náhoda ani jen peníze — je za tím konkrétní metodika, kterou jsme rozebrali bod po bodu.

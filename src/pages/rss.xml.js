@@ -4,10 +4,9 @@ import fs from 'node:fs';
 import { marked } from 'marked';
 
 export async function GET(context) {
-  // Feed držíme na posledních 20 kusech — standardní hygiena, ať neroste donekonečna
   const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-    .slice(0, 20);
+    .slice(0, 50);
 
   return rss({
     title: 'REALTECH CZ',

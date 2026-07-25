@@ -2,8 +2,27 @@
 import Base from '../layouts/Base.astro';
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
+
+const zakladatele = [
+  { '@type': 'Person', name: 'Daniel Soukup', jobTitle: 'Autor a spoluzakladatel' },
+  { '@type': 'Person', name: 'Sam', jobTitle: 'Autor a spoluzakladatel' },
+];
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'REALTECH CZ',
+  url: Astro.site?.href,
+  email: 'info@realtech.cz',
+  description: 'Český YouTube kanál a web o technologiích a umělé inteligenci.',
+  inLanguage: 'cs',
+  logo: { '@type': 'ImageObject', url: new URL('/apple-touch-icon.png', Astro.site).href, width: 180, height: 180 },
+  sameAs: [YT],
+  founder: zakladatele,
+  employee: zakladatele,
+};
 ---
 <Base title="O nás — REALTECH CZ" description="Kdo stojí za REALTECH CZ a proč děláme tech obsah bez marketingových řečí.">
+  <script type="application/ld+json" set:html={JSON.stringify(orgLd)} slot="head" is:inline />
   <section class="about wrap">
     <div class="lower-third">
       <span class="tag">O nás</span>

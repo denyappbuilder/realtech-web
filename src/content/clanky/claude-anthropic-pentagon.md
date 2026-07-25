@@ -5,7 +5,6 @@ category: "AI Report"
 date: 2026-07-02
 video: "https://youtu.be/jK3K1a9Z3AA"
 videoLength: "12:50"
-readingTime: 7
 ---
 
 V únoru 2026 nařídila Trumpova administrativa všem svým úřadům přestat používat jednu konkrétní AI. Pentagon ji označil za riziko. Důvod? Firma za ní odmítla pomoc se sledováním vlastních občanů. Jmenuje se Claude, v Česku je málo známá — a přitom jí raketově roste počet uživatelů a nejen v programování patří mezi nejlepší na světě. Rozebrali jsme, kdo za Claudem stojí, proč se s ním Pentagon soudí a komu se vyplatí.

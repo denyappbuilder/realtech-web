@@ -3,7 +3,6 @@ title: "Google vydal tři nové Gemini modely. A mimochodem přiznal, že už tr
 description: "Gemini 3.6 Flash je chytřejší a levnější než předchůdce, Flash-Lite chrlí 350 tokenů za sekundu a Flash Cyber loví bezpečnostní díry v kódu. Nejzajímavější věta ale byla schovaná v půlce oznámení: největší trénink v historii Googlu — Gemini 4 — už běží."
 category: "AI Report"
 date: 2026-07-22
-readingTime: 2
 zprava: true
 image: "/images/clanky/gemini-36-flash-gemini-4.jpg"
 ---
@@ -18,7 +17,7 @@ Třetí kousek, **3.5 Flash Cyber**, je specialista: doladěný model na hledán
 
 ## Ta důležitá věta v půlce textu
 
-Mezi benchmarky Google skoro mimochodem utrousil dvě věci. Zaprvé: **Gemini 3.5 Pro** se testuje u partnerů a „brzy" bude venku. A zadruhé, cituju: „Zahájili jsme náš dosud nejambicióznější pre-training run — pro **Gemini 4**." Žádné datum, žádné detaily. Ale je to první oficiální potvrzení, že další velká generace Gemini se už trénuje.
+Mezi benchmarky Google skoro mimochodem utrousil dvě věci. Zaprvé: [**Gemini 3.5 Pro**](/clanky/gemini-omni-flash-nano-banana-2-lite/) se testuje u partnerů a „brzy" bude venku. A zadruhé, cituju: „Zahájili jsme náš dosud nejambicióznější pre-training run — pro **Gemini 4**." Žádné datum, žádné detaily. Ale je to první oficiální potvrzení, že další velká generace Gemini se už trénuje.
 
 Přeloženo: Flash modely jsou dnešní chleba — levnější agenti pro firmy a vývojáře. Ale závod pokračuje dál. OpenAI, Anthropic i Google teď všichni naznačují, že další generace jsou na cestě. Podzim bude zajímavý.
 

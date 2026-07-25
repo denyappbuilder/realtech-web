@@ -3,7 +3,6 @@ title: "Vláda USA poprvé zakázala AI model — a to i vlastním lidem Anthrop
 description: "Anthropic vydal nejsilnější model své historie a za tři dny mu vláda nařídila ho vypnout. Precedens, který mění pravidla pro celou AI branži — a týká se i Evropy."
 category: "AI Report"
 date: 2026-07-02
-readingTime: 6
 image: "/images/clanky/anthropic-fable-mythos.jpg"
 ---
 
@@ -45,4 +44,4 @@ To otevírá otázky, které se budou týkat každého dalšího silného modelu
 
 Model se vrátil, ale precedens zůstal viset ve vzduchu. Vláda ukázala, že když se rozhodne, dokáže ze dne na den zhasnout přístup k softwaru. To, že tentokrát couvla, neznamená, že příště couvne zas. Firma, která varovala, že AI je moc nebezpečná, narazila na vládu, která ji vzala za slovo — a zatáhla za brzdu tvrději, než kdokoli čekal. A přesně o tenhle precedens jde víc než o jeden model.
 
-**Pokračování:** [Fable 5 je zpátky. Vláda USA zákaz zrušila — a tohle se mezitím změnilo](/clanky/fable-5-je-zpatky)
+**Pokračování:** [Fable 5 je zpátky. Vláda USA zákaz zrušila — a tohle se mezitím změnilo](/clanky/fable-5-je-zpatky/)

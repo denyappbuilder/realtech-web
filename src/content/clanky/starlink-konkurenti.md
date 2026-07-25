@@ -6,10 +6,9 @@ evergreen: true
 date: 2026-07-02
 video: "https://youtu.be/YSiw-bae1wU"
 videoLength: "14:40"
-readingTime: 6
 ---
 
-Internet z vesmíru byl ještě před pár lety sci-fi. Dnes je to trh, na kterém se pere pět velkých projektů — a monopol Starlinku poprvé dostává reálné trhliny. Amazon má na orbitě přes 300 družic, Čína za poslední rok svou konstelaci ztrojnásobila a Evropa staví vlastní síť jako strategickou pojistku. Prošli jsme všechny hlavní konkurenty a srovnali, kdo má šanci Starlink skutečně dohnat.
+Internet z vesmíru byl ještě před pár lety sci-fi. Dnes je to trh, na kterém se pere pět velkých projektů — a monopol [Starlinku](/clanky/starlink-v-cesku-pruvodce/) poprvé dostává reálné trhliny. Amazon má na orbitě přes 300 družic, Čína za poslední rok svou konstelaci ztrojnásobila a Evropa staví vlastní síť jako strategickou pojistku. Prošli jsme všechny hlavní konkurenty a srovnali, kdo má šanci Starlink skutečně dohnat.
 
 ## Proč se s konstelacemi najednou roztrhl pytel
 
@@ -19,7 +18,7 @@ Háček: v nízké výšce jedna družice pokryje jen malé území a za pár le
 
 ## Amazon Leo: jediný, kdo může Starlinku reálně šlapat na paty
 
-Projekt dřív známý jako Kuiper se v listopadu 2025 přejmenoval na Amazon Leo. Na orbitě má přes 300 družic — proti zhruba 10 300 Starlinků to zní směšně, ale tempo je nevídané. Amazon si objednal přes 92 raketových startů za víc než 10 miliard dolarů, největší nákup startů v historii — a v nouzi nakupuje starty i u konkurenční SpaceX. První fáze počítá s 578 družicemi.
+Projekt dřív známý jako Kuiper se v listopadu 2025 přejmenoval na Amazon Leo. Na orbitě má přes 300 družic — proti zhruba 10 300 Starlinků to zní směšně, ale tempo je nevídané. Amazon si objednal přes 92 raketových startů za víc než 10 miliard dolarů, největší nákup startů v historii — a v nouzi nakupuje starty i u konkurenční [SpaceX](/clanky/proc-je-spacex-tak-napred/). První fáze počítá s 578 družicemi.
 
 Amazon chystá tři terminály: kompaktní se 100 Mb/s, standardní se 400 Mb/s a profesionální až s 1 Gb/s. A veřejně slibuje, že Starlink porazí cenou — Amazon si může dovolit dotovat službu ze zbytku svého impéria. Komerční start je plánovaný na polovinu 2026 v USA, Kanadě, Británii, Francii a Německu. Do Česka realisticky koncem 2027 až 2028.
 

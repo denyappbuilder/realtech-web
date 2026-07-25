@@ -5,7 +5,6 @@ category: "Mobily"
 date: 2026-07-02
 video: "https://youtu.be/Kr8Ch6MYhCw"
 videoLength: "9:17"
-readingTime: 6
 ---
 
 Je Xiaomi geniální firma, nebo trojský kůň v kapse milionů lidí? Kdo za ní vlastně stojí a jak vydělává, když má tak levné telefony? Rozebrali jsme to od business modelu přes vliv čínského státu až po elektroauta.

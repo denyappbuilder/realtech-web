@@ -5,7 +5,6 @@ category: "Drony"
 date: 2026-07-02
 video: "https://youtu.be/7-S7D2y6IHo"
 videoLength: "9:39"
-readingTime: 6
 ---
 
 DJI ovládá přes 70 % globálního trhu s drony, v Severní Americe drželo dokonce přes 80 % spotřebitelského trhu — prakticky monopol. A není to jen firma na drony pro focení přírody: její technologie pronikly do záchranářství, zemědělství, filmového průmyslu, stavebnictví i bezpečnostních složek. Právě proto je americký zákaz tak bolestivý. Rozebrali jsme, co přesně se stalo, proč a co to znamená pro Evropu.

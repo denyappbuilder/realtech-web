@@ -3,13 +3,12 @@ title: "Fable 5 je zpátky. Vláda USA zákaz zrušila — a tohle se mezitím z
 description: "Nejsilnější model Anthropicu se po třech týdnech vrací všem. Ukázalo se ale, že 'nebezpečný trik' umí skoro každá velká AI. Co se opravilo, co zůstává omezené a co to znamená pro vás."
 category: "AI Report"
 date: 2026-07-03
-readingTime: 5
 image: "/images/clanky/fable-5-je-zpatky.jpg"
 ---
 
 Tři týdny. Tak dlouho trval první vládní zákaz AI modelu v historii. Od 1. července je Fable 5 — nejsilnější model Anthropicu — zase dostupný po celém světě, včetně Česka. Jenže tohle není jen „zapnuli to zpátky". Během těch tří týdnů se ukázalo něco mnohem zajímavějšího: ten „nebezpečný trik", kvůli kterému se všechno vypínalo, umí prakticky každý velký AI model na trhu.
 
-Celou ságu zákazu jsme rozebrali v [samostatném článku](/clanky/anthropic-fable-mythos) — tady je to podstatné: co se stalo, co se opravilo a co to znamená pro vás.
+Celou [ságu vládního zákazu Fable 5](/clanky/anthropic-fable-mythos/) jsme rozebrali samostatně — tady je to podstatné: co se stalo, co se opravilo a co to znamená pro vás.
 
 ## Rychlá rekapitulace: proč se vůbec vypínalo
 

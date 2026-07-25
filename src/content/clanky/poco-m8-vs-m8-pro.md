@@ -5,7 +5,6 @@ category: "Mobily"
 date: 2026-07-02
 video: "https://youtu.be/eDkin8oFOwQ"
 videoLength: "7:58"
-readingTime: 5
 ---
 
 POCO M8 a M8 Pro dělí v ceně 2 až 3 tisíce korun. Oba telefony jsme testovali a prošli rozdíl po rozdílu — od displeje přes výkon a baterii až po odolnost pod vodou. Tady je, co za příplatek reálně dostanete a komu se vyplatí.
@@ -42,7 +41,7 @@ Přední kamera: 16 Mpx u M8 vs. 32 Mpx u Pro — Pro má menší šum, věrněj
 
 ## Zvuk, software a zbytek výbavy
 
-Oba mají stereo reproduktory s Dolby Atmos (jack chybí u obou) a Pro hraje reálně hlasitěji — Xiaomi uvádí o třetinu, přesně jsme to nezměřili, ale rozdíl slyšet je.
+Oba mají stereo reproduktory s Dolby Atmos (jack chybí u obou) a Pro hraje reálně hlasitěji — [Xiaomi](/clanky/xiaomi-kdo-ma-kontrolu/) uvádí o třetinu, přesně jsme to nezměřili, ale rozdíl slyšet je.
 
 Oba běží na HyperOS 2 s plánovanou aktualizací na HyperOS 3. M8 má oficiálně potvrzené 4 roky aktualizací systému a 6 let bezpečnostních záplat; u Pro verze to potvrzené zatím není. Oba mají spolehlivou optickou čtečku otisků pod displejem, infračervený port na ovládání televize a dvě fyzické SIM (eSIM nemá ani jeden). Drobné rozdíly na závěr: M8 podporuje SD kartu, Pro ne; Pro má Wi-Fi 6, M8 Wi-Fi 5.
 

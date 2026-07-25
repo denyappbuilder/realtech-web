@@ -3,12 +3,11 @@ title: "Claude už si s tebou popovídá naplno — a sáhne ti do Gmailu i Slac
 description: "Anthropic pustil do hlasového režimu silnější modely Opus a Sonnet a propojil ho s Gmailem, kalendářem, Slackem nebo Notionem. Hlasem teď vyřídíš i reálnou práci. Čeština ale pořád chybí."
 category: "AI Agenti"
 date: 2026-07-24
-readingTime: 2
 zprava: true
 image: "/images/clanky/claude-voice-mode-opus-sonnet.jpg"
 ---
 
-Anthropic včera vylepšil **hlasový režim Claude**. Doteď v něm běžel jen nejmenší a nejrychlejší model Haiku — dobrý na rychlé dotazy, ale na složitější věci krátký. Nově si ve voice mode vybereš i **Opus a Sonnet**, tedy stejné modely, na kterých děláš vážnou práci v textu.
+Anthropic včera vylepšil **hlasový režim [Claude](/clanky/claude-anthropic-pentagon/)**. Doteď v něm běžel jen nejmenší a nejrychlejší model Haiku — dobrý na rychlé dotazy, ale na složitější věci krátký. Nově si ve voice mode vybereš i **Opus a Sonnet**, tedy stejné modely, na kterých děláš vážnou práci v textu.
 
 ## Hlavní novinka: hlas napojený na tvoje aplikace
 

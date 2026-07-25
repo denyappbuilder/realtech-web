@@ -5,10 +5,9 @@ category: "Vesmír"
 date: 2026-07-21
 video: "https://youtu.be/BvVMyDzjY7o"
 videoLength: "8:31"
-readingTime: 5
 ---
 
-Skeptici roky tvrdili, že Starlink se pod náporem uživatelů zadusí. Stalo se přesně naopak: za loňský rok **zdvojnásobil počet uživatelů na více než 9 milionů**, a přesto drží medián rychlosti **200 Mb/s při latenci 26 ms**. Recept je prostý — SpaceX vynáší satelity rychleji, než přibývají zákazníci. Na orbitě jich je už přes 9 500. A rok 2026 má být bod zlomu.
+Skeptici roky tvrdili, že Starlink se pod náporem uživatelů zadusí. Stalo se přesně naopak: za loňský rok **zdvojnásobil počet uživatelů na více než 9 milionů**, a přesto drží medián rychlosti **200 Mb/s při latenci 26 ms**. Recept je prostý — [SpaceX vynáší satelity rychleji](/clanky/proc-je-spacex-tak-napred/), než přibývají zákazníci. Na orbitě jich je už přes 9 500. A rok 2026 má být bod zlomu.
 
 ## Satelity V3: řádově vyšší kapacita
 

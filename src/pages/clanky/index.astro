@@ -7,12 +7,32 @@ const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const categories = [...new Set(all.map((c) => c.data.category))];
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Všechny články',
+  description: 'Kompletní archiv novinek a analýz REALTECH CZ.',
+  url: new URL('/clanky/', Astro.site).href,
+  inLanguage: 'cs',
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: all.length,
+    itemListElement: all.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: new URL(`/clanky/${c.id}/`, Astro.site).href,
+      name: c.data.title,
+    })),
+  },
+};
 ---
 <Base title="Všechny články — REALTECH CZ" description="Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí.">
+  <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   <section class="articles" style="padding-top: 56px;">
     <div class="wrap">
       <div class="section-head">
-        <h2>Všechny články</h2>
+        <h1>Všechny články</h1>
         <a href="/rss.xml">RSS →</a>
       </div>
       <div class="filter-bar">

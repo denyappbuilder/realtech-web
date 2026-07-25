@@ -19,7 +19,6 @@ const clanky = defineCollection({
     video: z.string().url().optional(),
     videoLength: z.string().optional(),
     image: z.string().optional(),
-    readingTime: z.number().optional(),
     featured: z.boolean().default(false),
     zprava: z.boolean().default(false),
     evergreen: z.boolean().default(false),

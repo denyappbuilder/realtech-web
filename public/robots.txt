@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://realtech.cz/sitemap-index.xml
+
+# Strojově čitelný index obsahu pro AI systémy
+# https://realtech.cz/llms.txt

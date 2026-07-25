@@ -5,7 +5,6 @@ category: "Hardware"
 date: 2026-07-20
 video: "https://youtu.be/RdVGr7tldv4"
 videoLength: "8:54"
-readingTime: 4
 ---
 
 Na papíře to vypadá jako ideální notebook: ARM čip jako v MacBooku, celodenní výdrž, ticho, nižší cena. Půjčili jsme si Windows ARM notebook na reálnou práci — a narazili.

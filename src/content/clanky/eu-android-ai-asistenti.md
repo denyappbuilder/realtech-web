@@ -3,7 +3,6 @@ title: "EU nařídila Googlu otevřít Android. ChatGPT nebo Claude půjde nasta
 description: "Evropská komise vydala dvě závazná rozhodnutí podle DMA: Google musí dát konkurenčním AI asistentům stejný přístup k Androidu, jaký má Gemini — včetně probuzení hlasem a ovládání aplikací. Většina změn má dorazit s Androidem 18, nejpozději v srpnu 2027."
 category: "Mobily"
 date: 2026-07-18
-readingTime: 2
 zprava: true
 image: "/images/clanky/eu-android-ai-asistenti.jpg"
 ---

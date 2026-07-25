@@ -6,7 +6,6 @@ evergreen: true
 date: 2026-07-20
 video: "https://youtu.be/Dp4x80FEW_M"
 videoLength: "6:10"
-readingTime: 4
 ---
 
 Na první pohled se Starlink Standard a Mini liší hlavně velikostí. Jenže ty podstatné rozdíly vidět nejsou — a špatná volba znamená buď zbytečně drahý provoz, nebo internet, který v dešti klekne. Oba máme, oba testujeme, tady je to podstatné.
