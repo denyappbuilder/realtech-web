@@ -33,6 +33,7 @@ Zůstává tedy hlavní příběh: národní bezpečnost jako **selektivní nás
 
 ## Zdroj
 
+- [FCC — Public Notice DA 26-775: Conditional Approval and Exemption of Certain Routers from FCC Covered List (PDF, 27. 7. 2026)](https://docs.fcc.gov/public/attachments/DA-26-775A1.pdf)
 - [FCC — FAQs on Recent Updates to FCC Covered List Regarding Routers Produced in Foreign Countries](https://www.fcc.gov/faqs-recent-updates-fcc-covered-list-regarding-routers-produced-foreign-countries)
 - [Ars Technica — Trump admin exempts SpaceX's Starlink from FCC ban on foreign-made routers](https://arstechnica.com/tech-policy/2026/07/starlink-gets-exemption-from-fcc-ban-on-routers-made-outside-the-us/)
 - [The Drone Girl — FCC moves to revoke approvals for alleged DJI „front company" Odyssey Robot](https://www.thedronegirl.com/2026/07/24/fcc-revokes-odyssey-robot/)
