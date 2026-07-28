@@ -12,7 +12,14 @@ import { slugify } from '../lib/slugify.js';
 import SearchModal from '../components/SearchModal.astro';
 
 interface Props {
+  /** Jde do `<title>` — drží se pod 60 znaky, jinak to Google odsekne. */
   title: string;
+  /**
+   * Plný nadpis pro sociální náhledy. Ty snesou víc než výsledky
+   * vyhledávání, takže tady o informaci přicházet nemusíme.
+   * Nevyplněno = použije se `title`.
+   */
+  ogTitle?: string;
   description?: string;
   image?: string;
   ogType?: string;
@@ -22,6 +29,7 @@ const vsechnyClanky = await getCollection('clanky', ({ data }) => !data.draft);
 const temata = [...new Set(vsechnyClanky.map((c) => c.data.category))];
 const {
   title,
+  ogTitle,
   description = 'Tech novinky a analýzy bez marketingových řečí. Web YouTube kanálu REALTECH CZ.',
   image = '/og-default.jpg',
   ogType = 'website',
@@ -31,6 +39,7 @@ const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
 const path = Astro.url.pathname;
 const current = (href: string) =>
   (href === '/' ? path === '/' : path === href || path.startsWith(href)) ? 'page' : undefined;
+const socialniTitulek = ogTitle ?? title;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 // YouTube náhledy jsou 1280x720, naše vlastní OG grafika 1200x630
@@ -52,7 +61,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
-  <meta property="og:title" content={title} />
+  <meta property="og:title" content={socialniTitulek} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content={ogType} />
   <meta property="og:url" content={canonical} />
@@ -63,7 +72,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <meta property="og:site_name" content="REALTECH CZ" />
   <meta property="og:locale" content="cs_CZ" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
+  <meta name="twitter:title" content={socialniTitulek} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
   <meta name="twitter:image:alt" content={title} />

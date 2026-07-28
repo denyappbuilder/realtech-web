@@ -1,5 +1,6 @@
 ---
 import fs from 'node:fs';
+import { seoTitulek } from '../../lib/seo-titulek.js';
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
@@ -101,7 +102,13 @@ const breadcrumbLd = {
   ],
 };
 ---
-<Base title={`${title} — REALTECH CZ`} description={description} image={ogImage} ogType="article">
+<Base
+  title={seoTitulek(title)}
+  ogTitle={`${title} — REALTECH CZ`}
+  description={description}
+  image={ogImage}
+  ogType="article"
+>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
   {videoLd && <script type="application/ld+json" set:html={JSON.stringify(videoLd)} slot="head" is:inline />}

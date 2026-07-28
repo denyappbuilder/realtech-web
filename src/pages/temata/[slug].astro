@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { seoTitulek } from '../../lib/seo-titulek.js';
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { slugify } from '../../lib/slugify.js';
@@ -61,7 +62,7 @@ const collectionLd = {
   },
 };
 ---
-<Base title={`${category} — články | REALTECH CZ`} description={popis}>
+<Base title={seoTitulek(`${category} — články`)} ogTitle={`${category} — články | REALTECH CZ`} description={popis}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   <section class="articles" style="padding-top: 56px;">
