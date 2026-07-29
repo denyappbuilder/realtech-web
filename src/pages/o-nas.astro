@@ -1,6 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 const YT = 'https://www.youtube.com/@realtech-cz';
+
+/**
+ * Počet článků se POČÍTÁ, nepíše se ručně.
+ *
+ * PROČ: do 29. 7. 2026 tady stálo „1× nové video každý týden" — slib kadence,
+ * který jsme v tu dobu nedrželi (poslední video 3. 7., tedy 26 dní předtím).
+ * Vyměnit ho za pevné číslo článků by problém jen odložilo: za týden by lhalo
+ * zas. Tohle je jediné číslo v té řadě, které se udržuje samo.
+ */
+const pocetClanku = (await getCollection('clanky')).length;
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
 
 const zakladatele = [
@@ -37,7 +48,7 @@ const orgLd = {
     <div class="stats" aria-label="Kanál v číslech">
       <div class="stat"><strong>80+</strong><span>videí na kanále</span></div>
       <div class="stat"><strong>260&nbsp;000+</strong><span>zhlédnutí celkem</span></div>
-      <div class="stat"><strong>1×</strong><span>nové video každý týden</span></div>
+      <div class="stat"><strong>{pocetClanku}</strong><span>článků na webu</span></div>
     </div>
 
     <h2>Jak pracujeme</h2>
@@ -50,8 +61,8 @@ const orgLd = {
     <h2>Co tady najdeš</h2>
     <p>
       Články na tomhle webu vycházejí z našich videí — kdo radši čte, najde tu to podstatné
-      v textu, kdo radši kouká, má u každého článku video. Novinky vycházejí průběžně,
-      nové video je na kanále každý týden.
+      v textu, kdo radši kouká, má u každého článku video. Novinky sledujeme průběžně
+      a píšeme o tom, co za to stojí; delší video vzniká, když má téma na hloubku.
     </p>
 
     {/*
