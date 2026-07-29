@@ -36,6 +36,13 @@ const {
 } = Astro.props;
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
+/**
+ * Náš vlastní nástroj. Do 29. 7. 2026 na něj z realtech.cz nevedl JEDINÝ odkaz
+ * (změřeno: 66 odkazů na homepage, z toho 0 na realtvorbu) — přitom je to při
+ * software-first strategii hlavní trychtýř a waitlist za 11 dní posbíral
+ * 1 zápis. Web se 45 články o produktu nemluvil vůbec.
+ */
+const RTV = 'https://realtvorba.cz/';
 const path = Astro.url.pathname;
 const current = (href: string) =>
   (href === '/' ? path === '/' : path === href || path.startsWith(href)) ? 'page' : undefined;
@@ -167,6 +174,8 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
           <li><a href="/o-nas/">O nás</a></li>
           <li><a href="mailto:info@realtech.cz">Kontakt</a></li>
           <li><a href="/rss.xml">RSS</a></li>
+          {/* Náš nástroj — jediná cesta z obsahu k produktu, viz komentář u RTV. */}
+          <li><a href={RTV}>RealTvorba</a></li>
         </ul>
       </div>
       <div>
