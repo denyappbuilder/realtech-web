@@ -164,6 +164,24 @@ const breadcrumbLd = {
         </div>
       )}
 
+      {/*
+        Článek BEZ videa dosud nenabízel ke kanálu nic konkrétního — jen obecné
+        „kdo jsme" v `author-box` na konci. A takových článků je většina:
+        13 ze 46 má video, zbylých 33 (72 %) tedy nemělo důvod ke kliknutí.
+        Formulace míří na to, co doopravdy odlišuje kanál od webu (obraz,
+        měření), ne na „odeber si nás". Převzato z návrhu Claude Design
+        z 30. 7. 2026 — `reference/design-2026-07/`, varianta „video není".
+      */}
+      {!video && (
+        <div class="article-videobar">
+          <span class="mono">K tomuhle článku video není — na kanálu ale měříme totéž v obraze</span>
+          <a href="https://www.youtube.com/@realtech-cz?sub_confirmation=1" class="yt-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+            Odebírat kanál
+          </a>
+        </div>
+      )}
+
       <div class="article-body">
         <Content />
       </div>
