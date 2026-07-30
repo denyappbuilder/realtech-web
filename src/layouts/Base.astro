@@ -9,6 +9,7 @@ import '../styles/global.css';
 
 import { getCollection } from 'astro:content';
 import { slugify } from '../lib/slugify.js';
+import { popisProVyhledavace } from '../lib/popis-pro-vyhledavace.js';
 import SearchModal from '../components/SearchModal.astro';
 
 interface Props {
@@ -47,6 +48,12 @@ const path = Astro.url.pathname;
 const current = (href: string) =>
   (href === '/' ? path === '/' : path === href || path.startsWith(href)) ? 'page' : undefined;
 const socialniTitulek = ogTitle ?? title;
+/*
+ * Popis pro vyhledávače a náhledy na sítích. Řeže se PO VĚTÁCH na 160 znaků —
+ * viz `popis-pro-vyhledavace.js`. Původní `description` zůstává nedotčený
+ * a používá se dál jako perex na kartách článků.
+ */
+const popisSeo = popisProVyhledavace(description);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 // YouTube náhledy jsou 1280x720, naše vlastní OG grafika 1200x630
@@ -66,10 +73,10 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
-  <meta name="description" content={description} />
+  <meta name="description" content={popisSeo} />
   <link rel="canonical" href={canonical} />
   <meta property="og:title" content={socialniTitulek} />
-  <meta property="og:description" content={description} />
+  <meta property="og:description" content={popisSeo} />
   <meta property="og:type" content={ogType} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
@@ -80,7 +87,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <meta property="og:locale" content="cs_CZ" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={socialniTitulek} />
-  <meta name="twitter:description" content={description} />
+  <meta name="twitter:description" content={popisSeo} />
   <meta name="twitter:image" content={ogImage} />
   <meta name="twitter:image:alt" content={title} />
   <meta name="theme-color" content="#F6F7F9" media="(prefers-color-scheme: light)" />
