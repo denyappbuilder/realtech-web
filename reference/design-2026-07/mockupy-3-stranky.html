@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="cs"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RealTech.cz — návrh tří stránek (článek · homepage · téma)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* vietnamese */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500 900;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  src: url("7297fb5e-e7b1-46bc-8d02-3cedbd590b66") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500 900;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  src: url("9d92123f-6884-4042-af76-079750db5a51") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500 900;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  src: url("0a82e8f9-1eb6-4a12-a88c-6254766f1a49") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("a4d64e54-4c33-45b7-bc1b-e26c3f448d51") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("3bd065d1-a071-4655-82fa-ba0c7d332524") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("f2dc408b-9c3d-463b-8183-afb07c2f5ac9") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("50871649-68f1-4f59-b265-16fbc0982f49") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("bd16e3f3-15d5-4341-ad94-ab01c9cc7b27") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("160b20b5-8e7a-4512-a52e-259cdbba0dcd") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("60d8f441-5d40-44de-b939-a028b3bc5fe6") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("1918ea85-4c9e-46c4-8274-e7f1d46deef9") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("b697551c-4c3e-4e51-9de4-913a9bc07d10") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("cdd9c244-1600-4e00-922d-67e37bf1bc1a") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("6e301ead-b568-4073-8a04-23ab2b4148ff") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("8843fca9-d66f-4458-9400-f5f0fd7ba1cb") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("0c70bc7c-196f-4989-990d-939021a3355d") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("d73ae0db-34b4-4891-b412-41197449e5c9") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("adcf0195-36f0-4356-a148-533f961115ba") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("e23c2601-17c4-4543-83b2-f20136aaf079") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7ee75fe3-a597-4728-b66b-01918de8e540") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("dbbfb75a-25d6-40c9-bdb0-d37c7187a861") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("35fe3a37-2724-4f9d-889c-63a09b051907") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("59922387-e31c-4ce8-9ce4-3b719c2e0e6b") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("670c51bd-ff0b-4ca9-b4c4-3e6e4539a160") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("e23c2601-17c4-4543-83b2-f20136aaf079") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7ee75fe3-a597-4728-b66b-01918de8e540") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("dbbfb75a-25d6-40c9-bdb0-d37c7187a861") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("35fe3a37-2724-4f9d-889c-63a09b051907") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("59922387-e31c-4ce8-9ce4-3b719c2e0e6b") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("670c51bd-ff0b-4ca9-b4c4-3e6e4539a160") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("e23c2601-17c4-4543-83b2-f20136aaf079") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("7ee75fe3-a597-4728-b66b-01918de8e540") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("dbbfb75a-25d6-40c9-bdb0-d37c7187a861") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("35fe3a37-2724-4f9d-889c-63a09b051907") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("59922387-e31c-4ce8-9ce4-3b719c2e0e6b") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url("670c51bd-ff0b-4ca9-b4c4-3e6e4539a160") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+
+<style id="rt-styles">
+/* ══════════════════════════════════════════════════════════════════
+   REALTECH.CZ — APLIKAČNÍ STYLY (prefix rt-)
+   Tenhle blok je určený k přenosu do skutečného webu.
+   ------------------------------------------------------------------
+   OBSAH
+   1 · Tokeny (světlý + tmavý režim)
+   2 · Základ: stránka, odkazy, fokus, mono štítek
+   3 · Hlavička a patička
+   4 · Článek: hlavička, text, zdroj v textu, fakt, tabulka
+   5 · Ověřené zdroje (souhrn)
+   6 · Tlačítko, náhled videa, video panel, blok kanálu
+   7 · Výpisy: řádek článku, hlavní článek, úvod, témata, téma
+   8 · Desktop (≥ 860 px)
+   ------------------------------------------------------------------
+   Responzivita je tu přes @container, aby fungovala uvnitř rámů této
+   ukázky. Na webu: přepište 1:1 na @media (min-width: 860px) a z
+   .rt-page smažte container-type a container-name.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* 1 · TOKENY ------------------------------------------------------- */
+.rt-page{
+  --rt-bg:#F6F7F9; --rt-surface:#FFFFFF;
+  --rt-text:#14171C; --rt-text-2:#4A515C; --rt-text-3:#656D79;
+  --rt-line:#E2E6EB;
+  --rt-signal:#D42622; --rt-signal-2:#B7211D;   /* signální červená: jedna věc na obrazovku */
+  --rt-link:#2B4A6F; --rt-focus:#2B4A6F;        /* doplňková modrá = odkazy a fokus */
+  --rt-panel:#14171C; --rt-panel-text:#E8ECF1; --rt-panel-text-2:#A9B2BF; --rt-panel-line:#293039;
+  --rt-ph-bg:#EDF0F3; --rt-ph-line:rgba(20,23,28,.06);   /* pruhovaný placeholder náhledu */
+  --rt-r:8px;
+  --rt-f-head:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --rt-f-text:"IBM Plex Sans",system-ui,sans-serif;
+  --rt-f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+/* Tmavý režim = jen přepsané tokeny. V ukázce třídou .rt-dark na kořeni
+   stránky; na webu ji pověste na <html> podle prefers-color-scheme
+   nebo přepínače. */
+.rt-dark{
+  --rt-bg:#0F1216; --rt-surface:#171B21;
+  --rt-text:#E8ECF1; --rt-text-2:#A9B2BF; --rt-text-3:#828B98;
+  --rt-line:#262C35;
+  --rt-signal:#E5322D;
+  --rt-link:#9DB9DF; --rt-focus:#9DB9DF;        /* odvozeno z #2B4A6F pro kontrast na tmavé */
+  --rt-panel:#1D232C; --rt-panel-line:#2E3642;
+  --rt-ph-bg:#1F252D; --rt-ph-line:rgba(232,236,241,.05);
+  /* CTA: bílá na #E5322D má jen 4,4:1 → v tmavém režimu je tlačítko
+     světlé a červenou nese ikona (nesouvislý prvek, stačí 3:1). */
+  --rt-cta-bg:#E8ECF1; --rt-cta-bg-h:#FFFFFF; --rt-cta-text:#14171C; --rt-cta-icon:#B7211D;
+}
+
+/* 2 · ZÁKLAD ------------------------------------------------------- */
+.rt-page{
+  background:var(--rt-bg); color:var(--rt-text);
+  font-family:var(--rt-f-text); font-size:17px; line-height:1.6;
+  -webkit-text-size-adjust:100%;
+  container-type:inline-size; container-name:rt-page;   /* jen pro ukázku, viz hlavička bloku */
+}
+.rt-page *,.rt-page *::before,.rt-page *::after{box-sizing:border-box}
+.rt-page h1,.rt-page h2,.rt-page h3,.rt-page p,.rt-page figure,.rt-page ul,.rt-page ol{margin:0;overflow-wrap:break-word}
+.rt-page ul,.rt-page ol{padding:0;list-style:none}
+.rt-page svg{display:inline-block;vertical-align:middle;flex:none}
+.rt-container{max-width:1200px;margin-inline:auto;padding-inline:20px}
+.rt-col{max-width:680px;margin-inline:auto}   /* čtecí sloupec: ~65 znaků při 19 px */
+
+.rt-page a{color:var(--rt-link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.16em;transition:color .12s,text-decoration-color .12s,background-color .12s}
+.rt-page a:hover{color:var(--rt-text)}
+/* Fokus: viditelný obrys, ne jen barva. */
+.rt-page :focus-visible{outline:2px solid var(--rt-focus);outline-offset:2px}
+
+/* Mono štítek: metadata, čísla, kickery. */
+.rt-k{font-family:var(--rt-f-mono);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--rt-text-3);line-height:1.7}
+.rt-k a,a.rt-k{color:var(--rt-link);text-decoration:none}
+.rt-k a:hover,a.rt-k:hover{color:var(--rt-link);text-decoration:underline}
+
+/* 3 · HLAVIČKA A PATIČKA ------------------------------------------- */
+.rt-header{background:var(--rt-surface);border-bottom:1px solid var(--rt-line)}
+.rt-header-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px}
+a.rt-logo{font-family:var(--rt-f-head);font-weight:800;font-stretch:80%;font-size:20px;letter-spacing:.02em;text-transform:uppercase;color:var(--rt-text);text-decoration:none}
+a.rt-logo:hover{color:var(--rt-text)}
+.rt-logo-tld{font-family:var(--rt-f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:lowercase;color:var(--rt-text-3);margin-left:2px}
+.rt-nav{display:flex;align-items:center;gap:20px}
+.rt-nav a{font-family:var(--rt-f-mono);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--rt-text-2);text-decoration:none}
+.rt-nav a:hover{color:var(--rt-text);text-decoration:underline;text-underline-offset:.3em}
+
+.rt-footer{border-top:1px solid var(--rt-line);margin-top:48px}
+.rt-footer-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 24px;padding-block:20px}
+.rt-footer-nav{display:flex;gap:20px}
+
+/* 4 · ČLÁNEK ------------------------------------------------------- */
+.rt-article{padding:26px 0 52px}
+.rt-article-k{margin-bottom:10px}
+.rt-article-title{font-family:var(--rt-f-head);font-weight:800;font-stretch:85%;font-size:31px;line-height:1.08;letter-spacing:-.01em;text-wrap:balance;margin:6px 0 14px}
+.rt-article-perex{font-size:19px;line-height:1.5;color:var(--rt-text-2);text-wrap:pretty}
+.rt-article-meta{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:18px;padding:12px 0;border-block:1px solid var(--rt-line)}
+
+.rt-prose{margin-top:24px;font-size:17px;line-height:1.65}
+.rt-prose > :first-child{margin-top:0}
+.rt-prose p{margin:0 0 1.15em;text-wrap:pretty}
+.rt-prose p:last-child{margin-bottom:0}
+.rt-prose strong{font-weight:600}
+.rt-prose h2{font-family:var(--rt-f-head);font-weight:700;font-stretch:88%;font-size:21px;line-height:1.2;text-wrap:balance;margin:2.1em 0 .75em;padding-top:16px;border-top:1px solid var(--rt-line)}
+
+/* Ověřený zdroj v textu: podtržený odkaz + doména viditelně za tvrzením.
+   (display:inline-block na doméně ruší podtržení — zůstane jen na textu.) */
+.rt-src-d{display:inline-block;font-family:var(--rt-f-mono);font-size:11px;font-weight:500;letter-spacing:.04em;line-height:1.5;color:var(--rt-link);border:1px solid var(--rt-line);border-radius:calc(var(--rt-r) - 2px);padding:0 6px 1px;margin-left:7px;white-space:nowrap;vertical-align:.14em}
+a:hover .rt-src-d{border-color:var(--rt-link)}
+
+/* Vytažené číslo. */
+.rt-fact{margin:1.8em 0;padding:14px 0 12px;border-block:1px solid var(--rt-line);display:grid;gap:6px}
+.rt-fact-n{font-family:var(--rt-f-mono);font-weight:500;font-size:34px;line-height:1.05;letter-spacing:-.02em}
+
+/* Tabulka: čísla mono, zarovnaná doprava. */
+.rt-table{width:100%;border-collapse:collapse;margin:1.7em 0;font-size:15px;line-height:1.45}
+.rt-table caption{caption-side:top;text-align:left;padding-bottom:10px;font-family:var(--rt-f-mono);font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--rt-text-3)}
+.rt-table th{font-family:var(--rt-f-mono);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--rt-text-3);text-align:left;padding:0 16px 8px 0;border-bottom:1px solid var(--rt-text-3)}
+.rt-table td{padding:10px 16px 10px 0;border-bottom:1px solid var(--rt-line)}
+.rt-table .rt-t-num{font-family:var(--rt-f-mono);font-size:13.5px;letter-spacing:0;text-align:right}
+.rt-table th.rt-t-num{font-size:11px;letter-spacing:.1em}
+
+/* 5 · OVĚŘENÉ ZDROJE (souhrn) -------------------------------------- */
+.rt-sources{margin-top:36px;background:var(--rt-surface);border:1px solid var(--rt-line);border-radius:var(--rt-r);padding:16px 18px 6px}
+.rt-sources-t{font-family:var(--rt-f-mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.rt-sources-note{font-size:13.5px;line-height:1.5;color:var(--rt-text-3);margin-top:4px}
+.rt-sl{margin-top:12px}
+.rt-sl li{border-top:1px solid var(--rt-line)}
+a.rt-sl-a{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:11px 0 13px;color:var(--rt-text);text-decoration:none}
+.rt-sl-n{font-family:var(--rt-f-mono);font-size:11.5px;color:var(--rt-text-3);line-height:1.9}
+.rt-sl-b{font-size:15px;font-weight:500;line-height:1.4;text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:var(--rt-line);text-underline-offset:.18em}
+a.rt-sl-a:hover .rt-sl-b{color:var(--rt-link);text-decoration-color:var(--rt-link)}
+.rt-sl-m{display:block;font-family:var(--rt-f-mono);font-size:11px;letter-spacing:.05em;color:var(--rt-text-3);margin-top:4px}
+.rt-sl-d{color:var(--rt-link)}
+
+/* 6 · TLAČÍTKO · NÁHLED · VIDEO PANEL · KANÁL ---------------------- */
+/* Jediné místo signální červené v celém CSS (světlý režim). */
+a.rt-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 16px;border-radius:var(--rt-r);font-size:15px;font-weight:600;line-height:1.2;text-decoration:none;background:var(--rt-cta-bg,var(--rt-signal));color:var(--rt-cta-text,#fff)}
+a.rt-btn:hover{background:var(--rt-cta-bg-h,var(--rt-signal-2));color:var(--rt-cta-text,#fff)}
+a.rt-btn svg{color:var(--rt-cta-icon,currentColor)}
+
+/* Náhled videa: pruhovaný placeholder — na webu nahradí <img loading="lazy">. */
+.rt-thumb{position:relative;aspect-ratio:16/9;border-radius:var(--rt-r);overflow:hidden;border:1px solid var(--rt-line);background-color:var(--rt-ph-bg);background-image:repeating-linear-gradient(-45deg,var(--rt-ph-line) 0 10px,transparent 10px 20px)}
+.rt-thumb-note{position:absolute;left:10px;top:8px;font-size:10.5px;letter-spacing:.06em}
+.rt-thumb-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:32px;border-radius:var(--rt-r);background:rgba(15,18,22,.82);display:grid;place-items:center}
+.rt-thumb-time{position:absolute;right:8px;bottom:8px;font-family:var(--rt-f-mono);font-size:11px;letter-spacing:.04em;background:rgba(15,18,22,.85);color:#E8ECF1;padding:2px 6px;border-radius:4px}
+
+/* Video panel: moment přechodu na kanál. Vkládá se mezi dva .rt-prose
+   bloky (po druhé kapitole), ne na začátek článku. */
+.rt-video{background:var(--rt-panel);color:var(--rt-panel-text);border-radius:var(--rt-r);padding:16px;margin:28px 0 4px;display:grid;gap:14px;--rt-focus:#9DB9DF}
+.rt-video .rt-k{color:var(--rt-panel-text-2)}
+.rt-video .rt-thumb{border-color:var(--rt-panel-line);--rt-ph-bg:#1F252D;--rt-ph-line:rgba(232,236,241,.05)}
+.rt-video-b{display:grid;gap:8px}
+.rt-video-t{font-family:var(--rt-f-head);font-weight:700;font-stretch:88%;font-size:20px;line-height:1.2;text-wrap:balance}
+.rt-video-a{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:4px}
+a.rt-video-sub{font-size:14px;color:var(--rt-panel-text-2);text-decoration:underline;text-underline-offset:.16em}
+a.rt-video-sub:hover{color:var(--rt-panel-text)}
+.rt-dark .rt-video{border:1px solid var(--rt-panel-line)}
+
+/* Blok kanálu: konec článku (karta) a celoplošný pás (--band). */
+.rt-channel{margin-top:36px;background:var(--rt-surface);border:1px solid var(--rt-line);border-radius:var(--rt-r);padding:18px;display:grid;gap:14px}
+.rt-channel-b{display:grid;gap:8px}
+.rt-channel-t{font-family:var(--rt-f-head);font-weight:700;font-stretch:88%;font-size:20px;line-height:1.2}
+.rt-channel-p{font-size:15px;line-height:1.55;color:var(--rt-text-2);max-width:56ch;text-wrap:pretty}
+.rt-channel--band{margin-top:44px;background:var(--rt-panel);color:var(--rt-panel-text);border:0;border-radius:0;padding:0;display:block;--rt-focus:#9DB9DF}
+.rt-channel--band .rt-k,.rt-channel--band .rt-channel-p{color:var(--rt-panel-text-2)}
+.rt-channel-in{padding-block:24px;display:grid;gap:14px}
+.rt-dark .rt-channel--band{border-block:1px solid var(--rt-panel-line)}
+
+/* 7 · VÝPISY ------------------------------------------------------- */
+/* Řádek článku (homepage, téma, související). */
+.rt-row{border-top:1px solid var(--rt-line);padding:14px 0 16px;display:grid;gap:6px}
+.rt-row-m{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}
+.rt-row-t{font-family:var(--rt-f-head);font-weight:700;font-stretch:90%;font-size:19px;line-height:1.22;letter-spacing:-.005em;text-wrap:pretty}
+.rt-row-t a{color:var(--rt-text);text-decoration:none}
+.rt-row-t a:hover{color:var(--rt-text);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.14em}
+.rt-row-p{font-size:14.5px;line-height:1.5;color:var(--rt-text-2);max-width:64ch;text-wrap:pretty}
+.rt-row--s{padding:12px 0 14px}
+.rt-row--s .rt-row-t{font-size:17px}
+.rt-vflag{display:inline-flex;align-items:center;gap:5px}
+
+.rt-list-h{margin-top:22px;padding-bottom:10px}
+.rt-related{margin-top:36px}
+.rt-related-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:10px}
+
+/* Hlavní článek na homepage. */
+.rt-lead{padding:22px 0 18px;display:grid;gap:16px}
+.rt-lead-b{display:grid;gap:10px}
+.rt-lead-t{font-family:var(--rt-f-head);font-weight:800;font-stretch:86%;font-size:29px;line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+.rt-lead-t a{color:var(--rt-text);text-decoration:none}
+.rt-lead-t a:hover{color:var(--rt-text);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.12em}
+.rt-lead-p{font-size:15.5px;line-height:1.55;color:var(--rt-text-2);text-wrap:pretty}
+
+/* Úvod homepage: řekne, co web je — žádné hero. */
+.rt-intro{padding:24px 0 20px;border-bottom:1px solid var(--rt-line);display:grid;gap:8px}
+.rt-intro-t{font-family:var(--rt-f-head);font-weight:800;font-stretch:85%;font-size:22px;line-height:1.15;letter-spacing:-.005em}
+.rt-intro-p{font-size:15.5px;line-height:1.55;color:var(--rt-text-2);max-width:68ch;text-wrap:pretty}
+
+/* Témata (postranní / spodní navigace). */
+.rt-topics h2{padding-bottom:2px}
+.rt-topics a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0 11px;border-top:1px solid var(--rt-line);color:var(--rt-text);text-decoration:none;font-size:15px;font-weight:500}
+.rt-topics a:hover{color:var(--rt-link);text-decoration:underline;text-underline-offset:.16em}
+.rt-topics-n{font-family:var(--rt-f-mono);font-size:12px;color:var(--rt-text-3)}
+.rt-home-aside,.rt-topic-aside{margin-top:28px}
+
+/* Hlavička tématu. */
+.rt-topic-head{padding:26px 0 18px;display:grid;gap:10px}
+.rt-topic-title{font-family:var(--rt-f-head);font-weight:800;font-stretch:80%;font-size:40px;line-height:1;letter-spacing:-.01em}
+.rt-topic-p{font-size:16px;line-height:1.55;color:var(--rt-text-2);max-width:60ch;text-wrap:pretty}
+
+/* 8 · DESKTOP (≥ 860 px) ------------------------------------------- */
+/* Na webu: @media (min-width: 860px) { … } */
+@container rt-page (min-width: 860px){
+  .rt-container{padding-inline:32px}
+  .rt-header-in{min-height:64px}
+  .rt-article{padding:40px 0 64px}
+  .rt-article-title{font-size:44px}
+  .rt-article-perex{font-size:20px}
+  .rt-prose{font-size:19px;line-height:1.7}
+  .rt-prose h2{font-size:25px}
+  .rt-fact-n{font-size:40px}
+  .rt-table{font-size:16px}
+  .rt-table .rt-t-num{font-size:14px}
+  .rt-video{grid-template-columns:280px minmax(0,1fr);align-items:center;padding:18px;gap:10px 20px}
+  .rt-sl{columns:2;column-gap:40px}
+  .rt-sl li{break-inside:avoid}
+  .rt-channel{grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:20px 22px}
+  .rt-channel-in{grid-template-columns:minmax(0,1fr) auto;align-items:center;padding-block:28px}
+  .rt-intro{padding:32px 0 24px}
+  .rt-intro-t{font-size:27px}
+  .rt-intro-p{font-size:16px}
+  .rt-home{display:grid;grid-template-columns:minmax(0,1fr) 280px;column-gap:56px}
+  .rt-home-aside,.rt-topic-aside{margin-top:22px;position:sticky;top:20px;align-self:start}
+  .rt-lead{grid-template-columns:minmax(0,1fr) 340px;gap:12px 36px;align-items:start;padding:28px 0 22px}
+  .rt-lead-t{font-size:35px}
+  .rt-lead-p{font-size:16px}
+  .rt-row{padding:16px 0 18px}
+  .rt-row-t{font-size:20px}
+  .rt-row--s .rt-row-t{font-size:18px}
+  .rt-row-p{font-size:15px}
+  .rt-topic-head{padding:36px 0 22px}
+  .rt-topic-title{font-size:58px}
+  .rt-topic-p{font-size:17px}
+  .rt-topic-grid{display:grid;grid-template-columns:minmax(0,1fr) 280px;column-gap:56px}
+  .rt-footer-in{padding-block:24px}
+}
+</style>
+
+<style id="demo-styles">
+/* ------------------------------------------------------------------
+   STYLY UKÁZKOVÉHO DOKUMENTU (prefix demo-) — do webu se NEpřenáší.
+   ------------------------------------------------------------------ */
+body.demo{margin:0;background:#E7EAEE;color:#20242B;font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;padding:32px 32px 96px}
+.demo-head{max-width:900px}
+.demo-head h1{font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-stretch:85%;font-size:27px;line-height:1.1;letter-spacing:-.01em;margin:0 0 12px}
+.demo-head p{margin:0 0 8px;max-width:78ch;color:#3D434D}
+.demo-head code,.demo-notes code{font-family:"IBM Plex Mono",monospace;font-size:.85em;background:#fff;border:1px solid #D5D9DF;border-radius:4px;padding:1px 5px;white-space:nowrap}
+.demo-toc{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.demo-toc a{color:#2B4A6F}
+.demo-sec{margin-top:72px;padding-top:22px;border-top:2px solid #C6CBD2}
+.demo-sec h2{font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-stretch:87%;font-size:21px;margin:0 0 8px}
+.demo-why{margin:0;max-width:80ch;color:#4A515C}
+.demo-row{display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start;margin-top:28px}
+.demo-frame{margin:0}
+.demo-cap{font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.65;letter-spacing:.02em;color:#4A515C;margin:0 0 10px}
+.demo-cap b{display:block;font-weight:600;font-size:12px;letter-spacing:.1em;color:#20242B;margin-bottom:2px}
+.demo-vp{border:1px solid #C9CED5;border-radius:8px;overflow:hidden;box-shadow:0 10px 30px rgba(18,22,28,.1)}
+.demo-notes{margin-top:72px;padding-top:22px;border-top:2px solid #C6CBD2;max-width:880px}
+.demo-notes h2{font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-stretch:87%;font-size:21px;margin:0}
+.demo-notes ol{margin:16px 0 0;padding-left:22px;display:grid;gap:10px;color:#3D434D}
+.demo-notes strong{color:#20242B}
+</style>
+</head>
+<body class="demo">
+
+
+
+
+<header class="demo-head">
+  <h1>RealTech.cz — návrh tří stránek</h1>
+  <p>Jeden soubor, čisté CSS, žádný JavaScript. Aplikační styly jsou v bloku <code>&lt;style id="rt-styles"&gt;</code> a všechny třídy mají prefix <code>rt-</code> — dají se přenášet po kusech. Vše s prefixem <code>demo-</code> je jen obal ukázky. Rámy mají pevné šířky (320 / 390 / 1280 px), stránka proto může scrollovat i vodorovně.</p>
+  <p>Stavy zaostření jsou součástí návrhu — zkuste procházet Tabem.</p>
+  <nav class="demo-toc"><a href="#clanek">1 · Článek</a><a href="#homepage">2 · Homepage</a><a href="#tema">3 · Téma</a><a href="#poznamky">Poznámky k přenosu</a></nav>
+</header>
+
+<!-- ════════════════════ 1 · STRÁNKA ČLÁNKU ════════════════════ -->
+<section class="demo-sec" id="clanek">
+  <h2>1 · Stránka článku</h2>
+  <p class="demo-why">Sem dopadá provoz z Googlu — 46 článků. Tři priority: pohodlné čtení dlouhého textu, moment přechodu na video/kanál a zdroje jako viditelná součást hodnoty.</p>
+
+  <div class="demo-row">
+    <!-- ──────────── 1A · článek · 390 px · světlý · s videem ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:390px"><b>1A · ČLÁNEK · 390 PX · SVĚTLÝ · S VIDEEM</b>
+      Sazba pro telefon: 17 px / 1,65, ~60 znaků na řádek. Video panel až po druhé kapitole — nepřeruší začátek čtení, ale nejde minout. Ověřený zdroj = podtržený odkaz s doménou v rámečku přímo za tvrzením; souhrn dole. Červená jen jednou: Přehrát.</figcaption>
+      <div class="demo-vp" style="width:390px">
+        <div class="rt-page">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-article"><div class="rt-container"><article class="rt-col">
+            <p class="rt-k rt-article-k"><a href="#">Starlink</a></p>
+            <h1 class="rt-article-title">Starlink v Česku po třech letech: rychlost klesla o&nbsp;třetinu, cena ne</h1>
+            <p class="rt-article-perex">SpaceX má na orbitě přes 7&nbsp;000 družic a v&nbsp;Česku desítky tisíc zákazníků. Prošli jsme veřejná měření a data ČTÚ — čísla nesedí s&nbsp;tím, co říká marketing.</p>
+            <p class="rt-k rt-article-meta"><span>12.&nbsp;7.&nbsp;2026</span><span>7 min čtení</span><a href="#zdroje-1a">6 zdrojů&nbsp;↓</a></p>
+            <div class="rt-prose">
+              <p>Když Starlink na podzim 2023 zrušil čekací listinu, stahoval český zákazník mediánem <a class="rt-src" href="#">134&nbsp;Mb/s<span class="rt-src-d">speedtest.net</span></a>. Letos na jaře to bylo 87&nbsp;Mb/s. Síť mezitím narostla o&nbsp;tisíce družic — jenže zákazníků přibývalo rychleji než kapacity.</p>
+              <p>Není to česká zvláštnost: stejný trend ukazují měření v&nbsp;Polsku i&nbsp;Rakousku. A nepřímo ho přiznává i&nbsp;operátor — kapacitní příplatky zavedené loni v&nbsp;přetížených buňkách jsou nástroj, jak poptávku brzdit.</p>
+              <h2>Co říkají měření</h2>
+              <p>Nejdelší veřejnou řadu vede Ookla: po čtvrtletích publikuje medián stahování, odesílání i&nbsp;odezvy. Doplnili jsme ji o&nbsp;<a class="rt-src" href="#">data z&nbsp;měřicí sítě NetTest<span class="rt-src-d">ctu.cz</span></a>. Obě řady se shodují v&nbsp;trendu, liší se metodikou vzorku.</p>
+              <figure class="rt-fact">
+                <p class="rt-fact-n">87 Mb/s</p>
+                <figcaption class="rt-k">medián stahování Starlink v&nbsp;ČR · Q2 2026 · <a href="#">speedtest.net</a></figcaption>
+              </figure>
+              <p>Odezva se drží mezi 35 a&nbsp;45&nbsp;ms, na video i&nbsp;hovory to stačí. Problém je špička: mezi 19. a&nbsp;22. hodinou padá propustnost v&nbsp;plných buňkách i&nbsp;pod polovinu mediánu.</p>
+              <h2>Kolik to stojí</h2>
+              <p>Ceník se od startu změnil třikrát — vždy nahoru u&nbsp;dat a&nbsp;dolů u&nbsp;hardwaru. Aktuální stav:</p>
+              <table class="rt-table">
+                <caption>Ceník Starlink pro ČR · červenec 2026 · <a href="#">starlink.com</a></caption>
+                <thead><tr><th scope="col">Tarif</th><th scope="col" class="rt-t-num">Cena / měsíc</th><th scope="col">Data</th></tr></thead>
+                <tbody>
+                  <tr><td>Standard</td><td class="rt-t-num">1&nbsp;290&nbsp;Kč</td><td>bez limitu</td></tr>
+                  <tr><td>Roam</td><td class="rt-t-num">1&nbsp;040&nbsp;Kč</td><td>50&nbsp;GB</td></tr>
+                  <tr><td>Priorita</td><td class="rt-t-num">4&nbsp;790&nbsp;Kč</td><td>1&nbsp;TB</td></tr>
+                </tbody>
+              </table>
+              <p>K&nbsp;tomu jednorázově 9&nbsp;690&nbsp;Kč za anténu. Pro srovnání: pevné VDSL s&nbsp;podobným mediánem vyjde na 550–700&nbsp;Kč měsíčně. Starlink dává smysl tam, kam kabel nedosáhne — a&nbsp;přesně tak ho SpaceX začal i&nbsp;inzerovat.</p>
+            </div>
+            <aside class="rt-video">
+              <div class="rt-thumb" role="img" aria-label="Náhled videa">
+                <span class="rt-k rt-thumb-note">náhled videa · 1280 × 720</span>
+                <span class="rt-thumb-play"><svg width="15" height="15" viewBox="0 0 10 10" aria-hidden="true"><path d="M2.4 1.1v7.8L9 5z" fill="#fff"></path></svg></span>
+              </div>
+              <div class="rt-video-b">
+                <p class="rt-k">Pokračování ve videu</p>
+                <h2 class="rt-video-t">Starlink na cestě: 1&nbsp;400 km s&nbsp;anténou na střeše auta</h2>
+                <p class="rt-k">YouTube · 18:24</p>
+                <div class="rt-video-a">
+                  <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Přehrát video</a>
+                  <a class="rt-video-sub" href="#">Odebírat kanál</a>
+                </div>
+              </div>
+            </aside>
+            <div class="rt-prose">
+              <h2>Kde je strop</h2>
+              <p>Jonathan McDowell k&nbsp;20. červenci eviduje <a class="rt-src" href="#">7&nbsp;214 družic na orbitě<span class="rt-src-d">planet4589.org</span></a>, z&nbsp;toho 6&nbsp;892 funkčních. Povolení FCC zní na <a class="rt-src" href="#">7&nbsp;500 kusů druhé generace<span class="rt-src-d">fcc.gov</span></a> — prostor pro růst kapacity nad ČR je omezenější, než sliby naznačují.</p>
+              <p>Krátkodobě pomůže přesun části zátěže na družice v3 s&nbsp;desetinásobnou kapacitou. Ty ale létají jen na Starship — a&nbsp;jeho harmonogram je kapitola sama pro sebe.</p>
+            </div>
+            <section class="rt-sources" id="zdroje-1a">
+              <h2 class="rt-sources-t">Ověřené zdroje</h2>
+              <p class="rt-sources-note">Každé číslo v článku vede na původní dokument nebo dataset.</p>
+              <ol class="rt-sl">
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">01</span><span class="rt-sl-b">Starlink Median Country Performance<span class="rt-sl-m"><span class="rt-sl-d">speedtest.net</span> · Q2 2026</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">02</span><span class="rt-sl-b">NetTest — statistiky měření<span class="rt-sl-m"><span class="rt-sl-d">ctu.cz</span> · 06/2026</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">03</span><span class="rt-sl-b">Jonathan McDowell: Starlink Statistics<span class="rt-sl-m"><span class="rt-sl-d">planet4589.org</span> · 20. 7. 2026</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">04</span><span class="rt-sl-b">FCC: Gen2 NGSO Authorization<span class="rt-sl-m"><span class="rt-sl-d">fcc.gov</span> · 12/2024</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">05</span><span class="rt-sl-b">Ceník služeb pro ČR<span class="rt-sl-m"><span class="rt-sl-d">starlink.com</span> · 07/2026</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">06</span><span class="rt-sl-b">Starlink Direct to Cell<span class="rt-sl-m"><span class="rt-sl-d">spacex.com</span> · 05/2026</span></span></a></li>
+              </ol>
+            </section>
+            <section class="rt-related">
+              <div class="rt-related-h"><h2 class="rt-k">Další k tématu Starlink</h2><a class="rt-k" href="#">Všech 6&nbsp;→</a></div>
+              <div>
+                <article class="rt-row rt-row--s">
+                  <p class="rt-k rt-row-m"><span>15.&nbsp;5.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 12:40</span></p>
+                  <h3 class="rt-row-t"><a href="#">Direct to Cell: telefon na satelit bez antény</a></h3>
+                </article>
+                <article class="rt-row rt-row--s">
+                  <p class="rt-k rt-row-m"><span>21.&nbsp;3.&nbsp;2026</span></p>
+                  <h3 class="rt-row-t"><a href="#">Kuiper vs. Starlink: co chystá Amazon</a></h3>
+                </article>
+                <article class="rt-row rt-row--s">
+                  <p class="rt-k rt-row-m"><span>9.&nbsp;11.&nbsp;2025</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 15:58</span></p>
+                  <h3 class="rt-row-t"><a href="#">Jak Starlink funguje: orbity, lasery, latence</a></h3>
+                </article>
+              </div>
+            </section>
+            <aside class="rt-channel">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Bez hype, s čísly — i v obraze</p>
+                <p class="rt-channel-p">Testy a měření se stejnými pravidly jako tenhle web. Články doplňují videa o zdroje, videa článkům dodávají obraz.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </aside>
+          </article></div></div>
+          <footer class="rt-footer"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+
+    <!-- ──────────── 1B · článek bez videa · 390 px · tmavý ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:390px"><b>1B · ČLÁNEK BEZ VIDEA · 390 PX · TMAVÝ</b>
+      Dva stavy najednou: tmavý režim a článek bez videa. Čtení nic nepřerušuje, na konci se místo konkrétního videa nabídne kanál. CTA je v tmavém režimu světlé — bílá na červené #E5322D má jen 4,4:1, červenou nese ikona. Tělo článku je pro ukázku zkrácené.</figcaption>
+      <div class="demo-vp" style="width:390px">
+        <div class="rt-page rt-dark">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-article"><div class="rt-container"><article class="rt-col">
+            <p class="rt-k rt-article-k"><a href="#">Umělá inteligence</a></p>
+            <h1 class="rt-article-title">Spotřeba AI: kolik elektřiny stojí jeden dotaz na chatbota</h1>
+            <p class="rt-article-perex">Kolují čísla od 0,3 do 10&nbsp;Wh na dotaz. Prošli jsme dostupné metodiky a vysvětlujeme, proč se odhady liší třicetkrát — a které číslo si zapamatovat.</p>
+            <p class="rt-k rt-article-meta"><span>8.&nbsp;7.&nbsp;2026</span><span>6 min čtení</span><a href="#zdroje-1b">4 zdroje&nbsp;↓</a></p>
+            <div class="rt-prose">
+              <p>Google loni poprvé zveřejnil vlastní měření: medián dotazu na Gemini spotřebuje <a class="rt-src" href="#">0,24&nbsp;Wh<span class="rt-src-d">blog.google</span></a> včetně chlazení a klidové spotřeby serverů. To je řádově méně, než uváděly starší akademické odhady.</p>
+              <figure class="rt-fact">
+                <p class="rt-fact-n">0,24 Wh</p>
+                <figcaption class="rt-k">medián jednoho dotazu · Google · 08/2025</figcaption>
+              </figure>
+              <h2>Proč se odhady liší</h2>
+              <p>Starší čísla počítala s&nbsp;plným vytížením GPU a často míchala trénování s&nbsp;provozem. Novější metodiky <a class="rt-src" href="#">měří celé datacentrum včetně PUE<span class="rt-src-d">iea.org</span></a> — a hlavně medián místo průměru, který zkreslují dlouhé odpovědi.</p>
+              <p>Pro představu: 0,24&nbsp;Wh je zhruba devět sekund mikrovlnky. V&nbsp;součtu za miliardy dotazů denně jde přesto o&nbsp;výkon menší elektrárny — proto se o&nbsp;čísle vůbec bavíme.</p>
+            </div>
+            <section class="rt-sources" id="zdroje-1b">
+              <h2 class="rt-sources-t">Ověřené zdroje</h2>
+              <p class="rt-sources-note">Každé číslo v článku vede na původní dokument nebo dataset.</p>
+              <ol class="rt-sl">
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">01</span><span class="rt-sl-b">Measuring the environmental impact of AI inference<span class="rt-sl-m"><span class="rt-sl-d">blog.google</span> · 08/2025</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">02</span><span class="rt-sl-b">Energy and AI<span class="rt-sl-m"><span class="rt-sl-d">iea.org</span> · 2025</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">03</span><span class="rt-sl-b">Powering Intelligence<span class="rt-sl-m"><span class="rt-sl-d">epri.com</span> · 2024</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">04</span><span class="rt-sl-b">AI Energy Score<span class="rt-sl-m"><span class="rt-sl-d">huggingface.co</span> · 06/2026</span></span></a></li>
+              </ol>
+            </section>
+            <section class="rt-related">
+              <div class="rt-related-h"><h2 class="rt-k">Další k tématu umělá inteligence</h2><a class="rt-k" href="#">Všech 12&nbsp;→</a></div>
+              <div>
+                <article class="rt-row rt-row--s">
+                  <p class="rt-k rt-row-m"><span>14.&nbsp;6.&nbsp;2026</span></p>
+                  <h3 class="rt-row-t"><a href="#">Open-weights není open-source: v čem je rozdíl</a></h3>
+                </article>
+                <article class="rt-row rt-row--s">
+                  <p class="rt-k rt-row-m"><span>3.&nbsp;7.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 14:52</span></p>
+                  <h3 class="rt-row-t"><a href="#">NPU v notebooku: co reálně zrychlí a co je marketing</a></h3>
+                </article>
+              </div>
+            </section>
+            <aside class="rt-channel">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Bez hype, s čísly — i v obraze</p>
+                <p class="rt-channel-p">K tomuhle článku video není. Na kanále ale najdete testy a měření se stejnými pravidly jako tady: čísla a zdroje místo dojmů.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </aside>
+          </article></div></div>
+          <footer class="rt-footer"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+  </div>
+
+  <div class="demo-row">
+    <!-- ──────────── 1C · článek · 1280 px · světlý · s videem ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:1000px"><b>1C · ČLÁNEK · 1280 PX · SVĚTLÝ · S VIDEEM</b>
+      Čtecí režim pro velké obrazovky a TV: text 19 px, sloupec max. 680 px (~65 znaků na řádek). Video panel vodorovně s náhledem, ověřené zdroje ve dvou sloupcích. Vše drží jednu klidnou osu.</figcaption>
+      <div class="demo-vp" style="width:1280px">
+        <div class="rt-page">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-article"><div class="rt-container"><article class="rt-col">
+            <p class="rt-k rt-article-k"><a href="#">Starlink</a></p>
+            <h1 class="rt-article-title">Starlink v Česku po třech letech: rychlost klesla o&nbsp;třetinu, cena ne</h1>
+            <p class="rt-article-perex">SpaceX má na orbitě přes 7&nbsp;000 družic a v&nbsp;Česku desítky tisíc zákazníků. Prošli jsme veřejná měření a data ČTÚ — čísla nesedí s&nbsp;tím, co říká marketing.</p>
+            <p class="rt-k rt-article-meta"><span>12.&nbsp;7.&nbsp;2026</span><span>7 min čtení</span><a href="#zdroje-1c">6 zdrojů&nbsp;↓</a></p>
+            <div class="rt-prose">
+              <p>Když Starlink na podzim 2023 zrušil čekací listinu, stahoval český zákazník mediánem <a class="rt-src" href="#">134&nbsp;Mb/s<span class="rt-src-d">speedtest.net</span></a>. Letos na jaře to bylo 87&nbsp;Mb/s. Síť mezitím narostla o&nbsp;tisíce družic — jenže zákazníků přibývalo rychleji než kapacity.</p>
+              <p>Není to česká zvláštnost: stejný trend ukazují měření v&nbsp;Polsku i&nbsp;Rakousku. A nepřímo ho přiznává i&nbsp;operátor — kapacitní příplatky zavedené loni v&nbsp;přetížených buňkách jsou nástroj, jak poptávku brzdit.</p>
+              <h2>Co říkají měření</h2>
+              <p>Nejdelší veřejnou řadu vede Ookla: po čtvrtletích publikuje medián stahování, odesílání i&nbsp;odezvy. Doplnili jsme ji o&nbsp;<a class="rt-src" href="#">data z&nbsp;měřicí sítě NetTest<span class="rt-src-d">ctu.cz</span></a>. Obě řady se shodují v&nbsp;trendu, liší se metodikou vzorku.</p>
+              <figure class="rt-fact">
+                <p class="rt-fact-n">87 Mb/s</p>
+                <figcaption class="rt-k">medián stahování Starlink v&nbsp;ČR · Q2 2026 · <a href="#">speedtest.net</a></figcaption>
+              </figure>
+              <p>Odezva se drží mezi 35 a&nbsp;45&nbsp;ms, na video i&nbsp;hovory to stačí. Problém je špička: mezi 19. a&nbsp;22. hodinou padá propustnost v&nbsp;plných buňkách i&nbsp;pod polovinu mediánu.</p>
+              <h2>Kolik to stojí</h2>
+              <p>Ceník se od startu změnil třikrát — vždy nahoru u&nbsp;dat a&nbsp;dolů u&nbsp;hardwaru. Aktuální stav:</p>
+              <table class="rt-table">
+                <caption>Ceník Starlink pro ČR · červenec 2026 · <a href="#">starlink.com</a></caption>
+                <thead><tr><th scope="col">Tarif</th><th scope="col" class="rt-t-num">Cena / měsíc</th><th scope="col">Data</th></tr></thead>
+                <tbody>
+                  <tr><td>Standard</td><td class="rt-t-num">1&nbsp;290&nbsp;Kč</td><td>bez limitu</td></tr>
+                  <tr><td>Roam</td><td class="rt-t-num">1&nbsp;040&nbsp;Kč</td><td>50&nbsp;GB</td></tr>
+                  <tr><td>Priorita</td><td class="rt-t-num">4&nbsp;790&nbsp;Kč</td><td>1&nbsp;TB</td></tr>
+                </tbody>
+              </table>
+              <p>K&nbsp;tomu jednorázově 9&nbsp;690&nbsp;Kč za anténu. Pro srovnání: pevné VDSL s&nbsp;podobným mediánem vyjde na 550–700&nbsp;Kč měsíčně. Starlink dává smysl tam, kam kabel nedosáhne — a&nbsp;přesně tak ho SpaceX začal i&nbsp;inzerovat.</p>
+            </div>
+            <aside class="rt-video">
+              <div class="rt-thumb" role="img" aria-label="Náhled videa">
+                <span class="rt-k rt-thumb-note">náhled videa · 1280 × 720</span>
+                <span class="rt-thumb-play"><svg width="15" height="15" viewBox="0 0 10 10" aria-hidden="true"><path d="M2.4 1.1v7.8L9 5z" fill="#fff"></path></svg></span>
+              </div>
+              <div class="rt-video-b">
+                <p class="rt-k">Pokračování ve videu</p>
+                <h2 class="rt-video-t">Starlink na cestě: 1&nbsp;400 km s&nbsp;anténou na střeše auta</h2>
+                <p class="rt-k">YouTube · 18:24</p>
+                <div class="rt-video-a">
+                  <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Přehrát video</a>
+                  <a class="rt-video-sub" href="#">Odebírat kanál</a>
+                </div>
+              </div>
+            </aside>
+            <div class="rt-prose">
+              <h2>Kde je strop</h2>
+              <p>Jonathan McDowell k&nbsp;20. červenci eviduje <a class="rt-src" href="#">7&nbsp;214 družic na orbitě<span class="rt-src-d">planet4589.org</span></a>, z&nbsp;toho 6&nbsp;892 funkčních. Povolení FCC zní na <a class="rt-src" href="#">7&nbsp;500 kusů druhé generace<span class="rt-src-d">fcc.gov</span></a> — prostor pro růst kapacity nad ČR je omezenější, než sliby naznačují.</p>
+              <p>Krátkodobě pomůže přesun části zátěže na družice v3 s&nbsp;desetinásobnou kapacitou. Ty ale létají jen na Starship — a&nbsp;jeho harmonogram je kapitola sama pro sebe.</p>
+            </div>
+            <section class="rt-sources" id="zdroje-1c">
+              <h2 class="rt-sources-t">Ověřené zdroje</h2>
+              <p class="rt-sources-note">Každé číslo v článku vede na původní dokument nebo dataset.</p>
+              <ol class="rt-sl">
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">01</span><span class="rt-sl-b">Starlink Median Country Performance<span class="rt-sl-m"><span class="rt-sl-d">speedtest.net</span> · Q2 2026</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">02</span><span class="rt-sl-b">NetTest — statistiky měření<span class="rt-sl-m"><span class="rt-sl-d">ctu.cz</span> · 06/2026</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">03</span><span class="rt-sl-b">Jonathan McDowell: Starlink Statistics<span class="rt-sl-m"><span class="rt-sl-d">planet4589.org</span> · 20. 7. 2026</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">04</span><span class="rt-sl-b">FCC: Gen2 NGSO Authorization<span class="rt-sl-m"><span class="rt-sl-d">fcc.gov</span> · 12/2024</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">05</span><span class="rt-sl-b">Ceník služeb pro ČR<span class="rt-sl-m"><span class="rt-sl-d">starlink.com</span> · 07/2026</span></span></a></li>
+                <li><a class="rt-sl-a" href="#"><span class="rt-sl-n">06</span><span class="rt-sl-b">Starlink Direct to Cell<span class="rt-sl-m"><span class="rt-sl-d">spacex.com</span> · 05/2026</span></span></a></li>
+              </ol>
+            </section>
+            <section class="rt-related">
+              <div class="rt-related-h"><h2 class="rt-k">Další k tématu Starlink</h2><a class="rt-k" href="#">Všech 6&nbsp;→</a></div>
+              <div>
+                <article class="rt-row rt-row--s">
+                  <p class="rt-k rt-row-m"><span>15.&nbsp;5.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 12:40</span></p>
+                  <h3 class="rt-row-t"><a href="#">Direct to Cell: telefon na satelit bez antény</a></h3>
+                </article>
+                <article class="rt-row rt-row--s">
+                  <p class="rt-k rt-row-m"><span>21.&nbsp;3.&nbsp;2026</span></p>
+                  <h3 class="rt-row-t"><a href="#">Kuiper vs. Starlink: co chystá Amazon</a></h3>
+                </article>
+                <article class="rt-row rt-row--s">
+                  <p class="rt-k rt-row-m"><span>9.&nbsp;11.&nbsp;2025</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 15:58</span></p>
+                  <h3 class="rt-row-t"><a href="#">Jak Starlink funguje: orbity, lasery, latence</a></h3>
+                </article>
+              </div>
+            </section>
+            <aside class="rt-channel">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Bez hype, s čísly — i v obraze</p>
+                <p class="rt-channel-p">Testy a měření se stejnými pravidly jako tenhle web. Články doplňují videa o zdroje, videa článkům dodávají obraz.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </aside>
+          </article></div></div>
+          <footer class="rt-footer"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ════════════════════ 2 · HOMEPAGE ════════════════════ -->
+<section class="demo-sec" id="homepage">
+  <h2>2 · Homepage</h2>
+  <p class="demo-why">Návštěvník přichází poprvé z popisku videa. Za pět sekund musí pochopit, co web je a proč zůstat — bez sloganu a prázdné plochy.</p>
+
+  <div class="demo-row">
+    <!-- ──────────── 2A · homepage · 390 px · světlý ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:390px"><b>2A · HOMEPAGE · 390 PX · SVĚTLÝ</b>
+      Úvod místo hero plochy: dvě věty a čísla webu, hlavní článek hned pod nimi. Štítek videa s délkou přímo v metadatech výpisu. Témata s počty pod výpisem, pás kanálu až na konci.</figcaption>
+      <div class="demo-vp" style="width:390px">
+        <div class="rt-page">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-container">
+            <div class="rt-intro">
+              <h1 class="rt-intro-t">Technika a AI do hloubky.</h1>
+              <p class="rt-intro-p">Web ke kanálu RealTech. Píšeme, co se do videa nevejde — ověřená fakta, čísla a souvislosti, ke každému tvrzení zdroj.</p>
+              <p class="rt-k">46 článků · 6 témat · 2024–2026</p>
+            </div>
+          </div>
+          <div class="rt-container rt-home">
+            <div class="rt-home-main">
+              <article class="rt-lead">
+                <div class="rt-lead-b">
+                  <p class="rt-k rt-row-m"><a href="#">Starlink</a><span>12.&nbsp;7.&nbsp;2026</span></p>
+                  <h2 class="rt-lead-t"><a href="#">Starlink v Česku po třech letech: rychlost klesla o&nbsp;třetinu, cena ne</a></h2>
+                  <p class="rt-lead-p">SpaceX má na orbitě přes 7&nbsp;000 družic. Prošli jsme veřejná měření a data ČTÚ — čísla nesedí s&nbsp;tím, co říká marketing.</p>
+                  <p class="rt-k rt-row-m"><span>7 min čtení</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 18:24</span></p>
+                </div>
+                <div class="rt-thumb" role="img" aria-label="Náhled videa ke článku">
+                  <span class="rt-k rt-thumb-note">náhled videa</span>
+                  <span class="rt-thumb-play"><svg width="15" height="15" viewBox="0 0 10 10" aria-hidden="true"><path d="M2.4 1.1v7.8L9 5z" fill="#fff"></path></svg></span>
+                  <span class="rt-thumb-time">18:24</span>
+                </div>
+              </article>
+              <h2 class="rt-k rt-list-h">Nejnovější</h2>
+              <div>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>10.&nbsp;7.&nbsp;2026</span><a href="#">Čipy a procesory</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 21:07</span></p>
+                  <h3 class="rt-row-t"><a href="#">TSMC spouští 2&nbsp;nm: co udělá s cenami telefonů v roce 2027</a></h3>
+                  <p class="rt-row-p">První vlna čipů N2 míří k Apple a Qualcommu. Spočítali jsme, o kolik podraží výroba jednoho čipu.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>8.&nbsp;7.&nbsp;2026</span><a href="#">Umělá inteligence</a></p>
+                  <h3 class="rt-row-t"><a href="#">Spotřeba AI: kolik elektřiny stojí jeden dotaz na chatbota</a></h3>
+                  <p class="rt-row-p">Odhady se liší třicetkrát. Prošli jsme metodiky a vysvětlujeme, které číslo si zapamatovat.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>3.&nbsp;7.&nbsp;2026</span><a href="#">PC a Windows</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 14:52</span></p>
+                  <h3 class="rt-row-t"><a href="#">NPU v notebooku: co reálně zrychlí a co je marketing</a></h3>
+                  <p class="rt-row-p">Měřili jsme tři generace čipů v úlohách, které NPU opravdu používají.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>28.&nbsp;6.&nbsp;2026</span><a href="#">Baterie a energie</a></p>
+                  <h3 class="rt-row-t"><a href="#">LFP po pěti letech: reálná degradace v číslech</a></h3>
+                  <p class="rt-row-p">Data z 1&nbsp;800 vozů ukazují, jak baterie stárnou mimo laboratoř.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>24.&nbsp;6.&nbsp;2026</span><a href="#">Vesmírné technologie</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 16:03</span></p>
+                  <h3 class="rt-row-t"><a href="#">Ariane 6 vs. Falcon 9: cena za kilogram na orbitu</a></h3>
+                  <p class="rt-row-p">Evropa má konečně čím létat. Srovnali jsme reálné ceny startů, ne katalogové.</p>
+                </article>
+              </div>
+            </div>
+            <aside class="rt-home-aside">
+              <nav class="rt-topics" aria-label="Témata">
+                <h2 class="rt-k">Témata</h2>
+                <ul>
+                  <li><a href="#">Umělá inteligence<span class="rt-topics-n">12</span></a></li>
+                  <li><a href="#">Čipy a procesory<span class="rt-topics-n">9</span></a></li>
+                  <li><a href="#">PC a Windows<span class="rt-topics-n">8</span></a></li>
+                  <li><a href="#">Starlink<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Baterie a energie<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Vesmírné technologie<span class="rt-topics-n">5</span></a></li>
+                </ul>
+              </nav>
+            </aside>
+          </div>
+          <aside class="rt-channel rt-channel--band">
+            <div class="rt-container rt-channel-in">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Ke každému velkému tématu je video</p>
+                <p class="rt-channel-p">Testy a měření v obraze — bez hype, se zdroji v popisku.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </div>
+          </aside>
+          <footer class="rt-footer" style="margin-top:0"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+  </div>
+
+  <div class="demo-row">
+    <!-- ──────────── 2B · homepage · 1280 px · světlý ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:1000px"><b>2B · HOMEPAGE · 1280 PX · SVĚTLÝ</b>
+      Dvousloupec: obsah vlevo (hlavní článek s náhledem, výpis), témata s počty článků vpravo (sticky). Jedna červená na obrazovku — Odebírat v pásu kanálu.</figcaption>
+      <div class="demo-vp" style="width:1280px">
+        <div class="rt-page">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-container">
+            <div class="rt-intro">
+              <h1 class="rt-intro-t">Technika a AI do hloubky.</h1>
+              <p class="rt-intro-p">Web ke kanálu RealTech. Píšeme, co se do videa nevejde — ověřená fakta, čísla a souvislosti, ke každému tvrzení zdroj.</p>
+              <p class="rt-k">46 článků · 6 témat · 2024–2026</p>
+            </div>
+          </div>
+          <div class="rt-container rt-home">
+            <div class="rt-home-main">
+              <article class="rt-lead">
+                <div class="rt-lead-b">
+                  <p class="rt-k rt-row-m"><a href="#">Starlink</a><span>12.&nbsp;7.&nbsp;2026</span></p>
+                  <h2 class="rt-lead-t"><a href="#">Starlink v Česku po třech letech: rychlost klesla o&nbsp;třetinu, cena ne</a></h2>
+                  <p class="rt-lead-p">SpaceX má na orbitě přes 7&nbsp;000 družic. Prošli jsme veřejná měření a data ČTÚ — čísla nesedí s&nbsp;tím, co říká marketing.</p>
+                  <p class="rt-k rt-row-m"><span>7 min čtení</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 18:24</span></p>
+                </div>
+                <div class="rt-thumb" role="img" aria-label="Náhled videa ke článku">
+                  <span class="rt-k rt-thumb-note">náhled videa</span>
+                  <span class="rt-thumb-play"><svg width="15" height="15" viewBox="0 0 10 10" aria-hidden="true"><path d="M2.4 1.1v7.8L9 5z" fill="#fff"></path></svg></span>
+                  <span class="rt-thumb-time">18:24</span>
+                </div>
+              </article>
+              <h2 class="rt-k rt-list-h">Nejnovější</h2>
+              <div>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>10.&nbsp;7.&nbsp;2026</span><a href="#">Čipy a procesory</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 21:07</span></p>
+                  <h3 class="rt-row-t"><a href="#">TSMC spouští 2&nbsp;nm: co udělá s cenami telefonů v roce 2027</a></h3>
+                  <p class="rt-row-p">První vlna čipů N2 míří k Apple a Qualcommu. Spočítali jsme, o kolik podraží výroba jednoho čipu.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>8.&nbsp;7.&nbsp;2026</span><a href="#">Umělá inteligence</a></p>
+                  <h3 class="rt-row-t"><a href="#">Spotřeba AI: kolik elektřiny stojí jeden dotaz na chatbota</a></h3>
+                  <p class="rt-row-p">Odhady se liší třicetkrát. Prošli jsme metodiky a vysvětlujeme, které číslo si zapamatovat.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>3.&nbsp;7.&nbsp;2026</span><a href="#">PC a Windows</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 14:52</span></p>
+                  <h3 class="rt-row-t"><a href="#">NPU v notebooku: co reálně zrychlí a co je marketing</a></h3>
+                  <p class="rt-row-p">Měřili jsme tři generace čipů v úlohách, které NPU opravdu používají.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>28.&nbsp;6.&nbsp;2026</span><a href="#">Baterie a energie</a></p>
+                  <h3 class="rt-row-t"><a href="#">LFP po pěti letech: reálná degradace v číslech</a></h3>
+                  <p class="rt-row-p">Data z 1&nbsp;800 vozů ukazují, jak baterie stárnou mimo laboratoř.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>24.&nbsp;6.&nbsp;2026</span><a href="#">Vesmírné technologie</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 16:03</span></p>
+                  <h3 class="rt-row-t"><a href="#">Ariane 6 vs. Falcon 9: cena za kilogram na orbitu</a></h3>
+                  <p class="rt-row-p">Evropa má konečně čím létat. Srovnali jsme reálné ceny startů, ne katalogové.</p>
+                </article>
+              </div>
+            </div>
+            <aside class="rt-home-aside">
+              <nav class="rt-topics" aria-label="Témata">
+                <h2 class="rt-k">Témata</h2>
+                <ul>
+                  <li><a href="#">Umělá inteligence<span class="rt-topics-n">12</span></a></li>
+                  <li><a href="#">Čipy a procesory<span class="rt-topics-n">9</span></a></li>
+                  <li><a href="#">PC a Windows<span class="rt-topics-n">8</span></a></li>
+                  <li><a href="#">Starlink<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Baterie a energie<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Vesmírné technologie<span class="rt-topics-n">5</span></a></li>
+                </ul>
+              </nav>
+            </aside>
+          </div>
+          <aside class="rt-channel rt-channel--band">
+            <div class="rt-container rt-channel-in">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Ke každému velkému tématu je video</p>
+                <p class="rt-channel-p">Testy a měření v obraze — bez hype, se zdroji v popisku.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </div>
+          </aside>
+          <footer class="rt-footer" style="margin-top:0"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+  </div>
+
+  <div class="demo-row">
+    <!-- ──────────── 2C · homepage · 1280 px · tmavý ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:1000px"><b>2C · HOMEPAGE · 1280 PX · TMAVÝ</b>
+      Tmavý režim: přepíšou se jen tokeny (třída <b style="display:inline">rt-dark</b> na kořeni), rozložení beze změny. Pás kanálu se od pozadí odlišuje plochou #1D232C, CTA je světlé s červenou ikonou.</figcaption>
+      <div class="demo-vp" style="width:1280px">
+        <div class="rt-page rt-dark">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-container">
+            <div class="rt-intro">
+              <h1 class="rt-intro-t">Technika a AI do hloubky.</h1>
+              <p class="rt-intro-p">Web ke kanálu RealTech. Píšeme, co se do videa nevejde — ověřená fakta, čísla a souvislosti, ke každému tvrzení zdroj.</p>
+              <p class="rt-k">46 článků · 6 témat · 2024–2026</p>
+            </div>
+          </div>
+          <div class="rt-container rt-home">
+            <div class="rt-home-main">
+              <article class="rt-lead">
+                <div class="rt-lead-b">
+                  <p class="rt-k rt-row-m"><a href="#">Starlink</a><span>12.&nbsp;7.&nbsp;2026</span></p>
+                  <h2 class="rt-lead-t"><a href="#">Starlink v Česku po třech letech: rychlost klesla o&nbsp;třetinu, cena ne</a></h2>
+                  <p class="rt-lead-p">SpaceX má na orbitě přes 7&nbsp;000 družic. Prošli jsme veřejná měření a data ČTÚ — čísla nesedí s&nbsp;tím, co říká marketing.</p>
+                  <p class="rt-k rt-row-m"><span>7 min čtení</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 18:24</span></p>
+                </div>
+                <div class="rt-thumb" role="img" aria-label="Náhled videa ke článku">
+                  <span class="rt-k rt-thumb-note">náhled videa</span>
+                  <span class="rt-thumb-play"><svg width="15" height="15" viewBox="0 0 10 10" aria-hidden="true"><path d="M2.4 1.1v7.8L9 5z" fill="#fff"></path></svg></span>
+                  <span class="rt-thumb-time">18:24</span>
+                </div>
+              </article>
+              <h2 class="rt-k rt-list-h">Nejnovější</h2>
+              <div>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>10.&nbsp;7.&nbsp;2026</span><a href="#">Čipy a procesory</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 21:07</span></p>
+                  <h3 class="rt-row-t"><a href="#">TSMC spouští 2&nbsp;nm: co udělá s cenami telefonů v roce 2027</a></h3>
+                  <p class="rt-row-p">První vlna čipů N2 míří k Apple a Qualcommu. Spočítali jsme, o kolik podraží výroba jednoho čipu.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>8.&nbsp;7.&nbsp;2026</span><a href="#">Umělá inteligence</a></p>
+                  <h3 class="rt-row-t"><a href="#">Spotřeba AI: kolik elektřiny stojí jeden dotaz na chatbota</a></h3>
+                  <p class="rt-row-p">Odhady se liší třicetkrát. Prošli jsme metodiky a vysvětlujeme, které číslo si zapamatovat.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>3.&nbsp;7.&nbsp;2026</span><a href="#">PC a Windows</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 14:52</span></p>
+                  <h3 class="rt-row-t"><a href="#">NPU v notebooku: co reálně zrychlí a co je marketing</a></h3>
+                  <p class="rt-row-p">Měřili jsme tři generace čipů v úlohách, které NPU opravdu používají.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>28.&nbsp;6.&nbsp;2026</span><a href="#">Baterie a energie</a></p>
+                  <h3 class="rt-row-t"><a href="#">LFP po pěti letech: reálná degradace v číslech</a></h3>
+                  <p class="rt-row-p">Data z 1&nbsp;800 vozů ukazují, jak baterie stárnou mimo laboratoř.</p>
+                </article>
+                <article class="rt-row">
+                  <p class="rt-k rt-row-m"><span>24.&nbsp;6.&nbsp;2026</span><a href="#">Vesmírné technologie</a><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 16:03</span></p>
+                  <h3 class="rt-row-t"><a href="#">Ariane 6 vs. Falcon 9: cena za kilogram na orbitu</a></h3>
+                  <p class="rt-row-p">Evropa má konečně čím létat. Srovnali jsme reálné ceny startů, ne katalogové.</p>
+                </article>
+              </div>
+            </div>
+            <aside class="rt-home-aside">
+              <nav class="rt-topics" aria-label="Témata">
+                <h2 class="rt-k">Témata</h2>
+                <ul>
+                  <li><a href="#">Umělá inteligence<span class="rt-topics-n">12</span></a></li>
+                  <li><a href="#">Čipy a procesory<span class="rt-topics-n">9</span></a></li>
+                  <li><a href="#">PC a Windows<span class="rt-topics-n">8</span></a></li>
+                  <li><a href="#">Starlink<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Baterie a energie<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Vesmírné technologie<span class="rt-topics-n">5</span></a></li>
+                </ul>
+              </nav>
+            </aside>
+          </div>
+          <aside class="rt-channel rt-channel--band">
+            <div class="rt-container rt-channel-in">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Ke každému velkému tématu je video</p>
+                <p class="rt-channel-p">Testy a měření v obraze — bez hype, se zdroji v popisku.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </div>
+          </aside>
+          <footer class="rt-footer" style="margin-top:0"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ════════════════════ 3 · STRÁNKA TÉMATU ════════════════════ -->
+<section class="demo-sec" id="tema">
+  <h2>3 · Stránka tématu</h2>
+  <p class="demo-why">Sem povede vyhledávání. Cíl: aby čtenář zjistil, že k tématu existuje šest článků, a otevřel víc než jeden.</p>
+
+  <div class="demo-row">
+    <!-- ──────────── 3A · téma · 390 px · světlý ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:390px"><b>3A · TÉMA · 390 PX · SVĚTLÝ</b>
+      Rozcestník: anotace tématu + počty (kolik článků, kolik s videem), pak chronologický výpis s perexy. Datum a štítek videa u každého záznamu.</figcaption>
+      <div class="demo-vp" style="width:390px">
+        <div class="rt-page">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-container">
+            <div class="rt-topic-head">
+              <p class="rt-k">Téma</p>
+              <h1 class="rt-topic-title">Starlink</h1>
+              <p class="rt-topic-p">Satelitní internet SpaceX: rychlosti a ceny v ČR, technika na pozadí a čísla, která se do tiskových zpráv nevešla.</p>
+              <p class="rt-k">6 článků · 4 s videem · 2024–2026</p>
+            </div>
+          </div>
+          <div class="rt-container rt-topic-grid">
+            <div>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>12.&nbsp;7.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 18:24</span></p>
+                <h2 class="rt-row-t"><a href="#">Starlink v Česku po třech letech: rychlost klesla o&nbsp;třetinu, cena ne</a></h2>
+                <p class="rt-row-p">Prošli jsme veřejná měření a data ČTÚ — čísla nesedí s tím, co říká marketing.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>15.&nbsp;5.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 12:40</span></p>
+                <h2 class="rt-row-t"><a href="#">Direct to Cell: telefon na satelit bez antény</a></h2>
+                <p class="rt-row-p">První měsíce ostrého provozu v USA a co z nich plyne pro ČR.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>21.&nbsp;3.&nbsp;2026</span></p>
+                <h2 class="rt-row-t"><a href="#">Kuiper vs. Starlink: co chystá Amazon</a></h2>
+                <p class="rt-row-p">3&nbsp;200 družic, vlastní terminály a agresivní ceny. Srovnání plánů s realitou.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>9.&nbsp;11.&nbsp;2025</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 15:58</span></p>
+                <h2 class="rt-row-t"><a href="#">Jak Starlink funguje: orbity, lasery, latence</a></h2>
+                <p class="rt-row-p">Proč je odezva nižší než u geostacionárních družic a kde jsou fyzikální limity.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>2.&nbsp;8.&nbsp;2025</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 10:12</span></p>
+                <h2 class="rt-row-t"><a href="#">Starlink Mini v testu: dva kilogramy internetu do batohu</a></h2>
+                <p class="rt-row-p">Týden provozu z powerbanky: spotřeba, rychlosti, slabiny.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>14.&nbsp;4.&nbsp;2024</span></p>
+                <h2 class="rt-row-t"><a href="#">Jas družic v číslech: proč astronomové protestují</a></h2>
+                <p class="rt-row-p">Měření jasnosti jednotlivých generací a co s tím SpaceX (ne)dělá.</p>
+              </article>
+            </div>
+            <aside class="rt-topic-aside">
+              <nav class="rt-topics" aria-label="Další témata">
+                <h2 class="rt-k">Další témata</h2>
+                <ul>
+                  <li><a href="#">Umělá inteligence<span class="rt-topics-n">12</span></a></li>
+                  <li><a href="#">Čipy a procesory<span class="rt-topics-n">9</span></a></li>
+                  <li><a href="#">PC a Windows<span class="rt-topics-n">8</span></a></li>
+                  <li><a href="#">Baterie a energie<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Vesmírné technologie<span class="rt-topics-n">5</span></a></li>
+                </ul>
+              </nav>
+            </aside>
+          </div>
+          <aside class="rt-channel rt-channel--band">
+            <div class="rt-container rt-channel-in">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Ke každému velkému tématu je video</p>
+                <p class="rt-channel-p">Testy a měření v obraze — bez hype, se zdroji v popisku.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </div>
+          </aside>
+          <footer class="rt-footer" style="margin-top:0"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+
+    <!-- ──────────── 3B · téma · 320 px · tmavý ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:320px"><b>3B · TÉMA · 320 PX · TMAVÝ</b>
+      Zátěžový test výpisu: nejužší displej + tmavý režim. Metadata se zalamují do více řádků, nic nepřetéká; titulky drží čitelných 19 px.</figcaption>
+      <div class="demo-vp" style="width:320px">
+        <div class="rt-page rt-dark">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-container">
+            <div class="rt-topic-head">
+              <p class="rt-k">Téma</p>
+              <h1 class="rt-topic-title">Starlink</h1>
+              <p class="rt-topic-p">Satelitní internet SpaceX: rychlosti a ceny v ČR, technika na pozadí a čísla, která se do tiskových zpráv nevešla.</p>
+              <p class="rt-k">6 článků · 4 s videem · 2024–2026</p>
+            </div>
+          </div>
+          <div class="rt-container rt-topic-grid">
+            <div>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>12.&nbsp;7.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 18:24</span></p>
+                <h2 class="rt-row-t"><a href="#">Starlink v Česku po třech letech: rychlost klesla o&nbsp;třetinu, cena ne</a></h2>
+                <p class="rt-row-p">Prošli jsme veřejná měření a data ČTÚ — čísla nesedí s tím, co říká marketing.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>15.&nbsp;5.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 12:40</span></p>
+                <h2 class="rt-row-t"><a href="#">Direct to Cell: telefon na satelit bez antény</a></h2>
+                <p class="rt-row-p">První měsíce ostrého provozu v USA a co z nich plyne pro ČR.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>21.&nbsp;3.&nbsp;2026</span></p>
+                <h2 class="rt-row-t"><a href="#">Kuiper vs. Starlink: co chystá Amazon</a></h2>
+                <p class="rt-row-p">3&nbsp;200 družic, vlastní terminály a agresivní ceny. Srovnání plánů s realitou.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>9.&nbsp;11.&nbsp;2025</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 15:58</span></p>
+                <h2 class="rt-row-t"><a href="#">Jak Starlink funguje: orbity, lasery, latence</a></h2>
+                <p class="rt-row-p">Proč je odezva nižší než u geostacionárních družic a kde jsou fyzikální limity.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>2.&nbsp;8.&nbsp;2025</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 10:12</span></p>
+                <h2 class="rt-row-t"><a href="#">Starlink Mini v testu: dva kilogramy internetu do batohu</a></h2>
+                <p class="rt-row-p">Týden provozu z powerbanky: spotřeba, rychlosti, slabiny.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>14.&nbsp;4.&nbsp;2024</span></p>
+                <h2 class="rt-row-t"><a href="#">Jas družic v číslech: proč astronomové protestují</a></h2>
+                <p class="rt-row-p">Měření jasnosti jednotlivých generací a co s tím SpaceX (ne)dělá.</p>
+              </article>
+            </div>
+            <aside class="rt-topic-aside">
+              <nav class="rt-topics" aria-label="Další témata">
+                <h2 class="rt-k">Další témata</h2>
+                <ul>
+                  <li><a href="#">Umělá inteligence<span class="rt-topics-n">12</span></a></li>
+                  <li><a href="#">Čipy a procesory<span class="rt-topics-n">9</span></a></li>
+                  <li><a href="#">PC a Windows<span class="rt-topics-n">8</span></a></li>
+                  <li><a href="#">Baterie a energie<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Vesmírné technologie<span class="rt-topics-n">5</span></a></li>
+                </ul>
+              </nav>
+            </aside>
+          </div>
+          <aside class="rt-channel rt-channel--band">
+            <div class="rt-container rt-channel-in">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Ke každému velkému tématu je video</p>
+                <p class="rt-channel-p">Testy a měření v obraze — bez hype, se zdroji v popisku.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </div>
+          </aside>
+          <footer class="rt-footer" style="margin-top:0"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+  </div>
+
+  <div class="demo-row">
+    <!-- ──────────── 3C · téma · 1280 px · světlý ──────────── -->
+    <figure class="demo-frame">
+      <figcaption class="demo-cap" style="max-width:1000px"><b>3C · TÉMA · 1280 PX · SVĚTLÝ</b>
+      Desktop tématu: velký titul tématu, výpis vlevo, Další témata vpravo (sticky) jako pokračování rozcestníku.</figcaption>
+      <div class="demo-vp" style="width:1280px">
+        <div class="rt-page">
+          <header class="rt-header"><div class="rt-container rt-header-in">
+            <a class="rt-logo" href="#">RealTech<span class="rt-logo-tld">.cz</span></a>
+            <nav class="rt-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></header>
+          <div class="rt-container">
+            <div class="rt-topic-head">
+              <p class="rt-k">Téma</p>
+              <h1 class="rt-topic-title">Starlink</h1>
+              <p class="rt-topic-p">Satelitní internet SpaceX: rychlosti a ceny v ČR, technika na pozadí a čísla, která se do tiskových zpráv nevešla.</p>
+              <p class="rt-k">6 článků · 4 s videem · 2024–2026</p>
+            </div>
+          </div>
+          <div class="rt-container rt-topic-grid">
+            <div>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>12.&nbsp;7.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 18:24</span></p>
+                <h2 class="rt-row-t"><a href="#">Starlink v Česku po třech letech: rychlost klesla o&nbsp;třetinu, cena ne</a></h2>
+                <p class="rt-row-p">Prošli jsme veřejná měření a data ČTÚ — čísla nesedí s tím, co říká marketing.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>15.&nbsp;5.&nbsp;2026</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 12:40</span></p>
+                <h2 class="rt-row-t"><a href="#">Direct to Cell: telefon na satelit bez antény</a></h2>
+                <p class="rt-row-p">První měsíce ostrého provozu v USA a co z nich plyne pro ČR.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>21.&nbsp;3.&nbsp;2026</span></p>
+                <h2 class="rt-row-t"><a href="#">Kuiper vs. Starlink: co chystá Amazon</a></h2>
+                <p class="rt-row-p">3&nbsp;200 družic, vlastní terminály a agresivní ceny. Srovnání plánů s realitou.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>9.&nbsp;11.&nbsp;2025</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 15:58</span></p>
+                <h2 class="rt-row-t"><a href="#">Jak Starlink funguje: orbity, lasery, latence</a></h2>
+                <p class="rt-row-p">Proč je odezva nižší než u geostacionárních družic a kde jsou fyzikální limity.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>2.&nbsp;8.&nbsp;2025</span><span class="rt-vflag"><svg width="8" height="9" viewBox="0 0 8 9" aria-hidden="true"><path d="M1 .8v7.4L7.4 4.5z" fill="currentColor"></path></svg>video · 10:12</span></p>
+                <h2 class="rt-row-t"><a href="#">Starlink Mini v testu: dva kilogramy internetu do batohu</a></h2>
+                <p class="rt-row-p">Týden provozu z powerbanky: spotřeba, rychlosti, slabiny.</p>
+              </article>
+              <article class="rt-row">
+                <p class="rt-k rt-row-m"><span>14.&nbsp;4.&nbsp;2024</span></p>
+                <h2 class="rt-row-t"><a href="#">Jas družic v číslech: proč astronomové protestují</a></h2>
+                <p class="rt-row-p">Měření jasnosti jednotlivých generací a co s tím SpaceX (ne)dělá.</p>
+              </article>
+            </div>
+            <aside class="rt-topic-aside">
+              <nav class="rt-topics" aria-label="Další témata">
+                <h2 class="rt-k">Další témata</h2>
+                <ul>
+                  <li><a href="#">Umělá inteligence<span class="rt-topics-n">12</span></a></li>
+                  <li><a href="#">Čipy a procesory<span class="rt-topics-n">9</span></a></li>
+                  <li><a href="#">PC a Windows<span class="rt-topics-n">8</span></a></li>
+                  <li><a href="#">Baterie a energie<span class="rt-topics-n">6</span></a></li>
+                  <li><a href="#">Vesmírné technologie<span class="rt-topics-n">5</span></a></li>
+                </ul>
+              </nav>
+            </aside>
+          </div>
+          <aside class="rt-channel rt-channel--band">
+            <div class="rt-container rt-channel-in">
+              <div class="rt-channel-b">
+                <p class="rt-k">RealTech na YouTube · 259&nbsp;000 zhlédnutí</p>
+                <p class="rt-channel-t">Ke každému velkému tématu je video</p>
+                <p class="rt-channel-p">Testy a měření v obraze — bez hype, se zdroji v popisku.</p>
+              </div>
+              <a class="rt-btn" href="#"><svg width="11" height="11" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2v7.6L8.8 5z" fill="currentColor"></path></svg>Odebírat kanál</a>
+            </div>
+          </aside>
+          <footer class="rt-footer" style="margin-top:0"><div class="rt-container rt-footer-in">
+            <p class="rt-k">© 2026 RealTech · web ke kanálu</p>
+            <nav class="rt-k rt-footer-nav"><a href="#">Témata</a><a href="#">YouTube&nbsp;↗</a></nav>
+          </div></footer>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ════════════════════ POZNÁMKY ════════════════════ -->
+<section class="demo-notes" id="poznamky">
+  <h2>Poznámky k přenosu do webu</h2>
+  <ol>
+    <li><strong>Co si vzít:</strong> celý blok <code>&lt;style id="rt-styles"&gt;</code> a kusy markup z rámů. Nic mimo prefix <code>rt-</code> není potřeba.</li>
+    <li><strong>Responzivita:</strong> v ukázce je přes <code>@container rt-page (min-width: 860px)</code>, aby fungovala v rámech s pevnou šířkou. Na webu přepište 1:1 na <code>@media (min-width: 860px)</code> a z <code>.rt-page</code> smažte <code>container-type</code> a <code>container-name</code>.</li>
+    <li><strong>Tmavý režim:</strong> třída <code>.rt-dark</code> pouze přepisuje tokeny. Na webu ji pověste na <code>&lt;html&gt;</code> podle <code>prefers-color-scheme</code> nebo přepínače — komponenty se nemění.</li>
+    <li><strong>Červená:</strong> v celém CSS ji nese jen <code>a.rt-btn</code> (a ikona v tlačítku v tmavém režimu). Jedna akce na obrazovku; nikde jinde ji nepoužívat. V tmavém režimu je tlačítko světlé záměrně — bílý text na #E5322D má kontrast jen 4,4:1.</li>
+    <li><strong>Přístupnost:</strong> všechny textové kombinace ≥ 4,5:1 (ověřeno pro oba režimy), fokus = 2px obrys s odsazením (<code>:focus-visible</code>), odkazy podtržené, ne jen barevné. Štítky videa mají text („video · 18:24“), ne jen ikonu.</li>
+    <li><strong>Ikony a obrázky:</strong> jediné SVG v návrhu je trojúhelník přehrávání (inline, ~90 B). Pruhované plochy jsou placeholdery náhledů — na webu je nahradí <code>&lt;img loading="lazy"&gt;</code> s náhledem z YouTube; poměr 16:9 drží <code>aspect-ratio</code> na <code>.rt-thumb</code>.</li>
+    <li><strong>Písma:</strong> Archivo se načítá jako variabilní s osou šířky (wdth 75–100) — kondenzované titulky dělá <code>font-stretch</code>. Pokud osa není k dispozici, <code>font-stretch</code> se tiše ignoruje a zůstane běžné Archivo.</li>
+  </ol>
+</section>
+
+
+
+</body></html>
