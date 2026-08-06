@@ -4,7 +4,7 @@ description: "Horní stupeň Falconu 9 z lunární mise ze zimy 2025 dopadl 5. s
 category: "Vesmír"
 date: 2026-08-06
 zprava: true
-image: "/images/clanky/falcon-9-narazil-do-mesice.jpg"
+image: "/images/clanky/falcon-9-narazil-do-mesice-v2.jpg"
 ---
 
 Ve středu 5. srpna v **6:35 UTC** narazil do Měsíce kus vesmírného odpadu — konkrétně **horní stupeň rakety Falcon 9**, který v lednu 2025 vynesl k Měsíci landery Blue Ghost od Firefly Aerospace a japonský Hakuto-R. Objekt s katalogovým označením 2025-010D pak víc než rok bezvládně kroužil kolem Země, až ho gravitace a tlak slunečního záření nasměrovaly na kolizní kurz.
