@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/eu-android-ai-asistenti.jpg"
 ---
 
-Na Androidu má dnes plný přístup k systému jen jeden AI asistent — **Gemini**. Jen ten jde probudit hlasem s vypnutým displejem a jen ten smí za vás pracovat v ostatních aplikacích. To se změní: Evropská komise 16. července vydala **dvě závazná rozhodnutí podle Digital Markets Act**, která Googlu nařizují otevřít **11 klíčových funkcí Androidu** konkurenčním AI službám. Zadarmo.
+Na Androidu má dnes plný přístup k systému jen jeden AI asistent — **[Gemini](/clanky/waze-gemini-novinky/)**. Jen ten jde probudit hlasem s vypnutým displejem a jen ten smí za vás pracovat v ostatních aplikacích. To se změní: Evropská komise 16. července vydala **dvě závazná rozhodnutí podle Digital Markets Act**, která Googlu nařizují otevřít **11 klíčových funkcí Androidu** konkurenčním AI službám. Zadarmo.
 
 ## Co to znamená pro vás
 

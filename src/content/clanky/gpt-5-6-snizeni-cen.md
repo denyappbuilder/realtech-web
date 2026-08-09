@@ -7,7 +7,7 @@ image: "/images/clanky/gpt-5-6-snizeni-cen.jpg"
 zprava: true
 ---
 
-OpenAI oznámilo 30. července zlevnění dvou ze tří modelů rodiny GPT-5.6. A nejde o kosmetiku — **Luna, nejrychlejší a nejlevnější model, spadla o 80 %**. Vyvážená **Terra zlevnila o 20 %**. Nejsilnější Sol zůstává na stejné ceně.
+OpenAI oznámilo 30. července zlevnění dvou ze tří modelů rodiny GPT-5.6. A nejde o kosmetiku — **[Luna, nejrychlejší a nejlevnější model](/clanky/chatgpt-zdarma-neomezene-chaty/), spadla o 80 %**. Vyvážená **Terra zlevnila o 20 %**. Nejsilnější Sol zůstává na stejné ceně.
 
 ## Konkrétní čísla
 

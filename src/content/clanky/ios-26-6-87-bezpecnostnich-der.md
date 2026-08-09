@@ -16,7 +16,7 @@ Zajímavější je ale to, co Apple napsal na svoji bezpečnostní stránku. Tam
 Seznam postižených komponent je dlouhý a nepříjemně široký:
 
 - **Jádro systému (Kernel)** — nejvíc záznamů ze všech, patnáct oprav. Chyby v jádře jsou ty nejcitlivější, protože můžou útočníkovi dát práva nad celým zařízením.
-- **WebKit** — engine, na kterém běží Safari a každý prohlížeč na iPhonu. Dvanáct oprav i s položkami WebKit Canvas a WebKit Storage. Stačí navštívit nastražený web.
+- **WebKit** — engine, na kterém běží Safari a každý prohlížeč na iPhonu. Dvanáct oprav i s položkami WebKit Canvas a WebKit Storage. Stačí navštívit [nastražený web](/clanky/hotelova-wifi-captivecrunch/).
 - **ImageIO a Model I/O** — zpracování obrázků a 3D modelů, dohromady třináct oprav. Klasický vektor: pošlete oběti soubor a on se zpracuje sám.
 - **Wi-Fi, Siri, Apple Neural Engine, Sandbox Profiles, Security, Safari Downloads** a řada dalších.
 

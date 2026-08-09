@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/spacex-nvidia-starmind-ai1.jpg"
 ---
 
-Když se řekne „datacentrum", představíte si halu někde u řeky, kde se chladí tisíce serverů. SpaceX to chce postavit o pár set kilometrů výš. Firma v úterý 4. srpna oznámila, že spolu s **Nvidií** vyvíjí výpočetní payload pro satelit **Starmind AI1** — stroj, který má zpracovávat AI úlohy přímo na nízké oběžné dráze.
+Když se řekne „datacentrum", představíte si halu někde u řeky, kde se chladí tisíce serverů. [SpaceX](/clanky/proc-je-spacex-tak-napred/) to chce postavit o pár set kilometrů výš. Firma v úterý 4. srpna oznámila, že spolu s **Nvidií** vyvíjí výpočetní payload pro satelit **Starmind AI1** — stroj, který má zpracovávat AI úlohy přímo na nízké oběžné dráze.
 
 Uvnitř mají být **GPU Rubin a CPU Vera**, tedy nejnovější hardware, který Nvidia řadí do svého vesmírného portfolia. Podle Nvidie zvládne modul Space-1 Vera Rubin až **pětadvacetinásobek výkonu H100**; komerční dodávky mají začít ještě letos.
 

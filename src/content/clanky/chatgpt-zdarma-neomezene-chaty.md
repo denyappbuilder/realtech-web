@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/chatgpt-zdarma-neomezene-chaty.jpg"
 ---
 
-OpenAI ve čtvrtek oznámil update ChatGPT, který se nejvíc dotkne lidí s **free účtem**. Výchozím modelem se pro ně tento týden stává **GPT-5.6 Luna** a od **příštího týdne** k tomu přibývají **neomezené textové chaty**. Tedy konec počítání zpráv u běžného psaní — s jednou podmínkou, kterou OpenAI zmiňuje výslovně: limity dál platí pro **nahrávání souborů, obrázky a další nástroje** a celé to podléhá ochraně proti zneužití.
+OpenAI ve čtvrtek oznámil update ChatGPT, který se nejvíc dotkne lidí s **free účtem**. Výchozím modelem se pro ně tento týden stává **[GPT-5.6 Luna](/clanky/gpt-5-6-snizeni-cen/)** a od **příštího týdne** k tomu přibývají **neomezené textové chaty**. Tedy konec počítání zpráv u běžného psaní — s jednou podmínkou, kterou OpenAI zmiňuje výslovně: limity dál platí pro **nahrávání souborů, obrázky a další nástroje** a celé to podléhá ochraně proti zneužití.
 
 Free účty navíc dostávají tlačítko **Think**. Když narazíš na složitější dotaz, klikneš na něj a model dostane víc času odpověď promyslet. Dřív to byla doména placených tarifů.
 

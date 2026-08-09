@@ -15,7 +15,7 @@ Ve WhatsApp Webu teď zvládneš **audio i video hovory, jeden na jednoho i skup
 
 To je přesně ta situace, kdy máš pracovní notebook, na který ti IT nedovolí nic instalovat, nebo sedíš u cizího počítače. Otevřeš prohlížeč a voláš.
 
-Meta k tomu přidala další čtyři věci:
+[Meta](/clanky/whatsapp-skupiny-all-ankety/) k tomu přidala další čtyři věci:
 
 - **Přehození hovoru mezi zařízeními.** Aktivní skupinový hovor přesuneš z mobilu na WhatsApp Web nebo desktop (a naopak), aniž bys zavěsil. Začneš cestou v autě, doma pokračuješ na velkém monitoru.
 - **Čekárna pro skupinové hovory.** Když u odkazu na hovor zapneš „vyžadovat schválení", lidi počkají v čekárně, dokud je nepustíš dovnitř. Konec náhodných příchozích do rozjeté schůzky.
