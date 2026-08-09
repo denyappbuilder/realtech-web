@@ -1,0 +1,22 @@
+name: IndexNow after deploy
+
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  notify-indexnow:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download deployed sitemap
+        run: |
+          mkdir -p dist
+          curl --fail --silent --show-error --retry 3 \
+            https://realtech.cz/sitemap-0.xml \
+            --output dist/sitemap-0.xml
+      - name: Notify IndexNow
+        run: node scripts/indexnow.mjs

@@ -24,6 +24,8 @@ interface Props {
   description?: string;
   image?: string;
   ogType?: string;
+  /** Direktivy pro roboty; velké náhledy obrázků jsou povolené ve výchozím stavu. */
+  robots?: string;
 }
 
 const vsechnyClanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -34,6 +36,7 @@ const {
   description = 'Tech novinky a analýzy bez marketingových řečí. Web YouTube kanálu REALTECH CZ.',
   image = '/og-default.jpg',
   ogType = 'website',
+  robots = 'max-image-preview:large',
 } = Astro.props;
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
@@ -74,6 +77,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={popisSeo} />
+  <meta name="robots" content={robots} />
   <link rel="canonical" href={canonical} />
   <meta property="og:title" content={socialniTitulek} />
   <meta property="og:description" content={popisSeo} />

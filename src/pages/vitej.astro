@@ -10,8 +10,11 @@ const latest = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 ---
-<Base title="Vítej v RealTechu — REALTECH CZ" description="Odběr potvrzen. Vítej v RealTech newsletteru.">
-  <meta name="robots" content="noindex" slot="head" />
+<Base
+  title="Vítej v RealTechu — REALTECH CZ"
+  description="Odběr potvrzen. Vítej v RealTech newsletteru."
+  robots="noindex, max-image-preview:large"
+>
   <section class="about wrap">
     <div class="lower-third">
       <span class="tag">Newsletter</span>
