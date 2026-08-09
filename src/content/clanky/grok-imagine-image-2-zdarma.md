@@ -25,7 +25,7 @@ Model běží jako **Quality Mode** na webu i v mobilních aplikacích pro iOS a
 
 ## Co to znamená prakticky
 
-Pokud děláte thumbnaily, produktové fotky nebo cokoli, kde potřebujete konzistenci mezi verzemi, je regionální editace přesně ta funkce, která šetří čas. Vyměnit barvu produktu, odstranit rušivý objekt, přerámovat hotový vizuál na story formát — bez toho, aby se rozsypal zbytek.
+Pokud děláte [thumbnaily](/clanky/youtube-shorts-vlastni-nahledy/), produktové fotky nebo cokoli, kde potřebujete konzistenci mezi verzemi, je regionální editace přesně ta funkce, která šetří čas. Vyměnit barvu produktu, odstranit rušivý objekt, přerámovat hotový vizuál na story formát — bez toho, aby se rozsypal zbytek.
 
 A protože je to teď zadarmo, testování nic nestojí. Jak dlouho „omezená doba" potrvá, xAI neupřesnilo — takže pokud vás to zajímá, nemá cenu to odkládat na příští měsíc.
 

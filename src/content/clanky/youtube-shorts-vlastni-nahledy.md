@@ -25,7 +25,7 @@ Prakticky to znamená, že menší tvůrci, co dosud lepili náhledy v Canvě ne
 
 ## Co si z toho odnést
 
-Pro nás, co točíme, je to čistý plus. Shorts konečně přestávají být „náhodný snímek z videa" a dá se s nimi pracovat jako s plnohodnotným formátem. A pokud sledujete, jak se AI tlačí do běžných nástrojů: tohle je přesně ten typ nasazení, který si nikdo neodmávne jako demo — prostě to sedí v Studiu a šetří čas.
+Pro nás, co [točíme s AI](/clanky/jak-delame-videa-s-ai/), je to čistý plus. Shorts konečně přestávají být „náhodný snímek z videa" a dá se s nimi pracovat jako s plnohodnotným formátem. A pokud sledujete, jak se AI tlačí do běžných nástrojů: tohle je přesně ten typ nasazení, který si nikdo neodmávne jako demo — prostě to sedí v Studiu a šetří čas.
 
 ## Zdroj
 
