@@ -27,14 +27,18 @@ const ODDELOVAC = /\s+[—–]\s+/;
 
 /**
  * @param {string} nadpis plný nadpis článku nebo stránky
- * @param {{ znacka?: string, limit?: number }} [volby]
- * @returns {string} titulek do `<title>`, nikdy prázdný, nikdy delší než limit
+ * @param {{ znacka?: string, limit?: number, zachovatCely?: boolean }} [volby]
+ * @returns {string} titulek do `<title>`, nikdy prázdný
  */
 export function seoTitulek(nadpis, volby = {}) {
   const limit = volby.limit ?? LIMIT;
   const znacka = volby.znacka ?? ZNACKA;
   const cely = String(nadpis ?? "").trim();
   if (!cely) return znacka;
+
+  // U článků je celý redakční titulek důležitější než pevný znakový limit.
+  // Krácení za pomlčkou totiž zahazovalo hledané názvy produktů a služeb.
+  if (volby.zachovatCely) return cely;
 
   // 1) jen část před pomlčkou — ale když by z toho zbyl ohryzek, nech celek
   const prvni = cely.split(ODDELOVAC)[0].trim();
