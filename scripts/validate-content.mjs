@@ -8,6 +8,7 @@
 //     (Starlink průvodce takhle chvíli odkazoval na 404, než se dopublikoval druhý díl)
 import fs from 'node:fs';
 import path from 'node:path';
+import { ARTICLE_CATEGORIES } from '../src/content-categories.mjs';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
@@ -20,16 +21,41 @@ const titles = new Map();
 const today = new Date();
 today.setHours(23, 59, 59, 999);
 
+const REQUIRED_FIELDS = ['title', 'description', 'category', 'date'];
+
+function frontmatterValue(frontmatter, field) {
+  const value = frontmatter.match(new RegExp(`^${field}:\\s*(.*?)\\s*$`, 'm'))?.[1].trim();
+  if (!value) return undefined;
+
+  const quote = value[0];
+  if ((quote === '"' || quote === "'") && value.at(-1) === quote) {
+    return value.slice(1, -1).trim() || undefined;
+  }
+
+  return value;
+}
+
 for (const f of files) {
   const slug = f.replace(/\.md$/, '');
   const full = path.join(DIR, f);
   let raw = fs.readFileSync(full, 'utf8');
   const fm = raw.split('---')[1] ?? '';
 
-  const image = fm.match(/^image:\s*["']?(.+?)["']?\s*$/m)?.[1];
+  const image = frontmatterValue(fm, 'image');
   const hasVideo = /^video:/m.test(fm);
-  const title = fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1];
-  const dateStr = fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+  const title = frontmatterValue(fm, 'title');
+  const category = frontmatterValue(fm, 'category');
+  const dateStr = frontmatterValue(fm, 'date')?.match(/^(\d{4}-\d{2}-\d{2})/)?.[1];
+
+  for (const field of REQUIRED_FIELDS) {
+    if (!frontmatterValue(fm, field)) {
+      errors.push(`${slug}: chybí povinné pole ${field}`);
+    }
+  }
+
+  if (category && !ARTICLE_CATEGORIES.includes(category)) {
+    errors.push(`${slug}: neplatné pole category "${category}"`);
+  }
 
   // 1. chybí image, ale cover existuje → doplnit
   if (!image && !hasVideo && fs.existsSync(`${IMG}/${slug}.jpg`)) {
