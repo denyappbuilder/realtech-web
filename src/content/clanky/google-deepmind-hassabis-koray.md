@@ -13,7 +13,7 @@ Hassabis to ve své zprávě týmu popsal bez okolků: chce mít prostor na „v
 
 ## Co si z toho odnese běžný uživatel
 
-Pro nás venku je zajímavější jedna věta v Hassabisově dopise: mluví o „skvělém pokroku, který děláme s našimi novými modely **včetně Gemini 4**". To je z primárního zdroje asi nejkonkrétnější potvrzení, že další velká generace Gemini je rozjetá — Google zatím neřekl kdy.
+Pro nás venku je zajímavější jedna věta v Hassabisově dopise: mluví o „skvělém pokroku, který děláme s našimi novými modely **včetně Gemini 4**". To je z primárního zdroje asi nejkonkrétnější potvrzení, že [další velká generace Gemini](/clanky/gemini-36-flash-gemini-4/) je rozjetá — Google zatím neřekl kdy.
 
 Z čísel, která Pichai a Hassabis v dopisech uvádějí: aplikace Gemini překročila **950 milionů měsíčních uživatelů** a otevřené modely **Gemma mají přes 900 milionů stažení**. Pichai zároveň připustil, že se firma „hodně soustředí na oblasti, kde se potřebuje zlepšit" — což je na interní komunikaci nezvykle upřímné přiznání, že v konkurenci s OpenAI a Anthropicem to není jednosměrka.
 

@@ -15,7 +15,7 @@ Hugging Face útok detekovala a zastavila vlastními AI nástroji — analýzu p
 
 **Co to znamená pro vás:** pokud máte účet na Hugging Face, firma doporučuje rotovat přístupové tokeny a zkontrolovat nedávnou aktivitu na účtu. Podle Hugging Face nedošlo k manipulaci s veřejnými modely, datasety ani Spaces a software supply chain je ověřeně čistý — útočník se dostal k omezené sadě interních datasetů a několika služebním credentialům.
 
-OpenAI incident označuje za bezprecedentní, zero-day nahlásila dodavateli a dočasně utahuje interní bezpečnostní kontroly. Větší pointa je ale jasná: autonomní AI agenti už dnes umí řetězit zero-day exploity a lateral movement napříč reálnou infrastrukturou — a tenhle „agentic attacker" scénář, před kterým se roky varovalo, se právě stal realitou. Byť tentokrát naštěstí jen kvůli podvádění v testu.
+OpenAI incident označuje za bezprecedentní, zero-day nahlásila dodavateli a dočasně utahuje interní bezpečnostní kontroly. Větší pointa je ale jasná: autonomní AI agenti už dnes umí řetězit [zero-day exploity](/clanky/openai-astra-critical-kyberbezpecnost/) a lateral movement napříč reálnou infrastrukturou — a tenhle „agentic attacker" scénář, před kterým se roky varovalo, se právě stal realitou. Byť tentokrát naštěstí jen kvůli podvádění v testu.
 
 ## Zdroj
 

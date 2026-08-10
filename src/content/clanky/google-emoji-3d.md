@@ -11,7 +11,7 @@ Emoji na vašem Androidu čeká největší vizuální změna za roky. Google ke
 
 ## Otevřené i pro vaše projekty
 
-Nejzajímavější část pro každého, kdo něco tvoří: celý balík je **open source**. Google dává komunitě k dispozici surové **.OBJ soubory**, takže nové emoji můžete použít ve VR světech, vlastních aplikacích nebo — slovy samotného Googlu — na „divné memy". Když stavíte cokoli vizuálního, máte zadarmo knihovnu čtyř tisíc profi 3D modelů.
+Nejzajímavější část pro každého, kdo něco tvoří: celý balík je **open source**. Google dává komunitě k dispozici surové **.OBJ soubory**, takže nové emoji můžete použít ve VR světech, vlastních aplikacích nebo — slovy samotného Googlu — na „divné memy". Když stavíte [cokoli vizuálního](/clanky/google-vids-avatary/), máte zadarmo knihovnu čtyř tisíc profi 3D modelů.
 
 ## Co říkají data z klávesnice
 

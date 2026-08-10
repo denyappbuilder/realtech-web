@@ -23,7 +23,7 @@ Vedle toho běží PowerShell zloděj ChocoShell, který cílí na to nejcenněj
 
 Praktické pravidlo je jednoduché: **aktualizaci, která na vás vyskočí hned po připojení k cizí Wi-Fi, nikdy neinstalujte.** Legitimní systém ani prohlížeč se takhle nechovají. A pokud vám nějaká stránka diktuje, co máte zkopírovat do příkazové řádky, je to útok — vždy.
 
-Microsoft popisuje útoky jako stále probíhající a děkuje za spolupráci Anthropicu a OpenAI. Podle firmy skupina využívá AI k podstatné části svých operací.
+Microsoft popisuje útoky jako stále probíhající a děkuje za spolupráci Anthropicu a OpenAI. Podle firmy skupina [využívá AI k podstatné části svých operací](/clanky/openai-agent-hack-hugging-face/).
 
 ## Zdroj
 

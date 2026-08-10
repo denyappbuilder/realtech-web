@@ -31,6 +31,6 @@ Precedens už mají: v červnu 2025 podobně reagovali, když jejich modely dos�
 
 ## Jedna věta, která stojí za pozornost
 
-V textu je mimochodem schovaná poznámka, že Astra **nebyla zapojena do exploitace Hugging Face**. OpenAI k tomu víc nepíše — ale samotná potřeba tohle explicitně vyvracet naznačuje, že se na pozadí děje ještě něco dalšího.
+V textu je mimochodem schovaná poznámka, že Astra **nebyla zapojena do [exploitace Hugging Face](/clanky/openai-agent-hack-hugging-face/)**. OpenAI k tomu víc nepíše — ale samotná potřeba tohle explicitně vyvracet naznačuje, že se na pozadí děje ještě něco dalšího.
 
 Firma zároveň tlačí na to, že takhle schopné modely mají hlavně **pomáhat obráncům** najít díry dřív než útočníci, a že chce Astru zpřístupnit „široce". Což je přesně ta rovnice, kterou zatím nikdo nevyřešil: nástroj, co umí sám psát zero-daye, nerozlišuje, kdo ho drží v ruce.

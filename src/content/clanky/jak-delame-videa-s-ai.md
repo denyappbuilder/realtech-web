@@ -23,7 +23,7 @@ Náhledové obrázky článků na tomhle webu generuje AI (aktuálně Gemini) po
 
 ## Shorts: z dlouhého videa krátké, poloautomaticky
 
-Z retenčních dat vidíme, která pasáž long-formu diváky drží nejvíc — a z ní umíme poloautomaticky vystřihnout vertikální Short: výřez, titulky slovo po slovu, hlasitost srovnaná na standard YouTube.
+Z retenčních dat vidíme, která pasáž long-formu diváky drží nejvíc — a z ní umíme poloautomaticky vystřihnout vertikální [Short](/clanky/youtube-shorts-vlastni-nahledy/): výřez, titulky slovo po slovu, hlasitost srovnaná na standard YouTube.
 
 ## Co AI u nás nedělá (a dělat nebude)
 

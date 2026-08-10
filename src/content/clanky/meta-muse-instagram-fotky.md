@@ -13,7 +13,7 @@ V pátek večer (v noci na sobotu našeho času) Meta funkci **stáhla**. V aktu
 
 ## Co z toho plyne pro tebe
 
-Pokud máš veřejný Instagram, stojí za to si projít **nastavení soukromí** — sekci, kde Meta řídí, jak se tvůj obsah může používat pro AI funkce. Tahle konkrétní funkce je pryč, ale Meta jasně říká, že podobné nástroje budou přibývat. Kdo nechce být surovinou pro cizí generované obrázky, měl by vědět, kde má vypínač.
+Pokud máš veřejný Instagram, stojí za to si projít **nastavení soukromí** — sekci, kde Meta řídí, jak se tvůj obsah může používat pro AI funkce. Tahle konkrétní funkce je pryč, ale Meta jasně říká, že [podobné nástroje](/clanky/grok-imagine-image-2-zdarma/) budou přibývat. Kdo nechce být surovinou pro cizí generované obrázky, měl by vědět, kde má vypínač.
 
 ## Muse Image jinak zůstává
 
