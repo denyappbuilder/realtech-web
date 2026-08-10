@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/cina-exportni-kontroly-ai-modely.jpg"
 ---
 
-Poslední rok a půl fungovalo pravidlo, na které si vývojáři po celém světě zvykli: nejlepší americké modely jsou zamčené za API, nejlepší čínské si stáhneš a spustíš u sebe. Qwen od Alibaby, DeepSeek, Kimi od Moonshotu — otevřené váhy, žádná faktura za každý dotaz. Teď to podle **Financial Times** může skončit. A poprvé v tom nejde o Washington, ale o Peking.
+Poslední rok a půl fungovalo pravidlo, na které si vývojáři po celém světě zvykli: nejlepší americké modely jsou zamčené za API, nejlepší čínské si stáhneš a spustíš u sebe. Qwen od Alibaby, DeepSeek, Kimi od Moonshotu — otevřené váhy, žádná faktura za každý dotaz; zájem o ně dokládá i [nápor na předplatné Kimi K3](/clanky/kimi-k3-stop-predplatne/). Teď to podle **Financial Times** může skončit. A poprvé v tom nejde o Washington, ale o Peking.
 
 ## Co se vlastně děje
 

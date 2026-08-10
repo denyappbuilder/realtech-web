@@ -53,6 +53,6 @@ Sázka firmy zní: nejbezpečnější AI bude zároveň nejužitečnější, pro
 
 Verze zdarma stačí na vyzkoušení, má ale výrazně nižší limity zpráv, než jsme zvyklí u Gemini nebo ChatGPT. Placený plán Pro nabízí pětinásobné limity; plán Max za 3 až 6 tisíc měsíčně cílí na vývojáře a firemní zákazníky, kteří používají Claude Code nebo pracují s velkými dokumenty.
 
-Claude se vyplatí každému, kdo hodně používá Word, Excel nebo PowerPoint, každému, kdo programuje, kdo pracuje s dlouhými PDF, smlouvami či knihami — a komu záleží na tom, aby jeho data nešla do tréninku dalších modelů. Naopak ChatGPT nebo Gemini doporučíme těm, kterým jde hlavně o generování obrázků a videí nebo o špičkového hlasového asistenta, a těm, kdo na AI šetří — Claude patří obecně k dražším.
+Claude se vyplatí každému, kdo hodně používá Word, Excel nebo PowerPoint, každému, kdo programuje, kdo pracuje s dlouhými PDF, smlouvami či knihami — a komu záleží na tom, aby jeho data nešla do tréninku dalších modelů. Aktuální poměr výkonu a ceny posunul hlavně [Claude Opus 5](/clanky/anthropic-claude-opus-5/). Naopak ChatGPT nebo Gemini doporučíme těm, kterým jde hlavně o generování obrázků a videí nebo o špičkového hlasového asistenta, a těm, kdo na AI šetří — Claude patří obecně k dražším.
 
 Z naší zkušenosti funguje výborně a určitě stojí za vyzkoušení.

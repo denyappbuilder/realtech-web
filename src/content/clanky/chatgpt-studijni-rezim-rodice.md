@@ -13,7 +13,7 @@ Znáte to: dítě „dělá úkoly s ChatGPT", ale ve skutečnosti jen kopíruje
 
 Podmínkou je propojení účtů: rodič si v ChatGPT naváže teenagerský účet přes **Parental Controls** (funkce, kterou OpenAI spustilo už dřív). Nově tam přibyla možnost **zapnout Study Mode za dítě** — a když to rodič udělá, režim se automaticky aktivuje **v každém novém chatu**, který teenager začne. Dítě si ho sice mohlo zapnout i samo, ale ruku na srdce — kolik jich to udělá dobrovolně?
 
-Studijní režim funguje jinak než běžný ChatGPT: **nedává hotové odpovědi**. Místo toho vede studenta k řešení pomocí návodných otázek, rozkládá problém na kroky a nechává ho přemýšlet. OpenAI ho stavělo ve spolupráci s učiteli a experty na pedagogiku a podle vlastních prvních měření má režim pozitivní vliv na studijní výsledky.
+Studijní režim funguje jinak než běžný ChatGPT: **nedává hotové odpovědi**. Je to jedna z konkrétních funkcí vedle širších změn, jako jsou [neomezené chaty pro bezplatné účty](/clanky/chatgpt-zdarma-neomezene-chaty/). Místo toho vede studenta k řešení pomocí návodných otázek, rozkládá problém na kroky a nechává ho přemýšlet. OpenAI ho stavělo ve spolupráci s učiteli a experty na pedagogiku a podle vlastních prvních měření má režim pozitivní vliv na studijní výsledky.
 
 ## Co k tomu OpenAI přibalilo
 

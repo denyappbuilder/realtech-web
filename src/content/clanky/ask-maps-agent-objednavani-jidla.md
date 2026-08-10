@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/ask-maps-agent-objednavani-jidla.jpg"
 ---
 
-Google dnes vypustil největší dávku novinek pro **Ask Maps** — to je ta Gemini nadstavba nad Mapami, kterou sám označuje za největší proměnu Map za víc než deset let. A poprvé to není jen o odpovídání na otázky, ale o tom, že za tebe Mapy něco **udělají**.
+Google dnes vypustil největší dávku novinek pro **Ask Maps** — to je ta Gemini nadstavba nad Mapami, kterou sám označuje za největší proměnu Map za víc než deset let. Podobně už [Gemini proměňuje i navigaci ve Waze](/clanky/waze-gemini-novinky/). A poprvé to není jen o odpovídání na otázky, ale o tom, že za tebe Mapy něco **udělají**.
 
 ## Agent, co ti naplní košík
 
@@ -23,7 +23,7 @@ Tady je potřeba být přesný, protože Google to rozdělil na dvě hromádky. 
 
 Celosvětově — všude, kde Ask Maps běží — se naopak spouští **živý widget pro MHD**, který ukazuje zpoždění autobusů, vlaků, metra i přívozů a přepočítává čekání po minutách, dál personalizovanější odpovědi a pamatování konverzací.
 
-Samotné Ask Maps se navíc rozšiřují do Austrálie, Brazílie, Kanady, Indonésie, Japonska a Mexika a podle Googlu **do víc než 150 zemí a teritorií v angličtině**. Česko ani EU Google v oznámení jmenovitě neuvádí — a u Gemini funkcí to bývá ten rozdíl, který rozhoduje. Než si tedy zvykneš, že ti Mapy objednají večeři, počítej spíš s tím lepším jízdním řádem.
+Samotné Ask Maps se navíc rozšiřují do Austrálie, Brazílie, Kanady, Indonésie, Japonska a Mexika a podle Googlu **do víc než 150 zemí a teritorií v angličtině**. Česko ani EU Google v oznámení jmenovitě neuvádí — a u Gemini funkcí to bývá ten rozdíl, který rozhoduje, stejně jako u [agenta Gemini Spark pro Chrome](/clanky/gemini-spark-chrome-mimo-eu/). Než si tedy zvykneš, že ti Mapy objednají večeři, počítej spíš s tím lepším jízdním řádem.
 
 ## Zdroj
 
