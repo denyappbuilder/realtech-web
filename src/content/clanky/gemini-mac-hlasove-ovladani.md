@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/gemini-mac-hlasove-ovladani.jpg"
 ---
 
-Google dnes přidal aplikaci Gemini pro macOS hlasové ovládání, které nefunguje jen uvnitř aplikace, ale **v jakémkoli okně na ploše**. Ovládání je jednoduché: podržíš klávesu **Fn**, mluvíš, a Gemini vloží hotový text přímo tam, kde máš kurzor.
+Google dnes přidal aplikaci Gemini pro macOS [hlasové ovládání](/clanky/gpt-live-chatgpt-voice/), které nefunguje jen uvnitř aplikace, ale **v jakémkoli okně na ploše**. Ovládání je jednoduché: podržíš klávesu **Fn**, mluvíš, a Gemini vloží hotový text přímo tam, kde máš kurzor.
 
 Ve výchozím nastavení jde o „inteligentní diktování". Rozdíl proti klasickému diktafonu je v tom, co se s řečí stane cestou — Google uvádí, že model **automaticky vyhazuje „ehm" a „aha"**, pozná, když se uprostřed věty opravíš, a vloží až uhlazený, naformátovaný text. Žádné přepisování surového přepisu ručně.
 

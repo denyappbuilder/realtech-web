@@ -21,7 +21,7 @@ Výjimky už dřív dostaly Netgear, Amazon nebo Gryphon. Rozdíl je v tom, kdo 
 
 Ve stejném týdnu šla stejná logika opačným směrem. **21. července** FCC zahájila **první revokační řízení proti dronové firmě** v historii — Order to Show Cause proti společnosti Odyssey Robot LLC registrované v Delaware. Ta v podáních z ledna a února tvrdila, že její drony jsou navržené v Kalifornii a smontované v Texasu firmou eTak Worldwide. eTak úřadu odpověděla, že s Odyssey **nemá žádný vztah** a že provozuje recyklaci elektroniky. Radiové testy v podání navíc dělal TÜV Rheinland v **Šen-čenu**.
 
-Den nato FCC navrhla zakázat dovoz a prodej produktů **devíti značek** — Cogito, Fikaxo, Lyno Dynamics, Skyhigh Tech, Spatial Hover, SZ Knowact, WaveGo, Xtra a XAG — které podle ní prodávají **přebalené DJI** drony a kamery. Veřejnost může posílat vyjádření 30 dní.
+Den nato FCC navrhla zakázat dovoz a prodej produktů **devíti značek** — Cogito, Fikaxo, Lyno Dynamics, Skyhigh Tech, Spatial Hover, SZ Knowact, WaveGo, Xtra a XAG — které podle ní prodávají **přebalené [DJI drony](/clanky/dji-ban-usa/)** a kamery. Veřejnost může posílat vyjádření 30 dní.
 
 ## Co to znamená u nás
 

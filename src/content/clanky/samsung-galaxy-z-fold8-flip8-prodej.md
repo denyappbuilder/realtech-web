@@ -11,7 +11,7 @@ Samsung oznámil, že nová řada Galaxy Z a hodinky jdou do světového prodeje
 
 ## Tři skládačky, každá jinak
 
-**Galaxy Z Fold8** je nejlehčí Fold, jaký kdy Samsung udělal — **201 gramů**. Hlavní displej má poměr 4:3 a Samsung u něj nasadil novou technologii **Flex Titanium**, která má držet tenčí konstrukci displeje a zároveň časem míň zvýrazňovat ohyb.
+**Galaxy Z Fold8** je nejlehčí Fold, jaký kdy Samsung udělal — **201 gramů**. Hlavní displej má poměr 4:3 a Samsung u něj nasadil novou technologii **[Flex Titanium](/clanky/samsung-flex-titanium-skladacky/)**, která má držet tenčí konstrukci displeje a zároveň časem míň zvýrazňovat ohyb.
 
 **Fold8 Ultra** je ta drahá varianta pro lidi, co s telefonem pracují: **8" hlavní displej**, **4,1 mm** v rozloženém stavu, 215 g, baterie **5 000 mAh** a nabíjení **45 W**. Hlavní **200MP fotoaparát** nově umí HDR přímo ve 200MP režimu, přibyl 50MP ultraširokáč s makrem.
 
@@ -25,7 +25,7 @@ K tomu Samsung přepracoval **Smart Switch**: uživatel iPhonu naskenuje QR kód
 
 ## A co hodinky
 
-**Watch Ultra2** má 47 mm titanové tělo, displej až **5 000 nitů**, baterii **800 mAh** (o 35 % víc než předchozí Ultra) a odolnost IP69K / 10 ATM. **Watch9** je civilnější — 40 a 44 mm, hliník, 3 000 nitů, důraz na spánek a zdravotní metriky.
+**Watch Ultra2** má 47 mm titanové tělo, displej až **5 000 nitů**, baterii **800 mAh** (o 35 % víc než předchozí Ultra) a odolnost IP69K / 10 ATM. **[Watch9](/clanky/samsung-unpacked-fold8-watch9/)** je civilnější — 40 a 44 mm, hliník, 3 000 nitů, důraz na spánek a zdravotní metriky.
 
 Ke každému novému skládacímu telefonu dává Samsung **šest měsíců Google AI Pro** včetně 5 TB úložiště (hodnota 119,94 USD). Ceny pro český trh v tiskové zprávě nejsou — ty budou u operátorů.
 

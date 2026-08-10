@@ -13,7 +13,7 @@ OpenAI vypustila **GPT-Live** — novou generaci hlasových modelů, která nahr
 
 Zásadní změna je tzv. **full-duplex architektura**: model poslouchá a mluví **současně**, místo aby čekal, až domluvíš. V praxi to znamená, že GPT-Live umí přitakat („mhmm", „jasně"), nechá tě domluvit, a když se odmlčíš, abys popřemýšlel, **neskočí ti do řeči** — což byl přesně ten otravný zlozvyk starého hlasového režimu, kde každá pauza znamenala, že ti model začne odpovídat. Podle OpenAI si taky líp poradí s hlukem na pozadí, třeba s projíždějícími auty.
 
-Druhý trik: GPT-Live řeší jen konverzaci. Když se zeptáš na něco těžšího — vyhledávání na webu, delší úvaha — **deleguje to na pozadí na GPT-5.5** a mezitím s tebou dál mluví. Výsledek ti pak vrátí do konverzace. Sám si můžeš zvolit úroveň přemýšlení: Instant pro rychlé odpovědi, Medium a High, když chceš, aby si dal záležet.
+Druhý trik: GPT-Live řeší jen konverzaci. Když se zeptáš na něco těžšího — vyhledávání na webu, delší úvaha — **deleguje to na pozadí na [GPT-5.5](/clanky/gpt-5-6-snizeni-cen/)** a mezitím s tebou dál mluví. Výsledek ti pak vrátí do konverzace. Sám si můžeš zvolit úroveň přemýšlení: Instant pro rychlé odpovědi, Medium a High, když chceš, aby si dal záležet.
 
 K tomu OpenAI remasterovala všech devět hlasů, přidala živý překlad a hlasový režim nově umí k mluvení **zobrazovat i vizuální odpovědi** na obrazovce.
 

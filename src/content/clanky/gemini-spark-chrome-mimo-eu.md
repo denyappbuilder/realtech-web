@@ -13,7 +13,7 @@ Google včera oznámil dvě věci k **Gemini Sparku** — svému AI agentovi, kt
 
 První novinka je propojení Sparku přímo s Chromem. S tvým svolením může agent **využít tvoje přihlášené účty a hesla uložená v Password Manageru** a vyřizovat otravné internetové pochůzky — Google jmenuje domlouvání prohlídek bytů, které sis uložil, nebo vyhledání letenek včetně rozjetí rezervace.
 
-Google zároveň říká, jak to hlídá: brání se prompt injection útokům a **u citlivých kroků, jako jsou platby, úkol vrací zpátky tobě**. V nápovědě je to konkrétnější — Gemini si vyžádá potvrzení před odesíláním zpráv, úpravou dat, nákupy a odesíláním formulářů. Přihlašovací a platební údaje ale podle Googlu nemáš psát do zadání úkolu vůbec — máš si v takovém případě převzít kontrolu nad prohlížečem a vyplnit je přímo na stránce.
+Google zároveň říká, jak to hlídá: brání se [prompt injection útokům](/clanky/openai-agent-hack-hugging-face/) a **u citlivých kroků, jako jsou platby, úkol vrací zpátky tobě**. V nápovědě je to konkrétnější — Gemini si vyžádá potvrzení před odesíláním zpráv, úpravou dat, nákupy a odesíláním formulářů. Přihlašovací a platební údaje ale podle Googlu nemáš psát do zadání úkolu vůbec — máš si v takovém případě převzít kontrolu nad prohlížečem a vyplnit je přímo na stránce.
 
 Za pozornost stojí, jak otevřeně Google popisuje rizika: agent má přístup ke stejným webům jako ty, včetně těch přihlášených, a může s weby sdílet tvoje jméno, kontakty, soubory i věci, které považuješ za citlivé. Sám to označuje za experimentální funkci v rané fázi vývoje, kde je tvůj dohled to hlavní, co tě chrání.
 
