@@ -19,7 +19,7 @@ Kimi K3 je s **2,8 bilionu parametrů** podle Moonshotu největší open-weight 
 
 ## Proč na to nestačí servery
 
-Za problémem je i geopolitika: americké exportní kontroly omezují čínským firmám přístup k nejvýkonnějším Nvidia čipům, takže škálování kapacity je pro ně dražší a pomalejší než pro OpenAI nebo Anthropic. A tlak poroste — ve stejný den, kdy Moonshot stopnul registrace, vypustila Alibaba preview svého modelu **Qwen3.8-Max** s 2,4 bilionu parametrů.
+Za problémem je i geopolitika: [americké exportní kontroly](/clanky/cina-exportni-kontroly-ai-modely/) omezují čínským firmám přístup k nejvýkonnějším Nvidia čipům, takže škálování kapacity je pro ně dražší a pomalejší než pro OpenAI nebo Anthropic. A tlak poroste — ve stejný den, kdy Moonshot stopnul registrace, vypustila Alibaba preview svého modelu **Qwen3.8-Max** s 2,4 bilionu parametrů.
 
 Podle agentury Reuters se Moonshot zároveň chystá na **vstup na hongkongskou burzu** a shání až 2 miliardy dolarů při valuaci kolem 30 miliard. Přetížené servery jsou tedy paradoxně skvělá reklama — horší by bylo, kdyby o model nikdo nestál.
 
