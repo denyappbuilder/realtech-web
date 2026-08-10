@@ -132,6 +132,21 @@ test('duplicitní titulek vypíše varování, ale validace projde', (t) => {
   assert.match(result.stdout, /2 článků OK/);
 });
 
+for (const field of ['date', 'updated']) {
+  test(`neplatné kalendářní pole ${field} ukončí validaci chybou`, (t) => {
+    const root = createFixture(t);
+    writeArticle(root, `spatne-${field}`, validFrontmatter({ [field]: '2026-02-31' }));
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1);
+    assert.match(
+      result.stderr,
+      new RegExp(`spatne-${field}\\.md: pole "${field}" není platné kalendářní datum: 2026-02-31`),
+    );
+  });
+}
+
 for (const requiredField of ['title', 'description', 'category', 'date']) {
   test(
     `chybějící povinné pole ${requiredField} má ukončit validaci chybou`,

@@ -115,7 +115,12 @@ test(
       }
     });
 
-    assert.deepEqual(actual, urls.map(() => '2025-08-09T00:00:00.000Z'));
+    assert.deepEqual(actual, [
+      undefined,
+      '2025-08-09T00:00:00.000Z',
+      '2025-08-09T00:00:00.000Z',
+      '2025-08-09T00:00:00.000Z',
+    ]);
   },
 );
 
