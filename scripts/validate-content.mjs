@@ -3,7 +3,7 @@
 //     (stalo se u waze-gemini-novinky i claude-cowork-sandbox-utek — článek pak byl bez náhledovky)
 //  2. článek odkazuje na `image:`, který neexistuje → build FAIL (radši spadnout než vydat rozbitý článek)
 //  3. duplicitní titulky napříč články → varování
-//  4. datum článku v budoucnosti (překlep v roce/měsíci) → varování
+//  4. neplatné kalendářní datum → build FAIL; datum v budoucnosti → varování
 //  5. interní odkaz na /clanky/SLUG/, který neexistuje → build FAIL
 //     (Starlink průvodce takhle chvíli odkazoval na 404, než se dopublikoval druhý díl)
 import fs from 'node:fs';
@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { load as parseYaml } from 'js-yaml';
 import ts from 'typescript';
 import { z } from 'astro/zod';
+import { parseCalendarDate } from '../src/lib/calendarDate.js';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
@@ -85,6 +86,13 @@ for (const f of files) {
   const hasVideo = /^video:/m.test(fm);
   const title = fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1];
   const dateStr = fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+  const updatedStr = fm.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+
+  for (const [field, value] of [['date', dateStr], ['updated', updatedStr]]) {
+    if (value && !parseCalendarDate(value)) {
+      errors.push(`${f}: pole "${field}" není platné kalendářní datum: ${value}`);
+    }
+  }
 
   // 1. chybí image, ale cover existuje → doplnit
   if (!image && !hasVideo && fs.existsSync(`${IMG}/${slug}.jpg`)) {
@@ -107,7 +115,7 @@ for (const f of files) {
   }
 
   // 4. datum v budoucnu
-  if (dateStr && new Date(dateStr) > today) {
+  if (dateStr && parseCalendarDate(dateStr) > today) {
     warnings.push(`${slug}: datum ${dateStr} je v budoucnosti`);
   }
 }
