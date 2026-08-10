@@ -8,10 +8,52 @@
 //     (Starlink průvodce takhle chvíli odkazoval na 404, než se dopublikoval druhý díl)
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
+import { fileURLToPath } from 'node:url';
+import { load as parseYaml } from 'js-yaml';
+import ts from 'typescript';
+import { z } from 'astro/zod';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
 const files = fs.readdirSync(DIR).filter((f) => f.endsWith('.md'));
+const REPOSITORY_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+function loadArticleSchema() {
+  const configPath = path.join(REPOSITORY_ROOT, 'src/content.config.ts');
+  const source = fs.readFileSync(configPath, 'utf8');
+  const { outputText } = ts.transpileModule(source, {
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+    },
+    fileName: configPath,
+  });
+  const configModule = { exports: {} };
+  const requireFromConfig = (specifier) => {
+    if (specifier === 'astro:content') return { defineCollection: (config) => config, z };
+    if (specifier === 'astro/loaders') return { glob: (options) => options };
+    throw new Error(`Nepodporovaný import v content.config.ts: ${specifier}`);
+  };
+
+  vm.runInNewContext(
+    outputText,
+    {
+      exports: configModule.exports,
+      module: configModule,
+      require: requireFromConfig,
+    },
+    { filename: configPath },
+  );
+
+  const schema = configModule.exports.collections?.clanky?.schema;
+  if (!schema || typeof schema.safeParse !== 'function') {
+    throw new Error('V src/content.config.ts nebylo nalezeno schéma kolekce clanky.');
+  }
+  return schema;
+}
+
+const articleSchema = loadArticleSchema();
 
 let fixed = 0;
 const warnings = [];
@@ -25,6 +67,19 @@ for (const f of files) {
   const full = path.join(DIR, f);
   let raw = fs.readFileSync(full, 'utf8');
   const fm = raw.split('---')[1] ?? '';
+
+  try {
+    const frontmatter = parseYaml(fm) ?? {};
+    const validation = articleSchema.safeParse(frontmatter);
+    if (!validation.success) {
+      for (const issue of validation.error.issues) {
+        const field = issue.path.length ? issue.path.join('.') : 'frontmatter';
+        errors.push(`${f}: pole "${field}" je neplatné: ${issue.message}`);
+      }
+    }
+  } catch (error) {
+    errors.push(`${f}: pole "frontmatter" je neplatné: ${error.message}`);
+  }
 
   const image = fm.match(/^image:\s*["']?(.+?)["']?\s*$/m)?.[1];
   const hasVideo = /^video:/m.test(fm);
