@@ -135,11 +135,6 @@ test('duplicitní titulek vypíše varování, ale validace projde', (t) => {
 for (const requiredField of ['title', 'description', 'category', 'date']) {
   test(
     `chybějící povinné pole ${requiredField} má ukončit validaci chybou`,
-    {
-      todo:
-        `NÁLEZ: validate-content.mjs pole ${requiredField} nekontroluje ` +
-        'a článek tiše přijme.',
-    },
     (t) => {
       const root = createFixture(t);
       const frontmatter = validFrontmatter().filter(
@@ -150,17 +145,14 @@ for (const requiredField of ['title', 'description', 'category', 'date']) {
       const result = runValidator(root);
 
       assert.equal(result.status, 1);
-      assert.match(result.stderr, new RegExp(requiredField));
+      assert.match(result.stderr, new RegExp(`chybi-${requiredField}\\.md`));
+      assert.match(result.stderr, new RegExp(`pole "${requiredField}"`));
     },
   );
 }
 
 test(
   'kategorie mimo povolený výčet má ukončit validaci chybou',
-  {
-    todo:
-      'NÁLEZ: validate-content.mjs kategorii nekontroluje a neplatnou hodnotu tiše přijme.',
-  },
   (t) => {
     const root = createFixture(t);
     writeArticle(
@@ -172,6 +164,7 @@ test(
     const result = runValidator(root);
 
     assert.equal(result.status, 1);
-    assert.match(result.stderr, /category|kategor/i);
+    assert.match(result.stderr, /spatna-kategorie\.md/);
+    assert.match(result.stderr, /pole "category"/);
   },
 );
