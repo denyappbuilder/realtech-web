@@ -15,7 +15,7 @@ Podle OpenAI se na zdraví ptá ChatGPT přes **300 milionů lidí týdně** —
 
 Zdravotní data se nedrží v odděleném režimu. Když se jednou připojíš, ChatGPT je umí použít **v běžné konverzaci** — třeba zohlední potravinovou alergii při výběru restaurace nebo čerstvé zranění při plánování víkendu. OpenAI zjistila, že přes 70 % zdravotních dotazů lidé řešili mimo vyhrazenou sekci, tak ji přestala vynucovat. Sekce Health v bočním panelu zůstává jako místo, kde data připojuješ, spravuješ a vidíš trendy.
 
-Na zdravotní dotazy nasazuje OpenAI speciálně trénované modely: free uživatelé mají GPT‑5.5 Instant, platící GPT‑5.6 Sol, který je podle firmy zatím nejsilnější na složitější zdravotní úvahy. Před spuštěním funkci testovaly stovky lékařů.
+Na zdravotní dotazy nasazuje OpenAI speciálně trénované modely: free uživatelé mají GPT‑5.5 Instant, platící GPT‑5.6 Sol, který je podle firmy zatím nejsilnější na složitější zdravotní úvahy. Nabídku jednotlivých tarifů firma zároveň mění i mimo zdravotnictví — [ChatGPT zdarma například dostává neomezené chaty](/clanky/chatgpt-zdarma-neomezene-chaty/). Před spuštěním funkci testovaly stovky lékařů.
 
 ## Soukromí a háček
 
