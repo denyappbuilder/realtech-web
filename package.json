@@ -8,7 +8,7 @@
     "prebuild": "node scripts/validate-content.mjs && node scripts/optimize-images.mjs && node scripts/generate-og.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "test": "node --test scripts/test-middleware.mjs scripts/test-indexnow.mjs"
+    "test": "node --test scripts/test-middleware.mjs scripts/test-indexnow.mjs scripts/test-rss.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.11",
