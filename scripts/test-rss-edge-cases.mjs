@@ -1,0 +1,103 @@
+import test, { beforeEach } from "node:test";
+import assert from "node:assert/strict";
+
+import {
+  getMockState,
+  resetRssMocks,
+  setCollection,
+  setExistingFiles,
+} from "./test-rss-mocks/state.mjs";
+import { GET } from "../src/pages/rss.xml.js";
+
+const site = new URL("https://realtech.cz/");
+const publishedAt = new Date("2025-04-05T06:07:08.000Z");
+
+function article(overrides = {}) {
+  return {
+    id: "hranice-url",
+    body: "",
+    data: {
+      title: "Hranice URL",
+      description: "Test rizikových vstupů RSS",
+      date: publishedAt,
+      category: "Testy",
+      draft: false,
+    },
+    ...overrides,
+  };
+}
+
+beforeEach(() => {
+  resetRssMocks();
+});
+
+test("GET přepisuje jen kořenové HTML URL a ostatní typy odkazů zachová přesně", async () => {
+  setCollection([article({
+    body: [
+      '<a href="/clanky/cil/?strana=2#sekce">Kořenový odkaz</a>',
+      '<img src="/images/nahled.jpg?v=3#nahled" alt="Náhled">',
+      '<a href="relativni/cil">Relativní odkaz</a>',
+      '<a href="#sekce">Fragment</a>',
+      '<a href="mailto:redakce@example.com">E-mail</a>',
+      '<img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Data URL">',
+    ].join("\n"),
+  })]);
+
+  await GET({ site });
+
+  assert.equal(
+    getMockState().rssCalls[0].items[0].content,
+    [
+      '<a href="https://realtech.cz/clanky/cil/?strana=2#sekce">Kořenový odkaz</a>',
+      '<img src="https://realtech.cz/images/nahled.jpg?v=3#nahled" alt="Náhled">',
+      '<a href="relativni/cil">Relativní odkaz</a>',
+      '<a href="#sekce">Fragment</a>',
+      '<a href="mailto:redakce@example.com">E-mail</a>',
+      '<img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Data URL">',
+    ].join("\n"),
+  );
+});
+
+test("GET zachová protocol-relative URL beze změny [codex-testy-web/RSS-URL-001]", {
+  todo: "Produkce zaměňuje // za lokální cestu; viz codex-testy-web/RSS-URL-001.",
+}, async () => {
+  setCollection([article({
+    body: [
+      '<a href="//cdn.example.com/clanek">CDN odkaz</a>',
+      '<img src="//cdn.example.com/obrazek.jpg" alt="CDN obrázek">',
+    ].join("\n"),
+  })]);
+
+  await GET({ site });
+
+  assert.equal(
+    getMockState().rssCalls[0].items[0].content,
+    [
+      '<a href="//cdn.example.com/clanek">CDN odkaz</a>',
+      '<img src="//cdn.example.com/obrazek.jpg" alt="CDN obrázek">',
+    ].join("\n"),
+  );
+});
+
+test("GET nečte enclosure mimo public přes nadřazené segmenty [codex-testy-web/RSS-PATH-002]", {
+  todo: "Cesta obrázku není před mapováním na filesystem ohraničená; viz codex-testy-web/RSS-PATH-002.",
+}, async () => {
+  setExistingFiles([["public/../package.json", 777]]);
+  setCollection([article({
+    data: {
+      title: "Hranice URL",
+      description: "Test rizikových vstupů RSS",
+      date: publishedAt,
+      category: "Testy",
+      draft: false,
+      image: "/../package.json",
+    },
+  })]);
+
+  await GET({ site });
+
+  const state = getMockState();
+  assert.deepEqual(state.existsCalls, []);
+  assert.deepEqual(state.statCalls, []);
+  assert.equal(state.rssCalls[0].items[0].enclosure, undefined);
+});
