@@ -13,9 +13,9 @@ V roce 2025 vynesla SpaceX 90 % veškeré hmoty na oběžnou dráhu. Vyvíjí ra
 
 SpaceX používá jednoduchou metriku: cena produktu dělená cenou surovin, ze kterých je vyrobený. Jinými slovy — kolikrát je produkt dražší než materiál v něm. Když koeficient vychází kolem jedné nebo dvou, je cena blízko fyzikálnímu minimu a výroba je hodně efektivní. V leteckém a raketovém průmyslu je přitom zvykem koeficient 200 až 500 — obrovský prostor pro zefektivnění.
 
-A SpaceX v praxi? Raketa Falcon 9 stojí desetkrát tolik, co její výrobní materiály — koeficient 10. Jenže díky tomu, že velká část rakety létá opakovaně, klesá na 2 až 4. Extrémní efektivita.
+A SpaceX v praxi? Raketa Falcon 9 stojí desetkrát tolik, co její výrobní materiály — koeficient 10. Jenže díky tomu, že velká část rakety létá opakovaně, klesá na 2 až 4. Její stupně přitom létají tak často, že [jeden z nich po návratu narazil do Měsíce](/clanky/falcon-9-narazil-do-mesice/). Extrémní efektivita.
 
-Koeficient je vlastně měřítko lenosti myšlení. SpaceX nepřebírá zažité koncepty jen proto, že se tak něco dělá posledních 50 let. Na problém se dívá od základu — co je fyzikálně možné — a všechno ostatní zpochybňuje, včetně vlastních dřívějších konceptů. Příklad: trup rakety Starship. Místo hliníku nebo uhlíkových vláken zvolili netradičně ocel — trup se tím zlevnil a navíc se ocel snadno opravuje, což se vyplatí, až bude raketa létat opakovaně.
+Koeficient je vlastně měřítko lenosti myšlení. SpaceX nepřebírá zažité koncepty jen proto, že se tak něco dělá posledních 50 let. Na problém se dívá od základu — co je fyzikálně možné — a všechno ostatní zpochybňuje, včetně vlastních dřívějších konceptů. Příklad: trup rakety Starship, která už při [letu 13 poprvé vypustila satelity Starlink V3](/clanky/starship-flight-13-starlink-v3/). Místo hliníku nebo uhlíkových vláken zvolili netradičně ocel — trup se tím zlevnil a navíc se ocel snadno opravuje, což se vyplatí, až bude raketa létat opakovaně.
 
 ## Pět bodů inovace — a proč nesmíte přeskakovat
 

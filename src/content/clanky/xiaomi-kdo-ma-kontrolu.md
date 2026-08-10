@@ -21,7 +21,7 @@ Business model stojí na třech bodech: hardware s malou marží, vlastní prode
 
 Proč výrobce telefonů uvažuje jako softwarový gigant? Odpověď je u zakladatele. Lei Jun pochází z učitelské rodiny, čtyřletý IT obor vystudoval za dva roky a už na škole napsal první placený software. Ve firmě Kingsoft pracoval 15 let a vypracoval se ze zaměstnance na generálního ředitele; po jejím uvedení na burzu se stal úspěšným startupovým investorem.
 
-Xiaomi založil v roce 2010 ve svých 40 letech, už jako ostřílený podnikatel. Mezi spoluzakladateli byl i bývalý viceprezident Google China, který zásadně pomohl ke spolupráci s Androidem. Mimochodem — slovo Xiaomi znamená „malá rýže": firma měla být rýží technologického světa, dostupnou pro všechny.
+Xiaomi založil v roce 2010 ve svých 40 letech, už jako ostřílený podnikatel. Mezi spoluzakladateli byl i bývalý viceprezident Google China, který zásadně pomohl ke spolupráci s Androidem. Mimochodem — slovo Xiaomi znamená „malá rýže": firma měla být rýží technologického světa, dostupnou pro všechny, což dodnes ukazuje třeba [srovnání telefonů POCO M8 a M8 Pro](/clanky/poco-m8-vs-m8-pro/).
 
 Příznačné je, že software měli dřív než hardware. Nejdřív vydali MIUI, upravený Android k instalaci do cizích telefonů. První vlastní telefon přišel v roce 2011 se skvělým poměrem cena/výkon — a nasbíral 300 tisíc předobjednávek za necelých 40 hodin.
 
@@ -39,7 +39,7 @@ A proč není Xiaomi zakázané jako Huawei? Zaprvé používá služby Googlu, 
 
 ## Auta: nový motor zisku
 
-Xiaomi úspěšně vstoupilo do výroby elektroaut. Za rok 2025 dodalo přes 410 tisíc vozů, letos má potvrzený cíl přes půl milionu a po silnicích už jezdí 600 tisíc aut Xiaomi. Největší překvapení je, jak brzy začala být tahle divize zisková — díky 25% hrubé marži, tedy asi 21 tisícům korun čistého zisku na každém autě.
+Xiaomi úspěšně vstoupilo do výroby elektroaut. Za rok 2025 dodalo přes 410 tisíc vozů, letos má potvrzený cíl přes půl milionu a po silnicích už jezdí 600 tisíc aut Xiaomi. Největší překvapení je, jak brzy začala být tahle divize zisková — díky 25% hrubé marži, tedy asi 21 tisícům korun čistého zisku na každém autě. Pro celý čínský technologický sektor je přitom důležité, že stát [zvažuje exportní kontroly vlastních AI modelů](/clanky/cina-exportni-kontroly-ai-modely/).
 
 Pro srovnání: Škodovka má hrubou marži 12,5 % a čistý zisk kolem 43 tisíc na auto — vydělává víc díky pozici v Evropě a vyšším cenám. Xiaomi je ale dvakrát efektivnější v tom, jak levně dokáže auto postavit. Kdyby prodávalo v Evropě za evropské ceny, mohlo by mít na autě klidně dvojnásobný zisk oproti Škodě.
 
