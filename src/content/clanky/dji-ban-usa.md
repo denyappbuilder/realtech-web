@@ -11,7 +11,7 @@ DJI ovládá přes 70 % globálního trhu s drony, v Severní Americe drželo do
 
 ## Co přesně zákaz zakazuje
 
-Stopka se týká všeho, co DJI vyrábí — ale jen do budoucna. Žádný nový model dronu, gimbalu, stabilizátoru ani zemědělského systému už nedostane schválení potřebné pro legální dovoz, marketing a prodej v USA. Hranicí je 23. prosinec 2025: co mělo certifikaci před tímto datem, prodává se dál bez omezení.
+Stopka se týká všeho, co DJI vyrábí — ale jen do budoucna. Jak se pravidla promítají i do zařízení prodávaných pod jinými značkami, ukázala později [výjimka FCC pro Starlink a zásah proti klonům DJI](/clanky/fcc-starlink-vyjimka-dji-zakaz/). Žádný nový model dronu, gimbalu, stabilizátoru ani zemědělského systému už nedostane schválení potřebné pro legální dovoz, marketing a prodej v USA. Hranicí je 23. prosinec 2025: co mělo certifikaci před tímto datem, prodává se dál bez omezení.
 
 Kdo už dron od DJI má, může s ním v USA normálně létat. Aktualizace softwaru zákaz vůbec neřeší — restrikce míří výhradně na hardware a rádiové frekvence u nových zařízení. Bolí to hlavně proto, že na Západě prakticky neexistuje výrobce, který by nabízel srovnatelnou kvalitu a funkce za dostupnou cenu.
 
@@ -39,6 +39,6 @@ DJI podalo v únoru 2026 žalobu u odvolacího soudu — a nechce zmírnění, c
 
 Žádný evropský zákaz se zatím neplánuje. Na písemnou otázku německého europoslance Evropská komise v březnu 2026 odpověděla, že téma formálně neřeší. Důvod je i praktický: DJI produkty už v Evropě prošly přísnou regulací — agentura EASA má jednotná pravidla pro drony ve všech členských státech, DJI má všechny certifikace podle nového třídění platného od ledna 2024 a nad tím vším stojí GDPR s přísnějšími požadavky na ochranu dat, než má americké právo.
 
-Konkurence mezitím reálně neexistuje: hlavní alternativy Autel a Potensic jsou také čínské, americké Skydio zrušilo spotřebitelskou řadu v roce 2023 a cílí na armádu a průmysl, Brinc vyrábí drony pro policii a záchranáře, francouzský Parrot míří na vládní sektor a brněnský Robodron na průmyslové inspekce. Kompletní ekosystém pro běžné uživatele za dostupnou cenu nenabízí nikdo z nich.
+Konkurence mezitím reálně neexistuje: hlavní alternativy Autel a Potensic jsou také čínské, americké Skydio zrušilo spotřebitelskou řadu v roce 2023 a cílí na armádu a průmysl, Brinc vyrábí drony pro policii a záchranáře, francouzský Parrot míří na vládní sektor a brněnský Robodron na průmyslové inspekce. Tlak na DJI je přitom širší než samotné drony, jak ukazuje i jeho [souboj s Insta360](/clanky/dji-vs-insta360/). Kompletní ekosystém pro běžné uživatele za dostupnou cenu nenabízí nikdo z nich.
 
 Pro českého uživatele je závěr jednoduchý: DJI se tu dál normálně prodává, aktualizace chodí a v dohledné době se na tom nic nezmění. Pro DJI je ale sázka vysoká — americký trh tvořil zhruba pětinu příjmů a výsledek sporu ovlivní celý dronový průmysl.
