@@ -82,6 +82,20 @@ test('platný článek s existujícím obrázkem projde', (t) => {
   assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
 });
 
+test('platné nequoted YAML datum projde', (t) => {
+  const root = createFixture(t);
+  writeArticle(root, 'platne-nequoted-datum', [
+    ...validFrontmatter().filter((line) => !line.startsWith('date:')),
+    'date: 2026-01-15',
+    'updated: 2026-01-16',
+  ]);
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
 test('odkaz na chybějící obrázek ukončí validaci chybou', (t) => {
   const root = createFixture(t);
   writeArticle(root, 'bez-obrazku', [
@@ -250,19 +264,19 @@ test(
 
 test(
   'kalendářně neplatná data ani nedatové YAML skaláry se nesmějí zkoercovat',
-  {
-    todo: 'REALTVORBA-BACKLOG.md: Validace musí odmítat neplatná kalendářní data a nedatové YAML skaláry',
-  },
   (t) => {
     const root = createFixture(t);
     writeArticle(
       root,
       'neprestupny-unor',
-      validFrontmatter({ date: '2025-02-29' }),
+      [
+        ...validFrontmatter().filter((line) => !line.startsWith('date:')),
+        'date: 2025-02-29',
+      ],
     );
     writeArticle(root, 'pretekl-updated', [
       ...validFrontmatter(),
-      'updated: "2025-04-31"',
+      'updated: 2025-04-31',
     ]);
     writeArticle(root, 'boolean-misto-data', [
       ...validFrontmatter().filter((line) => !line.startsWith('date:')),
@@ -276,9 +290,18 @@ test(
     const result = runValidator(root);
 
     assert.equal(result.status, 1);
+    for (const [slug, field, value] of [
+      ['neprestupny-unor', 'date', '2025-02-29'],
+      ['pretekl-updated', 'updated', '2025-04-31'],
+    ]) {
+      assert.match(
+        result.stderr,
+        new RegExp(
+          `${slug}\\.md: pole "${field}" není platné kalendářní datum: ${value}`,
+        ),
+      );
+    }
     for (const [slug, field] of [
-      ['neprestupny-unor', 'date'],
-      ['pretekl-updated', 'updated'],
       ['boolean-misto-data', 'date'],
       ['null-misto-updated', 'updated'],
     ]) {
@@ -292,9 +315,6 @@ test(
 
 test(
   'překlep v názvu volitelného pole se nesmí tiše zahodit',
-  {
-    todo: 'REALTVORBA-BACKLOG.md: Validace musí odmítat neznámá pole frontmatteru',
-  },
   (t) => {
     const root = createFixture(t);
     writeArticle(root, 'preklep-volitelneho-pole', [

@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { load as parseYaml } from 'js-yaml';
+import { CORE_SCHEMA, load as parseYaml } from 'js-yaml';
 import ts from 'typescript';
 import { z } from 'astro/zod';
 import { parseCalendarDate } from '../src/lib/calendarDate.js';
@@ -34,6 +34,7 @@ function loadArticleSchema() {
   const requireFromConfig = (specifier) => {
     if (specifier === 'astro:content') return { defineCollection: (config) => config, z };
     if (specifier === 'astro/loaders') return { glob: (options) => options };
+    if (specifier === './lib/calendarDate.js') return { parseCalendarDate };
     throw new Error(`Nepodporovaný import v content.config.ts: ${specifier}`);
   };
 
@@ -70,7 +71,9 @@ for (const f of files) {
   const fm = raw.split('---')[1] ?? '';
 
   try {
-    const frontmatter = parseYaml(fm) ?? {};
+    // Keep timestamp-looking scalars as strings so the shared schema validates
+    // the original calendar value instead of js-yaml's rolled-over Date.
+    const frontmatter = parseYaml(fm, { schema: CORE_SCHEMA }) ?? {};
     const validation = articleSchema.safeParse(frontmatter);
     if (!validation.success) {
       for (const issue of validation.error.issues) {
