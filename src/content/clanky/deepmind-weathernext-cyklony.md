@@ -23,7 +23,7 @@ A tady je ta překvapivá část: model si vystačí s rozlišením **28 × 28 k
 
 Není to laboratorní demo. Model se podílel na předpovědi hurikánu **Melissa** v sezoně 2025, kde správně předpověděl rychlé zesílení a přistání na Jamajce, takže Národní centrum pro hurikány mohlo varovat s předstihem. Letos systém počítá **1 000 možných scénářů** pro každý cyklon — loni jich bylo 50. Jednu patnáctidenní předpověď zvládne na jedné TPU pod minutu.
 
-Trénovalo se na **20 terabajtech** atmosférických dat a databázi zhruba **5 000 historických bouří** (IBTrACS). Na projektu dělal DeepMind s americkým Národním centrem pro hurikány, s CIRA a s britským Met Office.
+Trénovalo se na **20 terabajtech** atmosférických dat a databázi zhruba **5 000 historických bouří** (IBTrACS). Na projektu dělal DeepMind s americkým Národním centrem pro hurikány, s CIRA a s britským Met Office. Přichází přitom v době, kdy [vedení Gemini v DeepMindu přebírá Koray Kavukcuoglu](/clanky/google-deepmind-hassabis-koray/).
 
 Otevřené jsou modely **WeatherNext Cyclones** a **WeatherNext 2**, plus mini verze, která se rozjede v bezplatném Colabu. Předpovědi jsou k vidění na Weather Labu.
 

@@ -19,7 +19,7 @@ Otevřeli jsme střihový program, načetli projekt — a notebook se začal sek
 
 ## Proč: tlumočník, který žere výkon
 
-Většina windowsových aplikací je napsaná pro klasické x86 procesory. Na ARM čipu je Windows za běhu **překládá** — jako tlumočník mezi dvěma jazyky. Ten překlad stojí obrovský výkon, a tak aplikace padají ne proto, že by čip nestačil, ale protože půlku síly spálí překládání.
+Většina windowsových aplikací je napsaná pro klasické x86 procesory. Na ARM čipu je Windows za běhu **překládá** — jako tlumočník mezi dvěma jazyky. Ten překlad stojí obrovský výkon, a tak aplikace padají ne proto, že by čip nestačil, ale protože půlku síly spálí překládání. Do stejného souboje s MacBookem se přitom chystá vstoupit i [Nvidia s vlastním notebookovým procesorem N1X](/clanky/nvidia-n1x-notebooky/).
 
 Apple řeší totéž překladačem Rosetta — jenže líp optimalizovaným (často přeloží aplikaci už při instalaci) a hlavně: **Apple dotlačil vývojáře k nativním verzím**. Jeden typ čipu, jeden systém, jasný standard. Windows má desítky výrobců, hromadu konfigurací a zatím málo ARM uživatelů — vývojářům se optimalizace nevyplácí a jednotný postup chybí.
 

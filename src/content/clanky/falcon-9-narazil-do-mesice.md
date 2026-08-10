@@ -21,7 +21,7 @@ Fotky nového kráteru zatím nejsou. Chystají se je pořídit **NASA Lunar Rec
 
 ## Nebyl to záměr a je to trochu problém
 
-SpaceX zdůrazňuje, že o řízený dopad nešlo. „Byla to v podstatě kombinace sluneční aktivity a gravitačních sil, které to poslaly směrem k Měsíci," řekla novinářům Julianna Scheiman, ředitelka programů NASA science a Dragon ve SpaceX. Firma podle ní teď s NASA řeší sledování podobných vraků.
+SpaceX zdůrazňuje, že o řízený dopad nešlo. Je to odvrácená strana tempa, které rozebíráme v článku o tom, [proč je SpaceX tak napřed](/clanky/proc-je-spacex-tak-napred/). „Byla to v podstatě kombinace sluneční aktivity a gravitačních sil, které to poslaly směrem k Měsíci," řekla novinářům Julianna Scheiman, ředitelka programů NASA science a Dragon ve SpaceX. Firma podle ní teď s NASA řeší sledování podobných vraků.
 
 Amatérský astronom **Bill Gray**, který dopad předpověděl už loni v září svým softwarem Project Pluto, to říká narovinu: nebezpečí to pro nikoho nepředstavuje, ale „poukazuje to na jistou nedbalost v tom, jak se zbytkový vesmírný hardware likviduje".
 
