@@ -1,13 +1,16 @@
 // Generuje brandované OG obrázky (1200×630) pro články s lokálním coverem:
 // cover + tmavý gradient + titulek + REALTECH.CZ badge → public/images/og/SLUG.jpg
-// Existující soubory přeskakuje (při změně titulku smaž soubor a nech přegenerovat).
+// Existující soubory přeskakuje, jen pokud se nezměnil titulek ani cover.
 // Články s videem OG neřeší — YT maxresdefault je pro ně v pořádku.
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import sharp from 'sharp';
 
 const SRC = 'src/content/clanky';
 const OUT = 'public/images/og';
+// Zvyš při změně renderovacího receptu, která má invalidovat existující OG obrázky.
+const RECIPE_VERSION = 1;
 fs.mkdirSync(OUT, { recursive: true });
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -25,6 +28,13 @@ function wrap(title, max = 30, maxLines = 3) {
   return lines;
 }
 
+function fingerprint(title, srcImg) {
+  const imageHash = createHash('sha256').update(fs.readFileSync(srcImg)).digest('hex');
+  return createHash('sha256')
+    .update(JSON.stringify({ recipe: RECIPE_VERSION, title, imageHash }))
+    .digest('hex');
+}
+
 let made = 0;
 for (const f of fs.readdirSync(SRC).filter((f) => f.endsWith('.md'))) {
   const slug = f.replace(/\.md$/, '');
@@ -37,7 +47,14 @@ for (const f of fs.readdirSync(SRC).filter((f) => f.endsWith('.md'))) {
 
   const out = path.join(OUT, `${slug}.jpg`);
   const srcImg = `public${image}`;
-  if (fs.existsSync(out) || !fs.existsSync(srcImg)) continue;
+  if (!fs.existsSync(srcImg)) continue;
+
+  const fingerprintFile = `${out}.sha256`;
+  const currentFingerprint = fingerprint(title, srcImg);
+  const savedFingerprint = fs.existsSync(fingerprintFile)
+    ? fs.readFileSync(fingerprintFile, 'utf8').trim()
+    : '';
+  if (fs.existsSync(out) && savedFingerprint === currentFingerprint) continue;
 
   const lines = wrap(esc(title));
   const textY = 630 - 64 - (lines.length - 1) * 58;
@@ -57,6 +74,7 @@ for (const f of fs.readdirSync(SRC).filter((f) => f.endsWith('.md'))) {
     .composite([{ input: Buffer.from(svg) }])
     .jpeg({ quality: 84 })
     .toFile(out);
+  fs.writeFileSync(fingerprintFile, `${currentFingerprint}\n`);
   made++;
 }
-console.log(`[generate-og] nově vygenerováno: ${made}`);
+console.log(`[generate-og] vygenerováno: ${made}`);
