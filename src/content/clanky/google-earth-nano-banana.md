@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/google-earth-nano-banana.jpg"
 ---
 
-Google dnes pustil do **Google Earth** generování obrázků modelem **Nano Banana 2**. Novinka běží ve **webové verzi** a podle Googlu je od dneška dostupná **globálně** — takže i u nás, bez čekání na postupný rollout.
+Google dnes pustil do **Google Earth** generování obrázků modelem **[Nano Banana 2](/clanky/gemini-omni-flash-nano-banana-2-lite/)**. Novinka běží ve **webové verzi** a podle Googlu je od dneška dostupná **globálně** — takže i u nás, bez čekání na postupný rollout.
 
 Ovládání je triviální: přiblížíš si v Google Earth libovolné místo, klikneš na **„create image"** a napíšeš, co chceš vidět. Zásadní rozdíl proti běžnému generátoru obrázků je v tom, z čeho model vychází. Nekreslí od nuly podle textu — pracuje se **satelitními, leteckými a 3D snímky** daného místa, takže výsledek sedí do skutečné krajiny a zástavby.
 

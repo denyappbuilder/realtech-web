@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/google-vids-avatary.jpg"
 ---
 
-Google ve středu 16. 7. vypustil dvě novinky do **Google Vids**, svého nástroje na tvorbu videí. Ta první je praktická, ta druhá trochu sci-fi: můžete si vytvořit **digitální avatara, který vypadá a mluví jako vy** — a pak za vás namluví, co mu napíšete.
+Google ve středu 16. 7. vypustil dvě novinky do **Google Vids**, svého nástroje na [tvorbu videí s AI](/clanky/jak-delame-videa-s-ai/). Ta první je praktická, ta druhá trochu sci-fi: můžete si vytvořit **digitální avatara, který vypadá a mluví jako vy** — a pak za vás namluví, co mu napíšete.
 
 ## Avatar z jedné selfie
 

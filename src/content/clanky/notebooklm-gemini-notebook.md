@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/notebooklm-gemini-notebook.jpg"
 ---
 
-Jestli používáte NotebookLM na research, poznámky nebo ty známé audio přehledy, nelekejte se, až ho příště nenajdete. Google dnes oznámil, že se nástroj **přejmenovává na Gemini Notebook**. Produkt samotný nikam nemizí — zůstává samostatná aplikace, jen se víc propojuje se zbytkem Google ekosystému.
+Jestli používáte NotebookLM na [research](/clanky/chatgpt-studijni-rezim-rodice/), poznámky nebo ty známé audio přehledy, nelekejte se, až ho příště nenajdete. Google dnes oznámil, že se nástroj **přejmenovává na Gemini Notebook**. Produkt samotný nikam nemizí — zůstává samostatná aplikace, jen se víc propojuje se zbytkem Google ekosystému.
 
 ## Proč to Google dělá
 
