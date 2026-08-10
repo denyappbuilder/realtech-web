@@ -94,7 +94,6 @@ test('chybějící hodnoty data nevytvoří vadný lastmod', async () => {
 
 test(
   'neplatné datum se ignoruje a do lastmod se nepropíše Invalid Date',
-  { todo: 'REALTVORBA-BACKLOG.md: Sitemap má ignorovat neplatné datum ve frontmatteru' },
   async () => {
     const options = await loadSitemapOptions([
       article('neplatny', ['date: "2025-99-40"', 'category: "AI"']),
@@ -122,7 +121,6 @@ test(
 
 test(
   'bez jediného platného data se lastmod vynechá',
-  { todo: 'REALTVORBA-BACKLOG.md: Sitemap bez platných dat má vynechat lastmod' },
   async () => {
     const options = await loadSitemapOptions([
       article('bez-data', ['title: "Bez data"', 'category: "AI"']),
