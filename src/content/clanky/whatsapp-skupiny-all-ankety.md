@@ -29,7 +29,7 @@ Poslední změna je malá, ale otravnost, kterou odstraňuje, zná každý: ze s
 
 ## Kontext
 
-Meta na skupinových chatech jede celý rok. Letos už přibyla historie zpráv ve skupině (nový člen vidí, co se řešilo předtím), tagy členů a připomínky událostí. Volání ve WhatsApp Webu dorazilo koncem července.
+Meta na skupinových chatech jede celý rok. Letos už přibyla historie zpráv ve skupině (nový člen vidí, co se řešilo předtím), tagy členů a připomínky událostí. [Volání ve WhatsApp Webu](/clanky/whatsapp-web-volani/) dorazilo koncem července.
 
 Kdy přesně se funkce objeví u nás, Meta neuvádí — u WhatsAppu se novinky standardně rozjíždějí postupně po vlnách, takže pokud to v appce hned nevidíš, chce to týden dva a aktualizaci.
 

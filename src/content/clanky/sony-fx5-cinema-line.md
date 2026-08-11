@@ -15,7 +15,7 @@ Základem je **nově vyvinutý 16,6MP full-frame stacked snímač** (FX3 stacked
 
 ## Open gate a RAW: dosud výsada highendů
 
-Největší lákadlo: **5K open gate** — záznam z celé plochy snímače v poměru 3:2. Pro tvůrce to znamená anamorfické objektivy bez omezení a hlavně **výřezy na výšku bez ztráty kvality** — z jednoho záběru uděláte long-form i Short. Přesně tohle dosud v kompaktní Sony nebylo.
+Největší lákadlo: **5K open gate** — záznam z celé plochy snímače v poměru 3:2. Pro tvůrce to znamená anamorfické objektivy bez omezení a hlavně **výřezy na výšku bez ztráty kvality** — z jednoho záběru uděláte long-form i [Short](/clanky/jak-delame-videa-s-ai/). Přesně tohle dosud v kompaktní Sony nebylo.
 
 K tomu **interní 16bit X-OCN RAW** (formát z rodiny VENICE, dvě nové úrovně komprese) na CFexpress Type A karty, **4K až 240 fps** pro zpomalené záběry a **32bit float zvuk** — s novým XLR handle nikdy neurvete audio. Kameru si před premiérou vyzkoušel i Claudio Miranda, kameraman Top Gun: Maverick.
 
