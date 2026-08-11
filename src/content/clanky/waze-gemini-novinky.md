@@ -17,7 +17,7 @@ Co konkrétně přistává:
 
 **Hlášení změn na mapě hlasem.** Konverzační hlášení přes Gemini už ve Waze fungovalo na kolony a nehody. Nově stačí říct „tady je zavřená silnice" a Waze návrh pošle místním editorům mapy, kteří ho ověří a mapu opraví. Globálně na obou platformách.
 
-**Hledání cíle povídáním.** Před vyjetím můžeš klepnout na hlasové vyhledávání a zeptat se třeba „najdi mi benzínku poblíž s nejnižší cenou" nebo „kavárnu, co má teď otevřeno". Tohle je zatím jen pro beta komunitu Waze, ale globálně.
+**[Hledání cíle povídáním](/clanky/ask-maps-agent-objednavani-jidla/).** Před vyjetím můžeš klepnout na hlasové vyhledávání a zeptat se třeba „najdi mi benzínku poblíž s nejnižší cenou" nebo „kavárnu, co má teď otevřeno". Tohle je zatím jen pro beta komunitu Waze, ale globálně.
 
 A pak hvězda celého oznámení: **motorkářský režim**. AI v něm počítá s tím, že motorka projede užšími ulicemi, a do trasy i ETA promítá zkratky a omezení pro jednostopá vozidla. Hlavně ale ukazuje nástrahy, které řidiče auta nezajímají — výmoly, retardéry, vyvýšené přechody, konce krajnice, úzké mosty. Háček: startuje jen v Argentině, Brazílii, Kolumbii, Malajsii, Mexiku, Peru a na Filipínách. Google slibuje „další země brzy", takže čeští motorkáři zatím jen slintají.
 
