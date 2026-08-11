@@ -1,4 +1,8 @@
 const rssModuleUrl = new URL("../src/pages/rss.xml.js", import.meta.url).href;
+const searchIndexModuleUrl = new URL(
+  "../src/pages/search-index.json.js",
+  import.meta.url,
+).href;
 const mocksDirectoryUrl = new URL("./test-rss-mocks/", import.meta.url);
 
 const replacements = new Map([
@@ -11,7 +15,9 @@ const replacements = new Map([
 export async function resolve(specifier, context, nextResolve) {
   const replacement = context.parentURL === rssModuleUrl
     ? replacements.get(specifier)
-    : undefined;
+    : context.parentURL === searchIndexModuleUrl && specifier === "astro:content"
+      ? replacements.get(specifier)
+      : undefined;
 
   if (replacement) {
     return { url: replacement, shortCircuit: true };
