@@ -13,7 +13,8 @@ export async function GET(context) {
     description: 'Tech novinky a analýzy bez marketingových řečí.',
     site: context.site,
     items: clanky.map((c) => {
-      const localPath = c.data.image ? `public${c.data.image}` : null;
+      const hasParentSegment = c.data.image?.split(/[\\/]/).includes('..');
+      const localPath = c.data.image && !hasParentSegment ? `public${c.data.image}` : null;
       const enclosure = localPath && fs.existsSync(localPath)
         ? {
             url: new URL(c.data.image, context.site).href,
@@ -25,8 +26,8 @@ export async function GET(context) {
       // Relativní odkazy v markdownu na absolutní.
       const html = marked
         .parse(c.body ?? '')
-        .replaceAll('href="/', `href="${context.site}`)
-        .replaceAll('src="/', `src="${context.site}`);
+        .replaceAll(/href="\/(?!\/)/g, `href="${context.site}`)
+        .replaceAll(/src="\/(?!\/)/g, `src="${context.site}`);
       return {
         title: c.data.title,
         description: c.data.description,

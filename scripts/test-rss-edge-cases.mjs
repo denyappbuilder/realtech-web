@@ -58,9 +58,7 @@ test("GET přepisuje jen kořenové HTML URL a ostatní typy odkazů zachová p�
   );
 });
 
-test("GET zachová protocol-relative URL beze změny [codex-testy-web/RSS-URL-001]", {
-  todo: "Produkce zaměňuje // za lokální cestu; viz codex-testy-web/RSS-URL-001.",
-}, async () => {
+test("GET zachová protocol-relative URL beze změny [codex-testy-web/RSS-URL-001]", async () => {
   setCollection([article({
     body: [
       '<a href="//cdn.example.com/clanek">CDN odkaz</a>',
@@ -79,9 +77,7 @@ test("GET zachová protocol-relative URL beze změny [codex-testy-web/RSS-URL-00
   );
 });
 
-test("GET nečte enclosure mimo public přes nadřazené segmenty [codex-testy-web/RSS-PATH-002]", {
-  todo: "Cesta obrázku není před mapováním na filesystem ohraničená; viz codex-testy-web/RSS-PATH-002.",
-}, async () => {
+test("GET nečte enclosure mimo public přes nadřazené segmenty [codex-testy-web/RSS-PATH-002]", async () => {
   setExistingFiles([["public/../package.json", 777]]);
   setCollection([article({
     data: {
