@@ -11,7 +11,7 @@ Austrálie je první zemí, která sociální sítě mladším 16 let zakázala 
 
 ## Čísla
 
-Podle [oficiálního sdělení Mety](https://about.fb.com/news/2026/08/metas-compliance-with-australias-social-media-ban/) firma k **30. červnu 2026** zrušila přístup **víc než 750 000 účtům** na Facebooku a Instagramu v Austrálii, u kterých vyhodnotila, že patří někomu pod 16 let. Číslo pokrývá období od 1. prosince 2025 a zahrnuje přes půl milionu účtů smazaných ještě předtím, než zákon nabyl účinnosti. Vymáhání běží dál a Meta ho reportuje australskému úřadu eSafety Commissioner.
+Podle [oficiálního sdělení Mety](https://about.fb.com/news/2026/08/metas-compliance-with-australias-social-media-ban/) firma k **30. červnu 2026** zrušila přístup **víc než 750 000 účtům** na Facebooku a [Instagramu](/clanky/meta-muse-instagram-fotky/) v Austrálii, u kterých vyhodnotila, že patří někomu pod 16 let. Číslo pokrývá období od 1. prosince 2025 a zahrnuje přes půl milionu účtů smazaných ještě předtím, než zákon nabyl účinnosti. Vymáhání běží dál a Meta ho reportuje australskému úřadu eSafety Commissioner.
 
 ## Jak se ten věk hlídá
 
