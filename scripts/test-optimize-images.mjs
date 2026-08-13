@@ -147,3 +147,35 @@ test('částečně zastaralý stav obnoví pouze chybějící a obsahově chybn�
     );
   }
 });
+
+test('u více originálů započítá aktualizace jen pro cover bez derivátů', async (t) => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'optimize-images-selection-'));
+  t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+
+  const primary = path.join(dir, 'primary.jpg');
+  await writeSource(primary, '#0d6efd');
+  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 3 });
+
+  const primaryDerivatives = ['primary-640.jpg', 'primary.webp', 'primary-640.webp'];
+  const primaryBefore = Object.fromEntries(
+    primaryDerivatives.map((name) => [name, fileState(path.join(dir, name))]),
+  );
+
+  await writeSource(path.join(dir, 'secondary.jpg'), '#fd7e14');
+
+  assert.deepEqual(await optimizeImages(dir), { covers: 2, updated: 3 });
+
+  for (const name of primaryDerivatives) {
+    assert.deepEqual(
+      fileState(path.join(dir, name)),
+      primaryBefore[name],
+      `${name} se nesmí započítat jako aktualizovaný ani znovu přepsat`,
+    );
+  }
+
+  for (const name of ['secondary-640.jpg', 'secondary.webp', 'secondary-640.webp']) {
+    assert.equal(fs.existsSync(path.join(dir, name)), true, `${name} musí vzniknout`);
+  }
+
+  assert.deepEqual(await optimizeImages(dir), { covers: 2, updated: 0 });
+});
