@@ -401,3 +401,70 @@ test('neplatná video URL označí chybu v poli video', (t) => {
   assert.equal(result.status, 1);
   assert.match(result.stderr, /neplatne-video\.md: pole "video"/);
 });
+
+test('existující interní odkazy s query a fragmentem projdou', (t) => {
+  const root = createFixture(t);
+  writeArticle(
+    root,
+    'zdroj-odkazu',
+    validFrontmatter({ title: 'Zdroj odkazu' }),
+    [
+      '[Query](/clanky/cil-odkazu/?ref=prehled)',
+      '[Fragment](/clanky/cil-odkazu/#podrobnosti)',
+      '[Query a fragment](/clanky/cil-odkazu/?ref=prehled#podrobnosti)',
+    ].join('\n'),
+  );
+  writeArticle(
+    root,
+    'cil-odkazu',
+    validFrontmatter({ title: 'Cíl odkazu' }),
+  );
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stderr, '');
+  assert.match(result.stdout, /\[validate-content\] 2 článků OK/);
+});
+
+test('chybějící interní odkaz s query a fragmentem ukončí validaci chybou', (t) => {
+  const root = createFixture(t);
+  writeArticle(
+    root,
+    'zdroj-chybneho-odkazu',
+    validFrontmatter({ title: 'Zdroj chybného odkazu' }),
+    '[Chybějící článek](/clanky/neexistujici/?ref=prehled#podrobnosti)',
+  );
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 1);
+  assert.match(
+    result.stderr,
+    /\[validate-content\] ❌ zdroj-chybneho-odkazu: odkaz na neexistující článek \/clanky\/neexistujici\//,
+  );
+  assert.doesNotMatch(result.stdout, /článků OK/);
+});
+
+test(
+  'chybějící interní odkaz s cílem v úhlových závorkách se nesmí tiše přeskočit',
+  { todo: 'codex-testy-web/CONTENT-LINK-001' },
+  (t) => {
+    const root = createFixture(t);
+    writeArticle(
+      root,
+      'zdroj-odkazu-v-zavorkach',
+      validFrontmatter({ title: 'Zdroj odkazu v závorkách' }),
+      '[Chybějící článek](</clanky/neexistujici/>)',
+    );
+
+    const result = runValidator(root);
+    const expectedError =
+      /\[validate-content\] ❌ zdroj-odkazu-v-zavorkach: odkaz na neexistující článek \/clanky\/neexistujici\//;
+
+    assert.ok(
+      result.status === 1 && expectedError.test(result.stderr),
+      `validator měl skončit chybou pro odkaz v úhlových závorkách\nstdout: ${result.stdout}\nstderr: ${result.stderr}`,
+    );
+  },
+);
