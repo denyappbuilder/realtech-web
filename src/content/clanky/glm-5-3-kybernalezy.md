@@ -23,7 +23,7 @@ A pak je tu ta část, co není z laboratoře. S bezpečnostními týmy v Čín�
 
 ## Váhy až za dva týdny
 
-Model je od dneška dostupný přes GLM Coding Plan a ZCode. **Otevřené váhy ale Z.ai slibuje až dva týdny po startu — „až bude hotové bezpečnostní vyhodnocení a hardening".** Předchozí GLM šly ven pod MIT licencí prakticky hned. Čínská laboratoř, která sama zdrží vydání vah kvůli bezpečnosti, je docela nový obrázek.
+Model je od dneška dostupný přes GLM Coding Plan a ZCode. **Otevřené váhy ale Z.ai slibuje až dva týdny po startu — „až bude hotové bezpečnostní vyhodnocení a hardening".** Předchozí GLM šly ven pod MIT licencí prakticky hned. Čínská laboratoř, která sama zdrží vydání vah kvůli bezpečnosti — ve chvíli, kdy [OpenAI označilo Astru za kritický model v kyberbezpečnosti](/clanky/openai-astra-critical-kyberbezpecnost/) — je docela nový obrázek.
 
 ## Zdroj
 
