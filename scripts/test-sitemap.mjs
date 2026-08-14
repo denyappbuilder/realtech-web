@@ -39,6 +39,33 @@ test('lastmod článku použije updated před původním date', async () => {
   );
 });
 
+test(
+  'neplatné updated použije platné date pro všechny odvozené lastmod',
+  { todo: '[codex-testy-web/SITEMAP-UPDATED-001]' },
+  async () => {
+    const options = await loadSitemapOptions([
+      article('fallback-na-date', [
+        'date: "2025-04-05"',
+        'updated: "2025-99-40"',
+        'category: "Umělá inteligence"',
+      ]),
+    ]);
+
+    const urls = [
+      'https://realtech.cz/clanky/fallback-na-date/',
+      'https://realtech.cz/temata/umela-inteligence/',
+      'https://realtech.cz/',
+      'https://realtech.cz/clanky/',
+      'https://realtech.cz/o-nas/',
+    ];
+
+    assert.deepEqual(
+      urls.map((url) => serialize(options, url).lastmod),
+      Array(urls.length).fill('2025-04-05T00:00:00.000Z'),
+    );
+  },
+);
+
 test('lastmod kategorie odpovídá nejpozdějšímu datu jejích článků', async () => {
   const options = await loadSitemapOptions([
     article('starsi', ['date: "2025-02-03"', 'category: "Umělá inteligence"']),
