@@ -29,7 +29,7 @@ Ovládání máš na své straně: reklamu jde odmítnout, poslat zpětnou vazbu
 
 ## Co si z toho odnést
 
-Zadarmo to nikdy nebylo. ChatGPT ve Free tarifu stojí OpenAI peníze a tohle je odpověď, jak je vydělat, aniž by za to lidi platili přímo. Jestli ti to vadí, máš dvě cesty — předplatné, nebo méně zpráv denně. Až to dorazí k nám, budeš vědět, kde hledat přepínač.
+Zadarmo to nikdy nebylo. [ChatGPT ve Free tarifu](/clanky/chatgpt-zdarma-neomezene-chaty/) stojí OpenAI peníze a tohle je odpověď, jak je vydělat, aniž by za to lidi platili přímo. Jestli ti to vadí, máš dvě cesty — předplatné, nebo méně zpráv denně. Až to dorazí k nám, budeš vědět, kde hledat přepínač.
 
 ## Zdroj
 
