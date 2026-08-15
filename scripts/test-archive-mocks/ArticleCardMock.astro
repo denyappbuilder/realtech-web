@@ -1,0 +1,8 @@
+---
+const { article } = Astro.props;
+---
+<article
+  class="card"
+  data-test-article-id={article.id}
+  data-category={article.data.category}
+>{article.data.title}</article>
