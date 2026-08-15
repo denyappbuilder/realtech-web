@@ -67,6 +67,52 @@ test('statické URL dostanou nejnovější datum ze všech článků', async () 
   }
 });
 
+test(
+  'codex-testy-web/SITEMAP-DRAFT-001 draft článek neovlivní lastmod článků ani agregovaných URL',
+  { todo: 'codex-testy-web/SITEMAP-DRAFT-001' },
+  async () => {
+    const options = await loadSitemapOptions([
+      article('publikovany', [
+        'title: "Publikovaný článek"',
+        'category: "AI"',
+        'date: 2025-03-04',
+        'draft: false',
+      ]),
+      article('draft-clanek', [
+        'title: "Draft článek"',
+        'category: "AI"',
+        'date: 2025-01-01',
+        'updated: 2026-12-31',
+        'draft: true',
+      ]),
+    ]);
+
+    const urls = {
+      publishedArticle: 'https://realtech.cz/clanky/publikovany/',
+      draftArticle: 'https://realtech.cz/clanky/draft-clanek/',
+      category: 'https://realtech.cz/temata/ai/',
+      homepage: 'https://realtech.cz/',
+      articles: 'https://realtech.cz/clanky/',
+      about: 'https://realtech.cz/o-nas/',
+    };
+    const actualLastmods = Object.fromEntries(
+      Object.entries(urls).map(([name, url]) => [
+        name,
+        serialize(options, url).lastmod,
+      ]),
+    );
+
+    assert.deepEqual(actualLastmods, {
+      publishedArticle: '2025-03-04T00:00:00.000Z',
+      draftArticle: undefined,
+      category: '2025-03-04T00:00:00.000Z',
+      homepage: '2025-03-04T00:00:00.000Z',
+      articles: '2025-03-04T00:00:00.000Z',
+      about: '2025-03-04T00:00:00.000Z',
+    });
+  },
+);
+
 test('filter vyřadí /vitej a ponechá běžné URL', async () => {
   const options = await loadSitemapOptions([
     article('platny', ['date: "2025-05-06"', 'category: "AI"']),
