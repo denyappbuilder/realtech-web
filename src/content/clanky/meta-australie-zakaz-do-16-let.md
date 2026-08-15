@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/meta-australie-zakaz-do-16-let.jpg"
 ---
 
-Austrálie je první zemí, která sociální sítě mladším 16 let zakázala plošně zákonem. Meta teď vydala report, kolik ji to reálně stálo účtů — a jak ten věk vlastně pozná.
+Austrálie je první zemí, která sociální sítě mladším 16 let zakázala plošně zákonem. [Meta](/clanky/meta-muse-instagram-fotky/) teď vydala report, kolik ji to reálně stálo účtů — a jak ten věk vlastně pozná.
 
 ## Čísla
 
