@@ -17,7 +17,7 @@ Podle [oficiálního sdělení Mety](https://about.fb.com/news/2026/08/metas-com
 
 Tohle je ta zajímavější část. Meta nespoléhá na jedno ověření, ale na průběžné šťourání:
 
-- **AI čte profil.** Model analyzuje příspěvky, komentáře, bio i popisky fotek a hledá nepřímá vodítka — třeba oslavu narozenin nebo zmínku o ročníku ve škole.
+- **AI čte profil.** Model analyzuje příspěvky, komentáře, bio i [popisky fotek](/clanky/meta-muse-instagram-fotky) a hledá nepřímá vodítka — třeba oslavu narozenin nebo zmínku o ročníku ve škole.
 - **Snazší nahlašování.** Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu.
 - **AI posuzuje i ta hlášení.** Podle Mety to vychází přesněji a rychleji než samotná lidská kontrola.
 - **Blokace návratu.** Systémy mají poznat, když si někdo po smazání zakládá účet znovu.
