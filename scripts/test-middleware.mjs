@@ -61,6 +61,17 @@ test("preview pages.dev doména pokračuje přes context.next()", async () => {
   await assertPassThrough("https://abc123.realtech-web.pages.dev/");
 });
 
+test("preview pages.dev preview zachová cestu i query string a neodstraní URL kódování", async () => {
+  await assertPassThrough("https://abc123.realtech-web.pages.dev/clanky/aktualizace?kat=AI&rok=2026#sekce");
+});
+
 test("localhost pokračuje přes context.next()", async () => {
   await assertPassThrough("http://localhost:4321/");
+});
+
+test("www + URL-encoded cesta a query projdou na canonical doma bez úpravy", async () => {
+  await assertRedirect(
+    "https://www.realtech.cz/clanky/vitej%20navody/?zprava=ano",
+    "https://realtech.cz/clanky/vitej%20navody/?zprava=ano",
+  );
 });
