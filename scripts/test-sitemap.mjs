@@ -52,6 +52,32 @@ test('lastmod kategorie odpovídá nejpozdějšímu datu jejích článků', asy
   );
 });
 
+test('lastmod kategorie normalizuje diakritiku a ořízne neplatný datum', async () => {
+  const options = await loadSitemapOptions([
+    article('vesmir-stary', [
+      'date: "2025-11-10"',
+      'category: " Vesmír "',
+    ]),
+    article('vesmir-neplatny', [
+      'date: "2026-99-99"',
+      'category: "Vesmír"',
+    ]),
+    article('dron', [
+      'date: "2024-08-11"',
+      'category: "Sítě"',
+    ]),
+  ]);
+
+  assert.equal(
+    serialize(options, 'https://realtech.cz/temata/vesmir/').lastmod,
+    '2025-11-10T00:00:00.000Z',
+  );
+  assert.equal(
+    serialize(options, 'https://realtech.cz/temata/site/').lastmod,
+    '2024-08-11T00:00:00.000Z',
+  );
+});
+
 test('statické URL dostanou nejnovější datum ze všech článků', async () => {
   const options = await loadSitemapOptions([
     article('starsi', ['date: "2024-12-31"', 'category: "AI"']),
