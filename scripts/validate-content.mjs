@@ -14,6 +14,7 @@ import { CORE_SCHEMA, load as parseYaml } from 'js-yaml';
 import ts from 'typescript';
 import { z } from 'astro/zod';
 import { parseCalendarDate } from '../src/lib/calendarDate.js';
+import { chybaTvaruImage } from '../src/lib/image-cesta.js';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
@@ -106,9 +107,14 @@ for (const f of files) {
     fixed++;
   }
 
-  // 2. image odkazuje na neexistující soubor
-  if (image && !fs.existsSync(`public${image}`)) {
-    errors.push(`${slug}: image "${image}" neexistuje`);
+  // 2. image musí mít povolený tvar a existující soubor
+  if (image) {
+    const tvar = chybaTvaruImage(image);
+    if (tvar) {
+      errors.push(`${slug}: ${tvar}`);
+    } else if (!fs.existsSync(`public${image}`)) {
+      errors.push(`${slug}: image "${image}" neexistuje`);
+    }
   }
 
   // 3. duplicitní titulek
