@@ -17,7 +17,7 @@ Fotolišta zhubla o 40 % na tloušťce — s originálním obalem má být telef
 
 Nejzajímavější drobnost: **HiLight**. Kolem blesku na Pro modelech jsou barevné LED, které svítí, když telefon leží obrazovkou dolů — signalizují, že Gemini poslouchá, přemýšlí nebo odpovídá, a jednotlivým kontaktům jde přiřadit vlastní barvu pro příchozí hovory. Jednoduchá věc, ale přesně ten typ, co člověk používá denně.
 
-Tensor G6 má o 25 % rychlejší prohlížení webu, o 15 % rychlejší start aplikací a o 50 % víc výkonu na TPU — AI úlohy na zařízení běží až 3,5x rychleji při 3,5x nižší spotřebě. Nový bezpečnostní čip **Titan M3** přináší postkvantovou kryptografii do secure bootu.
+Tensor G6 má o 25 % rychlejší prohlížení webu, o 15 % rychlejší start aplikací a o 50 % víc výkonu na TPU — AI úlohy na zařízení běží až 3,5x rychleji při 3,5x nižší spotřebě. Hodí se to i [novým modelům Gemini](/clanky/gemini-36-flash-gemini-4/), na kterých Google staví. Nový bezpečnostní čip **Titan M3** přináší postkvantovou kryptografii do secure bootu.
 
 ## A první lokátor od Googlu
 
@@ -25,7 +25,7 @@ Vedle telefonů Google ukázal **Pixel Tag** — svůj první vyhledávací př�
 
 ## Pro nás jedno ale
 
-Google v oznámení mluví jen o dolarových cenách a o Google Storu s „retailovými partnery". O Evropě ani o českých cenách v tiskovém materiálu není ani slovo. Sedm let updatů systému, zabezpečení i Pixel Dropů ale platí globálně a u Pro modelů je v ceně šest měsíců Google AI Pro s 5 TB v cloudu.
+Google v oznámení mluví jen o dolarových cenách a o Google Storu s „retailovými partnery". O Evropě ani o českých cenách v tiskovém materiálu není ani slovo — na rozdíl od Samsungu, který [české ceny nových Galaxy oznámil rovnou](/clanky/samsung-unpacked-fold8-watch9/). Sedm let updatů systému, zabezpečení i Pixel Dropů ale platí globálně a u Pro modelů je v ceně šest měsíců Google AI Pro s 5 TB v cloudu.
 
 ## Zdroj
 

@@ -18,7 +18,7 @@ Podle [oficiálního sdělení Mety](https://about.fb.com/news/2026/08/metas-com
 Tohle je ta zajímavější část. Meta nespoléhá na jedno ověření, ale na průběžné šťourání:
 
 - **AI čte profil.** Model analyzuje příspěvky, komentáře, bio i popisky fotek a hledá nepřímá vodítka — třeba oslavu narozenin nebo zmínku o ročníku ve škole.
-- **Snazší nahlašování.** Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu.
+- **Snazší nahlašování.** Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu. (Rodičovské páky přidávají i chatboti — OpenAI třeba dalo rodičům [možnost zapnout dětem Studijní režim](/clanky/chatgpt-studijni-rezim-rodice/).)
 - **AI posuzuje i ta hlášení.** Podle Mety to vychází přesněji a rychleji než samotná lidská kontrola.
 - **Blokace návratu.** Systémy mají poznat, když si někdo po smazání zakládá účet znovu.
 - **Věkový rating v App Store** zvedla Meta v Austrálii na 16+.
@@ -29,7 +29,7 @@ Mezi červnem a červencem k tomu Meta pustila osvětovou kampaň, která podle 
 
 Meta v závěru říká narovinu, co jí vadí: každá platforma si teenagery vyhazuje po svém. Chce **jeden spolehlivý věkový signál na úrovni operačního systému nebo obchodu s aplikacemi** — věk by se ověřil jednou při nastavení telefonu nebo instalaci aplikace, ne pořád dokola v desítkách appek.
 
-To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Apple s Googlem kývly, ověřování věku by se přesunulo do telefonu jako takového — a debata o věkových limitech na sítích, která běží i v EU, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní AI a ostatní hasí po svém.
+To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Apple s Googlem kývly, ověřování věku by se přesunulo do telefonu jako takového — a debata o věkových limitech na sítích, která běží i v EU, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní AI a ostatní hasí po svém — s podobným reflexem, s jakým [po třech dnech stáhla funkci Muse](/clanky/meta-muse-instagram-fotky/).
 
 ## Zdroj
 
