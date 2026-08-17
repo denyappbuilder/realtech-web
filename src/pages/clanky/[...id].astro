@@ -6,6 +6,7 @@ import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { slugify } from '../../lib/slugify.js';
 import { readingTime } from '../../lib/reading-time.js';
+import { youtubeId } from '../../lib/youtube.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -22,7 +23,7 @@ const readMinutes = readingTime(article.body);
 const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 const updatedStr = updated?.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-const videoId = video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
+const videoId = youtubeId(video);
 const brandedOg = `/images/og/${article.id}.jpg`;
 const ogImage = videoId
   ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
