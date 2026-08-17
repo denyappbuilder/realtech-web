@@ -24,10 +24,11 @@ export async function optimizeImages(dir = DIR) {
   for (const file of jpgs) {
     const base = file.replace(/\.jpg$/, '');
     const source = path.join(dir, file);
+    const oriented = () => sharp(source).autoOrient();
     const derivatives = [
-      [path.join(dir, `${base}-640.jpg`), await sharp(source).resize(640, 360).jpeg({ quality: 80 }).toBuffer()],
-      [path.join(dir, `${base}.webp`), await sharp(source).webp({ quality: 80 }).toBuffer()],
-      [path.join(dir, `${base}-640.webp`), await sharp(source).resize(640, 360).webp({ quality: 78 }).toBuffer()],
+      [path.join(dir, `${base}-640.jpg`), await oriented().resize(640, 360).jpeg({ quality: 80 }).toBuffer()],
+      [path.join(dir, `${base}.webp`), await oriented().webp({ quality: 80 }).toBuffer()],
+      [path.join(dir, `${base}-640.webp`), await oriented().resize(640, 360).webp({ quality: 78 }).toBuffer()],
     ];
 
     for (const [output, contents] of derivatives) {
