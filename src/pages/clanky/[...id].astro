@@ -7,6 +7,7 @@ import ArticleCard from '../../components/ArticleCard.astro';
 import { slugify } from '../../lib/slugify.js';
 import { readingTime } from '../../lib/reading-time.js';
 import { youtubeId } from '../../lib/youtube.js';
+import { isoDuration } from '../../lib/iso-duration.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -43,14 +44,6 @@ const chrono = (await getCollection('clanky', ({ data }) => !data.draft))
 const idx = chrono.findIndex((c) => c.id === article.id);
 const newer = idx > 0 ? chrono[idx - 1] : null;
 const older = idx >= 0 && idx < chrono.length - 1 ? chrono[idx + 1] : null;
-
-// "9:04" -> "PT9M4S" (schema.org chce ISO 8601 trvání)
-const isoDuration = (mmss?: string) => {
-  const p = mmss?.split(':').map(Number);
-  if (!p || p.some(Number.isNaN)) return undefined;
-  const [h, m, s] = p.length === 3 ? p : [0, p[0], p[1]];
-  return `PT${h ? `${h}H` : ''}${m}M${s}S`;
-};
 
 const autori = [
   { '@type': 'Person', name: 'Daniel Soukup', url: new URL('/o-nas/', Astro.site).href },
