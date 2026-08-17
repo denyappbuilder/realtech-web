@@ -158,7 +158,14 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   white-space: nowrap;
   flex-shrink: 0;
 }
-.ticker-viewport { overflow: hidden; flex: 1; }
+.ticker-viewport {
+  overflow: hidden;
+  flex: 1;
+  /* Z1007: text nesmí vjíždět pod neprůhledný štítek ŽIVĚ. */
+  padding-left: 16px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 16px, #000);
+  mask-image: linear-gradient(to right, transparent, #000 16px, #000);
+}
 .ticker-track {
   display: flex; width: max-content;
   margin-left: 24px;
