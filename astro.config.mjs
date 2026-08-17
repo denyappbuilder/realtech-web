@@ -3,6 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import fs from 'node:fs';
 import { slugify } from './src/lib/slugify.js';
 import { parseCalendarDate } from './src/lib/calendarDate.js';
+import { asciiHeadingId } from './src/lib/heading-id.js';
 
 // slug → lastmod (updated ?? date) z frontmatteru článků — pro sitemap <lastmod>
 const lastmods = {};
@@ -35,16 +36,12 @@ const newestArticle = timestamps.length ? new Date(Math.max(...timestamps)) : un
 // Astro generuje id nadpisů i s diakritikou („#aktuální-ceny-v-česku"), což se
 // v odkazech enkóduje na nečitelné %C3%A1… Přepíšeme je na ASCII podobu.
 function rehypeAsciiHeadingIds() {
-  const slug = (s) =>
-    s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-')
-      .replace(/^-|-$/g, '').slice(0, 60);
   const text = (node) =>
     node.type === 'text' ? node.value : (node.children ?? []).map(text).join('');
   return (tree) => {
     const walk = (node) => {
       if (node.type === 'element' && /^h[2-4]$/.test(node.tagName)) {
-        const id = slug(text(node));
+        const id = asciiHeadingId(text(node));
         if (id) node.properties = { ...node.properties, id };
       }
       (node.children ?? []).forEach(walk);
