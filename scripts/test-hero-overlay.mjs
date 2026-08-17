@@ -37,11 +37,26 @@ test("overlay na hero obrázku nesmí opakovat titulek článku", () => {
   );
 });
 
-test("výzva na obrázku je jiná než titulek článku", () => {
-  const titulek = "Novinky ze světa umělé inteligence";
-  const overlay = textNaHeroObrazku({ title: titulek });
-  assert.equal(overlay, "Přečíst analýzu");
-  assert.notEqual(overlay, titulek);
+test("overlay nesmí opakovat primární CTA tlačítka", () => {
+  const src = readFileSync(path.join(REPOSITORY_ROOT, "src/pages/index.astro"), "utf8");
+  assert.match(
+    src,
+    /class="btn-primary">Přečíst analýzu</,
+    "tlačítko v hero musí zůstat — léčba je overlay, ne smazání výzvy",
+  );
+  const overlay = textNaHeroObrazku({
+    title: "Novinky ze světa umělé inteligence",
+  });
+  assert.notEqual(
+    overlay,
+    "Přečíst analýzu",
+    "Z555: stejná výzva na tlačítku i na obrázku",
+  );
+  assert.equal(
+    overlay,
+    "",
+    "bez videa stačí tlačítko; overlay by zdvojil tutéž výzvu",
+  );
 });
 
 test("článek s videem nabízí pustit video, ne titulek", () => {
