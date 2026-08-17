@@ -11,6 +11,9 @@ const categoryLastmods = {};
 const invalidLastmodSlugs = new Set();
 for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith('.md'))) {
   const fm = fs.readFileSync(`./src/content/clanky/${f}`, 'utf8').split('---')[1] ?? '';
+  // Draft se na stránkách filtruje, ale lastmod se dřív počítal i z něj —
+  // nepublikovaný článek tak posunul homepage, archiv i cizí kategorie (Z1070).
+  if (/^draft:\s*true\b/m.test(fm)) continue;
   const d = fm.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1]
     ?? fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
   if (d) {
