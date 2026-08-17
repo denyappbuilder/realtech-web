@@ -251,8 +251,10 @@ const breadcrumbLd = {
   <script>
     // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů)
     const slugifyHeading = (s: string) =>
-      s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+      String(s ?? '')
+        .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-')
+        .slice(0, 60).replace(/^-|-$/g, '');
 
     document.querySelectorAll<HTMLElement>('.article-body h2, .article-body h3').forEach((h) => {
       if (!h.id) h.id = slugifyHeading(h.textContent ?? '');
