@@ -124,6 +124,33 @@ test(
   },
 );
 
+test('Z1070: draft neposune lastmod homepage, archivu, o-nas ani kategorie', async () => {
+  const options = await loadSitemapOptions([
+    article('publikovany', ['date: "2025-03-04"', 'category: "AI Report"']),
+    article('draft-do-budoucna', [
+      'date: "2025-03-04"',
+      'updated: "2026-12-31"',
+      'draft: true',
+      'category: "AI Report"',
+    ]),
+  ]);
+
+  for (const url of [
+    'https://realtech.cz/',
+    'https://realtech.cz/clanky/',
+    'https://realtech.cz/o-nas/',
+    'https://realtech.cz/temata/ai-report/',
+  ]) {
+    assert.equal(serialize(options, url).lastmod, '2025-03-04T00:00:00.000Z', url);
+  }
+
+  assert.equal(
+    serialize(options, 'https://realtech.cz/clanky/draft-do-budoucna/').lastmod,
+    '2025-03-04T00:00:00.000Z',
+    'draft nesmí mít vlastní lastmod z updated',
+  );
+});
+
 test(
   'bez jediného platného data se lastmod vynechá',
   async () => {
