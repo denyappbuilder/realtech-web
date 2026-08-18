@@ -12,14 +12,16 @@ export async function GET() {
     d: c.data.description,
     k: c.data.category,
     // prvních ~400 znaků čistého textu pro fulltext
+    // trim AŽ PO řezu: 400. znak umí padnout doprostřed mezislovní mezery
+    // a úryvek by jinak končil mezerou (limit 400 by přitom tvrdil, že drží).
     b: (c.body ?? '')
       .replace(/```[\s\S]*?```/g, ' ')
       .replace(/<[^>]+>/g, ' ')
       .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
       .replace(/[#*_>`|-]/g, ' ')
       .replace(/\s+/g, ' ')
-      .trim()
-      .slice(0, 400),
+      .slice(0, 400)
+      .trim(),
     p: c.data.date.toISOString().slice(0, 10),
   }));
 
