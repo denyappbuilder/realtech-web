@@ -11,7 +11,7 @@ Anthropic začal značkovat výstupy Clauda tak, aby se dalo strojově poznat, �
 
 ## Dvě různé techniky
 
-Na **text** jde neviditelný vodoznak vetkaný přímo do generovaných slov. Anthropic tvrdí, že nemění význam, kvalitu ani čitelnost odpovědi. Klíčové je, že se aplikuje **na úrovni modelu** — je tam bez ohledu na to, jestli text vypadne z Claude Platform (API), z Clauda, Claude Code, Claude Cowork nebo Claude Tag. A protože je součástí samotného textu, cestuje s ním při zkopírování a vložení jinam. Funguje i při přístupu přes AWS, Google Cloud a Microsoft Foundry.
+Na **text** jde neviditelný vodoznak vetkaný přímo do generovaných slov. Anthropic tvrdí, že nemění význam, kvalitu ani čitelnost odpovědi. Klíčové je, že se aplikuje **na úrovni modelu** — je tam bez ohledu na to, jestli text vypadne z Claude Platform (API), z Clauda, Claude Code, [Claude Cowork](/clanky/claude-cowork-sandbox-utek/) nebo Claude Tag. A protože je součástí samotného textu, cestuje s ním při zkopírování a vložení jinam. Funguje i při přístupu přes AWS, Google Cloud a Microsoft Foundry.
 
 Na **soubory** jde podepsaná metadata podle otevřeného standardu **C2PA** — tedy to, co už používá Adobe, OpenAI i Google. Anthropic jmenuje jako podporované typy `.svg`, `.png` a `.jpg`. U souborů navíc podpis prozradí, jestli s nimi někdo manipuloval.
 

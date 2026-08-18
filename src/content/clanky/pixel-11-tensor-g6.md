@@ -25,7 +25,7 @@ Vedle telefonů Google ukázal **Pixel Tag** — svůj první vyhledávací př�
 
 ## Pro nás jedno ale
 
-Google v oznámení mluví jen o dolarových cenách a o Google Storu s „retailovými partnery". O Evropě ani o českých cenách v tiskovém materiálu není ani slovo. Sedm let updatů systému, zabezpečení i Pixel Dropů ale platí globálně a u Pro modelů je v ceně šest měsíců Google AI Pro s 5 TB v cloudu.
+Google v oznámení mluví jen o dolarových cenách a o Google Storu s „retailovými partnery". O Evropě ani o českých cenách v tiskovém materiálu není ani slovo — na rozdíl od [Samsungu, který české ceny nových Galaxy Z řekl rovnou](/clanky/samsung-unpacked-fold8-watch9/). Sedm let updatů systému, zabezpečení i Pixel Dropů ale platí globálně a u Pro modelů je v ceně šest měsíců Google AI Pro s 5 TB v cloudu.
 
 ## Zdroj
 

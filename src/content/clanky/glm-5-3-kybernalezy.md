@@ -15,7 +15,7 @@ Na Terminal-Bench 3.0 šel model **z 4,6 na 28,3 bodu**, na DeepSWE z 46,2 na 66
 
 ## Co jim vyrostlo nechtěně
 
-Do tréninkové směsi přidali data o hledání zranitelností. Čekali, že model bude o něco lepší v analýze chyb. Podle vlastních slov je překvapilo, **jak rychle ta schopnost rostla dál** — model se přestal zastavovat u izolovaných chyb a začal skládat celé řetězce zneužití.
+Do tréninkové směsi přidali data o [hledání zranitelností](/clanky/openai-astra-critical-kyberbezpecnost/). Čekali, že model bude o něco lepší v analýze chyb. Podle vlastních slov je překvapilo, **jak rychle ta schopnost rostla dál** — model se přestal zastavovat u izolovaných chyb a začal skládat celé řetězce zneužití.
 
 Na CyberGym, kde jde o nalezení a potvrzení díry ve zdrojáku, dává GLM-5.3 **84,5 %** a je na tom benchmarku nejlepší ze všech — před Mythosem 5 (83,8 %) i GPT-5.6 Sol (83,6 %). O patro výš, na ExploitBench, sice svůj výsledek proti GLM-5.2 víc než zdvojnásobil (24,4 → 54,4 %), ale na Mythos 5 se 78 % pořád nemá. Sama Z.ai to shrnuje nepříjemně přesně: **schopnosti rostou nejrychleji přesně tam, kde nejvíc zaostávají.**
 
@@ -23,7 +23,7 @@ A pak je tu ta část, co není z laboratoře. S bezpečnostními týmy v Čín�
 
 ## Váhy až za dva týdny
 
-Model je od dneška dostupný přes GLM Coding Plan a ZCode. **Otevřené váhy ale Z.ai slibuje až dva týdny po startu — „až bude hotové bezpečnostní vyhodnocení a hardening".** Předchozí GLM šly ven pod MIT licencí prakticky hned. Čínská laboratoř, která sama zdrží vydání vah kvůli bezpečnosti, je docela nový obrázek.
+Model je od dneška dostupný přes GLM Coding Plan a ZCode. **[Otevřené váhy](/clanky/cina-exportni-kontroly-ai-modely/) ale Z.ai slibuje až dva týdny po startu — „až bude hotové bezpečnostní vyhodnocení a hardening".** Předchozí GLM šly ven pod MIT licencí prakticky hned. Čínská laboratoř, která sama zdrží vydání vah kvůli bezpečnosti, je docela nový obrázek.
 
 ## Zdroj
 
