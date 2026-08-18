@@ -158,6 +158,10 @@ const breadcrumbLd = {
         </div>
       )}
 
+      <div class="article-body">
+        <Content />
+      </div>
+
       {/*
         Článek BEZ videa dosud nenabízel ke kanálu nic konkrétního — jen obecné
         „kdo jsme" v `author-box` na konci. A takových článků je většina:
@@ -168,6 +172,8 @@ const breadcrumbLd = {
         Číslo videí je z YouTube API (30. 7. 2026: 82). Když poroste,
         klidně se přepíše — nepřesné číslo je horší než žádné. Převzato z návrhu Claude Design
         z 30. 7. 2026 — `reference/design-2026-07/`, varianta „video není".
+        Z1003: pruh nesmí sedět mezi hero a prvním odstavcem — působí to jako
+        vložená reklama a přerušuje čtení. Výzva zůstává, ale až po textu.
       */}
       {!video && (
         <div class="article-videobar">
@@ -178,10 +184,6 @@ const breadcrumbLd = {
           </a>
         </div>
       )}
-
-      <div class="article-body">
-        <Content />
-      </div>
 
       <div class="article-share">
         <span class="mono">// Sdílej dál</span>
