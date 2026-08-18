@@ -10,7 +10,11 @@ const lastmods = {};
 const categoryLastmods = {};
 const invalidLastmodSlugs = new Set();
 for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith('.md'))) {
-  const fm = fs.readFileSync(`./src/content/clanky/${f}`, 'utf8').split('---')[1] ?? '';
+  // Oddělovač je řádek `---`, ne libovolný výskyt v hodnotě (Z1267).
+  // `split('---')` uřízne `description: "Rozbor --- díl první"` uprostřed
+  // a ztratí `draft`/`date`/`category` za ním — sitemapa pak ohlásí datum
+  // článku, který na webu není.
+  const fm = fs.readFileSync(`./src/content/clanky/${f}`, 'utf8').split(/^---\s*$/m)[1] ?? '';
   // Draft se na stránkách filtruje, ale lastmod se dřív počítal i z něj —
   // nepublikovaný článek tak posunul homepage, archiv i cizí kategorie (Z1070).
   if (/^draft:\s*true\b/m.test(fm)) continue;
