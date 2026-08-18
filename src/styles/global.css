@@ -70,18 +70,7 @@ a:focus-visible, button:focus-visible {
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
 /* ── Top bar ─────────────────────────── */
-.topbar {
-  background: var(--panel);
-  color: #fff;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  border-bottom: 2px solid var(--signal);
-}
-.topbar .wrap {
-  display: flex; justify-content: space-between; align-items: center;
-  height: 34px;
-}
+/* Z1000: dekorativní pruh nad navigací je pryč. .live-dot zůstává pro ticker a patičku. */
 .live-dot {
   display: inline-block; width: 7px; height: 7px; border-radius: 50%;
   background: var(--signal); margin-right: 7px;
@@ -500,11 +489,12 @@ footer.site ul a:hover { color: var(--ink); }
   nav.main { order: 3; width: 100%; }
   nav.main ul { gap: 22px; }
   nav.main a { font-size: 0.85rem; padding: 2px 0 6px; }
+  /* Z1000: na tabletu a mobilu ticker dělá třetí pruh nad herem. */
+  .ticker { display: none; }
 }
 @media (max-width: 580px) {
   .grid { grid-template-columns: 1fr; }
   .nl-form { flex-direction: column; }
-  .topbar .wrap span:last-child { display: none; }
 }
 
 .video-embed {
