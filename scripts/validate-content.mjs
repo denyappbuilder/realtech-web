@@ -69,7 +69,8 @@ for (const f of files) {
   const slug = f.replace(/\.md$/, '');
   const full = path.join(DIR, f);
   let raw = fs.readFileSync(full, 'utf8');
-  const fm = raw.split('---')[1] ?? '';
+  const casti = raw.split('---');
+  const fm = casti[1] ?? '';
 
   try {
     // Keep timestamp-looking scalars as strings so the shared schema validates
@@ -86,6 +87,9 @@ for (const f of files) {
     errors.push(`${f}: pole "frontmatter" je neplatné: ${error.message}`);
   }
 
+  // Prázdný řádek `image:` je taky klíč — regex s (.+?) ho dřív nenašel
+  // a auto-oprava pak vložila druhý. YAML bere poslední (null) a cover zmizí.
+  const maKlicImage = /^image:\s*/m.test(fm);
   const image = fm.match(/^image:\s*["']?(.+?)["']?\s*$/m)?.[1];
   const hasVideo = /^video:/m.test(fm);
   const title = fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1];
@@ -98,13 +102,18 @@ for (const f of files) {
     }
   }
 
-  // 1. chybí image, ale cover existuje → doplnit
-  if (!image && !hasVideo && fs.existsSync(`${IMG}/${slug}.jpg`)) {
+  // 1. chybí image, ale cover existuje → doplnit. Náhrada JEN ve frontmatteru —
+  // raw.replace(/^(date:.*)$/m) nad celým souborem psala image do těla článku,
+  // když frontmatter `date:` neměl a tělo ho zmínilo.
+  if (!maKlicImage && !hasVideo && fs.existsSync(`${IMG}/${slug}.jpg`)) {
     const line = `image: "/images/clanky/${slug}.jpg"`;
-    raw = raw.replace(/^(date:.*)$/m, `$1\n${line}`);
-    fs.writeFileSync(full, raw);
-    warnings.push(`AUTO-OPRAVA ${slug}: doplněn chybějící image (cover existoval)`);
-    fixed++;
+    if (/^date:/m.test(fm)) {
+      casti[1] = fm.replace(/^(date:.*)$/m, `$1\n${line}`);
+      raw = casti.join('---');
+      fs.writeFileSync(full, raw);
+      warnings.push(`AUTO-OPRAVA ${slug}: doplněn chybějící image (cover existoval)`);
+      fixed++;
+    }
   }
 
   // 2. image musí mít povolený tvar a existující soubor
