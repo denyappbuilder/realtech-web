@@ -321,7 +321,8 @@ a.tag:hover { background: var(--signal-dark); }
   letter-spacing: 0.1em; text-transform: uppercase;
   padding: 4px 9px; color: #fff;
 }
-.card-thumb .lt .k { background: var(--signal); }
+/* Z1002: štítek kategorie nesmí být všude stejná --signal. Fallback je neutrální; barvu dává .th-* .k. */
+.card-thumb .lt .k { background: var(--panel); }
 .card-thumb .lt .t { background: rgba(20,23,28,0.85); }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card-body h3 {
@@ -338,7 +339,7 @@ a.tag:hover { background: var(--signal-dark); }
   border-top: 1px solid var(--line); padding-top: 12px;
 }
 
-/* Kategorie → gradient náhledu */
+/* Kategorie → gradient náhledu + vlastní barva štítku (Z1002) */
 .th-ai-report { background: linear-gradient(135deg, #1B2A44, #2B4A6F); }
 .th-ai-agenti { background: linear-gradient(135deg, #2B2410, #6F5B2B); }
 .th-drony     { background: linear-gradient(135deg, #3A1F14, #6F3A2B); }
@@ -346,6 +347,29 @@ a.tag:hover { background: var(--signal-dark); }
 .th-hardware  { background: linear-gradient(135deg, #1C2B25, #2F5546); }
 .th-mobily    { background: linear-gradient(135deg, #2E1430, #5A2B6F); }
 .th-site      { background: linear-gradient(135deg, #14262B, #2B5A6F); }
+.th-ai-report .lt .k { background: #2B4A6F; }
+.th-ai-agenti .lt .k { background: #8A6420; }
+.th-drony .lt .k     { background: #8B3A22; }
+.th-vesmir .lt .k    { background: #3A4570; }
+.th-hardware .lt .k  { background: #2F5546; }
+.th-mobily .lt .k    { background: #5A2B6F; }
+.th-site .lt .k      { background: #1F6A7A; }
+
+/* Z1002: první karta ve výpisu je featured — na stránce tématu by jinak všechny štítky byly stejné. */
+@media (min-width: 581px) {
+  .articles .wrap > .grid > .card:first-child {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+  .articles .wrap > .grid > .card:first-child .card-thumb {
+    aspect-ratio: auto;
+    min-height: 220px;
+  }
+  .articles .wrap > .grid > .card:first-child .card-body h3 {
+    font-size: 1.35rem;
+  }
+}
 
 /* ── Article detail ──────────────────── */
 .article-page { padding: 56px 0 64px; }
