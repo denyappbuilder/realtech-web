@@ -7,11 +7,11 @@ zprava: true
 image: "/images/clanky/claude-vodoznak-ai-text.jpg"
 ---
 
-Anthropic začal značkovat výstupy Clauda tak, aby se dalo strojově poznat, že prošly jeho modelem. Podle [oficiální stránky podpory](https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content) se to týká modelů spuštěných **2. srpna 2026 nebo později** — u starších se na podpoře teprve pracuje.
+Anthropic začal značkovat výstupy Clauda tak, aby se dalo strojově poznat, že prošly jeho modelem. Podle [oficiální stránky podpory](https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content) se to týká modelů spuštěných **2. srpna 2026 nebo později** — u starších, tedy včetně [červencového Claude Opus 5](/clanky/anthropic-claude-opus-5/), se na podpoře teprve pracuje.
 
 ## Dvě různé techniky
 
-Na **text** jde neviditelný vodoznak vetkaný přímo do generovaných slov. Anthropic tvrdí, že nemění význam, kvalitu ani čitelnost odpovědi. Klíčové je, že se aplikuje **na úrovni modelu** — je tam bez ohledu na to, jestli text vypadne z Claude Platform (API), z Clauda, Claude Code, Claude Cowork nebo Claude Tag. A protože je součástí samotného textu, cestuje s ním při zkopírování a vložení jinam. Funguje i při přístupu přes AWS, Google Cloud a Microsoft Foundry.
+Na **text** jde neviditelný vodoznak vetkaný přímo do generovaných slov. Anthropic tvrdí, že nemění význam, kvalitu ani čitelnost odpovědi. Klíčové je, že se aplikuje **na úrovni modelu** — je tam bez ohledu na to, jestli text vypadne z Claude Platform (API), z Clauda, Claude Code, [Claude Coworku](/clanky/claude-cowork-sandbox-utek/) nebo Claude Tag. A protože je součástí samotného textu, cestuje s ním při zkopírování a vložení jinam. Funguje i při přístupu přes AWS, Google Cloud a Microsoft Foundry.
 
 Na **soubory** jde podepsaná metadata podle otevřeného standardu **C2PA** — tedy to, co už používá Adobe, OpenAI i Google. Anthropic jmenuje jako podporované typy `.svg`, `.png` a `.jpg`. U souborů navíc podpis prozradí, jestli s nimi někdo manipuloval.
 
