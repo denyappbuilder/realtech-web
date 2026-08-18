@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { asciiHeadingId } from '../src/lib/heading-id.js';
+import { asciiHeadingId, nextUniqueHeadingId } from '../src/lib/heading-id.js';
 
 const REPOSITORY_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -50,7 +50,7 @@ test('Z1064: prázdný vstup po vyčištění zůstane prázdný', () => {
 test('Z1064: plugin i kotva v článku berou ořez PŘED čištěním okrajů', () => {
   assert.match(
     configSrc,
-    /asciiHeadingId\(text\(node\)\)/,
+    /nextUniqueHeadingId\(asciiHeadingId\(text\(node\)\), seen\)/,
     'rehype plugin musí pouštět sdílený helper, ne kopii slugu',
   );
   assert.match(
@@ -64,12 +64,29 @@ test('Z1064: plugin i kotva v článku berou ořez PŘED čištěním okrajů', 
   );
   assert.match(
     clanekSrc,
-    /\.slice\(0,\s*60\)\.replace\(\/\^-\|-\$\/g,\s*''\)/,
-    'kotva v článku musí ořezat PŘED odstraněním krajní pomlčky',
+    /from '\.\.\/\.\.\/lib\/heading-id\.js'/,
+    'kotva v článku musí brát sdílený helper, ne druhou kopii slugu',
+  );
+  assert.match(
+    clanekSrc,
+    /nextUniqueHeadingId\(asciiHeadingId\(/,
+    'kotva musí deduplikovat stejným helperem jako plugin (Z1207)',
   );
   assert.doesNotMatch(
     clanekSrc,
     /\.replace\(\/\^-\|-\$\/g,\s*''\)\.slice\(0,\s*60\)/,
     'staré pořadí nesmí zůstat v kotvě článku',
   );
+});
+
+test('Z1207: přípona jde ZA ořez, první výskyt zůstane bez čísla', () => {
+  const seen = new Map();
+  const dlouhy = `${'Kolik stojí realitní web v roce 2026 a co všechno je v ceně zahrnuto'}`;
+  const druhy = `${'Kolik stojí realitní web v roce 2026 a co všechno je v ceně navíc'}`;
+  const a = nextUniqueHeadingId(asciiHeadingId(dlouhy), seen);
+  const b = nextUniqueHeadingId(asciiHeadingId(druhy), seen);
+  assert.equal(a, 'kolik-stoji-realitni-web-v-roce-2026-a-co-vsechno-je-v-cene');
+  assert.equal(b, 'kolik-stoji-realitni-web-v-roce-2026-a-co-vsechno-je-v-cene-1');
+  assert.equal(a.length, 59);
+  assert.ok(b.endsWith('-1'));
 });
