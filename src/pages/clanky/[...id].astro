@@ -245,15 +245,14 @@ const breadcrumbLd = {
   </div>
 
   <script>
-    // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů)
-    const slugifyHeading = (s: string) =>
-      String(s ?? '')
-        .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-')
-        .slice(0, 60).replace(/^-|-$/g, '');
+    // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů).
+    // Stejný helper jako rehype plugin, včetně dedupu (Z1207) — jinak by tlačítko
+    // „#“ u druhé stejné sekce zkopírovalo odkaz na první.
+    import { asciiHeadingId, nextUniqueHeadingId } from '../../lib/heading-id.js';
 
+    const seen = new Map<string, number>();
     document.querySelectorAll<HTMLElement>('.article-body h2, .article-body h3').forEach((h) => {
-      if (!h.id) h.id = slugifyHeading(h.textContent ?? '');
+      if (!h.id) h.id = nextUniqueHeadingId(asciiHeadingId(h.textContent ?? ''), seen);
       const a = document.createElement('a');
       a.href = `#${h.id}`;
       a.className = 'heading-anchor';

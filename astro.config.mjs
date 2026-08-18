@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import fs from 'node:fs';
 import { slugify } from './src/lib/slugify.js';
 import { parseCalendarDate } from './src/lib/calendarDate.js';
-import { asciiHeadingId } from './src/lib/heading-id.js';
+import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
 
 // slug → lastmod (updated ?? date) z frontmatteru článků — pro sitemap <lastmod>
 const lastmods = {};
@@ -42,9 +42,10 @@ function rehypeAsciiHeadingIds() {
   const text = (node) =>
     node.type === 'text' ? node.value : (node.children ?? []).map(text).join('');
   return (tree) => {
+    const seen = new Map();
     const walk = (node) => {
       if (node.type === 'element' && /^h[2-4]$/.test(node.tagName)) {
-        const id = asciiHeadingId(text(node));
+        const id = nextUniqueHeadingId(asciiHeadingId(text(node)), seen);
         if (id) node.properties = { ...node.properties, id };
       }
       (node.children ?? []).forEach(walk);

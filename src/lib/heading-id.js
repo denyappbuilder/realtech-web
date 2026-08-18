@@ -19,3 +19,20 @@ export function asciiHeadingId(s) {
     .slice(0, 60)
     .replace(/^-|-$/g, '');
 }
+
+/**
+ * Pořadové číslo AŽ PO ořezu na 60 znaků (Z1207 / REHYPE-NADPISY-001).
+ * Stejná konvence jako github-slugger: první výskyt bez přípony,
+ * druhý `-1`, třetí `-2`. Přípona se nesmí dostat do slice(0, 60),
+ * jinak se u dlouhých nadpisů ořízne a kolize zůstane.
+ *
+ * @param {string} base
+ * @param {Map<string, number>} seen
+ * @returns {string}
+ */
+export function nextUniqueHeadingId(base, seen) {
+  if (!base) return '';
+  const count = seen.get(base) ?? 0;
+  seen.set(base, count + 1);
+  return count === 0 ? base : `${base}-${count}`;
+}
