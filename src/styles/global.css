@@ -506,6 +506,8 @@ footer.site ul a:hover { color: var(--ink); }
 /* ── Responsive ──────────────────────── */
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  /* Z10024: 16/10 přes celou šířku bez stropu žere fold (na 768px ~430 px výšky). */
+  .hero-visual { max-height: 220px; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   header.site .wrap {
