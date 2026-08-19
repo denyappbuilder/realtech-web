@@ -23,13 +23,15 @@ Tohle je ta zajímavější část. Meta nespoléhá na jedno ověření, ale na
 - **Blokace návratu.** Systémy mají poznat, když si někdo po smazání zakládá účet znovu.
 - **Věkový rating v App Store** zvedla Meta v Austrálii na 16+.
 
+Odhadovat věk z chování mezitím začalo i OpenAI — koho vyhodnotí jako nezletilého, toho [překlopí do samostatné verze ChatGPT](/clanky/chatgpt-pro-teenagery/).
+
 Mezi červnem a červencem k tomu Meta pustila osvětovou kampaň, která podle ní zasáhla zhruba 1,3 milionu lidí.
 
 ## Co z toho plyne pro nás
 
 Meta v závěru říká narovinu, co jí vadí: každá platforma si teenagery vyhazuje po svém. Chce **jeden spolehlivý věkový signál na úrovni operačního systému nebo obchodu s aplikacemi** — věk by se ověřil jednou při nastavení telefonu nebo instalaci aplikace, ne pořád dokola v desítkách appek.
 
-To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Apple s Googlem kývly, ověřování věku by se přesunulo do telefonu jako takového — a debata o věkových limitech na sítích, která běží i v EU, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní AI a ostatní hasí po svém.
+To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Apple s Googlem kývly, ověřování věku by se přesunulo do telefonu jako takového — a debata o věkových limitech na sítích, která běží i v EU, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní AI a ostatní hasí po svém — a že jí AI na cizích profilech nedávno vyhořela i [u generátoru obrázků Muse](/clanky/meta-muse-instagram-fotky/).
 
 ## Zdroj
 

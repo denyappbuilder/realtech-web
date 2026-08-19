@@ -15,7 +15,7 @@ Pro nás je zajímavá hlavně ta Británie. Reklamy se rozjely v únoru ve Stá
 
 Reklamy vidí **přihlášení dospělí uživatelé na tarifech Free a Go**. Placené tarify — Plus, Pro, Business, Enterprise a Education — reklamy podle OpenAI mít nebudou.
 
-A je tam ještě jedna možnost, o které se moc nemluví: ve Free tarifu jde reklamy **vypnout**, ale výměnou za méně zpráv denně. Takže buď koukáš na reklamy, nebo máš nižší limit. Klasický obchod.
+A je tam ještě jedna možnost, o které se moc nemluví: ve Free tarifu jde reklamy **vypnout**, ale výměnou za méně zpráv denně — tedy zpátky k počítání zpráv, kterého se free účty [před pár dny zbavily](/clanky/chatgpt-zdarma-neomezene-chaty/). Takže buď koukáš na reklamy, nebo máš nižší limit. Klasický obchod.
 
 ## Jak to funguje
 
@@ -29,7 +29,7 @@ Ovládání máš na své straně: reklamu jde odmítnout, poslat zpětnou vazbu
 
 ## Co si z toho odnést
 
-Zadarmo to nikdy nebylo. ChatGPT ve Free tarifu stojí OpenAI peníze a tohle je odpověď, jak je vydělat, aniž by za to lidi platili přímo. Jestli ti to vadí, máš dvě cesty — předplatné, nebo méně zpráv denně. Až to dorazí k nám, budeš vědět, kde hledat přepínač.
+Zadarmo to nikdy nebylo. ChatGPT ve Free tarifu stojí OpenAI peníze — i po [osmdesátiprocentním zlevnění GPT-5.6 Luna](/clanky/gpt-5-6-snizeni-cen/) — a tohle je odpověď, jak je vydělat, aniž by za to lidi platili přímo. Jestli ti to vadí, máš dvě cesty — předplatné, nebo méně zpráv denně. Až to dorazí k nám, budeš vědět, kde hledat přepínač.
 
 ## Zdroj
 
