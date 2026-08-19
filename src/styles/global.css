@@ -631,10 +631,6 @@ footer.site ul a:hover { color: var(--ink); }
 .hero-visual .play { z-index: 1; }
 
 /* ── Article typography polish ───────── */
-.article-body h2::before {
-  content: "// ";
-  color: var(--signal-dark);
-}
 .article-body > p:first-child {
   font-size: 1.12rem;
   color: var(--ink-soft);
