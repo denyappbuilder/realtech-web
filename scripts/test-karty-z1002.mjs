@@ -39,7 +39,7 @@ test("Z1002: každá kategorie má vlastní barvu štítku", () => {
 test("Z1002: první karta ve výpisu je featured, ať se na tématu neslévají", () => {
   assert.match(
     css,
-    /\.articles \.wrap > \.grid > \.card:first-child\s*\{[^}]*grid-column:\s*1\s*\/\s*-1/,
+    /\.featured-lead\s*>\s*\.card:first-child\s*\{[^}]*grid-column:\s*1\s*\/\s*-1/,
     "výpis nemá featured první kartu — na /temata/ zůstane stejnorodý grid",
   );
 });

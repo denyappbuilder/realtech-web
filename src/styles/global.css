@@ -353,18 +353,18 @@ a.tag:hover { background: var(--signal-dark); }
 .th-mobily .lt .k    { background: #5A2B6F; }
 .th-site .lt .k      { background: #1F6A7A; }
 
-/* Z1002: první karta ve výpisu je featured — na stránce tématu by jinak všechny štítky byly stejné. */
+/* Z1002 + Z10022: featured první karta jen na /temata/, ne na úvodce ani archivu. */
 @media (min-width: 581px) {
-  .articles .wrap > .grid > .card:first-child {
+  .featured-lead > .card:first-child {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   }
-  .articles .wrap > .grid > .card:first-child .card-thumb {
+  .featured-lead > .card:first-child .card-thumb {
     aspect-ratio: auto;
     min-height: 220px;
   }
-  .articles .wrap > .grid > .card:first-child .card-body h3 {
+  .featured-lead > .card:first-child .card-body h3 {
     font-size: 1.35rem;
   }
 }
