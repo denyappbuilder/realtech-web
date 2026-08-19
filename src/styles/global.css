@@ -607,11 +607,26 @@ footer.site ul a:hover { color: var(--ink); }
   transition: transform 0.25s;
 }
 .card:hover .card-thumb img { transform: scale(1.05); }
+/* Z10031: společná hnědočervená clona #0d0707 všechny náhledy slévala. */
 .card-thumb::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(13,7,7,0.55) 100%);
+  background: linear-gradient(180deg, transparent 62%, rgba(20,23,28,0.38) 100%);
 }
+.card-thumb::before {
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 5px;
+  z-index: 1;
+  background: var(--panel);
+}
+.th-ai-report::before { background: #2B4A6F; }
+.th-ai-agenti::before { background: #8A6420; }
+.th-drony::before     { background: #8B3A22; }
+.th-vesmir::before    { background: #3A4570; }
+.th-hardware::before  { background: #2F5546; }
+.th-mobily::before    { background: #5A2B6F; }
+.th-site::before      { background: #1F6A7A; }
 .card-thumb .lt { position: relative; z-index: 1; }
 
 .hero-visual img {
