@@ -516,11 +516,15 @@ footer.site ul a:hover { color: var(--ink); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   header.site .wrap {
     flex-wrap: wrap; height: auto;
-    padding-top: 12px; padding-bottom: 12px; row-gap: 6px;
+    padding-top: 10px; padding-bottom: 10px; row-gap: 8px;
   }
+  /* Z10033: desktopové 1.45rem žere výšku a mačká navigaci pod sebou. */
+  .logo { font-size: 1.05rem; }
+  .logo .cz { font-size: 0.55rem; }
   nav.main { order: 3; width: 100%; }
-  nav.main ul { gap: 22px; }
-  nav.main a { font-size: 0.85rem; padding: 2px 0 6px; }
+  nav.main ul { gap: 18px; }
+  nav.main a { font-size: 0.95rem; padding: 6px 0 8px; }
+  .yt-btn { padding: 8px 12px; font-size: 0.8rem; }
   /* Z1000: na tabletu a mobilu ticker dělá třetí pruh nad herem. */
   .ticker { display: none; }
 }
