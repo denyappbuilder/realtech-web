@@ -2,7 +2,7 @@
 title: "Vláda USA poprvé zakázala AI model — a to i vlastním lidem Anthropicu"
 description: "Anthropic vydal nejsilnější model své historie a za tři dny mu vláda nařídila ho vypnout. Precedens, který mění pravidla pro celou AI branži — a týká se i Evropy."
 category: "AI Report"
-date: 2026-07-02
+date: "2026-07-02"
 image: "/images/clanky/anthropic-fable-mythos.jpg"
 ---
 

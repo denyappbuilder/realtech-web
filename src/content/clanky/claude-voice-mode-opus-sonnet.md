@@ -2,7 +2,7 @@
 title: "Claude už si s tebou popovídá naplno — a sáhne ti do Gmailu i Slacku"
 description: "Anthropic pustil do hlasového režimu silnější modely Opus a Sonnet a propojil ho s Gmailem, kalendářem, Slackem nebo Notionem. Hlasem teď vyřídíš i reálnou práci. Čeština ale pořád chybí."
 category: "AI Agenti"
-date: 2026-07-24
+date: "2026-07-24"
 zprava: true
 image: "/images/clanky/claude-voice-mode-opus-sonnet.jpg"
 ---

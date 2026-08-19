@@ -2,7 +2,7 @@
 title: "Google vydal tři nové Gemini modely. A mimochodem přiznal, že už trénuje Gemini 4"
 description: "Gemini 3.6 Flash je chytřejší a levnější než předchůdce, Flash-Lite chrlí 350 tokenů za sekundu a Flash Cyber loví bezpečnostní díry v kódu. Nejzajímavější věta ale byla schovaná v půlce oznámení: největší trénink v historii Googlu — Gemini 4 — už běží."
 category: "AI Report"
-date: 2026-07-22
+date: "2026-07-22"
 zprava: true
 image: "/images/clanky/gemini-36-flash-gemini-4.jpg"
 ---

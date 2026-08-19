@@ -2,7 +2,7 @@
 title: "Konec DJI v USA: co přesně zákaz znamená a hrozí i v Evropě?"
 description: "Firma se 70 % světového trhu s drony narazila v USA na blokádu. Rozebrali jsme, co přesně zákaz zakazuje, jak k němu došlo a jestli se mají bát i čeští uživatelé."
 category: "Drony"
-date: 2026-07-02
+date: "2026-07-02"
 video: "https://youtu.be/7-S7D2y6IHo"
 videoLength: "9:39"
 ---

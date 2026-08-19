@@ -2,7 +2,7 @@
 title: "Nvidia postavila procesor do notebooků. Míří na Qualcomm — a musí porazit MacBook"
 description: "Poprvé po více než deseti letech dělá Nvidia vlastní hlavní procesor. Čip N1X přináší do ARM Windows grafiku a CUDA — ale má jeden háček, který rozhodne o všem."
 category: "Hardware"
-date: 2026-07-02
+date: "2026-07-02"
 video: "https://youtu.be/ytDd3Uj8LKw"
 videoLength: "7:26"
 ---
