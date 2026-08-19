@@ -18,7 +18,11 @@ export async function GET() {
       .replace(/```[\s\S]*?```/g, ' ')
       .replace(/<[^>]+>/g, ' ')
       .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-      .replace(/[#*_>`|-]/g, ' ')
+      // Markdown značky pryč; pomlčku ber jen jako odrážku / oddělovač
+      // na hranici slova. Uvnitř tokenu (GPT-5, Wi-Fi, zero-day) musí zůstat,
+      // jinak klientský search() výraz v těle nenajde (Z10026).
+      .replace(/[#*_>`|]/g, ' ')
+      .replace(/(^|\s)-+(?=\s|$)/gm, '$1')
       .replace(/\s+/g, ' ')
       .slice(0, 400)
       .trim(),
