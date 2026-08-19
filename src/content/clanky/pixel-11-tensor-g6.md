@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/pixel-11-tensor-g6.jpg"
 ---
 
-Google dneska odpoledne odpálil Made by Google 2026 a s ním jedenáctou generaci Pixelů: **Pixel 11, Pixel 11 Pro a Pixel 11 Pro XL**. Předobjednávky běží od dneška, na pultech mají být **20. srpna**, ceny startují na **899 / 1 099 / 1 299 dolarech**. Všechny tři začínají na 256 GB.
+Google dneska odpoledne odpálil Made by Google 2026 a s ním jedenáctou generaci Pixelů: **Pixel 11, Pixel 11 Pro a Pixel 11 Pro XL**. Předobjednávky běží od dneška, na pultech mají být **20. srpna** — necelé dva týdny po tom, co [do prodeje šly Samsungy Fold8 a Flip8](/clanky/samsung-galaxy-z-fold8-flip8-prodej/). Ceny startují na **899 / 1 099 / 1 299 dolarech**. Všechny tři začínají na 256 GB.
 
 ## Co je nové v hardwaru
 
@@ -25,7 +25,7 @@ Vedle telefonů Google ukázal **Pixel Tag** — svůj první vyhledávací př�
 
 ## Pro nás jedno ale
 
-Google v oznámení mluví jen o dolarových cenách a o Google Storu s „retailovými partnery". O Evropě ani o českých cenách v tiskovém materiálu není ani slovo. Sedm let updatů systému, zabezpečení i Pixel Dropů ale platí globálně a u Pro modelů je v ceně šest měsíců Google AI Pro s 5 TB v cloudu.
+Google v oznámení mluví jen o dolarových cenách a o Google Storu s „retailovými partnery". O Evropě ani o českých cenách v tiskovém materiálu není ani slovo. V EU navíc [musí Google Android otevřít i konkurenčním asistentům](/clanky/eu-android-ai-asistenti/), takže Gemini tady nemusí zůstat jedinou volbou. Sedm let updatů systému, zabezpečení i Pixel Dropů ale platí globálně a u Pro modelů je v ceně šest měsíců Google AI Pro s 5 TB v cloudu.
 
 ## Zdroj
 
