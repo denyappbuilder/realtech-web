@@ -69,8 +69,11 @@ for (const f of files) {
   const slug = f.replace(/\.md$/, '');
   const full = path.join(DIR, f);
   let raw = fs.readFileSync(full, 'utf8');
-  const casti = raw.split('---');
-  const fm = casti[1] ?? '';
+  // Oddělovač je řádek ---, ne výskyt v hodnotě (Z10036). Capture group
+  // oddělovače zachová, ať join('') při auto-opravě nesežere prázdné
+  // řádky kolem vodorovných čar v těle (Z10037).
+  const casti = raw.split(/(^---\s*$)/m);
+  const fm = casti[2] ?? '';
 
   try {
     // Keep timestamp-looking scalars as strings so the shared schema validates
@@ -108,8 +111,8 @@ for (const f of files) {
   if (!maKlicImage && !hasVideo && fs.existsSync(`${IMG}/${slug}.jpg`)) {
     const line = `image: "/images/clanky/${slug}.jpg"`;
     if (/^date:/m.test(fm)) {
-      casti[1] = fm.replace(/^(date:.*)$/m, `$1\n${line}`);
-      raw = casti.join('---');
+      casti[2] = fm.replace(/^(date:.*)$/m, `$1\n${line}`);
+      raw = casti.join('');
       fs.writeFileSync(full, raw);
       warnings.push(`AUTO-OPRAVA ${slug}: doplněn chybějící image (cover existoval)`);
       fixed++;
