@@ -21,10 +21,14 @@ const thumbClass = `th-${slugify(category)}`;
 const dateStr = formatCalendarDateCs(date);
 const videoId = youtubeId(video);
 
-// Karta renderuje ~400 px — 640px a WebP jen u JPG (Z1071)
-const { localThumb, thumbW: localW, thumbH: localH, thumbWebp, hasWebp } = nahledKarty(image);
+// Karta renderuje ~400 px — 640px a WebP jen u JPG (Z1071).
+// WebP se počítá z lokálního coveru. U videa ale thumbUrl míří na YouTube
+// a <source> by v <picture> přebil hqdefault (Z10093).
+const { localThumb, thumbW: localW, thumbH: localH, thumbWebp: localWebp, hasWebp: localHasWebp } = nahledKarty(image);
 const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : localThumb;
 const [thumbW, thumbH] = videoId ? [480, 360] : [localW, localH];
+const thumbWebp = videoId ? null : localWebp;
+const hasWebp = videoId ? false : localHasWebp;
 ---
 <article class="card" data-category={category}>
   <a href={`/clanky/${article.id}/`} class={`card-thumb ${thumbClass}`} aria-hidden="true" tabindex="-1">
