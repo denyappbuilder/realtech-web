@@ -2,7 +2,7 @@
 title: "Pixel 11 je venku: Tensor G6, sedm let updatů a blikající dioda místo displeje"
 description: "Google představil Pixel 11, 11 Pro a 11 Pro XL. Ceny od 899 dolarů, do prodeje 20. srpna. Novinky: LED HiLight kolem blesku, 30x zoom na základním modelu a první vlastní lokátor Pixel Tag za 29 dolarů."
 category: "Mobily"
-date: 2026-08-12
+date: "2026-08-12"
 zprava: true
 image: "/images/clanky/pixel-11-tensor-g6.jpg"
 ---

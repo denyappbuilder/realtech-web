@@ -2,7 +2,7 @@
 title: "YouTube konečně pouští vlastní náhledy ke Shorts. A thumbnail vám udělá i AI"
 description: "Tvůrci v Partner Programu můžou nově nahrávat vlastní náhledové obrázky ke Shorts — funkce, na kterou se čekalo roky. Do Ask Studia zároveň přibyla AI, která thumbnail k dlouhému videu vygeneruje na požádání."
 category: "AI Report"
-date: 2026-07-26
+date: "2026-07-26"
 zprava: true
 image: "/images/clanky/youtube-shorts-vlastni-nahledy.jpg"
 ---

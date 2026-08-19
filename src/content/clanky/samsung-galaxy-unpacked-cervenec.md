@@ -2,7 +2,7 @@
 title: "Samsung svolává Unpacked na 22. července. „A New Shape Unfolds“ naznačuje nový tvar skládačky"
 description: "Samsung oficiálně potvrdil letní Galaxy Unpacked — 22. července v Londýně, stream od 15:00 našeho času. Heslo akce napovídá, že nepůjde jen o další Fold a Flip."
 category: "Mobily"
-date: 2026-07-08
+date: "2026-07-08"
 zprava: true
 image: "/images/clanky/samsung-galaxy-unpacked-cervenec.jpg"
 ---
