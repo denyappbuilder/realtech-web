@@ -8,6 +8,7 @@ import { slugify } from '../../lib/slugify.js';
 import { readingTime } from '../../lib/reading-time.js';
 import { youtubeId } from '../../lib/youtube.js';
 import { isoDuration } from '../../lib/iso-duration.js';
+import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -21,8 +22,8 @@ const { article } = Astro.props;
 const { Content } = await render(article);
 const { title, description, category, date, video, videoLength, zprava, image, updated } = article.data;
 const readMinutes = readingTime(article.body);
-const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
-const updatedStr = updated?.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
+const dateStr = formatCalendarDateCs(date);
+const updatedStr = formatCalendarDateCs(updated);
 
 const videoId = youtubeId(video);
 const brandedOg = `/images/og/${article.id}.jpg`;

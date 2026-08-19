@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { readingTime } from '../lib/reading-time.js';
 import { youtubeId } from '../lib/youtube.js';
 import { nahledKarty } from '../lib/karta-nahled.js';
+import { formatCalendarDateCs } from '../lib/calendarDate.js';
 
 interface Props {
   article: CollectionEntry<'clanky'>;
@@ -17,7 +18,7 @@ const slugify = (s: string) =>
    .replace(/\s+/g, '-');
 
 const thumbClass = `th-${slugify(category)}`;
-const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
+const dateStr = formatCalendarDateCs(date);
 const videoId = youtubeId(video);
 
 // Karta renderuje ~400 px — 640px a WebP jen u JPG (Z1071)
