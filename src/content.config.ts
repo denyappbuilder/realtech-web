@@ -9,10 +9,11 @@ const calendarDateString = z
   })
   .transform((value) => parseCalendarDate(value)!);
 
-// Astro's YAML parser resolves an unquoted YYYY-MM-DD scalar to Date before
-// schema validation. Quoted dates arrive as strings and need strict calendar
-// validation; both accepted representations leave the schema as Date.
-const calendarDate = z.union([z.date(), calendarDateString]);
+// js-yaml default schema turns an unquoted YYYY-MM-DD into Date and rolls
+// invalid civil days (2025-02-29 → 2025-03-01T00:00:00.000Z). From that Date
+// the original day is gone, so the schema must not accept Date at all.
+// Quoted strings stay strings and go through parseCalendarDate.
+const calendarDate = calendarDateString;
 
 const clanky = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/clanky' }),
