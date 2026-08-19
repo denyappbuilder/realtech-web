@@ -374,6 +374,12 @@ a.tag:hover { background: var(--signal-dark); }
 /* ── Article detail ──────────────────── */
 .article-page { padding: 56px 0 64px; }
 .article-head { max-width: 760px; margin: 0 auto 36px; }
+/* Z10023: metadata článku nesmí sedět na --panel. Ten černý pruh patří hero úvodce. */
+.article-head .lower-third .time {
+  background: var(--surface);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+}
 .article-head h1 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.8rem, 3.6vw, 2.8rem); line-height: 1.08;
