@@ -735,6 +735,52 @@ footer.site ul a:hover { color: var(--ink); }
   padding: 56px 0;
   max-width: 720px;
 }
+/* Z10137: O nás vyplní wrap 1120px. .about 720px zůstává pro /vitej/. */
+.about.about-wide {
+  max-width: none;
+}
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(220px, 0.8fr);
+  gap: 28px;
+  align-items: start;
+  margin: 8px 0 0;
+}
+@media (max-width: 900px) {
+  .about-layout { grid-template-columns: 1fr; }
+}
+.about-main { min-width: 0; }
+.about-aside {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+.about-aside .mono {
+  color: var(--ink-faint);
+  margin: 18px 0 8px;
+}
+.about-aside .mono:first-child { margin-top: 0; }
+.about-aside-meta {
+  list-style: none;
+  margin: 0 0 4px;
+  padding: 0;
+}
+.about-aside-meta li {
+  margin: 0 0 8px;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.about-aside-meta a { color: var(--signal-dark); }
+.about-aside-meta a:hover { text-decoration: underline; }
+.about-aside-quote {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
 .about h1 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.05;
