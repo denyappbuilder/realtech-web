@@ -130,11 +130,12 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 .yt-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* ── News ticker ─────────────────────── */
+/* Z10032: statický pruh, ne marquee z počátku 2000s. */
 .ticker {
   display: flex; align-items: center;
   border-bottom: 1px solid var(--line);
   background: var(--surface);
-  height: 38px;
+  min-height: 48px;
   overflow: hidden;
 }
 .ticker-label {
@@ -156,23 +157,20 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   mask-image: linear-gradient(to right, transparent, #000 16px, #000);
 }
 .ticker-track {
-  display: flex; width: max-content;
-  margin-left: 24px;
-  animation: ticker-scroll 45s linear infinite;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 28px;
+  min-height: 48px;
+  margin-left: 8px;
 }
-.ticker:hover .ticker-track { animation-play-state: paused; }
 .ticker-track a {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
-  letter-spacing: 0.04em; color: var(--ink-soft);
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;
+  letter-spacing: 0.02em; color: var(--ink-soft);
   white-space: nowrap;
-  margin-right: 48px;
 }
 .ticker-track a:hover { color: var(--signal-dark); }
 .ticker-track a::before { content: "▪ "; color: var(--signal); }
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
 
 /* ── Hero / featured report ──────────── */
 .hero {

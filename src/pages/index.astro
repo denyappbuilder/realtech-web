@@ -84,12 +84,12 @@ const jsonLd = {
 <Base title="REALTECH CZ — Tech novinky a analýzy">
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
 
-  <div class="ticker" aria-hidden="true">
+  <div class="ticker" aria-label="Nejnovější články">
     <span class="ticker-label"><span class="live-dot"></span>ŽIVĚ</span>
     <div class="ticker-viewport">
       <div class="ticker-track">
-        {[...all.slice(0, 6), ...all.slice(0, 6)].map((c) => (
-          <a href={`/clanky/${c.id}/`} tabindex="-1">{c.data.title}</a>
+        {all.slice(0, 6).map((c) => (
+          <a href={`/clanky/${c.id}/`}>{c.data.title}</a>
         ))}
       </div>
     </div>
