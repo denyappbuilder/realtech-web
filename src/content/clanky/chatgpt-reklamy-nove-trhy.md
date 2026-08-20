@@ -15,7 +15,7 @@ Pro nás je zajímavá hlavně ta Británie. Reklamy se rozjely v únoru ve Stá
 
 Reklamy vidí **přihlášení dospělí uživatelé na tarifech Free a Go**. Placené tarify — Plus, Pro, Business, Enterprise a Education — reklamy podle OpenAI mít nebudou.
 
-A je tam ještě jedna možnost, o které se moc nemluví: ve Free tarifu jde reklamy **vypnout**, ale výměnou za méně zpráv denně. Takže buď koukáš na reklamy, nebo máš nižší limit. Klasický obchod.
+A je tam ještě jedna možnost, o které se moc nemluví: ve [Free tarifu](/clanky/chatgpt-zdarma-neomezene-chaty/) jde reklamy **vypnout**, ale výměnou za méně zpráv denně. Takže buď koukáš na reklamy, nebo máš nižší limit. Klasický obchod.
 
 ## Jak to funguje
 
@@ -23,7 +23,7 @@ Reklama je podle OpenAI vždycky **označená jako sponzorovaná a vizuálně od
 
 Cílení běží podle **tématu konverzace, tvých minulých chatů a předchozích interakcí s reklamami**. Když řešíš recepty, můžeš dostat reklamu na donášku jídla. Inzerenti přitom podle OpenAI nemají přístup k tvým chatům, historii ani pamětí — dostávají jen souhrnná čísla o zobrazeních a proklicích.
 
-Reklamy se během testu nezobrazují účtům, u kterých OpenAI ví nebo předpokládá, že jde o nezletilého, a nemají se objevovat u citlivých témat jako zdraví, duševní zdraví nebo politika.
+Reklamy se během testu nezobrazují účtům, u kterých OpenAI ví nebo předpokládá, že jde o nezletilého, a nemají se objevovat u citlivých témat jako [zdraví](/clanky/chatgpt-health/), duševní zdraví nebo politika.
 
 Ovládání máš na své straně: reklamu jde odmítnout, poslat zpětnou vazbu, zjistit proč se ti zobrazila, jedním klepnutím smazat reklamní data a kdykoli vypnout personalizaci.
 
