@@ -18,6 +18,26 @@ function nactiWorkflowy() {
     }));
 }
 
+test("Z10247: CI po testech pouští i npm run build", () => {
+  const workflowy = nactiWorkflowy();
+  const sBuildem = workflowy.filter((wf) => /npm\s+(?:run\s+)?build\b/.test(wf.text));
+
+  assert.ok(
+    sBuildem.length > 0,
+    "v .github/workflows/ musí být workflow, které volá npm run build — jinak rozbitý Astro/dist projde zeleně",
+  );
+
+  const sTestemIBuildem = workflowy.filter(
+    (wf) =>
+      /npm test|npm run test/.test(wf.text) &&
+      /npm\s+(?:run\s+)?build\b/.test(wf.text),
+  );
+  assert.ok(
+    sTestemIBuildem.length > 0,
+    "stejné workflow musí po npm test pouštět i npm run build",
+  );
+});
+
 test("Z10035: CI pouští npm test na pull_request i na push do main", () => {
   const workflowy = nactiWorkflowy();
   const sTestem = workflowy.filter((wf) => /npm test|npm run test/.test(wf.text));
