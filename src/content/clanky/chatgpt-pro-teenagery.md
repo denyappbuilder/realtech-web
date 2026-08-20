@@ -25,7 +25,7 @@ Studijní část je vůbec jádro celé verze: Study Mode vede k postupu krok za
 
 V oznámení chybí to podstatné pro nás: **kdy a kde se to spouští**. Žádná zmínka o zemích, datech ani o tom, jak přesný odhad věku je a co dělat, když sáhne vedle a hodí do teen režimu dospělého. Ověřovat to bude potřeba, až se to objeví v Česku.
 
-Pro rodiče puberťáků je to i tak nejkonkrétnější krok, jaký zatím OpenAI udělal — a na rozdíl od australského zákazu sítí pro děti do 16 let tady nejde o zákaz, ale o jiný režim stejného nástroje.
+Pro rodiče puberťáků je to i tak nejkonkrétnější krok, jaký zatím OpenAI udělal — a na rozdíl od [australského zákazu sítí pro děti do 16 let](/clanky/meta-australie-zakaz-do-16-let/) tady nejde o zákaz, ale o jiný režim stejného nástroje.
 
 ## Zdroj
 
