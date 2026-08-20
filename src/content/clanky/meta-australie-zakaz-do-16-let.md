@@ -29,7 +29,7 @@ Mezi červnem a červencem k tomu Meta pustila osvětovou kampaň, která podle 
 
 Meta v závěru říká narovinu, co jí vadí: každá platforma si teenagery vyhazuje po svém. Chce **jeden spolehlivý věkový signál na úrovni operačního systému nebo obchodu s aplikacemi** — věk by se ověřil jednou při nastavení telefonu nebo instalaci aplikace, ne pořád dokola v desítkách appek.
 
-To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Apple s Googlem kývly, ověřování věku by se přesunulo do telefonu jako takového — a debata o věkových limitech na sítích, která běží i v EU, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní AI a ostatní hasí po svém.
+To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Apple s Googlem kývly, ověřování věku by se přesunulo do telefonu jako takového — a debata o [věkových limitech](/clanky/chatgpt-pro-teenagery/) na sítích, která běží i v EU, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní AI a ostatní hasí po svém.
 
 ## Zdroj
 

@@ -13,7 +13,7 @@ Pro nás je zajímavá hlavně ta Británie. Reklamy se rozjely v únoru ve Stá
 
 ## Koho se to týká
 
-Reklamy vidí **přihlášení dospělí uživatelé na tarifech Free a Go**. Placené tarify — Plus, Pro, Business, Enterprise a Education — reklamy podle OpenAI mít nebudou.
+Reklamy vidí **přihlášení dospělí uživatelé na [tarifech Free](/clanky/chatgpt-zdarma-neomezene-chaty/) a Go**. Placené tarify — Plus, Pro, Business, Enterprise a Education — reklamy podle OpenAI mít nebudou.
 
 A je tam ještě jedna možnost, o které se moc nemluví: ve Free tarifu jde reklamy **vypnout**, ale výměnou za méně zpráv denně. Takže buď koukáš na reklamy, nebo máš nižší limit. Klasický obchod.
 

@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/claude-vodoznak-ai-text.jpg"
 ---
 
-Anthropic začal značkovat výstupy Clauda tak, aby se dalo strojově poznat, že prošly jeho modelem. Podle [oficiální stránky podpory](https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content) se to týká modelů spuštěných **2. srpna 2026 nebo později** — u starších se na podpoře teprve pracuje.
+Anthropic začal značkovat výstupy Clauda tak, aby se dalo strojově poznat, že prošly jeho modelem. Podle [oficiální stránky podpory](https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content) se to týká [modelů Claude](/clanky/anthropic-claude-opus-5/) spuštěných **2. srpna 2026 nebo později** — u starších se na podpoře teprve pracuje.
 
 ## Dvě různé techniky
 
