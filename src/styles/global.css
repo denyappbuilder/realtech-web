@@ -732,7 +732,12 @@ footer.site ul a:hover { color: var(--ink); }
 
 /* ── About page ──────────────────────── */
 .about {
-  padding: 56px 0;
+  /* Z10254: jen svislé odsazení. Shorthand `padding: 56px 0` přebíjel
+     vodorovné odsazení z .wrap (stejná specificita, pozdější pravidlo
+     vyhrává) a nuloval ho → obsah i nadpis „Tech bez marketingových
+     řečí." seděly na x=0 a zleva se ořezávaly. padding-block nechá
+     vodorovné odsazení 24px z .wrap netknuté. */
+  padding-block: 56px;
   max-width: 720px;
 }
 /* Z10137: O nás vyplní wrap 1120px. .about 720px zůstává pro /vitej/. */
