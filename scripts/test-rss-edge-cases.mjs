@@ -77,6 +77,48 @@ test("GET zachová protocol-relative URL beze změny [codex-testy-web/RSS-URL-00
   );
 });
 
+test.todo("GET absolutizuje kořenové URL v single-quoted HTML a zachová protocol-relative URL [codex-testy-web/RSS-HTML-ATTR-001]", async () => {
+  setCollection([article({
+    body: [
+      "<a href='/clanky/cil/'>Interní odkaz</a>",
+      "<img src='/images/nahled.jpg' alt='Náhled'>",
+      "<a href='//cdn.example.com/clanek'>CDN odkaz</a>",
+      "<img src='//cdn.example.com/obrazek.jpg' alt='CDN obrázek'>",
+    ].join("\n"),
+  })]);
+
+  await GET({ site });
+
+  assert.equal(
+    getMockState().rssCalls[0].items[0].content,
+    [
+      "<a href='https://realtech.cz/clanky/cil/'>Interní odkaz</a>",
+      "<img src='https://realtech.cz/images/nahled.jpg' alt='Náhled'>",
+      "<a href='//cdn.example.com/clanek'>CDN odkaz</a>",
+      "<img src='//cdn.example.com/obrazek.jpg' alt='CDN obrázek'>",
+    ].join("\n"),
+  );
+});
+
+test.todo("GET absolutizuje kořenové URL u case-insensitive HTML atributů [codex-testy-web/RSS-HTML-ATTR-001]", async () => {
+  setCollection([article({
+    body: [
+      '<a HREF="/clanky/cil/">Interní odkaz</a>',
+      '<img SRC="/images/nahled.jpg" alt="Náhled">',
+    ].join("\n"),
+  })]);
+
+  await GET({ site });
+
+  assert.equal(
+    getMockState().rssCalls[0].items[0].content,
+    [
+      '<a HREF="https://realtech.cz/clanky/cil/">Interní odkaz</a>',
+      '<img SRC="https://realtech.cz/images/nahled.jpg" alt="Náhled">',
+    ].join("\n"),
+  );
+});
+
 test("GET nečte enclosure mimo public přes nadřazené segmenty [codex-testy-web/RSS-PATH-002]", async () => {
   setExistingFiles([["public/../package.json", 777]]);
   setCollection([article({
