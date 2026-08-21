@@ -11,7 +11,7 @@ image: "/images/clanky/glm-5-3-kybernalezy.jpg"
 
 ## Skok v agentním kódování
 
-Na Terminal-Bench 3.0 šel model **z 4,6 na 28,3 bodu**, na DeepSWE z 46,2 na 66,9. Zajímavější než čísla je ale efektivita: na vlastním interním benchmarku Z.ai Code Bench dosáhne GLM-5.3 při „high" nastavení **31,4 % s asi 50 tisíci vygenerovanými tokeny na úlohu** — zatímco Claude Opus 4.8 zvládne 29,5 %, ale spotřebuje na to 120 tisíc tokenů. Claude Fable 5 zůstává napřed (39,5 %), jenže za jinou cenu.
+Na Terminal-Bench 3.0 šel model **z 4,6 na 28,3 bodu**, na DeepSWE z 46,2 na 66,9. Zajímavější než čísla je ale efektivita: na vlastním interním benchmarku Z.ai Code Bench dosáhne GLM-5.3 při „high" nastavení **31,4 % s asi 50 tisíci vygenerovanými tokeny na úlohu** — zatímco Claude Opus 4.8 zvládne 29,5 %, ale spotřebuje na to 120 tisíc tokenů. [Claude Fable 5](/clanky/fable-5-je-zpatky/) zůstává napřed (39,5 %), jenže za jinou cenu.
 
 ## Co jim vyrostlo nechtěně
 
