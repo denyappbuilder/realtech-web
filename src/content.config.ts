@@ -19,6 +19,7 @@ const clanky = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/clanky' }),
   schema: z.object({
     title: z.string(),
+    seoTitle: z.string().optional(),
     description: z.string(),
     category: z.enum([
       'AI Report',

@@ -90,6 +90,13 @@ const jsonLd = {
         {all.slice(0, 6).map((c) => (
           <a href={`/clanky/${c.id}/`}>{c.data.title}</a>
         ))}
+        {/* Druhá sada je JEN pro plynulou smyčku — animace posouvá o -50 %,
+            takže bez zdvojení by pruh na konci cyklu poskočil. Pro čtečky
+            i klávesnici je skrytá, aby se odkazy nečetly a neprocházely
+            dvakrát (to byla oprávněná výtka Z10032, která pohyb zrušila). */}
+        {all.slice(0, 6).map((c) => (
+          <a href={`/clanky/${c.id}/`} aria-hidden="true" tabindex="-1">{c.data.title}</a>
+        ))}
       </div>
     </div>
   </div>
