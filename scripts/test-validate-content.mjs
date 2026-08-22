@@ -113,6 +113,64 @@ test('odkaz na chybějící obrázek ukončí validaci chybou', (t) => {
   assert.doesNotMatch(result.stdout, /článků OK/);
 });
 
+function writeImageTarget(root, image) {
+  const target = path.resolve(root, `public${image}`);
+  mkdirSync(path.dirname(target), { recursive: true });
+  writeFileSync(target, 'fixture');
+}
+
+const VADNE_IMAGE = [
+  {
+    slug: 'image-traversal',
+    image: '/../package.json',
+    hlaska: /image-traversal: image "\/\.\.\/package\.json" nemá povolený tvar/,
+  },
+  {
+    slug: 'image-externi-url',
+    image: 'https://example.invalid/cover.jpg',
+    hlaska: /image-externi-url: image "https:\/\/example\.invalid\/cover\.jpg" nemá povolený tvar/,
+  },
+  {
+    slug: 'image-bez-lomitka',
+    image: 'images/clanky/bez-lomitka.jpg',
+    hlaska: /image-bez-lomitka: image "images\/clanky\/bez-lomitka\.jpg" musí začínat \/images\/clanky\//,
+  },
+  {
+    slug: 'image-mimo-clanky',
+    image: '/assets/jiny-soubor.jpg',
+    hlaska: /image-mimo-clanky: image "\/assets\/jiny-soubor\.jpg" musí začínat \/images\/clanky\//,
+  },
+];
+
+for (const { slug, image, hlaska } of VADNE_IMAGE) {
+  test(`Z1066: ${slug} padne i když cílový soubor existuje`, (t) => {
+    const root = createFixture(t);
+    writeArticle(root, slug, [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, result.stdout);
+    assert.match(result.stderr, hlaska);
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  });
+}
+
+test('Z1066: platný /images/clanky/SLUG.jpg dál projde', (t) => {
+  const root = createFixture(t);
+  writeArticle(root, 'platny-tvar',
+    [...validFrontmatter(), 'image: "/images/clanky/platny-tvar.jpg"']);
+  writeImage(root, 'platny-tvar');
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
 test('chybějící image se doplní jen do fixture, pokud cover existuje', (t) => {
   const root = createFixture(t);
   const articlePath = writeArticle(root, 'automaticky-cover', validFrontmatter());

@@ -2,7 +2,7 @@
 title: "Starship poprvé vypustil satelity Starlink V3. Návrat boosteru ale nevyšel"
 description: "Třináctý testovací let Starship v noci na sobotu poprvé vysadil 20 ostrých satelitů Starlink V3 — hardware, který má přinést gigabitové rychlosti. Booster ale při přistávacím manévru nezažehl většinu motorů."
 category: "Vesmír"
-date: 2026-07-25
+date: "2026-07-25"
 image: "/images/clanky/starship-flight-13-starlink-v3.jpg"
 zprava: true
 ---

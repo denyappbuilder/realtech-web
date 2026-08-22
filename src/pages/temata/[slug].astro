@@ -76,7 +76,7 @@ const collectionLd = {
         <a href="/clanky/">Všechny články →</a>
       </div>
       <p class="cat-lead">{popis}</p>
-      <div class="grid">
+      <div class="grid featured-lead">
         {clanky.map((article) => <ArticleCard article={article} />)}
       </div>
       {ostatni.length > 0 && (

@@ -2,7 +2,7 @@
 title: "Hassabis odchází od kormidla DeepMindu. Gemini teď povede Koray Kavukcuoglu"
 description: "Sundar Pichai oznámil přesun Demise Hassabise do role Chair GDM, vedení Gemini přebírá Koray Kavukcuoglu. Google zároveň potvrdil, že se pracuje na Gemini 4."
 category: "AI Report"
-date: 2026-08-05
+date: "2026-08-05"
 zprava: true
 image: "/images/clanky/google-deepmind-hassabis-koray.jpg"
 ---

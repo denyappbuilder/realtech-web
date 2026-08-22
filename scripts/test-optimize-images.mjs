@@ -147,3 +147,27 @@ test('částečně zastaralý stav obnoví pouze chybějící a obsahově chybn�
     );
   }
 });
+
+test('poškozený zdrojový JPG propaguje chybu a zachová existující deriváty', async (t) => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'optimize-images-corrupt-'));
+  t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+  const source = path.join(dir, 'cover.jpg');
+
+  await writeSource(source, '#fd7e14');
+  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 3 });
+
+  const derivativesBeforeFailure = Object.fromEntries(
+    derivativeNames.map((name) => [name, fileState(path.join(dir, name))]),
+  );
+  fs.writeFileSync(source, Buffer.from('not-a-valid-jpeg', 'ascii'));
+
+  await assert.rejects(optimizeImages(dir));
+
+  for (const name of derivativeNames) {
+    assert.deepEqual(
+      fileState(path.join(dir, name)),
+      derivativesBeforeFailure[name],
+      `${name} se při selhání z poškozeného zdroje nesmí přepsat ani odstranit`,
+    );
+  }
+});

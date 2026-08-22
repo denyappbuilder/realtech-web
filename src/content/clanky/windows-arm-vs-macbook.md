@@ -2,7 +2,7 @@
 title: "Windows na ARM vs. MacBook: realita je jinde, než slibovali"
 description: "Notebook s Windows ARM slibuje výdrž a ticho jako MacBook za nižší cenu. Při běžné práci to platí — a pak jsme otevřeli střihový program. Vysvětlujeme, proč stejný typ čipu funguje u Applu skvěle a u Windows zatím ne."
 category: "Hardware"
-date: 2026-07-20
+date: "2026-07-20"
 video: "https://youtu.be/RdVGr7tldv4"
 videoLength: "8:54"
 ---
