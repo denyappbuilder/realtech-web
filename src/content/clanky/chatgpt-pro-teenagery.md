@@ -6,26 +6,26 @@ date: "2026-08-18"
 zprava: true
 image: "/images/clanky/chatgpt-pro-teenagery.jpg"
 audio:
-  url: "https://realtech.cz/audio/clanky/chatgpt-pro-teenagery.mp3"
-  duration: 151
+  url: "https://audio.realtech.cz/chatgpt-pro-teenagery-v3.mp3?v=236c2b5dad6b"
+  duration: 147
   transcript: |-
-    Oupn ej aj představil Džísí-pí-tý pro teenagery a do toho režimu tě může hodit odhad věku, ne tvoje přihlášení.
+    OpenAI představilo Čet dží-pí-tý pro dospívající a do toho režimu tě může hodit odhad věku, ne tvoje přihlášení.
 
-    Osmnáctého srpna představil samostatnou verzi Džísí-pí-tý pro uživatele mezi třinácti a sedmnácti lety. Podle oznámení se do týn režimu uživatel přesune automaticky, když jeho věk odhadne systém, nebo když sám uvede, že mu je třináct až sedmnáct. Nikdo tedy nemusí nic zapínat. Děje se to samo.
+    Osmnáctého srpna představilo samostatnou verzi Čet dží-pí-tý pro uživatele mezi třinácti a sedmnácti lety. Podle oznámení se do režimu pro dospívající uživatel přesune automaticky, když jeho věk odhadne systém, nebo když sám uvede, že mu je třináct až sedmnáct.
 
-    Ochrany jsou v základu zapnuté a nejdou vypnout. Oupn ej aj popisuje věkově přiměřená omezení u sebepoškozování, násilí, poruch příjmu potravy, nebezpečných aktivit a explicitního obsahu. Nad rámec blokování erotického rólpleje jde i aktualizovaná specifikace modelu pro nezletilé. Džísí-pí-tý nemá používat romantický jazyk, podporovat citovou závislost ani naznačovat, že má vlastní pocity nebo vědomí.
+    Ochrany jsou v základu zapnuté a nejdou vypnout. OpenAI popisuje věkově přiměřená omezení u sebepoškozování, násilí, poruch příjmu potravy, nebezpečných aktivit a explicitního obsahu. Nad rámec blokování erotického rólpleje jde i aktualizovaná specifikace modelu pro nezletilé. Čet dží-pí-tý nemá používat romantický jazyk, podporovat citovou závislost ani naznačovat, že má vlastní pocity nebo vědomí.
 
     Přibývají i připomínky při nahrávání citlivých fotek, upozornění na přestávku a produktové signály, že jde o ej-aj, ne o člověka.
 
-    Rodiče s propojeným účtem můžou nastavit Kvajat avrs, tedy časy, kdy Džísí-pí-tý nefunguje, spravovat vybraná nastavení a dostávat oznámení ve vyhraněných rizikových situacích. Nově i u poruch příjmu potravy. K tomu přibývají Stady avrs, tedy hodiny, kdy se automaticky zapíná Stady mód.
+    Rodiče s propojeným účtem můžou nastavit dobu klidu, tedy časy, kdy Čet dží-pí-tý nefunguje, spravovat vybraná nastavení a dostávat oznámení ve vyhraněných rizikových situacích. Nově i u poruch příjmu potravy. K tomu přibývá studijní čas, kdy se automaticky zapíná studijní režim.
 
-    Studijní část je jádro celé verze. Stady mód vede k postupu krok za krokem místo hotové odpovědi. Přibyly kvízy, vizualizace a takzvané responsibl houmverk rimajndrs. Když to vypadá, že si teenager chce úkol jen odkliknout, Džísí-pí-tý ho přesměruje do studijního režimu.
+    Studijní část je jádro celé verze. Studijní režim vede k postupu krok za krokem místo hotové odpovědi. Přibyly kvízy, vizualizace a připomínky k poctivému plnění domácích úkolů. Když to vypadá, že si dospívající chce úkol jen odkliknout, Čet dží-pí-tý ho přesměruje k vlastnímu řešení.
 
-    Co Oupn ej aj neřekl, je to podstatné pro nás. V oznámení chybí, kdy a kde se to spouští. Žádná zmínka o zemích, datech ani o tom, jak přesný odhad věku je. A co dělat, když sáhne vedle a hodí do týn režimu dospělého, taky nevíme. Ověřovat to bude potřeba, až se to objeví v Česku.
+    Co OpenAI neřeklo, je to podstatné pro nás. V oznámení chybí, kdy a kde se to spouští. Žádná zmínka o zemích, datech ani o tom, jak přesný odhad věku je. A co dělat, když sáhne vedle a hodí do režimu pro dospívající dospělého, taky nevíme. Ověřovat to bude potřeba, až se to objeví v Česku.
 
-    Pro rodiče puberťáků je to i tak nejkonkrétnější krok, jaký zatím Oupn ej aj udělal. A na rozdíl od australského zákazu sítí pro děti do šestnácti let tady nejde o zákaz, ale o jiný režim stejného nástroje.
+    Pro rodiče puberťáků je to i tak nejkonkrétnější krok, jaký zatím OpenAI udělalo. A na rozdíl od australského zákazu sítí pro děti do šestnácti let tady nejde o zákaz, ale o jiný režim stejného nástroje.
 
-    Zdroj informací: oficiální oznámení Oupn ej aj o Džísí-pí-tý pro týny.
+    Zdroj informací: oficiální oznámení OpenAI o Čet dží-pí-tý pro dospívající.
 ---
 
 OpenAI dnes představil **ChatGPT for Teens** — samostatnou verzi ChatGPT pro uživatele mezi 13 a 17 lety. Zajímavější než seznam funkcí je ale způsob, jak se do ní člověk dostane: podle oznámení se do teen režimu uživatel přesune **automaticky**, když jeho věk odhadne systém — nebo když sám uvede, že mu je 13 až 17. Nikdo tedy nemusí nic zapínat, děje se to samo.

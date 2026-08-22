@@ -28,13 +28,13 @@ function frontmatter(slug) {
   return load(match[1]);
 }
 
-test('posledních deset článků má publikovatelný audio přehled i lokální MP3', () => {
+test('posledních deset článků má publikovatelný audio přehled v R2', () => {
   for (const slug of slugs) {
     const data = frontmatter(slug);
-    assert.deepEqual(
-      data.audio?.url,
-      `https://realtech.cz/audio/clanky/${slug}.mp3`,
-      `${slug}: URL musí mířit na publikované MP3`,
+    assert.match(
+      data.audio?.url ?? '',
+      new RegExp(`^https://audio\\.realtech\\.cz/${slug}-v3\\.mp3\\?v=[0-9a-f]{12}$`),
+      `${slug}: URL musí mířit na verzované MP3 v R2`,
     );
     assert.ok(
       Number.isInteger(data.audio?.duration) && data.audio.duration >= 120 && data.audio.duration <= 180,
@@ -42,14 +42,12 @@ test('posledních deset článků má publikovatelný audio přehled i lokální
     );
     assert.ok(data.audio?.transcript?.length > 500, `${slug}: chybí plný přepis`);
     assert.match(data.audio.transcript, /Zdroj informací:/, `${slug}: přepis musí uvést zdroj`);
-
-    const audioPath = path.join(audioDir, `${slug}.mp3`);
-    assert.ok(fs.existsSync(audioPath), `${slug}: MP3 chybí v public/audio/clanky`);
-    assert.ok(fs.statSync(audioPath).size > 1_000_000, `${slug}: MP3 je podezřele malé`);
   }
 });
 
-test('audio adresář pilotu obsahuje přesně očekávaných deset MP3', () => {
-  const files = fs.readdirSync(audioDir).filter((name) => name.endsWith('.mp3')).sort();
-  assert.deepEqual(files, slugs.map((slug) => `${slug}.mp3`).sort());
+test('repo už neobsahuje binární MP3 pilotu', () => {
+  const files = fs.existsSync(audioDir)
+    ? fs.readdirSync(audioDir).filter((name) => name.endsWith('.mp3')).sort()
+    : [];
+  assert.deepEqual(files, []);
 });

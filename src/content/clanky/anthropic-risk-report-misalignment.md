@@ -6,14 +6,14 @@ date: "2026-08-15"
 zprava: true
 image: "/images/clanky/anthropic-risk-report-misalignment.jpg"
 audio:
-  url: "https://realtech.cz/audio/clanky/anthropic-risk-report-misalignment.mp3"
-  duration: 140
+  url: "https://audio.realtech.cz/anthropic-risk-report-misalignment-v3.mp3?v=b8cb20157cd5"
+  duration: 143
   transcript: |-
     Entropik si sám zhoršil rizikovou známku a přiznal skoro roční díru v ochraně proti zneužití.
 
-    Čtrnáctého srpna večer zveřejnil druhou rizikovou zprávu, kterou si sám předepsal ve své Responsibl skejling polisy. Zajímavá není proto, že by hlásila katastrofu. Zajímavá je proto, že si v ní firma sama přitvrdila hodnocení.
+    Čtrnáctého srpna večer zveřejnil druhou rizikovou zprávu, kterou si sám předepsal ve svých zásadách pro odpovědné škálování. Zajímavá není proto, že by hlásila katastrofu. Zajímavá je proto, že si v ní firma sama přitvrdila hodnocení.
 
-    Riziko misalajnmentu, tedy že se model v rizikovém prostředí začne chovat jinak, než jak byl zamýšlen, Entropik nově hodnotí jako nízké. Dřív psal velmi nízké. Důvod uvádí doslova: zvýšená nejistota v souvislosti s nedávnými zveřejněnými incidenty ohledně chování modelu v kyberbezpečnostních evaluacích.
+    Riziko nesouladu, tedy že se model v rizikovém prostředí začne chovat jinak, než jak byl zamýšlen, Entropik nově hodnotí jako nízké. Dřív psal velmi nízké. Důvod uvádí doslova: zvýšená nejistota v souvislosti s nedávnými zveřejněnými incidenty ohledně chování modelu v kyberbezpečnostních evaluacích.
 
     Zpráva má datum pokrytí patnáctého července roku dva tisíce dvacet šest a navazuje na předchozí z čtyřiadvacátého února.
 
@@ -21,9 +21,9 @@ audio:
 
     Jinými slovy: v předchozí zprávě bylo číslo, které neodpovídalo skutečnosti, a firma to sama dohledala a opravila.
 
-    V šuplíku leží intěrnyl model dva, schopnější než veřejný Mýtos pět. Pozor ale na titulky typu poráží Mýtos pět. Zpráva je opatrnější. Model je podle ní znatelné zlepšení pro řadu úloh, ale nepředstavuje takový skok, jaký byl vidět mezi Opusem čtyři tečka šest a Mýtos prevjú. Ven se nechystá a neprošel ani celou sadou přednasazovacích testů.
+    V šuplíku leží interní model dva, schopnější než veřejný model Mýtos s číslem pět. Pozor ale na titulky typu poráží model Mýtos s číslem pět. Zpráva je opatrnější. Model je podle ní znatelné zlepšení pro řadu úloh, ale nepředstavuje takový skok, jaký byl vidět mezi Opusem čtyři tečka šest a Mýtos prívjú. Ven se nechystá a neprošel ani celou sadou přednasazovacích testů.
 
-    Druhá kategorie, automatizovaný ej-aj výzkum, zůstává na nízké. Má ale poznámku, která stojí za pozornost. Dosavadní testy se saturovaly, tedy přestaly zachycovat růst schopností, a firma vidí rané známky akcelerace.
+    Druhá kategorie, automatizovaný ej-aj výzkum, zůstává na nízké. Má ale poznámku, která stojí za pozornost. Dosavadní testy narazily na strop a přestaly zachycovat růst schopností, a firma vidí rané známky akcelerace.
 
     Sebehodnocení není nezávislý audit a je dobré to mít na paměti. Zpráva, ve které si firma sama přitvrdí známku a přizná roční chybu, je ale pořád víc, než dnes zveřejňuje většina konkurence.
 

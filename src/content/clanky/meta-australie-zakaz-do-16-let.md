@@ -6,20 +6,20 @@ date: "2026-08-13"
 zprava: true
 image: "/images/clanky/meta-australie-zakaz-do-16-let.jpg"
 audio:
-  url: "https://realtech.cz/audio/clanky/meta-australie-zakaz-do-16-let.mp3"
+  url: "https://audio.realtech.cz/meta-australie-zakaz-do-16-let-v3.mp3?v=575c0e7a71bc"
   duration: 141
   transcript: |-
-    Austrálie jako první země zakázala sociální sítě lidem mladším šestnácti let plošně zákonem a Meta teď hlásí zrušený přístup u víc než sedm set padesát tisíc účtů. Číslo platí k třicátému červnu roku dva tisíce dvacet šest a týká se Fejsbuku a Instagremu v Austrálii, u kterých firma vyhodnotila, že patří někomu pod šestnáct.
+    Austrálie jako první země zakázala sociální sítě lidem mladším šestnácti let plošně zákonem a Meta teď hlásí zrušený přístup u víc než sedmi set padesáti tisíc účtů. Číslo platí k třicátému červnu roku dva tisíce dvacet šest a týká se Fejsbuku a Instagremu v Austrálii, které podle firmy patří lidem mladším šestnácti let.
 
-    Období začíná prvním prosincem roku dva tisíce dvacet pět a zahrnuje přes půl milionu účtů smazaných ještě předtím, než zákon nabyl účinnosti. Vymáhání běží dál a Meta ho reportuje australskému úřadu í Sejfty komišner.
+    Období začalo prvního prosince roku dva tisíce dvacet pět a zahrnuje přes půl milionu účtů smazaných ještě předtím, než zákon nabyl účinnosti. Vymáhání běží dál a Meta ho reportuje australskému úřadu í-Sejfty Komišnr.
 
-    Zajímavější než počet je, jak ten věk vlastně pozná. Nespoléhá na jedno ověření, ale na průběžné šťourání. Ej aj čte profil. Model analyzuje příspěvky, komentáře, bio i popisky fotek a hledá nepřímá vodítka, třeba oslavu narozenin nebo zmínku o ročníku ve škole. Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu. Ej aj posuzuje i ta hlášení a podle Mety to vychází přesněji a rychleji než samotná lidská kontrola. Systémy mají poznat, když si někdo po smazání zakládá účet znovu. A věkový rating v Ep stóru zvedla Meta v Austrálii na šestnáct plus.
+    Zajímavější než počet je, jak ten věk vlastně pozná. Nespoléhá na jediné ověření, ale věk průběžně odhaduje. Ej-aj čte profil. Model analyzuje příspěvky, komentáře, bio i popisky fotek a hledá nepřímá vodítka, třeba oslavu narozenin nebo zmínku o ročníku ve škole. Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu. Ej aj posuzuje i ta hlášení a podle Mety to vychází přesněji a rychleji než samotná lidská kontrola. Systémy mají poznat, když si někdo po smazání zakládá účet znovu. A věkové hodnocení v Ep Stóru zvedla Meta v Austrálii na šestnáct plus.
 
-    Mezi červnem a červencem k tomu pustila osvětovou kampaň, která podle ní zasáhla zhruba jeden celý tři milionu lidí.
+    Mezi červnem a červencem k tomu pustila osvětovou kampaň, která podle ní zasáhla zhruba jedna celá tři milionu lidí.
 
-    V závěru Meta říká narovinu, co jí vadí. Každá platforma si týnejdžry vyhazuje po svém. Chce jeden spolehlivý věkový signál na úrovni operačního systému nebo obchodu s aplikacemi. Věk by se ověřil jednou při nastavení telefonu nebo instalaci aplikace, ne pořád dokola v desítkách appek.
+    V závěru Meta říká narovinu, co jí vadí. Každá platforma vyřazuje dospívající po svém. Chce jeden spolehlivý věkový signál na úrovni operačního systému nebo obchodu s aplikacemi. Věk by se ověřil jednou při nastavení telefonu nebo instalaci aplikace, ne pořád dokola v desítkách aplikací.
 
-    To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Epl s Gůglem kývly, ověřování věku by se přesunulo do telefonu jako takového. A debata o věkových limitech na sítích, která běží i v Evropské unii, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní ej aj a ostatní hasí po svém.
+    To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Epl s Gůglem kývly, ověřování věku by se přesunulo do telefonu jako takového. A debata o věkových limitech na sítích, která běží i v Evropské unii, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní ej-aj a ostatní hasí po svém.
 
     Zdroj informací: oficiální zpráva Mety z dvanáctého až třináctého srpna roku dva tisíce dvacet šest.
 ---
