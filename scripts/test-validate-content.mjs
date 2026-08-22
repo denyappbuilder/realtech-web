@@ -252,12 +252,6 @@ test('odkaz na chybějící obrázek ukončí validaci chybou', (t) => {
   assert.doesNotMatch(result.stdout, /článků OK/);
 });
 
-function writeImageTarget(root, image) {
-  const target = path.resolve(root, `public${image}`);
-  mkdirSync(path.dirname(target), { recursive: true });
-  writeFileSync(target, 'fixture');
-}
-
 const VADNE_IMAGE = [
   {
     slug: 'image-traversal',
