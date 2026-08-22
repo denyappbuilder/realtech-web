@@ -575,7 +575,14 @@ footer.site ul a:hover { color: var(--ink); }
 
 /* ── Responsive ──────────────────────── */
 @media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  /* Mobilní hero má vést k obsahu, ne spolknout skoro dvě obrazovky. */
+  .hero { padding: 32px 0 40px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+  .lower-third { margin-bottom: 16px; }
+  .hero h1 { margin-bottom: 16px; }
+  .hero p.lead { margin-bottom: 22px; }
+  /* Z10024: obrázek přes celou šířku bez stropu tlačí první reporty hluboko pod fold. */
+  .hero-visual { max-height: 220px; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   .article-layout { grid-template-columns: 1fr; }
