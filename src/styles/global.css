@@ -575,7 +575,14 @@ footer.site ul a:hover { color: var(--ink); }
 
 /* ── Responsive ──────────────────────── */
 @media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  /* Mobilní hero má vést k obsahu, ne spolknout skoro dvě obrazovky. */
+  .hero { padding: 32px 0 40px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+  .lower-third { margin-bottom: 16px; }
+  .hero h1 { margin-bottom: 16px; }
+  .hero p.lead { margin-bottom: 22px; }
+  /* Z10024: obrázek přes celou šířku bez stropu tlačí první reporty hluboko pod fold. */
+  .hero-visual { max-height: 220px; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   .article-layout { grid-template-columns: 1fr; }
@@ -676,10 +683,12 @@ footer.site ul a:hover { color: var(--ink); }
   transition: transform 0.25s;
 }
 .card:hover .card-thumb img { transform: scale(1.05); }
+/* Z10031: neutrální clona chrání text, ale neničí vlastní barvy coveru.
+   Kategorii už odlišuje levý okraj celé karty (Z10282), druhý proužek by byl duplicitní. */
 .card-thumb::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(13,7,7,0.55) 100%);
+  background: linear-gradient(180deg, transparent 62%, rgba(20,23,28,0.38) 100%);
 }
 .card-thumb .lt { position: relative; z-index: 1; }
 
