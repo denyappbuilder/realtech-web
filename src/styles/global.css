@@ -1117,3 +1117,17 @@ a.chip { display: inline-block; }
 .nl-done { color: #fff; font-weight: 600; font-size: 1rem; margin: 0; }
 .nl-note a { color: #A9B2BF; text-decoration: underline; }
 .nl-note a:hover { color: #fff; }
+
+/* Neesenciální pohyb při prefers-reduced-motion.
+   Globální kill-switch nahoře vypne animation/transition, ale hover
+   transform (zoom, lift, play scale) je koncový stav — bez resetu
+   by se prvky pořád posunuly/zvětšily, jen okamžitě.
+   Barva, rámeček a pozadí při :hover/:focus zůstávají: to je stav, ne pohyb.
+   Základní translate u .play/.vc-play je centrování, ne animace. */
+@media (prefers-reduced-motion: reduce) {
+  .card:hover { transform: none; }
+  .card:hover .card-thumb img,
+  .video-card:hover .vc-thumb img { transform: none; }
+  .hero-visual:hover .play { transform: translate(-50%, -60%); }
+  .video-card:hover .vc-play { transform: translate(-50%, -50%); }
+}
