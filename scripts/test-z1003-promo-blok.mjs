@@ -50,3 +50,36 @@ test("Z1003: výzva bez videa nesmí sedět mezi hero a prvním odstavcem", () =
     "výzva bez videa pořád leží před tělem článku a přerušuje čtení",
   );
 });
+
+test("Z1003: výzva bez videa nesmí tvrdit zastaralé číslo videí", () => {
+  const bezVidea = clanek.indexOf("{!video && (");
+  const konecVetve = clanek.indexOf("{related.length > 0 && (", bezVidea);
+  assert.notEqual(bezVidea, -1, "šablona ztratila větev bez videa");
+  assert.notEqual(konecVetve, -1, "šablona ztratila konec výzvy bez videa");
+  const vyza = clanek.slice(bezVidea, konecVetve);
+  assert.match(
+    vyza,
+    /K tomuhle článku video není/,
+    "výzva musí pořád říct, že u článku video není",
+  );
+  assert.match(
+    vyza,
+    /technice a AI/,
+    "výzva musí pořád říct, co na kanálu je",
+  );
+  assert.doesNotMatch(
+    vyza,
+    /\b82\b/,
+    "hardcoded 82 ve výzvě zastará hned po dalším videu",
+  );
+  assert.match(
+    clanek,
+    /Z1003: pruh nesmí sedět mezi hero a prvním odstavcem/,
+    "komentář musí dál držet Z1003 — výzva až po textu",
+  );
+  assert.doesNotMatch(
+    clanek,
+    /30\. 7\. 2026:\s*82/,
+    "komentář pořád kotví zastaralé číslo z API",
+  );
+});
