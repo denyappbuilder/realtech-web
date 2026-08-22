@@ -5,6 +5,9 @@ import ts from 'typescript';
 
 const articleCardUrl = new URL('../src/components/ArticleCard.astro', import.meta.url);
 const mockFsUrl = new URL('./test-karta-nahled-mocks/node-fs.mjs', import.meta.url);
+const kartaNahledUrl = new URL('../src/lib/karta-nahled.js', import.meta.url);
+const youtubeUrl = new URL('../src/lib/youtube.js', import.meta.url);
+const calendarDateUrl = new URL('../src/lib/calendarDate.js', import.meta.url);
 
 function extractThumbnailBlock(frontmatter) {
   const startMarker = 'const slugify = (s: string) =>';
@@ -44,9 +47,13 @@ export async function load(url, context, nextLoad) {
   const productionBlock = extractThumbnailBlock(frontmatterNode.value);
   const virtualModule = [
     `import fs from ${JSON.stringify(mockFsUrl.href)};`,
+    `import { nahledKarty as nahledKartyProdukce } from ${JSON.stringify(kartaNahledUrl.href)};`,
+    `import { youtubeId } from ${JSON.stringify(youtubeUrl.href)};`,
+    `import { formatCalendarDateCs } from ${JSON.stringify(calendarDateUrl.href)};`,
+    'const nahledKarty = (image) => nahledKartyProdukce(image, (cesta) => fs.existsSync(cesta));',
     'const { category, video, image, date } = globalThis.__KARTA_NAHLED__;',
     productionBlock,
-    'export { thumbClass, small, localThumb, videoId, thumbUrl, thumbW, thumbH, thumbWebp, hasWebp };',
+    'export { thumbClass, localThumb, videoId, thumbUrl, thumbW, thumbH, thumbWebp, hasWebp };',
   ].join('\n');
   const { outputText } = ts.transpileModule(virtualModule, {
     compilerOptions: {
