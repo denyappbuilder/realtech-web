@@ -733,8 +733,20 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .chip:hover { border-color: var(--ink); color: var(--ink); }
 .chip.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
-.filter-empty { color: var(--ink-soft); font-size: 0.9rem; padding: 12px 0; }
-.load-more-wrap { display: flex; justify-content: center; margin-top: 32px; }
+.filter-empty,
+.filter-loading { color: var(--ink-soft); font-size: 0.9rem; padding: 12px 0; }
+.archive-pagination {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  margin-top: 32px;
+}
+.archive-pagination span {
+  color: var(--ink-soft); font-size: 0.82rem;
+}
+
+@media (max-width: 480px) {
+  .archive-pagination { gap: 10px; }
+  .archive-pagination .btn-ghost { padding: 10px 14px; }
+}
 
 /* ── Reading progress ────────────────── */
 .read-progress {
