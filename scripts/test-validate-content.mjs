@@ -45,6 +45,12 @@ function writeImage(root, slug) {
   writeFileSync(path.join(root, 'public/images/clanky', `${slug}.jpg`), 'fixture');
 }
 
+function writeImageTarget(root, image) {
+  const target = path.resolve(root, `public${image}`);
+  mkdirSync(path.dirname(target), { recursive: true });
+  writeFileSync(target, 'fixture');
+}
+
 function runValidator(root) {
   const result = spawnSync(process.execPath, [VALIDATOR], {
     cwd: root,
@@ -82,6 +88,106 @@ test('platný článek s existujícím obrázkem projde', (t) => {
   assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
 });
 
+test('image cesta v podadresáři /images/clanky projde', (t) => {
+  const root = createFixture(t);
+  const image = '/images/clanky/serie/bezpecny.jpg';
+  writeArticle(root, 'bezpecna-cesta', [
+    ...validFrontmatter(),
+    `image: "${image}"`,
+  ]);
+  writeImageTarget(root, image);
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stderr, '');
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
+test(
+  'CONTENT-IMAGE-001 image traversal cesta mimo public musí být odmítnuta',
+  {
+    todo: 'Odstranit TODO, až validator odmítne traversal i při existujícím cíli mimo public.',
+  },
+  (t) => {
+    const root = createFixture(t);
+    const image = '/../package.json';
+    writeArticle(root, 'image-traversal', [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, 'Traversal cesta prošla validací.');
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  },
+);
+
+test(
+  'CONTENT-IMAGE-002 image cesta jako absolutní externí URL musí být odmítnuta',
+  {
+    todo: 'Odstranit TODO, až validator odmítne absolutní externí URL i při existujícím cíli složené fs cesty.',
+  },
+  (t) => {
+    const root = createFixture(t);
+    const image = 'https://example.invalid/cover.jpg';
+    writeArticle(root, 'image-externi-url', [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, 'Absolutní externí URL prošla validací.');
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  },
+);
+
+test(
+  'CONTENT-IMAGE-003 image cesta bez úvodního lomítka musí být odmítnuta',
+  {
+    todo: 'Odstranit TODO, až validator odmítne cestu bez úvodního lomítka i při existujícím cíli složené fs cesty.',
+  },
+  (t) => {
+    const root = createFixture(t);
+    const image = 'images/clanky/bez-lomitka.jpg';
+    writeArticle(root, 'image-bez-lomitka', [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, 'Cesta bez úvodního lomítka prošla validací.');
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  },
+);
+
+test(
+  'CONTENT-IMAGE-004 image cesta k souboru mimo /images/clanky musí být odmítnuta',
+  {
+    todo: 'Odstranit TODO, až validator odmítne existující soubor mimo /images/clanky.',
+  },
+  (t) => {
+    const root = createFixture(t);
+    const image = '/assets/jiny-soubor.jpg';
+    writeArticle(root, 'image-mimo-clanky', [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, 'Cesta mimo /images/clanky prošla validací.');
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  },
+);
+
 test('platné nequoted YAML datum projde', (t) => {
   const root = createFixture(t);
   writeArticle(root, 'platne-nequoted-datum', [
@@ -93,6 +199,39 @@ test('platné nequoted YAML datum projde', (t) => {
   const result = runValidator(root);
 
   assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
+test('datum 9999-12-31 vypíše varování o budoucnosti, ale validace projde', (t) => {
+  const root = createFixture(t);
+  writeArticle(
+    root,
+    'budouci-datum',
+    validFrontmatter({ date: '9999-12-31' }),
+  );
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(
+    result.stderr,
+    /\[validate-content\] ⚠️  budouci-datum: datum 9999-12-31 je v budoucnosti/,
+  );
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
+test('historické datum nevypíše varování o budoucnosti', (t) => {
+  const root = createFixture(t);
+  writeArticle(
+    root,
+    'historicke-datum',
+    validFrontmatter({ date: '2000-01-01' }),
+  );
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.doesNotMatch(result.stderr, /je v budoucnosti/);
   assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
 });
 
@@ -112,12 +251,6 @@ test('odkaz na chybějící obrázek ukončí validaci chybou', (t) => {
   );
   assert.doesNotMatch(result.stdout, /článků OK/);
 });
-
-function writeImageTarget(root, image) {
-  const target = path.resolve(root, `public${image}`);
-  mkdirSync(path.dirname(target), { recursive: true });
-  writeFileSync(target, 'fixture');
-}
 
 const VADNE_IMAGE = [
   {
@@ -284,6 +417,36 @@ test(
     }
   },
 );
+
+test('volitelný audio blok projde, neplatná URL a nula ne', (t) => {
+  const root = createFixture(t);
+  writeArticle(root, 'audio-ok', [
+    ...validFrontmatter(),
+    'audio:',
+    '  url: "/audio/clanky/ok.mp3"',
+    '  duration: "PT2M5S"',
+    '  transcript: "Krátký přehled."',
+  ]);
+  writeArticle(root, 'audio-nula', [
+    ...validFrontmatter({ title: 'Audio nula' }),
+    'audio:',
+    '  url: "/audio/clanky/ok.mp3"',
+    '  duration: 0',
+  ]);
+  writeArticle(root, 'audio-js', [
+    ...validFrontmatter({ title: 'Audio js' }),
+    'audio:',
+    '  url: "javascript:alert(1)"',
+    '  duration: 90',
+  ]);
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /audio-nula\.md: pole "audio.duration" je neplatné/);
+  assert.match(result.stderr, /audio-js\.md: pole "audio.url" je neplatné/);
+  assert.doesNotMatch(result.stderr, /audio-ok\.md/);
+});
 
 test(
   'volitelná pole odmítnou hodnoty nesprávného YAML typu',
@@ -459,3 +622,70 @@ test('neplatná video URL označí chybu v poli video', (t) => {
   assert.equal(result.status, 1);
   assert.match(result.stderr, /neplatne-video\.md: pole "video"/);
 });
+
+test('existující interní odkazy s query a fragmentem projdou', (t) => {
+  const root = createFixture(t);
+  writeArticle(
+    root,
+    'zdroj-odkazu',
+    validFrontmatter({ title: 'Zdroj odkazu' }),
+    [
+      '[Query](/clanky/cil-odkazu/?ref=prehled)',
+      '[Fragment](/clanky/cil-odkazu/#podrobnosti)',
+      '[Query a fragment](/clanky/cil-odkazu/?ref=prehled#podrobnosti)',
+    ].join('\n'),
+  );
+  writeArticle(
+    root,
+    'cil-odkazu',
+    validFrontmatter({ title: 'Cíl odkazu' }),
+  );
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stderr, '');
+  assert.match(result.stdout, /\[validate-content\] 2 článků OK/);
+});
+
+test('chybějící interní odkaz s query a fragmentem ukončí validaci chybou', (t) => {
+  const root = createFixture(t);
+  writeArticle(
+    root,
+    'zdroj-chybneho-odkazu',
+    validFrontmatter({ title: 'Zdroj chybného odkazu' }),
+    '[Chybějící článek](/clanky/neexistujici/?ref=prehled#podrobnosti)',
+  );
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 1);
+  assert.match(
+    result.stderr,
+    /\[validate-content\] ❌ zdroj-chybneho-odkazu: odkaz na neexistující článek \/clanky\/neexistujici\//,
+  );
+  assert.doesNotMatch(result.stdout, /článků OK/);
+});
+
+test(
+  'chybějící interní odkaz s cílem v úhlových závorkách se nesmí tiše přeskočit',
+  { todo: 'codex-testy-web/CONTENT-LINK-001' },
+  (t) => {
+    const root = createFixture(t);
+    writeArticle(
+      root,
+      'zdroj-odkazu-v-zavorkach',
+      validFrontmatter({ title: 'Zdroj odkazu v závorkách' }),
+      '[Chybějící článek](</clanky/neexistujici/>)',
+    );
+
+    const result = runValidator(root);
+    const expectedError =
+      /\[validate-content\] ❌ zdroj-odkazu-v-zavorkach: odkaz na neexistující článek \/clanky\/neexistujici\//;
+
+    assert.ok(
+      result.status === 1 && expectedError.test(result.stderr),
+      `validator měl skončit chybou pro odkaz v úhlových závorkách\nstdout: ${result.stdout}\nstderr: ${result.stderr}`,
+    );
+  },
+);

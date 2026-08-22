@@ -84,6 +84,7 @@ const title = page === 1
       const totalPages = Number(archive?.getAttribute('data-total-pages') ?? 1);
       let loadedAll = totalPages <= 1;
       let loadingAll: Promise<void> | null = null;
+      let nextPageToLoad = 2;
 
       const cards = () => [...document.querySelectorAll('#articles-grid .card')];
 
@@ -94,13 +95,14 @@ const title = page === 1
         grid?.setAttribute('aria-busy', 'true');
         loading?.removeAttribute('hidden');
         loadingAll = (async () => {
-          for (let pageNumber = 2; pageNumber <= totalPages; pageNumber++) {
+          for (let pageNumber = nextPageToLoad; pageNumber <= totalPages; pageNumber++) {
             const response = await fetch(`/clanky/strana/${pageNumber}/`);
             if (!response.ok) throw new Error(`Archiv: strana ${pageNumber} se nenačetla.`);
             const documentPage = new DOMParser().parseFromString(await response.text(), 'text/html');
             documentPage.querySelectorAll('#articles-grid .card').forEach((card) => {
               grid?.append(document.importNode(card, true));
             });
+            nextPageToLoad = pageNumber + 1;
           }
           loadedAll = true;
         })().finally(() => {

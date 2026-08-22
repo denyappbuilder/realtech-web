@@ -5,6 +5,25 @@ category: "AI Report"
 date: "2026-08-12"
 zprava: true
 image: "/images/clanky/chatgpt-reklamy-nove-trhy.jpg"
+audio:
+  url: "https://audio.realtech.cz/chatgpt-reklamy-nove-trhy-v3.mp3?v=907c62cd905f"
+  duration: 144
+  transcript: |-
+    Reklamy v Čet dží-pí-tý se rozjely do dalších pěti zemí a Evropa je na řadě. OpenAI jedenáctého srpna doplnilo svoje oznámení jednou větou, která stojí za pozornost. reklamy v Čet dží-pí-tý teď běží ve Velké Británii, Mexiku, Brazílii, Japonsku a Jižní Koreji. A rovnou dodává, že se letos chystá do dalších trhů.
+
+    Pro nás je zajímavá hlavně ta Británie. Reklamy se rozjely v únoru ve Státech, na jaře přibyla Kanada, Austrálie a Nový Zéland. Teď poprvé evropská země. Že by Česko bylo na řadě hned, čekat nemusíš, ale směr je jasný.
+
+    Reklamy vidí přihlášení dospělí uživatelé na tarifech Frí a Gó. Placené tarify Plus, Pro, Byznys, Enterprajz a Edjukejšn je podle OpenAI mít nebudou. Ve Frí tarifu jde reklamy vypnout, ale výměnou za méně zpráv denně. Takže buď koukáš na reklamy, nebo máš nižší limit. Klasický obchod.
+
+    Reklama je podle OpenAI vždycky označená jako sponzorovaná a vizuálně oddělená od odpovědi. Firma opakovaně zdůrazňuje, že reklamy neovlivňují to, co ti Čet dží-pí-tý odpoví. Odpovědi se prý optimalizují jen podle toho, co je pro tebe nejužitečnější.
+
+    Cílení běží podle tématu konverzace, tvých minulých chatů a předchozích interakcí s reklamami. Když řešíš recepty, můžeš dostat reklamu na donášku jídla. Inzerenti přitom nemají přístup k tvým chatům, historii ani paměti. Dostávají jen souhrnná čísla o zobrazeních a proklicích.
+
+    Reklamy se během testu nezobrazují účtům, u kterých firma ví nebo předpokládá, že jde o nezletilého. A nemají se objevovat u citlivých témat jako zdraví, duševní zdraví nebo politika. Reklamu jde odmítnout, poslat zpětnou vazbu, zjistit, proč se ti zobrazila, jedním klepnutím smazat reklamní data a kdykoli vypnout personalizaci.
+
+    Zadarmo to nikdy nebylo. Čet dží-pí-tý ve Frí tarifu stojí OpenAI peníze a tohle je odpověď, jak je vydělat, aniž by za to lidi platili přímo. Jestli ti to vadí, máš dvě cesty. Předplatné, nebo méně zpráv denně. Až to dorazí k nám, budeš vědět, kde.
+
+    Zdroj informací: oficiální oznámení OpenAI o testování reklam v Čet dží-pí-tý.
 ---
 
 OpenAI 11. srpna doplnilo svoje oznámení o reklamách v ChatGPT jednou větou, která stojí za pozornost: **ChatGPT Ads teď běží ve Velké Británii, Mexiku, Brazílii, Japonsku a Jižní Koreji.** A rovnou dodává, že se letos chystá do dalších trhů.
@@ -15,7 +34,7 @@ Pro nás je zajímavá hlavně ta Británie. Reklamy se rozjely v únoru ve Stá
 
 Reklamy vidí **přihlášení dospělí uživatelé na tarifech [Free](/clanky/chatgpt-zdarma-neomezene-chaty/) a Go**. Placené tarify — Plus, Pro, Business, Enterprise a Education — reklamy podle OpenAI mít nebudou.
 
-A je tam ještě jedna možnost, o které se moc nemluví: ve Free tarifu jde reklamy **vypnout**, ale výměnou za méně zpráv denně. Takže buď koukáš na reklamy, nebo máš nižší limit. Klasický obchod.
+A je tam ještě jedna možnost, o které se moc nemluví: [ve Free tarifu](/clanky/chatgpt-zdarma-neomezene-chaty/) jde reklamy **vypnout**, ale výměnou za méně zpráv denně. Takže buď koukáš na reklamy, nebo máš nižší limit. Klasický obchod.
 
 ## Jak to funguje
 
