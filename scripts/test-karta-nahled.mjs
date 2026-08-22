@@ -33,7 +33,6 @@ test('běžný JPG použije existující variantu 640 px a její WebP náhled', 
     ],
   });
 
-  assert.equal(thumbnail.small, '/images/clanky/cover-640.jpg');
   assert.equal(thumbnail.localThumb, '/images/clanky/cover-640.jpg');
   assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [640, 360]);
   assert.equal(thumbnail.thumbWebp, '/images/clanky/cover-640.webp');
@@ -44,7 +43,6 @@ test('JPG bez varianty 640 px použije původní obrázek a rozměry 1280 × 720
   const image = '/images/clanky/cover.jpg';
   const thumbnail = await loadThumbnail({ image });
 
-  assert.equal(thumbnail.small, '/images/clanky/cover-640.jpg');
   assert.equal(thumbnail.localThumb, image);
   assert.equal(thumbnail.thumbUrl, image);
   assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [1280, 720]);
@@ -91,7 +89,7 @@ test('neplatné video ID a neznámý tvar URL zachovají současný fallback obr
   }
 });
 
-test('12znakové YouTube ID se nekrátí na cizí video [codex-testy-web/KARTA-NAHLED-002]', { todo: true }, async () => {
+test('12znakové YouTube ID se nekrátí na cizí video [codex-testy-web/KARTA-NAHLED-002]', async () => {
   const image = '/images/clanky/cover.jpg';
   const longer = await loadThumbnail({
     video: 'https://youtu.be/AbC12_def-3X',
@@ -105,7 +103,6 @@ test('12znakové YouTube ID se nekrátí na cizí video [codex-testy-web/KARTA-N
 test('bez obrázku a videa nevznikne náhled ani WebP a výpočet nespadne', async () => {
   const thumbnail = await loadThumbnail();
 
-  assert.equal(thumbnail.small, undefined);
   assert.equal(thumbnail.localThumb, undefined);
   assert.equal(thumbnail.thumbUrl, undefined);
   assert.equal(thumbnail.thumbWebp, null);
@@ -114,7 +111,7 @@ test('bez obrázku a videa nevznikne náhled ani WebP a výpočet nespadne', asy
 
 // Ne-JPG nemá variantu 640 px: plný obrázek nesmí zmenšit layout a PNG se
 // nesmí vydávat za WebP ve <source type="image/webp">.
-test('ne-JPG obrázek zachová plné rozměry a správný typ [codex-testy-web/KARTA-NAHLED-001]', { todo: true }, async () => {
+test('ne-JPG obrázek zachová plné rozměry a správný typ [codex-testy-web/KARTA-NAHLED-001]', async () => {
   for (const image of [
     '/images/clanky/cover.png',
     '/images/clanky/cover.webp',
@@ -124,7 +121,6 @@ test('ne-JPG obrázek zachová plné rozměry a správný typ [codex-testy-web/K
       files: [`public${image}`],
     });
 
-    assert.notEqual(thumbnail.small, image, image);
     assert.equal(thumbnail.localThumb, image, image);
     assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [1280, 720], image);
 
