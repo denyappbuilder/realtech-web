@@ -7,15 +7,12 @@ import { fileURLToPath } from "node:url";
 const koren = join(dirname(fileURLToPath(import.meta.url)), "..");
 const css = readFileSync(join(koren, "src/styles/global.css"), "utf8");
 
-const KATEGORIE = [
-  "ai-report",
-  "ai-agenti",
-  "drony",
-  "vesmir",
-  "hardware",
-  "mobily",
-  "site",
-];
+function pravidlo(selektor) {
+  const shoda = css.match(
+    new RegExp(`${selektor.replaceAll(".", "\\.")}\\s*\\{([^}]+)\\}`),
+  );
+  return shoda?.[1] ?? "";
+}
 
 test("Z10031: náhledy nesmí sdílet tutéž hnědočervenou clonu", () => {
   assert.doesNotMatch(
@@ -25,20 +22,31 @@ test("Z10031: náhledy nesmí sdílet tutéž hnědočervenou clonu", () => {
   );
 });
 
-test("Z10031: každá kategorie má vlastní akcent na náhledu", () => {
-  const barvy = new Set();
-  for (const slug of KATEGORIE) {
-    const shoda = css.match(
-      new RegExp(`\\.th-${slug}::before\\s*\\{([^}]+)\\}`),
-    );
-    assert.ok(shoda, `chybí .th-${slug}::before — náhledy témat splývají`);
-    const barva = shoda[1].match(/background:\s*([^;]+)/);
-    assert.ok(barva, `.th-${slug}::before nemá background`);
-    barvy.add(barva[1].trim());
-  }
-  assert.equal(
-    barvy.size,
-    KATEGORIE.length,
-    `akcenty se opakují (${[...barvy].join(", ")}) — témata zase splývají`,
+test("Z10031: clona je neutrální, mírná a nechá většinu coveru čistou", () => {
+  const telo = pravidlo(".card-thumb::after");
+  const rgba = telo.match(
+    /rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9.]+)\s*\)/,
+  );
+  assert.ok(rgba, "clona náhledu nemá čitelnou RGBA barvu");
+
+  const kanaly = rgba.slice(1, 4).map(Number);
+  const alpha = Number(rgba[4]);
+  assert.ok(
+    Math.max(...kanaly) - Math.min(...kanaly) <= 10,
+    `clona není neutrální: rgb(${kanaly.join(",")}) barví všechny covery stejným odstínem`,
+  );
+  assert.ok(alpha <= 0.42, `clona je příliš silná (${alpha}) a přebíjí fotografie`);
+  assert.match(
+    telo,
+    /transparent\s+6[0-9]%/,
+    "clona začíná příliš vysoko a zbytečně tónuje celý cover",
+  );
+});
+
+test("Z10031: náhled nepřidává druhý kategoriální proužek", () => {
+  assert.doesNotMatch(
+    css,
+    /\.card-thumb::before\s*\{/,
+    "kategorie už odlišuje levý okraj celé karty — druhý proužek na náhledu je duplicitní",
   );
 });
