@@ -51,3 +51,12 @@ test('repo už neobsahuje binární MP3 pilotu', () => {
     : [];
   assert.deepEqual(files, []);
 });
+
+test('CSP dovolí přehrávání jen z vlastního webu a audio.realtech.cz', () => {
+  const headers = fs.readFileSync(path.join(root, 'public/_headers'), 'utf8');
+  assert.match(
+    headers,
+    /Content-Security-Policy:[^\n]*media-src 'self' https:\/\/audio\.realtech\.cz;/,
+  );
+  assert.doesNotMatch(headers, /media-src[^;]*\*/);
+});
