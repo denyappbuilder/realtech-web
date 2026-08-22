@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title, description, category, date, video, videoLength, zprava, image, updated } = article.data;
+const { title, seoTitle, description, category, date, video, videoLength, zprava, image, updated } = article.data;
 const readMinutes = readingTime(article.body);
 const dateStr = formatCalendarDateCs(date);
 const updatedStr = formatCalendarDateCs(updated);
@@ -98,7 +98,7 @@ const breadcrumbLd = {
 };
 ---
 <Base
-  title={seoTitulek(title, { zachovatCely: true })}
+  title={seoTitle ?? seoTitulek(title)}
   ogTitle={`${title} — REALTECH CZ`}
   description={description}
   image={ogImage}

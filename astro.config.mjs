@@ -64,8 +64,9 @@ export default defineConfig({
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({
-      // /vitej/ je noindex (potvrzení newsletteru) — do sitemapy nepatří
-      filter: (page) => !page.includes('/vitej'),
+      // /vitej/ je noindex (potvrzení newsletteru) — vyřadit jen přesnou cestu,
+      // ne legitimní /vitejte/ nebo články, které mají „vitej“ ve slugu.
+      filter: (page) => new URL(page).pathname !== '/vitej/',
       serialize: (item) => {
         const slug = item.url.match(/\/clanky\/([^/]+)\/$/)?.[1];
         const category = item.url.match(/\/temata\/([^/]+)\/$/)?.[1];

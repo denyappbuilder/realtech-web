@@ -1,5 +1,6 @@
 ---
 title: "NotebookLM končí. Teda jméno — Google ho přejmenoval na Gemini Notebook a přidal mu vlastní počítač"
+seoTitle: "NotebookLM končí — nové jméno Gemini Notebook"
 description: "Google přejmenoval NotebookLM na Gemini Notebook. Nástroj s 30 miliony uživatelů zůstává, nově ale dostává zabezpečený cloudový počítač: umí sám psát a spouštět kód a dělat datové analýzy přímo nad vašimi zdroji."
 category: "AI Report"
 date: "2026-07-16"

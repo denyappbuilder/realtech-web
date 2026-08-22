@@ -19,7 +19,9 @@ import { chybaTvaruImage } from '../src/lib/image-cesta.js';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
-const files = fs.readdirSync(DIR).filter((f) => f.endsWith('.md'));
+const files = fs
+  .readdirSync(DIR, { recursive: true })
+  .filter((f) => f.endsWith('.md'));
 const REPOSITORY_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function loadArticleSchema() {
