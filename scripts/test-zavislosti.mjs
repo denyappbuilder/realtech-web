@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PROHLEDEJ = ["scripts", "src"];
 const PRIPONY = new Set([".mjs", ".js", ".ts", ".astro"]);
-const PRESKOC_SLOZKY = new Set(["test-rss-mocks", "test-sitemap-mocks"]);
+const PRESKOC_SLOZKY = new Set(["test-rss-mocks", "test-sitemap-mocks", "test-audio-prehled-mocks"]);
 
 const IMPORT_Z_FROM = /^(?:import|export)\b[\s\S]*?\bfrom\s+['"]([^'"]+)['"]/;
 const IMPORT_STRANY = /^import\s+['"]([^'"]+)['"]/;
