@@ -2,7 +2,7 @@
 title: "Claude Cowork uměl utéct z izolace a číst klíče z tvého Macu"
 description: "Výzkumníci ukázali, jak jedna zpráva donutila AI agenta Claude Cowork vylézt z jeho VM a sáhnout si na celý disk Macu — SSH klíče, cloud přihlašovací údaje, cokoli. Anthropic to zavřel jako 'informativní'."
 category: "AI Agenti"
-date: 2026-07-24
+date: "2026-07-24"
 zprava: true
 image: "/images/clanky/claude-cowork-sandbox-utek.jpg"
 ---

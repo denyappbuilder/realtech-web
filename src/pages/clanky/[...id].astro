@@ -8,6 +8,7 @@ import { slugify } from '../../lib/slugify.js';
 import { readingTime } from '../../lib/reading-time.js';
 import { youtubeId } from '../../lib/youtube.js';
 import { isoDuration } from '../../lib/iso-duration.js';
+import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -19,10 +20,10 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title, description, category, date, video, videoLength, zprava, image, updated } = article.data;
+const { title, seoTitle, description, category, date, video, videoLength, zprava, image, updated } = article.data;
 const readMinutes = readingTime(article.body);
-const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
-const updatedStr = updated?.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
+const dateStr = formatCalendarDateCs(date);
+const updatedStr = formatCalendarDateCs(updated);
 
 const videoId = youtubeId(video);
 const brandedOg = `/images/og/${article.id}.jpg`;
@@ -97,7 +98,7 @@ const breadcrumbLd = {
 };
 ---
 <Base
-  title={seoTitulek(title, { zachovatCely: true })}
+  title={seoTitle ?? seoTitulek(title)}
   ogTitle={`${title} — REALTECH CZ`}
   description={description}
   image={ogImage}
@@ -158,8 +159,34 @@ const breadcrumbLd = {
         </div>
       )}
 
-      <div class="article-body">
-        <Content />
+      <div class="article-layout">
+        <div class="article-body">
+          <Content />
+        </div>
+        <aside class="article-aside">
+          <p class="mono">V článku</p>
+          <ul class="article-aside-meta">
+            <li><a href={`/temata/${slugify(category)}/`}>{category}</a></li>
+            <li><time datetime={date.toISOString().slice(0, 10)}>{dateStr}</time></li>
+            <li>Čtení {readMinutes} min</li>
+          </ul>
+          <p class="mono">Sdílej dál</p>
+          <div class="share-btns">
+            <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">X</a>
+            <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">Facebook</a>
+            <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
+          </div>
+          {related.length > 0 && (
+            <>
+              <p class="mono">Další reporty</p>
+              <ul class="article-aside-related">
+                {related.map((c) => (
+                  <li><a href={`/clanky/${c.id}/`}>{c.data.title}</a></li>
+                ))}
+              </ul>
+            </>
+          )}
+        </aside>
       </div>
 
       {/*
@@ -190,7 +217,7 @@ const breadcrumbLd = {
         <div class="share-btns">
           <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">X</a>
           <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">Facebook</a>
-          <button class="share-btn" id="copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
+          <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
         </div>
       </div>
 
@@ -280,16 +307,17 @@ const breadcrumbLd = {
     document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    const copyBtn = document.getElementById('copy-link');
-    copyBtn?.addEventListener('click', async () => {
-      const url = copyBtn.getAttribute('data-url') ?? location.href;
-      try {
-        await navigator.clipboard.writeText(url);
-        copyBtn.textContent = 'Zkopírováno ✓';
-        setTimeout(() => { copyBtn.textContent = 'Kopírovat odkaz'; }, 2000);
-      } catch {
-        location.href = url;
-      }
+    document.querySelectorAll<HTMLButtonElement>('.copy-link').forEach((copyBtn) => {
+      copyBtn.addEventListener('click', async () => {
+        const url = copyBtn.getAttribute('data-url') ?? location.href;
+        try {
+          await navigator.clipboard.writeText(url);
+          copyBtn.textContent = 'Zkopírováno ✓';
+          setTimeout(() => { copyBtn.textContent = 'Kopírovat odkaz'; }, 2000);
+        } catch {
+          location.href = url;
+        }
+      });
     });
   </script>
 </Base>

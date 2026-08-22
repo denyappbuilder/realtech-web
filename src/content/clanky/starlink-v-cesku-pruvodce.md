@@ -3,7 +3,7 @@ title: "Starlink v Česku 2026: kompletní průvodce. Ceny, reálná spotřeba a
 description: "Půl roku testujeme Starlink Standard i Mini. Aktuální české tarify (od 745 Kč měsíčně), kolik reálně sežere elektřiny, jak funguje v dešti a kdy dává větší smysl než pevná linka — vše na jednom místě, průběžně aktualizované."
 category: "Sítě"
 evergreen: true
-date: 2026-07-20
+date: "2026-07-20"
 image: "/images/clanky/starlink-v-cesku-pruvodce.jpg"
 ---
 
