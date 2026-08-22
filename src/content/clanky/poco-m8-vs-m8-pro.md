@@ -2,7 +2,7 @@
 title: "POCO M8 vs. M8 Pro: má smysl připlatit 2–3 tisíce za Pro verzi?"
 description: "Otestovali jsme oba telefony — výkon, baterie, foťáky, odolnost i to, který z nich přežil půl hodiny pod vodou. Tady je kompletní srovnání a náš verdikt."
 category: "Mobily"
-date: 2026-07-02
+date: "2026-07-02"
 video: "https://youtu.be/eDkin8oFOwQ"
 videoLength: "7:58"
 ---

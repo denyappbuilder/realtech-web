@@ -20,3 +20,18 @@ export function parseCalendarDate(value) {
 
   return date;
 }
+
+/**
+ * Viditelné české datum ze stejné půlnoci UTC, kterou vrací parseCalendarDate.
+ * Bez timeZone: 'UTC' by toLocaleDateString v pásmu západně od UTC ukázalo den předtím
+ * (Z10092 — KARTA-DATUM-001).
+ */
+export function formatCalendarDateCs(date) {
+  if (!date) return undefined;
+  return date.toLocaleDateString('cs-CZ', {
+    timeZone: 'UTC',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}

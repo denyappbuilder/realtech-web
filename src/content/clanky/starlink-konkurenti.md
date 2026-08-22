@@ -3,7 +3,7 @@ title: "Kdo porazí Starlink? Velké srovnání pěti konkurentů"
 description: "Amazon, Evropa, Čína i Rusko staví vlastní satelitní internet. Prošli jsme všech pět projektů — kdo má reálnou šanci a co z toho bude mít český uživatel."
 category: "Vesmír"
 evergreen: true
-date: 2026-07-02
+date: "2026-07-02"
 video: "https://youtu.be/YSiw-bae1wU"
 videoLength: "14:40"
 ---

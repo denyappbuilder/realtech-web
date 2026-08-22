@@ -28,6 +28,15 @@
   const norm = (s: string) =>
     s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
+  // Titulek i kategorie jdou do innerHTML. Bez escapování by `<` v obsahu
+  // rozbilo výpis a mohlo vložit cizí značku (Z10027 / WEB-SEARCH-003).
+  const escapeHtml = (s: string) =>
+    String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+
   async function loadIndex() {
     if (index) return index;
     try {
@@ -50,8 +59,8 @@
     results.innerHTML = items
       .map((it, i) => `
         <a class="search-item${i === active ? ' active' : ''}" href="/clanky/${it.s}/" role="option" data-i="${i}">
-          <span class="si-cat">${it.k}</span>
-          <span class="si-title">${it.t}</span>
+          <span class="si-cat">${escapeHtml(it.k)}</span>
+          <span class="si-title">${escapeHtml(it.t)}</span>
           <span class="si-date mono">${it.p.split('-').reverse().join('. ')}</span>
         </a>`)
       .join('');
