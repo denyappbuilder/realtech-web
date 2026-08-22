@@ -6,18 +6,18 @@ date: "2026-08-14"
 zprava: true
 image: "/images/clanky/glm-5-3-kybernalezy.jpg"
 audio:
-  url: "https://realtech.cz/audio/clanky/glm-5-3-kybernalezy.mp3"
+  url: "https://audio.realtech.cz/glm-5-3-kybernalezy-v3.mp3?v=e6ac02746536"
   duration: 140
   transcript: |-
-    Čínská laboratoř Zet ej aj ráno vypustila model Dží el em pět tečka tři a ten našel dva tisíce čtyři sta třicet šest reálných děr v softwaru. Otevřené váhy ale ven pustí až za dva týdny, prý kvůli bezpečnosti.
+    Čínská laboratoř Zet ej-aj ráno vypustila model Dží-el-em pět tečka tři a ten našel dva tisíce čtyři sta třicet šest reálných děr v softwaru. Otevřené váhy ale ven pustí až za dva týdny, prý kvůli bezpečnosti.
 
-    Novinka stojí na stejném základu jako Dží el em pět tečka dva. Rozdíl vznikl až doladěním po tréninku. Na Terminl benči tři nula šel model ze čtyř celých šesti na dvacet osm celých tři bodu, na Díp es vé í ze šestačtyřiceti celých dvou na šedesát šest celých devět. Na vlastním Zet ej aj Koud benči dá při nastavení haj jednatřicet celých čtyři procenta s asi padesáti tisíci tokeny na úlohu. Klaud Oupus čtyři tečka osm zvládne devětadvacet celých pět, ale spálí sto dvacet tisíc tokenů. Klaud Fejbl pět zůstává napřed s devětatřiceti celými pěti, jenže za jinou cenu.
+    Novinka stojí na základu jako Dží-el-em pět tečka dva. Rozdíl vznikl až doladěním po tréninku. Na Törminl Benči tři nula šel model ze čtyř celých šesti na dvacet osm celých tři bodu, na Díp es-dabl-jú-í ze čtyřiceti šesti celých dvou na šedesát šest celých devět. Na vlastním Zet ej-aj Koud Benči má při nastavení haj výsledek třicet jedna celá čtyři procenta s asi padesáti tisíci tokeny na úlohu. Klaud Oupus čtyři tečka osm zvládne dvacet devět celých pět procenta, ale spálí sto dvacet tisíc tokenů. Klaud Fejbl pět zůstává napřed s výsledkem třicet devět celých pět procenta, jenže za jinou cenu.
 
-    Do tréninku přidali data o hledání zranitelností. Čekali mírné zlepšení. Místo toho se model přestal zastavovat u izolovaných děr a začal skládat řetězce zneužití. Na Sajbr džimu dává osmdesát čtyři celých pět procent a je nejlepší ze všech. Předběhl Mýtos pět i Dží pí tý pět tečka šest Sol. Na Eksploit benči výsledek víc než zdvojnásobil, ze čtyřiadvaceti celých čtyř na čtyřiapadesát celých čtyři. Na Mýtos pět se sedmdesáti osmi procenty pořád nemá. Sama laboratoř to říká narovinu. Schopnosti rostou nejrychleji tam, kde nejvíc zaostávají.
+    Do tréninku přidali data o hledání zranitelností. Čekali zlepšení. Místo toho se model přestal zastavovat u izolovaných děr a začal skládat řetězce zneužití. Na Sajbr Džimu dává osmdesát čtyři celých pět procent a je nejlepší ze všech. Předběhl model Mýtos s číslem pět i Dží-pí-tý pět tečka šest Sol. Na Eksploit Benči výsledek víc než zdvojnásobil, z dvaceti čtyř celých čtyř procenta na padesát čtyři celá čtyři procenta. Na model Mýtos s číslem pět se sedmdesáti osmi procenty pořád nemá. Schopnosti rostou nejrychleji tam, kde nejvíc zaostávají.
 
-    S čínskými bezpečnostními týmy pak model pustili na ostré kódové báze. Po expertní kontrole a odstranění duplicit vyšlo dva tisíce čtyři sta třicet šest zranitelností ve dvou stech šedesáti devíti projektech. Tisíc devadesát sedm z nich je střední až vysoké závažnosti. Jádra systémů, prohlížečové endžiny i síťové protokoly. Nejstarší chyba se do kódu dostala v roce tisíc devět set osmdesát jedna a průměrně tam nález ležel nevšimnutý šestadvacet celých šest roku. Model je od dneška dostupný přes Dží el em Kouding plán a Zet kód. Váhy slibují až dva týdny po startu.
+    S čínskými bezpečnostními týmy pak model pustili na ostré kódové báze. Po expertní kontrole a odstranění duplicit vyšlo dva tisíce čtyři sta třicet šest zranitelností ve dvou stech šedesáti devíti projektech. Tisíc devadesát sedm z nich je střední až vysoké závažnosti. Jádra systémů, prohlížečové endžiny i síťové protokoly. Nejstarší chyba se do kódu dostala v roce tisíc devět set osmdesát jedna a v průměru tam nález ležel dvacet šest let a sedm měsíců. Model je od dneška dostupný přes Dží-el-em Kouding plán a Zet kód. Váhy slibují až dva týdny po startu.
 
-    Zdroj informací: oficiální blog Zet ej aj ze čtrnáctého srpna roku dva tisíce dvacet šest.
+    Zdroj informací: blog Zet ej-aj ze čtrnáctého srpna roku dva tisíce dvacet šest.
 ---
 
 Čínská Z.ai (dřív Zhipu) dnes ráno vydala **GLM-5.3** a je to zvláštní release. Nový model totiž **stojí na úplně stejném základu jako GLM-5.2** — celý rozdíl vznikl až doladěním po tréninku. A ten rozdíl je pořádný.
