@@ -7,7 +7,12 @@ const latest = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 ---
-<Base title="404 — REALTECH CZ" description="Stránka nenalezena.">
+<Base
+  title="404 — REALTECH CZ"
+  description="Stránka nenalezena."
+  robots="noindex, follow"
+  includeCanonical={false}
+>
   <div class="article-page">
     <div class="wrap notfound">
       <span class="mono">// CHYBA 404</span>

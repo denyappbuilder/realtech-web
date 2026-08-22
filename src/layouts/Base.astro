@@ -26,6 +26,8 @@ interface Props {
   ogType?: string;
   /** Direktivy pro roboty; velké náhledy obrázků jsou povolené ve výchozím stavu. */
   robots?: string;
+  /** Vypni u chybových stránek, ať se neexistující URL nekanonizují na /404. */
+  includeCanonical?: boolean;
 }
 
 const vsechnyClanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -37,6 +39,7 @@ const {
   image = '/og-default.jpg',
   ogType = 'website',
   robots = 'max-image-preview:large',
+  includeCanonical = true,
 } = Astro.props;
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
@@ -57,7 +60,9 @@ const socialniTitulek = ogTitle ?? title;
  * a používá se dál jako perex na kartách článků.
  */
 const popisSeo = popisProVyhledavace(description);
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const canonical = includeCanonical
+  ? new URL(Astro.url.pathname, Astro.site)
+  : undefined;
 const ogImage = new URL(image, Astro.site);
 // YouTube náhledy jsou 1280x720, naše vlastní OG grafika 1200x630
 const ogSize = ogImage.hostname.endsWith('ytimg.com')
@@ -78,11 +83,11 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <title>{title}</title>
   <meta name="description" content={popisSeo} />
   <meta name="robots" content={robots} />
-  <link rel="canonical" href={canonical} />
+  {includeCanonical && <link rel="canonical" href={canonical} />}
   <meta property="og:title" content={socialniTitulek} />
   <meta property="og:description" content={popisSeo} />
   <meta property="og:type" content={ogType} />
-  <meta property="og:url" content={canonical} />
+  {includeCanonical && <meta property="og:url" content={canonical} />}
   <meta property="og:image" content={ogImage} />
   <meta property="og:image:width" content={ogSize.w} />
   <meta property="og:image:height" content={ogSize.h} />
