@@ -19,6 +19,7 @@ import ts from 'typescript';
 import { readingTime } from '../src/lib/reading-time.js';
 import { youtubeId } from '../src/lib/youtube.js';
 import { nahledKarty } from '../src/lib/karta-nahled.js';
+import { formatCalendarDateCs } from '../src/lib/calendarDate.js';
 
 export const KOREN = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -110,6 +111,12 @@ export function vykresliKartu(article) {
     if (specifier === '../lib/reading-time.js') return { readingTime };
     if (specifier === '../lib/youtube.js') return { youtubeId };
     if (specifier === '../lib/karta-nahled.js') return { nahledKarty };
+    if (specifier === '../lib/calendarDate.js') return { formatCalendarDateCs };
+    // 🔴 22. 8. 2026: tenhle whitelist je ruční a rozbije se TICHO při srážce
+    // dvou zelených PR. #112 přidalo do `ArticleCard.astro` import
+    // `calendarDate.js`, #213 přidalo tenhle loader, který o něm nevěděl.
+    // Každý PR sám o sobě zelený, po slití obou padlo 7 testů a `main`
+    // zčervenal. Když sem příště přibude import do karty, PATŘÍ SEM TAKY.
     throw new Error(`Nepodporovaný import v ArticleCard.astro: ${specifier}`);
   };
 
