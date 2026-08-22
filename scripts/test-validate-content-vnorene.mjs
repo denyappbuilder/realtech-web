@@ -97,7 +97,7 @@ test('baseline: produkční validator zachytí obě vady v přímém článku', 
   assert.doesNotMatch(result.stdout, /článků OK/);
 });
 
-test.todo(
+test(
   `${REGRESSION} vnořený článek s chybějícím image nesmí být přeskočen`,
   (t) => {
     const root = createFixture(t);
@@ -117,7 +117,7 @@ test.todo(
   },
 );
 
-test.todo(
+test(
   `${REGRESSION} neplatný interní odkaz ve vnořeném článku nesmí být přeskočen`,
   (t) => {
     const root = createFixture(t);
