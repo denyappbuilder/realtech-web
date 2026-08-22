@@ -163,6 +163,27 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   gap: 28px;
   min-height: 48px;
   margin-left: 8px;
+  /* Obsah je v šabloně zdvojený, proto -50 % = přesně jedna sada. */
+  width: max-content;
+  animation: ticker-scroll 45s linear infinite;
+}
+/* Zastav, když si to chce někdo přečíst nebo na odkaz kliknout —
+   myší i klávesnicí. Bez `focus-within` by tabulátor honil pohyblivý cíl. */
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track { animation-play-state: paused; }
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* 🔴 Kdo si vypnul animace v systému, tomu se hýbat nesmí nic.
+   Z10032 (19. 8.) pohyb zrušilo úplně, protože animovaná verze měla celý
+   ticker `aria-hidden` a odkazy mimo dosah klávesnice. Deny ho 22. 8. chtěl
+   zpátky — takže je vrácený, ale s přístupností: skrytá je jen ta druhá,
+   duplicitní sada, a pohyb respektuje systémové nastavení. */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; transform: none; }
 }
 .ticker-track a {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;
