@@ -105,6 +105,56 @@ test("načte všechny URL z vygenerované sitemapy", (t) => {
   ]);
 });
 
+test("ze sitemapy zachová Unicode, query parametr a percent-encoding beze změny", (t) => {
+  const root = createFixture(t, {
+    sitemap: `<?xml version="1.0" encoding="UTF-8"?>
+      <urlset>
+        <url><loc>https://realtech.cz/hledat/?dotaz=příliš</loc></url>
+        <url><loc>https://realtech.cz/clanky/%C4%8Desk%C3%BD-n%C3%A1zev/</loc></url>
+      </urlset>`,
+  });
+
+  const result = runIndexNow(root);
+
+  assertExit(result, 0);
+  assert.deepEqual(capturedRequest(result).body.urlList, [
+    "https://realtech.cz/hledat/?dotaz=příliš",
+    "https://realtech.cz/clanky/%C4%8Desk%C3%BD-n%C3%A1zev/",
+  ]);
+});
+
+test("[NÁLEZ INDEXNOW-XML-01] dekóduje XML entity v URL ze sitemapy", {
+  todo: "NÁLEZ INDEXNOW-XML-01: obsah <loc> se čte regulárním výrazem bez dekódování XML entit",
+}, (t) => {
+  const root = createFixture(t, {
+    sitemap: "<urlset><url><loc>https://realtech.cz/hledat/?q=čaj&amp;strana=2</loc></url></urlset>",
+  });
+
+  const result = runIndexNow(root);
+
+  assertExit(result, 0);
+  assert.deepEqual(capturedRequest(result).body.urlList, [
+    "https://realtech.cz/hledat/?q=čaj&strana=2",
+  ]);
+});
+
+test("[NÁLEZ INDEXNOW-XML-02] ořízne XML whitespace kolem hodnoty <loc>", {
+  todo: "NÁLEZ INDEXNOW-XML-02: whitespace z formátovaného <loc> se tiše stává součástí odeslané URL",
+}, (t) => {
+  const root = createFixture(t, {
+    sitemap: `<urlset><url><loc>
+      https://realtech.cz/clanky/formatovana-url/
+    </loc></url></urlset>`,
+  });
+
+  const result = runIndexNow(root);
+
+  assertExit(result, 0);
+  assert.deepEqual(capturedRequest(result).body.urlList, [
+    "https://realtech.cz/clanky/formatovana-url/",
+  ]);
+});
+
 test("explicitní cesty normalizuje s úvodním lomítkem i bez něj", (t) => {
   const root = createFixture(t, { sitemap: null });
 
@@ -122,6 +172,30 @@ test("explicitní cesty normalizuje s úvodním lomítkem i bez něj", (t) => {
     keyLocation: `https://realtech.cz/${KEY_FILE}`,
     urlList: request.body.urlList,
   });
+});
+
+test("v explicitních cestách zachová Unicode a query parametry", (t) => {
+  const root = createFixture(t, { sitemap: null });
+  const input = "/hledat/příliš-žluťoučký/?řazení=nové&štítek=C%2B%2B";
+
+  const result = runIndexNow(root, [input]);
+
+  assertExit(result, 0);
+  assert.deepEqual(capturedRequest(result).body.urlList, [
+    `https://realtech.cz${input}`,
+  ]);
+});
+
+test("[NÁLEZ INDEXNOW-URL-01] nezkomolí explicitní absolutní URL stejného hostu", {
+  todo: "NÁLEZ INDEXNOW-URL-01: absolutní URL dostane navíc prefix hostu a odešle se jako neexistující cesta",
+}, (t) => {
+  const root = createFixture(t, { sitemap: null });
+  const input = "https://realtech.cz/clanky/absolutni/?varianta=česká";
+
+  const result = runIndexNow(root, [input]);
+
+  assertExit(result, 0);
+  assert.deepEqual(capturedRequest(result).body.urlList, [input]);
 });
 
 test("dry-run vypíše URL a neprovede síťový požadavek", (t) => {
@@ -146,6 +220,41 @@ test("skončí s chybou, když v public chybí IndexNow klíč", (t) => {
   assert.match(result.stderr, /V public\/ chybí soubor s IndexNow klíčem/);
   assert.doesNotMatch(result.stdout, new RegExp(FETCH_CAPTURE_PREFIX));
 });
+
+for (const length of [7, 129]) {
+  test(`odmítne název IndexNow klíče dlouhý ${length} znaků`, (t) => {
+    const root = createFixture(t, { keyFile: `${"a".repeat(length)}.txt` });
+
+    const result = runIndexNow(root, [], { fetch: "forbid" });
+
+    assertExit(result, 1);
+    assert.match(result.stderr, /V public\/ chybí soubor s IndexNow klíčem/);
+    assert.doesNotMatch(result.stdout, new RegExp(FETCH_CAPTURE_PREFIX));
+  });
+}
+
+test("přijme název IndexNow klíče na horní hranici 128 znaků", (t) => {
+  const key = "a".repeat(128);
+  const root = createFixture(t, { keyFile: `${key}.txt`, sitemap: null });
+
+  const result = runIndexNow(root, ["clanky/hranice-klice/"]);
+
+  assertExit(result, 0);
+  assert.equal(capturedRequest(result).body.key, key);
+});
+
+for (const key of ["abc12345", "ABCD-1234"]) {
+  test(`[NÁLEZ INDEXNOW-KEY-01] přijme protokolem povolený klíč ${key}`, {
+    todo: "NÁLEZ INDEXNOW-KEY-01: validace názvu odmítá platné klíče délky 8–15 a znaky povolené protokolem",
+  }, (t) => {
+    const root = createFixture(t, { keyFile: `${key}.txt`, sitemap: null });
+
+    const result = runIndexNow(root, ["clanky/platny-klic/"]);
+
+    assertExit(result, 0);
+    assert.equal(capturedRequest(result).body.key, key);
+  });
+}
 
 test("skončí s chybou, když sitemap neexistuje", (t) => {
   const root = createFixture(t, { sitemap: null });
