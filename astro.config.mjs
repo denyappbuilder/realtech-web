@@ -9,7 +9,7 @@ import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
 const lastmods = {};
 const categoryLastmods = {};
 const invalidLastmodSlugs = new Set();
-for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith('.md'))) {
+for (const f of fs.readdirSync('./src/content/clanky', { recursive: true }).filter((f) => f.endsWith('.md'))) {
   // Oddělovač je řádek `---`, ne libovolný výskyt v hodnotě (Z1267).
   // `split('---')` uřízne `description: "Rozbor --- díl první"` uprostřed
   // a ztratí `draft`/`date`/`category` za ním — sitemapa pak ohlásí datum
@@ -68,7 +68,7 @@ export default defineConfig({
       // ne legitimní /vitejte/ nebo články, které mají „vitej“ ve slugu.
       filter: (page) => new URL(page).pathname !== '/vitej/',
       serialize: (item) => {
-        const slug = item.url.match(/\/clanky\/([^/]+)\/$/)?.[1];
+        const slug = item.url.match(/\/clanky\/(.+)\/$/)?.[1];
         const category = item.url.match(/\/temata\/([^/]+)\/$/)?.[1];
         if (slug && invalidLastmodSlugs.has(slug)) {
           return item;
