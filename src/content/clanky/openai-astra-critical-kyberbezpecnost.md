@@ -2,7 +2,7 @@
 title: "OpenAI poprvé označilo svůj model za „kritický\" v kyberbezpečnosti. Astra dostala izolované prostředí a dohled nad myšlením"
 description: "Interní testy nadcházejícího modelu Astra vyšly tak silně, že OpenAI nedokáže vyloučit nejvyšší stupeň nebezpečnosti podle svého Preparedness Frameworku. Poprvé v historii firmy."
 category: "AI Report"
-date: 2026-08-08
+date: "2026-08-08"
 zprava: true
 image: "/images/clanky/openai-astra-critical-kyberbezpecnost.jpg"
 ---

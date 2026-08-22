@@ -3,7 +3,8 @@
 //     (stalo se u waze-gemini-novinky i claude-cowork-sandbox-utek — článek pak byl bez náhledovky)
 //  2. článek odkazuje na `image:`, který neexistuje → build FAIL (radši spadnout než vydat rozbitý článek)
 //  3. duplicitní titulky napříč články → varování
-//  4. neplatné kalendářní datum → build FAIL; datum v budoucnosti → varování
+//  4. neplatné kalendářní datum → build FAIL; date v budoucnosti → varování;
+//     updated před date nebo updated v budoucnosti → build FAIL (Z10065)
 //  5. interní odkaz na /clanky/SLUG/, který neexistuje → build FAIL
 //     (Starlink průvodce takhle chvíli odkazoval na 404, než se dopublikoval druhý díl)
 import fs from 'node:fs';
@@ -14,10 +15,13 @@ import { CORE_SCHEMA, load as parseYaml } from 'js-yaml';
 import ts from 'typescript';
 import { z } from 'astro/zod';
 import { parseCalendarDate } from '../src/lib/calendarDate.js';
+import { chybaTvaruImage } from '../src/lib/image-cesta.js';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
-const files = fs.readdirSync(DIR).filter((f) => f.endsWith('.md'));
+const files = fs
+  .readdirSync(DIR, { recursive: true })
+  .filter((f) => f.endsWith('.md'));
 const REPOSITORY_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function loadArticleSchema() {
@@ -68,7 +72,11 @@ for (const f of files) {
   const slug = f.replace(/\.md$/, '');
   const full = path.join(DIR, f);
   let raw = fs.readFileSync(full, 'utf8');
-  const fm = raw.split('---')[1] ?? '';
+  // Oddělovač je řádek ---, ne výskyt v hodnotě (Z10036). Capture group
+  // oddělovače zachová, ať join('') při auto-opravě nesežere prázdné
+  // řádky kolem vodorovných čar v těle (Z10037).
+  const casti = raw.split(/(^---\s*$)/m);
+  const fm = casti[2] ?? '';
 
   try {
     // Keep timestamp-looking scalars as strings so the shared schema validates
@@ -85,6 +93,9 @@ for (const f of files) {
     errors.push(`${f}: pole "frontmatter" je neplatné: ${error.message}`);
   }
 
+  // Prázdný řádek `image:` je taky klíč — regex s (.+?) ho dřív nenašel
+  // a auto-oprava pak vložila druhý. YAML bere poslední (null) a cover zmizí.
+  const maKlicImage = /^image:\s*/m.test(fm);
   const image = fm.match(/^image:\s*["']?(.+?)["']?\s*$/m)?.[1];
   const hasVideo = /^video:/m.test(fm);
   const title = fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1];
@@ -97,18 +108,28 @@ for (const f of files) {
     }
   }
 
-  // 1. chybí image, ale cover existuje → doplnit
-  if (!image && !hasVideo && fs.existsSync(`${IMG}/${slug}.jpg`)) {
+  // 1. chybí image, ale cover existuje → doplnit. Náhrada JEN ve frontmatteru —
+  // raw.replace(/^(date:.*)$/m) nad celým souborem psala image do těla článku,
+  // když frontmatter `date:` neměl a tělo ho zmínilo.
+  if (!maKlicImage && !hasVideo && fs.existsSync(`${IMG}/${slug}.jpg`)) {
     const line = `image: "/images/clanky/${slug}.jpg"`;
-    raw = raw.replace(/^(date:.*)$/m, `$1\n${line}`);
-    fs.writeFileSync(full, raw);
-    warnings.push(`AUTO-OPRAVA ${slug}: doplněn chybějící image (cover existoval)`);
-    fixed++;
+    if (/^date:/m.test(fm)) {
+      casti[2] = fm.replace(/^(date:.*)$/m, `$1\n${line}`);
+      raw = casti.join('');
+      fs.writeFileSync(full, raw);
+      warnings.push(`AUTO-OPRAVA ${slug}: doplněn chybějící image (cover existoval)`);
+      fixed++;
+    }
   }
 
-  // 2. image odkazuje na neexistující soubor
-  if (image && !fs.existsSync(`public${image}`)) {
-    errors.push(`${slug}: image "${image}" neexistuje`);
+  // 2. image musí mít povolený tvar a existující soubor
+  if (image) {
+    const tvar = chybaTvaruImage(image);
+    if (tvar) {
+      errors.push(`${slug}: ${tvar}`);
+    } else if (!fs.existsSync(`public${image}`)) {
+      errors.push(`${slug}: image "${image}" neexistuje`);
+    }
   }
 
   // 3. duplicitní titulek
@@ -117,9 +138,21 @@ for (const f of files) {
     else titles.set(title, slug);
   }
 
-  // 4. datum v budoucnu
+  // 4. datum v budoucnu — u date jen varování (draft může mít příští den),
+  // u updated chyba: lastmod 2099 a dateModified před datePublished jdou ven.
   if (dateStr && parseCalendarDate(dateStr) > today) {
     warnings.push(`${slug}: datum ${dateStr} je v budoucnosti`);
+  }
+
+  const parsedDate = dateStr ? parseCalendarDate(dateStr) : undefined;
+  const parsedUpdated = updatedStr ? parseCalendarDate(updatedStr) : undefined;
+  if (parsedDate && parsedUpdated && parsedUpdated < parsedDate) {
+    errors.push(
+      `${f}: pole "updated" (${updatedStr}) nesmí předcházet poli "date" (${dateStr})`,
+    );
+  }
+  if (parsedUpdated && parsedUpdated > today) {
+    errors.push(`${slug}: updated ${updatedStr} je v budoucnosti`);
   }
 }
 

@@ -2,7 +2,7 @@
 title: "WhatsApp konečně umí volat přímo z prohlížeče. Bez instalace, zdarma"
 description: "Meta spustila volání ve WhatsApp Web — audio i video, skupiny, sdílení obrazovky. Plus přehazování hovoru mezi zařízeními a čekárna pro skupinové hovory."
 category: "Mobily"
-date: 2026-07-28
+date: "2026-07-28"
 zprava: true
 image: "/images/clanky/whatsapp-web-volani.jpg"
 ---

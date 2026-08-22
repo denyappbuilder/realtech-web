@@ -98,7 +98,7 @@ test("GET odstraní Markdown, HTML, code fence a cíle odkazů, ale zachová či
   assert.doesNotMatch(item.b, /example\.com|const tajne|<[^>]+>|[#*_>`|\[\]()]/);
 });
 
-test("GET po normalizaci whitespace neponechá na hranici 400 znaků koncovou mezeru [WEB-SEARCH-001]", { todo: true }, async () => {
+test("GET po normalizaci whitespace neponechá na hranici 400 znaků koncovou mezeru [WEB-SEARCH-001]", async () => {
   setCollection([
     article({
       id: "hranice",

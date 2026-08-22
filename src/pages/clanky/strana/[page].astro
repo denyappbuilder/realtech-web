@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleArchivePage from '../../../components/ArticleArchivePage.astro';
+
+export async function getStaticPaths() {
+  const articlesPerPage = 15;
+  const articles = await getCollection('clanky', ({ data }) => !data.draft);
+  const totalPages = Math.ceil(articles.length / articlesPerPage);
+
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({
+    params: { page: String(index + 2) },
+    props: { page: index + 2 },
+  }));
+}
+
+interface Props {
+  page: number;
+}
+
+const { page } = Astro.props;
+---
+<ArticleArchivePage page={page} />
