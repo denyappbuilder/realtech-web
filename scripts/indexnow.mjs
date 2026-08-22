@@ -26,6 +26,11 @@ if (!keyFile) {
 const key = keyFile.replace(/\.txt$/, '');
 
 const args = process.argv.slice(2);
+const unknownFlags = args.filter((a) => a.startsWith('--') && a !== '--dry-run');
+if (unknownFlags.length) {
+  console.error(`❌ Neznámý přepínač: ${unknownFlags.join(', ')}`);
+  process.exit(1);
+}
 const dryRun = args.includes('--dry-run');
 const paths = args.filter((a) => !a.startsWith('--'));
 
