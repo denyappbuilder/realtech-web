@@ -2,7 +2,7 @@
 title: "Google Earth umí přemalovat jakékoli místo na světě. Stačí napsat, co tam chceš"
 description: "Nano Banana 2 se dostalo do Google Earth. Přiblížíš si prázdný pozemek, napíšeš prompt a dostaneš render zasazený do reálné krajiny. Spuštěno dnes globálně, ve webové verzi."
 category: "AI Report"
-date: 2026-07-30
+date: "2026-07-30"
 zprava: true
 image: "/images/clanky/google-earth-nano-banana.jpg"
 ---

@@ -2,7 +2,7 @@
 title: "Proč je SpaceX tak napřed? Pět pravidel inovace, která ostatní ignorují"
 description: "V roce 2025 vynesla SpaceX 90 % veškeré hmoty na oběžnou dráhu — s 13 tisíci zaměstnanci poráží NASA i Boeing. Rozebrali jsme metodiku, díky které to dokáže."
 category: "Vesmír"
-date: 2026-07-02
+date: "2026-07-02"
 video: "https://youtu.be/3Z6VkTiKrDc"
 videoLength: "7:59"
 ---

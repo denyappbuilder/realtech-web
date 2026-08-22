@@ -2,7 +2,7 @@
 title: "Starlink Mini v testu: internet do batohu, který utáhne i powerbanka"
 description: "Nejmenší satelitní anténa Starlinku váží necelé kilo a půl, zprovozníte ji za 30 minut a při běžném provozu si bere jen 20–30 W. Reálně naměřené rychlosti, spotřeba, tarify a triky, o kterých se moc neví — z našeho dlouhodobého testování."
 category: "Sítě"
-date: 2026-07-21
+date: "2026-07-21"
 video: "https://youtu.be/uwcxvbt8zyQ"
 videoLength: "8:29"
 ---

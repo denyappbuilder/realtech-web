@@ -2,7 +2,7 @@
 title: "ChatGPT dostal nový hlas. GPT-Live umí poslouchat a mluvit zároveň — a roluje se všem"
 description: "OpenAI vyměnila hlasový režim ChatGPT za GPT-Live: model poslouchá a mluví současně, počká, když přemýšlíš, a těžší dotazy si nechá spočítat od GPT-5.5 na pozadí. Rollout běží globálně."
 category: "AI Report"
-date: 2026-07-09
+date: "2026-07-09"
 zprava: true
 image: "/images/clanky/gpt-live-chatgpt-voice.jpg"
 ---

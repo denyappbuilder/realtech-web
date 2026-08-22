@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { slugify } from '../lib/slugify.js';
+import { textNaHeroObrazku } from '../lib/hero-overlay.js';
+import { formatCalendarDateCs } from '../lib/calendarDate.js';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -17,9 +19,8 @@ const hero = all.find((c) => c.data.featured && Date.now() - c.data.date.valueOf
 const rest = all.filter((c) => c.id !== hero?.id).slice(0, 6);
 const categories = [...new Set(all.map((c) => c.data.category))];
 
-const dateStr = hero?.data.date.toLocaleDateString('cs-CZ', {
-  day: '2-digit', month: '2-digit', year: 'numeric',
-});
+const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
+const heroOverlay = hero ? textNaHeroObrazku(hero.data) : '';
 
 const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
 const heroThumb = heroVideoId ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg` : hero?.data.image;
@@ -82,12 +83,19 @@ const jsonLd = {
 <Base title="REALTECH CZ — Tech novinky a analýzy">
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
 
-  <div class="ticker" aria-hidden="true">
+  <div class="ticker" aria-label="Nejnovější články">
     <span class="ticker-label"><span class="live-dot"></span>ŽIVĚ</span>
     <div class="ticker-viewport">
       <div class="ticker-track">
-        {[...all.slice(0, 6), ...all.slice(0, 6)].map((c) => (
-          <a href={`/clanky/${c.id}/`} tabindex="-1">{c.data.title}</a>
+        {all.slice(0, 6).map((c) => (
+          <a href={`/clanky/${c.id}/`}>{c.data.title}</a>
+        ))}
+        {/* Druhá sada je JEN pro plynulou smyčku — animace posouvá o -50 %,
+            takže bez zdvojení by pruh na konci cyklu poskočil. Pro čtečky
+            i klávesnici je skrytá, aby se odkazy nečetly a neprocházely
+            dvakrát (to byla oprávněná výtka Z10032, která pohyb zrušila). */}
+        {all.slice(0, 6).map((c) => (
+          <a href={`/clanky/${c.id}/`} aria-hidden="true" tabindex="-1">{c.data.title}</a>
         ))}
       </div>
     </div>
@@ -122,7 +130,7 @@ const jsonLd = {
           )}
           {heroThumb && <span class="shade"></span>}
           <span class="rec"><span class="live-dot"></span>REALTECH</span>
-          <span class="headline-mark">{hero.data.title}</span>
+          {heroOverlay && <span class="headline-mark">{heroOverlay}</span>}
           {hero.data.videoLength && <span class="tc">TC {hero.data.videoLength}</span>}
           {hero.data.video && <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>}
         </a>

@@ -144,17 +144,18 @@ test('quoted YYYY-MM-DD ma striktni meze a pro date i updated vraci UTC Date', (
   }
 });
 
-test('Date v date i updated projde bez date-only transformace, invalid Date ne', () => {
+test('Date v date i updated se odmitne — z yaml timestampu puvodni den neni', () => {
   const date = new Date('2026-01-15T12:34:56.789Z');
   const updated = new Date('2026-01-16T23:59:59.999Z');
-  const parsed = articleSchema.parse({
-    ...REQUIRED_FRONTMATTER,
-    date,
-    updated,
-  });
 
-  assert.equal(parsed.date.toISOString(), date.toISOString());
-  assert.equal(parsed.updated.toISOString(), updated.toISOString());
+  assert.equal(
+    articleSchema.safeParse({
+      ...REQUIRED_FRONTMATTER,
+      date,
+      updated,
+    }).success,
+    false,
+  );
 
   for (const field of ['date', 'updated']) {
     assert.equal(
@@ -165,10 +166,18 @@ test('Date v date i updated projde bez date-only transformace, invalid Date ne',
       false,
       field,
     );
+    assert.equal(
+      articleSchema.safeParse({
+        ...REQUIRED_FRONTMATTER,
+        [field]: new Date('2025-03-01T00:00:00.000Z'),
+      }).success,
+      false,
+      `${field}: rolled yaml Date`,
+    );
   }
 });
 
-test.todo(
+test(
   'codex-testy-web/CONTENT-SCHEMA-001: produkcni schema ma odmitnout nequoted neplatny kalendarni den stejne jako pomocny validator',
   () => {
     const yaml = [

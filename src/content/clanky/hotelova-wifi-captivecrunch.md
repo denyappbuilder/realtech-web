@@ -2,7 +2,7 @@
 title: "Hotelová Wi-Fi jako past. Falešná aktualizace prohlídne notebook i mikrofon"
 description: "Microsoft popsal kampaň CaptiveCrunch: ruská skupina ovládla přihlašovací stránky hotelových Wi-Fi po celém světě a servíruje malware jako aktualizaci prohlížeče."
 category: "Sítě"
-date: 2026-08-04
+date: "2026-08-04"
 zprava: true
 image: "/images/clanky/hotelova-wifi-captivecrunch.jpg"
 ---
