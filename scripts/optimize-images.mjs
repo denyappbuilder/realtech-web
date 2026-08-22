@@ -6,6 +6,16 @@ import sharp from 'sharp';
 
 const DIR = 'public/images/clanky';
 
+function isInboundCover(dir, file) {
+  if (!file.endsWith('.jpg') || file.endsWith('-640.jpg')) return false;
+  try {
+    const root = `${fs.realpathSync(dir)}${path.sep}`;
+    return fs.realpathSync(path.join(dir, file)).startsWith(root);
+  } catch {
+    return false;
+  }
+}
+
 function writeIfChanged(file, contents) {
   if (fs.existsSync(file) && fs.readFileSync(file).equals(contents)) {
     return false;
@@ -17,7 +27,7 @@ function writeIfChanged(file, contents) {
 
 export async function optimizeImages(dir = DIR) {
   const jpgs = fs.readdirSync(dir)
-    .filter((file) => file.endsWith('.jpg') && !file.endsWith('-640.jpg'))
+    .filter((file) => isInboundCover(dir, file))
     .sort();
 
   let updated = 0;
