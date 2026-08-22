@@ -2,7 +2,7 @@
 title: "Anthropic vydal Claude Opus 5: skoro výkon vlajkové lodi za polovinu ceny"
 description: "Nový model se blíží schopnostem nejsilnějšího Fable 5, ale stojí půlku — a na programování a kancelářské práci je podle Anthropicu úplně nejlepší na trhu. Novinkou je i posuvník, kterým si volíte mezi chytrostí a cenou."
 category: "AI Report"
-date: 2026-07-24
+date: "2026-07-24"
 zprava: true
 image: "/images/clanky/anthropic-claude-opus-5.jpg"
 ---

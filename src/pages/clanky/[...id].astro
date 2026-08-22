@@ -6,6 +6,9 @@ import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { slugify } from '../../lib/slugify.js';
 import { readingTime } from '../../lib/reading-time.js';
+import { youtubeId } from '../../lib/youtube.js';
+import { isoDuration } from '../../lib/iso-duration.js';
+import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -17,12 +20,12 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title, description, category, date, video, videoLength, zprava, image, updated } = article.data;
+const { title, seoTitle, description, category, date, video, videoLength, zprava, image, updated } = article.data;
 const readMinutes = readingTime(article.body);
-const dateStr = date.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
-const updatedStr = updated?.toLocaleDateString('cs-CZ', { day: '2-digit', month: '2-digit', year: 'numeric' });
+const dateStr = formatCalendarDateCs(date);
+const updatedStr = formatCalendarDateCs(updated);
 
-const videoId = video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
+const videoId = youtubeId(video);
 const brandedOg = `/images/og/${article.id}.jpg`;
 const ogImage = videoId
   ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
@@ -42,14 +45,6 @@ const chrono = (await getCollection('clanky', ({ data }) => !data.draft))
 const idx = chrono.findIndex((c) => c.id === article.id);
 const newer = idx > 0 ? chrono[idx - 1] : null;
 const older = idx >= 0 && idx < chrono.length - 1 ? chrono[idx + 1] : null;
-
-// "9:04" -> "PT9M4S" (schema.org chce ISO 8601 trvání)
-const isoDuration = (mmss?: string) => {
-  const p = mmss?.split(':').map(Number);
-  if (!p || p.some(Number.isNaN)) return undefined;
-  const [h, m, s] = p.length === 3 ? p : [0, p[0], p[1]];
-  return `PT${h ? `${h}H` : ''}${m}M${s}S`;
-};
 
 const autori = [
   { '@type': 'Person', name: 'Daniel Soukup', url: new URL('/o-nas/', Astro.site).href },
@@ -103,7 +98,7 @@ const breadcrumbLd = {
 };
 ---
 <Base
-  title={seoTitulek(title, { zachovatCely: true })}
+  title={seoTitle ?? seoTitulek(title)}
   ogTitle={`${title} — REALTECH CZ`}
   description={description}
   image={ogImage}
@@ -164,6 +159,36 @@ const breadcrumbLd = {
         </div>
       )}
 
+      <div class="article-layout">
+        <div class="article-body">
+          <Content />
+        </div>
+        <aside class="article-aside">
+          <p class="mono">V článku</p>
+          <ul class="article-aside-meta">
+            <li><a href={`/temata/${slugify(category)}/`}>{category}</a></li>
+            <li><time datetime={date.toISOString().slice(0, 10)}>{dateStr}</time></li>
+            <li>Čtení {readMinutes} min</li>
+          </ul>
+          <p class="mono">Sdílej dál</p>
+          <div class="share-btns">
+            <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">X</a>
+            <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">Facebook</a>
+            <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
+          </div>
+          {related.length > 0 && (
+            <>
+              <p class="mono">Další reporty</p>
+              <ul class="article-aside-related">
+                {related.map((c) => (
+                  <li><a href={`/clanky/${c.id}/`}>{c.data.title}</a></li>
+                ))}
+              </ul>
+            </>
+          )}
+        </aside>
+      </div>
+
       {/*
         Článek BEZ videa dosud nenabízel ke kanálu nic konkrétního — jen obecné
         „kdo jsme" v `author-box` na konci. A takových článků je většina:
@@ -174,6 +199,8 @@ const breadcrumbLd = {
         Číslo videí je z YouTube API (30. 7. 2026: 82). Když poroste,
         klidně se přepíše — nepřesné číslo je horší než žádné. Převzato z návrhu Claude Design
         z 30. 7. 2026 — `reference/design-2026-07/`, varianta „video není".
+        Z1003: pruh nesmí sedět mezi hero a prvním odstavcem — působí to jako
+        vložená reklama a přerušuje čtení. Výzva zůstává, ale až po textu.
       */}
       {!video && (
         <div class="article-videobar">
@@ -185,16 +212,12 @@ const breadcrumbLd = {
         </div>
       )}
 
-      <div class="article-body">
-        <Content />
-      </div>
-
       <div class="article-share">
         <span class="mono">// Sdílej dál</span>
         <div class="share-btns">
           <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">X</a>
           <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">Facebook</a>
-          <button class="share-btn" id="copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
+          <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
         </div>
       </div>
 
@@ -249,13 +272,14 @@ const breadcrumbLd = {
   </div>
 
   <script>
-    // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů)
-    const slugifyHeading = (s: string) =>
-      s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+    // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů).
+    // Stejný helper jako rehype plugin, včetně dedupu (Z1207) — jinak by tlačítko
+    // „#“ u druhé stejné sekce zkopírovalo odkaz na první.
+    import { asciiHeadingId, nextUniqueHeadingId } from '../../lib/heading-id.js';
 
+    const seen = new Map<string, number>();
     document.querySelectorAll<HTMLElement>('.article-body h2, .article-body h3').forEach((h) => {
-      if (!h.id) h.id = slugifyHeading(h.textContent ?? '');
+      if (!h.id) h.id = nextUniqueHeadingId(asciiHeadingId(h.textContent ?? ''), seen);
       const a = document.createElement('a');
       a.href = `#${h.id}`;
       a.className = 'heading-anchor';
@@ -283,16 +307,17 @@ const breadcrumbLd = {
     document.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    const copyBtn = document.getElementById('copy-link');
-    copyBtn?.addEventListener('click', async () => {
-      const url = copyBtn.getAttribute('data-url') ?? location.href;
-      try {
-        await navigator.clipboard.writeText(url);
-        copyBtn.textContent = 'Zkopírováno ✓';
-        setTimeout(() => { copyBtn.textContent = 'Kopírovat odkaz'; }, 2000);
-      } catch {
-        location.href = url;
-      }
+    document.querySelectorAll<HTMLButtonElement>('.copy-link').forEach((copyBtn) => {
+      copyBtn.addEventListener('click', async () => {
+        const url = copyBtn.getAttribute('data-url') ?? location.href;
+        try {
+          await navigator.clipboard.writeText(url);
+          copyBtn.textContent = 'Zkopírováno ✓';
+          setTimeout(() => { copyBtn.textContent = 'Kopírovat odkaz'; }, 2000);
+        } catch {
+          location.href = url;
+        }
+      });
     });
   </script>
 </Base>

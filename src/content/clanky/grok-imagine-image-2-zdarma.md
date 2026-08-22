@@ -2,7 +2,7 @@
 title: "Grok Imagine Image 2.0 jde na chvíli zdarma. Umí přepsat jen kus obrázku"
 description: "xAI pustilo nový obrázkový model Image 2.0 do Groku a na omezenou dobu ho dává zadarmo. Zajímavější než generování je editace: vyberete oblast, zbytek fotky zůstane netknutý."
 category: "AI Report"
-date: 2026-08-09
+date: "2026-08-09"
 zprava: true
 image: "/images/clanky/grok-imagine-image-2-zdarma.jpg"
 ---

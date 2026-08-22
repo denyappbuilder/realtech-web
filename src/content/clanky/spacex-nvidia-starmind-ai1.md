@@ -2,7 +2,7 @@
 title: "SpaceX dá Nvidii na oběžnou dráhu. Starmind AI1 má být datacentrum ve vesmíru"
 description: "SpaceX a Nvidia společně staví výpočetní jádro satelitu Starmind AI1 s čipy Rubin a Vera. Cílem je konstelace, která by časem mohla čítat až milion satelitů."
 category: "Vesmír"
-date: 2026-08-05
+date: "2026-08-05"
 zprava: true
 image: "/images/clanky/spacex-nvidia-starmind-ai1.jpg"
 ---
