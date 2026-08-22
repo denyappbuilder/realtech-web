@@ -1,5 +1,6 @@
 ---
 title: "Fable 5 je zpátky. Vláda USA zákaz zrušila — a tohle se mezitím změnilo"
+seoTitle: "Claude Fable 5 je zpátky — co se mezitím změnilo"
 description: "Nejsilnější model Anthropicu se po třech týdnech vrací všem. Ukázalo se ale, že 'nebezpečný trik' umí skoro každá velká AI. Co se opravilo, co zůstává omezené a co to znamená pro vás."
 category: "AI Report"
 date: "2026-07-03"
