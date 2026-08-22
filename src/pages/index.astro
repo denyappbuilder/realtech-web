@@ -17,6 +17,7 @@ const pruvodci = all.filter((c) => c.data.evergreen).slice(0, 3);
 const FEATURED_MAX_AGE = 14 * 24 * 60 * 60 * 1000;
 const hero = all.find((c) => c.data.featured && Date.now() - c.data.date.valueOf() <= FEATURED_MAX_AGE) ?? all[0];
 const rest = all.filter((c) => c.id !== hero?.id).slice(0, 6);
+const rail = rest.slice(0, 3);
 const categories = [...new Set(all.map((c) => c.data.category))];
 
 const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
@@ -103,37 +104,54 @@ const jsonLd = {
 
   {hero && (
     <section class="hero">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="lower-third">
-            <span class="tag">{hero.data.category}</span>
-            <time class="time" datetime={hero?.data.date.toISOString().slice(0, 10)}>{dateStr}</time>
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <div class="lower-third">
+              <span class="tag">{hero.data.category}</span>
+              <time class="time" datetime={hero?.data.date.toISOString().slice(0, 10)}>{dateStr}</time>
+            </div>
+            <h1>{hero.data.title}</h1>
+            <p class="lead">{hero.data.description}</p>
+            <div class="hero-actions">
+              <a href={`/clanky/${hero.id}/`} class="btn-primary">Přečíst analýzu</a>
+              {hero.data.video && (
+                <a href={hero.data.video} class="btn-ghost">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                  Video{hero.data.videoLength && ` · ${hero.data.videoLength}`}
+                </a>
+              )}
+            </div>
           </div>
-          <h1>{hero.data.title}</h1>
-          <p class="lead">{hero.data.description}</p>
-          <div class="hero-actions">
-            <a href={`/clanky/${hero.id}/`} class="btn-primary">Přečíst analýzu</a>
-            {hero.data.video && (
-              <a href={hero.data.video} class="btn-ghost">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                Video{hero.data.videoLength && ` · ${hero.data.videoLength}`}
-              </a>
+          <a href={hero.data.video ?? `/clanky/${hero.id}/`} class="hero-visual">
+            {heroThumb && (
+              <picture>
+                {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes="(max-width: 900px) 100vw, 40vw" type="image/webp" />}
+                <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? '(max-width: 900px) 100vw, 40vw' : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+              </picture>
             )}
-          </div>
+            {heroThumb && <span class="shade"></span>}
+            <span class="rec"><span class="live-dot"></span>REALTECH</span>
+            {heroOverlay && <span class="headline-mark">{heroOverlay}</span>}
+            {hero.data.videoLength && <span class="tc">TC {hero.data.videoLength}</span>}
+            {hero.data.video && <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>}
+          </a>
         </div>
-        <a href={hero.data.video ?? `/clanky/${hero.id}/`} class="hero-visual">
-          {heroThumb && (
-            <picture>
-              {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes="(max-width: 900px) 100vw, 40vw" type="image/webp" />}
-              <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? '(max-width: 900px) 100vw, 40vw' : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
-            </picture>
-          )}
-          {heroThumb && <span class="shade"></span>}
-          <span class="rec"><span class="live-dot"></span>REALTECH</span>
-          {heroOverlay && <span class="headline-mark">{heroOverlay}</span>}
-          {hero.data.videoLength && <span class="tc">TC {hero.data.videoLength}</span>}
-          {hero.data.video && <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>}
-        </a>
+        {rail.length > 0 && (
+          <aside class="hero-rail" aria-label="Další reporty">
+            <p class="hero-rail-label mono">Další reporty</p>
+            <ol class="hero-rail-list">
+              {rail.map((article) => (
+                <li>
+                  <a href={`/clanky/${article.id}/`} class="hero-rail-item">
+                    <span class="hero-rail-title">{article.data.title}</span>
+                    <time datetime={article.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(article.data.date)}</time>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </aside>
+        )}
       </div>
     </section>
   )}
