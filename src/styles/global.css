@@ -601,6 +601,13 @@ footer.site ul a:hover { color: var(--ink); }
   .ticker { display: none; }
 }
 @media (max-width: 580px) {
+  /* Na 390px má první obrazovka představit web i naznačit další obsah. */
+  .hero { padding: 24px 0; }
+  .hero-grid { gap: 18px; }
+  .lower-third { margin-bottom: 12px; }
+  .hero h1 { font-size: 1.95rem; margin-bottom: 12px; }
+  .hero p.lead { margin-bottom: 16px; }
+  .hero-visual { max-height: 160px; }
   .grid { grid-template-columns: 1fr; }
   .nl-form { flex-direction: column; }
 }

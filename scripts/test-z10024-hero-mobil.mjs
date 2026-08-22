@@ -80,3 +80,16 @@ test("Z10024: mobilní hero má kompaktní rytmus a pustí další obsah k foldu
   assert.match(title, /margin-bottom:\s*16px/, "titulek nechává před perexem zbytečně velkou mezeru");
   assert.match(lead, /margin-bottom:\s*22px/, "perex tlačí CTA a další obsah zbytečně hluboko");
 });
+
+test("Z10024: na 390px hero ukáže i náznak další sekce", () => {
+  const mobil = mediaBlok("max-width:\\s*580px");
+  const hero = pravidlo(mobil, ".hero");
+  const grid = pravidlo(mobil, ".hero-grid");
+  const visual = pravidlo(mobil, ".hero-visual");
+  const title = pravidlo(mobil, ".hero h1");
+
+  assert.match(hero, /padding:\s*24px\s+0/, "úzký mobil pořád používá tabletové odsazení hero");
+  assert.match(grid, /gap:\s*18px/, "mezera před coverem vytlačuje další sekci pod fold");
+  assert.match(visual, /max-height:\s*160px/, "cover na 390px pořád zabírá skoro čtvrt obrazovky");
+  assert.match(title, /font-size:\s*1\.95rem/, "titulek na 390px zbytečně roste přes šest vysokých řádků");
+});
