@@ -96,6 +96,39 @@ test('platné nequoted YAML datum projde', (t) => {
   assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
 });
 
+test('datum 9999-12-31 vypíše varování o budoucnosti, ale validace projde', (t) => {
+  const root = createFixture(t);
+  writeArticle(
+    root,
+    'budouci-datum',
+    validFrontmatter({ date: '9999-12-31' }),
+  );
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(
+    result.stderr,
+    /\[validate-content\] ⚠️  budouci-datum: datum 9999-12-31 je v budoucnosti/,
+  );
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
+test('historické datum nevypíše varování o budoucnosti', (t) => {
+  const root = createFixture(t);
+  writeArticle(
+    root,
+    'historicke-datum',
+    validFrontmatter({ date: '2000-01-01' }),
+  );
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.doesNotMatch(result.stderr, /je v budoucnosti/);
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
 test('odkaz na chybějící obrázek ukončí validaci chybou', (t) => {
   const root = createFixture(t);
   writeArticle(root, 'bez-obrazku', [
