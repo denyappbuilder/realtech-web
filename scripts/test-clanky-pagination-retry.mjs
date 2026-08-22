@@ -9,17 +9,16 @@ const archiveSource = readFileSync(
   'utf8',
 );
 
-const scriptStartMarker = '<script>\n      const archive =';
-const scriptStart = archiveSource.indexOf(scriptStartMarker);
-assert.notEqual(scriptStart, -1, 'klientský skript archivu v komponentě chybí');
-const scriptBodyStart = scriptStart + '<script>\n      '.length;
-const scriptEnd = archiveSource.indexOf('\n    </script>', scriptBodyStart);
-assert.notEqual(scriptEnd, -1, 'klientský skript archivu nemá koncový tag');
+const scriptBlocks = [...archiveSource.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+assert.equal(
+  scriptBlocks.length,
+  1,
+  `ArticleArchivePage.astro má ${scriptBlocks.length} holých <script> bloků, čekal se právě 1`,
+);
 
-const clientScript = ts.transpileModule(
-  archiveSource.slice(scriptBodyStart, scriptEnd),
-  { compilerOptions: { target: ts.ScriptTarget.ES2022 } },
-).outputText;
+const clientScript = ts.transpileModule(scriptBlocks[0][1], {
+  compilerOptions: { target: ts.ScriptTarget.ES2022 },
+}).outputText;
 
 class TestElement {
   constructor(tagName, { attributes = {}, text = '' } = {}) {
@@ -224,27 +223,20 @@ test('selhání uprostřed načítání zachová připojenou stránku a dovolí 
   assert.equal(archive.grid.getAttribute('aria-busy'), 'false');
 
   startFilteredLoad(archive);
-  const retryPage2 = await archive.fetchController.next('/clanky/strana/2/');
-  retryPage2.succeed(pageHtml('page-2'));
   await archive.fetchController.next('/clanky/strana/3/');
 
   assert.deepEqual(archive.fetchController.urls, [
     '/clanky/strana/2/',
     '/clanky/strana/3/',
-    '/clanky/strana/2/',
     '/clanky/strana/3/',
   ]);
 });
 
-test('retry po pádu uprostřed archivu nepřipojí již načtené karty podruhé', {
-  todo: '[codex-testy-web/ARCHIVE-RETRY-001] produkce musí při retry deduplikovat nebo navázat od první chybějící stránky',
-}, async () => {
+test('retry po pádu uprostřed archivu nepřipojí již načtené karty podruhé', async () => {
   const archive = createArchive();
   await failOnThirdPage(archive);
 
   startFilteredLoad(archive);
-  const retryPage2 = await archive.fetchController.next('/clanky/strana/2/');
-  retryPage2.succeed(pageHtml('page-2'));
   const retryPage3 = await archive.fetchController.next('/clanky/strana/3/');
   retryPage3.succeed(pageHtml('page-3'));
   await waitFor(
