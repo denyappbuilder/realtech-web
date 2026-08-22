@@ -1,0 +1,33 @@
+---
+import { audioPrehledPohled } from '../lib/audio-prehled.js';
+
+interface Props {
+  audio?: {
+    url: string;
+    duration: string | number;
+    transcript?: string;
+  };
+}
+
+const pohled = audioPrehledPohled(Astro.props.audio, Astro.site);
+---
+{pohled && (
+  <section class="audio-prehled" aria-labelledby="audio-prehled-nadpis">
+    <div class="audio-prehled-head">
+      <h2 id="audio-prehled-nadpis">Audio přehled</h2>
+      <p class="audio-prehled-delka">
+        <span class="mono">Délka</span>
+        <time datetime={pohled.iso}>{pohled.delkaText}</time>
+      </p>
+    </div>
+    <audio controls preload="metadata" src={pohled.src}>
+      <a href={pohled.src}>Stáhnout audio přehled</a>
+    </audio>
+    {pohled.prepis && (
+      <details class="audio-prehled-prepis">
+        <summary>Přepis</summary>
+        <p>{pohled.prepis}</p>
+      </details>
+    )}
+  </section>
+)}

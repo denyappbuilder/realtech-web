@@ -5,6 +5,19 @@ category: "AI Report"
 date: "2026-08-14"
 zprava: true
 image: "/images/clanky/glm-5-3-kybernalezy.jpg"
+audio:
+  url: "https://audio.realtech.cz/glm-5-3-kybernalezy-v3.mp3?v=e6ac02746536"
+  duration: 140
+  transcript: |-
+    Čínská laboratoř Zet ej-aj ráno vypustila model Dží-el-em pět tečka tři a ten našel dva tisíce čtyři sta třicet šest reálných děr v softwaru. Otevřené váhy ale ven pustí až za dva týdny, prý kvůli bezpečnosti.
+
+    Novinka stojí na základu jako Dží-el-em pět tečka dva. Rozdíl vznikl až doladěním po tréninku. Na Törminl Benči tři nula šel model ze čtyř celých šesti na dvacet osm celých tři bodu, na Díp es-dabl-jú-í ze čtyřiceti šesti celých dvou na šedesát šest celých devět. Na vlastním Zet ej-aj Koud Benči má při nastavení haj výsledek třicet jedna celá čtyři procenta s asi padesáti tisíci tokeny na úlohu. Klaud Oupus čtyři tečka osm zvládne dvacet devět celých pět procenta, ale spálí sto dvacet tisíc tokenů. Klaud Fejbl pět zůstává napřed s výsledkem třicet devět celých pět procenta, jenže za jinou cenu.
+
+    Do tréninku přidali data o hledání zranitelností. Čekali zlepšení. Místo toho se model přestal zastavovat u izolovaných děr a začal skládat řetězce zneužití. Na Sajbr Džimu dává osmdesát čtyři celých pět procent a je nejlepší ze všech. Předběhl model Mýtos s číslem pět i Dží-pí-tý pět tečka šest Sol. Na Eksploit Benči výsledek víc než zdvojnásobil, z dvaceti čtyř celých čtyř procenta na padesát čtyři celá čtyři procenta. Na model Mýtos s číslem pět se sedmdesáti osmi procenty pořád nemá. Schopnosti rostou nejrychleji tam, kde nejvíc zaostávají.
+
+    S čínskými bezpečnostními týmy pak model pustili na ostré kódové báze. Po expertní kontrole a odstranění duplicit vyšlo dva tisíce čtyři sta třicet šest zranitelností ve dvou stech šedesáti devíti projektech. Tisíc devadesát sedm z nich je střední až vysoké závažnosti. Jádra systémů, prohlížečové endžiny i síťové protokoly. Nejstarší chyba se do kódu dostala v roce tisíc devět set osmdesát jedna a v průměru tam nález ležel dvacet šest let a sedm měsíců. Model je od dneška dostupný přes Dží-el-em Kouding plán a Zet kód. Váhy slibují až dva týdny po startu.
+
+    Zdroj informací: blog Zet ej-aj ze čtrnáctého srpna roku dva tisíce dvacet šest.
 ---
 
 Čínská Z.ai (dřív Zhipu) dnes ráno vydala **GLM-5.3** a je to zvláštní release. Nový model totiž **stojí na úplně stejném základu jako GLM-5.2** — celý rozdíl vznikl až doladěním po tréninku. A ten rozdíl je pořádný.
@@ -17,7 +30,7 @@ Na Terminal-Bench 3.0 šel model **z 4,6 na 28,3 bodu**, na DeepSWE z 46,2 na 66
 
 Do tréninkové směsi přidali data o hledání zranitelností. Čekali, že model bude o něco lepší v analýze chyb. Podle vlastních slov je překvapilo, **jak rychle ta schopnost rostla dál** — model se přestal zastavovat u izolovaných chyb a začal skládat celé řetězce zneužití.
 
-Na CyberGym, kde jde o nalezení a potvrzení díry ve zdrojáku, dává GLM-5.3 **84,5 %** a je na tom benchmarku nejlepší ze všech — před Mythosem 5 (83,8 %) i GPT-5.6 Sol (83,6 %). O patro výš, na ExploitBench, sice svůj výsledek proti GLM-5.2 víc než zdvojnásobil (24,4 → 54,4 %), ale na Mythos 5 se 78 % pořád nemá. Sama Z.ai to shrnuje nepříjemně přesně: **schopnosti rostou nejrychleji přesně tam, kde nejvíc zaostávají.**
+Na CyberGym, kde jde o nalezení a potvrzení díry ve zdrojáku, dává GLM-5.3 **84,5 %** a je na tom benchmarku nejlepší ze všech — před [Mythosem 5](/clanky/anthropic-fable-mythos/) (83,8 %) i GPT-5.6 Sol (83,6 %). O patro výš, na ExploitBench, sice svůj výsledek proti GLM-5.2 víc než zdvojnásobil (24,4 → 54,4 %), ale na Mythos 5 se 78 % pořád nemá. Sama Z.ai to shrnuje nepříjemně přesně: **schopnosti rostou nejrychleji přesně tam, kde nejvíc zaostávají.**
 
 A pak je tu ta část, co není z laboratoře. S bezpečnostními týmy v Číně model pustili na reálné kódové báze. Po expertní kontrole a odstranění duplicit z toho vyšlo **2 436 zranitelností ve 269 projektech**, z toho 1 097 se střední až vysokou závažností — v jádrech systémů, prohlížečových enginech i síťových protokolech. Nejstarší chyba se do kódu dostala **v roce 1981** a průměrně tam nález ležel nevšimnutý **26,6 roku**.
 

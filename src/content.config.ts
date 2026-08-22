@@ -1,6 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { parseCalendarDate } from './lib/calendarDate.js';
+import { jeAudioUrl, parseAudioDuration } from './lib/audio-prehled.js';
 
 const calendarDateString = z
   .string()
@@ -15,10 +16,28 @@ const calendarDateString = z
 // Quoted strings stay strings and go through parseCalendarDate.
 const calendarDate = calendarDateString;
 
+const audioDuration = z
+  .union([z.number(), z.string()])
+  .refine((value) => parseAudioDuration(value) !== undefined, {
+    message: 'Expected audio duration as seconds, ISO-8601, or MM:SS',
+  });
+
+// Volitelný blok `audio` (url, duration, transcript) — články bez něj zůstanou platné.
+const audioPrehled = z
+  .object({
+    url: z.string().refine(jeAudioUrl, {
+      message: 'Expected an http(s) audio URL',
+    }),
+    duration: audioDuration,
+    transcript: z.string().min(1).optional(),
+  })
+  .strict();
+
 const clanky = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/clanky' }),
   schema: z.object({
     title: z.string(),
+    seoTitle: z.string().optional(),
     description: z.string(),
     category: z.enum([
       'AI Report',
@@ -38,6 +57,7 @@ const clanky = defineCollection({
     evergreen: z.boolean().default(false),
     updated: calendarDate.optional(),
     draft: z.boolean().default(false),
+    audio: audioPrehled.optional(),
   }).strict(),
 });
 

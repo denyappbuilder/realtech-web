@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/pixel-11-tensor-g6.jpg"
 ---
 
-Google dneska odpoledne odpálil Made by Google 2026 a s ním jedenáctou generaci Pixelů: **Pixel 11, Pixel 11 Pro a Pixel 11 Pro XL**. Předobjednávky běží od dneška, na pultech mají být **20. srpna**, ceny startují na **899 / 1 099 / 1 299 dolarech**. Všechny tři začínají na 256 GB.
+Google dneska odpoledne odpálil [Made by Google 2026](/clanky/pixel-watch-detekce-dechu/) a s ním jedenáctou generaci Pixelů: **Pixel 11, Pixel 11 Pro a Pixel 11 Pro XL**. Předobjednávky běží od dneška, na pultech mají být **20. srpna**, ceny startují na **899 / 1 099 / 1 299 dolarech**. Všechny tři začínají na 256 GB.
 
 ## Co je nové v hardwaru
 
@@ -15,7 +15,7 @@ Základní Pixel 11 dostal nový, větší **48Mpx hlavní snímač** s o 56 % v
 
 Fotolišta zhubla o 40 % na tloušťce — s originálním obalem má být telefon prakticky bez hrbu a nekolébá se na stole. Pro modely dostaly nejsvětlejší displej, jaký Google zatím udělal (až 3 600 nitů) a novou ochrannou vrstvu s víc než dvojnásobnou odolností proti škrábancům.
 
-Nejzajímavější drobnost: **HiLight**. Kolem blesku na Pro modelech jsou barevné LED, které svítí, když telefon leží obrazovkou dolů — signalizují, že Gemini poslouchá, přemýšlí nebo odpovídá, a jednotlivým kontaktům jde přiřadit vlastní barvu pro příchozí hovory. Jednoduchá věc, ale přesně ten typ, co člověk používá denně.
+Nejzajímavější drobnost: **HiLight**. Kolem blesku na Pro modelech jsou barevné LED, které svítí, když telefon leží obrazovkou dolů — signalizují, že [Gemini](/clanky/gemini-36-flash-gemini-4/) poslouchá, přemýšlí nebo odpovídá, a jednotlivým kontaktům jde přiřadit vlastní barvu pro příchozí hovory. Jednoduchá věc, ale přesně ten typ, co člověk používá denně.
 
 Tensor G6 má o 25 % rychlejší prohlížení webu, o 15 % rychlejší start aplikací a o 50 % víc výkonu na TPU — AI úlohy na zařízení běží až 3,5x rychleji při 3,5x nižší spotřebě. Nový bezpečnostní čip **Titan M3** přináší postkvantovou kryptografii do secure bootu.
 

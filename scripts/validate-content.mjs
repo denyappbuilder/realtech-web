@@ -16,10 +16,13 @@ import ts from 'typescript';
 import { z } from 'astro/zod';
 import { parseCalendarDate } from '../src/lib/calendarDate.js';
 import { chybaTvaruImage } from '../src/lib/image-cesta.js';
+import { jeAudioUrl, parseAudioDuration } from '../src/lib/audio-prehled.js';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
-const files = fs.readdirSync(DIR).filter((f) => f.endsWith('.md'));
+const files = fs
+  .readdirSync(DIR, { recursive: true })
+  .filter((f) => f.endsWith('.md'));
 const REPOSITORY_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function loadArticleSchema() {
@@ -37,6 +40,7 @@ function loadArticleSchema() {
     if (specifier === 'astro:content') return { defineCollection: (config) => config, z };
     if (specifier === 'astro/loaders') return { glob: (options) => options };
     if (specifier === './lib/calendarDate.js') return { parseCalendarDate };
+    if (specifier === './lib/audio-prehled.js') return { jeAudioUrl, parseAudioDuration };
     throw new Error(`Nepodporovaný import v content.config.ts: ${specifier}`);
   };
 
