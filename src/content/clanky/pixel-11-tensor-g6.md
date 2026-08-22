@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/pixel-11-tensor-g6.jpg"
 ---
 
-Google dneska odpoledne odpálil Made by Google 2026 a s ním jedenáctou generaci Pixelů: **Pixel 11, Pixel 11 Pro a Pixel 11 Pro XL**. Předobjednávky běží od dneška, na pultech mají být **20. srpna**, ceny startují na **899 / 1 099 / 1 299 dolarech**. Všechny tři začínají na 256 GB.
+Google dneska odpoledne odpálil [Made by Google 2026](/clanky/pixel-watch-detekce-dechu/) a s ním jedenáctou generaci Pixelů: **Pixel 11, Pixel 11 Pro a Pixel 11 Pro XL**. Předobjednávky běží od dneška, na pultech mají být **20. srpna**, ceny startují na **899 / 1 099 / 1 299 dolarech**. Všechny tři začínají na 256 GB.
 
 ## Co je nové v hardwaru
 
