@@ -18,9 +18,7 @@ const derivativeNames = (base) => [
   `${base}-640.webp`,
 ];
 
-test('symlinkovaný JPG mířící mimo vstup se nezpracuje', {
-  todo: '[codex-testy-web/OPTIMIZE-SYMLINK-001]',
-}, async (t) => {
+test('symlinkovaný JPG mířící mimo vstup se nezpracuje', async (t) => {
   const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'optimize-images-symlink-'));
   const inputDir = path.join(fixtureRoot, 'input');
   const regularSource = path.join(inputDir, 'regular.jpg');
