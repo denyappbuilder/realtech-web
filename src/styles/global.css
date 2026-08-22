@@ -301,7 +301,7 @@ a.tag:hover { background: var(--signal-dark); }
 .section-head::after {
   content: "";
   position: absolute; left: 0; bottom: -3px;
-  width: 180px; height: 3px;
+  width: 96px; height: 3px;
   background: var(--signal);
 }
 .section-head h1,

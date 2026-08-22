@@ -19,7 +19,7 @@ function px(telo, vlastnost) {
   return shoda ? Number(shoda[1]) : null;
 }
 
-test("Z10021: akcent pod nadpisem nesmí být 56×2 px útržek", () => {
+test("Z10021: akcent pod nadpisem je zřetelný, ale nepřebíjí celou linku", () => {
   const telo = pravidlo(".section-head::after");
   assert.ok(telo, ".section-head::after v CSS chybí");
   assert.match(
@@ -33,14 +33,17 @@ test("Z10021: akcent pod nadpisem nesmí být 56×2 px útržek", () => {
   assert.notEqual(sirka, null, ".section-head::after nemá width v px");
   assert.notEqual(vyska, null, ".section-head::after nemá height v px");
 
-  const utrzek = sirka <= 56 && vyska <= 2;
-  assert.equal(
-    utrzek,
-    false,
-    `.section-head::after je ${sirka}×${vyska} px — krátká tenká čára vypadá jako chyba sazby`,
+  assert.ok(
+    sirka >= 80,
+    `.section-head::after je ${sirka}×${vyska} px — krátká čára pořád vypadá jako útržek`,
   );
   assert.ok(
-    sirka >= 140 || vyska >= 3,
-    `.section-head::after je ${sirka}×${vyska} px — akcent musí být delší nebo silnější, ať patří k nadpisu`,
+    sirka <= 120,
+    `.section-head::after je ${sirka}×${vyska} px — akcent už soutěží s nadpisem a přebíjí celou linku`,
+  );
+  assert.equal(
+    vyska,
+    3,
+    `.section-head::after je ${sirka}×${vyska} px — tři pixely působí záměrně bez těžkého bloku`,
   );
 });
