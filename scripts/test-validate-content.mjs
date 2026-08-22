@@ -45,6 +45,12 @@ function writeImage(root, slug) {
   writeFileSync(path.join(root, 'public/images/clanky', `${slug}.jpg`), 'fixture');
 }
 
+function writeImageTarget(root, image) {
+  const target = path.resolve(root, `public${image}`);
+  mkdirSync(path.dirname(target), { recursive: true });
+  writeFileSync(target, 'fixture');
+}
+
 function runValidator(root) {
   const result = spawnSync(process.execPath, [VALIDATOR], {
     cwd: root,
@@ -81,6 +87,106 @@ test('platný článek s existujícím obrázkem projde', (t) => {
   assert.equal(result.stderr, '');
   assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
 });
+
+test('image cesta v podadresáři /images/clanky projde', (t) => {
+  const root = createFixture(t);
+  const image = '/images/clanky/serie/bezpecny.jpg';
+  writeArticle(root, 'bezpecna-cesta', [
+    ...validFrontmatter(),
+    `image: "${image}"`,
+  ]);
+  writeImageTarget(root, image);
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stderr, '');
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
+test(
+  'CONTENT-IMAGE-001 image traversal cesta mimo public musí být odmítnuta',
+  {
+    todo: 'Odstranit TODO, až validator odmítne traversal i při existujícím cíli mimo public.',
+  },
+  (t) => {
+    const root = createFixture(t);
+    const image = '/../package.json';
+    writeArticle(root, 'image-traversal', [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, 'Traversal cesta prošla validací.');
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  },
+);
+
+test(
+  'CONTENT-IMAGE-002 image cesta jako absolutní externí URL musí být odmítnuta',
+  {
+    todo: 'Odstranit TODO, až validator odmítne absolutní externí URL i při existujícím cíli složené fs cesty.',
+  },
+  (t) => {
+    const root = createFixture(t);
+    const image = 'https://example.invalid/cover.jpg';
+    writeArticle(root, 'image-externi-url', [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, 'Absolutní externí URL prošla validací.');
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  },
+);
+
+test(
+  'CONTENT-IMAGE-003 image cesta bez úvodního lomítka musí být odmítnuta',
+  {
+    todo: 'Odstranit TODO, až validator odmítne cestu bez úvodního lomítka i při existujícím cíli složené fs cesty.',
+  },
+  (t) => {
+    const root = createFixture(t);
+    const image = 'images/clanky/bez-lomitka.jpg';
+    writeArticle(root, 'image-bez-lomitka', [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, 'Cesta bez úvodního lomítka prošla validací.');
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  },
+);
+
+test(
+  'CONTENT-IMAGE-004 image cesta k souboru mimo /images/clanky musí být odmítnuta',
+  {
+    todo: 'Odstranit TODO, až validator odmítne existující soubor mimo /images/clanky.',
+  },
+  (t) => {
+    const root = createFixture(t);
+    const image = '/assets/jiny-soubor.jpg';
+    writeArticle(root, 'image-mimo-clanky', [
+      ...validFrontmatter(),
+      `image: "${image}"`,
+    ]);
+    writeImageTarget(root, image);
+
+    const result = runValidator(root);
+
+    assert.equal(result.status, 1, 'Cesta mimo /images/clanky prošla validací.');
+    assert.doesNotMatch(result.stdout, /článků OK/);
+  },
+);
 
 test('platné nequoted YAML datum projde', (t) => {
   const root = createFixture(t);
