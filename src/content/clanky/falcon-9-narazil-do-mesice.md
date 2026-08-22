@@ -2,7 +2,7 @@
 title: "Kus Falconu 9 narazil do Měsíce. Dalekohled v Chile v oblaku prachu našel sodík a lithium"
 description: "Horní stupeň Falconu 9 z lunární mise ze zimy 2025 dopadl 5. srpna na Měsíc rychlostí 8 690 km/h. Samotný náraz nikdo neviděl, ale VLT zachytil spektrum oblaku."
 category: "Vesmír"
-date: 2026-08-06
+date: "2026-08-06"
 zprava: true
 image: "/images/clanky/falcon-9-narazil-do-mesice-v2.jpg"
 ---

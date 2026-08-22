@@ -2,7 +2,7 @@
 title: "Starlink dostal výjimku ze zákazu routerů. DJI klony jdou pod nůž ve stejném týdnu"
 description: "FCC v pondělí vyňala Starlink routery ze zákazu routerů vyrobených mimo USA — platnost do 1. února 2028. Část produkce SpaceX je přitom ve Vietnamu. Ve stejném týdnu úřad navrhl zaříznout devět značek s přebalenými DJI drony."
 category: "Drony"
-date: 2026-07-28
+date: "2026-07-28"
 zprava: true
 image: "/images/clanky/fcc-starlink-vyjimka-dji-zakaz.jpg"
 ---

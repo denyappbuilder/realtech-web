@@ -2,7 +2,7 @@
 title: "Gemini na Macu umí diktovat do jakékoli aplikace. Zatím jen anglicky"
 description: "Podržíš Fn, mluvíš a čistý text ti spadne rovnou ke kurzoru. Google to spouští globálně pro všechny uživatele Gemini na macOS."
 category: "AI Report"
-date: 2026-07-29
+date: "2026-07-29"
 zprava: true
 image: "/images/clanky/gemini-mac-hlasove-ovladani.jpg"
 ---

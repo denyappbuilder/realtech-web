@@ -2,7 +2,7 @@
 title: "OpenAI spouští ChatGPT pro teenagery. Když systém odhadne, že je uživateli pod 18, přepne ho tam automaticky"
 description: "Nový režim s tvrdšími ochranami, studijním módem a rodičovskými kontrolami. Zásadní detail: do teen verze se člověk nedostane přihlášením, ale odhadem věku."
 category: "AI Report"
-date: 2026-08-18
+date: "2026-08-18"
 zprava: true
 image: "/images/clanky/chatgpt-pro-teenagery.jpg"
 ---

@@ -3,7 +3,8 @@
 //     (stalo se u waze-gemini-novinky i claude-cowork-sandbox-utek — článek pak byl bez náhledovky)
 //  2. článek odkazuje na `image:`, který neexistuje → build FAIL (radši spadnout než vydat rozbitý článek)
 //  3. duplicitní titulky napříč články → varování
-//  4. neplatné kalendářní datum → build FAIL; datum v budoucnosti → varování
+//  4. neplatné kalendářní datum → build FAIL; date v budoucnosti → varování;
+//     updated před date nebo updated v budoucnosti → build FAIL (Z10065)
 //  5. interní odkaz na /clanky/SLUG/, který neexistuje → build FAIL
 //     (Starlink průvodce takhle chvíli odkazoval na 404, než se dopublikoval druhý díl)
 import fs from 'node:fs';
@@ -18,7 +19,9 @@ import { chybaTvaruImage } from '../src/lib/image-cesta.js';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
-const files = fs.readdirSync(DIR).filter((f) => f.endsWith('.md'));
+const files = fs
+  .readdirSync(DIR, { recursive: true })
+  .filter((f) => f.endsWith('.md'));
 const REPOSITORY_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function loadArticleSchema() {
@@ -135,9 +138,21 @@ for (const f of files) {
     else titles.set(title, slug);
   }
 
-  // 4. datum v budoucnu
+  // 4. datum v budoucnu — u date jen varování (draft může mít příští den),
+  // u updated chyba: lastmod 2099 a dateModified před datePublished jdou ven.
   if (dateStr && parseCalendarDate(dateStr) > today) {
     warnings.push(`${slug}: datum ${dateStr} je v budoucnosti`);
+  }
+
+  const parsedDate = dateStr ? parseCalendarDate(dateStr) : undefined;
+  const parsedUpdated = updatedStr ? parseCalendarDate(updatedStr) : undefined;
+  if (parsedDate && parsedUpdated && parsedUpdated < parsedDate) {
+    errors.push(
+      `${f}: pole "updated" (${updatedStr}) nesmí předcházet poli "date" (${dateStr})`,
+    );
+  }
+  if (parsedUpdated && parsedUpdated > today) {
+    errors.push(`${slug}: updated ${updatedStr} je v budoucnosti`);
   }
 }
 

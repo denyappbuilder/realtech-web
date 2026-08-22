@@ -2,7 +2,7 @@
 title: "Samsung vydává vlastní kreditku. Galaxy Card kopíruje Apple a den před Unpacked"
 description: "Samsung představil svou první kreditní kartu — Galaxy Card s cashbackem až 5 %, kovovým provedením a integrací do Samsung Wallet. Zatím jen v USA, ale směr je jasný."
 category: "Mobily"
-date: 2026-07-21
+date: "2026-07-21"
 zprava: true
 image: "/images/clanky/samsung-galaxy-card.jpg"
 ---

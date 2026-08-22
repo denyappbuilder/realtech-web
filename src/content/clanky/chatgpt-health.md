@@ -2,7 +2,7 @@
 title: "ChatGPT ti teď vidí do zdravotní karty. Zatím jen v USA"
 description: "OpenAI spustila Health v ChatGPT — propojíš Apple Health a lékařské záznamy a AI ti vysvětlí výsledky testů v souvislostech. U nás zatím ne, ale směr je jasný."
 category: "AI Report"
-date: 2026-07-24
+date: "2026-07-24"
 zprava: true
 image: "/images/clanky/chatgpt-health.jpg"
 ---
