@@ -77,6 +77,28 @@ test("GET zachová protocol-relative URL beze změny [codex-testy-web/RSS-URL-00
   );
 });
 
+test.todo(
+  "GET absolutizuje jen kořenové kandidáty srcset [codex-testy-web/RSS-SRCSET-001]",
+  async () => {
+    setCollection([article({
+      body: [
+        '<img srcset="/images/a.jpg 1x, /images/b.jpg 2x" alt="Kořenové varianty">',
+        '<source srcset="/images/mala.webp 480w, https://cdn.example.com/velka.webp 960w, //static.example.com/retina.webp 2x, data:image/gif;base64,R0lGODlhAQABAAAAACw= 3x">',
+      ].join("\n"),
+    })]);
+
+    await GET({ site });
+
+    assert.equal(
+      getMockState().rssCalls[0].items[0].content,
+      [
+        '<img srcset="https://realtech.cz/images/a.jpg 1x, https://realtech.cz/images/b.jpg 2x" alt="Kořenové varianty">',
+        '<source srcset="https://realtech.cz/images/mala.webp 480w, https://cdn.example.com/velka.webp 960w, //static.example.com/retina.webp 2x, data:image/gif;base64,R0lGODlhAQABAAAAACw= 3x">',
+      ].join("\n"),
+    );
+  },
+);
+
 test("GET nečte enclosure mimo public přes nadřazené segmenty [codex-testy-web/RSS-PATH-002]", async () => {
   setExistingFiles([["public/../package.json", 777]]);
   setCollection([article({
