@@ -285,6 +285,36 @@ test(
   },
 );
 
+test('volitelný audio blok projde, neplatná URL a nula ne', (t) => {
+  const root = createFixture(t);
+  writeArticle(root, 'audio-ok', [
+    ...validFrontmatter(),
+    'audio:',
+    '  url: "/audio/clanky/ok.mp3"',
+    '  duration: "PT2M5S"',
+    '  transcript: "Krátký přehled."',
+  ]);
+  writeArticle(root, 'audio-nula', [
+    ...validFrontmatter({ title: 'Audio nula' }),
+    'audio:',
+    '  url: "/audio/clanky/ok.mp3"',
+    '  duration: 0',
+  ]);
+  writeArticle(root, 'audio-js', [
+    ...validFrontmatter({ title: 'Audio js' }),
+    'audio:',
+    '  url: "javascript:alert(1)"',
+    '  duration: 90',
+  ]);
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /audio-nula\.md: pole "audio.duration" je neplatné/);
+  assert.match(result.stderr, /audio-js\.md: pole "audio.url" je neplatné/);
+  assert.doesNotMatch(result.stderr, /audio-ok\.md/);
+});
+
 test(
   'volitelná pole odmítnou hodnoty nesprávného YAML typu',
   (t) => {
