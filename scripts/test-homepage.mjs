@@ -97,13 +97,25 @@ test('frontmatter vynechá draft, řadí sestupně a odvodí hero, rest, průvod
     'stary-featured',
   ]);
   assert.equal(result.hero.id, 'aktivni-featured');
-  assert.deepEqual(result.rest.map(({ id }) => id), [
+  assert.deepEqual(result.candidates.map(({ id }) => id), [
     'nejnovejsi',
     'pruvodce-prvni',
     'pruvodce-druhy',
     'bez-priznaku',
     'pruvodce-treti',
     'pruvodce-ctvrty',
+    'stary-featured',
+  ]);
+  assert.deepEqual(result.rail.map(({ id }) => id), [
+    'nejnovejsi',
+    'pruvodce-prvni',
+    'pruvodce-druhy',
+  ]);
+  assert.deepEqual(result.rest.map(({ id }) => id), [
+    'bez-priznaku',
+    'pruvodce-treti',
+    'pruvodce-ctvrty',
+    'stary-featured',
   ]);
   assert.deepEqual(result.pruvodci.map(({ id }) => id), [
     'pruvodce-prvni',
@@ -136,7 +148,8 @@ test('featured starší než čtrnáct dní nepřebije nejnovější článek v 
   );
 
   assert.equal(result.hero.id, 'nejnovejsi');
-  assert.deepEqual(result.rest.map(({ id }) => id), ['dalsi', 'stary-featured']);
+  assert.deepEqual(result.rail.map(({ id }) => id), ['dalsi', 'stary-featured']);
+  assert.deepEqual(result.rest.map(({ id }) => id), []);
 });
 
 test('použitelný YouTube RSS odfiltruje Shorts, omezí videa a dekóduje XML entity', async (t) => {
