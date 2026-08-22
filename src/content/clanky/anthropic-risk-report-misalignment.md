@@ -23,7 +23,7 @@ Jinými slovy: v předchozí zprávě bylo číslo, které neodpovídalo skuteč
 
 ## Model, který nedostanete
 
-V šuplíku leží **Internal Model 2**, schopnější než veřejný Mythos 5. Pozor ale na titulky typu „poráží Mythos 5" — zpráva je opatrnější. Model je podle ní *„znatelné zlepšení pro řadu úloh"*, ale **nepředstavuje takový skok, jaký byl vidět mezi Opusem 4.6 a Mythos Preview**. Ven se nechystá a neprošel ani celou sadou přednasazovacích testů.
+V šuplíku leží **Internal Model 2**, schopnější než veřejný [Mythos 5](/clanky/anthropic-fable-mythos/). Pozor ale na titulky typu „poráží Mythos 5" — zpráva je opatrnější. Model je podle ní *„znatelné zlepšení pro řadu úloh"*, ale **nepředstavuje takový skok, jaký byl vidět mezi Opusem 4.6 a Mythos Preview**. Ven se nechystá a neprošel ani celou sadou přednasazovacích testů.
 
 ## Co si z toho vzít
 
