@@ -42,6 +42,13 @@ test("www doména zachová cestu a query string", async () => {
   );
 });
 
+test("kanonické přesměrování přesně zachová zakódovanou cestu a složitý query string", async () => {
+  await assertRedirect(
+    "https://www.realtech.cz/%C4%8Dl%C3%A1nky/%2Fsekce%3F/%E2%9C%93%2520?tag=prvn%C3%AD&tag=druh%C3%BD&empty=&bare&encoded=a%26b%3Dc%3F%23%2F&unicode=%E2%98%83",
+    "https://realtech.cz/%C4%8Dl%C3%A1nky/%2Fsekce%3F/%E2%9C%93%2520?tag=prvn%C3%AD&tag=druh%C3%BD&empty=&bare&encoded=a%26b%3Dc%3F%23%2F&unicode=%E2%98%83",
+  );
+});
+
 test("produkční pages.dev doména se přesměruje", async () => {
   await assertRedirect(
     "https://realtech-web.pages.dev/",
