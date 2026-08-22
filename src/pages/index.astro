@@ -16,8 +16,9 @@ const pruvodci = all.filter((c) => c.data.evergreen).slice(0, 3);
 // featured drží hero max 14 dní od data článku, pak už nesmí přebít novinky.
 const FEATURED_MAX_AGE = 14 * 24 * 60 * 60 * 1000;
 const hero = all.find((c) => c.data.featured && Date.now() - c.data.date.valueOf() <= FEATURED_MAX_AGE) ?? all[0];
-const rest = all.filter((c) => c.id !== hero?.id).slice(0, 6);
-const rail = rest.slice(0, 3);
+const candidates = all.filter((c) => c.id !== hero?.id).slice(0, 9);
+const rail = candidates.slice(0, 3);
+const rest = candidates.slice(3, 9);
 const categories = [...new Set(all.map((c) => c.data.category))];
 
 const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;

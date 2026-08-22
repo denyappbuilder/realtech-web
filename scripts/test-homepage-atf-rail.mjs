@@ -34,8 +34,28 @@ function pravidlo(blok, selektor) {
 test("desktopový ATF rail bere tři nejnovější další články, ne featured", () => {
   assert.match(
     index,
-    /const rail = rest\.slice\(0,\s*3\)/,
-    "rail musí být první tři z rest — featured do něj nepatří",
+    /const candidates = all\.filter\(\(c\) => c\.id !== hero\?\.id\)\.slice\(0,\s*9\)/,
+    "jeden seznam 9 kandidátů bez featured",
+  );
+  assert.match(
+    index,
+    /const rail = candidates\.slice\(0,\s*3\)/,
+    "rail musí být první tři z kandidátů — featured do něj nepatří",
+  );
+  assert.match(
+    index,
+    /const rest = candidates\.slice\(3,\s*9\)/,
+    "šest velkých karet musí být dalších šest, ne tytéž tři znovu",
+  );
+  assert.doesNotMatch(
+    index,
+    /const rest = candidates\.slice\(0,\s*6\)/,
+    "karty se nesmí vrátit na překrývající slice(0, 6)",
+  );
+  assert.doesNotMatch(
+    index,
+    /const rest = all\.filter[\s\S]{0,120}?\.slice\(0,\s*6\)/,
+    "karty se nesmí počítat jako první šest z rest",
   );
   assert.match(index, /class="hero-rail"/, "úvodka ztratila hero-rail");
   assert.match(index, /class="hero-rail-title"/, "rail musí nést titulek");
@@ -78,8 +98,8 @@ test("rail je jen od 901px — mobilní hero, CTA i mřížka zůstávají", () 
   assert.match(index, /class="hero-visual"/, "featured visual zmizel");
   assert.match(
     index,
-    /const rest =[\s\S]*?\.slice\(0,\s*6\)/,
-    "šest běžných karet pod herem musí zůstat",
+    /const rest = candidates\.slice\(3,\s*9\)/,
+    "šest běžných karet pod herem musí zůstat jako dalších šest",
   );
   assert.doesNotMatch(
     `${base}\n${index}\n${css}`,
