@@ -57,3 +57,22 @@ test("Z10035: CI pouští npm test na pull_request i na push do main", () => {
   assert.ok(pokryvaPr, "workflow s npm test musí běžet na pull_request");
   assert.ok(pokryvaPushMain, "workflow s npm test musí běžet na push do main");
 });
+
+test("CI akce používají varianty běžící na Node 24", () => {
+  const workflowy = nactiWorkflowy();
+  const text = workflowy.map((wf) => wf.text).join("\n");
+
+  for (const action of ["checkout", "setup-node"]) {
+    const verze = [
+      ...text.matchAll(new RegExp(`actions/${action}@v(\\d+)`, "g")),
+    ].map((shoda) => Number(shoda[1]));
+
+    assert.ok(verze.length > 0, `workflow nepoužívá actions/${action}`);
+    for (const verzeAkce of verze) {
+      assert.ok(
+        verzeAkce >= 7,
+        `actions/${action}@v${verzeAkce} běží na deprecated Node 20; použij v7+ (Node 24)`,
+      );
+    }
+  }
+});

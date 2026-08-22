@@ -52,6 +52,23 @@ test('lastmod kategorie odpovídá nejpozdějšímu datu jejích článků', asy
   );
 });
 
+test('lastmod kategorie s diakritikou určí updated nejnovějšího článku', async () => {
+  const options = await loadSitemapOptions([
+    article('starsi-site', ['date: "2025-02-03"', 'category: "Sítě"']),
+    article('aktualizovany-site', [
+      'date: "2025-04-05"',
+      'updated: "2025-10-11"',
+      'category: "Sítě"',
+    ]),
+    article('novejsi-jinde', ['date: "2026-01-01"', 'category: "Hardware"']),
+  ]);
+
+  assert.equal(
+    serialize(options, 'https://realtech.cz/temata/site/').lastmod,
+    '2025-10-11T00:00:00.000Z',
+  );
+});
+
 test('statické URL dostanou nejnovější datum ze všech článků', async () => {
   const options = await loadSitemapOptions([
     article('starsi', ['date: "2024-12-31"', 'category: "AI"']),
@@ -75,6 +92,19 @@ test('filter vyřadí /vitej a ponechá běžné URL', async () => {
   assert.equal(options.filter('https://realtech.cz/vitej/'), false);
   assert.equal(options.filter('https://realtech.cz/clanky/platny/'), true);
 });
+
+test(
+  'SITEMAP-FILTER-001 filtr ponechá legitimní cesty podobné /vitej',
+  async () => {
+    const options = await loadSitemapOptions([]);
+
+    assert.equal(options.filter('https://realtech.cz/vitejte/'), true);
+    assert.equal(
+      options.filter('https://realtech.cz/clanky/vitej-do-ai/'),
+      true,
+    );
+  },
+);
 
 test('chybějící hodnoty data nevytvoří vadný lastmod', async () => {
   const options = await loadSitemapOptions([
