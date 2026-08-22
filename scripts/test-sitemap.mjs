@@ -95,7 +95,6 @@ test('filter vyřadí /vitej a ponechá běžné URL', async () => {
 
 test(
   'SITEMAP-FILTER-001 filtr ponechá legitimní cesty podobné /vitej',
-  { todo: true },
   async () => {
     const options = await loadSitemapOptions([]);
 
