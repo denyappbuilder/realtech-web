@@ -2,7 +2,7 @@
 title: "Claude: AI, která řekla Pentagonu ne. Kdo za ní stojí a komu se vyplatí"
 description: "Firma Anthropic odmítla vyškrtnout ze své AI zákaz masového sledování občanů — a Trumpova administrativa nařídila úřadům její AI přestat používat. Rozebrali jsme, v čem je Claude nejlepší a v čem ne."
 category: "AI Report"
-date: 2026-07-02
+date: "2026-07-02"
 video: "https://youtu.be/jK3K1a9Z3AA"
 videoLength: "12:50"
 ---

@@ -2,7 +2,7 @@
 title: "Gemini Spark umí ovládat tvůj Chrome a vyřídit věci za tebe. Do Česka ale nepřijde"
 description: "Google rozšířil svého AI agenta do 160+ zemí a naučil ho pracovat s tvým přihlášeným prohlížečem. Evropský hospodářský prostor je ale z celé funkce vyškrtnutý."
 category: "AI Agenti"
-date: 2026-07-31
+date: "2026-07-31"
 image: "/images/clanky/gemini-spark-chrome-mimo-eu.jpg"
 zprava: true
 ---

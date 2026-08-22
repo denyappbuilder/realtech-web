@@ -3,13 +3,21 @@ import sitemap from '@astrojs/sitemap';
 import fs from 'node:fs';
 import { slugify } from './src/lib/slugify.js';
 import { parseCalendarDate } from './src/lib/calendarDate.js';
+import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
 
 // slug → lastmod (updated ?? date) z frontmatteru článků — pro sitemap <lastmod>
 const lastmods = {};
 const categoryLastmods = {};
 const invalidLastmodSlugs = new Set();
 for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith('.md'))) {
-  const fm = fs.readFileSync(`./src/content/clanky/${f}`, 'utf8').split('---')[1] ?? '';
+  // Oddělovač je řádek `---`, ne libovolný výskyt v hodnotě (Z1267).
+  // `split('---')` uřízne `description: "Rozbor --- díl první"` uprostřed
+  // a ztratí `draft`/`date`/`category` za ním — sitemapa pak ohlásí datum
+  // článku, který na webu není.
+  const fm = fs.readFileSync(`./src/content/clanky/${f}`, 'utf8').split(/^---\s*$/m)[1] ?? '';
+  // Draft se na stránkách filtruje, ale lastmod se dřív počítal i z něj —
+  // nepublikovaný článek tak posunul homepage, archiv i cizí kategorie (Z1070).
+  if (/^draft:\s*true\b/m.test(fm)) continue;
   const d = fm.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1]
     ?? fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
   if (d) {
@@ -35,16 +43,13 @@ const newestArticle = timestamps.length ? new Date(Math.max(...timestamps)) : un
 // Astro generuje id nadpisů i s diakritikou („#aktuální-ceny-v-česku"), což se
 // v odkazech enkóduje na nečitelné %C3%A1… Přepíšeme je na ASCII podobu.
 function rehypeAsciiHeadingIds() {
-  const slug = (s) =>
-    s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-')
-      .replace(/^-|-$/g, '').slice(0, 60);
   const text = (node) =>
     node.type === 'text' ? node.value : (node.children ?? []).map(text).join('');
   return (tree) => {
+    const seen = new Map();
     const walk = (node) => {
       if (node.type === 'element' && /^h[2-4]$/.test(node.tagName)) {
-        const id = slug(text(node));
+        const id = nextUniqueHeadingId(asciiHeadingId(text(node)), seen);
         if (id) node.properties = { ...node.properties, id };
       }
       (node.children ?? []).forEach(walk);
@@ -59,8 +64,9 @@ export default defineConfig({
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({
-      // /vitej/ je noindex (potvrzení newsletteru) — do sitemapy nepatří
-      filter: (page) => !page.includes('/vitej'),
+      // /vitej/ je noindex (potvrzení newsletteru) — vyřadit jen přesnou cestu,
+      // ne legitimní /vitejte/ nebo články, které mají „vitej“ ve slugu.
+      filter: (page) => new URL(page).pathname !== '/vitej/',
       serialize: (item) => {
         const slug = item.url.match(/\/clanky\/([^/]+)\/$/)?.[1];
         const category = item.url.match(/\/temata\/([^/]+)\/$/)?.[1];
