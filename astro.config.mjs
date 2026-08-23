@@ -17,7 +17,9 @@ for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith(
   const fm = fs.readFileSync(`./src/content/clanky/${f}`, 'utf8').split(/^---\s*$/m)[1] ?? '';
   // Draft se na stránkách filtruje, ale lastmod se dřív počítal i z něj —
   // nepublikovaný článek tak posunul homepage, archiv i cizí kategorie (Z1070).
-  if (/^draft:\s*true\b/m.test(fm)) continue;
+  // YAML 1.2 / js-yaml: jen true, True a TRUE jsou boolean true.
+  // i-flag by sekl i tRuE, které parser bere jako řetězec.
+  if (/^draft:\s*(?:true|True|TRUE)\b/m.test(fm)) continue;
   const d = fm.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1]
     ?? fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
   if (d) {
