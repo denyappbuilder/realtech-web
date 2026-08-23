@@ -4,6 +4,7 @@ description: "Půl roku testujeme Starlink Standard i Mini. Aktuální české t
 category: "Sítě"
 evergreen: true
 date: "2026-07-20"
+video: "https://youtu.be/l-S4MR27JaE"
 image: "/images/clanky/starlink-v-cesku-pruvodce.jpg"
 ---
 
@@ -26,8 +27,6 @@ Hardware: sada Standard se prodává kolem 7 000 Kč, Starlink ji ale opakovaně
 ## Co v reklamě neřeknou: spotřeba
 
 Tohle je největší skrytý náklad. Anténa Standard si bere **70–90 W nepřetržitě** a při odtávání sněhu až 150 W. V průměru je to ~1,7 kWh denně, což při 6 Kč/kWh dělá **až ~300 Kč měsíčně navíc za elektřinu**. Počítejte s tím v rozpočtu — z tarifu 745 Kč je najednou reálná tisícovka.
-
-<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/l-S4MR27JaE" title="Video: Starlink Standard po půl roce" loading="lazy" allowfullscreen></iframe></div>
 
 ## Standard, nebo Mini?
 
