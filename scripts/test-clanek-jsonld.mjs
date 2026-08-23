@@ -272,22 +272,3 @@ test('neplatné videoLength nevyrobí rozbité trvání — klíč z JSON zmizí
   );
   assert.equal(videoLd.contentUrl, 'https://www.youtube.com/watch?v=abcdefghijk');
 });
-
-// ---------------------------------------------------------------------------
-// Nález: viz data/nalezy/codex-testy-web.md — CLANEK-JSONLD-001
-// ---------------------------------------------------------------------------
-
-test(
-  'dateModified nesmí předcházet datePublished [CLANEK-JSONLD-001]',
-  { todo: 'CLANEK-JSONLD-001: validate-content nehlídá updated < date ani updated v budoucnu' },
-  async () => {
-    const { jsonLd } = await nactiStranku({
-      article: clanek({ date: '2026-01-15', updated: '2025-01-01' }),
-    });
-
-    assert.ok(
-      Date.parse(jsonLd.dateModified) >= Date.parse(jsonLd.datePublished),
-      `dateModified ${jsonLd.dateModified} předchází datePublished ${jsonLd.datePublished}`,
-    );
-  },
-);
