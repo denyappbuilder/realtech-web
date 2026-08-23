@@ -73,14 +73,18 @@ test('šablona článku zapojuje přehrávač a AudioObject jen přes produkčn�
 
 test('přehrávač je přístupný, bez autoplay a s nativním přepisem', () => {
   assert.match(KOMPONENTA, /<h2 id="audio-prehled-nadpis">Audio přehled<\/h2>/);
-  assert.match(KOMPONENTA, /<audio controls preload="metadata" src=\{pohled\.src\}>/);
+  assert.match(KOMPONENTA, /<audio controls preload="none" src=\{pohled\.src\}>/);
   assert.match(KOMPONENTA, /<a href=\{pohled\.src\}>Stáhnout audio přehled<\/a>/);
   assert.match(KOMPONENTA, /<details class="audio-prehled-prepis">/);
   assert.match(KOMPONENTA, /<summary>Přepis<\/summary>/);
   assert.doesNotMatch(KOMPONENTA, /autoplay/i);
-  assert.doesNotMatch(KOMPONENTA, /preload="auto"/);
   assert.doesNotMatch(KOMPONENTA, /AI hlas|uměl[aá] inteligence|ElevenLabs|Sal/i);
   assert.doesNotMatch(PAGE, /AI hlas|uměl[aá] inteligence|ElevenLabs|Sal/i);
+});
+
+test('reálná komponenta nepřednačítá audio před kliknutím na přehrání', () => {
+  assert.match(KOMPONENTA, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="none"[^>]*\bsrc=\{pohled\.src\}[^>]*>/);
+  assert.doesNotMatch(KOMPONENTA, /<audio\b[^>]*\bpreload="(?:metadata|auto)"/i);
 });
 
 test('styly berou existující tokeny a tisk přehrávač schová', () => {
