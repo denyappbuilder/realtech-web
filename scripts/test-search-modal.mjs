@@ -45,6 +45,23 @@ beforeEach(() => {
   resetRssMocks();
 });
 
+function klavesa(key, extra = {}) {
+  return {
+    key,
+    defaultPrevented: false,
+    preventDefault() { this.defaultPrevented = true; },
+    ...extra,
+  };
+}
+
+function kliknuti(currentTarget) {
+  return {
+    currentTarget,
+    target: currentTarget,
+    preventDefault() {},
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Co má vyhledávání držet
 // ---------------------------------------------------------------------------
@@ -54,6 +71,65 @@ test('dokud se index nenačte, hledání nevrací nic (ne výjimku)', () => {
 
   assert.equal(modal.dejIndex(), null);
   assert.deepEqual(slugy(modal.search('starlink')), []);
+});
+
+test('Tab na posledním prvku zůstane v modalu a vrátí fokus na první', () => {
+  const modal = nactiModal({ hledatelne: [] });
+  modal.spoustec.dispatch('click', kliknuti(modal.spoustec));
+  modal.odkaz.focus();
+
+  const event = klavesa('Tab');
+  modal.dokument.dispatch('keydown', event);
+
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(modal.dokument.activeElement, modal.input);
+  assert.equal(modal.overlay.hidden, false);
+});
+
+test('Shift+Tab na prvním prvku zůstane v modalu a přesune fokus na poslední', () => {
+  const modal = nactiModal({ hledatelne: [] });
+  modal.spoustec.dispatch('click', kliknuti(modal.spoustec));
+
+  const event = klavesa('Tab', { shiftKey: true });
+  modal.dokument.dispatch('keydown', event);
+
+  assert.equal(event.defaultPrevented, true);
+  assert.equal(modal.dokument.activeElement, modal.odkaz);
+  assert.equal(modal.overlay.hidden, false);
+});
+
+test('Escape zavře modal a vrátí fokus spouštěči', () => {
+  const modal = nactiModal({ hledatelne: [] });
+  modal.spoustec.dispatch('click', kliknuti(modal.spoustec));
+  assert.equal(modal.dokument.activeElement, modal.input);
+
+  modal.dokument.dispatch('keydown', klavesa('Escape'));
+
+  assert.equal(modal.overlay.hidden, true);
+  assert.equal(modal.dokument.activeElement, modal.spoustec);
+  assert.equal(modal.spoustec.fokusovan, 1);
+});
+
+test('kliknutí mimo dialog zavře modal a vrátí fokus spouštěči', () => {
+  const modal = nactiModal({ hledatelne: [] });
+  modal.spoustec.dispatch('click', kliknuti(modal.spoustec));
+
+  modal.overlay.dispatch('click', { target: modal.overlay });
+
+  assert.equal(modal.overlay.hidden, true);
+  assert.equal(modal.dokument.activeElement, modal.spoustec);
+});
+
+test('⌘K otevře i zavře modal a po zavření vrátí původní fokus', () => {
+  const modal = nactiModal({ hledatelne: [] });
+
+  modal.dokument.dispatch('keydown', klavesa('k', { metaKey: true }));
+  assert.equal(modal.overlay.hidden, false);
+  assert.equal(modal.dokument.activeElement, modal.input);
+
+  modal.dokument.dispatch('keydown', klavesa('k', { metaKey: true }));
+  assert.equal(modal.overlay.hidden, true);
+  assert.equal(modal.dokument.activeElement, modal.spoustec);
 });
 
 test('prázdný dotaz i dotaz ze samých mezer vrací prázdný výsledek', () => {
