@@ -41,9 +41,10 @@
     if (index) return index;
     try {
       const res = await fetch('/search-index.json');
+      if (!res.ok) return [];
       index = await res.json();
-    } catch { index = []; }
-    return index;
+      return index;
+    } catch { return []; }
   }
 
   function render(items: any[], q: string) {
