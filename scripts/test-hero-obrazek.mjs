@@ -21,6 +21,7 @@ const COVER = '/images/clanky/cover.jpg';
 test('hero článku s 640.webp dá obě šířky do WebP srcset', () => {
   const out = heroObrazekClanku(
     COVER,
+    undefined,
     existsZeSady([
       'public/images/clanky/cover.jpg',
       'public/images/clanky/cover-640.jpg',
@@ -47,6 +48,7 @@ test('hero článku s 640.webp dá obě šířky do WebP srcset', () => {
 test('chybějící 640.webp nesmí rozbít hero — 1280.webp zůstane fallback', () => {
   const out = heroObrazekClanku(
     COVER,
+    undefined,
     existsZeSady([
       'public/images/clanky/cover.jpg',
       'public/images/clanky/cover.webp',
@@ -63,6 +65,7 @@ test('chybějící 640.webp nesmí rozbít hero — 1280.webp zůstane fallback'
 test('chybějící 640.jpg nechá v <img> jen 1280 JPG', () => {
   const out = heroObrazekClanku(
     COVER,
+    undefined,
     existsZeSady([
       'public/images/clanky/cover.jpg',
       'public/images/clanky/cover.webp',
@@ -80,6 +83,7 @@ test('chybějící 640.jpg nechá v <img> jen 1280 JPG', () => {
 test('bez jakéhokoli WebP zůstane jen JPG', () => {
   const out = heroObrazekClanku(
     COVER,
+    undefined,
     existsZeSady(['public/images/clanky/cover.jpg']),
   );
 
@@ -88,12 +92,30 @@ test('bez jakéhokoli WebP zůstane jen JPG', () => {
   assert.equal(out.src, COVER);
 });
 
-test('prázdný image nic nevyrobí', () => {
-  const out = heroObrazekClanku(undefined, existsZeSady([]));
+test('prázdný image bez videa nic nevyrobí', () => {
+  const out = heroObrazekClanku(undefined, undefined, existsZeSady([]));
   assert.equal(out.src, undefined);
   assert.equal(out.srcset, undefined);
   assert.equal(out.webp, undefined);
   assert.equal(out.webpSrcset, undefined);
+});
+
+test('video článek bez lokálního coveru padá na YouTube maxresdefault', () => {
+  const out = heroObrazekClanku(undefined, 'biYMveTpRWc', existsZeSady([]));
+  assert.equal(out.src, 'https://i.ytimg.com/vi/biYMveTpRWc/maxresdefault.jpg');
+  assert.equal(out.srcset, undefined);
+  assert.equal(out.webp, undefined);
+  assert.equal(out.webpSrcset, undefined);
+  assert.equal(out.sizes, CLANEK_HERO_SIZES);
+});
+
+test('lokální cover má přednost před YouTube thumbem', () => {
+  const out = heroObrazekClanku(
+    COVER,
+    'biYMveTpRWc',
+    existsZeSady(['public/images/clanky/cover.jpg']),
+  );
+  assert.equal(out.src, COVER);
 });
 
 test('šablona článku zapojuje helper a sizes, ne holé 1280.webp', () => {
@@ -103,7 +125,7 @@ test('šablona článku zapojuje helper a sizes, ne holé 1280.webp', () => {
   );
 
   assert.match(src, /from '\.\.\/\.\.\/lib\/hero-obrazek\.js'/);
-  assert.match(src, /heroObrazekClanku\(image\)/);
+  assert.match(src, /heroObrazekClanku\(image, videoId\)/);
   assert.match(
     src,
     /heroWebpSrcset && <source srcset=\{heroWebpSrcset\} sizes=\{heroSizes\} type="image\/webp" \/>/,
