@@ -1291,3 +1291,53 @@ a.chip { display: inline-block; }
   .hero-visual:hover .play { transform: translate(-50%, -60%); }
   .video-card:hover .vc-play { transform: translate(-50%, -50%); }
 }
+
+/* ── YouTube click-to-load ───────────── */
+.youtube-facade {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(226, 0, 0, 0.18), transparent 32%),
+    linear-gradient(135deg, var(--surface), #090b0e);
+}
+.youtube-facade-button {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.youtube-facade-button picture,
+.youtube-facade-button img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.youtube-facade-button img { object-fit: cover; }
+.youtube-facade-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.25));
+  transition: background 0.18s ease;
+}
+.youtube-facade-play {
+  position: absolute;
+  z-index: 1;
+  inset: 50% auto auto 50%;
+  width: 68px;
+  height: 48px;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.45));
+}
+.youtube-facade-play svg { width: 100%; height: 100%; }
+.youtube-facade-play path:first-child { fill: #e00000; }
+.youtube-facade-play-triangle { fill: #fff; }
+.youtube-facade-button:hover::after { background: rgba(0, 0, 0, 0.08); }
+.youtube-facade-button:hover .youtube-facade-play { transform: translate(-50%, -50%) scale(1.06); }
+.youtube-facade-button:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: -3px;
+}

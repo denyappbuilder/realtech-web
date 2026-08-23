@@ -158,14 +158,28 @@ const breadcrumbLd = {
       )}
 
       {videoId && (
-        <div class="video-embed">
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-            title={`Video: ${title}`}
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
+        <div
+          class="video-embed youtube-facade"
+          data-youtube-facade
+          data-video-id={videoId}
+          data-video-title={`Video: ${title}`}
+        >
+          <button
+            type="button"
+            class="youtube-facade-button"
+            aria-label={`Přehrát video: ${title}`}
+          >
+            {heroSrc && (
+              <picture>
+                {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
+                {!heroWebpSrcset && heroWebp && <source srcset={heroWebp} type="image/webp" />}
+                <img src={heroSrc} srcset={heroSrcset} sizes={heroSrcset ? heroSizes : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+              </picture>
+            )}
+            <span class="youtube-facade-play" aria-hidden="true">
+              <svg viewBox="0 0 68 48"><path d="M66.5 7.5a8 8 0 0 0-5.6-5.7C56 0 34 0 34 0S12 0 7.1 1.8a8 8 0 0 0-5.6 5.7C0 12.5 0 24 0 24s0 11.5 1.5 16.5a8 8 0 0 0 5.6 5.7C12 48 34 48 34 48s22 0 26.9-1.8a8 8 0 0 0 5.6-5.7C68 35.5 68 24 68 24s0-11.5-1.5-16.5z"/><path class="youtube-facade-play-triangle" d="m27 34 18-10-18-10z"/></svg>
+            </span>
+          </button>
         </div>
       )}
 
@@ -292,6 +306,8 @@ const breadcrumbLd = {
   </div>
 
   <script>
+    import { inicializujYoutubeFacades } from '../../lib/youtube-facade.js';
+
     // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů).
     // Stejný helper jako rehype plugin, včetně dedupu (Z1207) — jinak by tlačítko
     // „#“ u druhé stejné sekce zkopírovalo odkaz na první.
@@ -339,5 +355,7 @@ const breadcrumbLd = {
         }
       });
     });
+
+    inicializujYoutubeFacades();
   </script>
 </Base>
