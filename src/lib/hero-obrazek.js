@@ -11,17 +11,25 @@ import fs from 'node:fs';
  * 1280.webp (nebo JPG) — chybějící derivát nesmí rozbít <picture>.
  *
  * Článek je přes celou šířku `.wrap` (1120 px), ne 40vw jako homepage.
+ *
+ * Video článek bez frontmatter `image:` dřív vracel prázdné `src` a YouTube
+ * facade se renderovala bez náhledu — LCP byl prázdný 16:9 box s play ikonou
+ * (živě např. /clanky/dji-vs-insta360/). Karty (ArticleCard) přitom už dávno
+ * padají na i.ytimg.com. Tady bereme maxresdefault (1280×720, 16:9) — facade
+ * je 1120 px široká a šablona už na maxres spoléhá u og:image i VideoObject.
+ * Lokální cover má přednost, YouTube thumb je jen fallback.
  */
 export const CLANEK_HERO_SIZES = '(max-width: 1120px) 100vw, 1120px';
 
 /**
  * @param {string | null | undefined} image
+ * @param {string | null | undefined} [videoId]
  * @param {(cesta: string) => boolean} [exists]
  */
-export function heroObrazekClanku(image, exists = (cesta) => fs.existsSync(cesta)) {
+export function heroObrazekClanku(image, videoId, exists = (cesta) => fs.existsSync(cesta)) {
   if (!image) {
     return {
-      src: undefined,
+      src: videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : undefined,
       srcset: undefined,
       webp: undefined,
       webpSrcset: undefined,
