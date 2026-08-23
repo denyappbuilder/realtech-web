@@ -5,6 +5,23 @@ category: "Sítě"
 date: "2026-07-21"
 video: "https://youtu.be/uwcxvbt8zyQ"
 videoLength: "8:29"
+audio:
+  url: "https://audio.realtech.cz/starlink-mini-test-v3.mp3?v=e996dcb0df67"
+  duration: 146
+  transcript: |-
+    Dnes v RealTechu: Starlink Mini v testu: internet do batohu, který utáhne i powerbanka. Nejmenší satelitní anténa Starlinku váží necelé kilo a půl, zprovozníte ji za třicet minut a při běžném provozu si bere jen dvacet–třicet W. Reálně naměřené rychlosti, spotřeba, tarify a triky, o kterých se moc neví — z našeho dlouhodobého testování. Starlink používáme na vesnici přes rok jako hlavní internet — a Mini je jeho verze do batohu: třicet × dvacet cm, necelé kilo a půl, router zabudovaný přímo v anténě. Otestovali jsme, co reálně umí. Zprovoznění za třicet minut Žádná montáž: namíříte anténu na oblohu (potřebuje čistý výhled), připojíte jediný kabel — patnáct metrů je v balení — a projdete aktivací v aplikaci Starlink. Nám celý proces zabral zhruba půl hodiny včetně založení tarifu. Reálně naměřené rychlosti Download nula—dvě stě padesát Mb/s podle výhledu na oblohu; při částečném zákrytu stromy typicky kolem sto padesát Mb/s Upload kolem deset—dvacet pět Mb/s Latence běžně poráží i mobilní data v ČR Anténa zvládne až sto dvacet osm připojených zařízení — limit jsme v praxi nikdy nenarazili. Komunikace je šifrovaná od satelitu až po Wi-Fi. Spotřeba: tady Mini exceluje Tohle je největší překvapení testu: při běžném provozu si Mini bere dvacet—třicet W. Utáhne ho powerbanka se 100W USB-C portem (s redukcí), autozásuvka i menší solární panel. Jen při sněžení si sáhne na šedesát—osmdesát W — sníh na anténě sám detekuje a odtaje ho. Odolnost: −třicet až +padesát °C, déšť ani sníh nevadí. Tělo je ale plastové — na cesty doporučujeme obal, pád na tvrdou zem by nemusel přežít. Tarify (aktuální české ceny) Pro Mini dává největší smysl Roaming — funguje po celé Evropě: Roaming sto GB — jedna sto dvacet Kč/měsíc (po vyčerpání neomezená pomalá data) Roaming neomezený — dva tři sta čtyřicet pět Kč/měsíc Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Starlink Mini v testu: internet do batohu, který utáhne i powerbanka.
+    Petr: Nejmenší satelitní anténa Starlinku váží necelé kilo a půl, zprovozníte ji za třicet minut a při běžném provozu si bere jen dvacet–třicet W. Reálně naměřené rychlosti, spotřeba, tarify a triky, o kterých se moc neví — z našeho dlouhodobého testování.
+    Ada: Starlink používáme na vesnici přes rok jako hlavní internet — a Mini je jeho verze do batohu: třicet × dvacet cm, necelé kilo a půl, router zabudovaný přímo v anténě.
+    Petr: Otestovali jsme, co reálně umí. Zprovoznění za třicet minut Žádná montáž: namíříte anténu na oblohu (potřebuje čistý výhled), připojíte jediný kabel — patnáct metrů je v balení — a projdete aktivací v aplikaci Starlink.
+    Ada: Nám celý proces zabral zhruba půl hodiny včetně založení tarifu. Reálně naměřené rychlosti
+    Petr: Download nula—dvě stě padesát Mb/s podle výhledu na oblohu; při částečném zákrytu stromy typicky kolem sto padesát Mb/s Upload kolem deset—dvacet pět Mb/s Latence běžně poráží i mobilní data v ČR
+    Ada: Anténa zvládne až sto dvacet osm připojených zařízení — limit jsme v praxi nikdy nenarazili. Komunikace je šifrovaná od satelitu až po Wi-Fi. Spotřeba: tady Mini exceluje Tohle je největší překvapení testu: při běžném provozu si Mini bere dvacet—třicet W.
+    Petr: Utáhne ho powerbanka se 100W USB-C portem (s redukcí), autozásuvka i menší solární panel. Jen při sněžení si sáhne na šedesát—osmdesát W — sníh na anténě sám detekuje a odtaje ho.
+    Ada: Odolnost: −třicet až +padesát °C, déšť ani sníh nevadí. Tělo je ale plastové — na cesty doporučujeme obal, pád na tvrdou zem by nemusel přežít. Tarify (aktuální české ceny)
+    Petr: Pro Mini dává největší smysl Roaming — funguje po celé Evropě: Roaming sto GB — jedna sto dvacet Kč/měsíc (po vyčerpání neomezená pomalá data) Roaming neomezený — dva tři sta čtyřicet pět Kč/měsíc
+    Ada: Zdroj: článek na realtech.cz
 ---
 
 Starlink používáme na vesnici přes rok jako hlavní internet — a Mini je jeho verze do batohu: **30 × 20 cm, necelé kilo a půl**, router zabudovaný přímo v anténě. Otestovali jsme, co reálně umí.

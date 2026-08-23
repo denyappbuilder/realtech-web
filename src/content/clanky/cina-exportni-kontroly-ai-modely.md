@@ -5,6 +5,23 @@ category: "AI Report"
 date: "2026-07-28"
 zprava: true
 image: "/images/clanky/cina-exportni-kontroly-ai-modely.jpg"
+audio:
+  url: "https://audio.realtech.cz/cina-exportni-kontroly-ai-modely-v3.mp3?v=48e06beb4176"
+  duration: 148
+  transcript: |-
+    Dnes v RealTechu: Čína zvažuje, že zamkne vlastní umělá inteligence modely. Zdarma ke stažení by nemusely být navždy. MOFCOM podle Financial Times jedná s Alibabou, ByteDance a Zhipu o exportních kontrolách na váhy modelů, trénovací data a čipové designy. Zatím je to jen konzultace — ale kdo staví na čínských open modelech, měl by to sledovat. Poslední rok a půl fungovalo pravidlo, na které si vývojáři po celém světě zvykli: nejlepší americké modely jsou zamčené za API, nejlepší čínské si stáhneš a spustíš u sebe. Qwen od Alibaby, DeepSeek, Kimi od Moonshotu — otevřené váhy, žádná faktura za každý dotaz; zájem o ně dokládá i nápor na předplatné Kimi K3. Teď to podle Financial Times může skončit. A poprvé v tom nejde o Washington, ale o Peking. Čínské ministerstvo obchodu (MOFCOM) podle FT z jednadvacátého července už několik týdnů konzultuje s domácími umělá inteligence a čipovými firmami, jak zabránit tomu, aby pokročilé čínské technologie skončily na Západě. Mezi oslovenými jsou jmenovitě Alibaba, ByteDance a Zhipu (Z.ai). Na stole jsou dvě věci. První je přenos klíčových trénovacích dat za hranice. Druhá — pro běžného vývojáře podstatnější — je otázka, jestli si zahraniční uživatelé mají i dál moct volně stahovat váhy čínských modelů. Důležitý detail: podle FT by přístup k modelům jako ke službě — tedy přes API a cloud — zůstal. Neomezovalo by se používání, ale držení souboru. Rozdíl je praktický: stažené váhy si nasadíš na vlastní server, doladíš je a nikdo ti do provozu nevidí. Přes API jsi na poskytovateli závislý. Druhá část návrhů míří na výrobu. MOFCOM podle FT zjišťoval názory na to, zakázat zahraničním výrobcům — jmenovitě TSMC a Qualcommu — vyrábět pokročilé čipy podle designů čínských firem jako Huawei, Alibaba nebo ByteDance. Tedy ne „Čína si nesmí kupovat čipy", ale „čínské návrhy se nesmí vyrábět venku". Zdroj: Financial Times, Reuters a Implicator.ai
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Čína zvažuje, že zamkne vlastní umělá inteligence modely. Zdarma ke stažení by nemusely být navždy.
+    Petr: MOFCOM podle Financial Times jedná s Alibabou, ByteDance a Zhipu o exportních kontrolách na váhy modelů, trénovací data a čipové designy. Zatím je to jen konzultace — ale kdo staví na čínských open modelech, měl by to sledovat.
+    Ada: Poslední rok a půl fungovalo pravidlo, na které si vývojáři po celém světě zvykli: nejlepší americké modely jsou zamčené za API, nejlepší čínské si stáhneš a spustíš u sebe.
+    Petr: Qwen od Alibaby, DeepSeek, Kimi od Moonshotu — otevřené váhy, žádná faktura za každý dotaz; zájem o ně dokládá i nápor na předplatné Kimi K3. Teď to podle Financial Times může skončit.
+    Ada: A poprvé v tom nejde o Washington, ale o Peking. Čínské ministerstvo obchodu (MOFCOM) podle FT z jednadvacátého července už několik týdnů konzultuje s domácími umělá inteligence a čipovými firmami, jak zabránit tomu, aby pokročilé čínské technologie skončily na Západě.
+    Petr: Mezi oslovenými jsou jmenovitě Alibaba, ByteDance a Zhipu (Z.ai). Na stole jsou dvě věci. První je přenos klíčových trénovacích dat za hranice.
+    Ada: Druhá — pro běžného vývojáře podstatnější — je otázka, jestli si zahraniční uživatelé mají i dál moct volně stahovat váhy čínských modelů. Důležitý detail: podle FT by přístup k modelům jako ke službě — tedy přes API a cloud — zůstal.
+    Petr: Neomezovalo by se používání, ale držení souboru. Rozdíl je praktický: stažené váhy si nasadíš na vlastní server, doladíš je a nikdo ti do provozu nevidí. Přes API jsi na poskytovateli závislý.
+    Ada: Druhá část návrhů míří na výrobu. MOFCOM podle FT zjišťoval názory na to, zakázat zahraničním výrobcům — jmenovitě TSMC a Qualcommu — vyrábět pokročilé čipy podle designů čínských firem jako Huawei, Alibaba nebo ByteDance.
+    Petr: Tedy ne „Čína si nesmí kupovat čipy", ale „čínské návrhy se nesmí vyrábět venku".
+    Ada: Zdroj: Financial Times, Reuters a Implicator.ai
 ---
 
 Poslední rok a půl fungovalo pravidlo, na které si vývojáři po celém světě zvykli: nejlepší americké modely jsou zamčené za API, nejlepší čínské si stáhneš a spustíš u sebe. Qwen od Alibaby, DeepSeek, Kimi od Moonshotu — otevřené váhy, žádná faktura za každý dotaz; zájem o ně dokládá i [nápor na předplatné Kimi K3](/clanky/kimi-k3-stop-predplatne/). Teď to podle **Financial Times** může skončit. A poprvé v tom nejde o Washington, ale o Peking.

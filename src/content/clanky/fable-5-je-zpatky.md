@@ -5,6 +5,22 @@ description: "Nejsilnější model Anthropicu se po třech týdnech vrací všem
 category: "AI Report"
 date: "2026-07-03"
 image: "/images/clanky/fable-5-je-zpatky.jpg"
+audio:
+  url: "https://audio.realtech.cz/fable-5-je-zpatky-v3.mp3?v=d5332b6fb3b5"
+  duration: 127
+  transcript: |-
+    Dnes v RealTechu: Fable pět je zpátky. Vláda USA zákaz zrušila — a tohle se mezitím změnilo. Nejsilnější model Anthropicu se po třech týdnech vrací všem. Ukázalo se ale, že 'nebezpečný trik' umí skoro každá velká umělá inteligence. Co se opravilo, co zůstává omezené a co to znamená pro vás. Tak dlouho trval první vládní zákaz umělá inteligence modelu v historii. Od prvního července je Fable pět — nejsilnější model Anthropicu — zase dostupný po celém světě, včetně Česka. Jenže tohle není jen „zapnuli to zpátky". Během těch tří týdnů se ukázalo něco mnohem zajímavějšího: ten „nebezpečný trik", kvůli kterému se všechno vypínalo, umí prakticky každý velký umělá inteligence model na trhu. Celou ságu vládního zákazu Fable pět jsme rozebrali samostatně — tady je to podstatné: co se stalo, co se opravilo a co to znamená pro vás. Rychlá rekapitulace: proč se vůbec vypínalo devět\. června Anthropic vydal Fable pět (veřejně) a Mythos pět (jen pro kyberobranu). O tři dny později, dvanáctého června, přišlo nařízení americké vlády — exportní kontroly, které s okamžitou platností odřízly zahraniční uživatele. Spouštěčem byl report výzkumníků z Amazonu: našli způsob, jak model přimět, aby v cizím kódu vyhledával zranitelnosti — a v jednom případě z toho vypadl i ukázkový exploit. Protože nařízení platilo okamžitě a národnost uživatele nejde ověřovat v reálném čase, Anthropic vypnul oba modely úplně všem. Včetně vlastních zaměstnanců. Ten trik umí skoro každý model. To je ta hlavní zpráva Tohle je pointa, která v červnové panice zapadla. Anthropic během odstávky otestoval, jestli je ta technika unikátní pro Fable pět. Není. Stejné zranitelnosti našly i Opus čtyři tečka osm, GPT-pět tečka pět nebo Kimi K2.sedm. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Fable pět je zpátky. Vláda USA zákaz zrušila — a tohle se mezitím změnilo.
+    Petr: Nejsilnější model Anthropicu se po třech týdnech vrací všem. Ukázalo se ale, že 'nebezpečný trik' umí skoro každá velká umělá inteligence. Co se opravilo, co zůstává omezené a co to znamená pro vás.
+    Ada: Tak dlouho trval první vládní zákaz umělá inteligence modelu v historii. Od prvního července je Fable pět — nejsilnější model Anthropicu — zase dostupný po celém světě, včetně Česka.
+    Petr: Jenže tohle není jen „zapnuli to zpátky". Během těch tří týdnů se ukázalo něco mnohem zajímavějšího: ten „nebezpečný trik", kvůli kterému se všechno vypínalo, umí prakticky každý velký umělá inteligence model na trhu.
+    Ada: Celou ságu vládního zákazu Fable pět jsme rozebrali samostatně — tady je to podstatné: co se stalo, co se opravilo a co to znamená pro vás. Rychlá rekapitulace: proč se vůbec vypínalo
+    Petr: devět\. června Anthropic vydal Fable pět (veřejně) a Mythos pět (jen pro kyberobranu). O tři dny později, dvanáctého června, přišlo nařízení americké vlády — exportní kontroly, které s okamžitou platností odřízly zahraniční uživatele.
+    Ada: Spouštěčem byl report výzkumníků z Amazonu: našli způsob, jak model přimět, aby v cizím kódu vyhledával zranitelnosti — a v jednom případě z toho vypadl i ukázkový exploit.
+    Petr: Protože nařízení platilo okamžitě a národnost uživatele nejde ověřovat v reálném čase, Anthropic vypnul oba modely úplně všem. Včetně vlastních zaměstnanců. Ten trik umí skoro každý model. To je ta hlavní zpráva
+    Ada: Tohle je pointa, která v červnové panice zapadla. Anthropic během odstávky otestoval, jestli je ta technika unikátní pro Fable pět. Není. Stejné zranitelnosti našly i Opus čtyři tečka osm, GPT-pět tečka pět nebo Kimi K2.sedm.
+    Petr: Zdroj: článek na realtech.cz
 ---
 
 Tři týdny. Tak dlouho trval první vládní zákaz AI modelu v historii. Od 1. července je Fable 5 — nejsilnější model Anthropicu — zase dostupný po celém světě, včetně Česka. Jenže tohle není jen „zapnuli to zpátky". Během těch tří týdnů se ukázalo něco mnohem zajímavějšího: ten „nebezpečný trik", kvůli kterému se všechno vypínalo, umí prakticky každý velký AI model na trhu.

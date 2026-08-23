@@ -5,6 +5,23 @@ category: "Vesmír"
 date: "2026-07-03"
 video: "https://youtu.be/dyU7RAa5l0Y"
 videoLength: "6:51"
+audio:
+  url: "https://audio.realtech.cz/spacex-starfall-raketova-doprava-v3.mp3?v=a8df44ab876f"
+  duration: 126
+  transcript: |-
+    Dnes v RealTechu: SpaceX testuje doručování raketou: balík kamkoliv na světě do hodiny. Falcon devět vynesl nenápadný disk jménem Starfall — kapsli, která umí shodit náklad z oběžné dráhy kamkoliv na Zemi. A vedle toho armáda platí SpaceX za dopravu sto tun přes půl planety. Rozebrali jsme, jak to funguje, co to stojí a kdy se to dotkne nás. Poslat balík na druhou stranu planety rychleji, než stihneš dojet na letiště? Přesně na tom SpaceX právě pracuje — a hned dvěma způsoby. Když třiadvacátého června dva tisíce dvacet šest vzlétl další Falcon devět, na první pohled nešlo o nic výjimečného; SpaceX startuje skoro obden. Tahle raketa ale nesla placatou kapsli, která vypadá spíš jako létající talíř než jako kus rakety. Projekt se jmenuje Starfall a je to první kousek skládačky, na jejímž konci může být doručení nákladu kamkoliv na Zemi do hodiny. Létající talíř se Starlinkem na zádech Starfall je disk o průměru tři metry a výšce pouhých sedmdesát pět centimetrů. Váží kolem dvou tun a sám unese až tunu nákladu. Spodek tvoří tepelný štít z uhlíkových vláken, o řízení se starají trysky na stlačený plyn a pro přistání má padáky. A jeden detail navíc: na kapsli jsou přilepené antény Starlinku, takže je celou dobu online. Proti konkurenčním kapslím, které se umí vrátit z oběžné dráhy, má Starfall zhruba třicet× větší kapacitu. To mění použití: nejde o vzorek z laboratoře, ale o reálný náklad. A otevírá to i druhý scénář — sklad na oběžné dráze, ze kterého na povel spadne materiál přesně tam, kde je zrovna potřeba. Proč letadlo nemá šanci Druhá, ještě větší část plánu je přímá raketová doprava: Starship, který přenese desítky tun z kontinentu na kontinent. Trasu Londýn—New York by raketa zvládla za půl hodiny. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: SpaceX testuje doručování raketou: balík kamkoliv na světě do hodiny.
+    Petr: Falcon devět vynesl nenápadný disk jménem Starfall — kapsli, která umí shodit náklad z oběžné dráhy kamkoliv na Zemi. A vedle toho armáda platí SpaceX za dopravu sto tun přes půl planety.
+    Ada: Rozebrali jsme, jak to funguje, co to stojí a kdy se to dotkne nás. Poslat balík na druhou stranu planety rychleji, než stihneš dojet na letiště? Přesně na tom SpaceX právě pracuje — a hned dvěma způsoby.
+    Petr: Když třiadvacátého června dva tisíce dvacet šest vzlétl další Falcon devět, na první pohled nešlo o nic výjimečného; SpaceX startuje skoro obden. Tahle raketa ale nesla placatou kapsli, která vypadá spíš jako létající talíř než jako kus rakety.
+    Ada: Projekt se jmenuje Starfall a je to první kousek skládačky, na jejímž konci může být doručení nákladu kamkoliv na Zemi do hodiny. Létající talíř se Starlinkem na zádech
+    Petr: Starfall je disk o průměru tři metry a výšce pouhých sedmdesát pět centimetrů. Váží kolem dvou tun a sám unese až tunu nákladu.
+    Ada: Spodek tvoří tepelný štít z uhlíkových vláken, o řízení se starají trysky na stlačený plyn a pro přistání má padáky. A jeden detail navíc: na kapsli jsou přilepené antény Starlinku, takže je celou dobu online.
+    Petr: Proti konkurenčním kapslím, které se umí vrátit z oběžné dráhy, má Starfall zhruba třicet× větší kapacitu. To mění použití: nejde o vzorek z laboratoře, ale o reálný náklad.
+    Ada: A otevírá to i druhý scénář — sklad na oběžné dráze, ze kterého na povel spadne materiál přesně tam, kde je zrovna potřeba. Proč letadlo nemá šanci
+    Petr: Druhá, ještě větší část plánu je přímá raketová doprava: Starship, který přenese desítky tun z kontinentu na kontinent. Trasu Londýn—New York by raketa zvládla za půl hodiny.
+    Ada: Zdroj: článek na realtech.cz
 ---
 
 Poslat balík na druhou stranu planety rychleji, než stihneš dojet na letiště? Přesně na tom SpaceX právě pracuje — a hned dvěma způsoby. Když 23. června 2026 vzlétl další Falcon 9, na první pohled nešlo o nic výjimečného; SpaceX startuje skoro obden. Tahle raketa ale nesla placatou kapsli, která vypadá spíš jako létající talíř než jako kus rakety. Projekt se jmenuje Starfall a je to první kousek skládačky, na jejímž konci může být doručení nákladu kamkoliv na Zemi do hodiny.

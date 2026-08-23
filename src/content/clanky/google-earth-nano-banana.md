@@ -5,6 +5,23 @@ category: "AI Report"
 date: "2026-07-30"
 zprava: true
 image: "/images/clanky/google-earth-nano-banana.jpg"
+audio:
+  url: "https://audio.realtech.cz/google-earth-nano-banana-v3.mp3?v=c7dfe77d8f55"
+  duration: 136
+  transcript: |-
+    Dnes v RealTechu: Google Earth umí přemalovat jakékoli místo na světě. Stačí napsat, co tam chceš. Nano Banana dva se dostalo do Google Earth. Přiblížíš si prázdný pozemek, napíšeš prompt a dostaneš render zasazený do reálné krajiny. Spuštěno dnes globálně, ve webové verzi. Google dnes pustil do Google Earth generování obrázků modelem Nano Banana dva. Novinka běží ve webové verzi a podle Googlu je od dneška dostupná globálně — takže i u nás, bez čekání na postupný rollout. Ovládání je triviální: přiblížíš si v Google Earth libovolné místo, klikneš na „create image" a napíšeš, co chceš vidět. Zásadní rozdíl proti běžnému generátoru obrázků je v tom, z čeho model vychází. Nekreslí od nuly podle textu — pracuje se satelitními, leteckými a 3D snímky daného místa, takže výsledek sedí do skutečné krajiny a zástavby. Google ukazuje pět scénářů a stojí za to je rozlišit, protože praktická hodnota mezi nimi hodně kolísá. Nejsilnější je vizualizace stavby předtím, než se kopne do země. Najedeš na prázdný pozemek a napíšeš „přidej moderní chatu u jezera z lokálních materiálů" — dostaneš fotorealistický render zasazený přímo do toho svahu, který tam opravdu je. Stejná logika platí pro architekty a urbanisty: prázdná betonová plocha v Tokiu se dá na jeden prompt překlopit do návrhu obchodní čtvrti. Druhá použitelná věc je historie. Zadání „vyrenderuj hyperrealistický pohled na tyhle ruiny Pompejí v roce sedmdesát osm n. l." promění současné ruiny v rušnou římskou ulici. Pro učitele hezká věc do hodiny. Zajímavá je i infografika o místě: podle Googlu tady spolupracují dva modely — Gemini dohledá historická fakta a Nano Banana z nich vyrobí grafiku. Zbylé dva scénáře (proměna okolí do sci-fi a obecné „dej svému oblíbenému místu makeover") jsou spíš hračka. Google výsledky popisuje jako koncepty, ne jako podklad, podle kterého se dá stavět. Zdroj: Transform any place with Nano Banana in Google Earth
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Google Earth umí přemalovat jakékoli místo na světě. Stačí napsat, co tam chceš.
+    Petr: Nano Banana dva se dostalo do Google Earth. Přiblížíš si prázdný pozemek, napíšeš prompt a dostaneš render zasazený do reálné krajiny. Spuštěno dnes globálně, ve webové verzi. Google dnes pustil do Google Earth generování obrázků modelem Nano Banana dva.
+    Ada: Novinka běží ve webové verzi a podle Googlu je od dneška dostupná globálně — takže i u nás, bez čekání na postupný rollout. Ovládání je triviální: přiblížíš si v Google Earth libovolné místo, klikneš na „create image" a napíšeš, co chceš vidět.
+    Petr: Zásadní rozdíl proti běžnému generátoru obrázků je v tom, z čeho model vychází. Nekreslí od nuly podle textu — pracuje se satelitními, leteckými a 3D snímky daného místa, takže výsledek sedí do skutečné krajiny a zástavby.
+    Ada: Google ukazuje pět scénářů a stojí za to je rozlišit, protože praktická hodnota mezi nimi hodně kolísá. Nejsilnější je vizualizace stavby předtím, než se kopne do země.
+    Petr: Najedeš na prázdný pozemek a napíšeš „přidej moderní chatu u jezera z lokálních materiálů" — dostaneš fotorealistický render zasazený přímo do toho svahu, který tam opravdu je.
+    Ada: Stejná logika platí pro architekty a urbanisty: prázdná betonová plocha v Tokiu se dá na jeden prompt překlopit do návrhu obchodní čtvrti. Druhá použitelná věc je historie.
+    Petr: Zadání „vyrenderuj hyperrealistický pohled na tyhle ruiny Pompejí v roce sedmdesát osm n. l." promění současné ruiny v rušnou římskou ulici. Pro učitele hezká věc do hodiny.
+    Ada: Zajímavá je i infografika o místě: podle Googlu tady spolupracují dva modely — Gemini dohledá historická fakta a Nano Banana z nich vyrobí grafiku. Zbylé dva scénáře (proměna okolí do sci-fi a obecné „dej svému oblíbenému místu makeover") jsou spíš hračka.
+    Petr: Google výsledky popisuje jako koncepty, ne jako podklad, podle kterého se dá stavět.
+    Ada: Zdroj: Transform any place with Nano Banana in Google Earth
 ---
 
 Google dnes pustil do **Google Earth** generování obrázků modelem **[Nano Banana 2](/clanky/gemini-omni-flash-nano-banana-2-lite/)**. Novinka běží ve **webové verzi** a podle Googlu je od dneška dostupná **globálně** — takže i u nás, bez čekání na postupný rollout.

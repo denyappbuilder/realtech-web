@@ -5,6 +5,23 @@ category: "AI Report"
 date: "2026-07-26"
 zprava: true
 image: "/images/clanky/deepseek-unik-nahravky-pozastavene-kolo.jpg"
+audio:
+  url: "https://audio.realtech.cz/deepseek-unik-nahravky-pozastavene-kolo-v3.mp3?v=ebeafe207cd1"
+  duration: 133
+  transcript: |-
+    Dnes v RealTechu: DeepSeek zastavil kolo za miliardy kvůli neověřené nahrávce. Čínská umělá inteligence laboratoř ústně oznámila investorům, že druhé kolo zatím nebude. Spouštěčem byl uniklý přepis schůzky, jehož pravost dodnes nikdo nepotvrdil. DeepSeek ústně sdělil zájemcům o vstup do svého druhého kola financování, že obchod zatím pozastavuje. Informoval o tom Bloomberg s odvoláním na lidi obeznámené s jednáním. Investoři měli v následujících dnech podepisovat smlouvy — teď nepodepíšou nic. Zajímavé na tom není číslo. Zajímavé je, co to způsobilo: dokument, o kterém se dosud neví, jestli je pravý. Před několika dny se po čínském internetu rozšířil přepis schůzky, kterou měl zakladatel DeepSeeku Liang Wen-feng vést s blíže neurčenými lidmi. Čínská média včetně Yicai tento týden napsala, že Liang na schůzce mluvil o závislosti na čipech Nvidia a o tom, že Čína v pokročilosti umělá inteligence za Spojenými státy pořád zaostává. Tady je potřeba být přesný, protože většina zahraničních titulků to smazává: Bloomberg pravost těch příspěvků neověřil. DeepSeek na žádost o vyjádření k přepisu ani k financování neodpověděl. Odkazy na obsah zmizely z čínských sociálních sítí během několika hodin a není jasné, jestli je stáhl stát, nebo někdo soukromý. Podle zdrojů Bloombergu pramení pozastavení zčásti z Liangovy frustrace z toho, že se jeho komentáře pro investory dostaly ven. A pozor na detail, který se v přenosech ztrácí: ta schůzka nepatřila k dnešnímu kolu. Šlo o první kolo financování, které se uzavřelo v červnu a přineslo sedm miliard dolarů. Únik tedy nepřišel od někoho zvenčí — přišel zevnitř kruhu, který už do firmy vstoupil. DeepSeek chtěl v druhém kole získat nejméně deset miliard jüanů, tedy zhruba jedna tečka čtyři miliardy dolarů. Cílil přitom na předpeněžní ocenění nejméně čtyři sta osmdesát miliard jüanů — v přepočtu asi šedesát osm miliard dolarů. V prvním kole měla firma cenovku kolem padesát miliard dolarů. Zdroj: Yicai
+  ttsScript: |-
+    Ada: Dnes v RealTechu: DeepSeek zastavil kolo za miliardy kvůli neověřené nahrávce.
+    Petr: Čínská umělá inteligence laboratoř ústně oznámila investorům, že druhé kolo zatím nebude. Spouštěčem byl uniklý přepis schůzky, jehož pravost dodnes nikdo nepotvrdil. DeepSeek ústně sdělil zájemcům o vstup do svého druhého kola financování, že obchod zatím pozastavuje.
+    Ada: Informoval o tom Bloomberg s odvoláním na lidi obeznámené s jednáním. Investoři měli v následujících dnech podepisovat smlouvy — teď nepodepíšou nic. Zajímavé na tom není číslo. Zajímavé je, co to způsobilo: dokument, o kterém se dosud neví, jestli je pravý.
+    Petr: Před několika dny se po čínském internetu rozšířil přepis schůzky, kterou měl zakladatel DeepSeeku Liang Wen-feng vést s blíže neurčenými lidmi.
+    Ada: Čínská média včetně Yicai tento týden napsala, že Liang na schůzce mluvil o závislosti na čipech Nvidia a o tom, že Čína v pokročilosti umělá inteligence za Spojenými státy pořád zaostává.
+    Petr: Tady je potřeba být přesný, protože většina zahraničních titulků to smazává: Bloomberg pravost těch příspěvků neověřil. DeepSeek na žádost o vyjádření k přepisu ani k financování neodpověděl.
+    Ada: Odkazy na obsah zmizely z čínských sociálních sítí během několika hodin a není jasné, jestli je stáhl stát, nebo někdo soukromý. Podle zdrojů Bloombergu pramení pozastavení zčásti z Liangovy frustrace z toho, že se jeho komentáře pro investory dostaly ven.
+    Petr: A pozor na detail, který se v přenosech ztrácí: ta schůzka nepatřila k dnešnímu kolu. Šlo o první kolo financování, které se uzavřelo v červnu a přineslo sedm miliard dolarů.
+    Ada: Únik tedy nepřišel od někoho zvenčí — přišel zevnitř kruhu, který už do firmy vstoupil. DeepSeek chtěl v druhém kole získat nejméně deset miliard jüanů, tedy zhruba jedna tečka čtyři miliardy dolarů.
+    Petr: Cílil přitom na předpeněžní ocenění nejméně čtyři sta osmdesát miliard jüanů — v přepočtu asi šedesát osm miliard dolarů. V prvním kole měla firma cenovku kolem padesát miliard dolarů.
+    Ada: Zdroj: Yicai
 ---
 
 DeepSeek ústně sdělil zájemcům o vstup do svého druhého kola financování, že **obchod zatím pozastavuje**. Informoval o tom Bloomberg s odvoláním na lidi obeznámené s jednáním. Investoři měli v následujících dnech podepisovat smlouvy — teď nepodepíšou nic.

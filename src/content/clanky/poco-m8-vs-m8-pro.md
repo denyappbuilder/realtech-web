@@ -5,6 +5,23 @@ category: "Mobily"
 date: "2026-07-02"
 video: "https://youtu.be/eDkin8oFOwQ"
 videoLength: "7:58"
+audio:
+  url: "https://audio.realtech.cz/poco-m8-vs-m8-pro-v3.mp3?v=35e86b7c9f46"
+  duration: 133
+  transcript: |-
+    Dnes v RealTechu: POCO M8 vs. M8 Pro: má smysl připlatit dva–tři tisíce za Pro verzi?. Otestovali jsme oba telefony — výkon, baterie, foťáky, odolnost i to, který z nich přežil půl hodiny pod vodou. Tady je kompletní srovnání a náš verdikt. POCO M8 a M8 Pro dělí v ceně dva až tři tisíce korun. Oba telefony jsme testovali a prošli rozdíl po rozdílu — od displeje přes výkon a baterii až po odolnost pod vodou. Tady je, co za příplatek reálně dostanete a komu se vyplatí. Po vybalení skoro stejné, v ruce ne Výbava v krabici je u obou totožná: nalepená ochranná fólie, pouzdro a kabel — a u obou chybí nabíjecí adaptér, takže s dokoupením počítejte v obou případech. První rozdíl ucítíte v ruce. M8 Pro je větší kus: o milimetr tlustší, o třicet gramů těžší a s širším displejem. Komu větší telefony nevadí, pro toho bude Pro lepší volba. Kdo má radši tenčí, drobnější a elegantnější telefon, tomu sedne klasická M8 — se zaoblenými okraji displeje působí v kombinaci s nízkou hmotností opravdu prémiově. Displej: papírově vyhrává Pro, okem to nepoznáte Oba telefony mají 120Hz AMOLED se svítivostí až tři tisíce dvě stě nitů — na sluníčku svítí až dost. M8 Pro nemá zaoblené okraje, ale rámečky jedna,pět milimetrů a papírově výrazně lepší rozlišení jedna,5K. Ve skutečnosti je rozdíl okem prakticky nerozeznatelný. Co poznat je: v herním režimu má Pro výrazně vyšší odezvu na dotyk. Výkon: tady je půlka příplatku Klasická M8 běží na Snapdragonu šest Gen tři a v AnTuTu nám vycházela mezi pět set a osm set tisíci body — krásně použitelné na běžné hraní a běžné používání. M8 Pro se Snapdragonem sedm Gen čtyři nám dala přes milion bodů. Pokud plánujete hodně hrát nebo dělat náročnější věci, Pro je určitě větší jistota. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: POCO M8 vs. M8 Pro: má smysl připlatit dva–tři tisíce za Pro verzi?.
+    Petr: Otestovali jsme oba telefony — výkon, baterie, foťáky, odolnost i to, který z nich přežil půl hodiny pod vodou. Tady je kompletní srovnání a náš verdikt. POCO M8 a M8 Pro dělí v ceně dva až tři tisíce korun.
+    Ada: Oba telefony jsme testovali a prošli rozdíl po rozdílu — od displeje přes výkon a baterii až po odolnost pod vodou. Tady je, co za příplatek reálně dostanete a komu se vyplatí.
+    Petr: Po vybalení skoro stejné, v ruce ne Výbava v krabici je u obou totožná: nalepená ochranná fólie, pouzdro a kabel — a u obou chybí nabíjecí adaptér, takže s dokoupením počítejte v obou případech.
+    Ada: První rozdíl ucítíte v ruce. M8 Pro je větší kus: o milimetr tlustší, o třicet gramů těžší a s širším displejem. Komu větší telefony nevadí, pro toho bude Pro lepší volba.
+    Petr: Kdo má radši tenčí, drobnější a elegantnější telefon, tomu sedne klasická M8 — se zaoblenými okraji displeje působí v kombinaci s nízkou hmotností opravdu prémiově. Displej: papírově vyhrává Pro, okem to nepoznáte
+    Ada: Oba telefony mají 120Hz AMOLED se svítivostí až tři tisíce dvě stě nitů — na sluníčku svítí až dost. M8 Pro nemá zaoblené okraje, ale rámečky jedna,pět milimetrů a papírově výrazně lepší rozlišení jedna,5K.
+    Petr: Ve skutečnosti je rozdíl okem prakticky nerozeznatelný. Co poznat je: v herním režimu má Pro výrazně vyšší odezvu na dotyk. Výkon: tady je půlka příplatku
+    Ada: Klasická M8 běží na Snapdragonu šest Gen tři a v AnTuTu nám vycházela mezi pět set a osm set tisíci body — krásně použitelné na běžné hraní a běžné používání. M8 Pro se Snapdragonem sedm Gen čtyři nám dala přes milion bodů.
+    Petr: Pokud plánujete hodně hrát nebo dělat náročnější věci, Pro je určitě větší jistota.
+    Ada: Zdroj: článek na realtech.cz
 ---
 
 POCO M8 a M8 Pro dělí v ceně 2 až 3 tisíce korun. Oba telefony jsme testovali a prošli rozdíl po rozdílu — od displeje přes výkon a baterii až po odolnost pod vodou. Tady je, co za příplatek reálně dostanete a komu se vyplatí.

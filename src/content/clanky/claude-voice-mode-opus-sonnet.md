@@ -6,6 +6,24 @@ category: "AI Agenti"
 date: "2026-07-24"
 zprava: true
 image: "/images/clanky/claude-voice-mode-opus-sonnet.jpg"
+audio:
+  url: "https://audio.realtech.cz/claude-voice-mode-opus-sonnet-v3.mp3?v=e60dcc911a7a"
+  duration: 132
+  transcript: |-
+    Dnes v RealTechu: Claude už si s tebou popovídá naplno — a sáhne ti do Gmailu i Slacku. Anthropic pustil do hlasového režimu silnější modely Opus a Sonnet a propojil ho s Gmailem, kalendářem, Slackem nebo Notionem. Hlasem teď vyřídíš i reálnou práci. Čeština ale pořád chybí. Anthropic včera vylepšil hlasový režim Claude. Doteď v něm běžel jen nejmenší a nejrychlejší model Haiku — dobrý na rychlé dotazy, ale na složitější věci krátký. Nově si ve voice mode vybereš i Opus a Sonnet, tedy stejné modely, na kterých děláš vážnou práci v textu. Hlavní novinka: hlas napojený na tvoje aplikace Zajímavější než výběr modelu je ale druhá část oznámení: hlasový režim se nově umí napojit na připojené aplikace — Gmail, Google Kalendář, Google Docs, Slack, Canvu nebo Notion. Prakticky to znamená, že Claudovi cestou z práce řekneš „přesuň mi zítřejší schůzku na deset a napiš o tom Petrovi", a on to udělá — přehodí událost v kalendáři a připraví zprávu. Nebo si s ním nahlas projdeš nápad a poprosíš ho, ať z konverzace udělá jednostránkový dokument v Notionu. Tohle je zatím největší rozdíl proti ChatGPT: OpenAI před pár týdny vylepšila svůj hlasový režim modely GPT-Live a zní přirozeněji, ale do aplikací ti nesáhne. Claude teď hlasem umí věci reálně vyřídit, ne jen odpovídat. Šikovný detail: mezi textem a hlasem můžeš přepínat uprostřed konverzace, včetně změny modelu. Rychlý nápad probereš s Haiku a na hlubší rozbor přepneš na Opus, aniž bys začínal znovu. Dostupnost: pro všechny, ale s hvězdičkou Novinka je v betě na všech platformách a pro všechny uživatele včetně free plánu — tam ale zůstáváš u Haiku a jen jedné připojené aplikace. Placené plány dostanou plný výběr modelů i aplikací. A teď ta studená sprcha: mezi podporovanými jazyky je francouzština, němčina, španělština, hindština, japonština i korejština — čeština chybí. Zdroj: TechCrunch, The Verge a Anthropic
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Claude už si s tebou popovídá naplno — a sáhne ti do Gmailu i Slacku.
+    Petr: Anthropic pustil do hlasového režimu silnější modely Opus a Sonnet a propojil ho s Gmailem, kalendářem, Slackem nebo Notionem. Hlasem teď vyřídíš i reálnou práci. Čeština ale pořád chybí.
+    Ada: Anthropic včera vylepšil hlasový režim Claude. Doteď v něm běžel jen nejmenší a nejrychlejší model Haiku — dobrý na rychlé dotazy, ale na složitější věci krátký.
+    Petr: Nově si ve voice mode vybereš i Opus a Sonnet, tedy stejné modely, na kterých děláš vážnou práci v textu. Hlavní novinka: hlas napojený na tvoje aplikace
+    Ada: Zajímavější než výběr modelu je ale druhá část oznámení: hlasový režim se nově umí napojit na připojené aplikace — Gmail, Google Kalendář, Google Docs, Slack, Canvu nebo Notion.
+    Petr: Prakticky to znamená, že Claudovi cestou z práce řekneš „přesuň mi zítřejší schůzku na deset a napiš o tom Petrovi", a on to udělá — přehodí událost v kalendáři a připraví zprávu.
+    Ada: Nebo si s ním nahlas projdeš nápad a poprosíš ho, ať z konverzace udělá jednostránkový dokument v Notionu.
+    Petr: Tohle je zatím největší rozdíl proti ChatGPT: OpenAI před pár týdny vylepšila svůj hlasový režim modely GPT-Live a zní přirozeněji, ale do aplikací ti nesáhne. Claude teď hlasem umí věci reálně vyřídit, ne jen odpovídat.
+    Ada: Šikovný detail: mezi textem a hlasem můžeš přepínat uprostřed konverzace, včetně změny modelu. Rychlý nápad probereš s Haiku a na hlubší rozbor přepneš na Opus, aniž bys začínal znovu.
+    Petr: Dostupnost: pro všechny, ale s hvězdičkou Novinka je v betě na všech platformách a pro všechny uživatele včetně free plánu — tam ale zůstáváš u Haiku a jen jedné připojené aplikace.
+    Ada: Placené plány dostanou plný výběr modelů i aplikací. A teď ta studená sprcha: mezi podporovanými jazyky je francouzština, němčina, španělština, hindština, japonština i korejština — čeština chybí.
+    Petr: Zdroj: TechCrunch, The Verge a Anthropic
 ---
 
 Anthropic včera vylepšil **hlasový režim [Claude](/clanky/claude-anthropic-pentagon/)**. Doteď v něm běžel jen nejmenší a nejrychlejší model Haiku — dobrý na rychlé dotazy, ale na složitější věci krátký. Nově si ve voice mode vybereš i **Opus a Sonnet**, tedy stejné modely, na kterých děláš vážnou práci v textu.

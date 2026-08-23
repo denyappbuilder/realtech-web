@@ -5,6 +5,24 @@ category: "AI Report"
 date: "2026-07-26"
 zprava: true
 image: "/images/clanky/youtube-shorts-vlastni-nahledy.jpg"
+audio:
+  url: "https://audio.realtech.cz/youtube-shorts-vlastni-nahledy-v3.mp3?v=d95b5936b7c7"
+  duration: 130
+  transcript: |-
+    Dnes v RealTechu: YouTube konečně pouští vlastní náhledy ke Shorts. A thumbnail vám udělá i umělá inteligence. Tvůrci v Partner Programu můžou nově nahrávat vlastní náhledové obrázky ke Shorts — funkce, na kterou se čekalo roky. Do Ask Studia zároveň přibyla umělá inteligence, která thumbnail k dlouhému videu vygeneruje na požádání. Náhledový obrázek je u YouTube videa polovina úspěchu. U Shorts jste ho ale doteď neměli pod kontrolou — vybírali jste maximálně políčko z videa. To se mění: YouTube v pátek oznámil balík změn kolem thumbnailů. Vlastní thumbnail ke Shorts Hlavní novinka: tvůrci v YouTube Partner Programu můžou nahrávat vlastní náhledové obrázky ke Shorts, přesně jako u dlouhých videí. YouTube to sám označuje za jednu z nejžádanějších funkcí — dává vám kontrolu nad tím, jak Short vypadá v přehledech a jak divák pozná, do čeho jde. Zatím je to omezené na Partner Program, ale YouTube slibuje, že funkci časem rozšíří na další tvůrce. Takže pokud ještě monetizaci nemáte, chvíli si počkáte. Druhá, méně nápadná změna: u Shorts si teď na desktopu vyberete ze tří navržených políček — stejně jako to dlouho funguje u dlouhých videí. V mobilní aplikaci můžete pořád sáhnout po libovolném snímku z videa. Thumbnaily rovnou v Ask Studiu Třetí kus je ten zajímavější, pokud sledujete umělá inteligence: generování náhledů se přesouvá přímo do Ask Studia — zatím pro dlouhá videa. Řeknete si o thumbnail k poslednímu videu a pak ho v chatu doladíte: barvy, rozvržení, kompozice. YouTube tvrdí, že výsledek vychází z témat konkrétního videa a přizpůsobí se vašemu vizuálnímu stylu. Prakticky to znamená, že menší tvůrci, co dosud lepili náhledy v Canvě nebo v telefonu, dostávají použitelný nástroj přímo v místě, kde video nahrávají. Jestli to nahradí ruční práci u kanálů, které mají vypilovaný vizuál, je jiná otázka — umělá inteligence generátor vám dá průměr rychle, ne nadprůměr. Zdroj: YouTube Blog
+  ttsScript: |-
+    Ada: Dnes v RealTechu: YouTube konečně pouští vlastní náhledy ke Shorts. A thumbnail vám udělá i umělá inteligence.
+    Petr: Tvůrci v Partner Programu můžou nově nahrávat vlastní náhledové obrázky ke Shorts — funkce, na kterou se čekalo roky. Do Ask Studia zároveň přibyla umělá inteligence, která thumbnail k dlouhému videu vygeneruje na požádání.
+    Ada: Náhledový obrázek je u YouTube videa polovina úspěchu. U Shorts jste ho ale doteď neměli pod kontrolou — vybírali jste maximálně políčko z videa. To se mění: YouTube v pátek oznámil balík změn kolem thumbnailů.
+    Petr: Vlastní thumbnail ke Shorts Hlavní novinka: tvůrci v YouTube Partner Programu můžou nahrávat vlastní náhledové obrázky ke Shorts, přesně jako u dlouhých videí.
+    Ada: YouTube to sám označuje za jednu z nejžádanějších funkcí — dává vám kontrolu nad tím, jak Short vypadá v přehledech a jak divák pozná, do čeho jde.
+    Petr: Zatím je to omezené na Partner Program, ale YouTube slibuje, že funkci časem rozšíří na další tvůrce. Takže pokud ještě monetizaci nemáte, chvíli si počkáte.
+    Ada: Druhá, méně nápadná změna: u Shorts si teď na desktopu vyberete ze tří navržených políček — stejně jako to dlouho funguje u dlouhých videí. V mobilní aplikaci můžete pořád sáhnout po libovolném snímku z videa.
+    Petr: Thumbnaily rovnou v Ask Studiu Třetí kus je ten zajímavější, pokud sledujete umělá inteligence: generování náhledů se přesouvá přímo do Ask Studia — zatím pro dlouhá videa.
+    Ada: Řeknete si o thumbnail k poslednímu videu a pak ho v chatu doladíte: barvy, rozvržení, kompozice. YouTube tvrdí, že výsledek vychází z témat konkrétního videa a přizpůsobí se vašemu vizuálnímu stylu.
+    Petr: Prakticky to znamená, že menší tvůrci, co dosud lepili náhledy v Canvě nebo v telefonu, dostávají použitelný nástroj přímo v místě, kde video nahrávají.
+    Ada: Jestli to nahradí ruční práci u kanálů, které mají vypilovaný vizuál, je jiná otázka — umělá inteligence generátor vám dá průměr rychle, ne nadprůměr.
+    Petr: Zdroj: YouTube Blog
 ---
 
 Náhledový obrázek je u YouTube videa polovina úspěchu. U Shorts jste ho ale doteď neměli pod kontrolou — vybírali jste maximálně políčko z videa. To se mění: YouTube v pátek oznámil balík změn kolem thumbnailů.

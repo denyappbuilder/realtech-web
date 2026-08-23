@@ -5,6 +5,24 @@ category: "AI Report"
 date: "2026-08-07"
 zprava: true
 image: "/images/clanky/deepmind-weathernext-cyklony.jpg"
+audio:
+  url: "https://audio.realtech.cz/deepmind-weathernext-cyklony-v3.mp3?v=4d2d9cc64768"
+  duration: 134
+  transcript: |-
+    Dnes v RealTechu: DeepMind uvolnil model, který předpovídá hurikány o den dřív. Váhy jsou zdarma na GitHubu. WeatherNext dostal článek v Nature: tříd­enní předpověď dráhy i síly cyklonu je stejně přesná jako dřívější dvoudenní. Google k tomu otevřel kód i váhy modelu. Google DeepMind ve čtvrtek šestého srpna zveřejnil v Nature práci k modelu WeatherNext — a rovnou k ní otevřel kód i váhy na GitHubu. Podstata: model předpovídá u tropických cyklonů zároveň dráhu, sílu i strukturu větru a dělá to zhruba o jeden celý den přesněji než dosavadní špička. Tříd­enní předpověď z WeatherNextu je podle měření tak dobrá jako to, co předchozí modely zvládly na dva dny dopředu. DeepMind ten skok popisuje jako ekvivalent deseti let pokroku v meteorologii — a to není marketingová nadsázka vycucaná z prstu, ale porovnání s trendem zpřesňování předpovědí za posledních dvacet let. Proč je to velká věc Cyklony (hurikány, tajfuny) mají za posledních padesát let na svědomí přes sedm set nula mrtvých a tisíc čtyři sta miliard dolarů škod. U evakuace přitom rozhoduje každá hodina — den navíc je rozdíl mezi „stihli jsme to" a „nestihli". Technicky to bylo dosud rozdvojené. Kam cyklon poletí, řídí obří globální proudění, které se nejlíp modeluje hrubými globálními modely. Jak silný bude, závisí na jemné fyzice přímo v jádru bouře, na což se nasazovaly detailní lokální modely. WeatherNext to spojil do jednoho modelu. A tady je ta překvapivá část: model si vystačí s rozlišením dvacet osm × dvacet osm km, tedy asi sto× hrubším, než na jaké byly zvyklé tradiční modely. Menší verze WeatherNext dva-mini jede dokonce na sto jedenáct × sto jedenáct km a pořád funguje dobře. DeepMind sám přiznává, že úplně nechápe, jak to jde — je to podle nich otevřená výzkumná otázka. Už to běželo naostro Není to laboratorní demo. Zdroj: Google DeepMind, Nature a GitHub
+  ttsScript: |-
+    Ada: Dnes v RealTechu: DeepMind uvolnil model, který předpovídá hurikány o den dřív. Váhy jsou zdarma na GitHubu.
+    Petr: WeatherNext dostal článek v Nature: tříd­enní předpověď dráhy i síly cyklonu je stejně přesná jako dřívější dvoudenní. Google k tomu otevřel kód i váhy modelu.
+    Ada: Google DeepMind ve čtvrtek šestého srpna zveřejnil v Nature práci k modelu WeatherNext — a rovnou k ní otevřel kód i váhy na GitHubu.
+    Petr: Podstata: model předpovídá u tropických cyklonů zároveň dráhu, sílu i strukturu větru a dělá to zhruba o jeden celý den přesněji než dosavadní špička.
+    Ada: Tříd­enní předpověď z WeatherNextu je podle měření tak dobrá jako to, co předchozí modely zvládly na dva dny dopředu.
+    Petr: DeepMind ten skok popisuje jako ekvivalent deseti let pokroku v meteorologii — a to není marketingová nadsázka vycucaná z prstu, ale porovnání s trendem zpřesňování předpovědí za posledních dvacet let. Proč je to velká věc
+    Ada: Cyklony (hurikány, tajfuny) mají za posledních padesát let na svědomí přes sedm set nula mrtvých a tisíc čtyři sta miliard dolarů škod. U evakuace přitom rozhoduje každá hodina — den navíc je rozdíl mezi „stihli jsme to" a „nestihli".
+    Petr: Technicky to bylo dosud rozdvojené. Kam cyklon poletí, řídí obří globální proudění, které se nejlíp modeluje hrubými globálními modely. Jak silný bude, závisí na jemné fyzice přímo v jádru bouře, na což se nasazovaly detailní lokální modely.
+    Ada: WeatherNext to spojil do jednoho modelu. A tady je ta překvapivá část: model si vystačí s rozlišením dvacet osm × dvacet osm km, tedy asi sto× hrubším, než na jaké byly zvyklé tradiční modely.
+    Petr: Menší verze WeatherNext dva-mini jede dokonce na sto jedenáct × sto jedenáct km a pořád funguje dobře. DeepMind sám přiznává, že úplně nechápe, jak to jde — je to podle nich otevřená výzkumná otázka.
+    Ada: Už to běželo naostro Není to laboratorní demo.
+    Petr: Zdroj: Google DeepMind, Nature a GitHub
 ---
 
 Google DeepMind ve čtvrtek 6. srpna zveřejnil v **Nature** práci k modelu **WeatherNext** — a rovnou k ní **otevřel kód i váhy** na GitHubu. Podstata: model předpovídá u tropických cyklonů zároveň **dráhu, sílu i strukturu větru** a dělá to zhruba o **jeden celý den** přesněji než dosavadní špička. Tříd­enní předpověď z WeatherNextu je podle měření tak dobrá jako to, co předchozí modely zvládly na dva dny dopředu.

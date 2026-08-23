@@ -5,6 +5,23 @@ category: "Mobily"
 date: "2026-07-22"
 zprava: true
 image: "/images/clanky/samsung-unpacked-fold8-watch9.jpg"
+audio:
+  url: "https://audio.realtech.cz/samsung-unpacked-fold8-watch9-v3.mp3?v=e02f5481409a"
+  duration: 161
+  transcript: |-
+    Dnes v RealTechu: Samsung otočil skládačku na šířku. Tři nové Galaxy Z a dvoje hodinky — české ceny startují na deset tisících. Galaxy Unpacked v Londýně: Fold osm Ultra s osm\" displejem a 200MP foťákem, překvapivý Fold osm s displejem na šířku, tenčí Flip osm a hodinky Watch devět a Ultra dva s umělá inteligence zdravotním asistentem. Všechny české ceny, termíny a předobjednávkové bonusy. Samsung dnes v Londýně vybalil letní várku: tři skládačky, dvoje hodinky a ukázku chytrých brýlí. A jedno velké překvapení — základní Fold už se neotevírá jako kniha na výšku, ale na šířku. Flex Titanium: konec viditelného ohybu? Všechny tři telefony stojí na avizované technologii Flex Titanium: pod ohebným OLED je nově vrstva titanové slitiny (k dosavadní titanové desce), která podle Samsungu zpevňuje displej, tlumí nárazy a snižuje viditelnost ohybu. K tomu nový pant Armor FlexHinge a stejný čip pro všechny: Snapdragon osm Elite Gen pět. Tři skládačky, tři ceny Galaxy Z Fold osm Ultra — vlajka: osm" vnitřní + šest tečka pět" vnější displej, 200MP hlavní foťák, rozevřený jen čtyři,jedna milimetrů, pět 000mAh křemíko-uhlíková baterie. Od padesát tři devět set devadesát devět Kč (1TB verze šedesát osm devět set devadesát devět Kč). Galaxy Z Fold osm — tohle je ta zajímavost: překlápí se na šířku, vnitřní sedm tečka šest" displej má poměr čtyři:tři jako tablet. O čtrnáct g lehčí než Ultra, bez teleobjektivu. Od čtyřicet osm devět set devadesát devět Kč. Galaxy Z Flip osm — véčko zhublo: sto osmdesát g, venkovní čtyři tečka jedna" displej, vnitřní šest tečka devět". Od třicet jedna devět set devadesát devět Kč. Drobná vada na kráse: ani letos telefony nativně nepodporují magnetické nabíjení Qi2 — bez pouzdra s magnety se neobejdete. A zdražovalo se napříč — mezigeneračně o jedna nula až pět pět set Kč podle varianty. Zdroj: Samsung Newsroom, Engadget a SMARTmania
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Samsung otočil skládačku na šířku. Tři nové Galaxy Z a dvoje hodinky — české ceny startují na deset tisících.
+    Petr: Galaxy Unpacked v Londýně: Fold osm Ultra s osm\" displejem a 200MP foťákem, překvapivý Fold osm s displejem na šířku, tenčí Flip osm a hodinky Watch devět a Ultra dva s umělá inteligence zdravotním asistentem.
+    Ada: Všechny české ceny, termíny a předobjednávkové bonusy. Samsung dnes v Londýně vybalil letní várku: tři skládačky, dvoje hodinky a ukázku chytrých brýlí. A jedno velké překvapení — základní Fold už se neotevírá jako kniha na výšku, ale na šířku.
+    Petr: Flex Titanium: konec viditelného ohybu? Všechny tři telefony stojí na avizované technologii Flex Titanium: pod ohebným OLED je nově vrstva titanové slitiny (k dosavadní titanové desce), která podle Samsungu zpevňuje displej, tlumí nárazy a snižuje viditelnost ohybu.
+    Ada: K tomu nový pant Armor FlexHinge a stejný čip pro všechny: Snapdragon osm Elite Gen pět. Tři skládačky, tři ceny
+    Petr: Galaxy Z Fold osm Ultra — vlajka: osm" vnitřní + šest tečka pět" vnější displej, 200MP hlavní foťák, rozevřený jen čtyři,jedna milimetrů, pět 000mAh křemíko-uhlíková baterie.
+    Ada: Od padesát tři devět set devadesát devět Kč (1TB verze šedesát osm devět set devadesát devět Kč). Galaxy Z Fold osm — tohle je ta zajímavost: překlápí se na šířku, vnitřní sedm tečka šest" displej má poměr čtyři:tři jako tablet.
+    Petr: O čtrnáct g lehčí než Ultra, bez teleobjektivu. Od čtyřicet osm devět set devadesát devět Kč. Galaxy Z Flip osm — véčko zhublo: sto osmdesát g, venkovní čtyři tečka jedna" displej, vnitřní šest tečka devět".
+    Ada: Od třicet jedna devět set devadesát devět Kč. Drobná vada na kráse: ani letos telefony nativně nepodporují magnetické nabíjení Qi2 — bez pouzdra s magnety se neobejdete.
+    Petr: A zdražovalo se napříč — mezigeneračně o jedna nula až pět pět set Kč podle varianty.
+    Ada: Zdroj: Samsung Newsroom, Engadget a SMARTmania
 ---
 
 Samsung dnes v Londýně vybalil letní várku: **tři skládačky, dvoje hodinky** a ukázku chytrých brýlí. A jedno velké překvapení — základní Fold už se neotevírá jako kniha na výšku, ale **na šířku**.

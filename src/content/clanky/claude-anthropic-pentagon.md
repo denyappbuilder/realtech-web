@@ -5,6 +5,22 @@ category: "AI Report"
 date: "2026-07-02"
 video: "https://youtu.be/jK3K1a9Z3AA"
 videoLength: "12:50"
+audio:
+  url: "https://audio.realtech.cz/claude-anthropic-pentagon-v3.mp3?v=ad2948bf1387"
+  duration: 138
+  transcript: |-
+    Dnes v RealTechu: Claude: umělá inteligence, která řekla Pentagonu ne. Kdo za ní stojí a komu se vyplatí. Firma Anthropic odmítla vyškrtnout ze své umělá inteligence zákaz masového sledování občanů — a Trumpova administrativa nařídila úřadům její umělá inteligence přestat používat. Rozebrali jsme, v čem je Claude nejlepší a v čem ne. V únoru dva tisíce dvacet šest nařídila Trumpova administrativa všem svým úřadům přestat používat jednu konkrétní umělá inteligence. Pentagon ji označil za riziko. Důvod? Firma za ní odmítla pomoc se sledováním vlastních občanů. Jmenuje se Claude, v Česku je málo známá — a přitom jí raketově roste počet uživatelů a nejen v programování patří mezi nejlepší na světě. Rozebrali jsme, kdo za Claudem stojí, proč se s ním Pentagon soudí a komu se vyplatí. V čem Claude reálně exceluje Psaní textů. V nezávislých srovnáních končí na špici: je výrazně lepší v chápání celkové logiky a udržení více myšlenek v textu, nepoužívá tolik umělá inteligence vaty a umí držet jednotný styl. Programování. U vývojářů je momentálně absolutní jednička. Zhruba čtyři procent všech nově uložených změn ve veřejných softwarových projektech po celém světě dnes nevytvářejí lidští programátoři — generuje je nástroj Claude Code. Ten v únoru dva tisíce dvacet šest běžel na ročním tempu tržeb přes dva tečka pět miliardy dolarů a hranice jedna miliardy dosáhl rychleji než ChatGPT — rychleji než jakýkoliv softwarový produkt v historii. Artefakty a kancelář. Když Claude generuje kód, dokument nebo webovou stránku, zobrazí ji vedle v živém okně — hned to vidíte, vyzkoušíte a necháte přepsat. S Wordem, Excelem a PowerPointem pracuje výrazně líp než ChatGPT: kód pouští přímo, takže gigantický Excel sám profiltruje a zanalyzuje. Dlouhé dokumenty. Kontextové okno až jedna milion tokenů znamená dvě stě padesát—čtyři sta tisíc slov. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Claude: umělá inteligence, která řekla Pentagonu ne. Kdo za ní stojí a komu se vyplatí.
+    Petr: Firma Anthropic odmítla vyškrtnout ze své umělá inteligence zákaz masového sledování občanů — a Trumpova administrativa nařídila úřadům její umělá inteligence přestat používat. Rozebrali jsme, v čem je Claude nejlepší a v čem ne.
+    Ada: V únoru dva tisíce dvacet šest nařídila Trumpova administrativa všem svým úřadům přestat používat jednu konkrétní umělá inteligence. Pentagon ji označil za riziko. Důvod? Firma za ní odmítla pomoc se sledováním vlastních občanů.
+    Petr: Jmenuje se Claude, v Česku je málo známá — a přitom jí raketově roste počet uživatelů a nejen v programování patří mezi nejlepší na světě. Rozebrali jsme, kdo za Claudem stojí, proč se s ním Pentagon soudí a komu se vyplatí.
+    Ada: V čem Claude reálně exceluje Psaní textů. V nezávislých srovnáních končí na špici: je výrazně lepší v chápání celkové logiky a udržení více myšlenek v textu, nepoužívá tolik umělá inteligence vaty a umí držet jednotný styl.
+    Petr: Programování. U vývojářů je momentálně absolutní jednička. Zhruba čtyři procent všech nově uložených změn ve veřejných softwarových projektech po celém světě dnes nevytvářejí lidští programátoři — generuje je nástroj Claude Code.
+    Ada: Ten v únoru dva tisíce dvacet šest běžel na ročním tempu tržeb přes dva tečka pět miliardy dolarů a hranice jedna miliardy dosáhl rychleji než ChatGPT — rychleji než jakýkoliv softwarový produkt v historii.
+    Petr: Artefakty a kancelář. Když Claude generuje kód, dokument nebo webovou stránku, zobrazí ji vedle v živém okně — hned to vidíte, vyzkoušíte a necháte přepsat.
+    Ada: S Wordem, Excelem a PowerPointem pracuje výrazně líp než ChatGPT: kód pouští přímo, takže gigantický Excel sám profiltruje a zanalyzuje. Dlouhé dokumenty. Kontextové okno až jedna milion tokenů znamená dvě stě padesát—čtyři sta tisíc slov.
+    Petr: Zdroj: článek na realtech.cz
 ---
 
 V únoru 2026 nařídila Trumpova administrativa všem svým úřadům přestat používat jednu konkrétní AI. Pentagon ji označil za riziko. Důvod? Firma za ní odmítla pomoc se sledováním vlastních občanů. Jmenuje se Claude, v Česku je málo známá — a přitom jí raketově roste počet uživatelů a nejen v programování patří mezi nejlepší na světě. Rozebrali jsme, kdo za Claudem stojí, proč se s ním Pentagon soudí a komu se vyplatí.

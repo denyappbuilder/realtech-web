@@ -5,6 +5,23 @@ category: "Vesmír"
 date: "2026-07-02"
 video: "https://youtu.be/3Z6VkTiKrDc"
 videoLength: "7:59"
+audio:
+  url: "https://audio.realtech.cz/proc-je-spacex-tak-napred-v3.mp3?v=0af000dc31bc"
+  duration: 139
+  transcript: |-
+    Dnes v RealTechu: Proč je SpaceX tak napřed? Pět pravidel inovace, která ostatní ignorují. V roce dva tisíce dvacet pět vynesla SpaceX devadesát procent veškeré hmoty na oběžnou dráhu — s třináct tisíci zaměstnanci poráží NASA i Boeing. Rozebrali jsme metodiku, díky které to dokáže. Vyvíjí rakety, které létají opakovaně, a zvládá to s výrazně menším počtem lidí než třeba NASA. Jak to dokáže? Není to náhoda ani jen peníze — je za tím konkrétní metodika, kterou jsme rozebrali bod po bodu. Koeficient neefektivity: měřítko lenosti myšlení SpaceX používá jednoduchou metriku: cena produktu dělená cenou surovin, ze kterých je vyrobený. Jinými slovy — kolikrát je produkt dražší než materiál v něm. Když koeficient vychází kolem jedné nebo dvou, je cena blízko fyzikálnímu minimu a výroba je hodně efektivní. V leteckém a raketovém průmyslu je přitom zvykem koeficient dvě stě až pět set — obrovský prostor pro zefektivnění. A SpaceX v praxi? Raketa Falcon devět stojí desetkrát tolik, co její výrobní materiály — koeficient deset. Jenže díky tomu, že velká část rakety létá opakovaně, klesá na dva až čtyři. Její stupně přitom létají tak často, že jeden z nich po návratu narazil do Měsíce. Extrémní efektivita. Koeficient je vlastně měřítko lenosti myšlení. SpaceX nepřebírá zažité koncepty jen proto, že se tak něco dělá posledních padesát let. Na problém se dívá od základu — co je fyzikálně možné — a všechno ostatní zpochybňuje, včetně vlastních dřívějších konceptů. Příklad: trup rakety Starship, která už při letu třináct poprvé vypustila satelity Starlink V3. Místo hliníku nebo uhlíkových vláken zvolili netradičně ocel — trup se tím zlevnil a navíc se ocel snadno opravuje, což se vyplatí, až bude raketa létat opakovaně. Pět bodů inovace — a proč nesmíte přeskakovat Elon Musk stanovil pět bodů inovace a opakuje, že klíčové je držet jejich pořadí. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Proč je SpaceX tak napřed? Pět pravidel inovace, která ostatní ignorují.
+    Petr: V roce dva tisíce dvacet pět vynesla SpaceX devadesát procent veškeré hmoty na oběžnou dráhu — s třináct tisíci zaměstnanci poráží NASA i Boeing. Rozebrali jsme metodiku, díky které to dokáže.
+    Ada: Vyvíjí rakety, které létají opakovaně, a zvládá to s výrazně menším počtem lidí než třeba NASA. Jak to dokáže? Není to náhoda ani jen peníze — je za tím konkrétní metodika, kterou jsme rozebrali bod po bodu.
+    Petr: Koeficient neefektivity: měřítko lenosti myšlení SpaceX používá jednoduchou metriku: cena produktu dělená cenou surovin, ze kterých je vyrobený. Jinými slovy — kolikrát je produkt dražší než materiál v něm.
+    Ada: Když koeficient vychází kolem jedné nebo dvou, je cena blízko fyzikálnímu minimu a výroba je hodně efektivní. V leteckém a raketovém průmyslu je přitom zvykem koeficient dvě stě až pět set — obrovský prostor pro zefektivnění.
+    Petr: A SpaceX v praxi? Raketa Falcon devět stojí desetkrát tolik, co její výrobní materiály — koeficient deset. Jenže díky tomu, že velká část rakety létá opakovaně, klesá na dva až čtyři.
+    Ada: Její stupně přitom létají tak často, že jeden z nich po návratu narazil do Měsíce. Extrémní efektivita. Koeficient je vlastně měřítko lenosti myšlení. SpaceX nepřebírá zažité koncepty jen proto, že se tak něco dělá posledních padesát let.
+    Petr: Na problém se dívá od základu — co je fyzikálně možné — a všechno ostatní zpochybňuje, včetně vlastních dřívějších konceptů. Příklad: trup rakety Starship, která už při letu třináct poprvé vypustila satelity Starlink V3.
+    Ada: Místo hliníku nebo uhlíkových vláken zvolili netradičně ocel — trup se tím zlevnil a navíc se ocel snadno opravuje, což se vyplatí, až bude raketa létat opakovaně. Pět bodů inovace — a proč nesmíte přeskakovat
+    Petr: Elon Musk stanovil pět bodů inovace a opakuje, že klíčové je držet jejich pořadí.
+    Ada: Zdroj: článek na realtech.cz
 ---
 
 V roce 2025 vynesla SpaceX 90 % veškeré hmoty na oběžnou dráhu. Vyvíjí rakety, které létají opakovaně, a zvládá to s výrazně menším počtem lidí než třeba NASA. Jak to dokáže? Není to náhoda ani jen peníze — je za tím konkrétní metodika, kterou jsme rozebrali bod po bodu.

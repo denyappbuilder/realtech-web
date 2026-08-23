@@ -5,6 +5,23 @@ description: "Anthropic vydal nejsilnější model své historie a za tři dny m
 category: "AI Report"
 date: "2026-07-02"
 image: "/images/clanky/anthropic-fable-mythos.jpg"
+audio:
+  url: "https://audio.realtech.cz/anthropic-fable-mythos-v3.mp3?v=f463236cc5ca"
+  duration: 145
+  transcript: |-
+    Dnes v RealTechu: Vláda USA poprvé zakázala umělá inteligence model — a to i vlastním lidem Anthropicu. Anthropic vydal nejsilnější model své historie a za tři dny mu vláda nařídila ho vypnout. Precedens, který mění pravidla pro celou umělá inteligence branži — a týká se i Evropy. Anthropic vydal vůbec nejsilnější model, jaký kdy postavil. A pár dní nato ho musel vypnout — ne protože chtěl, ale protože mu to nařídila vláda USA. Nejdivnější na tom je, že zákaz dopadl i na vlastní zaměstnance Anthropicu. Tohle není příběh o jednom modelu: je to precedens, který mění pravidla pro celou umělá inteligence hru. A ano, týká se i uživatelů v Česku. Dva modely, jeden základ Vraťme se na devátého června dva tisíce dvacet šest. Anthropic ten den uvádí dva modely. Prvním je Claude Fable pět — veřejný, s plnými bezpečnostními pojistkami, dostupný stovkám milionů lidí jako každý jiný Claude. Druhým je Claude Mythos pět: v jádru ten samý model, ale s uvolněnými pojistkami. Není určený veřejnosti, ale úzké skupině kyberobránců v programu Project Glasswing. Mythos je tier nad Opusem — nejsilnější třída, jakou kdy Anthropic pustil ven. A teď ironie, kterou stojí za to si podržet: jen pár dní před vydáním Anthropic sám veřejně varoval, že umělá inteligence začíná být příliš nebezpečná. Pak vydal nejsilnější model své historie. Přesně tahle dvojakost rozpoutala, co přišlo dál. dvanáctého června, sedmnáct:dvacet jedna: vláda zatahuje za brzdu Vláda USA vydala takzvanou export control directive — exportní omezení — a nařídila Anthropicu pozastavit veškerý přístup k Fable pět i Mythos pět. Pro koho? Pro jakéhokoli cizího státního příslušníka, uvnitř USA i mimo. Včetně zaměstnanců Anthropicu, kteří nejsou občané USA — firma musela od vlastního modelu odstřihnout část vlastních lidí. Ostatní modely Claude (Opus a spol.) běžely dál bez omezení; týkalo se to jen téhle nejsilnější dvojky. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Vláda USA poprvé zakázala umělá inteligence model — a to i vlastním lidem Anthropicu.
+    Petr: Anthropic vydal nejsilnější model své historie a za tři dny mu vláda nařídila ho vypnout. Precedens, který mění pravidla pro celou umělá inteligence branži — a týká se i Evropy.
+    Ada: Anthropic vydal vůbec nejsilnější model, jaký kdy postavil. A pár dní nato ho musel vypnout — ne protože chtěl, ale protože mu to nařídila vláda USA. Nejdivnější na tom je, že zákaz dopadl i na vlastní zaměstnance Anthropicu.
+    Petr: Tohle není příběh o jednom modelu: je to precedens, který mění pravidla pro celou umělá inteligence hru. A ano, týká se i uživatelů v Česku. Dva modely, jeden základ
+    Ada: Vraťme se na devátého června dva tisíce dvacet šest. Anthropic ten den uvádí dva modely. Prvním je Claude Fable pět — veřejný, s plnými bezpečnostními pojistkami, dostupný stovkám milionů lidí jako každý jiný Claude.
+    Petr: Druhým je Claude Mythos pět: v jádru ten samý model, ale s uvolněnými pojistkami. Není určený veřejnosti, ale úzké skupině kyberobránců v programu Project Glasswing. Mythos je tier nad Opusem — nejsilnější třída, jakou kdy Anthropic pustil ven.
+    Ada: A teď ironie, kterou stojí za to si podržet: jen pár dní před vydáním Anthropic sám veřejně varoval, že umělá inteligence začíná být příliš nebezpečná. Pak vydal nejsilnější model své historie.
+    Petr: Přesně tahle dvojakost rozpoutala, co přišlo dál. dvanáctého června, sedmnáct:dvacet jedna: vláda zatahuje za brzdu Vláda USA vydala takzvanou export control directive — exportní omezení — a nařídila Anthropicu pozastavit veškerý přístup k Fable pět i Mythos pět. Pro koho?
+    Ada: Pro jakéhokoli cizího státního příslušníka, uvnitř USA i mimo. Včetně zaměstnanců Anthropicu, kteří nejsou občané USA — firma musela od vlastního modelu odstřihnout část vlastních lidí.
+    Petr: Ostatní modely Claude (Opus a spol.) běžely dál bez omezení; týkalo se to jen téhle nejsilnější dvojky.
+    Ada: Zdroj: článek na realtech.cz
 ---
 
 Anthropic vydal vůbec nejsilnější model, jaký kdy postavil. A pár dní nato ho musel vypnout — ne protože chtěl, ale protože mu to nařídila vláda USA. Nejdivnější na tom je, že zákaz dopadl i na vlastní zaměstnance Anthropicu. Tohle není příběh o jednom modelu: je to precedens, který mění pravidla pro celou AI hru. A ano, týká se i uživatelů v Česku.
