@@ -65,6 +65,16 @@ test('šablona zapojuje náhled přesně tak, jak testy předpokládají', () =>
   );
   assert.match(
     SABLONA,
+    /loading=\{loading\} decoding="async" fetchpriority=\{fetchpriority\}/,
+    'loading a fetchpriority jdou z vypočtených hodnot, ne hardcoded lazy',
+  );
+  assert.doesNotMatch(
+    SABLONA,
+    /loading="lazy"/,
+    'šablona nesmí hardcoded lazy na každém náhledu',
+  );
+  assert.match(
+    SABLONA,
     /\{thumbUrl && \(\s*<picture>/,
     'bez thumbUrl se <picture> vůbec nevykreslí',
   );
@@ -237,6 +247,18 @@ test.todo(
 // ---------------------------------------------------------------------------
 // Doba čtení
 // ---------------------------------------------------------------------------
+
+test('bez priority je náhled lazy a bez fetchpriority', () => {
+  const karta = vykresliKartu(clanek({ image: COVER }));
+  assert.equal(karta.loading, 'lazy');
+  assert.equal(karta.fetchpriority, undefined);
+});
+
+test('priority=true dá eager a fetchpriority high', () => {
+  const karta = vykresliKartu(clanek({ image: COVER }), { priority: true });
+  assert.equal(karta.loading, 'eager');
+  assert.equal(karta.fetchpriority, 'high');
+});
 
 test('doba čtení jde ze skutečné délky textu a nikdy není nula', () => {
   const telo = `${'slovo '.repeat(540)}`;
