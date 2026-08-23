@@ -37,10 +37,12 @@ const {
   webpSrcset: heroWebpSrcset,
   sizes: heroSizes,
 } = heroObrazekClanku(image, videoId);
+// Brandovaný OG generuje prebuild i pro video články (z YouTube náhledu),
+// syrový ytimg náhled je jen záchranná síť, kdyby soubor chyběl.
 const brandedOg = `/images/og/${article.id}.jpg`;
-const ogImage = videoId
-  ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
-  : fs.existsSync(`public${brandedOg}`) ? new URL(brandedOg, Astro.site).href
+const ogImage = fs.existsSync(`public${brandedOg}`)
+  ? new URL(brandedOg, Astro.site).href
+  : videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
   : image ? new URL(image, Astro.site).href : undefined;
 
 const others = (await getCollection('clanky', ({ data, id }) => !data.draft && id !== article.id))

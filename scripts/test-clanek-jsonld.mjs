@@ -71,10 +71,10 @@ async function nactiStranku({ article, soubory = [], cesta } = {}) {
 }
 
 // ---------------------------------------------------------------------------
-// Kaskáda OG obrázku: video → značkový OG → cover z frontmatteru → nic
+// Kaskáda OG obrázku: značkový OG → video → cover z frontmatteru → nic
 // ---------------------------------------------------------------------------
 
-test('video přebije značkový OG i cover a na disk se stránka ani nezeptá', async () => {
+test('značkový OG přebije YouTube náhled i cover — generuje se i pro video články', async () => {
   const { ogImage, jsonLd } = await nactiStranku({
     article: clanek({
       id: 'ukazka',
@@ -85,13 +85,24 @@ test('video přebije značkový OG i cover a na disk se stránka ani nezeptá', 
     soubory: ['public/images/og/ukazka.jpg', 'public/images/clanky/ukazka.jpg'],
   });
 
+  assert.equal(ogImage, 'https://realtech.cz/images/og/ukazka.jpg');
+  assert.deepEqual(jsonLd.image, ['https://realtech.cz/images/og/ukazka.jpg']);
+  assert.deepEqual(dotazy(), ['public/images/og/ukazka.jpg']);
+});
+
+test('video článek bez značkového OG spadne na syrový YouTube maxresdefault', async () => {
+  const { ogImage, jsonLd } = await nactiStranku({
+    article: clanek({
+      id: 'ukazka',
+      video: 'https://www.youtube.com/watch?v=abcdefghijk',
+      videoLength: '9:04',
+      image: '/images/clanky/ukazka.jpg',
+    }),
+    soubory: ['public/images/clanky/ukazka.jpg'],
+  });
+
   assert.equal(ogImage, 'https://i.ytimg.com/vi/abcdefghijk/maxresdefault.jpg');
   assert.deepEqual(jsonLd.image, ['https://i.ytimg.com/vi/abcdefghijk/maxresdefault.jpg']);
-  assert.deepEqual(
-    dotazy(),
-    [],
-    'u videa se náhled bere z YouTube, existence souborů se nemá zjišťovat',
-  );
 });
 
 test('bez videa vyhraje značkový OG z /images/og/ nad coverem z frontmatteru', async () => {

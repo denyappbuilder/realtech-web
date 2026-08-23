@@ -1,11 +1,14 @@
-// Generuje brandované OG obrázky (1200×630) pro články s lokálním coverem:
+// Generuje brandované OG obrázky (1200×630) pro články:
 // cover + tmavý gradient + titulek + REALTECH.CZ badge → public/images/og/SLUG.jpg
-// Existující soubory přeskakuje, jen pokud se nezměnil titulek ani cover.
-// Články s videem OG neřeší — YT maxresdefault je pro ně v pořádku.
+// Zdroj obrázku: lokální cover z frontmatteru (`image:`), u video článků bez
+// coveru náhled z YouTube (maxres → sd → hq). Existující soubory přeskakuje,
+// pokud se nezměnil titulek ani zdroj — u YouTube náhledu je otiskem videoId,
+// takže se při buildu nic nestahuje, dokud se článek nezmění.
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import sharp from 'sharp';
+import { youtubeId } from '../src/lib/youtube.js';
 
 const SRC = 'src/content/clanky';
 const OUT = 'public/images/og';
@@ -28,11 +31,23 @@ function wrap(title, max = 30, maxLines = 3) {
   return lines;
 }
 
-function fingerprint(title, srcImg) {
-  const imageHash = createHash('sha256').update(fs.readFileSync(srcImg)).digest('hex');
+function fingerprint(title, source) {
   return createHash('sha256')
-    .update(JSON.stringify({ recipe: RECIPE_VERSION, title, imageHash }))
+    .update(JSON.stringify({ recipe: RECIPE_VERSION, title, ...source }))
     .digest('hex');
+}
+
+// maxresdefault u některých videí neexistuje (404) — padáme na menší varianty.
+const THUMB_VARIANTS = ['maxresdefault', 'sddefault', 'hqdefault'];
+
+async function fetchThumbnail(videoId) {
+  for (const variant of THUMB_VARIANTS) {
+    const url = `https://i.ytimg.com/vi/${videoId}/${variant}.jpg`;
+    const res = await fetch(url);
+    if (res.ok) return Buffer.from(await res.arrayBuffer());
+    if (res.status !== 404) throw new Error(`[generate-og] ${url}: HTTP ${res.status}`);
+  }
+  throw new Error(`[generate-og] žádný YouTube náhled pro video ${videoId}`);
 }
 
 let made = 0;
@@ -44,15 +59,18 @@ for (const f of fs.readdirSync(SRC).filter((f) => f.endsWith('.md'))) {
   const fm = raw.split(/^---\s*$/m)[1] ?? '';
   const title = fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1];
   const image = fm.match(/^image:\s*["']?(.+?)["']?\s*$/m)?.[1];
-  const hasVideo = /^video:/m.test(fm);
-  if (!title || !image || hasVideo) continue;
+  const videoId = youtubeId(fm.match(/^video:\s*["']?(.+?)["']?\s*$/m)?.[1]);
+  if (!title) continue;
+
+  // Lokální cover má přednost; video článek bez coveru dostane YouTube náhled.
+  const srcImg = image && fs.existsSync(`public${image}`) ? `public${image}` : null;
+  if (!srcImg && !videoId) continue;
 
   const out = path.join(OUT, `${slug}.jpg`);
-  const srcImg = `public${image}`;
-  if (!fs.existsSync(srcImg)) continue;
-
   const fingerprintFile = `${out}.sha256`;
-  const currentFingerprint = fingerprint(title, srcImg);
+  const currentFingerprint = srcImg
+    ? fingerprint(title, { imageHash: createHash('sha256').update(fs.readFileSync(srcImg)).digest('hex') })
+    : fingerprint(title, { videoId });
   const savedFingerprint = fs.existsSync(fingerprintFile)
     ? fs.readFileSync(fingerprintFile, 'utf8').trim()
     : '';
@@ -71,7 +89,7 @@ for (const f of fs.readdirSync(SRC).filter((f) => f.endsWith('.md'))) {
     ${lines.map((l, i) => `<text x="64" y="${textY + i * 58}" font-family="Helvetica, Arial, sans-serif" font-weight="800" font-size="50" fill="#ffffff">${l}</text>`).join('\n')}
   </svg>`;
 
-  await sharp(srcImg)
+  await sharp(srcImg ?? await fetchThumbnail(videoId))
     .resize(1200, 630, { fit: 'cover' })
     .composite([{ input: Buffer.from(svg) }])
     .jpeg({ quality: 84 })
