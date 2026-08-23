@@ -24,6 +24,11 @@
   const results = document.getElementById('search-results');
   let index: any[] | null = null;
   let active = 0;
+  let returnFocus: HTMLElement | null = null;
+
+  const focusableSelector =
+    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), ' +
+    'textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
   const norm = (s: string) =>
     s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -92,8 +97,12 @@
 
   let current: any[] = [];
 
-  async function open() {
+  async function open(invoker?: HTMLElement | null) {
     if (!overlay || !input) return;
+    const focused = invoker ?? document.activeElement;
+    returnFocus = focused && typeof (focused as HTMLElement).focus === 'function'
+      ? focused as HTMLElement
+      : null;
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
     input.value = '';
@@ -107,16 +116,37 @@
     if (!overlay) return;
     overlay.hidden = true;
     document.body.style.overflow = '';
+    const target = returnFocus;
+    returnFocus = null;
+    target?.focus();
   }
 
   document.addEventListener('keydown', (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
-      overlay?.hidden ? open() : close();
+      overlay?.hidden ? open(document.activeElement as HTMLElement | null) : close();
       return;
     }
     if (overlay?.hidden) return;
     if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'Tab') {
+      const focusable = Array.from(overlay.querySelectorAll<HTMLElement>(focusableSelector));
+      if (!focusable.length) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const focused = document.activeElement;
+      if (e.shiftKey && (focused === first || !overlay.contains(focused))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (focused === last || !overlay.contains(focused))) {
+        e.preventDefault();
+        first.focus();
+      }
+      return;
+    }
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault();
       if (!current.length) return;
@@ -143,6 +173,6 @@
   });
 
   document.querySelectorAll('[data-search-open]').forEach((el) =>
-    el.addEventListener('click', (e) => { e.preventDefault(); open(); })
+    el.addEventListener('click', (e) => { e.preventDefault(); open(e.currentTarget as HTMLElement); })
   );
 </script>
