@@ -51,6 +51,7 @@ Web je statický (Astro). Níže je kompletní seznam 0 článků rozdělený po
 ## Rozcestník
 
 - [Všechny články](https://realtech.cz/clanky/): kompletní archiv novinek a analýz
+- [Témata](https://realtech.cz/temata/): rozcestník článků podle kategorií
 - [RSS feed](https://realtech.cz/rss.xml): plné texty článků s popisky a obrázky
 - [Sitemap](https://realtech.cz/sitemap-index.xml): mapa webu
 - [O nás](https://realtech.cz/o-nas/): kdo za webem stojí
@@ -124,6 +125,7 @@ Web je statický (Astro). Níže je kompletní seznam 4 článků rozdělený po
 ## Rozcestník
 
 - [Všechny články](https://realtech.cz/clanky/): kompletní archiv novinek a analýz
+- [Témata](https://realtech.cz/temata/): rozcestník článků podle kategorií
 - [RSS feed](https://realtech.cz/rss.xml): plné texty článků s popisky a obrázky
 - [Sitemap](https://realtech.cz/sitemap-index.xml): mapa webu
 - [O nás](https://realtech.cz/o-nas/): kdo za webem stojí

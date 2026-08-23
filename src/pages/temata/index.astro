@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
+import { formatCalendarDateCs } from '../../lib/calendarDate.js';
+import { seoTitulek } from '../../lib/seo-titulek.js';
+import Base from '../../layouts/Base.astro';
+import { slugify } from '../../lib/slugify.js';
+import { popisTematu } from '../../lib/tema-popis.js';
+
+const all = (await getCollection('clanky', ({ data }) => !data.draft))
+  .sort(compareArticlesByDateDescThenId);
+
+// Pořadí témat = podle nejnovějšího článku (all je seřazené, Set drží první výskyt).
+const temata = [...new Set(all.map((c) => c.data.category))].map((category) => {
+  const clanky = all.filter((c) => c.data.category === category);
+  return { category, slug: slugify(category), pocet: clanky.length, nejnovejsi: clanky[0] };
+});
+
+const pocetClankuText = (n) => (n === 1 ? '1 článek' : n < 5 ? `${n} články` : `${n} článků`);
+
+const popis = 'Všechna témata REALTECH CZ na jednom místě — AI, drony, vesmír, hardware, mobily a sítě. Tech bez marketingových řečí.';
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'Témata' },
+  ],
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Témata',
+  description: popis,
+  url: new URL('/temata/', Astro.site).href,
+  inLanguage: 'cs',
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: temata.length,
+    itemListElement: temata.map((t, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: new URL(`/temata/${t.slug}/`, Astro.site).href,
+      name: t.category,
+    })),
+  },
+};
+---
+<Base title={seoTitulek('Témata')} ogTitle="Témata | REALTECH CZ" description={popis}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
+  <section class="articles" style="padding-top: 56px;">
+    <div class="wrap">
+      <div class="section-head">
+        <h1>Témata</h1>
+        <a href="/clanky/">Všechny články →</a>
+      </div>
+      <p class="cat-lead">{popis}</p>
+      <div class="grid">
+        {temata.map((t) => (
+          <article class="card" data-category={t.category}>
+            <div class="card-body">
+              <h3><a href={`/temata/${t.slug}/`}>{t.category}</a></h3>
+              <p>{popisTematu(t.category)}</p>
+              <div class="card-meta">
+                <time datetime={t.nejnovejsi.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(t.nejnovejsi.data.date)}</time>
+                <span>{pocetClankuText(t.pocet).toUpperCase()}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
