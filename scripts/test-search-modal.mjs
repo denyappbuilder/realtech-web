@@ -220,3 +220,37 @@ test(
     assert.deepEqual(slugy(modal.search('anthropic gpt-5')), ['v-textu']);
   },
 );
+
+// ---------------------------------------------------------------------------
+// Z10027 / WEB-SEARCH-003 — titulek a kategorie nesmí téct do innerHTML
+// ---------------------------------------------------------------------------
+
+test(
+  'codex-testy-web/WEB-SEARCH-003: titulek s ostrými závorkami nesmí vytéct do innerHTML',
+  () => {
+    const modal = nactiModal({ hledatelne: [] });
+
+    modal.render(
+      [
+        {
+          s: 'sonda',
+          t: 'Sonda <img src=x> a Ostrava & okolí',
+          d: 'Popis',
+          k: '<b>AI</b>',
+          b: '',
+          p: '2025-04-05',
+        },
+      ],
+      'q',
+    );
+
+    const html = modal.results.innerHTML;
+    assert.doesNotMatch(html, /<img src=x>/);
+    assert.doesNotMatch(html, /<span class="si-cat"><b>AI<\/b><\/span>/);
+    assert.match(
+      html,
+      /<span class="si-title">Sonda &lt;img src=x&gt; a Ostrava &amp; okolí<\/span>/,
+    );
+    assert.match(html, /<span class="si-cat">&lt;b&gt;AI&lt;\/b&gt;<\/span>/);
+  },
+);

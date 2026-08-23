@@ -1,0 +1,177 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ArticleCard from './ArticleCard.astro';
+
+interface Props {
+  page: number;
+}
+
+const ARTICLES_PER_PAGE = 15;
+const { page } = Astro.props;
+const all = (await getCollection('clanky', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const totalPages = Math.ceil(all.length / ARTICLES_PER_PAGE);
+const start = (page - 1) * ARTICLES_PER_PAGE;
+const articles = all.slice(start, start + ARTICLES_PER_PAGE);
+const categories = [...new Set(all.map((article) => article.data.category))];
+const pagePath = (pageNumber: number) => pageNumber === 1 ? '/clanky/' : `/clanky/strana/${pageNumber}/`;
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: page === 1 ? 'Všechny články' : `Všechny články – strana ${page}`,
+  description: 'Kompletní archiv novinek a analýz REALTECH CZ.',
+  url: new URL(pagePath(page), Astro.site).href,
+  inLanguage: 'cs',
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: all.length,
+    itemListElement: articles.map((article, index) => ({
+      '@type': 'ListItem',
+      position: start + index + 1,
+      url: new URL(`/clanky/${article.id}/`, Astro.site).href,
+      name: article.data.title,
+    })),
+  },
+};
+
+const title = page === 1
+  ? 'Všechny články — REALTECH CZ'
+  : `Všechny články – strana ${page} — REALTECH CZ`;
+---
+<Base title={title} description="Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí.">
+  <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
+  {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
+  {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
+  <section class="articles" style="padding-top: 56px;" data-archive data-total-pages={totalPages}>
+    <div class="wrap">
+      <div class="section-head">
+        <h1>Všechny články</h1>
+        <a href="/rss.xml">RSS →</a>
+      </div>
+      {page === 1 && (
+        <div class="filter-bar">
+          <div class="cat-filter" role="group" aria-label="Filtr podle kategorie">
+            <button class="chip active" data-cat="" aria-pressed="true">Vše</button>
+            {categories.map((category) => <button class="chip" data-cat={category} aria-pressed="false">{category}</button>)}
+          </div>
+          <input type="search" class="search-input" id="art-search" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
+        </div>
+      )}
+      <div class="grid" id="articles-grid" aria-busy="false">
+        {articles.map((article) => <ArticleCard article={article} />)}
+      </div>
+      <p class="filter-empty" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
+      <p class="filter-loading" role="status" hidden>Načítám celý archiv pro hledání…</p>
+      <nav class="archive-pagination" aria-label="Stránkování článků">
+        {page > 1 && <a class="btn-ghost" href={pagePath(page - 1)} rel="prev">← Novější</a>}
+        <span>Strana {page} z {totalPages}</span>
+        {page < totalPages && <a class="btn-ghost" href={pagePath(page + 1)} rel="next">Starší →</a>}
+      </nav>
+    </div>
+  </section>
+
+  {page === 1 && (
+    <script>
+      const archive = document.querySelector('[data-archive]');
+      const chips = [...document.querySelectorAll('.cat-filter .chip')];
+      const grid = document.getElementById('articles-grid');
+      const empty = document.querySelector('.filter-empty');
+      const loading = document.querySelector('.filter-loading');
+      const pagination = document.querySelector('.archive-pagination');
+      const search = document.getElementById('art-search') as HTMLInputElement | null;
+      const totalPages = Number(archive?.getAttribute('data-total-pages') ?? 1);
+      let loadedAll = totalPages <= 1;
+      let loadingAll: Promise<void> | null = null;
+      let nextPageToLoad = 2;
+
+      const cards = () => [...document.querySelectorAll('#articles-grid .card')];
+
+      const loadFullArchive = () => {
+        if (loadedAll) return Promise.resolve();
+        if (loadingAll) return loadingAll;
+
+        grid?.setAttribute('aria-busy', 'true');
+        loading?.removeAttribute('hidden');
+        loadingAll = (async () => {
+          for (let pageNumber = nextPageToLoad; pageNumber <= totalPages; pageNumber++) {
+            const response = await fetch(`/clanky/strana/${pageNumber}/`);
+            if (!response.ok) throw new Error(`Archiv: strana ${pageNumber} se nenačetla.`);
+            const documentPage = new DOMParser().parseFromString(await response.text(), 'text/html');
+            documentPage.querySelectorAll('#articles-grid .card').forEach((card) => {
+              grid?.append(document.importNode(card, true));
+            });
+            nextPageToLoad = pageNumber + 1;
+          }
+          loadedAll = true;
+        })().finally(() => {
+          grid?.setAttribute('aria-busy', 'false');
+          loading?.setAttribute('hidden', '');
+        });
+        return loadingAll;
+      };
+
+      const apply = async () => {
+        const category = document.querySelector('.chip.active')?.getAttribute('data-cat') ?? '';
+        const query = (search?.value ?? '').trim().toLowerCase();
+        if (category || query) {
+          try {
+            await loadFullArchive();
+          } catch {
+            loadingAll = null;
+            if (loading) {
+              loading.textContent = 'Celý archiv se nepodařilo načíst. Zkus hledání znovu.';
+              loading.removeAttribute('hidden');
+            }
+            return;
+          }
+        }
+
+        let shown = 0;
+        cards().forEach((card) => {
+          const categoryMatches = !category || card.getAttribute('data-category') === category;
+          const queryMatches = !query || (card.textContent ?? '').toLowerCase().includes(query);
+          const show = categoryMatches && queryMatches;
+          card.toggleAttribute('hidden', !show);
+          if (show) shown++;
+        });
+        empty?.toggleAttribute('hidden', shown > 0);
+        pagination?.toggleAttribute('hidden', Boolean(category || query));
+
+        const params = new URLSearchParams();
+        if (category) params.set('kat', category);
+        if (query) params.set('q', query);
+        const queryString = params.toString();
+        history.replaceState(null, '', queryString ? `?${queryString}` : location.pathname);
+      };
+
+      const activate = (chip: Element) => {
+        chips.forEach((item) => {
+          item.classList.remove('active');
+          item.setAttribute('aria-pressed', 'false');
+        });
+        chip.classList.add('active');
+        chip.setAttribute('aria-pressed', 'true');
+      };
+
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          activate(chip);
+          void apply();
+        });
+      });
+      search?.addEventListener('input', () => void apply());
+
+      const params = new URLSearchParams(location.search);
+      const initialCategory = params.get('kat');
+      const initialQuery = params.get('q');
+      if (initialQuery && search) search.value = initialQuery;
+      if (initialCategory) {
+        const target = chips.find((chip) => chip.getAttribute('data-cat') === initialCategory);
+        if (target) activate(target);
+      }
+      if (initialCategory || initialQuery) void apply();
+    </script>
+  )}
+</Base>

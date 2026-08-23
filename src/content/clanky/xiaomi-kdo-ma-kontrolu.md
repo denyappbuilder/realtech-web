@@ -2,7 +2,7 @@
 title: "Tajemství Xiaomi: kdo má skutečnou kontrolu a jak vydělává na levných telefonech"
 description: "Xiaomi vydělá na uživateli v Číně 450 Kč ročně, v Evropě jen 50–100 Kč. Rozebrali jsme business model, vliv komunistické strany i to, proč jsou auta Xiaomi zisková rychleji, než kdo čekal."
 category: "Mobily"
-date: 2026-07-02
+date: "2026-07-02"
 video: "https://youtu.be/Kr8Ch6MYhCw"
 videoLength: "9:17"
 ---

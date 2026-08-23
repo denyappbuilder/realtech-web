@@ -2,7 +2,7 @@
 title: "WhatsApp dává skupinám @all. Zavoláš na všechny jedním tagem"
 description: "Meta upgraduje skupinové chaty: zmínka @all probudí i ztlumený chat, ankety umí anonymní hlasování a časový limit, a z existující skupiny založíš novou na jeden ťuk."
 category: "Mobily"
-date: 2026-08-04
+date: "2026-08-04"
 zprava: true
 image: "/images/clanky/whatsapp-skupiny-all-ankety.jpg"
 ---

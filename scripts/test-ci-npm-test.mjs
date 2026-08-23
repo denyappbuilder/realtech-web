@@ -18,6 +18,26 @@ function nactiWorkflowy() {
     }));
 }
 
+test("Z10247: CI po testech pouští i npm run build", () => {
+  const workflowy = nactiWorkflowy();
+  const sBuildem = workflowy.filter((wf) => /npm\s+(?:run\s+)?build\b/.test(wf.text));
+
+  assert.ok(
+    sBuildem.length > 0,
+    "v .github/workflows/ musí být workflow, které volá npm run build — jinak rozbitý Astro/dist projde zeleně",
+  );
+
+  const sTestemIBuildem = workflowy.filter(
+    (wf) =>
+      /npm test|npm run test/.test(wf.text) &&
+      /npm\s+(?:run\s+)?build\b/.test(wf.text),
+  );
+  assert.ok(
+    sTestemIBuildem.length > 0,
+    "stejné workflow musí po npm test pouštět i npm run build",
+  );
+});
+
 test("Z10035: CI pouští npm test na pull_request i na push do main", () => {
   const workflowy = nactiWorkflowy();
   const sTestem = workflowy.filter((wf) => /npm test|npm run test/.test(wf.text));
@@ -36,4 +56,23 @@ test("Z10035: CI pouští npm test na pull_request i na push do main", () => {
 
   assert.ok(pokryvaPr, "workflow s npm test musí běžet na pull_request");
   assert.ok(pokryvaPushMain, "workflow s npm test musí běžet na push do main");
+});
+
+test("CI akce používají varianty běžící na Node 24", () => {
+  const workflowy = nactiWorkflowy();
+  const text = workflowy.map((wf) => wf.text).join("\n");
+
+  for (const action of ["checkout", "setup-node"]) {
+    const verze = [
+      ...text.matchAll(new RegExp(`actions/${action}@v(\\d+)`, "g")),
+    ].map((shoda) => Number(shoda[1]));
+
+    assert.ok(verze.length > 0, `workflow nepoužívá actions/${action}`);
+    for (const verzeAkce of verze) {
+      assert.ok(
+        verzeAkce >= 7,
+        `actions/${action}@v${verzeAkce} běží na deprecated Node 20; použij v7+ (Node 24)`,
+      );
+    }
+  }
 });

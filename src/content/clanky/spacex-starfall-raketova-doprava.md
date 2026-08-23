@@ -2,7 +2,7 @@
 title: "SpaceX testuje doručování raketou: balík kamkoliv na světě do hodiny"
 description: "Falcon 9 vynesl nenápadný disk jménem Starfall — kapsli, která umí shodit náklad z oběžné dráhy kamkoliv na Zemi. A vedle toho armáda platí SpaceX za dopravu 100 tun přes půl planety. Rozebrali jsme, jak to funguje, co to stojí a kdy se to dotkne nás."
 category: "Vesmír"
-date: 2026-07-03
+date: "2026-07-03"
 video: "https://youtu.be/dyU7RAa5l0Y"
 videoLength: "6:51"
 ---

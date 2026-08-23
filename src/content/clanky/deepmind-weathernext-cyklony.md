@@ -2,7 +2,7 @@
 title: "DeepMind uvolnil model, který předpovídá hurikány o den dřív. Váhy jsou zdarma na GitHubu"
 description: "WeatherNext dostal článek v Nature: tříd­enní předpověď dráhy i síly cyklonu je stejně přesná jako dřívější dvoudenní. Google k tomu otevřel kód i váhy modelu."
 category: "AI Report"
-date: 2026-08-07
+date: "2026-08-07"
 zprava: true
 image: "/images/clanky/deepmind-weathernext-cyklony.jpg"
 ---

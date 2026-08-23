@@ -2,7 +2,7 @@
 title: "DeepSeek zastavil kolo za miliardy kvůli neověřené nahrávce"
 description: "Čínská AI laboratoř ústně oznámila investorům, že druhé kolo zatím nebude. Spouštěčem byl uniklý přepis schůzky, jehož pravost dodnes nikdo nepotvrdil."
 category: "AI Report"
-date: 2026-07-26
+date: "2026-07-26"
 zprava: true
 image: "/images/clanky/deepseek-unik-nahravky-pozastavene-kolo.jpg"
 ---

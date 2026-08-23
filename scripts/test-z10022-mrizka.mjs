@@ -13,8 +13,8 @@ const tema = readFileSync(join(koren, "src/pages/temata/[slug].astro"), "utf8");
 test("Z10022: úvodka pořád bere šest posledních reportů", () => {
   assert.match(
     index,
-    /const rest =[\s\S]*?\.slice\(0,\s*6\)/,
-    "úvodka už neomezuje reporty na 6 karet",
+    /const rest = candidates\.slice\(3,\s*9\)/,
+    "úvodka už neomezuje reporty na dalších 6 karet po railu",
   );
   assert.match(index, /<section class="articles">/, "úvodka ztratila sekci articles");
 });

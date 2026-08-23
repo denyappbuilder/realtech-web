@@ -9,7 +9,7 @@ import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
 const lastmods = {};
 const categoryLastmods = {};
 const invalidLastmodSlugs = new Set();
-for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith('.md'))) {
+for (const f of fs.readdirSync('./src/content/clanky', { recursive: true }).filter((f) => f.endsWith('.md'))) {
   // Oddělovač je řádek `---`, ne libovolný výskyt v hodnotě (Z1267).
   // `split('---')` uřízne `description: "Rozbor --- díl první"` uprostřed
   // a ztratí `draft`/`date`/`category` za ním — sitemapa pak ohlásí datum
@@ -17,7 +17,9 @@ for (const f of fs.readdirSync('./src/content/clanky').filter((f) => f.endsWith(
   const fm = fs.readFileSync(`./src/content/clanky/${f}`, 'utf8').split(/^---\s*$/m)[1] ?? '';
   // Draft se na stránkách filtruje, ale lastmod se dřív počítal i z něj —
   // nepublikovaný článek tak posunul homepage, archiv i cizí kategorie (Z1070).
-  if (/^draft:\s*true\b/m.test(fm)) continue;
+  // YAML 1.2 / js-yaml: jen true, True a TRUE jsou boolean true.
+  // i-flag by sekl i tRuE, které parser bere jako řetězec.
+  if (/^draft:\s*(?:true|True|TRUE)\b/m.test(fm)) continue;
   const d = fm.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1]
     ?? fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
   if (d) {
@@ -64,10 +66,11 @@ export default defineConfig({
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({
-      // /vitej/ je noindex (potvrzení newsletteru) — do sitemapy nepatří
-      filter: (page) => !page.includes('/vitej'),
+      // /vitej/ je noindex (potvrzení newsletteru) — vyřadit jen přesnou cestu,
+      // ne legitimní /vitejte/ nebo články, které mají „vitej“ ve slugu.
+      filter: (page) => new URL(page).pathname !== '/vitej/',
       serialize: (item) => {
-        const slug = item.url.match(/\/clanky\/([^/]+)\/$/)?.[1];
+        const slug = item.url.match(/\/clanky\/(.+)\/$/)?.[1];
         const category = item.url.match(/\/temata\/([^/]+)\/$/)?.[1];
         if (slug && invalidLastmodSlugs.has(slug)) {
           return item;

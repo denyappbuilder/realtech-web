@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const HOST = 'realtech.cz';
 const ENDPOINT = 'https://api.indexnow.org/indexnow';
+const MAX_URLS_PER_REQUEST = 10_000;
 
 const keyFile = fs
   .readdirSync(path.join(ROOT, 'public'))
@@ -26,6 +27,11 @@ if (!keyFile) {
 const key = keyFile.replace(/\.txt$/, '');
 
 const args = process.argv.slice(2);
+const unknownFlags = args.filter((a) => a.startsWith('--') && a !== '--dry-run');
+if (unknownFlags.length) {
+  console.error(`❌ Neznámý přepínač: ${unknownFlags.join(', ')}`);
+  process.exit(1);
+}
 const dryRun = args.includes('--dry-run');
 const paths = args.filter((a) => !a.startsWith('--'));
 
@@ -53,21 +59,24 @@ if (dryRun) {
   process.exit(0);
 }
 
-const res = await fetch(ENDPOINT, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json; charset=utf-8' },
-  body: JSON.stringify({
-    host: HOST,
-    key,
-    keyLocation: `https://${HOST}/${keyFile}`,
-    urlList,
-  }),
-});
+for (let offset = 0; offset < urlList.length; offset += MAX_URLS_PER_REQUEST) {
+  const batch = urlList.slice(offset, offset + MAX_URLS_PER_REQUEST);
+  const res = await fetch(ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: JSON.stringify({
+      host: HOST,
+      key,
+      keyLocation: `https://${HOST}/${keyFile}`,
+      urlList: batch,
+    }),
+  });
 
-// 200 = přijato, 202 = přijato, klíč se ověřuje
-if (res.status === 200 || res.status === 202) {
-  console.log(`✅ Odesláno (HTTP ${res.status}).`);
-} else {
-  console.error(`❌ HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
-  process.exit(1);
+  // 200 = přijato, 202 = přijato, klíč se ověřuje
+  if (res.status === 200 || res.status === 202) {
+    console.log(`✅ Odesláno (HTTP ${res.status}).`);
+  } else {
+    console.error(`❌ HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+    process.exit(1);
+  }
 }

@@ -8,6 +8,7 @@ import { CORE_SCHEMA, load as parseYaml } from 'js-yaml';
 import ts from 'typescript';
 import { z } from 'astro/zod';
 import { parseCalendarDate } from '../src/lib/calendarDate.js';
+import { jeAudioUrl, parseAudioDuration } from '../src/lib/audio-prehled.js';
 
 const REPOSITORY_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -39,6 +40,9 @@ function loadProductionArticleSchema() {
         }
         if (specifier === './lib/calendarDate.js') {
           return { parseCalendarDate };
+        }
+        if (specifier === './lib/audio-prehled.js') {
+          return { jeAudioUrl, parseAudioDuration };
         }
         throw new Error(`Neocekavany import z content.config.ts: ${specifier}`);
       },
@@ -175,6 +179,48 @@ test('Date v date i updated se odmitne — z yaml timestampu puvodni den neni', 
       `${field}: rolled yaml Date`,
     );
   }
+});
+
+test('volitelny audio blok je zpetne kompatibilni a odmitne neplatnou URL i nulu', () => {
+  const bezAudia = articleSchema.parse(REQUIRED_FRONTMATTER);
+  assert.equal(bezAudia.audio, undefined);
+
+  const sAudiem = articleSchema.parse({
+    ...REQUIRED_FRONTMATTER,
+    audio: {
+      url: '/audio/clanky/schema.mp3',
+      duration: 'PT2M5S',
+      transcript: 'Krátký přehled.',
+    },
+  });
+  assert.equal(sAudiem.audio.url, '/audio/clanky/schema.mp3');
+  assert.equal(sAudiem.audio.duration, 'PT2M5S');
+
+  assert.equal(
+    articleSchema.safeParse({
+      ...REQUIRED_FRONTMATTER,
+      audio: { url: 'javascript:alert(1)', duration: 120 },
+    }).success,
+    false,
+  );
+  assert.equal(
+    articleSchema.safeParse({
+      ...REQUIRED_FRONTMATTER,
+      audio: { url: '/audio/clanky/schema.mp3', duration: 0 },
+    }).success,
+    false,
+  );
+  assert.equal(
+    articleSchema.safeParse({
+      ...REQUIRED_FRONTMATTER,
+      audio: {
+        url: '/audio/clanky/schema.mp3',
+        duration: 120,
+        voice: 'Sal',
+      },
+    }).success,
+    false,
+  );
 });
 
 test(

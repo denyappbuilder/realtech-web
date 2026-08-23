@@ -2,7 +2,7 @@
 title: "Google Maps si za tebe objedná jídlo. V Česku zatím z jiného soudku"
 description: "Ask Maps dostaly agentní schopnosti — najdou restauraci po cestě domů a samy naplní košík. Objednávání jídla je ale zatím jen v USA. Do zbytku světa jde živý widget pro MHD a paměť konverzací."
 category: "AI Agenti"
-date: 2026-08-06
+date: "2026-08-06"
 zprava: true
 image: "/images/clanky/ask-maps-agent-objednavani-jidla.jpg"
 ---

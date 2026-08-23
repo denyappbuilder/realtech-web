@@ -97,3 +97,87 @@ test("GET nečte enclosure mimo public přes nadřazené segmenty [codex-testy-w
   assert.deepEqual(state.statCalls, []);
   assert.equal(state.rssCalls[0].items[0].enclosure, undefined);
 });
+
+test("GET odvodí MIME enclosure z přípony obrázku [codex-testy-web/RSS-MIME-005]", {
+  todo: "Všem enclosure se napevno zapisuje image/jpeg; viz codex-testy-web/RSS-MIME-005.",
+}, async () => {
+  setExistingFiles([
+    ["public/images/nahled.png", 201],
+    ["public/images/nahled.webp", 202],
+  ]);
+  setCollection([
+    article({
+      id: "png",
+      data: {
+        title: "PNG",
+        description: "Test rizikových vstupů RSS",
+        date: publishedAt,
+        category: "Testy",
+        draft: false,
+        image: "/images/nahled.png",
+      },
+    }),
+    article({
+      id: "webp",
+      data: {
+        title: "WebP",
+        description: "Test rizikových vstupů RSS",
+        date: publishedAt,
+        category: "Testy",
+        draft: false,
+        image: "/images/nahled.webp",
+      },
+    }),
+  ]);
+
+  await GET({ site });
+
+  const [png, webp] = getMockState().rssCalls[0].items;
+  assert.deepEqual(
+    [png.enclosure.type, webp.enclosure.type],
+    ["image/png", "image/webp"],
+  );
+});
+
+test("GET odmítne zpětné parent segmenty, ale přijme dvě tečky uvnitř názvu", async () => {
+  setExistingFiles([
+    ["public/images/archive..preview.jpg", 301],
+    ["public\\..\\package.json", 302],
+  ]);
+  setCollection([
+    article({
+      id: "bezpecny-nazev",
+      data: {
+        title: "Bezpečný název",
+        description: "Test rizikových vstupů RSS",
+        date: publishedAt,
+        category: "Testy",
+        draft: false,
+        image: "/images/archive..preview.jpg",
+      },
+    }),
+    article({
+      id: "windows-traversal",
+      data: {
+        title: "Windows traversal",
+        description: "Test rizikových vstupů RSS",
+        date: publishedAt,
+        category: "Testy",
+        draft: false,
+        image: "\\..\\package.json",
+      },
+    }),
+  ]);
+
+  await GET({ site });
+
+  const state = getMockState();
+  assert.deepEqual(state.existsCalls, ["public/images/archive..preview.jpg"]);
+  assert.deepEqual(state.statCalls, ["public/images/archive..preview.jpg"]);
+  assert.deepEqual(state.rssCalls[0].items[0].enclosure, {
+    url: "https://realtech.cz/images/archive..preview.jpg",
+    type: "image/jpeg",
+    length: 301,
+  });
+  assert.equal(state.rssCalls[0].items[1].enclosure, undefined);
+});

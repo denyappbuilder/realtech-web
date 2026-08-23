@@ -34,7 +34,7 @@ const orgLd = {
 ---
 <Base title="O nás — REALTECH CZ" description="Kdo stojí za REALTECH CZ a proč děláme tech obsah bez marketingových řečí.">
   <script type="application/ld+json" set:html={JSON.stringify(orgLd)} slot="head" is:inline />
-  <section class="about wrap">
+  <section class="about about-wide wrap">
     <div class="lower-third">
       <span class="tag">O nás</span>
     </div>
@@ -45,54 +45,77 @@ const orgLd = {
       co se v techu skutečně děje: od AI přes drony a Starlink až po mobily.
     </p>
 
-    <div class="stats" aria-label="Kanál v číslech">
-      <div class="stat"><strong>80+</strong><span>videí na kanále</span></div>
-      <div class="stat"><strong>260&nbsp;000+</strong><span>zhlédnutí celkem</span></div>
-      <div class="stat"><strong>{pocetClanku}</strong><span>článků na webu</span></div>
-    </div>
+    <div class="about-layout">
+      <div class="about-main">
+        <div class="stats" aria-label="Kanál v číslech">
+          <div class="stat"><strong>80+</strong><span>videí na kanále</span></div>
+          <div class="stat"><strong>260&nbsp;000+</strong><span>zhlédnutí celkem</span></div>
+          <div class="stat"><strong>{pocetClanku}</strong><span>článků na webu</span></div>
+        </div>
 
-    <h2>Jak pracujeme</h2>
-    <p>
-      Nepřebíráme tiskové zprávy. Témata si rozebíráme do hloubky — co se stalo, proč,
-      kdo za tím stojí a co to znamená pro lidi v Česku. Hardware, který recenzujeme,
-      reálně používáme a testujeme na vlastní kůži. Když je něco slabé, řekneme to narovinu.
-    </p>
+        <h2>Jak pracujeme</h2>
+        <p>
+          Nepřebíráme tiskové zprávy. Témata si rozebíráme do hloubky — co se stalo, proč,
+          kdo za tím stojí a co to znamená pro lidi v Česku. Hardware, který recenzujeme,
+          reálně používáme a testujeme na vlastní kůži. Když je něco slabé, řekneme to narovinu.
+        </p>
 
-    <h2>Co tady najdeš</h2>
-    <p>
-      Články na tomhle webu vycházejí z našich videí — kdo radši čte, najde tu to podstatné
-      v textu, kdo radši kouká, má u každého článku video. Novinky sledujeme průběžně
-      a píšeme o tom, co za to stojí; delší video vzniká, když má téma na hloubku.
-    </p>
+        <h2>Co tady najdeš</h2>
+        <p>
+          Články na tomhle webu vycházejí z našich videí — kdo radši čte, najde tu to podstatné
+          v textu, kdo radši kouká, má u každého článku video. Novinky sledujeme průběžně
+          a píšeme o tom, co za to stojí; delší video vzniká, když má téma na hloubku.
+        </p>
 
-    {/*
-      RealTvorba — do 29. 7. 2026 na ni z celého realtech.cz nevedl jediný odkaz
-      (změřeno: 66 odkazů na homepage, 0 na realtvorbu). Je to náš nástroj, vznikl
-      z naší vlastní potřeby, a tohle je jediné místo na webu, kde ho zmínit
-      nepůsobí jako reklama: v odstavci o tom, jak pracujeme.
+        {/*
+          RealTvorba — do 29. 7. 2026 na ni z celého realtech.cz nevedl jediný odkaz
+          (změřeno: 66 odkazů na homepage, 0 na realtvorbu). Je to náš nástroj, vznikl
+          z naší vlastní potřeby, a tohle je jediné místo na webu, kde ho zmínit
+          nepůsobí jako reklama: v odstavci o tom, jak pracujeme.
 
-      ⚠️ Beta NENÍ otevřená (stav k 29. 7. 2026), proto odkaz vede na waitlist,
-      ne do appky. Až se beta otevře, změnit i tuhle větu — jinak bude web
-      posílat lidi zapsat se do čekárny na něco, co si můžou hned zkusit.
-    */}
-    <h2>Nástroj, který jsme si postavili</h2>
-    <p>
-      Animované grafy, srovnání a časové osy v našich videích nekreslíme ručně —
-      vznikl nám na to nástroj, který přečte hotový střih a sám navrhne, co
-      animovat. Jmenuje se <a href="https://realtvorba.cz/">RealTvorba</a> a
-      stavíme ho i pro ostatní tvůrce, kteří chtějí vypadat jako Vox, ale nechtějí
-      se učit After Effects. Zatím se dá přihlásit do waitlistu.
-    </p>
+          ⚠️ Beta NENÍ otevřená (stav k 29. 7. 2026), proto odkaz vede na waitlist,
+          ne do appky. Až se beta otevře, změnit i tuhle větu — jinak bude web
+          posílat lidi zapsat se do čekárny na něco, co si můžou hned zkusit.
+        */}
+        <h2>Nástroj, který jsme si postavili</h2>
+        <p>
+          Animované grafy, srovnání a časové osy v našich videích nekreslíme ručně —
+          vznikl nám na to nástroj, který přečte hotový střih a sám navrhne, co
+          animovat. Jmenuje se <a href="https://realtvorba.cz/">RealTvorba</a> a
+          stavíme ho i pro ostatní tvůrce, kteří chtějí vypadat jako Vox, ale nechtějí
+          se učit After Effects. Zatím se dá přihlásit do waitlistu.
+        </p>
 
-    <h2>Kontakt</h2>
-    <p>
-      Nejrychleji nás zastihneš v komentářích na YouTube — čteme je všechny.
-      Spolupráce a byznys: <a href="mailto:info@realtech.cz">info@realtech.cz</a>.
-    </p>
+        <h2>Kontakt</h2>
+        <p>
+          Nejrychleji nás zastihneš v komentářích na YouTube — čteme je všechny.
+          Spolupráce a byznys: <a href="mailto:info@realtech.cz">info@realtech.cz</a>.
+        </p>
 
-    <div class="hero-actions">
-      <a href={YT_SUB} class="btn-primary">Odebírat na YouTube</a>
-      <a href="/clanky/" class="btn-ghost">Přečíst články</a>
+        <div class="hero-actions">
+          <a href={YT_SUB} class="btn-primary">Odebírat na YouTube</a>
+          <a href="/clanky/" class="btn-ghost">Přečíst články</a>
+        </div>
+      </div>
+
+      <aside class="about-aside">
+        <p class="mono">Kdo točí</p>
+        <ul class="about-aside-meta">
+          <li><strong>Daniel Soukup</strong> — autor a spoluzakladatel</li>
+          <li><strong>Sam</strong> — autor a spoluzakladatel</li>
+        </ul>
+        <p class="mono">Kam dál</p>
+        <ul class="about-aside-meta">
+          <li><a href={YT}>YouTube kanál</a></li>
+          <li><a href="/clanky/">Všechny články</a></li>
+          <li><a href="https://realtvorba.cz/">RealTvorba</a></li>
+          <li><a href="mailto:info@realtech.cz">info@realtech.cz</a></li>
+        </ul>
+        <p class="mono">Proč to děláme</p>
+        <p class="about-aside-quote">
+          Když je něco slabé, řekneme to narovinu. Žádné tiskovky, žádné marketingové řeči.
+        </p>
+      </aside>
     </div>
   </section>
 </Base>

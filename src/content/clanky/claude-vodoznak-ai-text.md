@@ -2,12 +2,31 @@
 title: "Claude začíná neviditelně značkovat text: vodoznak přímo v modelu, C2PA na obrázcích"
 description: "Anthropic potvrdil, že modely Claude vydané 2. srpna a později vplétají do generovaného textu neviditelný vodoznak a k souborům připojují podepsaná metadata C2PA. Platí to celosvětově napříč všemi produkty i cloudy. Detekci pro třetí strany firma slibuje, technickou dokumentaci zatím nevydala."
 category: "AI Report"
-date: 2026-08-13
+date: "2026-08-13"
 zprava: true
 image: "/images/clanky/claude-vodoznak-ai-text.jpg"
+audio:
+  url: "https://audio.realtech.cz/claude-vodoznak-ai-text-v3.mp3?v=530341312317"
+  duration: 149
+  transcript: |-
+    Entropik začal neviditelně značkovat výstupy Klauda, aby šlo strojově poznat, že text prošel jeho modelem. Platí to u modelů spuštěných druhého srpna roku dva tisíce dvacet šest nebo později.
+
+    Jsou to dvě různé techniky. Do textu jde vodoznak vetkaný přímo do generovaných slov. Firma tvrdí, že nemění význam, kvalitu ani čitelnost. Aplikuje se na úrovni modelu, takže je tam bez ohledu na to, jestli text vypadne z Klaud Platformy, z Klauda, z Klaud Koudu, z Klaud Kouorku nebo z Klaud Tegu. Cestuje s textem i při zkopírování jinam. Funguje i přes ej-dabl-jú-es, Gůgl Klaud a Majkrosoft Faundri.
+
+    Na soubory jdou podepsaná metadata podle otevřeného standardu Cé dva pé á. Tedy to, co už používá Edoub, OpenAI i Gůgl. Entropik jmenuje typy es-vé-gé, pé-en-gé a jé-pé-gé. U souborů navíc podpis prozradí, jestli s nimi někdo manipuloval.
+
+    Tady je Entropik překvapivě upřímný. Nalezená značka podle firmy není plně průkazná. Lidi Klauda používají na opravy, překlady, sumarizaci nebo konverzi souborů. Text tak může nést značku Klauda, i když myšlenky i data pocházejí odjinud. A obráceně: absence značky neznamená, že obsah není od ej aj.
+
+    Vodoznak zmizí nebo zeslábne, když se text výrazně přepíše, parafrázuje, přeloží, zamíchá do jiného psaní, nebo když je pasáž moc krátká. U souborů metadata odstraní konverze formátu, opětovné uložení nebo snímek obrazovky. U Cé dva pé á je to známá slabina a občas se to stane i omylem při nahrání na sociální síť.
+
+    Proč to Entropik dělá? Kvůli Evropské unii. Nové povinnosti k transparentnosti podle evropského nařízení o ej-aj platí od druhého srpna a pro starší produkty běží čtyřměsíční přechodné období. Nové modely značkují od prvního dne, u starších se to doplňuje za pochodu.
+
+    Slabé místo? Detekce zatím není. Entropik slibuje podporu uživatelů i třetích stran, protože kodex to vyžaduje. Podrobnosti prý přijdou v nadcházející technické dokumentaci. Veřejné detekční ej-pí-áj je zároveň návod na obcházení. Na schválné mazání to stačit nebude.
+
+    Zdroj informací: podpora Entropiku a server Verž.
 ---
 
-Anthropic začal značkovat výstupy Clauda tak, aby se dalo strojově poznat, že prošly jeho modelem. Podle [oficiální stránky podpory](https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content) se to týká modelů spuštěných **2. srpna 2026 nebo později** — u starších se na podpoře teprve pracuje.
+Anthropic začal značkovat výstupy [Clauda](/clanky/claude-anthropic-pentagon/) tak, aby se dalo strojově poznat, že prošly jeho modelem. Podle [oficiální stránky podpory](https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content) se to týká modelů spuštěných **2. srpna 2026 nebo později** — u starších se na podpoře teprve pracuje.
 
 ## Dvě různé techniky
 
