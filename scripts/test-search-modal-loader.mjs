@@ -50,14 +50,27 @@ function prvek(extra = {}) {
  * @param {{ hledatelne?: unknown[] }} [nastaveni]
  */
 export function nactiModal({ hledatelne = null } = {}) {
-  const overlay = prvek({ hidden: true });
-  const input = prvek({ value: '', fokusovan: 0, focus() { this.fokusovan++; } });
+  let dokument;
+  const focus = function () {
+    this.fokusovan++;
+    dokument.activeElement = this;
+  };
+  const input = prvek({ value: '', fokusovan: 0, focus });
+  const odkaz = prvek({ fokusovan: 0, focus });
+  const prvkyModalu = [input, odkaz];
+  const overlay = prvek({
+    hidden: true,
+    contains: (el) => prvkyModalu.includes(el),
+    querySelectorAll: () => prvkyModalu,
+  });
   const results = prvek({ innerHTML: '', querySelector: () => null });
-  const dokument = prvek({
+  const spoustec = prvek({ fokusovan: 0, focus });
+  dokument = prvek({
     body: { style: {} },
+    activeElement: spoustec,
     getElementById: (id) =>
       ({ 'search-overlay': overlay, 'search-q': input, 'search-results': results })[id] ?? null,
-    querySelectorAll: () => [],
+    querySelectorAll: (selector) => selector === '[data-search-open]' ? [spoustec] : [],
   });
 
   const sandbox = {
@@ -93,5 +106,5 @@ export function nactiModal({ hledatelne = null } = {}) {
 
   const modal = sandbox.__modal;
   if (hledatelne !== null) modal.nastavIndex(hledatelne);
-  return { ...modal, overlay, input, results, dokument, sandbox };
+  return { ...modal, overlay, input, odkaz, results, spoustec, dokument, sandbox };
 }
