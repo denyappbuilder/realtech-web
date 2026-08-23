@@ -78,7 +78,9 @@ const collectionLd = {
       </div>
       <p class="cat-lead">{popis}</p>
       <div class="grid featured-lead">
-        {clanky.map((article) => <ArticleCard article={article} />)}
+        {clanky.map((article, index) => (
+          <ArticleCard article={article} priority={index === 0} />
+        ))}
       </div>
       {ostatni.length > 0 && (
         <div class="topics">

@@ -90,14 +90,16 @@ export function clanek({
  * Vykoná skriptovou část karty nad daným článkem.
  *
  * @param {ReturnType<typeof clanek>} article
+ * @param {{ priority?: boolean }} [volby]
  * @returns {{
  *   thumbClass: string, dateStr: string, videoId: string | null,
  *   localThumb: string | undefined, thumbWebp: string | null, hasWebp: boolean,
  *   thumbUrl: string | undefined, thumbW: number, thumbH: number,
  *   readMinutes: number, datetime: string,
+ *   loading: 'eager' | 'lazy', fetchpriority: 'high' | undefined,
  * }}
  */
-export function vykresliKartu(article) {
+export function vykresliKartu(article, { priority = false } = {}) {
   const { outputText } = ts.transpileModule(skript(), {
     compilerOptions: {
       module: ts.ModuleKind.CommonJS,
@@ -128,7 +130,7 @@ export function vykresliKartu(article) {
       thumbClass, dateStr, videoId,
       localThumb, thumbWebp, hasWebp,
       thumbUrl, thumbW, thumbH,
-      readMinutes,
+      readMinutes, loading, fetchpriority,
       datetime: date.toISOString().slice(0, 10),
     };
   `;
@@ -139,7 +141,7 @@ export function vykresliKartu(article) {
       exports: modul.exports,
       module: modul,
       require: requireZKarty,
-      Astro: { props: { article } },
+      Astro: { props: { article, priority } },
     },
     { filename: KOMPONENTA },
   );

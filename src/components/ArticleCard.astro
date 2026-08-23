@@ -7,8 +7,10 @@ import { formatCalendarDateCs } from '../lib/calendarDate.js';
 
 interface Props {
   article: CollectionEntry<'clanky'>;
+  /** První karta nad okrajem na výpisu — LCP. Úvodka to nesmí dostat, tam už ho má hero. */
+  priority?: boolean;
 }
-const { article } = Astro.props;
+const { article, priority = false } = Astro.props;
 const { title, description, category, date, video, videoLength, zprava, image } = article.data;
 const readMinutes = readingTime(article.body);
 
@@ -29,13 +31,15 @@ const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : l
 const [thumbW, thumbH] = videoId ? [480, 360] : [localW, localH];
 const thumbWebp = videoId ? null : localWebp;
 const hasWebp = videoId ? false : localHasWebp;
+const loading = priority ? 'eager' : 'lazy';
+const fetchpriority = priority ? 'high' : undefined;
 ---
 <article class="card" data-category={category}>
   <a href={`/clanky/${article.id}/`} class={`card-thumb ${thumbClass}`} aria-hidden="true" tabindex="-1">
     {thumbUrl && (
       <picture>
         {hasWebp && <source srcset={thumbWebp} type="image/webp" />}
-        <img src={thumbUrl} alt="" width={thumbW} height={thumbH} loading="lazy" decoding="async" />
+        <img src={thumbUrl} alt="" width={thumbW} height={thumbH} loading={loading} decoding="async" fetchpriority={fetchpriority} />
       </picture>
     )}
     <div class="lt">

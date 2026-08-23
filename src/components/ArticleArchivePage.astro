@@ -61,7 +61,9 @@ const title = page === 1
         </div>
       )}
       <div class="grid" id="articles-grid" aria-busy="false">
-        {articles.map((article) => <ArticleCard article={article} />)}
+        {articles.map((article, index) => (
+          <ArticleCard article={article} priority={page === 1 && index === 0} />
+        ))}
       </div>
       <p class="filter-empty" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
       <p class="filter-loading" role="status" hidden>Načítám celý archiv pro hledání…</p>
