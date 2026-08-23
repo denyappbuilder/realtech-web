@@ -5,6 +5,7 @@ import { seoTitulek } from '../../lib/seo-titulek.js';
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { slugify } from '../../lib/slugify.js';
+import { popisTematu } from '../../lib/tema-popis.js';
 
 export async function getStaticPaths() {
   const all = await getCollection('clanky', ({ data }) => !data.draft);
@@ -17,16 +18,7 @@ export async function getStaticPaths() {
 
 const { category } = Astro.props;
 
-const POPISY = {
-  'AI Report': 'Novinky a analýzy ze světa umělé inteligence — modely, nástroje a kauzy, které reálně něco mění.',
-  'AI Agenti': 'AI agenti a automatizace — co už dnes zvládnou udělat za vás.',
-  'Drony': 'Drony bez marketingových řečí — DJI, zákazy, srovnání a novinky.',
-  'Vesmír': 'Vesmír a kosmické technologie — SpaceX, Starlink a satelitní internet.',
-  'Hardware': 'Hardware — procesory, notebooky a komponenty, které stojí za pozornost.',
-  'Mobily': 'Mobily a skládačky — novinky, srovnání a jestli se vyplatí.',
-  'Sítě': 'Sítě a konektivita — Starlink, 5G a internet v Česku.',
-};
-const popis = POPISY[category] ?? `Články z kategorie ${category} — tech bez marketingových řečí.`;
+const popis = popisTematu(category);
 
 const clanky = (await getCollection('clanky', ({ data }) => !data.draft && data.category === category))
   .sort(compareArticlesByDateDescThenId);
@@ -39,7 +31,7 @@ const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
-    { '@type': 'ListItem', position: 2, name: 'Články', item: new URL('/clanky/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'Témata', item: new URL('/temata/', Astro.site).href },
     { '@type': 'ListItem', position: 3, name: category },
   ],
 };
@@ -89,6 +81,7 @@ const collectionLd = {
             {ostatni.map((cat) => (
               <a class="chip" href={`/temata/${slugify(cat)}/`}>{cat}</a>
             ))}
+            <a class="chip" href="/temata/">Všechna témata</a>
           </div>
         </div>
       )}

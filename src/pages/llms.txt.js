@@ -29,6 +29,7 @@ Web je statický (Astro). Níže je kompletní seznam ${clanky.length} článků
 ## Rozcestník
 
 - [Všechny články](${site}/clanky/): kompletní archiv novinek a analýz
+- [Témata](${site}/temata/): rozcestník článků podle kategorií
 - [RSS feed](${site}/rss.xml): plné texty článků s popisky a obrázky
 - [Sitemap](${site}/sitemap-index.xml): mapa webu
 - [O nás](${site}/o-nas/): kdo za webem stojí
