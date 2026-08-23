@@ -1,0 +1,3 @@
+# @astrojs/sitemap generuje jen sitemap-index.xml + sitemap-0.xml,
+# ale crawleři konvenčně zkoušejí /sitemap.xml — bez redirectu tam byla 404.
+/sitemap.xml /sitemap-index.xml 301
