@@ -26,13 +26,31 @@ function frontmatter(file) {
   return yaml.load(match[1]);
 }
 
-test('článkové SEO titulky nepřekročí 60 znaků', () => {
+test('<title> článku bez seoTitle nese celý redakční titulek bez výpustky', () => {
   for (const file of markdownFiles(CONTENT_DIR)) {
     const data = frontmatter(file);
-    const title = data.seoTitle ?? seoTitulek(data.title);
+    const title = data.seoTitle ?? seoTitulek(data.title, { zachovatCely: true });
+    if (data.seoTitle === undefined) {
+      assert.equal(
+        title,
+        data.title.trim(),
+        `${path.relative(ROOT, file)}: <title> se liší od plného titulku`,
+      );
+    }
     assert.ok(
-      [...title].length <= 60,
-      `${path.relative(ROOT, file)} má SEO titulek dlouhý ${[...title].length} znaků: ${title}`,
+      !title.endsWith('…'),
+      `${path.relative(ROOT, file)} má odseknutý SEO titulek: ${title}`,
+    );
+  }
+});
+
+test('ruční seoTitle zůstává krátký — jinak nemá důvod existovat', () => {
+  for (const file of markdownFiles(CONTENT_DIR)) {
+    const { seoTitle } = frontmatter(file);
+    if (seoTitle === undefined) continue;
+    assert.ok(
+      [...seoTitle].length <= 60,
+      `${path.relative(ROOT, file)} má seoTitle dlouhý ${[...seoTitle].length} znaků: ${seoTitle}`,
     );
   }
 });
@@ -55,7 +73,7 @@ test('ruční SEO titulky zachovají hlavní hledané entity', () => {
   }
 });
 
-test('šablona článku používá seoTitle s automatickým fallbackem', () => {
+test('šablona článku používá seoTitle s fallbackem na celý titulek', () => {
   const source = fs.readFileSync(path.join(ROOT, 'src/pages/clanky/[...id].astro'), 'utf8');
-  assert.match(source, /title=\{seoTitle \?\? seoTitulek\(title\)\}/);
+  assert.match(source, /title=\{seoTitle \?\? seoTitulek\(title, \{ zachovatCely: true \}\)\}/);
 });

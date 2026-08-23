@@ -13,7 +13,11 @@ import { popisProVyhledavace } from '../lib/popis-pro-vyhledavace.js';
 import SearchModal from '../components/SearchModal.astro';
 
 interface Props {
-  /** Jde do `<title>` — drží se pod 60 znaky, jinak to Google odsekne. */
+  /**
+   * Jde do `<title>`. U článků sem patří CELÝ redakční titulek (nebo ruční
+   * `seoTitle`) — Google si zobrazení zkrátí sám, ale titulek useknutý
+   * výpustkou už napravit nejde a propadne i do sociálních náhledů.
+   */
   title: string;
   /**
    * Plný nadpis pro sociální náhledy. Ty snesou víc než výsledky
