@@ -49,6 +49,38 @@ test('chronologie vyřadí drafty, nezávisle seřadí vstup a propojí prostře
   });
 });
 
+test('shodné datum skutečných článků má deterministické novější/starší sousedy v obou pořadích vstupu', async () => {
+  const chatgpt = article('chatgpt-pro-teenagery', '2026-08-18T00:00:00.000Z');
+  const starship = article('starship-ship-40-vanocni-ostrov', '2026-08-18T00:00:00.000Z');
+  const newer = article('novejsi', '2026-08-19T00:00:00.000Z');
+  const older = article('starsi', '2026-08-17T00:00:00.000Z');
+
+  for (const tiedArticles of [[chatgpt, starship], [starship, chatgpt]]) {
+    const entries = [older, ...tiedArticles, newer];
+
+    assert.deepEqual(await navigate('chatgpt-pro-teenagery', entries), {
+      chronology: [
+        'novejsi',
+        'chatgpt-pro-teenagery',
+        'starship-ship-40-vanocni-ostrov',
+        'starsi',
+      ],
+      newer: 'novejsi',
+      older: 'starship-ship-40-vanocni-ostrov',
+    });
+    assert.deepEqual(await navigate('starship-ship-40-vanocni-ostrov', entries), {
+      chronology: [
+        'novejsi',
+        'chatgpt-pro-teenagery',
+        'starship-ship-40-vanocni-ostrov',
+        'starsi',
+      ],
+      newer: 'chatgpt-pro-teenagery',
+      older: 'starsi',
+    });
+  }
+});
+
 test('nejnovější článek nemá novějšího souseda', async () => {
   const entries = [
     article('nejstarsi', '2024-01-05T08:00:00.000Z'),

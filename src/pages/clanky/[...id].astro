@@ -9,6 +9,7 @@ import { readingTime } from '../../lib/reading-time.js';
 import { youtubeId } from '../../lib/youtube.js';
 import { isoDuration } from '../../lib/iso-duration.js';
 import { formatCalendarDateCs } from '../../lib/calendarDate.js';
+import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import AudioPrehled from '../../components/AudioPrehled.astro';
 import { jsonLdText, pripojAudioKClanku, vytvorAudioObject } from '../../lib/audio-prehled.js';
 import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
@@ -43,7 +44,7 @@ const ogImage = videoId
   : image ? new URL(image, Astro.site).href : undefined;
 
 const others = (await getCollection('clanky', ({ data, id }) => !data.draft && id !== article.id))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort(compareArticlesByDateDescThenId);
 const related = [
   ...others.filter((c) => c.data.category === category),
   ...others.filter((c) => c.data.category !== category),
@@ -51,7 +52,7 @@ const related = [
 
 // Chronologická navigace (novější/starší)
 const chrono = (await getCollection('clanky', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort(compareArticlesByDateDescThenId);
 const idx = chrono.findIndex((c) => c.id === article.id);
 const newer = idx > 0 ? chrono[idx - 1] : null;
 const older = idx >= 0 && idx < chrono.length - 1 ? chrono[idx + 1] : null;
