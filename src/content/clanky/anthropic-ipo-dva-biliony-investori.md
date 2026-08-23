@@ -6,8 +6,8 @@ date: "2026-08-23"
 zprava: true
 image: "/images/clanky/anthropic-ipo-dva-biliony-investori.jpg"
 audio:
-  url: "https://realtech.cz/audio/anthropic-ipo-dva-biliony-investori-v3.mp3?v=d330cbc4b528"
-  duration: 143
+  url: "https://audio.realtech.cz/anthropic-ipo-dva-biliony-investori-v3.mp3?v=1b41d77188c2"
+  duration: 152
   transcript: |-
     Investoři čekají IPO Anthropicu za dva biliony dolarů. Firma to číslo neřekla. Titulky zní, jako by je vypustila sama firma. Nevypustila. Šest investorů podle Financial Times, jak je třináctého srpna shrnul Quartz, čeká vstup na burzu v říjnu a ocenění dva biliony dolarů nebo víc. To by podle nich bylo největší IPO v historii. Anthropic se k tomu nevyjádřil.
 
@@ -23,19 +23,19 @@ audio:
 
     Zdroj informací: oficiální oznámení Anthropicu o důvěrném S-1 a sérii H, Reuters, Financial Times přes Quartz a CNBC.
   ttsScript: |-
-    Investoři čekají áj-pí-ou Entropiku za dva biliony dolarů. Firma to číslo neřekla. Titulky zní, jako by je vypustila sama firma. Nevypustila. Šest investorů podle Fajnenšl Tajms, jak je třináctého srpna shrnul Kvórc, čeká vstup na burzu v říjnu a ocenění dva biliony dolarů nebo víc. To by podle nich bylo největší áj-pí-ou v historii. Entropik se k tomu nevyjádřil.
+    Investoři čekají áj-pí-ou Entropiku za dva tisíce miliard dolarů. Firma to číslo neřekla. Titulky zní, jako by je vypustila sama firma. Nevypustila. Šest investorů podle Fajnenšl Tajms, jak je třináctého srpna shrnul server Kvorc, čeká vstup na burzu v měsíci říjnu a ocenění dva tisíce miliard dolarů nebo víc. To by podle nich bylo největší áj-pí-ou v historii. Entropik se k tomu nevyjádřil.
 
-    Prvního června dva tisíce dvacet šest Entropik důvěrně podal k americké Komisi pro cenné papíry návrh registračního formuláře es-jedna. Jde o navrhovanou primární emisi kmenových akcií. Po přezkumu tím firma získá možnost jít na burzu. Samotná emise závisí na tržních podmínkách. Počet akcií ani cenu nestanovil.
+    Prvního června roku dva tisíce dvacet šest Entropik důvěrně podal k americké Komisi pro cenné papíry návrh registračního formuláře es jedna. Jde o navrhovanou primární emisi kmenových akcií. Po přezkumu tím firma získá možnost jít na burzu. Emise závisí na tržních podmínkách. Počet akcií ani cenu nestanovil.
 
-    Čtyři dny předtím, dvacet osmého května, uzavřel sérii há. Získal šedesát pět miliard dolarů při ocenění devět set šedesát pět miliard po vstupu peněz. Kolo vedli Altimítr Kepitl, Dragonyr, Grýnouks a Sikvoja Kepitl. Ran-rejt tržeb podle firmy překročil čtyřicet sedm miliard začátkem téhož měsíce.
+    Čtyři dny předtím, dvacet osmého května, uzavřel sérii há. Získal šedesát pět miliard dolarů při ocenění devět set šedesát pět miliard po vstupu peněz. Kolo vedly společnosti Altimítr Kepitl, Dragonýr, Grýn ouks a Sikvoja Kepitl. Roční tempo tržeb podle firmy překročilo čtyřicet sedm miliard začátkem téhož měsíce.
 
-    Mezi květnem a dneškem se z toho v tisku staly dva biliony. Ten skok nepřišel z účetní uzávěrky. Přišel z očekávání investorů. Stejní lidé podle Fajnenšl Tajms čekají anualizované tržby sto až sto dvacet miliard do konce roku. Vedení Entropiku podle tohoto textu zatím nestanovilo cíl ocenění, ani v soukromí. Nabídku mají vést Morgan Stejnli, Goldman Saks a Džej-pí Morgan.
+    Mezi květnem a dneškem se z toho v tisku staly zase dva tisíce miliard dolarů. Ten skok nepřišel z účetní uzávěrky. Přišel z očekávání investorů. Stejní lidé podle Fajnenšl Tajms čekají anualizované tržby sto až sto dvacet miliard do konce roku. Vedení Entropiku zatím nestanovilo cíl ocenění, ani v soukromí. Nabídku mají vést Morgan Stejnli, Goldman Saks a Džej-pí Morgan.
 
-    Spejs-ex podle Kvórcu v červnu vstoupil na burzu při jedna celá sedmdesát sedm bilionu. Sí-en-bí-sí jednadvacátého srpna píše, že vybral osmdesát pět celá sedm miliardy včetně opce andrvrajtrů. Anonymní zdroje říkají, že u Entropiku investoři projektují zhruba dva biliony. V prospektu má podle nich figurovat i odpor veřejnosti vůči ej-aj a datovým centrům.
+    Spejs-ex podle serveru Kvorc v červnu vstoupil na burzu při tisíci sedmi stech sedmdesáti miliardách dolarů. Sí-en-bí-sí jednadvacátého srpna píše, že vybral osmdesát pět celá sedm miliardy včetně opce pro banky. Anonymní zdroje říkají, že u Entropiku investoři projektují zhruba dva tisíce miliard dolarů. V prospektu má podle nich figurovat i odpor veřejnosti vůči umělé inteligenci a datovým centrům.
 
-    Číst dva biliony jako firemní cíl je chyba. Entropik potvrdil důvěrný es-jedna, květnových devět set šedesát pět miliard a ran-rejt čtyřicet sedm miliard. Dva biliony, říjen a sto až sto dvacet miliard tržeb jsou sázka investorů.
+    Číst dva tisíce miliard dolarů jako firemní cíl je chyba. Entropik potvrdil důvěrný es jedna, květnových devět set šedesát pět miliard a roční tempo tržeb čtyřicet sedm miliard. Dva tisíce miliard dolarů, termín v říjnu a sto až sto dvacet miliard tržeb jsou sázka investorů.
 
-    Zdroj informací: oficiální oznámení Entropiku o důvěrném es-jedna a sérii há, Rojtrsz, Fajnenšl Tajms přes Kvórc a sí-en-bí-sí.
+    Zdroj informací: oficiální oznámení Entropiku o důvěrném es jedna a sérii há, Rojtrsz, Fajnenšl Tajms přes Kvorc a sí-en-bí-sí.
 ---
 
 Titulky o dvoubilionovém IPO Anthropicu zní, jako by je vypustila sama firma. Nevypustila. Šest investorů podle Financial Times, jak je 13. srpna shrnul Quartz, čeká vstup na burzu v říjnu a ocenění 2 biliony dolarů nebo víc. To by podle nich bylo největší IPO v historii. Anthropic se k tomu nevyjádřil.
