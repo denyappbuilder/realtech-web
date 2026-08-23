@@ -47,9 +47,9 @@ function prvek(extra = {}) {
 /**
  * Spustí klientský skript modalu nad falešným DOM a vrátí jeho vnitřek.
  *
- * @param {{ hledatelne?: unknown[] }} [nastaveni]
+ * @param {{ hledatelne?: unknown[], fetch?: typeof globalThis.fetch }} [nastaveni]
  */
-export function nactiModal({ hledatelne = null } = {}) {
+export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
   let dokument;
   const focus = function () {
     this.fokusovan++;
@@ -77,9 +77,9 @@ export function nactiModal({ hledatelne = null } = {}) {
     document: dokument,
     location: { href: '' },
     console,
-    fetch: async () => {
+    fetch: fetchImpl ?? (async () => {
       throw new Error('fetch se v tomto testu nesmí volat');
-    },
+    }),
   };
   sandbox.globalThis = sandbox;
 

@@ -73,6 +73,44 @@ test('dokud se index nenačte, hledání nevrací nic (ne výjimku)', () => {
   assert.deepEqual(slugy(modal.search('starlink')), []);
 });
 
+test('po odmítnutém fetchi se index při dalším načtení stáhne znovu', async () => {
+  const platnyIndex = [polozka({ s: 'obnoveno', t: 'Starlink po výpadku' })];
+  let fetchCount = 0;
+  const modal = nactiModal({
+    fetch: async () => {
+      fetchCount++;
+      if (fetchCount === 1) throw new Error('dočasný výpadek');
+      return { ok: true, json: async () => platnyIndex };
+    },
+  });
+
+  assert.deepEqual(Array.from(await modal.loadIndex()), []);
+  assert.equal(modal.dejIndex(), null);
+  assert.deepEqual(slugy(await modal.loadIndex()), ['obnoveno']);
+  assert.equal(fetchCount, 2);
+  assert.deepEqual(slugy(modal.search('starlink')), ['obnoveno']);
+});
+
+test('po HTTP chybě se index při dalším načtení stáhne znovu', async () => {
+  const platnyIndex = [polozka({ s: 'obnoveno', t: 'Claude po výpadku' })];
+  let fetchCount = 0;
+  const modal = nactiModal({
+    fetch: async () => {
+      fetchCount++;
+      if (fetchCount === 1) {
+        return { ok: false, json: async () => { throw new Error('neparsovat'); } };
+      }
+      return { ok: true, json: async () => platnyIndex };
+    },
+  });
+
+  assert.deepEqual(Array.from(await modal.loadIndex()), []);
+  assert.equal(modal.dejIndex(), null);
+  assert.deepEqual(slugy(await modal.loadIndex()), ['obnoveno']);
+  assert.equal(fetchCount, 2);
+  assert.deepEqual(slugy(modal.search('claude')), ['obnoveno']);
+});
+
 test('Tab na posledním prvku zůstane v modalu a vrátí fokus na první', () => {
   const modal = nactiModal({ hledatelne: [] });
   modal.spoustec.dispatch('click', kliknuti(modal.spoustec));
