@@ -2,11 +2,12 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import fs from 'node:fs';
 import { marked } from 'marked';
+import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 import { mimeTypeProEnclosure } from '../lib/rss-enclosure-mime.js';
 
 export async function GET(context) {
   const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .sort(compareArticlesByDateDescThenId)
     .slice(0, 50);
 
   return rss({

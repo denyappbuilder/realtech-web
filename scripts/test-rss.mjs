@@ -7,6 +7,11 @@ import {
   setCollection,
   setExistingFiles,
 } from "./test-rss-mocks/state.mjs";
+import {
+  bothInputOrders,
+  sameDateArticles,
+  SAME_DATE_EXPECTED_IDS,
+} from "./test-fixtures/same-date-articles.mjs";
 import { GET } from "../src/pages/rss.xml.js";
 
 const site = new URL("https://realtech.cz/");
@@ -77,6 +82,21 @@ test("GET vynechá drafty, seřadí články od nejnovějšího a omezí feed na
     ),
   );
   assert.ok(items.every(({ title }) => !title.includes("draft")));
+});
+
+test("GET řadí shodné datum stabilně podle ID bez ohledu na pořadí kolekce", async () => {
+  const outputs = [];
+
+  for (const entries of bothInputOrders(sameDateArticles(article))) {
+    setCollection(entries);
+    await GET({ site });
+    outputs.push(getMockState().rssCalls.at(-1).items.map(({ link }) => (
+      link.replace(/^\/clanky\//, "").replace(/\/$/, "")
+    )));
+  }
+
+  assert.deepEqual(outputs[0], SAME_DATE_EXPECTED_IDS);
+  assert.deepEqual(outputs[1], outputs[0]);
 });
 
 test("GET mapuje metadata, kategorie a odkazy a absolutizuje kořenové href a src", async () => {

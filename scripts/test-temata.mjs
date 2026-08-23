@@ -2,6 +2,12 @@ import assert from 'node:assert/strict';
 import { register } from 'node:module';
 import test, { beforeEach } from 'node:test';
 
+import {
+  bothInputOrders,
+  sameDateArticles,
+  SAME_DATE_EXPECTED_IDS,
+} from './test-fixtures/same-date-articles.mjs';
+
 register('./test-temata-loader.mjs', import.meta.url);
 
 const [{ default: TemataPage, getStaticPaths }, {
@@ -114,6 +120,19 @@ test('stránka vybírá přesnou kategorii, vyřadí drafty a řadí sestupně p
     getMockState().collectionCalls.map(({ name }) => name),
     ['clanky', 'clanky'],
   );
+});
+
+test('stránka kategorie řadí shodné datum stabilně podle ID bez ohledu na pořadí kolekce', async () => {
+  const outputs = [];
+
+  for (const entries of bothInputOrders(sameDateArticles(article))) {
+    setCollection(entries);
+    const { clanky } = await evaluatePage('AI Report');
+    outputs.push(clanky.map(({ id }) => id));
+  }
+
+  assert.deepEqual(outputs[0], SAME_DATE_EXPECTED_IDS);
+  assert.deepEqual(outputs[1], outputs[0]);
 });
 
 test('ostatní témata tiše zahodí draft-only kategorie, duplicity a aktuální kategorii', async () => {

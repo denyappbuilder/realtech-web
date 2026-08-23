@@ -2,6 +2,12 @@ import assert from 'node:assert/strict';
 import { register } from 'node:module';
 import test, { beforeEach } from 'node:test';
 
+import {
+  bothInputOrders,
+  sameDateArticles,
+  SAME_DATE_EXPECTED_IDS,
+} from './test-fixtures/same-date-articles.mjs';
+
 register('./test-archive-loader.mjs', import.meta.url);
 
 const [{ default: ArchivePage }, {
@@ -76,6 +82,18 @@ test('archiv požádá o clanky, vyfiltruje drafty a seřadí publikované člá
   assert.equal(result.all.some(({ id }) => id === 'draft-nejnovejsi'), false);
   assert.equal(getMockState().collectionCalls.length, 1);
   assert.equal(getMockState().collectionCalls[0].name, 'clanky');
+});
+
+test('archiv řadí shodné datum stabilně podle ID bez ohledu na pořadí kolekce', async () => {
+  const outputs = [];
+
+  for (const entries of bothInputOrders(sameDateArticles(article))) {
+    const result = await evaluateArchive(entries);
+    outputs.push(result.articles.map(({ id }) => id));
+  }
+
+  assert.deepEqual(outputs[0], SAME_DATE_EXPECTED_IDS);
+  assert.deepEqual(outputs[1], outputs[0]);
 });
 
 test('kategorie odvodí pouze z publikovaných článků a každou vykreslí jednou', async () => {
