@@ -1,10 +1,11 @@
 import { getCollection } from 'astro:content';
+import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 
 // Vyhledávací index pro ⌘K modal — malý (jen metadata + začátek textu),
 // načítá se až při prvním otevření vyhledávání.
 export async function GET() {
   const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    .sort(compareArticlesByDateDescThenId);
 
   const items = clanky.map((c) => ({
     s: c.id,

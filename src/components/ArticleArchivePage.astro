@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 import Base from '../layouts/Base.astro';
 import ArticleCard from './ArticleCard.astro';
 
@@ -10,7 +11,7 @@ interface Props {
 const ARTICLES_PER_PAGE = 15;
 const { page } = Astro.props;
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort(compareArticlesByDateDescThenId);
 const totalPages = Math.ceil(all.length / ARTICLES_PER_PAGE);
 const start = (page - 1) * ARTICLES_PER_PAGE;
 const articles = all.slice(start, start + ARTICLES_PER_PAGE);

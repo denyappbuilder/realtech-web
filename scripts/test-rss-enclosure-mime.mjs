@@ -58,7 +58,14 @@ test("GET dá PNG a WebP enclosure pravdivý MIME, JPEG nechá [Z1065 / RSS-MIME
 
   await GET({ site });
 
-  const [png, webp, jpg, gif] = getMockState().rssCalls[0].items;
+  const itemsByLink = new Map(
+    getMockState().rssCalls[0].items.map((item) => [item.link, item]),
+  );
+  const png = itemsByLink.get("/clanky/png/");
+  const webp = itemsByLink.get("/clanky/webp/");
+  const jpg = itemsByLink.get("/clanky/jpg/");
+  const gif = itemsByLink.get("/clanky/gif/");
+
   assert.deepEqual(png.enclosure, {
     url: "https://realtech.cz/images/clanky/zz-pngcover.png",
     type: "image/png",

@@ -6,6 +6,11 @@ import {
   resetRssMocks,
   setCollection,
 } from "./test-rss-mocks/state.mjs";
+import {
+  bothInputOrders,
+  sameDateArticles,
+  SAME_DATE_EXPECTED_IDS,
+} from "./test-fixtures/same-date-articles.mjs";
 import { GET } from "../src/pages/search-index.json.js";
 
 function article({
@@ -50,6 +55,19 @@ test("GET vynechá drafty a seřadí publikované články od nejnovějšího", 
   ]);
   assert.equal(getMockState().collectionCalls.length, 1);
   assert.equal(getMockState().collectionCalls[0].name, "clanky");
+});
+
+test("GET řadí shodné datum stabilně podle ID bez ohledu na pořadí kolekce", async () => {
+  const outputs = [];
+
+  for (const entries of bothInputOrders(sameDateArticles(article))) {
+    setCollection(entries);
+    const response = await GET();
+    outputs.push((await response.json()).map(({ s }) => s));
+  }
+
+  assert.deepEqual(outputs[0], SAME_DATE_EXPECTED_IDS);
+  assert.deepEqual(outputs[1], outputs[0]);
 });
 
 test("GET vrátí přesný minifikovaný JSON kontrakt a Content-Type", async () => {

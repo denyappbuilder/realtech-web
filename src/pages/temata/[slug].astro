@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import { seoTitulek } from '../../lib/seo-titulek.js';
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
@@ -28,7 +29,7 @@ const POPISY = {
 const popis = POPISY[category] ?? `Články z kategorie ${category} — tech bez marketingových řečí.`;
 
 const clanky = (await getCollection('clanky', ({ data }) => !data.draft && data.category === category))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort(compareArticlesByDateDescThenId);
 
 const all = await getCollection('clanky', ({ data }) => !data.draft);
 const ostatni = [...new Set(all.map((c) => c.data.category))].filter((c) => c !== category);
