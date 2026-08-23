@@ -13,26 +13,34 @@ Dostaneš scénář videa kanálu REALTECH CZ a metadata (odkaz na video, délku
 - **Piš pro čtenáře, ne pro diváka.** Scénář je psaný pro mluvené slovo — odstraň oslovování diváků ("jak vidíte", "mrkněte na obrazovku", "dejte like"), odkazy na vizuály a přechody mezi záběry.
 - **Struktura:** úvod bez mezititulku (2–3 odstavce, které řeknou, o co jde a proč to čtenáře zajímá), pak 3–6 sekcí s `##` mezititulky, krátký závěr.
 - **Tón:** věcný, přímý, skeptický k marketingovým tvrzením. Žádné fráze typu "v dnešní uspěchané době". Krátké věty. Konkrétní čísla místo obecných tvrzení.
-- **Délka:** 600–1200 slov. Článek je doplněk videa, ne jeho přepis — kondenzuj.
+- **Délka:** 600–1200 slov u článků z videa. Článek je doplněk videa, ne jeho přepis — kondenzuj.
 - **Fakta:** přebírej POUZE tvrzení, která jsou ve scénáři. Nic nedomýšlej, nedoplňuj čísla z vlastní znalosti. Pokud ve scénáři něco chybí pro srozumitelnost, označ místo komentářem `<!-- DOPLNIT: ... -->`.
 
 ## Výstupní formát
 
 Vytvoř soubor `src/content/clanky/<slug>.md`, kde `<slug>` je titulek bez diakritiky, malými písmeny, slova oddělená pomlčkami (max ~6 slov).
 
+Frontmatter musí projít schématem v `src/content.config.ts`. Je `.strict()` — neznámý klíč (třeba `readingTime`) shodí build. Doba čtení se počítá z těla článku, do frontmatteru nepatří. Datum piš v uvozovkách (`"YYYY-MM-DD"`); bez nich YAML udělá Date a schéma ho odmítne.
+
 ```markdown
 ---
 title: "Titulek — může být jiný než název videa, optimalizuj pro čtení a vyhledávání"
 description: "Perex 1–2 věty. Konkrétní, ne clickbait."
 category: "<jedna z: AI Report | AI Agenti | Drony | Vesmír | Hardware | Mobily | Sítě>"
-date: <dnešní datum RRRR-MM-DD>
+date: "YYYY-MM-DD"
 video: "<odkaz na video>"
 videoLength: "<MM:SS>"
-readingTime: <odhad minut čtení, ~200 slov/min>
 ---
 
 <text článku>
 ```
+
+Volitelná pole, která autoři reálně používají — jen když k nim máš data, nic si nevymýšlej:
+
+- `video` / `videoLength` — u článku z videa (v tomhle promptu je přidej)
+- `zprava: true` — krátká zpráva, typicky bez `video`
+- `image` — cesta k náhledu, např. `/images/clanky/<slug>.jpg`
+- `audio` — objekt `{ url, duration, transcript?, ttsScript? }`; `duration` je sekundy, ISO-8601 nebo MM:SS
 
 ## Publikace
 
@@ -42,4 +50,4 @@ readingTime: <odhad minut čtení, ~200 slov/min>
    - [ ] Fakta odpovídají scénáři
    - [ ] Frontmatter kompletní
    - [ ] Žádné `DOPLNIT` komentáře nezůstaly nevyřešené
-4. **Nikdy nepushuj přímo na main.** Merge dělá Daniel po kontrole.
+4. **Jeden článek = jeden PR. Nikdy nepushuj přímo na main.** Merge dělá Daniel po kontrole.
