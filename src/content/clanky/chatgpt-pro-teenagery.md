@@ -9,6 +9,24 @@ audio:
   url: "https://audio.realtech.cz/chatgpt-pro-teenagery-v3.mp3?v=236c2b5dad6b"
   duration: 147
   transcript: |-
+    OpenAI představilo ChatGPT pro dospívající a do toho režimu tě může hodit odhad věku, ne tvoje přihlášení.
+
+    Osmnáctého srpna představilo samostatnou verzi ChatGPT pro uživatele mezi třinácti a sedmnácti lety. Podle oznámení se do režimu pro dospívající uživatel přesune automaticky, když jeho věk odhadne systém, nebo když sám uvede, že mu je třináct až sedmnáct.
+
+    Ochrany jsou v základu zapnuté a nejdou vypnout. OpenAI popisuje věkově přiměřená omezení u sebepoškozování, násilí, poruch příjmu potravy, nebezpečných aktivit a explicitního obsahu. Nad rámec blokování erotického roleplaye jde i aktualizovaná specifikace modelu pro nezletilé. ChatGPT nemá používat romantický jazyk, podporovat citovou závislost ani naznačovat, že má vlastní pocity nebo vědomí.
+
+    Přibývají i připomínky při nahrávání citlivých fotek, upozornění na přestávku a produktové signály, že jde o AI, ne o člověka.
+
+    Rodiče s propojeným účtem můžou nastavit dobu klidu, tedy časy, kdy ChatGPT nefunguje, spravovat vybraná nastavení a dostávat oznámení ve vyhraněných rizikových situacích. Nově i u poruch příjmu potravy. K tomu přibývá studijní čas, kdy se automaticky zapíná studijní režim.
+
+    Studijní část je jádro celé verze. Studijní režim vede k postupu krok za krokem místo hotové odpovědi. Přibyly kvízy, vizualizace a připomínky k poctivému plnění domácích úkolů. Když to vypadá, že si dospívající chce úkol jen odkliknout, ChatGPT ho přesměruje k vlastnímu řešení.
+
+    Co OpenAI neřeklo, je to podstatné pro nás. V oznámení chybí, kdy a kde se to spouští. Žádná zmínka o zemích, datech ani o tom, jak přesný odhad věku je. A co dělat, když sáhne vedle a hodí do režimu pro dospívající dospělého, taky nevíme. Ověřovat to bude potřeba, až se to objeví v Česku.
+
+    Pro rodiče puberťáků je to i tak nejkonkrétnější krok, jaký zatím OpenAI udělalo. A na rozdíl od australského zákazu sítí pro děti do šestnácti let tady nejde o zákaz, ale o jiný režim stejného nástroje.
+
+    Zdroj informací: oficiální oznámení OpenAI o ChatGPT pro dospívající.
+  ttsScript: |-
     OpenAI představilo Čet dží-pí-tý pro dospívající a do toho režimu tě může hodit odhad věku, ne tvoje přihlášení.
 
     Osmnáctého srpna představilo samostatnou verzi Čet dží-pí-tý pro uživatele mezi třinácti a sedmnácti lety. Podle oznámení se do režimu pro dospívající uživatel přesune automaticky, když jeho věk odhadne systém, nebo když sám uvede, že mu je třináct až sedmnáct.

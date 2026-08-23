@@ -9,6 +9,24 @@ audio:
   url: "https://audio.realtech.cz/starship-ship-40-vanocni-ostrov-v3.mp3?v=f5fdac858bf1"
   duration: 148
   transcript: |-
+    Starship po dvaceti čtyřech dnech na moři doplul k Vánočnímu ostrovu a SpaceX poprvé získává zpět celý horní stupeň.
+
+    Po třináctém testovacím letu vypadalo přistání na hladině Indického oceánu podle SpaceX jako nejjemnější dosud. Loď se nerozlomila ani nepotopila.
+
+    Ship 40 odstartoval dvacátého čtvrtého července z Texasu a po úspěšné misi přistál v mezinárodních vodách daleko od západní Austrálie. Místo aby skončil na dně, zůstal neporušený a plovoucí. SpaceX se ho rozhodl vytáhnout. Sám napsal, že po zhruba dvaceti čtyřech dnech na moři dovedl záchranný tým Starship k místu těsně u pobřeží Vánočního ostrova a že tam míří skupina inženýrů kvůli další práci na lodi.
+
+    Nebyla to procházka. Firma popisovala stále drsnější moře a několik týdnů to vypadalo, že se vlek nepovede. Stroj dlouhý padesát dva metrů nakonec táhly dvě lodě.
+
+    Mluvčí Australské kosmické agentury potvrdil, že australská vláda operaci koordinuje se SpaceX. Řekl, že SpaceX odvlekl stroj k Vánočnímu ostrovu poté, co vstoupil do atmosféry a přistál v mezinárodních vodách. Na otázky, co bude dál a jestli se loď vrátí do Spojených států, agentura odkázala na SpaceX.
+
+    Šéf tamního turistického sdružení David Watchorn popsal pohled zblízka jako neuvěřitelný. Fotograf Chris Bray mluví o tématu celého ostrova. Kolem plavidla platí zóna zákazu vplutí.
+
+    Starship má být plně opakovaně použitelný. Zatím se to daří u boosteru. Horní stupeň dosud vždycky skončil v troskách nebo pod hladinou. Tenhle kus je první, který přežil celý let a je fyzicky k dispozici. Rozebrat stroj po reálném vstupu do atmosféry řekne inženýrům o stavu tepelného štítu víc než jakákoli telemetrie.
+
+    Zpráva přichází dva týdny po tom, co jiný stupeň SpaceX narazil do Měsíce. Podle dat OSN bylo v roce dva tisíce dvacet pět provedeno čtyři tisíce pět set deset startů proti pěti stům osmdesáti šesti v roce dva tisíce devatenáct. Archeoložka vesmíru Alice Gorman z Flinders University upozorňuje, že jižní polokoule bude kosmického odpadu vídat čím dál víc.
+
+    Zdroj informací: ABC News z osmnáctého srpna roku dva tisíce dvacet šest a vyjádření SpaceX na X.
+  ttsScript: |-
     Stáršip po dvaceti čtyřech dnech na moři doplul k Vánočnímu ostrovu a Spejseks poprvé získává zpět celý horní stupeň.
 
     Po třináctém testovacím letu vypadalo přistání na hladině Indického oceánu podle Spejseksu jako nejjemnější dosud. Loď se nerozlomila ani nepotopila.

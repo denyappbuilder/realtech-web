@@ -22,7 +22,9 @@ const audioDuration = z
     message: 'Expected audio duration as seconds, ISO-8601, or MM:SS',
   });
 
-// Volitelný blok `audio` (url, duration, transcript) — články bez něj zůstanou platné.
+// `transcript` je veřejný čitelný přepis. Volitelný `ttsScript` uchovává
+// výslovnostní zápis pro regeneraci audia; starší pipeline mohou použít
+// `audioTtsScript(audio)`, který bez něj spadne zpět na transcript.
 const audioPrehled = z
   .object({
     url: z.string().refine(jeAudioUrl, {
@@ -30,6 +32,7 @@ const audioPrehled = z
     }),
     duration: audioDuration,
     transcript: z.string().min(1).optional(),
+    ttsScript: z.string().min(1).optional(),
   })
   .strict();
 

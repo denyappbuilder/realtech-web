@@ -70,16 +70,27 @@ function encodingFromUrl(src) {
   return 'audio/mpeg';
 }
 
+function neprázdnýText(value) {
+  return typeof value === 'string' && value.trim() ? value : undefined;
+}
+
+/**
+ * Zdroj pro TTS pipeline: výslovnostní skript, nebo veřejný přepis u starších
+ * článků. Veřejné výstupy tuto funkci záměrně nepoužívají.
+ */
+export function audioTtsScript(audio) {
+  if (!audio || typeof audio !== 'object') return undefined;
+  return neprázdnýText(audio.ttsScript) ?? neprázdnýText(audio.transcript);
+}
+
 /** Pohled pro přehrávač. Bez platného bloku `audio` vrací null. */
 export function audioPrehledPohled(audio, site) {
   if (!audio || typeof audio !== 'object') return null;
   const duration = parseAudioDuration(audio.duration);
   const src = audioSrc(audio.url, site);
   if (!duration || !src) return null;
-  const prepis =
-    typeof audio.transcript === 'string' && audio.transcript.trim()
-      ? audio.transcript
-      : undefined;
+  // Do HTML i JSON-LD smí jít jen čitelný přepis, nikdy fonetický ttsScript.
+  const prepis = neprázdnýText(audio.transcript);
   return {
     src,
     iso: duration.iso,

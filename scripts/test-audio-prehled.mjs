@@ -9,6 +9,7 @@ import './test-audio-prehled-register.mjs';
 import { setCollection } from './test-audio-prehled-mocks/state.mjs';
 import {
   audioPrehledPohled,
+  audioTtsScript,
   jsonLdText,
   parseAudioDuration,
   pripojAudioKClanku,
@@ -54,11 +55,9 @@ async function nactiStranku(current) {
   return import(`../src/pages/clanky/[...id].astro?audio-test=${fixtureNumber}`);
 }
 
-test('schema: první věta kontraktu — audio je volitelný blok, články bez něj zůstanou platné', () => {
-  assert.match(
-    SCHEMA,
-    /Volitelný blok `audio` \(url, duration, transcript\) — články bez něj zůstanou platné\./,
-  );
+test('schema odděluje veřejný transcript od volitelného ttsScript a audio zůstává volitelné', () => {
+  assert.match(SCHEMA, /`transcript` je veřejný čitelný přepis/);
+  assert.match(SCHEMA, /ttsScript:\s*z\.string\(\)\.min\(1\)\.optional\(\)/);
   assert.match(SCHEMA, /audio:\s*audioPrehled\.optional\(\)/);
 });
 
@@ -108,11 +107,12 @@ test('bez audio bloku není player ani AudioObject', async () => {
   assert.doesNotMatch(JSON.stringify(jsonLd), /AudioObject/);
 });
 
-test('s audio blokem je player, URL, délka, přepis i JSON-LD', async () => {
+test('player a JSON-LD používají čitelný transcript, TTS pipeline výslovnostní ttsScript', async () => {
   const audio = {
     url: '/audio/clanky/fixture.mp3',
     duration: '3:12',
-    transcript: 'Krátký přehled článku <script>alert(1)</script>.',
+    transcript: 'Google a Gemini. <script>alert(1)</script>.',
+    ttsScript: 'Gůgl a Džeminy.',
   };
   const { audioLd, jsonLd, articleUrl } = await nactiStranku(clanek({ audio }));
   const pohled = audioPrehledPohled(audio, SITE);
@@ -122,14 +122,23 @@ test('s audio blokem je player, URL, délka, přepis i JSON-LD', async () => {
   assert.equal(pohled.iso, 'PT3M12S');
   assert.equal(pohled.delkaText, '3:12');
   assert.equal(pohled.prepis, audio.transcript);
+  assert.equal(audioTtsScript(audio), audio.ttsScript);
   assert.equal(audioLd['@type'], 'AudioObject');
   assert.equal(audioLd.contentUrl, pohled.src);
   assert.equal(audioLd.duration, 'PT3M12S');
   assert.equal(audioLd.mainEntityOfPage, articleUrl);
   assert.equal(audioLd['@id'], `${articleUrl}#audio`);
+  assert.equal(audioLd.transcript, audio.transcript);
+  assert.doesNotMatch(JSON.stringify(audioLd), /Gůgl|Džeminy/);
   assert.deepEqual(jsonLd.audio, { '@id': audioLd['@id'] });
   assert.match(jsonLdText(audioLd), /\\u003cscript/);
   assert.doesNotMatch(jsonLdText(audioLd), /<script/);
+});
+
+test('TTS helper je zpětně kompatibilní s článkem bez ttsScript', () => {
+  assert.equal(audioTtsScript({ transcript: 'Starší čitelný přepis.' }), 'Starší čitelný přepis.');
+  assert.equal(audioTtsScript({ ttsScript: 'Fonetický skript.', transcript: 'Čitelný přepis.' }), 'Fonetický skript.');
+  assert.equal(audioTtsScript(undefined), undefined);
 });
 
 test('vytvorAudioObject bez platného audia nic nevrátí a nepropojí článek', () => {

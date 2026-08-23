@@ -426,6 +426,7 @@ test('volitelný audio blok projde, neplatná URL a nula ne', (t) => {
     '  url: "/audio/clanky/ok.mp3"',
     '  duration: "PT2M5S"',
     '  transcript: "Krátký přehled."',
+    '  ttsScript: "Krátký přehled pro té-té-es."',
   ]);
   writeArticle(root, 'audio-nula', [
     ...validFrontmatter({ title: 'Audio nula' }),
