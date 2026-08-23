@@ -150,12 +150,17 @@ const breadcrumbLd = {
 
       <AudioPrehled audio={audio} />
 
+      {/*
+        Hlavní cover není dekorace — nemá aria-hidden a čtečka o něm s alt=""
+        mlčela. Frontmatter vlastní alt obrázku nemá, tak nese titulek článku.
+        Náhled ve fasádě níže alt="" mít smí: jméno mu dává aria-label tlačítka.
+      */}
       {!videoId && heroSrc && (
         <div class="article-hero">
           <picture>
             {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
             {!heroWebpSrcset && heroWebp && <source srcset={heroWebp} type="image/webp" />}
-            <img src={heroSrc} srcset={heroSrcset} sizes={heroSrcset ? heroSizes : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+            <img src={heroSrc} srcset={heroSrcset} sizes={heroSrcset ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
           </picture>
         </div>
       )}
