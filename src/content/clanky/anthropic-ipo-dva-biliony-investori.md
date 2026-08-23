@@ -4,6 +4,7 @@ description: "Šest investorů podle FT sází na ocenění 2 biliony a termín 
 category: "AI Report"
 date: "2026-08-23"
 zprava: true
+image: "/images/clanky/anthropic-ipo-dva-biliony-investori.jpg"
 ---
 
 Titulky o dvoubilionovém IPO Anthropicu zní, jako by je vypustila sama firma. Nevypustila. Šest investorů podle Financial Times, jak je 13. srpna shrnul Quartz, čeká vstup na burzu v říjnu a ocenění 2 biliony dolarů nebo víc. To by podle nich bylo největší IPO v historii. Anthropic se k tomu nevyjádřil.
