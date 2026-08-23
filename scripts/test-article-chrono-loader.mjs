@@ -42,8 +42,11 @@ export async function load(url, context, nextLoad) {
     const articleDeclaration = frontmatter.value.match(
       /^const \{ article \} = Astro\.props;$/m,
     )?.[0];
+    const comparatorImport = frontmatter.value.match(
+      /^import \{ compareArticlesByDateDescThenId \} from '\.\.\/\.\.\/lib\/article-order\.js';$/m,
+    )?.[0];
 
-    if (start === -1 || end === -1 || !articleDeclaration) {
+    if (start === -1 || end === -1 || !articleDeclaration || !comparatorImport) {
       throw new Error('Nelze najít produkční blok chronologické navigace');
     }
 
@@ -53,6 +56,7 @@ export async function load(url, context, nextLoad) {
       format: 'module',
       source: [
         "import { getCollection } from 'astro:content';",
+        comparatorImport,
         articleDeclaration,
         productionChronology,
         'export { chrono, newer, older };',

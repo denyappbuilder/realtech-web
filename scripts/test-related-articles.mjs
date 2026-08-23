@@ -59,6 +59,36 @@ test('související články vyloučí draft a aktuální článek a upřednostn
   ]);
 });
 
+test('shodné datum skutečných článků je stabilní v obou pořadích vstupu a kategorie zůstává první', async () => {
+  const current = article({
+    id: 'aktualni-vesmir',
+    category: 'Vesmír',
+    date: '2026-08-19T00:00:00.000Z',
+  });
+  const chatgpt = article({
+    id: 'chatgpt-pro-teenagery',
+    category: 'AI Report',
+    date: '2026-08-18T00:00:00.000Z',
+  });
+  const starship = article({
+    id: 'starship-ship-40-vanocni-ostrov',
+    category: 'Vesmír',
+    date: '2026-08-18T00:00:00.000Z',
+  });
+
+  for (const tiedArticles of [[chatgpt, starship], [starship, chatgpt]]) {
+    assert.deepEqual(await selectRelated(current, [
+      ...tiedArticles,
+      article({ id: 'starsi-ai', category: 'AI Report', date: '2026-08-17T00:00:00.000Z' }),
+      current,
+    ]), [
+      'starship-ship-40-vanocni-ostrov',
+      'chatgpt-pro-teenagery',
+      'starsi-ai',
+    ]);
+  }
+});
+
 test('při nedostatku stejné kategorie doplní nejnovější jiné články a výsledek omezí na tři', async () => {
   const current = article({
     id: 'aktualni-bez-shody',
