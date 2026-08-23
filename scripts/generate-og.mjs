@@ -39,7 +39,9 @@ let made = 0;
 for (const f of fs.readdirSync(SRC).filter((f) => f.endsWith('.md'))) {
   const slug = f.replace(/\.md$/, '');
   const raw = fs.readFileSync(path.join(SRC, f), 'utf8');
-  const fm = raw.split('---')[1] ?? '';
+  // Oddělovač je řádek `---`, ne libovolný výskyt v hodnotě (stejně jako sitemap/validate-content).
+  // `split('---')` uřízne `description: "Rozbor --- díl první"` a ztratí `image` za ním.
+  const fm = raw.split(/^---\s*$/m)[1] ?? '';
   const title = fm.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1];
   const image = fm.match(/^image:\s*["']?(.+?)["']?\s*$/m)?.[1];
   const hasVideo = /^video:/m.test(fm);
