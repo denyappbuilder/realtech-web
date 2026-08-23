@@ -5,6 +5,23 @@ category: "Mobily"
 date: "2026-08-12"
 zprava: true
 image: "/images/clanky/pixel-11-tensor-g6.jpg"
+audio:
+  url: "https://audio.realtech.cz/pixel-11-tensor-g6-v3.mp3?v=5d24a4457c85"
+  duration: 139
+  transcript: |-
+    Dnes v RealTechu: Pixel jedenáct je venku: Tensor G6, sedm let updatů a blikající dioda místo displeje. Google představil Pixel jedenáct, jedenáct Pro a jedenáct Pro XL. Ceny od osm set devadesát devět dolarů, do prodeje dvacátého srpna. Novinky: LED HiLight kolem blesku, 30x zoom na základním modelu a první vlastní lokátor Pixel Tag za dvacet devět dolarů. Google dneska odpoledne odpálil Made by Google dva tisíce dvacet šest a s ním jedenáctou generaci Pixelů: Pixel jedenáct, Pixel jedenáct Pro a Pixel jedenáct Pro XL. Předobjednávky běží od dneška, na pultech mají být dvacátého srpna, ceny startují na osm set devadesát devět / jedna devadesát devět / jedna dvě stě devadesát devět dolarech. Všechny tři začínají na dvě stě padesát šest GB. Co je nové v hardwaru Základní Pixel jedenáct dostal nový, větší 48Mpx hlavní snímač s o padesát šest procent vyšší citlivostí na světlo a díky čipu Tensor G6 zvládne na 5x teleobjektivu 30x Super Zoom. Pro verze mají nový hlavní senzor, přepracovaný 48Mpx tele s o třicet procent větší citlivostí a Pro Zoom až 120x. Night Sight fotí podle Googlu až čtyři,5x rychleji než dřív. Fotolišta zhubla o čtyřicet procent na tloušťce — s originálním obalem má být telefon prakticky bez hrbu a nekolébá se na stole. Pro modely dostaly nejsvětlejší displej, jaký Google zatím udělal (až tři šest set nitů) a novou ochrannou vrstvu s víc než dvojnásobnou odolností proti škrábancům. Nejzajímavější drobnost: HiLight. Kolem blesku na Pro modelech jsou barevné LED, které svítí, když telefon leží obrazovkou dolů — signalizují, že Gemini poslouchá, přemýšlí nebo odpovídá, a jednotlivým kontaktům jde přiřadit vlastní barvu pro příchozí hovory. Jednoduchá věc, ale přesně ten typ, co člověk používá denně. Zdroj: The Pixel jedenáct series: Your most personal Pixel yet a Keep tabs on your valuables with Google Pixel Tag
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Pixel jedenáct je venku: Tensor G6, sedm let updatů a blikající dioda místo displeje.
+    Petr: Google představil Pixel jedenáct, jedenáct Pro a jedenáct Pro XL. Ceny od osm set devadesát devět dolarů, do prodeje dvacátého srpna. Novinky: LED HiLight kolem blesku, 30x zoom na základním modelu a první vlastní lokátor Pixel Tag za dvacet devět dolarů.
+    Ada: Google dneska odpoledne odpálil Made by Google dva tisíce dvacet šest a s ním jedenáctou generaci Pixelů: Pixel jedenáct, Pixel jedenáct Pro a Pixel jedenáct Pro XL.
+    Petr: Předobjednávky běží od dneška, na pultech mají být dvacátého srpna, ceny startují na osm set devadesát devět / jedna devadesát devět / jedna dvě stě devadesát devět dolarech. Všechny tři začínají na dvě stě padesát šest GB.
+    Ada: Co je nové v hardwaru Základní Pixel jedenáct dostal nový, větší 48Mpx hlavní snímač s o padesát šest procent vyšší citlivostí na světlo a díky čipu Tensor G6 zvládne na 5x teleobjektivu 30x Super Zoom.
+    Petr: Pro verze mají nový hlavní senzor, přepracovaný 48Mpx tele s o třicet procent větší citlivostí a Pro Zoom až 120x. Night Sight fotí podle Googlu až čtyři,5x rychleji než dřív.
+    Ada: Fotolišta zhubla o čtyřicet procent na tloušťce — s originálním obalem má být telefon prakticky bez hrbu a nekolébá se na stole.
+    Petr: Pro modely dostaly nejsvětlejší displej, jaký Google zatím udělal (až tři šest set nitů) a novou ochrannou vrstvu s víc než dvojnásobnou odolností proti škrábancům. Nejzajímavější drobnost: HiLight.
+    Ada: Kolem blesku na Pro modelech jsou barevné LED, které svítí, když telefon leží obrazovkou dolů — signalizují, že Gemini poslouchá, přemýšlí nebo odpovídá, a jednotlivým kontaktům jde přiřadit vlastní barvu pro příchozí hovory.
+    Petr: Jednoduchá věc, ale přesně ten typ, co člověk používá denně.
+    Ada: Zdroj: The Pixel jedenáct series: Your most personal Pixel yet a Keep tabs on your valuables with Google Pixel Tag
 ---
 
 Google dneska odpoledne odpálil [Made by Google 2026](/clanky/pixel-watch-detekce-dechu/) a s ním jedenáctou generaci Pixelů: **Pixel 11, Pixel 11 Pro a Pixel 11 Pro XL**. Předobjednávky běží od dneška, na pultech mají být **20. srpna**, ceny startují na **899 / 1 099 / 1 299 dolarech**. Všechny tři začínají na 256 GB.

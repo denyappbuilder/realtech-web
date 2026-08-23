@@ -5,6 +5,23 @@ category: "Drony"
 date: "2026-07-28"
 zprava: true
 image: "/images/clanky/fcc-starlink-vyjimka-dji-zakaz.jpg"
+audio:
+  url: "https://audio.realtech.cz/fcc-starlink-vyjimka-dji-zakaz-v3.mp3?v=5c04777932b7"
+  duration: 141
+  transcript: |-
+    Dnes v RealTechu: Starlink dostal výjimku ze zákazu routerů. DJI klony jdou pod nůž ve stejném týdnu. FCC v pondělí vyňala Starlink routery ze zákazu routerů vyrobených mimo USA — platnost do prvního února dva tisíce dvacet osm. Část produkce SpaceX je přitom ve Vietnamu. Ve stejném týdnu úřad navrhl zaříznout devět značek s přebalenými DJI drony. Americká FCC má od letošního března na svém Covered Listu — seznamu techniky, která podle úřadu představuje nepřijatelné riziko pro národní bezpečnost — položku, která zní jako vtip: „routery vyrobené v cizí zemi, bez ohledu na národnost výrobce". Přidáno třiadvacátého března dva tisíce dvacet šest. Protože routery se prakticky nikde jinde než v Asii nedělají, ocitli se v pasti skoro všichni. Ze seznamu existuje jediná cesta ven: Conditional Approval od ministerstva války (Department of War) nebo Homeland Security. A tuhle výjimku dostal v pondělí sedmadvacátého července SpaceX pro routery Starlinku — s platností do prvního února dva tisíce dvacet osm. SpaceX má fabriku v Texasu a na některých routerech má vyloženě natištěno „Made in the USA". Jenže část Starlink routerů se vyrábí ve Vietnamu, jak už v dubnu upozornil PCMag. A definice FCC je nemilosrdná: „produkce" zahrnuje jakoukoli hlavní fázi — výrobu, montáž, design i vývoj. Podle vlastních pravidel úřadu je tedy „covered" i router navržený v USA a smontovaný venku. Výjimky už dřív dostaly Netgear, Amazon nebo Gryphon. Rozdíl je v tom, kdo o nich rozhoduje: FCC podle zákona nemůže seznam měnit sama, jen provádí rozhodnutí bezpečnostních agentur. Kdo má politicky blízko, projde. A druhá strana rovnice Ve stejném týdnu šla stejná logika opačným směrem. jednadvacátého července FCC zahájila první revokační řízení proti dronové firmě v historii — Order to Show Cause proti společnosti Odyssey Robot LLC registrované v Delaware. Zdroj: FCC, Ars Technica, The Drone Girl a Engadget
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Starlink dostal výjimku ze zákazu routerů. DJI klony jdou pod nůž ve stejném týdnu.
+    Petr: FCC v pondělí vyňala Starlink routery ze zákazu routerů vyrobených mimo USA — platnost do prvního února dva tisíce dvacet osm. Část produkce SpaceX je přitom ve Vietnamu.
+    Ada: Ve stejném týdnu úřad navrhl zaříznout devět značek s přebalenými DJI drony.
+    Petr: Americká FCC má od letošního března na svém Covered Listu — seznamu techniky, která podle úřadu představuje nepřijatelné riziko pro národní bezpečnost — položku, která zní jako vtip: „routery vyrobené v cizí zemi, bez ohledu na národnost výrobce".
+    Ada: Přidáno třiadvacátého března dva tisíce dvacet šest. Protože routery se prakticky nikde jinde než v Asii nedělají, ocitli se v pasti skoro všichni. Ze seznamu existuje jediná cesta ven: Conditional Approval od ministerstva války (Department of War) nebo Homeland Security.
+    Petr: A tuhle výjimku dostal v pondělí sedmadvacátého července SpaceX pro routery Starlinku — s platností do prvního února dva tisíce dvacet osm. SpaceX má fabriku v Texasu a na některých routerech má vyloženě natištěno „Made in the USA".
+    Ada: Jenže část Starlink routerů se vyrábí ve Vietnamu, jak už v dubnu upozornil PCMag. A definice FCC je nemilosrdná: „produkce" zahrnuje jakoukoli hlavní fázi — výrobu, montáž, design i vývoj.
+    Petr: Podle vlastních pravidel úřadu je tedy „covered" i router navržený v USA a smontovaný venku. Výjimky už dřív dostaly Netgear, Amazon nebo Gryphon.
+    Ada: Rozdíl je v tom, kdo o nich rozhoduje: FCC podle zákona nemůže seznam měnit sama, jen provádí rozhodnutí bezpečnostních agentur. Kdo má politicky blízko, projde. A druhá strana rovnice
+    Petr: Ve stejném týdnu šla stejná logika opačným směrem. jednadvacátého července FCC zahájila první revokační řízení proti dronové firmě v historii — Order to Show Cause proti společnosti Odyssey Robot LLC registrované v Delaware.
+    Ada: Zdroj: FCC, Ars Technica, The Drone Girl a Engadget
 ---
 
 Americká FCC má od letošního března na svém **Covered Listu** — seznamu techniky, která podle úřadu představuje nepřijatelné riziko pro národní bezpečnost — položku, která zní jako vtip: **„routery vyrobené v cizí zemi, bez ohledu na národnost výrobce"**. Přidáno **23. března 2026**. Protože routery se prakticky nikde jinde než v Asii nedělají, ocitli se v pasti skoro všichni.

@@ -5,6 +5,23 @@ category: "Hardware"
 date: "2026-07-02"
 video: "https://youtu.be/biYMveTpRWc"
 videoLength: "9:04"
+audio:
+  url: "https://audio.realtech.cz/dji-vs-insta360-v3.mp3?v=b0338bacc87c"
+  duration: 147
+  transcript: |-
+    Dnes v RealTechu: DJI vs. Insta360: válka dvou firem z jednoho města, kterou vyhraje zákazník. Insta360 vstoupilo kapesní kamerou Luna přímo na území DJI — a gigant místo lepšího produktu sáhl po právnících. Rozebrali jsme patentovou válku, roli USA i to, co z ní plyne pro zákazníky. Jedna z těch dvou firem je technologický gigant: drony, kamery, gimbaly, mikrofony — a k tomu skoro celý světový trh civilních dronů. Ta druhá je vedle ní trpaslík: menší, mladší, s užší nabídkou. A přesto se letos do giganta pustila a vstoupila mu přímo do domény, kterou DJI samo založilo — s kapesní kamerou Luna. Větší z firem místo lepšího produktu sáhla po právnících. Souboj, ve kterém už nerozhoduje lepší kamera. Král, který kategorii vytvořil DJI většina lidí zná jako světovou jedničku v civilních dronech. Firma ale dokázala ještě jednu věc: vytvořila úplně novou kategorii kamer. V roce dva tisíce osmnáct představila Osmo Pocket — malou stabilizovanou kameru do dlaně. Nebyla to první kamera na světě ani první stabilizátor, ale bylo to první zařízení, které obojí spojilo do něčeho tak malého. A hlavně fungovalo dokonale. DJI to umělo, protože nezačínalo od nuly: stabilizaci, plynulé motory a algoritmy, které udrží obraz klidný i za pohybu, roky vyvíjelo pro drony a profesionální filmařské stabilizátory. Když je zmenšilo do kapesní kamery, mělo náskok, který se nedal dohnat přes noc. Osmo Pocket se stal etalonem a DJI kategorii roky dominovalo — bez reálného soupeře. Vyzývatel z vedlejší ulice Insta360 není žádný nováček z ničeho — je to silný hráč, jen z jiného trhu. Dlouhodobě vládne kategorii 360stupňových kamer, které snímají všechno kolem dokola naráz. A roste rychle: za rok dva tisíce dvacet pět vykázalo meziroční skok tržeb o sedmdesát sedm procent, ten samý rok vstoupilo na burzu v Šanghaji a jeho zakladatel se přes noc stal miliardářem. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: DJI vs. Insta360: válka dvou firem z jednoho města, kterou vyhraje zákazník.
+    Petr: Insta360 vstoupilo kapesní kamerou Luna přímo na území DJI — a gigant místo lepšího produktu sáhl po právnících. Rozebrali jsme patentovou válku, roli USA i to, co z ní plyne pro zákazníky.
+    Ada: Jedna z těch dvou firem je technologický gigant: drony, kamery, gimbaly, mikrofony — a k tomu skoro celý světový trh civilních dronů. Ta druhá je vedle ní trpaslík: menší, mladší, s užší nabídkou.
+    Petr: A přesto se letos do giganta pustila a vstoupila mu přímo do domény, kterou DJI samo založilo — s kapesní kamerou Luna. Větší z firem místo lepšího produktu sáhla po právnících.
+    Ada: Souboj, ve kterém už nerozhoduje lepší kamera. Král, který kategorii vytvořil DJI většina lidí zná jako světovou jedničku v civilních dronech. Firma ale dokázala ještě jednu věc: vytvořila úplně novou kategorii kamer.
+    Petr: V roce dva tisíce osmnáct představila Osmo Pocket — malou stabilizovanou kameru do dlaně. Nebyla to první kamera na světě ani první stabilizátor, ale bylo to první zařízení, které obojí spojilo do něčeho tak malého.
+    Ada: A hlavně fungovalo dokonale. DJI to umělo, protože nezačínalo od nuly: stabilizaci, plynulé motory a algoritmy, které udrží obraz klidný i za pohybu, roky vyvíjelo pro drony a profesionální filmařské stabilizátory.
+    Petr: Když je zmenšilo do kapesní kamery, mělo náskok, který se nedal dohnat přes noc. Osmo Pocket se stal etalonem a DJI kategorii roky dominovalo — bez reálného soupeře.
+    Ada: Vyzývatel z vedlejší ulice Insta360 není žádný nováček z ničeho — je to silný hráč, jen z jiného trhu. Dlouhodobě vládne kategorii 360stupňových kamer, které snímají všechno kolem dokola naráz.
+    Petr: A roste rychle: za rok dva tisíce dvacet pět vykázalo meziroční skok tržeb o sedmdesát sedm procent, ten samý rok vstoupilo na burzu v Šanghaji a jeho zakladatel se přes noc stal miliardářem.
+    Ada: Zdroj: článek na realtech.cz
 ---
 
 Jedna z těch dvou firem je technologický gigant: drony, kamery, gimbaly, mikrofony — a k tomu skoro celý světový trh civilních dronů. Ta druhá je vedle ní trpaslík: menší, mladší, s užší nabídkou. A přesto se letos do giganta pustila a vstoupila mu přímo do domény, kterou DJI samo založilo — s kapesní kamerou Luna. Větší z firem místo lepšího produktu sáhla po právnících. Souboj, ve kterém už nerozhoduje lepší kamera.

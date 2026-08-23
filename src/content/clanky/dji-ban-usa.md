@@ -5,6 +5,23 @@ category: "Drony"
 date: "2026-07-02"
 video: "https://youtu.be/7-S7D2y6IHo"
 videoLength: "9:39"
+audio:
+  url: "https://audio.realtech.cz/dji-ban-usa-v3.mp3?v=8fe33285f944"
+  duration: 136
+  transcript: |-
+    Dnes v RealTechu: Konec DJI v USA: co přesně zákaz znamená a hrozí i v Evropě?. Firma se sedmdesát procent světového trhu s drony narazila v USA na blokádu. Rozebrali jsme, co přesně zákaz zakazuje, jak k němu došlo a jestli se mají bát i čeští uživatelé. DJI ovládá přes sedmdesát procent globálního trhu s drony, v Severní Americe drželo dokonce přes osmdesát procent spotřebitelského trhu — prakticky monopol. A není to jen firma na drony pro focení přírody: její technologie pronikly do záchranářství, zemědělství, filmového průmyslu, stavebnictví i bezpečnostních složek. Právě proto je americký zákaz tak bolestivý. Rozebrali jsme, co přesně se stalo, proč a co to znamená pro Evropu. Co přesně zákaz zakazuje Stopka se týká všeho, co DJI vyrábí — ale jen do budoucna. Jak se pravidla promítají i do zařízení prodávaných pod jinými značkami, ukázala později výjimka FCC pro Starlink a zásah proti klonům DJI. Žádný nový model dronu, gimbalu, stabilizátoru ani zemědělského systému už nedostane schválení potřebné pro legální dovoz, marketing a prodej v USA. Hranicí je třiadvacátého prosince dva tisíce dvacet pět: co mělo certifikaci před tímto datem, prodává se dál bez omezení. Kdo už dron od DJI má, může s ním v USA normálně létat. Aktualizace softwaru zákaz vůbec neřeší — restrikce míří výhradně na hardware a rádiové frekvence u nových zařízení. Bolí to hlavně proto, že na Západě prakticky neexistuje výrobce, který by nabízel srovnatelnou kvalitu a funkce za dostupnou cenu. Dekáda nedůvěry, která gradovala Zákaz nepřišel odnikud. První signál zazněl už v roce dva tisíce sedmnáct, kdy americká armáda interním příkazem zakázala DJI drony ve svých řadách. O tři měsíce později unikl dokument ministerstva vnitřní bezpečnosti, který přímo tvrdil, že DJI sdílí data s čínskou vládou. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Konec DJI v USA: co přesně zákaz znamená a hrozí i v Evropě?.
+    Petr: Firma se sedmdesát procent světového trhu s drony narazila v USA na blokádu. Rozebrali jsme, co přesně zákaz zakazuje, jak k němu došlo a jestli se mají bát i čeští uživatelé.
+    Ada: DJI ovládá přes sedmdesát procent globálního trhu s drony, v Severní Americe drželo dokonce přes osmdesát procent spotřebitelského trhu — prakticky monopol.
+    Petr: A není to jen firma na drony pro focení přírody: její technologie pronikly do záchranářství, zemědělství, filmového průmyslu, stavebnictví i bezpečnostních složek. Právě proto je americký zákaz tak bolestivý.
+    Ada: Rozebrali jsme, co přesně se stalo, proč a co to znamená pro Evropu. Co přesně zákaz zakazuje Stopka se týká všeho, co DJI vyrábí — ale jen do budoucna.
+    Petr: Jak se pravidla promítají i do zařízení prodávaných pod jinými značkami, ukázala později výjimka FCC pro Starlink a zásah proti klonům DJI.
+    Ada: Žádný nový model dronu, gimbalu, stabilizátoru ani zemědělského systému už nedostane schválení potřebné pro legální dovoz, marketing a prodej v USA. Hranicí je třiadvacátého prosince dva tisíce dvacet pět: co mělo certifikaci před tímto datem, prodává se dál bez omezení.
+    Petr: Kdo už dron od DJI má, může s ním v USA normálně létat. Aktualizace softwaru zákaz vůbec neřeší — restrikce míří výhradně na hardware a rádiové frekvence u nových zařízení.
+    Ada: Bolí to hlavně proto, že na Západě prakticky neexistuje výrobce, který by nabízel srovnatelnou kvalitu a funkce za dostupnou cenu. Dekáda nedůvěry, která gradovala Zákaz nepřišel odnikud.
+    Petr: První signál zazněl už v roce dva tisíce sedmnáct, kdy americká armáda interním příkazem zakázala DJI drony ve svých řadách. O tři měsíce později unikl dokument ministerstva vnitřní bezpečnosti, který přímo tvrdil, že DJI sdílí data s čínskou vládou.
+    Ada: Zdroj: článek na realtech.cz
 ---
 
 DJI ovládá přes 70 % globálního trhu s drony, v Severní Americe drželo dokonce přes 80 % spotřebitelského trhu — prakticky monopol. A není to jen firma na drony pro focení přírody: její technologie pronikly do záchranářství, zemědělství, filmového průmyslu, stavebnictví i bezpečnostních složek. Právě proto je americký zákaz tak bolestivý. Rozebrali jsme, co přesně se stalo, proč a co to znamená pro Evropu.

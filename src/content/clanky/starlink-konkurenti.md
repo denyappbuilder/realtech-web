@@ -6,6 +6,22 @@ evergreen: true
 date: "2026-07-02"
 video: "https://youtu.be/YSiw-bae1wU"
 videoLength: "14:40"
+audio:
+  url: "https://audio.realtech.cz/starlink-konkurenti-v3.mp3?v=01a480eb184b"
+  duration: 126
+  transcript: |-
+    Dnes v RealTechu: Kdo porazí Starlink? Velké srovnání pěti konkurentů. Amazon, Evropa, Čína i Rusko staví vlastní satelitní internet. Prošli jsme všech pět projektů — kdo má reálnou šanci a co z toho bude mít český uživatel. Internet z vesmíru byl ještě před pár lety sci-fi. Dnes je to trh, na kterém se pere pět velkých projektů — a monopol Starlinku poprvé dostává reálné trhliny. Amazon má na orbitě přes tři sta družic, Čína za poslední rok svou konstelaci ztrojnásobila a Evropa staví vlastní síť jako strategickou pojistku. Prošli jsme všechny hlavní konkurenty a srovnali, kdo má šanci Starlink skutečně dohnat. Proč se s konstelacemi najednou roztrhl pytel Klasický satelitní internet fungoval z geostacionární dráhy ve výšce třicet šest nula km. Signál tam a zpátky letí tak dlouho, že odezva šplhá k šest set ms — na video hovor nebo hraní nepoužitelné. Nízkoorbitální konstelace (LEO) létají ve výšce pět set—tisíc dvě stě km, takže odezva padá na dvacet—čtyřicet ms, srovnatelně s pozemním připojením. Háček: v nízké výšce jedna družice pokryje jen malé území a za pár let shoří v atmosféře (typicky pět—sedm let). Potřebujete jich tisíce a musíte je průběžně doplňovat. To bylo dlouho ekonomicky nemyslitelné — dokud SpaceX znovupoužitelnými raketami nesrazila cenu startu o osmdesát—devadesát procent. Druhý zlom jsou laserové mezisatelitní spoje: data můžou putovat vesmírem bez pozemních stanic, což z konstelací dělá strategickou infrastrukturu, ne jen internet pro chataře. Amazon Leo: jediný, kdo může Starlinku reálně šlapat na paty Projekt dřív známý jako Kuiper se v listopadu dva tisíce dvacet pět přejmenoval na Amazon Leo. Na orbitě má přes tři sta družic — proti zhruba deset tři sta Starlinků to zní směšně, ale tempo je nevídané. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Kdo porazí Starlink? Velké srovnání pěti konkurentů.
+    Petr: Amazon, Evropa, Čína i Rusko staví vlastní satelitní internet. Prošli jsme všech pět projektů — kdo má reálnou šanci a co z toho bude mít český uživatel. Internet z vesmíru byl ještě před pár lety sci-fi.
+    Ada: Dnes je to trh, na kterém se pere pět velkých projektů — a monopol Starlinku poprvé dostává reálné trhliny. Amazon má na orbitě přes tři sta družic, Čína za poslední rok svou konstelaci ztrojnásobila a Evropa staví vlastní síť jako strategickou pojistku.
+    Petr: Prošli jsme všechny hlavní konkurenty a srovnali, kdo má šanci Starlink skutečně dohnat. Proč se s konstelacemi najednou roztrhl pytel Klasický satelitní internet fungoval z geostacionární dráhy ve výšce třicet šest nula km.
+    Ada: Signál tam a zpátky letí tak dlouho, že odezva šplhá k šest set ms — na video hovor nebo hraní nepoužitelné. Nízkoorbitální konstelace (LEO) létají ve výšce pět set—tisíc dvě stě km, takže odezva padá na dvacet—čtyřicet ms, srovnatelně s pozemním připojením.
+    Petr: Háček: v nízké výšce jedna družice pokryje jen malé území a za pár let shoří v atmosféře (typicky pět—sedm let). Potřebujete jich tisíce a musíte je průběžně doplňovat.
+    Ada: To bylo dlouho ekonomicky nemyslitelné — dokud SpaceX znovupoužitelnými raketami nesrazila cenu startu o osmdesát—devadesát procent. Druhý zlom jsou laserové mezisatelitní spoje: data můžou putovat vesmírem bez pozemních stanic, což z konstelací dělá strategickou infrastrukturu, ne jen internet pro chataře.
+    Petr: Amazon Leo: jediný, kdo může Starlinku reálně šlapat na paty Projekt dřív známý jako Kuiper se v listopadu dva tisíce dvacet pět přejmenoval na Amazon Leo.
+    Ada: Na orbitě má přes tři sta družic — proti zhruba deset tři sta Starlinků to zní směšně, ale tempo je nevídané.
+    Petr: Zdroj: článek na realtech.cz
 ---
 
 Internet z vesmíru byl ještě před pár lety sci-fi. Dnes je to trh, na kterém se pere pět velkých projektů — a monopol [Starlinku](/clanky/starlink-v-cesku-pruvodce/) poprvé dostává reálné trhliny. Amazon má na orbitě přes 300 družic, Čína za poslední rok svou konstelaci ztrojnásobila a Evropa staví vlastní síť jako strategickou pojistku. Prošli jsme všechny hlavní konkurenty a srovnali, kdo má šanci Starlink skutečně dohnat.

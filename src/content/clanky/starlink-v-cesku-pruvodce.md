@@ -6,6 +6,22 @@ evergreen: true
 date: "2026-07-20"
 video: "https://youtu.be/l-S4MR27JaE"
 image: "/images/clanky/starlink-v-cesku-pruvodce.jpg"
+audio:
+  url: "https://audio.realtech.cz/starlink-v-cesku-pruvodce-v3.mp3?v=28873b135211"
+  duration: 154
+  transcript: |-
+    Dnes v RealTechu: Starlink v Česku dva tisíce dvacet šest: kompletní průvodce. Ceny, reálná spotřeba a pro koho se vyplatí. Půl roku testujeme Starlink Standard i Mini. Aktuální české tarify (od sedm set čtyřicet pět Kč měsíčně), kolik reálně sežere elektřiny, jak funguje v dešti a kdy dává větší smysl než pevná linka — vše na jednom místě, průběžně aktualizované. Starlink už v Česku není exotika — je to reálná alternativa pevné linky pro každého, komu operátoři na vesnici nabízejí leda ADSL a sliby. Testujeme ho přes půl roku v reálném provozu (Standard i Mini) a tohle je průvodce, který bychom si sami přáli mít, než jsme ho kupovali. Průběžně ho aktualizujeme. Co Starlink je — za třicet sekund Satelitní internet od SpaceX. Anténa na vaší střeše komunikuje s tisíci družic ~pět set km nad zemí, které letí rychlostí kolem třicet nula km/h. V anténě Standard je na to zhruba jedna pět set malých vysílačů. Výsledek: použitelný internet prakticky kdekoli pod otevřeným nebem — bez kabelu, bez vyjednávání s operátorem. Aktuální ceny v Česku (ověřeno na starlink.com) Rezidenční sto Mb/s — sedm set čtyřicet pět Kč/měsíc (vybrané oblasti) Rezidenční dvě stě Mb/s — jedna deset Kč/měsíc (vybrané oblasti) Rezidenční Max — jedna pět set čtyřicet pět Kč/měsíc (bez rychlostního stropu, nejvyšší priorita) Roaming sto GB — jedna sto dvacet Kč/měsíc (pro Mini/cestování; po sto GB zpomalení) Roaming neomezený — dva tři sta čtyřicet pět Kč/měsíc Hardware: sada Standard se prodává kolem sedm nula Kč, Starlink ji ale opakovaně dává do akcí — na jaře dva tisíce dvacet šest šla podle českých médií k tarifu i zdarma. Rozhoduje cena, kterou uvidíte v objednávce. K tomu 30denní zkušební doba: když nebudete spokojení, vrátíte ho a dostanete peníze zpět. Co v reklamě neřeknou: spotřeba Tohle je největší skrytý náklad. Zdroj: samostatné video, Oficiální tarify Starlink pro ČR, Starlink Standard po půl roce a Test Starlink Mini
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Starlink v Česku dva tisíce dvacet šest: kompletní průvodce. Ceny, reálná spotřeba a pro koho se vyplatí.
+    Petr: Půl roku testujeme Starlink Standard i Mini. Aktuální české tarify (od sedm set čtyřicet pět Kč měsíčně), kolik reálně sežere elektřiny, jak funguje v dešti a kdy dává větší smysl než pevná linka — vše na jednom místě, průběžně aktualizované.
+    Ada: Starlink už v Česku není exotika — je to reálná alternativa pevné linky pro každého, komu operátoři na vesnici nabízejí leda ADSL a sliby.
+    Petr: Testujeme ho přes půl roku v reálném provozu (Standard i Mini) a tohle je průvodce, který bychom si sami přáli mít, než jsme ho kupovali. Průběžně ho aktualizujeme.
+    Ada: Co Starlink je — za třicet sekund Satelitní internet od SpaceX. Anténa na vaší střeše komunikuje s tisíci družic ~pět set km nad zemí, které letí rychlostí kolem třicet nula km/h.
+    Petr: V anténě Standard je na to zhruba jedna pět set malých vysílačů. Výsledek: použitelný internet prakticky kdekoli pod otevřeným nebem — bez kabelu, bez vyjednávání s operátorem. Aktuální ceny v Česku (ověřeno na starlink.com)
+    Ada: Rezidenční sto Mb/s — sedm set čtyřicet pět Kč/měsíc (vybrané oblasti) Rezidenční dvě stě Mb/s — jedna deset Kč/měsíc (vybrané oblasti) Rezidenční Max — jedna pět set čtyřicet pět Kč/měsíc (bez rychlostního stropu, nejvyšší priorita) Roaming sto GB — jedna sto dvacet Kč/měsíc (pro Mini/cestování; po sto GB zpomalení) Roaming neomezený — dva tři sta čtyřicet pět Kč/měsíc
+    Petr: Hardware: sada Standard se prodává kolem sedm nula Kč, Starlink ji ale opakovaně dává do akcí — na jaře dva tisíce dvacet šest šla podle českých médií k tarifu i zdarma.
+    Ada: Rozhoduje cena, kterou uvidíte v objednávce. K tomu 30denní zkušební doba: když nebudete spokojení, vrátíte ho a dostanete peníze zpět. Co v reklamě neřeknou: spotřeba Tohle je největší skrytý náklad.
+    Petr: Zdroj: samostatné video, Oficiální tarify Starlink pro ČR, Starlink Standard po půl roce a Test Starlink Mini
 ---
 
 Starlink už v Česku není exotika — je to reálná alternativa pevné linky pro každého, komu operátoři na vesnici nabízejí leda ADSL a sliby. Testujeme ho **přes půl roku v reálném provozu** (Standard i Mini) a tohle je průvodce, který bychom si sami přáli mít, než jsme ho kupovali. Průběžně ho aktualizujeme.

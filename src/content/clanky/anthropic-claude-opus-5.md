@@ -5,6 +5,23 @@ category: "AI Report"
 date: "2026-07-24"
 zprava: true
 image: "/images/clanky/anthropic-claude-opus-5.jpg"
+audio:
+  url: "https://audio.realtech.cz/anthropic-claude-opus-5-v3.mp3?v=0597e7e4d1a0"
+  duration: 138
+  transcript: |-
+    Dnes v RealTechu: Anthropic vydal Claude Opus pět: skoro výkon vlajkové lodi za polovinu ceny. Nový model se blíží schopnostem nejsilnějšího Fable pět, ale stojí půlku — a na programování a kancelářské práci je podle Anthropicu úplně nejlepší na trhu. Novinkou je i posuvník, kterým si volíte mezi chytrostí a cenou. Anthropic dnes vydal Claude Opus pět — čtvrtý model rodiny Claude pět vedle Fable pět a Mythos pět. Hlavní sdělení je jednoduché: skoro stejná inteligence jako u nejsilnějšího Fable pět, ale za poloviční cenu. A na části úloh dokonce vlajkovou loď poráží. Na testech zaměřených na programování a „knowledge work" (Frontier-Bench, GDPval-AA) je Opus pět podle Anthropicu novým nejlepším modelem na trhu. Konkrétní čísla z oznámení: Na Frontier-Bench víc než zdvojnásobil výkon svého předchůdce Opus čtyři tečka osm — a to při nižší ceně za úlohu. Na CursorBench se při maximálním nastavení dostal na nula,pět procent k nejlepšímu skóre Fable pět, ale za poloviční cenu. Na ARC-AGI tři (řešení zcela nových problémů) má trojnásobné skóre oproti druhému nejlepšímu modelu. Na testu ovládání počítače (OSWorld dva tečka nula) překonal i nejlepší výsledek Fable pět — za necelou třetinu ceny. Jediné, kde zůstává pozadu, je kyberbezpečnost — tam dál vede přísně hlídaný Mythos pět. Posuvník mezi chytrostí a cenou Nejzajímavější praktická novinka: model má nastavitelnou „míru úsilí". Zjednodušeně řečeno si u každého zadání vyberete, jestli chcete maximální přemýšlení (a zaplatíte víc), nebo rychlou a levnou odpověď. Zajímavé je, že i na nejnižším nastavení Opus pět v testu firemních úkolů (Zapier AutomationBench) projde víc úloh než kterýkoli jiný model. Tohle je vlastně odpověď na to, o čem se v umělá inteligence byznysu poslední měsíce mluví nejvíc: firmy přestaly řešit jen „co model umí" a začaly počítat, kolik je stojí každý dotaz. Zdroj: Anthropic, CNBC a The Verge
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Anthropic vydal Claude Opus pět: skoro výkon vlajkové lodi za polovinu ceny.
+    Petr: Nový model se blíží schopnostem nejsilnějšího Fable pět, ale stojí půlku — a na programování a kancelářské práci je podle Anthropicu úplně nejlepší na trhu. Novinkou je i posuvník, kterým si volíte mezi chytrostí a cenou.
+    Ada: Anthropic dnes vydal Claude Opus pět — čtvrtý model rodiny Claude pět vedle Fable pět a Mythos pět. Hlavní sdělení je jednoduché: skoro stejná inteligence jako u nejsilnějšího Fable pět, ale za poloviční cenu.
+    Petr: A na části úloh dokonce vlajkovou loď poráží. Na testech zaměřených na programování a „knowledge work" (Frontier-Bench, GDPval-AA) je Opus pět podle Anthropicu novým nejlepším modelem na trhu.
+    Ada: Konkrétní čísla z oznámení: Na Frontier-Bench víc než zdvojnásobil výkon svého předchůdce Opus čtyři tečka osm — a to při nižší ceně za úlohu.
+    Petr: Na CursorBench se při maximálním nastavení dostal na nula,pět procent k nejlepšímu skóre Fable pět, ale za poloviční cenu. Na ARC-AGI tři (řešení zcela nových problémů) má trojnásobné skóre oproti druhému nejlepšímu modelu.
+    Ada: Na testu ovládání počítače (OSWorld dva tečka nula) překonal i nejlepší výsledek Fable pět — za necelou třetinu ceny. Jediné, kde zůstává pozadu, je kyberbezpečnost — tam dál vede přísně hlídaný Mythos pět.
+    Petr: Posuvník mezi chytrostí a cenou Nejzajímavější praktická novinka: model má nastavitelnou „míru úsilí". Zjednodušeně řečeno si u každého zadání vyberete, jestli chcete maximální přemýšlení (a zaplatíte víc), nebo rychlou a levnou odpověď.
+    Ada: Zajímavé je, že i na nejnižším nastavení Opus pět v testu firemních úkolů (Zapier AutomationBench) projde víc úloh než kterýkoli jiný model.
+    Petr: Tohle je vlastně odpověď na to, o čem se v umělá inteligence byznysu poslední měsíce mluví nejvíc: firmy přestaly řešit jen „co model umí" a začaly počítat, kolik je stojí každý dotaz.
+    Ada: Zdroj: Anthropic, CNBC a The Verge
 ---
 
 Anthropic dnes vydal **Claude Opus 5** — čtvrtý model rodiny Claude 5 vedle [Fable 5 a Mythos 5](/clanky/anthropic-fable-mythos/). Hlavní sdělení je jednoduché: **skoro stejná inteligence jako u nejsilnějšího Fable 5, ale za poloviční cenu.** A na části úloh dokonce vlajkovou loď poráží.

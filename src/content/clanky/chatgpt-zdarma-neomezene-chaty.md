@@ -5,6 +5,23 @@ category: "AI Report"
 date: "2026-08-07"
 zprava: true
 image: "/images/clanky/chatgpt-zdarma-neomezene-chaty.jpg"
+audio:
+  url: "https://audio.realtech.cz/chatgpt-zdarma-neomezene-chaty-v3.mp3?v=4d423c4d0754"
+  duration: 144
+  transcript: |-
+    Dnes v RealTechu: ChatGPT zdarma dostane neomezené chaty a tlačítko Think. Placení mají nový posuvník. OpenAI mění výchozí model pro free účty na GPT-pět tečka šest Luna, od příštího týdne k tomu přidává neomezené textové chaty. Plus a Pro dostávají posuvník, kterým si nastavíš, jak moc má model přemýšlet. OpenAI ve čtvrtek oznámil update ChatGPT, který se nejvíc dotkne lidí s free účtem. Výchozím modelem se pro ně tento týden stává GPT-pět tečka šest Luna a od příštího týdne k tomu přibývají neomezené textové chaty. Tedy konec počítání zpráv u běžného psaní — s jednou podmínkou, kterou OpenAI zmiňuje výslovně: limity dál platí pro nahrávání souborů, obrázky a další nástroje a celé to podléhá ochraně proti zneužití. Free účty navíc dostávají tlačítko Think. Když narazíš na složitější dotaz, klikneš na něj a model dostane víc času odpověď promyslet. Dřív to byla doména placených tarifů. Co dostávají Plus a Pro Pro předplatitele OpenAI přepracoval GPT-pět tečka šest Sol v chatu a přidal posuvník, kterým si přímo nastavíš, kolik přemýšlení má model do odpovědi dát. Nahoru na plánování, research, psaní nebo kód, dolů na rychlé dotazy. Posuvník je na webu, mobilu i v desktopové appce a je dostupný hned. Zajímavější je ale to, co OpenAI tvrdí o přesnosti. Ve své interní evaluaci na finančních, lékařských a právních promptech, které vyžadují konkrétní faktické detaily, měly odpovědi aspoň s jednou faktickou chybou být zhruba o šedesát dva procent vzácnější u Luny a o šedesát osm procent vzácnější u Solu než u staršího GPT-pět tečka pět Instant. Je to měření OpenAI na vlastních datech, ne nezávislý test — brát podle toho. Vedle toho má nový Sol dávat sevřenější odpovědi, nesypat zbytečné formátování a oponovat místo přitakávání, když by souhlas nebyl k ničemu. Dva detaily, co se snadno přehlédnou Zdroj: Improving GPT-pět tečka šest Sol in ChatGPT—and expanding access to GPT-pět tečka šest Luna for free users
+  ttsScript: |-
+    Ada: Dnes v RealTechu: ChatGPT zdarma dostane neomezené chaty a tlačítko Think. Placení mají nový posuvník.
+    Petr: OpenAI mění výchozí model pro free účty na GPT-pět tečka šest Luna, od příštího týdne k tomu přidává neomezené textové chaty. Plus a Pro dostávají posuvník, kterým si nastavíš, jak moc má model přemýšlet.
+    Ada: OpenAI ve čtvrtek oznámil update ChatGPT, který se nejvíc dotkne lidí s free účtem. Výchozím modelem se pro ně tento týden stává GPT-pět tečka šest Luna a od příštího týdne k tomu přibývají neomezené textové chaty.
+    Petr: Tedy konec počítání zpráv u běžného psaní — s jednou podmínkou, kterou OpenAI zmiňuje výslovně: limity dál platí pro nahrávání souborů, obrázky a další nástroje a celé to podléhá ochraně proti zneužití.
+    Ada: Free účty navíc dostávají tlačítko Think. Když narazíš na složitější dotaz, klikneš na něj a model dostane víc času odpověď promyslet. Dřív to byla doména placených tarifů. Co dostávají Plus a Pro
+    Petr: Pro předplatitele OpenAI přepracoval GPT-pět tečka šest Sol v chatu a přidal posuvník, kterým si přímo nastavíš, kolik přemýšlení má model do odpovědi dát. Nahoru na plánování, research, psaní nebo kód, dolů na rychlé dotazy.
+    Ada: Posuvník je na webu, mobilu i v desktopové appce a je dostupný hned. Zajímavější je ale to, co OpenAI tvrdí o přesnosti.
+    Petr: Ve své interní evaluaci na finančních, lékařských a právních promptech, které vyžadují konkrétní faktické detaily, měly odpovědi aspoň s jednou faktickou chybou být zhruba o šedesát dva procent vzácnější u Luny a o šedesát osm procent vzácnější u Solu než u staršího GPT-pět tečka pět Instant.
+    Ada: Je to měření OpenAI na vlastních datech, ne nezávislý test — brát podle toho. Vedle toho má nový Sol dávat sevřenější odpovědi, nesypat zbytečné formátování a oponovat místo přitakávání, když by souhlas nebyl k ničemu.
+    Petr: Dva detaily, co se snadno přehlédnou
+    Ada: Zdroj: Improving GPT-pět tečka šest Sol in ChatGPT—and expanding access to GPT-pět tečka šest Luna for free users
 ---
 
 OpenAI ve čtvrtek oznámil update ChatGPT, který se nejvíc dotkne lidí s **free účtem**. Výchozím modelem se pro ně tento týden stává **[GPT-5.6 Luna](/clanky/gpt-5-6-snizeni-cen/)** a od **příštího týdne** k tomu přibývají **neomezené textové chaty**. Tedy konec počítání zpráv u běžného psaní — s jednou podmínkou, kterou OpenAI zmiňuje výslovně: limity dál platí pro **nahrávání souborů, obrázky a další nástroje** a celé to podléhá ochraně proti zneužití.

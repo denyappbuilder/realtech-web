@@ -6,36 +6,22 @@ date: "2026-08-13"
 zprava: true
 image: "/images/clanky/meta-australie-zakaz-do-16-let.jpg"
 audio:
-  url: "https://audio.realtech.cz/meta-australie-zakaz-do-16-let-v3.mp3?v=575c0e7a71bc"
-  duration: 141
+  url: "https://audio.realtech.cz/meta-australie-zakaz-do-16-let-v3.mp3?v=4508802cbc67"
+  duration: 133
   transcript: |-
-    Austrálie jako první země zakázala sociální sítě lidem mladším šestnácti let plošně zákonem a Meta teď hlásí zrušený přístup u víc než sedmi set padesáti tisíc účtů. Číslo platí k třicátému červnu roku dva tisíce dvacet šest a týká se Facebooku a Instagramu v Austrálii, které podle firmy patří lidem mladším šestnácti let.
-
-    Období začalo prvního prosince roku dva tisíce dvacet pět a zahrnuje přes půl milionu účtů smazaných ještě předtím, než zákon nabyl účinnosti. Vymáhání běží dál a Meta ho reportuje australskému úřadu eSafety Commissioner.
-
-    Zajímavější než počet je, jak ten věk vlastně pozná. Nespoléhá na jediné ověření, ale věk průběžně odhaduje. AI čte profil. Model analyzuje příspěvky, komentáře, bio i popisky fotek a hledá nepřímá vodítka, třeba oslavu narozenin nebo zmínku o ročníku ve škole. Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu. AI posuzuje i ta hlášení a podle Mety to vychází přesněji a rychleji než samotná lidská kontrola. Systémy mají poznat, když si někdo po smazání zakládá účet znovu. A věkové hodnocení v App Store zvedla Meta v Austrálii na šestnáct plus.
-
-    Mezi červnem a červencem k tomu pustila osvětovou kampaň, která podle ní zasáhla zhruba jedna celá tři milionu lidí.
-
-    V závěru Meta říká narovinu, co jí vadí. Každá platforma vyřazuje dospívající po svém. Chce jeden spolehlivý věkový signál na úrovni operačního systému nebo obchodu s aplikacemi. Věk by se ověřil jednou při nastavení telefonu nebo instalaci aplikace, ne pořád dokola v desítkách aplikací.
-
-    To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Apple s Googlem kývly, ověřování věku by se přesunulo do telefonu jako takového. A debata o věkových limitech na sítích, která běží i v Evropské unii, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní AI a ostatní hasí po svém.
-
-    Zdroj informací: oficiální zpráva Mety z dvanáctého až třináctého srpna roku dva tisíce dvacet šest.
+    Dnes v RealTechu: Austrálie zakázala sítě do šestnáct let. Meta hlásí přes sedm set padesát tisíc smazaných účtů. Meta zveřejnila čísla z vymáhání australského zákona, který zakazuje sociální sítě lidem do šestnáct let. Od prosince dva tisíce dvacet pět do konce června dva tisíce dvacet šest zrušila přístup víc než sedm set padesát tisícům účtů na Facebooku a Instagramu. Věk hlídá umělá inteligence, která profily čte podle nepřímých vodítek. A Meta zároveň tlačí na to, aby se věk ověřoval na úrovni operačního systému. Austrálie je první zemí, která sociální sítě mladším šestnáct let zakázala plošně zákonem. Meta teď vydala report, kolik ji to reálně stálo účtů — a jak ten věk vlastně pozná. Podle oficiálního sdělení Mety firma k třicet. červnu dva tisíce dvacet šest zrušila přístup víc než sedm set padesát nula účtům na Facebooku a Instagramu v Austrálii, u kterých vyhodnotila, že patří někomu pod šestnáct let. Číslo pokrývá období od prvního prosince dva tisíce dvacet pět a zahrnuje přes půl milionu účtů smazaných ještě předtím, než zákon nabyl účinnosti. Vymáhání běží dál a Meta ho reportuje australskému úřadu eSafety Commissioner. Jak se ten věk hlídá Tohle je ta zajímavější část. Meta nespoléhá na jedno ověření, ale na průběžné šťourání: umělá inteligence čte profil. Model analyzuje příspěvky, komentáře, bio i popisky fotek a hledá nepřímá vodítka — třeba oslavu narozenin nebo zmínku o ročníku ve škole. Snazší nahlašování. Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu. umělá inteligence posuzuje i ta hlášení. Podle Mety to vychází přesněji a rychleji než samotná lidská kontrola. Blokace návratu. Systémy mají poznat, když si někdo po smazání zakládá účet znovu. Věkový rating v App Store zvedla Meta v Austrálii na šestnáct+. Zdroj: oficiálního sdělení Mety a Meta’s Compliance with Australia’s Social Media Ban
   ttsScript: |-
-    Austrálie jako první země zakázala sociální sítě lidem mladším šestnácti let plošně zákonem a Meta teď hlásí zrušený přístup u víc než sedmi set padesáti tisíc účtů. Číslo platí k třicátému červnu roku dva tisíce dvacet šest a týká se Fejsbuku a Instagremu v Austrálii, které podle firmy patří lidem mladším šestnácti let.
-
-    Období začalo prvního prosince roku dva tisíce dvacet pět a zahrnuje přes půl milionu účtů smazaných ještě předtím, než zákon nabyl účinnosti. Vymáhání běží dál a Meta ho reportuje australskému úřadu í-Sejfty Komišnr.
-
-    Zajímavější než počet je, jak ten věk vlastně pozná. Nespoléhá na jediné ověření, ale věk průběžně odhaduje. Ej-aj čte profil. Model analyzuje příspěvky, komentáře, bio i popisky fotek a hledá nepřímá vodítka, třeba oslavu narozenin nebo zmínku o ročníku ve škole. Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu. Ej aj posuzuje i ta hlášení a podle Mety to vychází přesněji a rychleji než samotná lidská kontrola. Systémy mají poznat, když si někdo po smazání zakládá účet znovu. A věkové hodnocení v Ep Stóru zvedla Meta v Austrálii na šestnáct plus.
-
-    Mezi červnem a červencem k tomu pustila osvětovou kampaň, která podle ní zasáhla zhruba jedna celá tři milionu lidí.
-
-    V závěru Meta říká narovinu, co jí vadí. Každá platforma vyřazuje dospívající po svém. Chce jeden spolehlivý věkový signál na úrovni operačního systému nebo obchodu s aplikacemi. Věk by se ověřil jednou při nastavení telefonu nebo instalaci aplikace, ne pořád dokola v desítkách aplikací.
-
-    To je návrh, který by se netýkal jen Austrálie. Kdyby na něj Epl s Gůglem kývly, ověřování věku by se přesunulo do telefonu jako takového. A debata o věkových limitech na sítích, která běží i v Evropské unii, by dostala hodně konkrétní technický základ. Zatím to ale zůstává u toho, že Meta hasí požár vlastní ej-aj a ostatní hasí po svém.
-
-    Zdroj informací: oficiální zpráva Mety z dvanáctého až třináctého srpna roku dva tisíce dvacet šest.
+    Ada: Dnes v RealTechu: Austrálie zakázala sítě do šestnáct let. Meta hlásí přes sedm set padesát tisíc smazaných účtů.
+    Petr: Meta zveřejnila čísla z vymáhání australského zákona, který zakazuje sociální sítě lidem do šestnáct let. Od prosince dva tisíce dvacet pět do konce června dva tisíce dvacet šest zrušila přístup víc než sedm set padesát tisícům účtů na Facebooku a Instagramu.
+    Ada: Věk hlídá umělá inteligence, která profily čte podle nepřímých vodítek. A Meta zároveň tlačí na to, aby se věk ověřoval na úrovni operačního systému. Austrálie je první zemí, která sociální sítě mladším šestnáct let zakázala plošně zákonem.
+    Petr: Meta teď vydala report, kolik ji to reálně stálo účtů — a jak ten věk vlastně pozná.
+    Ada: Podle oficiálního sdělení Mety firma k třicet. červnu dva tisíce dvacet šest zrušila přístup víc než sedm set padesát nula účtům na Facebooku a Instagramu v Austrálii, u kterých vyhodnotila, že patří někomu pod šestnáct let.
+    Petr: Číslo pokrývá období od prvního prosince dva tisíce dvacet pět a zahrnuje přes půl milionu účtů smazaných ještě předtím, než zákon nabyl účinnosti. Vymáhání běží dál a Meta ho reportuje australskému úřadu eSafety Commissioner.
+    Ada: Jak se ten věk hlídá Tohle je ta zajímavější část. Meta nespoléhá na jedno ověření, ale na průběžné šťourání: umělá inteligence čte profil.
+    Petr: Model analyzuje příspěvky, komentáře, bio i popisky fotek a hledá nepřímá vodítka — třeba oslavu narozenin nebo zmínku o ročníku ve škole. Snazší nahlašování.
+    Ada: Podezřelý účet může nahlásit rodič i kdokoli jiný, přímo v aplikaci nebo přes nápovědu. umělá inteligence posuzuje i ta hlášení. Podle Mety to vychází přesněji a rychleji než samotná lidská kontrola.
+    Petr: Blokace návratu. Systémy mají poznat, když si někdo po smazání zakládá účet znovu. Věkový rating v App Store zvedla Meta v Austrálii na šestnáct+.
+    Ada: Zdroj: oficiálního sdělení Mety a Meta’s Compliance with Australia’s Social Media Ban
 ---
 
 Austrálie je první zemí, která sociální sítě mladším 16 let zakázala plošně zákonem. Meta teď vydala report, kolik ji to reálně stálo účtů — a jak ten věk vlastně pozná.

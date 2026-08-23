@@ -5,6 +5,23 @@ category: "AI Report"
 date: "2026-07-09"
 zprava: true
 image: "/images/clanky/gpt-live-chatgpt-voice.jpg"
+audio:
+  url: "https://audio.realtech.cz/gpt-live-chatgpt-voice-v3.mp3?v=481b60f09c4a"
+  duration: 132
+  transcript: |-
+    Dnes v RealTechu: ChatGPT dostal nový hlas. GPT-Live umí poslouchat a mluvit zároveň — a roluje se všem. OpenAI vyměnila hlasový režim ChatGPT za GPT-Live: model poslouchá a mluví současně, počká, když přemýšlíš, a těžší dotazy si nechá spočítat od GPT-pět tečka pět na pozadí. Rollout běží globálně. OpenAI vypustila GPT-Live — novou generaci hlasových modelů, která nahrazuje dosavadní Advanced Voice Mode v ChatGPT. Rollout na všechny uživatele ChatGPT běží globálně už teď, takže stačí kliknout na tlačítko mikrofonu a měl bys dostat novou verzi. Žádný příplatek, žádný waitlist. Zásadní změna je tzv. full-duplex architektura: model poslouchá a mluví současně, místo aby čekal, až domluvíš. V praxi to znamená, že GPT-Live umí přitakat („mhmm", „jasně"), nechá tě domluvit, a když se odmlčíš, abys popřemýšlel, neskočí ti do řeči — což byl přesně ten otravný zlozvyk starého hlasového režimu, kde každá pauza znamenala, že ti model začne odpovídat. Podle OpenAI si taky líp poradí s hlukem na pozadí, třeba s projíždějícími auty. Druhý trik: GPT-Live řeší jen konverzaci. Když se zeptáš na něco těžšího — vyhledávání na webu, delší úvaha — deleguje to na pozadí na GPT-pět tečka pět a mezitím s tebou dál mluví. Výsledek ti pak vrátí do konverzace. Sám si můžeš zvolit úroveň přemýšlení: Instant pro rychlé odpovědi, Medium a High, když chceš, aby si dal záležet. K tomu OpenAI remasterovala všech devět hlasů, přidala živý překlad a hlasový režim nově umí k mluvení zobrazovat i vizuální odpovědi na obrazovce. Hlasový režim ChatGPT používá přes sto padesát milionů lidí týdně — na hands-free dotazy, procvičování jazyků nebo prostě kecání při dojíždění. Jestli jsi to vzdal, protože ti robot skákal do řeči a odpovídal s vteřinovými pauzami, tohle je moment to zkusit znovu. Nasazují se dvě verze, GPT-Live-jedna a menší GPT-Live-jedna mini. Zdroj: OpenAI
+  ttsScript: |-
+    Ada: Dnes v RealTechu: ChatGPT dostal nový hlas. GPT-Live umí poslouchat a mluvit zároveň — a roluje se všem.
+    Petr: OpenAI vyměnila hlasový režim ChatGPT za GPT-Live: model poslouchá a mluví současně, počká, když přemýšlíš, a těžší dotazy si nechá spočítat od GPT-pět tečka pět na pozadí. Rollout běží globálně.
+    Ada: OpenAI vypustila GPT-Live — novou generaci hlasových modelů, která nahrazuje dosavadní Advanced Voice Mode v ChatGPT. Rollout na všechny uživatele ChatGPT běží globálně už teď, takže stačí kliknout na tlačítko mikrofonu a měl bys dostat novou verzi.
+    Petr: Žádný příplatek, žádný waitlist. Zásadní změna je tzv. full-duplex architektura: model poslouchá a mluví současně, místo aby čekal, až domluvíš.
+    Ada: V praxi to znamená, že GPT-Live umí přitakat („mhmm", „jasně"), nechá tě domluvit, a když se odmlčíš, abys popřemýšlel, neskočí ti do řeči — což byl přesně ten otravný zlozvyk starého hlasového režimu, kde každá pauza znamenala, že ti model začne odpovídat.
+    Petr: Podle OpenAI si taky líp poradí s hlukem na pozadí, třeba s projíždějícími auty. Druhý trik: GPT-Live řeší jen konverzaci.
+    Ada: Když se zeptáš na něco těžšího — vyhledávání na webu, delší úvaha — deleguje to na pozadí na GPT-pět tečka pět a mezitím s tebou dál mluví. Výsledek ti pak vrátí do konverzace.
+    Petr: Sám si můžeš zvolit úroveň přemýšlení: Instant pro rychlé odpovědi, Medium a High, když chceš, aby si dal záležet. K tomu OpenAI remasterovala všech devět hlasů, přidala živý překlad a hlasový režim nově umí k mluvení zobrazovat i vizuální odpovědi na obrazovce.
+    Ada: Hlasový režim ChatGPT používá přes sto padesát milionů lidí týdně — na hands-free dotazy, procvičování jazyků nebo prostě kecání při dojíždění. Jestli jsi to vzdal, protože ti robot skákal do řeči a odpovídal s vteřinovými pauzami, tohle je moment to zkusit znovu.
+    Petr: Nasazují se dvě verze, GPT-Live-jedna a menší GPT-Live-jedna mini.
+    Ada: Zdroj: OpenAI
 ---
 
 OpenAI vypustila **GPT-Live** — novou generaci hlasových modelů, která nahrazuje dosavadní Advanced Voice Mode v ChatGPT. Rollout na všechny uživatele ChatGPT **běží globálně už teď**, takže stačí kliknout na tlačítko mikrofonu a měl bys dostat novou verzi. Žádný příplatek, žádný waitlist.

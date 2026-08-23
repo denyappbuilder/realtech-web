@@ -5,6 +5,22 @@ category: "AI Report"
 date: "2026-07-31"
 image: "/images/clanky/gpt-5-6-snizeni-cen.jpg"
 zprava: true
+audio:
+  url: "https://audio.realtech.cz/gpt-5-6-snizeni-cen-v3.mp3?v=e24fecc745d0"
+  duration: 130
+  transcript: |-
+    Dnes v RealTechu: OpenAI srazilo cenu GPT-pět tečka šest Luna o osmdesát procent. Levnější umělá inteligence je tu, ale je v tom háček. Luna zlevnila o osmdesát procent, Terra o dvacet procent. Zároveň se mění, jak rychle ti v Codexu a ChatGPT Work ubývají kredity. Co to znamená v praxi. OpenAI oznámilo třicátého července zlevnění dvou ze tří modelů rodiny GPT-pět tečka šest. A nejde o kosmetiku — Luna, nejrychlejší a nejlevnější model, spadla o osmdesát procent. Vyvážená Terra zlevnila o dvacet procent. Nejsilnější Sol zůstává na stejné ceně. Od třicátého července stojí v API: Terra — dva dolary za milion vstupních tokenů, dvanáct dolarů za milion výstupních Luna — nula tečka dvacet dolaru za vstupní milion, jedna tečka dvacet dolaru za výstupní Sol — beze změny Pro srovnání: milion výstupních tokenů z Luny tě teď vyjde na něco přes dvacet pět korun (kurz ČNB dvacet jedna tečka pět Kč za dolar). Rozjezd cen v AWS měl podle OpenAI začít ještě týž den. Proč by tě to mělo zajímat, i když API nepoužíváš Tohle je ta zajímavější část. Snížené ceny se promítají i do toho, jak se u tebe počítá spotřeba v Codexu a ChatGPT Work. Ceny předplatného ani velikost kvót se nemění — ale Terra a Luna teď ukrojí z tvého měsíčního rozpočtu míň kreditů než dřív. Prakticky: za stejné peníze uděláš víc práce, pokud netlačíš všechno přes Sol. Kdo má Free nebo Go, dostane se v Codexu a ChatGPT Work k Terře. Plus, Pro, Business a Enterprise si můžou vybrat mezi Terrou a Lunou. Zároveň OpenAI mění placený rychlostní režim. Fast mode nahrazuje dosavadní Priority Processing — u modelu Sol slibuje až dva tečka pět× vyšší rychlost proti standardnímu zpracování, ale za dvojnásobnou cenu. Inteligence modelu je prý stejná, platíš čistě za rychlost. Zdroj: OpenAI
+  ttsScript: |-
+    Ada: Dnes v RealTechu: OpenAI srazilo cenu GPT-pět tečka šest Luna o osmdesát procent. Levnější umělá inteligence je tu, ale je v tom háček.
+    Petr: Luna zlevnila o osmdesát procent, Terra o dvacet procent. Zároveň se mění, jak rychle ti v Codexu a ChatGPT Work ubývají kredity. Co to znamená v praxi. OpenAI oznámilo třicátého července zlevnění dvou ze tří modelů rodiny GPT-pět tečka šest.
+    Ada: A nejde o kosmetiku — Luna, nejrychlejší a nejlevnější model, spadla o osmdesát procent. Vyvážená Terra zlevnila o dvacet procent. Nejsilnější Sol zůstává na stejné ceně. Od třicátého července stojí v API:
+    Petr: Terra — dva dolary za milion vstupních tokenů, dvanáct dolarů za milion výstupních Luna — nula tečka dvacet dolaru za vstupní milion, jedna tečka dvacet dolaru za výstupní Sol — beze změny
+    Ada: Pro srovnání: milion výstupních tokenů z Luny tě teď vyjde na něco přes dvacet pět korun (kurz ČNB dvacet jedna tečka pět Kč za dolar). Rozjezd cen v AWS měl podle OpenAI začít ještě týž den.
+    Petr: Proč by tě to mělo zajímat, i když API nepoužíváš Tohle je ta zajímavější část. Snížené ceny se promítají i do toho, jak se u tebe počítá spotřeba v Codexu a ChatGPT Work.
+    Ada: Ceny předplatného ani velikost kvót se nemění — ale Terra a Luna teď ukrojí z tvého měsíčního rozpočtu míň kreditů než dřív. Prakticky: za stejné peníze uděláš víc práce, pokud netlačíš všechno přes Sol.
+    Petr: Kdo má Free nebo Go, dostane se v Codexu a ChatGPT Work k Terře. Plus, Pro, Business a Enterprise si můžou vybrat mezi Terrou a Lunou. Zároveň OpenAI mění placený rychlostní režim.
+    Ada: Fast mode nahrazuje dosavadní Priority Processing — u modelu Sol slibuje až dva tečka pět× vyšší rychlost proti standardnímu zpracování, ale za dvojnásobnou cenu. Inteligence modelu je prý stejná, platíš čistě za rychlost.
+    Petr: Zdroj: OpenAI
 ---
 
 OpenAI oznámilo 30. července zlevnění dvou ze tří modelů rodiny GPT-5.6. A nejde o kosmetiku — **[Luna, nejrychlejší a nejlevnější model](/clanky/chatgpt-zdarma-neomezene-chaty/), spadla o 80 %**. Vyvážená **Terra zlevnila o 20 %**. Nejsilnější Sol zůstává na stejné ceně.

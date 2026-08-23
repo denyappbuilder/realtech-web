@@ -5,6 +5,24 @@ category: "Mobily"
 date: "2026-07-08"
 zprava: true
 image: "/images/clanky/samsung-galaxy-unpacked-cervenec.jpg"
+audio:
+  url: "https://audio.realtech.cz/samsung-galaxy-unpacked-cervenec-v3.mp3?v=db1a5abdbea3"
+  duration: 155
+  transcript: |-
+    Dnes v RealTechu: Samsung svolává Unpacked na dvaadvacátého července. „A New Shape Unfolds“ naznačuje nový tvar skládačky. Samsung oficiálně potvrdil letní Galaxy Unpacked — dvaadvacátého července v Londýně, stream od patnáct:nula našeho času. Heslo akce napovídá, že nepůjde jen o další Fold a Flip. Samsung dnes rozeslal oficiální pozvánky na letní Galaxy Unpacked. Akce proběhne dvaadvacátého července v Londýně a živý přenos startuje v patnáct:nula českého času — pojede na Samsung.com, v Samsung Newsroom a na YouTube kanálu Samsungu. Takže žádné ponocování, tentokrát to vyjde na odpolední kafe. Co Samsung prozradil Oficiálně toho moc není, ale to málo stojí za pozornost. Pozvánka nese heslo „A New Shape Unfolds" — volně přeloženo „rozkládá se nový tvar". Samsung k tomu píše o „inovativních form faktorech" a odkazuje na to, že jeho portfolio „definovalo kategorii skládaček". Jinými slovy: hlavní hvězdou budou zase ohebné telefony, ale slovo „shape" (tvar) v hesle naznačuje, že nepůjde jen o vylepšený Fold a Flip, jak je známe. Spekulovat nebudeme — Samsung sám nic konkrétního nepotvrdil. Ale když firma, která roky razí stejnou dvojici skládaček, najednou postaví celou kampaň na „novém tvaru", je fér čekat něco jiného než jen tenčí pant. Druhá věc, kterou Samsung slibuje, je klasika posledních let: umělá inteligence funkce. Nová generace Galaxy zařízení má podle pozvánky přinést „osobnější a adaptivnější zážitky" a „nastavit nový standard pro éru umělá inteligence". Marketingová omáčka, jasně — ale u Samsungu to obvykle znamená konkrétní funkce Galaxy umělá inteligence, které pak reálně přistanou i ve starších vlajkách. Pokud uvažuješ o nové vlajce nebo skládačce, teď není dobrá chvíle kupovat. Do premiéry zbývají dva týdny a s novou generací tradičně přijdou předobjednávkové bonusy — a starší Foldy a Flipy obvykle krátce po akci zlevní. Samsung navíc spustil registrace na samsung.com/unpacked — registrace je zdarma a Samsung za ni slibuje „exkluzivní výhody" k předobjednávkám. Zdroj: samsung.com/unpacked
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Samsung svolává Unpacked na dvaadvacátého července. „A New Shape Unfolds“ naznačuje nový tvar skládačky.
+    Petr: Samsung oficiálně potvrdil letní Galaxy Unpacked — dvaadvacátého července v Londýně, stream od patnáct:nula našeho času. Heslo akce napovídá, že nepůjde jen o další Fold a Flip. Samsung dnes rozeslal oficiální pozvánky na letní Galaxy Unpacked.
+    Ada: Akce proběhne dvaadvacátého července v Londýně a živý přenos startuje v patnáct:nula českého času — pojede na Samsung.com, v Samsung Newsroom a na YouTube kanálu Samsungu. Takže žádné ponocování, tentokrát to vyjde na odpolední kafe.
+    Petr: Co Samsung prozradil Oficiálně toho moc není, ale to málo stojí za pozornost. Pozvánka nese heslo „A New Shape Unfolds" — volně přeloženo „rozkládá se nový tvar".
+    Ada: Samsung k tomu píše o „inovativních form faktorech" a odkazuje na to, že jeho portfolio „definovalo kategorii skládaček".
+    Petr: Jinými slovy: hlavní hvězdou budou zase ohebné telefony, ale slovo „shape" (tvar) v hesle naznačuje, že nepůjde jen o vylepšený Fold a Flip, jak je známe. Spekulovat nebudeme — Samsung sám nic konkrétního nepotvrdil.
+    Ada: Ale když firma, která roky razí stejnou dvojici skládaček, najednou postaví celou kampaň na „novém tvaru", je fér čekat něco jiného než jen tenčí pant. Druhá věc, kterou Samsung slibuje, je klasika posledních let: umělá inteligence funkce.
+    Petr: Nová generace Galaxy zařízení má podle pozvánky přinést „osobnější a adaptivnější zážitky" a „nastavit nový standard pro éru umělá inteligence".
+    Ada: Marketingová omáčka, jasně — ale u Samsungu to obvykle znamená konkrétní funkce Galaxy umělá inteligence, které pak reálně přistanou i ve starších vlajkách. Pokud uvažuješ o nové vlajce nebo skládačce, teď není dobrá chvíle kupovat.
+    Petr: Do premiéry zbývají dva týdny a s novou generací tradičně přijdou předobjednávkové bonusy — a starší Foldy a Flipy obvykle krátce po akci zlevní.
+    Ada: Samsung navíc spustil registrace na samsung.com/unpacked — registrace je zdarma a Samsung za ni slibuje „exkluzivní výhody" k předobjednávkám.
+    Petr: Zdroj: samsung.com/unpacked
 ---
 
 Samsung dnes rozeslal oficiální pozvánky na letní Galaxy Unpacked. Akce proběhne [**22. července v Londýně**](/clanky/samsung-unpacked-fold8-watch9/) a živý přenos startuje v **15:00 českého času** — pojede na Samsung.com, v Samsung Newsroom a na YouTube kanálu Samsungu. Takže žádné ponocování, tentokrát to vyjde na odpolední kafe.

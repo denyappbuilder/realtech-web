@@ -5,6 +5,23 @@ category: "AI Agenti"
 date: "2026-07-31"
 image: "/images/clanky/gemini-spark-chrome-mimo-eu.jpg"
 zprava: true
+audio:
+  url: "https://audio.realtech.cz/gemini-spark-chrome-mimo-eu-v3.mp3?v=a305289f687b"
+  duration: 140
+  transcript: |-
+    Dnes v RealTechu: Gemini Spark umí ovládat tvůj Chrome a vyřídit věci za tebe. Do Česka ale nepřijde. Google rozšířil svého umělá inteligence agenta do sto šedesát+ zemí a naučil ho pracovat s tvým přihlášeným prohlížečem. Evropský hospodářský prostor je ale z celé funkce vyškrtnutý. Google včera oznámil dvě věci k Gemini Sparku — svému umělá inteligence agentovi, který nemá jen odpovídat, ale reálně za tebe odbavovat úkoly. Obě zní dobře. A obě se nás zatím netýkají. Chrome auto browse: agent v tvém přihlášeném prohlížeči První novinka je propojení Sparku přímo s Chromem. S tvým svolením může agent využít tvoje přihlášené účty a hesla uložená v Password Manageru a vyřizovat otravné internetové pochůzky — Google jmenuje domlouvání prohlídek bytů, které sis uložil, nebo vyhledání letenek včetně rozjetí rezervace. Google zároveň říká, jak to hlídá: brání se prompt injection útokům a u citlivých kroků, jako jsou platby, úkol vrací zpátky tobě. V nápovědě je to konkrétnější — Gemini si vyžádá potvrzení před odesíláním zpráv, úpravou dat, nákupy a odesíláním formulářů. Přihlašovací a platební údaje ale podle Googlu nemáš psát do zadání úkolu vůbec — máš si v takovém případě převzít kontrolu nad prohlížečem a vyplnit je přímo na stránce. Za pozornost stojí, jak otevřeně Google popisuje rizika: agent má přístup ke stejným webům jako ty, včetně těch přihlášených, a může s weby sdílet tvoje jméno, kontakty, soubory i věci, které považuješ za citlivé. Sám to označuje za experimentální funkci v rané fázi vývoje, kde je tvůj dohled to hlavní, co tě chrání. Auto browse startuje jen v USA, s tím, že další regiony přijdou později. Funguje navíc pouze v desktopovém Chromu. sto šedesát zemí, a Česko mezi nimi není Druhá novinka je rozšíření přístupu — Spark dostávají předplatitelé Google umělá inteligence Pro ve víc než sto šedesát dalších zemích. Zdroj: Gemini Spark now integrates with Chrome a Use Gemini Spark to manage your tasks & workflows
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Gemini Spark umí ovládat tvůj Chrome a vyřídit věci za tebe. Do Česka ale nepřijde.
+    Petr: Google rozšířil svého umělá inteligence agenta do sto šedesát+ zemí a naučil ho pracovat s tvým přihlášeným prohlížečem. Evropský hospodářský prostor je ale z celé funkce vyškrtnutý.
+    Ada: Google včera oznámil dvě věci k Gemini Sparku — svému umělá inteligence agentovi, který nemá jen odpovídat, ale reálně za tebe odbavovat úkoly. Obě zní dobře. A obě se nás zatím netýkají.
+    Petr: Chrome auto browse: agent v tvém přihlášeném prohlížeči První novinka je propojení Sparku přímo s Chromem.
+    Ada: S tvým svolením může agent využít tvoje přihlášené účty a hesla uložená v Password Manageru a vyřizovat otravné internetové pochůzky — Google jmenuje domlouvání prohlídek bytů, které sis uložil, nebo vyhledání letenek včetně rozjetí rezervace.
+    Petr: Google zároveň říká, jak to hlídá: brání se prompt injection útokům a u citlivých kroků, jako jsou platby, úkol vrací zpátky tobě. V nápovědě je to konkrétnější — Gemini si vyžádá potvrzení před odesíláním zpráv, úpravou dat, nákupy a odesíláním formulářů.
+    Ada: Přihlašovací a platební údaje ale podle Googlu nemáš psát do zadání úkolu vůbec — máš si v takovém případě převzít kontrolu nad prohlížečem a vyplnit je přímo na stránce.
+    Petr: Za pozornost stojí, jak otevřeně Google popisuje rizika: agent má přístup ke stejným webům jako ty, včetně těch přihlášených, a může s weby sdílet tvoje jméno, kontakty, soubory i věci, které považuješ za citlivé.
+    Ada: Sám to označuje za experimentální funkci v rané fázi vývoje, kde je tvůj dohled to hlavní, co tě chrání. Auto browse startuje jen v USA, s tím, že další regiony přijdou později.
+    Petr: Funguje navíc pouze v desktopovém Chromu. sto šedesát zemí, a Česko mezi nimi není Druhá novinka je rozšíření přístupu — Spark dostávají předplatitelé Google umělá inteligence Pro ve víc než sto šedesát dalších zemích.
+    Ada: Zdroj: Gemini Spark now integrates with Chrome a Use Gemini Spark to manage your tasks & workflows
 ---
 
 Google včera oznámil dvě věci k **Gemini Sparku** — svému AI agentovi, který nemá jen odpovídat, ale reálně za tebe odbavovat úkoly. Obě zní dobře. A obě se nás zatím netýkají.

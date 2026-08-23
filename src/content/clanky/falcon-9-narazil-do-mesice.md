@@ -5,6 +5,22 @@ category: "Vesmír"
 date: "2026-08-06"
 zprava: true
 image: "/images/clanky/falcon-9-narazil-do-mesice-v2.jpg"
+audio:
+  url: "https://audio.realtech.cz/falcon-9-narazil-do-mesice-v3.mp3?v=b7d7a695b333"
+  duration: 129
+  transcript: |-
+    Dnes v RealTechu: Kus Falconu devět narazil do Měsíce. Dalekohled v Chile v oblaku prachu našel sodík a lithium. Horní stupeň Falconu devět z lunární mise ze zimy dva tisíce dvacet pět dopadl pátého srpna na Měsíc rychlostí osm šest set devadesát km/h. Samotný náraz nikdo neviděl, ale VLT zachytil spektrum oblaku. Ve středu pátého srpna v šest:třicet pět UTC narazil do Měsíce kus vesmírného odpadu — konkrétně horní stupeň rakety Falcon devět, který v lednu dva tisíce dvacet pět vynesl k Měsíci landery Blue Ghost od Firefly Aerospace a japonský Hakuto-R. Objekt s katalogovým označením dva tisíce dvacet pět-010D pak víc než rok bezvládně kroužil kolem Země, až ho gravitace a tlak slunečního záření nasměrovaly na kolizní kurz. Dopadl rychlostí zhruba osm šest set devadesát km/h (dva tečka čtyřicet tři km/s) poblíž kráteru Einstein na západním okraji přivrácené strany. Stroj vážil kolem čtyři nula kilogramů a je velký asi jako školní autobus. Nikdo to neviděl. A přesto to máme doložené Tohle je na celé věci to nejzajímavější. Záblesk nárazu nikdo nezachytil — objekt letěl na astronomické poměry pomalu, takže se jen malá část energie uvolnila jako světlo. Co ale zachytit šlo, byl oblak vyvrženého prachu. Evropská jižní observatoř nasadila v chilském Paranalu Very Large Telescope a podle mluvčí ESO Bárbary Ferreiry přístroj „detekoval spektrální čáry sodíku a lithia v oblaku po dopadu, trvající pět až deset minut". Vedoucí pozorování Carl Schmidt dodává, že sodík nejspíš pochází z měsíčního regolitu, zatímco lithium může být ze samotné rakety. Sám ale brzdí očekávání: „Tohle pozorování neproběhlo dokonale a jde o velmi hrubou analýzu." Fotky nového kráteru zatím nejsou. Chystají se je pořídit NASA Lunar Reconnaissance Orbiter a jihokorejská sonda Danuri — může to ale trvat dny. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Kus Falconu devět narazil do Měsíce. Dalekohled v Chile v oblaku prachu našel sodík a lithium.
+    Petr: Horní stupeň Falconu devět z lunární mise ze zimy dva tisíce dvacet pět dopadl pátého srpna na Měsíc rychlostí osm šest set devadesát km/h. Samotný náraz nikdo neviděl, ale VLT zachytil spektrum oblaku.
+    Ada: Ve středu pátého srpna v šest:třicet pět UTC narazil do Měsíce kus vesmírného odpadu — konkrétně horní stupeň rakety Falcon devět, který v lednu dva tisíce dvacet pět vynesl k Měsíci landery Blue Ghost od Firefly Aerospace a japonský Hakuto-R.
+    Petr: Objekt s katalogovým označením dva tisíce dvacet pět-010D pak víc než rok bezvládně kroužil kolem Země, až ho gravitace a tlak slunečního záření nasměrovaly na kolizní kurz.
+    Ada: Dopadl rychlostí zhruba osm šest set devadesát km/h (dva tečka čtyřicet tři km/s) poblíž kráteru Einstein na západním okraji přivrácené strany. Stroj vážil kolem čtyři nula kilogramů a je velký asi jako školní autobus.
+    Petr: Nikdo to neviděl. A přesto to máme doložené Tohle je na celé věci to nejzajímavější. Záblesk nárazu nikdo nezachytil — objekt letěl na astronomické poměry pomalu, takže se jen malá část energie uvolnila jako světlo.
+    Ada: Co ale zachytit šlo, byl oblak vyvrženého prachu. Evropská jižní observatoř nasadila v chilském Paranalu Very Large Telescope a podle mluvčí ESO Bárbary Ferreiry přístroj „detekoval spektrální čáry sodíku a lithia v oblaku po dopadu, trvající pět až deset minut".
+    Petr: Vedoucí pozorování Carl Schmidt dodává, že sodík nejspíš pochází z měsíčního regolitu, zatímco lithium může být ze samotné rakety. Sám ale brzdí očekávání: „Tohle pozorování neproběhlo dokonale a jde o velmi hrubou analýzu."
+    Ada: Fotky nového kráteru zatím nejsou. Chystají se je pořídit NASA Lunar Reconnaissance Orbiter a jihokorejská sonda Danuri — může to ale trvat dny.
+    Petr: Zdroj: článek na realtech.cz
 ---
 
 Ve středu 5. srpna v **6:35 UTC** narazil do Měsíce kus vesmírného odpadu — konkrétně **horní stupeň rakety Falcon 9**, který v lednu 2025 vynesl k Měsíci landery Blue Ghost od Firefly Aerospace a japonský Hakuto-R. Objekt s katalogovým označením 2025-010D pak víc než rok bezvládně kroužil kolem Země, až ho gravitace a tlak slunečního záření nasměrovaly na kolizní kurz.

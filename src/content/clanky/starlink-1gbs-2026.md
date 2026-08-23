@@ -5,6 +5,22 @@ category: "Vesmír"
 date: "2026-07-21"
 video: "https://youtu.be/BvVMyDzjY7o"
 videoLength: "8:31"
+audio:
+  url: "https://audio.realtech.cz/starlink-1gbs-2026-v3.mp3?v=8a1789341e59"
+  duration: 137
+  transcript: |-
+    Dnes v RealTechu: Starlink míří na jedna Gb/s. Co chystá SpaceX v roce dva tisíce dvacet šest — satelity V3, volání z nebe a internet v letadlech. Přes devět milionů uživatelů, devět pět set satelitů a medián rychlosti dvě stě Mb/s. Letos přicházejí satelity V3 s deset× vyšší kapacitou, gigabitové tarify a Direct to Cell — připojení běžného telefonu přímo na satelit. Rozebíráme, co z toho uvidíme v Česku. Skeptici roky tvrdili, že Starlink se pod náporem uživatelů zadusí. Stalo se přesně naopak: za loňský rok zdvojnásobil počet uživatelů na více než devět milionů, a přesto drží medián rychlosti dvě stě Mb/s při latenci dvacet šest ms. Recept je prostý — SpaceX vynáší satelity rychleji, než přibývají zákazníci. Na orbitě jich je už přes devět pět set. A rok dva tisíce dvacet šest má být bod zlomu. Satelity V3: řádově vyšší kapacita Páteří současné sítě jsou satelity V2 mini. Nová generace V3 má podle SpaceX až deset× vyšší download a dvacet pět× vyšší upload kapacitu. Klíč je v raketě: Starship unese na jeden let až šedesát satelitů V3, zatímco Falcon devět vozí jen dvacet pět kusů V2 mini. Až Starship poletí rutinně, růst sítě se výrazně zrychlí. První vlaštovka gigabitové éry už existuje: High Performance Kit (cca třicet pět nula Kč, primárně pro lodě — vydrží slanou vodu, otřesy i rychlost přes dvě stě km/h). Právě jeho uživatelé s prioritním tarifem se mají s příchodem V3 dočkat rychlosti jedna Gb/s — možná už letos. Direct to Cell: satelit místo BTSky Starlink rozšiřuje službu Direct to Cell — připojení běžného mobilu přímo na satelit, bez jakékoli antény. Speciálních satelitů vysílajících 4G signál k zemi je zatím šest set padesát a služba běží v USA přes T-Mobile. Letos má odstartovat první evropská země: Španělsko. Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Starlink míří na jedna Gb/s. Co chystá SpaceX v roce dva tisíce dvacet šest — satelity V3, volání z nebe a internet v letadlech.
+    Petr: Přes devět milionů uživatelů, devět pět set satelitů a medián rychlosti dvě stě Mb/s. Letos přicházejí satelity V3 s deset× vyšší kapacitou, gigabitové tarify a Direct to Cell — připojení běžného telefonu přímo na satelit.
+    Ada: Rozebíráme, co z toho uvidíme v Česku. Skeptici roky tvrdili, že Starlink se pod náporem uživatelů zadusí.
+    Petr: Stalo se přesně naopak: za loňský rok zdvojnásobil počet uživatelů na více než devět milionů, a přesto drží medián rychlosti dvě stě Mb/s při latenci dvacet šest ms. Recept je prostý — SpaceX vynáší satelity rychleji, než přibývají zákazníci.
+    Ada: Na orbitě jich je už přes devět pět set. A rok dva tisíce dvacet šest má být bod zlomu. Satelity V3: řádově vyšší kapacita Páteří současné sítě jsou satelity V2 mini.
+    Petr: Nová generace V3 má podle SpaceX až deset× vyšší download a dvacet pět× vyšší upload kapacitu. Klíč je v raketě: Starship unese na jeden let až šedesát satelitů V3, zatímco Falcon devět vozí jen dvacet pět kusů V2 mini.
+    Ada: Až Starship poletí rutinně, růst sítě se výrazně zrychlí. První vlaštovka gigabitové éry už existuje: High Performance Kit (cca třicet pět nula Kč, primárně pro lodě — vydrží slanou vodu, otřesy i rychlost přes dvě stě km/h).
+    Petr: Právě jeho uživatelé s prioritním tarifem se mají s příchodem V3 dočkat rychlosti jedna Gb/s — možná už letos. Direct to Cell: satelit místo BTSky Starlink rozšiřuje službu Direct to Cell — připojení běžného mobilu přímo na satelit, bez jakékoli antény.
+    Ada: Speciálních satelitů vysílajících 4G signál k zemi je zatím šest set padesát a služba běží v USA přes T-Mobile. Letos má odstartovat první evropská země: Španělsko.
+    Petr: Zdroj: článek na realtech.cz
 ---
 
 Skeptici roky tvrdili, že Starlink se pod náporem uživatelů zadusí. Stalo se přesně naopak: za loňský rok **zdvojnásobil počet uživatelů na více než 9 milionů**, a přesto drží medián rychlosti **200 Mb/s při latenci 26 ms**. Recept je prostý — [SpaceX vynáší satelity rychleji](/clanky/proc-je-spacex-tak-napred/), než přibývají zákazníci. Na orbitě jich je už přes 9 500. A rok 2026 má být bod zlomu.

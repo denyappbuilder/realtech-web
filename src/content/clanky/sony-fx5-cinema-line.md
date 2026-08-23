@@ -5,6 +5,23 @@ category: "Hardware"
 date: "2026-07-22"
 zprava: true
 image: "/images/clanky/sony-fx5-cinema-line.jpg"
+audio:
+  url: "https://audio.realtech.cz/sony-fx5-cinema-line-v3.mp3?v=2aba6a38155b"
+  duration: 133
+  transcript: |-
+    Dnes v RealTechu: Sony FX5 je venku: 5K open gate a interní RAW z kamer za miliony — v těle za sto patnáct tisíc. Sony vyplnila díru mezi FX3 a FX6. Nová FX5 má poprvé v kompaktním těle 5K open gate a interní 16bit X-OCN RAW z rodiny VENICE, tři základní ISO, 4K až dvě stě čtyřicet fps a 32bit float zvuk. Předobjednávky běží, prodej od poloviny srpna. Pět let čekali majitelé FX3 na krok dál — a dnes ho dostali. Sony představila FX5, novou kameru řady Cinema Line, která si sedá mezi FX3 a FX6. A důležité upřesnění rovnou od Sony: není to FX3 Mark II, ale nový model — a do kompaktního těla poprvé přináší věci, které dosud žily jen v kamerách VENICE a BURANO za miliony. Základem je nově vyvinutý šestnáct,6MP full-frame stacked snímač (FX3 stacked neměla — čtení snímače a rolling shutter by měly znatelně zrychlit) a procesor BIONZ XR2 s integrovanou umělá inteligence jednotkou. K tomu tři základní citlivosti ISO: osm set / čtyři nula / dvanáct osm set — pro natáčení za tmy zásadní věc. Open gate a RAW: dosud výsada highendů Největší lákadlo: 5K open gate — záznam z celé plochy snímače v poměru tři:dva. Pro tvůrce to znamená anamorfické objektivy bez omezení a hlavně výřezy na výšku bez ztráty kvality — z jednoho záběru uděláte long-form i Short. Přesně tohle dosud v kompaktní Sony nebylo. K tomu interní 16bit X-OCN RAW (formát z rodiny VENICE, dvě nové úrovně komprese) na CFexpress Type A karty, 4K až dvě stě čtyřicet fps pro zpomalené záběry a 32bit float zvuk — s novým XLR handle nikdy neurvete audio. Kameru si před premiérou vyzkoušel i Claudio Miranda, kameraman Top Gun: Maverick. Zdroj: Sony a CineD
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Sony FX5 je venku: 5K open gate a interní RAW z kamer za miliony — v těle za sto patnáct tisíc.
+    Petr: Sony vyplnila díru mezi FX3 a FX6. Nová FX5 má poprvé v kompaktním těle 5K open gate a interní 16bit X-OCN RAW z rodiny VENICE, tři základní ISO, 4K až dvě stě čtyřicet fps a 32bit float zvuk.
+    Ada: Předobjednávky běží, prodej od poloviny srpna. Pět let čekali majitelé FX3 na krok dál — a dnes ho dostali. Sony představila FX5, novou kameru řady Cinema Line, která si sedá mezi FX3 a FX6.
+    Petr: A důležité upřesnění rovnou od Sony: není to FX3 Mark II, ale nový model — a do kompaktního těla poprvé přináší věci, které dosud žily jen v kamerách VENICE a BURANO za miliony.
+    Ada: Základem je nově vyvinutý šestnáct,6MP full-frame stacked snímač (FX3 stacked neměla — čtení snímače a rolling shutter by měly znatelně zrychlit) a procesor BIONZ XR2 s integrovanou umělá inteligence jednotkou.
+    Petr: K tomu tři základní citlivosti ISO: osm set / čtyři nula / dvanáct osm set — pro natáčení za tmy zásadní věc. Open gate a RAW: dosud výsada highendů
+    Ada: Největší lákadlo: 5K open gate — záznam z celé plochy snímače v poměru tři:dva. Pro tvůrce to znamená anamorfické objektivy bez omezení a hlavně výřezy na výšku bez ztráty kvality — z jednoho záběru uděláte long-form i Short.
+    Petr: Přesně tohle dosud v kompaktní Sony nebylo.
+    Ada: K tomu interní 16bit X-OCN RAW (formát z rodiny VENICE, dvě nové úrovně komprese) na CFexpress Type A karty, 4K až dvě stě čtyřicet fps pro zpomalené záběry a 32bit float zvuk — s novým XLR handle nikdy neurvete audio.
+    Petr: Kameru si před premiérou vyzkoušel i Claudio Miranda, kameraman Top Gun: Maverick.
+    Ada: Zdroj: Sony a CineD
 ---
 
 Pět let čekali majitelé FX3 na krok dál — a dnes ho dostali. Sony představila **FX5**, novou kameru řady Cinema Line, která si sedá mezi FX3 a FX6. A důležité upřesnění rovnou od Sony: **není to FX3 Mark II**, ale nový model — a do kompaktního těla poprvé přináší věci, které dosud žily jen v kamerách VENICE a BURANO za miliony.

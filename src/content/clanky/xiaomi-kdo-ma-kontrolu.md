@@ -5,6 +5,24 @@ category: "Mobily"
 date: "2026-07-02"
 video: "https://youtu.be/Kr8Ch6MYhCw"
 videoLength: "9:17"
+audio:
+  url: "https://audio.realtech.cz/xiaomi-kdo-ma-kontrolu-v3.mp3?v=80219c32b512"
+  duration: 139
+  transcript: |-
+    Dnes v RealTechu: Tajemství Xiaomi: kdo má skutečnou kontrolu a jak vydělává na levných telefonech. Xiaomi vydělá na uživateli v Číně čtyři sta padesát Kč ročně, v Evropě jen padesát–sto Kč. Rozebrali jsme business model, vliv komunistické strany i to, proč jsou auta Xiaomi zisková rychleji, než kdo čekal. Je Xiaomi geniální firma, nebo trojský kůň v kapse milionů lidí? Kdo za ní vlastně stojí a jak vydělává, když má tak levné telefony? Rozebrali jsme to od business modelu přes vliv čínského státu až po elektroauta. Jak Xiaomi vydělává, když jsou telefony tak levné Xiaomi vydělá na běžném uživateli svého telefonu v Číně asi čtyři sta padesát Kč ročně — z platebních bran, předinstalovaných aplikací, reklam v systémových aplikacích a anonymizovaného prodeje dat. V Evropě je to z jednoho uživatele jen padesát až sto Kč. Proč? Máme přísnější pravidla pro nakládání s daty a místo služeb Xiaomi používáme hlavně Google. V Evropě proto Xiaomi nejvíc vydělává na samotném prodeji telefonů, kde má marži kolem deset procent — na telefonu za deset tisíc je to výrazně víc než těch pár desetikorun ze softwaru. Celkově má ale firma zhruba třicet procent zisků z prodeje telefonů a čtyřicet procent ze softwarových služeb. Ziskovostí je to tedy vlastně víc softwarová firma než výrobce hardwaru. Business model stojí na třech bodech: hardware s malou marží, vlastní prodej a software — tedy reklamy v systému, předplatné, cloudy a hry. Právě tam se skutečně vydělává. A proto se prémiového telefonu Xiaomi úplně bez reklam nejspíš nedočkáme: v prémiovém segmentu je sice vidět snaha o čistší HyperOS a mizí vyskakovací okna, ale předinstalované aplikace zůstávají. Místo na ploše je pro Xiaomi příliš cenný prostor, než aby ho nechalo prázdné — i u telefonu za třicet pět tisíc. Lei Jun: softwarový mozek za hardwarovou firmou Proč výrobce telefonů uvažuje jako softwarový gigant? Zdroj: článek na realtech.cz
+  ttsScript: |-
+    Ada: Dnes v RealTechu: Tajemství Xiaomi: kdo má skutečnou kontrolu a jak vydělává na levných telefonech.
+    Petr: Xiaomi vydělá na uživateli v Číně čtyři sta padesát Kč ročně, v Evropě jen padesát–sto Kč. Rozebrali jsme business model, vliv komunistické strany i to, proč jsou auta Xiaomi zisková rychleji, než kdo čekal.
+    Ada: Je Xiaomi geniální firma, nebo trojský kůň v kapse milionů lidí? Kdo za ní vlastně stojí a jak vydělává, když má tak levné telefony? Rozebrali jsme to od business modelu přes vliv čínského státu až po elektroauta.
+    Petr: Jak Xiaomi vydělává, když jsou telefony tak levné Xiaomi vydělá na běžném uživateli svého telefonu v Číně asi čtyři sta padesát Kč ročně — z platebních bran, předinstalovaných aplikací, reklam v systémových aplikacích a anonymizovaného prodeje dat.
+    Ada: V Evropě je to z jednoho uživatele jen padesát až sto Kč. Proč? Máme přísnější pravidla pro nakládání s daty a místo služeb Xiaomi používáme hlavně Google.
+    Petr: V Evropě proto Xiaomi nejvíc vydělává na samotném prodeji telefonů, kde má marži kolem deset procent — na telefonu za deset tisíc je to výrazně víc než těch pár desetikorun ze softwaru.
+    Ada: Celkově má ale firma zhruba třicet procent zisků z prodeje telefonů a čtyřicet procent ze softwarových služeb. Ziskovostí je to tedy vlastně víc softwarová firma než výrobce hardwaru.
+    Petr: Business model stojí na třech bodech: hardware s malou marží, vlastní prodej a software — tedy reklamy v systému, předplatné, cloudy a hry. Právě tam se skutečně vydělává.
+    Ada: A proto se prémiového telefonu Xiaomi úplně bez reklam nejspíš nedočkáme: v prémiovém segmentu je sice vidět snaha o čistší HyperOS a mizí vyskakovací okna, ale předinstalované aplikace zůstávají.
+    Petr: Místo na ploše je pro Xiaomi příliš cenný prostor, než aby ho nechalo prázdné — i u telefonu za třicet pět tisíc. Lei Jun: softwarový mozek za hardwarovou firmou
+    Ada: Proč výrobce telefonů uvažuje jako softwarový gigant?
+    Petr: Zdroj: článek na realtech.cz
 ---
 
 Je Xiaomi geniální firma, nebo trojský kůň v kapse milionů lidí? Kdo za ní vlastně stojí a jak vydělává, když má tak levné telefony? Rozebrali jsme to od business modelu přes vliv čínského státu až po elektroauta.
