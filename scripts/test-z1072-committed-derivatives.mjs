@@ -17,6 +17,10 @@ const REQUIRED = [
   'public/images/og/claude-vodoznak-ai-text.jpg.sha256',
   'public/images/og/glm-5-3-kybernalezy.jpg',
   'public/images/og/glm-5-3-kybernalezy.jpg.sha256',
+  // Video článek bez lokálního coveru — OG z YouTube náhledu musí být v gitu,
+  // jinak by ho každý build stahoval znovu.
+  'public/images/og/dji-vs-insta360.jpg',
+  'public/images/og/dji-vs-insta360.jpg.sha256',
 ];
 
 function trackedImages() {
@@ -34,7 +38,7 @@ function porcelainImages() {
   });
 }
 
-test('Z1072: devět derivátů je v gitu a prebuild nenechá public/images špinavé', () => {
+test('Z1072: jedenáct derivátů je v gitu a prebuild nenechá public/images špinavé', () => {
   const tracked = trackedImages();
   for (const file of REQUIRED) {
     assert.ok(fs.existsSync(path.join(root, file)), `chybí soubor ${file}`);

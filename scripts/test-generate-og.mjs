@@ -150,16 +150,28 @@ test('existující OG s poškozeným fingerprintem se bezpečně přegeneruje', 
   assert.notEqual(fs.statSync(fingerprint).mtimeMs, oldDate.getTime());
 });
 
-test('video a chybějící nebo neexistující lokální cover nevytvoří žádný výstup', (t) => {
+test('video článek s lokálním coverem dostane brandovaný OG z coveru', (t) => {
   const root = createFixture(t);
   const articles = path.join(root, 'src/content/clanky');
   fs.rmSync(path.join(articles, 'clanek.md'));
   fs.writeFileSync(path.join(articles, 'video.md'), `---
 title: "Video článek"
 image: "/images/cover.svg"
-video: "https://www.youtube.com/watch?v=example"
+video: "https://www.youtube.com/watch?v=aaaabbbbccc"
 ---
 `);
+
+  assert.match(runGenerator(root), /vygenerováno: 1/);
+  assert.deepEqual(fs.readdirSync(path.join(root, 'public/images/og')).sort(), [
+    'video.jpg',
+    'video.jpg.sha256',
+  ]);
+});
+
+test('chybějící nebo neexistující lokální cover bez videa nevytvoří žádný výstup', (t) => {
+  const root = createFixture(t);
+  const articles = path.join(root, 'src/content/clanky');
+  fs.rmSync(path.join(articles, 'clanek.md'));
   fs.writeFileSync(path.join(articles, 'bez-coveru.md'), `---
 title: "Článek bez coveru"
 ---

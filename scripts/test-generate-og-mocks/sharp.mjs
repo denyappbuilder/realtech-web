@@ -2,8 +2,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const captureFile = path.join(process.cwd(), 'sharp-composite.svg');
+const inputFile = path.join(process.cwd(), 'sharp-input.bin');
 
-export default function sharp() {
+export default function sharp(input) {
+  if (Buffer.isBuffer(input)) fs.writeFileSync(inputFile, input);
   const pipeline = {
     resize() {
       return pipeline;
