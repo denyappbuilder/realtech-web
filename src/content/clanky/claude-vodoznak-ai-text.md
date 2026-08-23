@@ -9,6 +9,22 @@ audio:
   url: "https://audio.realtech.cz/claude-vodoznak-ai-text-v3.mp3?v=530341312317"
   duration: 149
   transcript: |-
+    Anthropic začal neviditelně značkovat výstupy Clauda, aby šlo strojově poznat, že text prošel jeho modelem. Platí to u modelů spuštěných druhého srpna roku dva tisíce dvacet šest nebo později.
+
+    Jsou to dvě různé techniky. Do textu jde vodoznak vetkaný přímo do generovaných slov. Firma tvrdí, že nemění význam, kvalitu ani čitelnost. Aplikuje se na úrovni modelu, takže je tam bez ohledu na to, jestli text vypadne z Claude Platform, z Clauda, z Claude Codeu, z Claude Coworku nebo z Claude Tagu. Cestuje s textem i při zkopírování jinam. Funguje i přes AWS, Google Cloud a Microsoft Foundry.
+
+    Na soubory jdou podepsaná metadata podle otevřeného standardu C2PA. Tedy to, co už používá Adobe, OpenAI i Google. Anthropic jmenuje typy SVG, PNG a JPG. U souborů navíc podpis prozradí, jestli s nimi někdo manipuloval.
+
+    Tady je Anthropic překvapivě upřímný. Nalezená značka podle firmy není plně průkazná. Lidi Clauda používají na opravy, překlady, sumarizaci nebo konverzi souborů. Text tak může nést značku Clauda, i když myšlenky i data pocházejí odjinud. A obráceně: absence značky neznamená, že obsah není od AI.
+
+    Vodoznak zmizí nebo zeslábne, když se text výrazně přepíše, parafrázuje, přeloží, zamíchá do jiného psaní, nebo když je pasáž moc krátká. U souborů metadata odstraní konverze formátu, opětovné uložení nebo snímek obrazovky. U C2PA je to známá slabina a občas se to stane i omylem při nahrání na sociální síť.
+
+    Proč to Anthropic dělá? Kvůli Evropské unii. Nové povinnosti k transparentnosti podle evropského nařízení o AI platí od druhého srpna a pro starší produkty běží čtyřměsíční přechodné období. Nové modely značkují od prvního dne, u starších se to doplňuje za pochodu.
+
+    Slabé místo? Detekce zatím není. Anthropic slibuje podporu uživatelů i třetích stran, protože kodex to vyžaduje. Podrobnosti prý přijdou v nadcházející technické dokumentaci. Veřejné detekční API je zároveň návod na obcházení. Na schválné mazání to stačit nebude.
+
+    Zdroj informací: podpora Anthropicu a server The Verge.
+  ttsScript: |-
     Entropik začal neviditelně značkovat výstupy Klauda, aby šlo strojově poznat, že text prošel jeho modelem. Platí to u modelů spuštěných druhého srpna roku dva tisíce dvacet šest nebo později.
 
     Jsou to dvě různé techniky. Do textu jde vodoznak vetkaný přímo do generovaných slov. Firma tvrdí, že nemění význam, kvalitu ani čitelnost. Aplikuje se na úrovni modelu, takže je tam bez ohledu na to, jestli text vypadne z Klaud Platformy, z Klauda, z Klaud Koudu, z Klaud Kouorku nebo z Klaud Tegu. Cestuje s textem i při zkopírování jinam. Funguje i přes ej-dabl-jú-es, Gůgl Klaud a Majkrosoft Faundri.

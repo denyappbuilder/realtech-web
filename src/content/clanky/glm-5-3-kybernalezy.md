@@ -9,6 +9,16 @@ audio:
   url: "https://audio.realtech.cz/glm-5-3-kybernalezy-v3.mp3?v=e6ac02746536"
   duration: 140
   transcript: |-
+    Čínská laboratoř Z.ai ráno vypustila model GLM-5.3 a ten našel dva tisíce čtyři sta třicet šest reálných děr v softwaru. Otevřené váhy ale ven pustí až za dva týdny, prý kvůli bezpečnosti.
+
+    Novinka stojí na základu jako GLM-5.2. Rozdíl vznikl až doladěním po tréninku. Na Terminal-Bench 3.0 šel model ze čtyř celých šesti na dvacet osm celých tři bodu, na DeepSWE ze čtyřiceti šesti celých dvou na šedesát šest celých devět. Na vlastním Z.ai Code Bench má při nastavení high výsledek třicet jedna celá čtyři procenta s asi padesáti tisíci tokeny na úlohu. Claude Opus 4.8 zvládne dvacet devět celých pět procenta, ale spálí sto dvacet tisíc tokenů. Claude Fable 5 zůstává napřed s výsledkem třicet devět celých pět procenta, jenže za jinou cenu.
+
+    Do tréninku přidali data o hledání zranitelností. Čekali zlepšení. Místo toho se model přestal zastavovat u izolovaných děr a začal skládat řetězce zneužití. Na CyberGym dává osmdesát čtyři celých pět procent a je nejlepší ze všech. Předběhl model Mythos 5 i GPT-5.6 Sol. Na ExploitBench výsledek víc než zdvojnásobil, z dvaceti čtyř celých čtyř procenta na padesát čtyři celá čtyři procenta. Na model Mythos 5 se sedmdesáti osmi procenty pořád nemá. Schopnosti rostou nejrychleji tam, kde nejvíc zaostávají.
+
+    S čínskými bezpečnostními týmy pak model pustili na ostré kódové báze. Po expertní kontrole a odstranění duplicit vyšlo dva tisíce čtyři sta třicet šest zranitelností ve dvou stech šedesáti devíti projektech. Tisíc devadesát sedm z nich je střední až vysoké závažnosti. Jádra systémů, prohlížečové enginy i síťové protokoly. Nejstarší chyba se do kódu dostala v roce tisíc devět set osmdesát jedna a v průměru tam nález ležel dvacet šest let a sedm měsíců. Model je od dneška dostupný přes GLM Coding Plan a ZCode. Váhy slibují až dva týdny po startu.
+
+    Zdroj informací: blog Z.ai ze čtrnáctého srpna roku dva tisíce dvacet šest.
+  ttsScript: |-
     Čínská laboratoř Zet ej-aj ráno vypustila model Dží-el-em pět tečka tři a ten našel dva tisíce čtyři sta třicet šest reálných děr v softwaru. Otevřené váhy ale ven pustí až za dva týdny, prý kvůli bezpečnosti.
 
     Novinka stojí na základu jako Dží-el-em pět tečka dva. Rozdíl vznikl až doladěním po tréninku. Na Törminl Benči tři nula šel model ze čtyř celých šesti na dvacet osm celých tři bodu, na Díp es-dabl-jú-í ze čtyřiceti šesti celých dvou na šedesát šest celých devět. Na vlastním Zet ej-aj Koud Benči má při nastavení haj výsledek třicet jedna celá čtyři procenta s asi padesáti tisíci tokeny na úlohu. Klaud Oupus čtyři tečka osm zvládne dvacet devět celých pět procenta, ale spálí sto dvacet tisíc tokenů. Klaud Fejbl pět zůstává napřed s výsledkem třicet devět celých pět procenta, jenže za jinou cenu.

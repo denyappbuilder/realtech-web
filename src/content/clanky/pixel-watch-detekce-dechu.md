@@ -9,6 +9,18 @@ audio:
   url: "https://audio.realtech.cz/pixel-watch-detekce-dechu-v3.mp3?v=d35987091b13"
   duration: 153
   transcript: |-
+    Pixel Watch umí zavolat záchranku, když přestanete dýchat. V Česku ale zatím ne. Vedle Pixelu 11 ukázal Google na Made by Google 2026 věc, která zapadla. Hodinky hlídají, jestli vám nespadla saturace kyslíkem na kritickou úroveň, a když na to nereagujete, zavolají záchranku samy.
+
+    Algoritmus čte data ze senzoru tepu, akcelerometru a barometru. Když zaznamená prudký pokles okysličení krve, nejdřív ověřuje, že nejde o planý poplach. Kontroluje, že se skoro nehýbete, že nedochází k prudké změně nadmořské výšky a že nespíte déle než třicet minut. Kvůli spánkové apnoe, která by jinak spouštěla alarm každou noc.
+
+    Pak se rozjede eskalace. Silná vibrace a výstraha přes celý displej. Když ji neodklepnete, přidá se zvuk a třicetisekundové odpočítávání. Když ani pak nezareagujete, hodinky přes připojený telefon, nebo samy, když mají LTE, vytočí tísňovou linku. Operátorovi se přehraje automatická hláška, že byla detekována dechová nouze, že člověk nereaguje, a předá se přesná poloha. Nastaveným nouzovým kontaktům odejde zpráva.
+
+    Google to cílí na situace, kde vám nikdo nepomůže, protože u toho nikdo není. Těžký zápal plic, předávkování, zaskočené sousto. Stavy, které jsou často zvratitelné, pokud se o nich někdo včas dozví. Musíte si ji zapnout. Algoritmus ladili s internisty, kardiology, anesteziology a záchranáři a testovali ho v klinických laboratořích i proti stovkám tisíců hodin reálných dat. Je to dostupné už teď i na loňských Pixel Watch 4. Jenže seznam zemí je krátký. Rakousko, Dánsko, Francie, Německo, Irsko, Nizozemsko, Norsko, Švédsko, Švýcarsko a Velká Británie. Česko ani Slovensko na něm nejsou a Google jen obecně slibuje další země.
+
+    Je to stejný scénář jako u detekce zástavy pulzu z Pixel Watch 3. Bezpečnostní funkce se v Evropě rozjíždějí po jednotlivých státech, protože musí sednout do místního systému tísňového volání. Pixel Watch 5 jde do prodeje dvacátého srpna od tří set devadesáti devíti dolarů za verzi o průměru čtyřicet jedna milimetrů. Kdo si ho objedná, tuhle pojistku u nás zatím mít nebude.
+
+    Zdroj informací: oficiální blog Googlu z dvanáctého srpna roku dva tisíce dvacet šest.
+  ttsScript: |-
     Piksl Voč umí zavolat záchranku, když přestanete dýchat. V Česku ale zatím ne. Vedle Pikslu jedenáct ukázal Gůgl na Mejd baj Gůgl dva tisíce dvacet šest věc, která zapadla. Hodinky hlídají, jestli vám nespadla saturace kyslíkem na kritickou úroveň, a když na to nereagujete, zavolají záchranku samy.
 
     Algoritmus čte data ze senzoru tepu, akcelerometru a barometru. Když zaznamená prudký pokles okysličení krve, nejdřív ověřuje, že nejde o planý poplach. Kontroluje, že se skoro nehýbete, že nedochází k prudké změně nadmořské výšky a že nespíte déle než třicet minut. Kvůli spánkové apnoe, která by jinak spouštěla alarm každou noc.

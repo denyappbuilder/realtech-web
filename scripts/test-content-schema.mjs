@@ -191,10 +191,13 @@ test('volitelny audio blok je zpetne kompatibilni a odmitne neplatnou URL i nulu
       url: '/audio/clanky/schema.mp3',
       duration: 'PT2M5S',
       transcript: 'Krátký přehled.',
+      ttsScript: 'Krátký přehled pro té-té-es.',
     },
   });
   assert.equal(sAudiem.audio.url, '/audio/clanky/schema.mp3');
   assert.equal(sAudiem.audio.duration, 'PT2M5S');
+  assert.equal(sAudiem.audio.transcript, 'Krátký přehled.');
+  assert.equal(sAudiem.audio.ttsScript, 'Krátký přehled pro té-té-es.');
 
   assert.equal(
     articleSchema.safeParse({

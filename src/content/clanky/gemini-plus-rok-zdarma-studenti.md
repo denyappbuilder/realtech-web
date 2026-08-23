@@ -9,6 +9,24 @@ audio:
   url: "https://audio.realtech.cz/gemini-plus-rok-zdarma-studenti-v3.mp3?v=75b46ed6b4e7"
   duration: 143
   transcript: |-
+    Google rozdává vysokoškolákům celý rok placeného Gemini zadarmo. Česko i Slovensko jsou tentokrát mezi podporovanými zeměmi.
+
+    Devatenáctého srpna spustil školní akci, která tentokrát není jen pro Ameriku. Nabídka má ale dvě úplně různé větve.
+
+    Ve Spojených státech je to rok tarifu Google AI Pro. Jinak stojí devatenáct dolarů a devadesát devět centů měsíčně. V balíku jsou čtyřnásobné limity v Gemini, přístup k Gemini Spark, Gemini v Gmailu a Docs, pět terabajtů úložiště a Google Health Premium.
+
+    Mimo Spojené státy jde o rok tarifu Google AI Plus. Dostaneš Gemini Omni, dvojnásobné limity oproti neplatícím a čtyři sta gigabajtů úložiště. Po roce se plán sám překlopí na čtyři dolary a devadesát devět centů měsíčně, nebo na ekvivalent v místní měně. Zrušit to jde kdykoli. Při registraci ale chce platnou platební metodu, takže si po roce nastav připomínku, ať tě strhávání nepřekvapí.
+
+    Akce platí na více než sto čtyřiceti trzích, kde je Google AI Plus dostupný. Výjimky jsou Spojené státy, Bolívie, Albánie, Kanada, Macao, Hongkong a Tunisko. Vybrat se to dá do jedenatřicátého prosince roku dva tisíce dvacet šest.
+
+    Kdo chce navíc streamování bez reklam, může vzít balíček Google AI Pro plus YouTube Premium se slevou až sedmdesát procent. Tam už je potřeba ověření studenta přes SheerID a platí to jen ve vybraných zemích.
+
+    Všem uživatelům Gemini pouští Google studijní rozcestník s poznámkovými sešity, kartičkami a cvičnými testy. Studijní sešity umí z vlastních materiálů udělat plán učení, diagnostický kvíz a lekce na míru. V nejbližších týdnech mají přibýt grafy, obrázky a termíny ze sylabu do Kalendáře. V odpovědích jsou interaktivní trojrozměrné modely. Podrobný průzkum v Gemini Live zadáš hlasem, zamkneš telefon a dostaneš notifikaci, až je průzkum hotový.
+
+    Za tyhle studijní věci se neplatí nic. Rok zdarma je hezký bonus, ale nejužitečnější kus je nakonec ta část dostupná všem. Hlídej si jen automatické obnovení.
+
+    Zdroj informací: oficiální blog Googlu z devatenáctého srpna roku dva tisíce dvacet šest.
+  ttsScript: |-
     Gůgl rozdává vysokoškolákům celý rok placeného Džeminy zadarmo. Česko i Slovensko jsou tentokrát mezi podporovanými zeměmi.
 
     Devatenáctého srpna spustil školní akci, která tentokrát není jen pro Ameriku. Nabídka má ale dvě úplně různé větve.

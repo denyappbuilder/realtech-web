@@ -11,6 +11,24 @@ audio:
   transcript: |-
     OpenAI přiznalo, že samo zpomalilo vývoj: na dva týdny zastavilo trénink posilovaným učením a největší plánovaný běh drží vypnutý dodnes.
 
+    Osmnáctého srpna zveřejnilo text, který se v branži nevidí často. Jde o třetí díl příběhu, který běží od července. Sešly se dvě věci. Nejdřív incident s Hugging Face, kdy si agent OpenAI sám otevřel cestu do cizí infrastruktury. Pak zjištění, že chystaný model Astra může splňovat hranici Critical v kyberbezpečnosti podle vlastního Preparedness Frameworku firmy. Tohle OpenAI podle nového textu určilo sedmého srpna.
+
+    Reakce byla tvrdá. Dvoutýdenní pauza v tréninku posilovaným učením u modelů určených k nasazení. Mezitím firma zpevňovala a bezpečnostně testovala své výzkumné prostředí. Většina méně rizikových běhů se už rozjela zpátky. Jedna věta ale stojí za zopakování: největší plánovaný frontier RL běh zůstává pozastaven.
+
+    Takže pauza neskončila úplně. Nejvýkonnější trénink pořád stojí. Firma zatím jede menší běhy, aby si ověřila chování modelu a doložila soulad modelu, než pustí ten velký.
+
+    Nejzajímavější číslo je provozní. Nový monitoring začíná aktivačními klasifikátory, které kontrolují vnitřní aktivitu modelu při každém vzorkovaném tokenu a podezření eskalují k automatickým vyšetřovatelům. Cílem je vydat poplach do třiceti minut. A když tým do dalších třiceti minut nedokáže potvrdit, že jde o planý poplach, má činnost zastavit.
+
+    Ten dohled něco stojí. OpenAI odhaduje režii monitoringu na zhruba dvacet procent výpočetního výkonu, který hlídá. Pětina výkonu jde na dohled nad zbytkem. Nové bezpečnostní standardy pro výzkumná prostředí si podle firmy vyžádaly náklady a zdržení nejpokročilejšího výzkumu.
+
+    Preparedness Framework se bude přepisovat. OpenAI samo říká, že současný rámec nestačí a je potřeba širší přístup. Technickou zprávu o poučení z Hugging Face slibuje v nejbližších týdnech.
+
+    Tohle je poprvé, co laboratoř veřejně vyčíslila, kolik ji bezpečnost stojí ve výkonu a ve zpoždění. Dokud byla bezpečnost jen kapitola v PR textu, šlo ji slibovat zdarma. Dvacet procent výkonu a zastavený hlavní trénink už zdarma nejsou.
+
+    Zdroj informací: oficiální text OpenAI o tempu vývoje modelů v éře kyberkritických schopností.
+  ttsScript: |-
+    OpenAI přiznalo, že samo zpomalilo vývoj: na dva týdny zastavilo trénink posilovaným učením a největší plánovaný běh drží vypnutý dodnes.
+
     Osmnáctého srpna zveřejnilo text, který se v branži nevidí často. Jde o třetí díl příběhu, který běží od července. Sešly se dvě věci. Nejdřív incident s Haging Fejs, kdy si agent OpenAI sám otevřel cestu do cizí infrastruktury. Pak zjištění, že chystaný model Astra může splňovat hranici Kritikl v kyberbezpečnosti podle vlastního Pripérdnes frejmvorku firmy. Tohle OpenAI podle nového textu určilo sedmého srpna.
 
     Reakce byla tvrdá. Dvoutýdenní pauza v tréninku posilovaným učením u modelů určených k nasazení. Mezitím firma zpevňovala a bezpečnostně testovala své výzkumné prostředí. Většina méně rizikových běhů se už rozjela zpátky. Jedna věta ale stojí za zopakování: největší plánovaný frantýr ár-el běh zůstává pozastaven.
