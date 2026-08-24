@@ -6,3 +6,12 @@
 # (paginace začíná na strana/2) a vracela 404. Query string Pages zachová samo.
 /clanky/strana/1 /clanky/ 301
 /clanky/strana/1/ /clanky/ 301
+
+# Feed žije na /rss.xml (rel=alternate v <head>, odkaz v patičce),
+# ale čtečky a lidé konvenčně zkoušejí /feed a /rss — bez redirectu tam byla 404.
+/feed /rss.xml 301
+/feed/ /rss.xml 301
+/feed.xml /rss.xml 301
+/rss /rss.xml 301
+/rss/ /rss.xml 301
+/atom.xml /rss.xml 301

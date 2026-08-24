@@ -40,3 +40,13 @@ test("/clanky/strana/1 i varianta s lomítkem se trvale přesměrují na /clanky
     assert.equal(rule.status, "301");
   }
 });
+
+// Feed žije na /rss.xml — konvenční URL (/feed, /rss, /atom.xml) vracely 404.
+test("konvenční RSS URL se trvale přesměrují na /rss.xml", () => {
+  for (const source of ["/feed", "/feed/", "/feed.xml", "/rss", "/rss/", "/atom.xml"]) {
+    const rule = rules.get(source);
+    assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
+    assert.equal(rule.destination, "/rss.xml");
+    assert.equal(rule.status, "301");
+  }
+});
