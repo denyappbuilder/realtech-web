@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { slugify } from '../lib/slugify.js';
 import { textNaHeroObrazku } from '../lib/hero-overlay.js';
+import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
@@ -36,6 +37,18 @@ const heroWebpSmall = heroWebp?.replace(/\.webp$/, '-640.webp');
 const heroWebpSrcset = heroWebp && fs.existsSync(`public${heroWebp}`) && fs.existsSync(`public${heroWebpSmall}`)
   ? `${heroWebpSmall} 640w, ${heroWebp} 1280w`
   : undefined;
+const HERO_SIZES = '(max-width: 900px) 100vw, 40vw';
+// LCP hero je až v <body> — jediný preload v <head> ho pustí ke stažení hned.
+// WebP jen když se reálně použije (tj. existuje i 640 varianta a <source>
+// se vůbec vyrenderuje) — jinak by se preloadoval soubor, který <picture>
+// nevybere, a hero by se stáhlo dvakrát.
+const heroPreload = preloadHeroObrazku({
+  src: heroThumb,
+  srcset: heroSrcset,
+  webp: heroWebpSrcset ? heroWebp : undefined,
+  webpSrcset: heroWebpSrcset,
+  sizes: HERO_SIZES,
+});
 
 // Nejnovější videa: primárně YT RSS (build-time), fallback statický snapshot
 // v src/data/videos.json (YouTube RSS občas vrací 404 — snapshot aktualizuje Kepler
@@ -83,6 +96,18 @@ const jsonLd = {
 };
 ---
 <Base title="REALTECH CZ — Tech novinky a analýzy">
+  {heroPreload && (
+    <link
+      rel="preload"
+      as="image"
+      href={heroPreload.href}
+      imagesrcset={heroPreload.imagesrcset}
+      imagesizes={heroPreload.imagesizes}
+      type={heroPreload.type}
+      fetchpriority="high"
+      slot="head"
+    />
+  )}
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
 
   <div class="ticker" aria-label="Nejnovější články">
@@ -127,8 +152,8 @@ const jsonLd = {
           <a href={hero.data.video ?? `/clanky/${hero.id}/`} class="hero-visual">
             {heroThumb && (
               <picture>
-                {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes="(max-width: 900px) 100vw, 40vw" type="image/webp" />}
-                <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? '(max-width: 900px) 100vw, 40vw' : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+                {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={HERO_SIZES} type="image/webp" />}
+                <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? HERO_SIZES : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
               </picture>
             )}
             {heroThumb && <span class="shade"></span>}

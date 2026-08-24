@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
+import { nahledKarty } from '../lib/karta-nahled.js';
+import { youtubeId } from '../lib/youtube.js';
+import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import Base from '../layouts/Base.astro';
 import ArticleCard from './ArticleCard.astro';
 
@@ -17,6 +20,20 @@ const start = (page - 1) * ARTICLES_PER_PAGE;
 const articles = all.slice(start, start + ARTICLES_PER_PAGE);
 const categories = [...new Set(all.map((article) => article.data.category))];
 const pagePath = (pageNumber: number) => pageNumber === 1 ? '/clanky/' : `/clanky/strana/${pageNumber}/`;
+
+// LCP na /clanky/ je náhled první karty (eager + fetchpriority=high jen na
+// straně 1, viz ArticleCard prop `priority`). Preload v <head> počítá ze
+// STEJNÝCH helperů jako karta (nahledKarty + youtubeId), takže míří na
+// tentýž soubor, který si <picture> karty vybere — WebP s `type`, jinak
+// JPG/ytimg. /clanky/strana/2+ nemá eager kartu, tak ani preload.
+const prvni = page === 1 ? articles[0] : undefined;
+const prvniVideoId = youtubeId(prvni?.data.video);
+const prvniNahled = nahledKarty(prvni?.data.image);
+const kartaPreload = prvni
+  ? preloadHeroObrazku(prvniVideoId
+      ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined })
+  : null;
 
 const collectionLd = {
   '@context': 'https://schema.org',
@@ -42,6 +59,16 @@ const title = page === 1
   : `Všechny články – strana ${page} — REALTECH CZ`;
 ---
 <Base title={title} description="Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí.">
+  {kartaPreload && (
+    <link
+      rel="preload"
+      as="image"
+      href={kartaPreload.href}
+      type={kartaPreload.type}
+      fetchpriority="high"
+      slot="head"
+    />
+  )}
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
   {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
