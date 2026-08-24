@@ -1,8 +1,7 @@
 // Živý web servíroval hlavní cover článku i hero-visual na úvodce s alt="".
 // Ani jeden není dekorace: nemají aria-hidden a hero-visual je odkaz, který
 // bez altu nemá jméno. Alt nese titulek článku — frontmatter vlastní alt
-// obrázku nemá. Náhledy karet s aria-hidden="true" alt="" mít smí, ty tenhle
-// test nehlídá.
+// obrázku nemá. Náhledy karet (ArticleCard) hlídá test-karta-alt.mjs.
 //
 // První verze testu fasádu videa výslovně přeskočila (jméno tlačítka dává
 // aria-label) — jenže poster ve fasádě je u video článků LCP hero (eager,

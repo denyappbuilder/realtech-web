@@ -38,11 +38,19 @@ const loading = priority ? 'eager' : 'lazy';
 const fetchpriority = priority ? 'high' : undefined;
 ---
 <article class="card" data-category={category}>
+  {/*
+    Náhled karty nese titulek článku jako alt — stejné pravidlo jako hero
+    článku (#310). Živě (2026-08-24) šly všechny karty na /clanky/ ven
+    s alt="", včetně první eager (LCP). Frontmatter vlastní alt obrázku
+    nemá, alt je data.title. Odkaz kolem náhledu zůstává aria-hidden +
+    tabindex="-1" (duplicitní odkaz — jméno karty dává <h3>), alt ale
+    slouží i při výpadku obrázku a pro vyhledávače obrázků.
+  */}
   <a href={`/clanky/${article.id}/`} class={`card-thumb ${thumbClass}`} aria-hidden="true" tabindex="-1">
     {thumbUrl && (
       <picture>
         {hasWebp && <source srcset={thumbWebp} type="image/webp" />}
-        <img src={thumbUrl} alt="" width={thumbW} height={thumbH} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+        <img src={thumbUrl} alt={title} width={thumbW} height={thumbH} loading={loading} decoding="async" fetchpriority={fetchpriority} />
       </picture>
     )}
     <div class="lt">

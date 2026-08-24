@@ -188,8 +188,14 @@ const jsonLd = {
           <div class="video-grid">
             {videos.map((v) => (
               <a class="video-card" href={`https://www.youtube.com/watch?v=${v.id}`}>
+                {/*
+                  Náhled videa je dekorace: jméno odkazu dává viditelný
+                  <span class="vc-title"> hned vedle. Prázdný alt smí zůstat
+                  jen s aria-hidden — jinak by alt={v.title} zdvojil jméno
+                  odkazu („Titulek Titulek").
+                */}
                 <span class="vc-thumb">
-                  <img src={`https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`} alt="" width="1280" height="720" loading="lazy" decoding="async" />
+                  <img src={`https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`} alt="" aria-hidden="true" width="1280" height="720" loading="lazy" decoding="async" />
                   <span class="vc-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
                 </span>
                 <span class="vc-title">{v.title}</span>
