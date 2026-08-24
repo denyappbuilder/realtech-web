@@ -45,6 +45,6 @@ test("Z10093: karta dál bere nahledKarty(image) a pouští <source> jen při ha
   );
   assert.match(
     karta,
-    /thumbUrl = videoId \? `https:\/\/i\.ytimg\.com\/vi\/\$\{videoId\}\/hqdefault\.jpg` : localThumb/,
+    /thumbUrl = videoId \? `https:\/\/i\.ytimg\.com\/vi\/\$\{videoId\}\/maxresdefault\.jpg` : localThumb/,
   );
 });
