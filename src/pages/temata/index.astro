@@ -75,3 +75,15 @@ const collectionLd = {
     </div>
   </section>
 </Base>
+
+<style>
+  /* Karty témat nemají náhled, takže jediný proklik byl krátký titulek.
+     Stretched link: ::after odkazu v titulku pokryje celou kartu,
+     v kartě zůstává jediný <a> (žádné vnořené interaktivní prvky). */
+  .grid .card { position: relative; }
+  .card-body h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+</style>
