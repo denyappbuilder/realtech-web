@@ -23,7 +23,7 @@ const karta = readFileSync(
 test('pásek videí na úvodce bere maxresdefault v rozměrech 1280×720', () => {
   assert.match(
     index,
-    /<img src=\{`https:\/\/i\.ytimg\.com\/vi\/\$\{v\.id\}\/maxresdefault\.jpg`\} alt="" width="1280" height="720"/,
+    /<img src=\{`https:\/\/i\.ytimg\.com\/vi\/\$\{v\.id\}\/maxresdefault\.jpg`\} alt="" aria-hidden="true" width="1280" height="720"/,
     'video karta na úvodce musí mít maxresdefault a 16:9 rozměry',
   );
 });
