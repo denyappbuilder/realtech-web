@@ -17,6 +17,7 @@ const karta = zdroj('src/components/ArticleCard.astro');
 const archiv = zdroj('src/components/ArticleArchivePage.astro');
 const temata = zdroj('src/pages/temata/[slug].astro');
 const uvodka = zdroj('src/pages/index.astro');
+const vitej = zdroj('src/pages/vitej.astro');
 
 test('karta počítá loading a fetchpriority z props.priority', () => {
   assert.match(karta, /priority\?:\s*boolean/);
@@ -47,6 +48,19 @@ test('téma dá priority první kartě — featured-lead je LCP', () => {
   assert.match(
     temata,
     /clanky\.map\(\(article, index\) => \(\s*<ArticleCard article=\{article\} priority=\{index === 0\} \/>/,
+  );
+});
+
+test('vitej dá priority první kartě — stránka nemá hero obrázek', () => {
+  assert.match(
+    vitej,
+    /latest\.map\(\(c, i\) => <ArticleCard article=\{c\} priority=\{i === 0\} \/>\)/,
+    'první karta „Nejnovější reporty" je LCP na /vitej/ — eager jen index 0',
+  );
+  assert.doesNotMatch(
+    vitej,
+    /<ArticleCard article=\{c\} \/>/,
+    'vitej nesmí vrátit kartu bez rozhodnutí o priority',
   );
 });
 
