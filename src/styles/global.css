@@ -139,13 +139,25 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   overflow: hidden;
 }
 .ticker-label {
-  display: inline-flex; align-items: center;
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
-  letter-spacing: 0.12em; color: var(--signal-dark); font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  align-self: stretch;
+  /* Procentní výška u rodiče s min-height padá (computed procento, used auto)
+     a stretch se proto neuplatní — štítek zůstane 17 px nahoře. */
+  min-height: 48px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--signal-dark);
+  font-weight: 600;
   padding: 0 16px 0 24px;
   border-right: 1px solid var(--line);
-  height: 100%; align-self: stretch; align-items: center;
   white-space: nowrap;
+  flex-shrink: 0;
+}
+.ticker-label .live-dot {
+  display: block;
   flex-shrink: 0;
 }
 .ticker-viewport {
