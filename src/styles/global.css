@@ -899,6 +899,7 @@ footer.site ul a:hover { color: var(--ink); }
   padding: 8px 16px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--surface); color: var(--ink);
   min-width: 210px;
+  min-height: 44px;
 }
 .search-input::placeholder { color: var(--ink-faint); }
 .search-input:focus { outline: 2px solid var(--signal); outline-offset: 1px; }
@@ -912,6 +913,8 @@ footer.site ul a:hover { color: var(--ink); }
   padding: 7px 14px; border-radius: 999px; cursor: pointer;
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
   transition: border-color 0.15s, color 0.15s, background 0.15s;
+  display: inline-flex; align-items: center;
+  min-height: 44px;
 }
 .chip:hover { border-color: var(--ink); color: var(--ink); }
 .chip.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
@@ -952,6 +955,8 @@ footer.site ul a:hover { color: var(--ink); }
   padding: 8px 16px; border-radius: var(--radius);
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
   transition: border-color 0.15s, color 0.15s;
+  display: inline-flex; align-items: center;
+  min-height: 44px;
 }
 .share-btn:hover { border-color: var(--ink); color: var(--ink); }
 
@@ -1171,7 +1176,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 /* ── Vyhledávání (⌘K) ────────────────── */
 .search-trigger {
   display: inline-flex; align-items: center; gap: 8px;
-  height: 38px; padding: 0 12px; border-radius: var(--radius);
+  min-height: 44px; padding: 0 12px; border-radius: var(--radius);
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-faint);
   cursor: pointer; transition: border-color 0.15s, color 0.15s;
 }
@@ -1273,7 +1278,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 }
 .topics .mono { color: var(--ink-faint); }
 .topics .cat-filter { margin: 0; }
-a.chip { display: inline-block; }
+a.chip { display: inline-flex; align-items: center; }
 
 /* Krátká zpráva badge */
 .card-thumb .lt .z { background: #fff; color: #14171C; font-weight: 500; }
