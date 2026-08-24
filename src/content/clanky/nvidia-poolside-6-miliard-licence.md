@@ -5,6 +5,37 @@ category: "AI Report"
 date: "2026-08-24"
 zprava: true
 image: "/images/clanky/nvidia-poolside-6-miliard-licence.jpg"
+audio:
+  url: "https://audio.realtech.cz/nvidia-poolside-6-miliard-licence-v3.mp3?v=15adf9fdda35"
+  duration: 117
+  transcript: |-
+    Ada: Dnes v RealTechu: Nvidia zaplatí Poolside 6 miliard dolarů za licenci. Firmu nekupuje.
+    Petr: Čísla nejsou z tiskové zprávy. The Next Web je 24. srpna převzal z dopisu, který Poolside poslal investorům. Dopis jako první popsal Newcomer.
+    Ada: Nvidia platí 6 miliard dolarů za neexkluzivní licenci na software Model Factory. Zároveň nabízí práci 109 lidem z Poolside.
+    Petr: Do zbytku firmy investuje 1 miliardu dolarů při předpeněžním ocenění 12 miliard. Tři zakladatelé zůstávají.
+    Ada: Dopis říká rovnou: není to akvizice a není to nákup lidí. Licence není exkluzivní, Poolside ji může dát i někomu jinému.
+    Petr: Těch 6 miliard chce Poolside rozdělit investorům do konce příštího roku. Nvidia se k obchodu veřejně nevyjádřila.
+    Ada: Šéf Poolside Eiso Kant na podcastu Latent Space řekl, že model postavilo méně než 70 lidí. Engineering a research dohromady méně než 115.
+    Petr: Na konci loňska měli 6 týdnů na 2 miliardy dolarů za cluster 40 tisíc čipů GB300. Nestihli to a cluster ztratili.
+    Ada: S 10 až 20 tisíci těch čipů prý mohli postavit frontier model. Příští frontier podle dopisu chce cluster o víc než řád větší.
+    Petr: Stejný tvar Nvidia použila u Groq a Enfabrica. U Groq The Next Web píše o 20 miliardách, u Enfabrica The Decoder o zhruba 900 milionech. Obě čísla jsou z reportáží.
+    Ada: Nvidia staví otevřené modely Nemotron. Poolside měl model Laguna. Licence ale není na Lagunu, je na továrnu, která ji postavila.
+    Petr: Oddělená větev Poolside Infrastructure Company staví datacentrum v Texasu o výkonu 1,2 gigawattu. Do licence to nepatří.
+    Ada: Zdroj informací: The Next Web z 24. srpna a dopis investorům, který jako první popsal Newcomer.
+  ttsScript: |-
+    Ada: Dnes v Rýltechu: Nvidia zaplatí Poolside 6 miliard dolarů za licenci. Firmu nekupuje.
+    Petr: Čísla nejsou z tiskové zprávy. The Next Web je 24. srpna převzal z dopisu, který Poolside poslal investorům. Dopis jako první popsal Newcomer.
+    Ada: Nvidia platí 6 miliard dolarů za neexkluzivní licenci na software Model Factory. Zároveň nabízí práci 109 lidem z Poolside.
+    Petr: Do zbytku firmy investuje 1 miliardu dolarů při předpeněžním ocenění 12 miliard. Tři zakladatelé zůstávají.
+    Ada: Dopis říká rovnou: není to akvizice a není to nákup lidí. Licence není exkluzivní, Poolside ji může dát i někomu jinému.
+    Petr: Těch 6 miliard chce Poolside rozdělit investorům do konce příštího roku. Nvidia se k obchodu veřejně nevyjádřila.
+    Ada: Šéf Poolside Eiso Kant na podcastu Latent Space řekl, že model postavilo méně než 70 lidí. Engineering a research dohromady méně než 115.
+    Petr: Na konci loňska měli 6 týdnů na 2 miliardy dolarů za cluster 40 tisíc čipů GB300. Nestihli to a cluster ztratili.
+    Ada: S 10 až 20 tisíci těch čipů prý mohli postavit frontier model. Příští frontier podle dopisu chce cluster o víc než řád větší.
+    Petr: Stejný tvar Nvidia použila u Groq a Enfabrica. U Groq The Next Web píše o 20 miliardách, u Enfabrica The Decoder o zhruba 900 milionech. Obě čísla jsou z reportáží.
+    Ada: Nvidia staví otevřené modely Nemotron. Poolside měl model Laguna. Licence ale není na Lagunu, je na továrnu, která ji postavila.
+    Petr: Oddělená větev Poolside Infrastructure Company staví datacentrum v Texasu o výkonu 1,2 gigawattu. Do licence to nepatří.
+    Ada: Zdroj informací: The Next Web z 24. srpna a dopis investorům, který jako první popsal Newcomer.
 ---
 
 Nvidia zaplatí startupu Poolside 6 miliard dolarů za licenci na software, kterým firma stavěla své AI modely. Software se jmenuje **Model Factory**. Zároveň nabízí práci **109 lidem** z Poolside a do zbytku firmy investuje **1 miliardu dolarů** při předpeněžním ocenění **12 miliard**.
