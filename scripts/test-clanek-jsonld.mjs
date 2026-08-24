@@ -204,20 +204,23 @@ test('mainEntityOfPage staví na skutečné cestě stránky, ne na id článku',
   );
 });
 
-test('drobečky mají tři pozice a poslední zůstává bez odkazu', async () => {
+test('drobečky mají tři pozice a poslední nese kanonickou URL článku', async () => {
   const { breadcrumbLd } = await nactiStranku({
-    article: clanek({ title: 'Titulek článku' }),
+    article: clanek({ id: 'ukazka', title: 'Titulek článku' }),
+    cesta: '/clanky/ukazka/',
   });
 
   assert.equal(breadcrumbLd['@type'], 'BreadcrumbList');
   assert.deepEqual(breadcrumbLd.itemListElement, [
     { '@type': 'ListItem', position: 1, name: 'Novinky', item: 'https://realtech.cz/' },
     { '@type': 'ListItem', position: 2, name: 'Články', item: 'https://realtech.cz/clanky/' },
-    { '@type': 'ListItem', position: 3, name: 'Titulek článku' },
+    { '@type': 'ListItem', position: 3, name: 'Titulek článku', item: 'https://realtech.cz/clanky/ukazka/' },
   ]);
-  assert.ok(
-    !('item' in breadcrumbLd.itemListElement[2]),
-    'poslední drobeček je aktuální stránka a odkaz mít nesmí',
+  const posledni = breadcrumbLd.itemListElement.at(-1);
+  assert.equal(
+    posledni.item,
+    'https://realtech.cz/clanky/ukazka/',
+    'poslední drobeček musí nést kanonickou URL stránky, jinak Search Console hlásí chybějící item',
   );
 });
 
