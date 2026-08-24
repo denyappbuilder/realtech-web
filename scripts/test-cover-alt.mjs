@@ -1,8 +1,15 @@
 // Živý web servíroval hlavní cover článku i hero-visual na úvodce s alt="".
 // Ani jeden není dekorace: nemají aria-hidden a hero-visual je odkaz, který
 // bez altu nemá jméno. Alt nese titulek článku — frontmatter vlastní alt
-// obrázku nemá. Náhledy karet s aria-hidden="true" a fasáda videa (jméno má
-// z aria-label tlačítka) alt="" mít smí, ty tenhle test nehlídá.
+// obrázku nemá. Náhledy karet s aria-hidden="true" alt="" mít smí, ty tenhle
+// test nehlídá.
+//
+// První verze testu fasádu videa výslovně přeskočila (jméno tlačítka dává
+// aria-label) — jenže poster ve fasádě je u video článků LCP hero (eager,
+// fetchpriority=high, maxresdefault), ne dekorace, a živě šel ven s alt=""
+// (ověřeno 2026-08-24 na /clanky/starlink-mini-vs-standard/). aria-label
+// pojmenovává ovládací prvek, o viditelném obrázku ale čtečka mlčela.
+// Proto i poster fasády nese titulek článku.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -25,6 +32,30 @@ test('hlavní cover článku nesmí mít alt=""', () => {
     hero,
     /<img [^>]*alt=\{title\}/,
     'hlavní cover musí mít alt s titulkem článku',
+  );
+});
+
+test('poster video fasády (LCP hero video článku) nesmí mít alt=""', () => {
+  const start = clanek.indexOf('{videoId && (');
+  const end = clanek.indexOf('{video && (', start);
+  assert.notEqual(start, -1, 'šablona článku nemá větev pro video');
+  assert.notEqual(end, -1, 'nejde vymezit větev pro video');
+  const facade = clanek.slice(start, end);
+  assert.match(facade, /<img /, 'fasáda videa nerenderuje poster');
+  assert.doesNotMatch(
+    facade,
+    /alt=""/,
+    'poster video fasády má prázdný alt — u video článku je to LCP hero, čtečka o něm mlčí',
+  );
+  assert.match(
+    facade,
+    /<img [^>]*loading="eager"[^>]*\/>/,
+    'poster fasády musí zůstat eager — jinak test hlídá jiný obrázek, než je LCP hero',
+  );
+  assert.match(
+    facade,
+    /<img [^>]*alt=\{title\}[^>]*loading="eager"/,
+    'eager poster video fasády musí mít alt s titulkem článku',
   );
 });
 

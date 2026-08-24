@@ -153,7 +153,10 @@ const breadcrumbLd = {
       {/*
         Hlavní cover není dekorace — nemá aria-hidden a čtečka o něm s alt=""
         mlčela. Frontmatter vlastní alt obrázku nemá, tak nese titulek článku.
-        Náhled ve fasádě níže alt="" mít smí: jméno mu dává aria-label tlačítka.
+        Platí to i pro poster ve video fasádě níže: je to LCP hero článku
+        (eager, fetchpriority=high), ne dekorativní miniatura. aria-label
+        tlačítka pojmenovává ovládací prvek, o obrázku samotném ale čtečka
+        s alt="" mlčela (živě ověřeno na /clanky/starlink-mini-vs-standard/).
       */}
       {!videoId && heroSrc && (
         <div class="article-hero">
@@ -181,7 +184,7 @@ const breadcrumbLd = {
               <picture>
                 {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
                 {!heroWebpSrcset && heroWebp && <source srcset={heroWebp} type="image/webp" />}
-                <img src={heroSrc} srcset={heroSrcset} sizes={heroSrcset ? heroSizes : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+                <img src={heroSrc} srcset={heroSrcset} sizes={heroSrcset ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
               </picture>
             )}
             <span class="youtube-facade-play" aria-hidden="true">
