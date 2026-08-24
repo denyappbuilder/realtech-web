@@ -26,13 +26,15 @@ const clanky = (await getCollection('clanky', ({ data }) => !data.draft && data.
 const all = await getCollection('clanky', ({ data }) => !data.draft);
 const ostatni = [...new Set(all.map((c) => c.data.category))].filter((c) => c !== category);
 
+const temaUrl = new URL(`/temata/${slugify(category)}/`, Astro.site).href;
+
 const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
     { '@type': 'ListItem', position: 2, name: 'Témata', item: new URL('/temata/', Astro.site).href },
-    { '@type': 'ListItem', position: 3, name: category },
+    { '@type': 'ListItem', position: 3, name: category, item: temaUrl },
   ],
 };
 
@@ -41,7 +43,7 @@ const collectionLd = {
   '@type': 'CollectionPage',
   name: category,
   description: popis,
-  url: new URL(`/temata/${slugify(category)}/`, Astro.site).href,
+  url: temaUrl,
   inLanguage: 'cs',
   mainEntity: {
     '@type': 'ItemList',

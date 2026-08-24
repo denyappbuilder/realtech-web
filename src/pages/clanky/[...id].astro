@@ -114,7 +114,7 @@ const breadcrumbLd = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
     { '@type': 'ListItem', position: 2, name: 'Články', item: new URL('/clanky/', Astro.site).href },
-    { '@type': 'ListItem', position: 3, name: title },
+    { '@type': 'ListItem', position: 3, name: title, item: articleUrl },
   ],
 };
 ---
