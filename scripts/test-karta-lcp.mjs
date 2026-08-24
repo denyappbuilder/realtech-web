@@ -18,6 +18,7 @@ const archiv = zdroj('src/components/ArticleArchivePage.astro');
 const temata = zdroj('src/pages/temata/[slug].astro');
 const uvodka = zdroj('src/pages/index.astro');
 const vitej = zdroj('src/pages/vitej.astro');
+const notfound = zdroj('src/pages/404.astro');
 
 test('karta počítá loading a fetchpriority z props.priority', () => {
   assert.match(karta, /priority\?:\s*boolean/);
@@ -61,6 +62,19 @@ test('vitej dá priority první kartě — stránka nemá hero obrázek', () => 
     vitej,
     /<ArticleCard article=\{c\} \/>/,
     'vitej nesmí vrátit kartu bez rozhodnutí o priority',
+  );
+});
+
+test('404 dá priority první kartě — stránka nemá hero obrázek', () => {
+  assert.match(
+    notfound,
+    /latest\.map\(\(article, index\) => <ArticleCard article=\{article\} priority=\{index === 0\} \/>\)/,
+    'první karta „Zatím mrkni na tohle" je LCP na 404 — eager jen index 0',
+  );
+  assert.doesNotMatch(
+    notfound,
+    /<ArticleCard article=\{article\} \/>/,
+    '404 nesmí vrátit kartu bez rozhodnutí o priority',
   );
 });
 
