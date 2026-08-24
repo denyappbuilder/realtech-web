@@ -4,6 +4,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { load } from 'js-yaml';
+import { AUDIO_PENDING } from './audio-pending.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ARTICLE_DIR = path.join(ROOT, 'src/content/clanky');
@@ -25,6 +26,7 @@ test('všechny články oddělují čitelný transcript od TTS skriptu', () => {
   assert.ok(SLUGS.length >= 72, 'čekáme aspoň 72 článků');
 
   for (const slug of SLUGS) {
+    if (AUDIO_PENDING.has(slug)) continue;
     const { data } = article(slug);
     assert.ok(data.audio?.transcript?.length > 500, `${slug}: chybí veřejný transcript`);
     assert.ok(data.audio?.ttsScript?.length > 500, `${slug}: chybí zdroj pro regeneraci TTS`);

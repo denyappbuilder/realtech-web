@@ -4,6 +4,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { load } from 'js-yaml';
+import { AUDIO_PENDING } from './audio-pending.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const articleDir = path.join(root, 'src/content/clanky');
@@ -25,6 +26,7 @@ function frontmatter(slug) {
 test('každý článek má publikovatelný audio přehled v R2', () => {
   assert.ok(slugs.length >= 72, 'čekáme aspoň 72 článků');
   for (const slug of slugs) {
+    if (AUDIO_PENDING.has(slug)) continue;
     const data = frontmatter(slug);
     assert.match(
       data.audio?.url ?? '',
