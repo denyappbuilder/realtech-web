@@ -128,7 +128,7 @@ const jsonLd = {
             {heroThumb && (
               <picture>
                 {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes="(max-width: 900px) 100vw, 40vw" type="image/webp" />}
-                <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? '(max-width: 900px) 100vw, 40vw' : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+                <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? '(max-width: 900px) 100vw, 40vw' : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
               </picture>
             )}
             {heroThumb && <span class="shade"></span>}
