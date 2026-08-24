@@ -24,6 +24,7 @@ function article({
   description = `Popis ${id}`,
   category = "Testy",
   image,
+  video,
   body = "",
 }) {
   return {
@@ -36,6 +37,7 @@ function article({
       category,
       draft,
       image,
+      video,
     },
   };
 }
@@ -172,4 +174,64 @@ test("GET vytvoří enclosure jen pro obrázek, který existuje na filesystému"
     "public/images/missing.jpg",
   ]);
   assert.deepEqual(state.statCalls, ["public/images/existing.jpg"]);
+});
+
+/*
+ * Živý feed měl 50 položek, ale jen 46 enclosure — video články bez
+ * lokálního coveru (starlink-1gbs-2026, starlink-mini-test,
+ * starlink-mini-vs-standard, windows-arm-vs-macbook) enclosure vynechaly.
+ * Stránka článku přitom už dávno padá na YouTube maxresdefault
+ * (hero-obrazek.js) — RSS musí padat na tentýž náhled.
+ */
+test("GET u video článku bez lokálního coveru padá na YouTube maxresdefault", async () => {
+  setExistingFiles([["public/images/s-coverem.jpg", 512]]);
+  setCollection([
+    article({
+      id: "video-bez-coveru",
+      date: new Date("2025-05-04T00:00:00.000Z"),
+      video: "https://youtu.be/BvVMyDzjY7o",
+    }),
+    article({
+      id: "video-s-coverem",
+      date: new Date("2025-05-03T00:00:00.000Z"),
+      video: "https://youtu.be/uwcxvbt8zyQ",
+      image: "/images/s-coverem.jpg",
+    }),
+    article({
+      id: "video-s-chybejicim-coverem",
+      date: new Date("2025-05-02T00:00:00.000Z"),
+      video: "https://youtu.be/Dp4x80FEW_M",
+      image: "/images/chybejici.jpg",
+    }),
+    article({
+      id: "neplatne-video-bez-coveru",
+      date: new Date("2025-05-01T00:00:00.000Z"),
+      video: "https://example.com/watch?v=RdVGr7tldv4",
+    }),
+  ]);
+
+  await GET({ site });
+
+  const [bezCoveru, sCoverem, sChybejicim, neplatne] = getMockState().rssCalls[0].items;
+
+  // Vzdálenou velikost neznáme — length=0 je konvence pro neznámou délku.
+  assert.deepEqual(bezCoveru.enclosure, {
+    url: "https://i.ytimg.com/vi/BvVMyDzjY7o/maxresdefault.jpg",
+    type: "image/jpeg",
+    length: 0,
+  });
+  // Lokální cover má přednost před YouTube náhledem.
+  assert.deepEqual(sCoverem.enclosure, {
+    url: "https://realtech.cz/images/s-coverem.jpg",
+    type: "image/jpeg",
+    length: 512,
+  });
+  // Cover ve frontmatteru, který na disku chybí, nesmí enclosure zahodit.
+  assert.deepEqual(sChybejicim.enclosure, {
+    url: "https://i.ytimg.com/vi/Dp4x80FEW_M/maxresdefault.jpg",
+    type: "image/jpeg",
+    length: 0,
+  });
+  // Nevalidní video URL (cizí host) enclosure nevymýšlí.
+  assert.equal(neplatne.enclosure, undefined);
 });
