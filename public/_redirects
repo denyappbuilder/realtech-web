@@ -1,3 +1,8 @@
 # @astrojs/sitemap generuje jen sitemap-index.xml + sitemap-0.xml,
 # ale crawleři konvenčně zkoušejí /sitemap.xml — bez redirectu tam byla 404.
 /sitemap.xml /sitemap-index.xml 301
+
+# První stránka archivu žije na /clanky/ — /clanky/strana/1/ se negeneruje
+# (paginace začíná na strana/2) a vracela 404. Query string Pages zachová samo.
+/clanky/strana/1 /clanky/ 301
+/clanky/strana/1/ /clanky/ 301
