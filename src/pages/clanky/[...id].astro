@@ -13,6 +13,7 @@ import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import AudioPrehled from '../../components/AudioPrehled.astro';
 import { jsonLdText, pripojAudioKClanku, vytvorAudioObject } from '../../lib/audio-prehled.js';
 import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
+import { preloadHeroObrazku } from '../../lib/hero-preload.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -37,6 +38,16 @@ const {
   webpSrcset: heroWebpSrcset,
   sizes: heroSizes,
 } = heroObrazekClanku(image, videoId);
+// LCP hero (obrázek i YouTube facade) se objevuje až v <body> — jediný
+// preload v <head> ho pustí ke stažení hned. Míří na tentýž kandidát,
+// který si <picture> níž vybere (WebP srcset > WebP > JPG/ytimg).
+const heroPreload = preloadHeroObrazku({
+  src: heroSrc,
+  srcset: heroSrcset,
+  webp: heroWebp,
+  webpSrcset: heroWebpSrcset,
+  sizes: heroSizes,
+});
 // Brandovaný OG generuje prebuild i pro video články (z YouTube náhledu),
 // syrový ytimg náhled je jen záchranná síť, kdyby soubor chyběl.
 const brandedOg = `/images/og/${article.id}.jpg`;
@@ -125,6 +136,18 @@ const breadcrumbLd = {
   image={ogImage}
   ogType="article"
 >
+  {heroPreload && (
+    <link
+      rel="preload"
+      as="image"
+      href={heroPreload.href}
+      imagesrcset={heroPreload.imagesrcset}
+      imagesizes={heroPreload.imagesizes}
+      type={heroPreload.type}
+      fetchpriority="high"
+      slot="head"
+    />
+  )}
   <script type="application/ld+json" set:html={jsonLdText(jsonLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={jsonLdText(breadcrumbLd)} slot="head" is:inline />
   {videoLd && <script type="application/ld+json" set:html={jsonLdText(videoLd)} slot="head" is:inline />}
