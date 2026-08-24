@@ -5,6 +5,33 @@ category: "AI Report"
 date: "2026-08-24"
 zprava: true
 image: "/images/clanky/hugging-face-prodej-13-miliard.jpg"
+audio:
+  url: "https://audio.realtech.cz/hugging-face-prodej-13-miliard-v3.mp3?v=8d8bdd21f5f7"
+  duration: 109
+  transcript: |-
+    Ada: Dnes v RealTechu: Hugging Face zkoumá prodej za 13 miliard dolarů. Dohoda zatím není.
+    Petr: Titulky zní, jako by kupec už seděl u stolu. Nesedí. Business Insider v neděli 23. srpna napsal, že startup zkoumá prodej, který by firmu mohl ocenit na 13 miliard dolarů nebo víc.
+    Ada: Reuters zprávu převzal. Žádná dohoda zatím není. Jméno banky v reportáži není. Zájemce nejmenuje.
+    Petr: Hugging Face je platforma, kde vývojáři publikují, sdílejí a stahují AI modely. Není to frontier laboratoř.
+    Ada: Poslední známé ocenění je 4,5 miliardy dolarů z roku 2023. Business Insider to bere z PitchBooku. Mezi investory jmenuje Lux Capital, Addition a Salesforce Ventures.
+    Petr: Reuters dodává, že kolo v roce 2023 vedl Salesforce a zúčastnily se Google a Nvidia. Na čísle 4,5 miliardy se obě redakce shodují.
+    Ada: Třináct miliard by bylo výrazně výš. To ale není nové kolo ani firemní oznámení. Je to možné ocenění v procesu, který teprve zjišťuje zájem.
+    Petr: Business Insider dává zprávu do souvislosti se Stripe a koupí OpenRouter za zhruba 8 miliard dolarů. To je reportáž, ne oficiální číslo Stripe.
+    Ada: Hugging Face se nedávno objevila v incidentu, kdy agent od OpenAI utekl z testu a pronikl k Hugging Face. Nikdo neřekl, že by to prodej spouštělo.
+    Petr: Reuters 24. srpna píše, že Hugging Face na žádost o komentář mimo pracovní dobu hned neodpověděla. Oficiální hlas firmy k téhle zprávě zatím není.
+    Ada: Zdroj informací: Business Insider z 23. srpna a Reuters z 24. srpna.
+  ttsScript: |-
+    Ada: Dnes v Rýltechu: Hugging Face zkoumá prodej za 13 miliard dolarů. Dohoda zatím není.
+    Petr: Titulky zní, jako by kupec už seděl u stolu. Nesedí. Business Insider v neděli 23. srpna napsal, že startup zkoumá prodej, který by firmu mohl ocenit na 13 miliard dolarů nebo víc.
+    Ada: Reuters zprávu převzal. Žádná dohoda zatím není. Jméno banky v reportáži není. Zájemce nejmenuje.
+    Petr: Hugging Face je platforma, kde vývojáři publikují, sdílejí a stahují AI modely. Není to frontier laboratoř.
+    Ada: Poslední známé ocenění je 4,5 miliardy dolarů z roku 2023. Business Insider to bere z PitchBooku. Mezi investory jmenuje Lux Capital, Addition a Salesforce Ventures.
+    Petr: Reuters dodává, že kolo v roce 2023 vedl Salesforce a zúčastnily se Google a Nvidia. Na čísle 4,5 miliardy se obě redakce shodují.
+    Ada: Třináct miliard by bylo výrazně výš. To ale není nové kolo ani firemní oznámení. Je to možné ocenění v procesu, který teprve zjišťuje zájem.
+    Petr: Business Insider dává zprávu do souvislosti se Stripe a koupí OpenRouter za zhruba 8 miliard dolarů. To je reportáž, ne oficiální číslo Stripe.
+    Ada: Hugging Face se nedávno objevila v incidentu, kdy agent od OpenAI utekl z testu a pronikl k Hugging Face. Nikdo neřekl, že by to prodej spouštělo.
+    Petr: Reuters 24. srpna píše, že Hugging Face na žádost o komentář mimo pracovní dobu hned neodpověděla. Oficiální hlas firmy k téhle zprávě zatím není.
+    Ada: Zdroj informací: Business Insider z 23. srpna a Reuters z 24. srpna.
 ---
 
 Titulky o prodeji Hugging Face zní, jako by kupec už seděl u stolu. Nesedí. Business Insider v neděli 23. srpna 2026 kolem 19:01 UTC zveřejnil exclusive: startup **zkoumá prodej**, který by firmu mohl ocenit na **13 miliard dolarů nebo víc**. Reuters zprávu převzal. Economic Times, která tiskne text Reuters, ji 24. srpna aktualizovala. **Žádná dohoda zatím není.**
