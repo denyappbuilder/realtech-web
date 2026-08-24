@@ -44,10 +44,15 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
    title: "Titulek článku"
    description: "Perex — jedna dvě věty, zobrazí se na kartě a v OG tazích."
    category: "AI Report"        # AI Report | AI Agenti | Drony | Vesmír | Hardware | Mobily | Sítě
-   date: 2026-07-02
-   video: "https://youtu.be/XXXX"   # volitelné
+   date: "2026-07-02"           # uvozovky — YAML jinak udělá Date a schéma ho odmítne
+   video: "https://youtu.be/XXXX"   # volitelné — u článku z videa
    videoLength: "14:32"             # volitelné
-   readingTime: 8                   # volitelné, minuty
+   zprava: true                     # volitelné — krátká zpráva, typicky bez video
+   image: "/images/clanky/nazev-clanku.jpg"  # volitelné
+   audio:                           # volitelné
+     url: "https://audio.realtech.cz/nazev-clanku.mp3"
+     duration: 143                  # sekundy, ISO-8601 nebo MM:SS
+     transcript: "..."              # volitelné
    featured: true                   # volitelné — článek v hero sekci (jinak hero = nejnovější)
    draft: true                      # volitelné — draft se nepublikuje
    ---
@@ -55,11 +60,14 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
    Text článku v Markdownu...
    ```
 
+   Schéma v `src/content.config.ts` je `.strict()`. Extra klíče (třeba `readingTime`) shodí build. Doba čtení se počítá z těla článku.
+
 3. Commit + push. Za minutu je článek živý.
 
 ## Publikace přes agenta (Kepler)
 
 Doporučený workflow: agent **vytváří pull requesty, ne přímé pushe na main**.
+Jeden článek = jeden PR. Merge dělá Daniel.
 Prompt pro konverzi scénáře na článek je v `KEPLER-PROMPT.md`.
 
 1. Agent dostane scénář videa + metadata (link, délka, kategorie)
@@ -80,14 +88,10 @@ src/
   pages/
     index.astro       ← homepage (hero + grid)
     clanky/index.astro       ← výpis všech článků
-    clanky/[...id].astro     ← detail článku
+    clanky/[...id].astro     ← detail článku (YouTube embed, když je `video`)
+    temata/[slug].astro      ← kategorie
     rss.xml.js        ← RSS feed
   styles/global.css   ← veškerý design
 ```
 
-## Co dál (nice-to-have, až bude čas)
-
-- Skutečné thumbnaily místo gradientů (přidat `thumbnail` do frontmatteru + `<img>` do karty)
-- Napojení newsletteru (Buttondown, Listmonk, MailerLite — teď je formulář jen vizuální)
-- Vložený YouTube přehrávač v detailu článku místo odkazu
-- Stránky kategorií
+Newsletter ve footeru posílá na Kit (`https://app.kit.com/forms/9640609/subscriptions`). Náhledy článků berou `image` ve frontmatteru.
