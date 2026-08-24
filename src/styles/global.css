@@ -295,6 +295,15 @@ a.tag:hover { background: var(--signal-dark); }
   margin-bottom: 20px;
   text-wrap: balance;
 }
+.hero h1 a {
+  display: block;
+  transition: color 0.15s;
+}
+.hero h1 a:hover,
+.hero h1 a:focus-visible {
+  color: var(--signal-dark);
+  text-decoration: none;
+}
 .hero p.lead {
   font-size: 1.05rem; color: var(--ink-soft); max-width: 54ch;
   margin-bottom: 28px;

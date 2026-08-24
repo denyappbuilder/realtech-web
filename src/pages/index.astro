@@ -137,7 +137,7 @@ const jsonLd = {
               <span class="tag">{hero.data.category}</span>
               <time class="time" datetime={hero?.data.date.toISOString().slice(0, 10)}>{dateStr}</time>
             </div>
-            <h1>{hero.data.title}</h1>
+            <h1><a href={`/clanky/${hero.id}/`}>{hero.data.title}</a></h1>
             <p class="lead">{hero.data.description}</p>
             <div class="hero-actions">
               <a href={`/clanky/${hero.id}/`} class="btn-primary">Přečíst analýzu</a>
