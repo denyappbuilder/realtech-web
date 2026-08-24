@@ -148,8 +148,6 @@ const breadcrumbLd = {
         <p class="lead">{description}</p>
       </div>
 
-      <AudioPrehled audio={audio} />
-
       {/*
         Hlavní cover není dekorace — nemá aria-hidden a čtečka o něm s alt=""
         mlčela. Frontmatter vlastní alt obrázku nemá, tak nese titulek článku.
@@ -203,6 +201,8 @@ const breadcrumbLd = {
           </a>
         </div>
       )}
+
+      <AudioPrehled audio={audio} />
 
       <div class="article-layout">
         <div class="article-body">
