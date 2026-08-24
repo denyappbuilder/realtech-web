@@ -262,7 +262,11 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
   padding: 5px 12px; text-transform: uppercase;
 }
-a.tag { transition: background 0.15s; }
+a.tag {
+  display: inline-flex; align-items: center;
+  min-height: 44px;
+  transition: background 0.15s;
+}
 a.tag:hover { background: var(--signal-dark); }
 .lower-third .time {
   background: var(--panel); color: #fff;

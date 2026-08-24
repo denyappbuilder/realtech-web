@@ -37,3 +37,7 @@ test(".search-trigger má minimální zásah 44 px", () => {
 test(".search-input má minimální zásah 44 px", () => {
   assertMinHeight44(".search-input");
 });
+
+test("a.tag má minimální zásah 44 px", () => {
+  assertMinHeight44("a.tag");
+});
