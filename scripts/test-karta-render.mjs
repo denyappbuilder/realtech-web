@@ -164,10 +164,28 @@ test('video bez coveru bere náhled z YouTube v jeho rozměrech', () => {
   const karta = vykresliKartu(clanek({ video: VIDEO }));
 
   assert.equal(karta.videoId, 'dQw4w9WgXcQ');
-  assert.equal(karta.thumbUrl, 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg');
-  assert.equal(karta.thumbW, 480);
-  assert.equal(karta.thumbH, 360);
+  assert.equal(karta.thumbUrl, 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');
+  assert.equal(karta.thumbW, 1280);
+  assert.equal(karta.thumbH, 720);
   assert.equal(karta.hasWebp, false, 'bez lokálního coveru není co nabídnout');
+});
+
+// Živě 24. 8. 2026: karty na úvodce i u souvisejících článků posílaly
+// hqdefault (480×360, 4:3 s černými pruhy), i když video má 16:9 maxres —
+// hero téhož článku už maxresdefault dávno bere (#299).
+test('náhled videa na kartě není hqdefault 4:3, ale 16:9 jako hero (#299)', () => {
+  const karta = vykresliKartu(clanek({ video: VIDEO }));
+
+  assert.doesNotMatch(
+    karta.thumbUrl,
+    /hqdefault/,
+    'karta nesmí posílat hqdefault — je 480×360 s černými pruhy',
+  );
+  assert.equal(
+    karta.thumbW / karta.thumbH,
+    16 / 9,
+    'rozměry náhledu videa musí být 16:9, ne 4:3',
+  );
 });
 
 // ---------------------------------------------------------------------------
@@ -179,13 +197,13 @@ test.todo(
   () => {
     const karta = vykresliKartu(clanek({ video: VIDEO, image: COVER }));
 
-    assert.equal(karta.thumbUrl, 'https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg');
-    assert.equal(karta.thumbW, 480);
-    assert.equal(karta.thumbH, 360);
+    assert.equal(karta.thumbUrl, 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');
+    assert.equal(karta.thumbW, 1280);
+    assert.equal(karta.thumbH, 720);
 
     // `hasWebp` se počítá z lokálního coveru, ale `thumbUrl` už ukazuje na
     // YouTube. Šablona pak vydá <source> na lokální 640×360 WebP vedle
-    // <img src=YouTube width=480 height=360>: prohlížeč s WebP zobrazí lokální
+    // <img src=YouTube width=1280 height=720>: prohlížeč s WebP zobrazí lokální
     // obrázek, ne náhled videa, a natlačí ho do rozměrů toho druhého.
     assert.equal(
       karta.hasWebp,

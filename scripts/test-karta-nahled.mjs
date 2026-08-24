@@ -67,10 +67,10 @@ test('platné tvary YouTube URL vyhrají nad obrázkem a použijí video náhled
     assert.equal(thumbnail.videoId, videoId, video);
     assert.equal(
       thumbnail.thumbUrl,
-      `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+      `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
       video,
     );
-    assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [480, 360], video);
+    assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [1280, 720], video);
     assert.equal(thumbnail.thumbWebp, null, video);
   }
 });
