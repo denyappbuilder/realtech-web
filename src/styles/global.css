@@ -373,6 +373,7 @@ a.tag:hover { background: var(--signal-dark); }
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
+  position: relative;
   display: flex; flex-direction: column;
   transition: transform 0.22s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.22s, border-color 0.22s;
 }
@@ -402,6 +403,11 @@ a.tag:hover { background: var(--signal-dark); }
 }
 .card-body h3 a { transition: color 0.15s; }
 .card-body h3 a:hover { color: var(--signal-dark); }
+/* Celá karta je klikací: klikatelný byl jen náhled a titulek, popis a meta
+   byly mrtvá zóna. Stretched link přes ::after odkazu v titulku — ten nese
+   jméno karty (odkaz na náhledu je aria-hidden + tabindex="-1"), takže se
+   a11y sémantika nemění. V kartě nesmí být žádný další interaktivní prvek. */
+.card-body h3 a::after { content: ''; position: absolute; inset: 0; }
 .card-body p { font-size: 0.88rem; color: var(--ink-soft); flex: 1; }
 .card-meta {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
