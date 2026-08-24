@@ -47,7 +47,8 @@ const latest = (await getCollection('clanky', ({ data }) => !data.draft))
         <h2>Nejnovější reporty</h2>
       </div>
       <div class="grid">
-        {latest.map((c) => <ArticleCard article={c} />)}
+        {/* První karta je LCP — /vitej/ nemá hero obrázek (viz test-karta-lcp). */}
+        {latest.map((c, i) => <ArticleCard article={c} priority={i === 0} />)}
       </div>
     </div>
   </section>
