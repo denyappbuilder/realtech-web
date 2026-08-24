@@ -29,7 +29,7 @@ const latest = (await getCollection('clanky', ({ data }) => !data.draft))
         <a href="/clanky/">Všechny →</a>
       </div>
       <div class="grid">
-        {latest.map((article) => <ArticleCard article={article} />)}
+        {latest.map((article, index) => <ArticleCard article={article} priority={index === 0} />)}
       </div>
     </div>
   </div>
