@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-08-21"
 zprava: true
 image: "/images/clanky/gpt-5-6-sol-zlevneni.jpg"
+audio:
+  url: "https://audio.realtech.cz/gpt-5-6-sol-zlevneni-nlm.mp3?v=8c6c770ef0de"
+  duration: 1627
 ---
 
 OpenAI 21. srpna shodilo API a kreditové ceny GPT-5.6 Sol o víc než 20 %. Nejsilnější model rodiny 5.6 tím dohání to, co Luna a Terra dostaly už [koncem července](/clanky/gpt-5-6-snizeni-cen/): tehdy Luna padla o 80 %, Terra o 20 % a Sol zůstal na původní kartě.
