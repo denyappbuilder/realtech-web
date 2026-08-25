@@ -1,6 +1,6 @@
 import { isoDuration } from './iso-duration.js';
 
-const MAX_SECONDS = 30 * 60;
+const MAX_SECONDS = 60 * 60;
 const AUDIO_PRIPONA = /\.(mp3|m4a|ogg|wav)$/i;
 
 function secondsToIso(seconds) {
