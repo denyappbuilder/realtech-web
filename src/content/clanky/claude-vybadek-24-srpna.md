@@ -6,36 +6,8 @@ date: "2026-08-24"
 zprava: true
 image: "/images/clanky/claude-vybadek-24-srpna.jpg"
 audio:
-  url: "https://audio.realtech.cz/claude-vybadek-24-srpna-v3.mp3?v=72c882ac35d8"
-  duration: 140
-  transcript: |-
-    Ada: Dnes v RealTechu: Claude ráno padal. Anthropic hlásí chyby u Mythos pět, Fable pět i Opus pět.
-    Petr: Čtyřiadvacátého srpna začal problém brzy ráno. Od sedm hodin šest minut ukazuje stavová stránka Anthropicu zvýšenou chybovost u více modelů. Stav k devíti hodinám deseti minutám: incident pořád nevyřešený.
-    Ada: První zápis je z pět šest UTC, tedy ze sedm šest. Anthropic tehdy vyšetřoval čtyři jmenované modely: Mythos pět, Fable pět, Opus pět a Opus čtyři tečka osm.
-    Petr: Ve pět dvacet sedm UTC, u nás v sedm dvacet sedm, už měli příčinu. Napsali, že ji našli. A že problém nezasáhl jen tyhle čtyři — i další modely Claude.
-    Ada: Třetí update přišel v šest čtyřicet dva UTC, u nás v osm čtyřicet dva. Pořád na tom pracovali. Konec výpadku v tom zápisu není.
-    Petr: Šlo o částečný výpadek. Postižené služby byly claude.ai, API, Code a Cowork. Console a Government zůstaly v provozu.
-    Ada: Zvenku to vývojáři popisovali jinak než firma. Hlásili HTTP pět set dvacet devět, tedy přetížení. Anthropic ta slova oficiálně nepoužil. Ve statusu stojí jen zvýšená chybovost.
-    Petr: Na stejné stránce jsou v srpnu i další incidenty. Konkrétně dvacátého, devatenáctého, osmnáctého a šestnáctého srpna. Délky u nich z těchto údajů neznáme, takže je nebudeme odhadovat.
-    Ada: Stejná stránka ukazuje i devadesátidenní dostupnost. Claude.ai má devadesát devět celá třicet pět procent. API devadesát devět celá čtyřicet pět. Code devadesát devět celá třicet sedm. Cowork devadesát devět celá čtyřicet šest procent.
-    Petr: Krátká časová osa znovu: vyšetřování od sedm šest, příčina v sedm dvacet sedm, další update v osm čtyřicet dva, a k devíti deseti stále nevyřešeno.
-    Ada: Modely v první vlně byly Mythos pět, Fable pět, Opus pět a Opus čtyři tečka osm. Později Anthropic potvrdil, že chyby jdou i přes další modely Claude.
-    Petr: A služby ještě jednou: web Claude, API, Code a Cowork měly částečný výpadek. Konzole a vládní instance Government běžely.
-    Ada: Zdroj informací: stavová stránka Anthropicu.
-  ttsScript: |-
-    Ada: Dnes v Rýltechu: Klaude ráno padal. Anthropic hlásí chyby u Mythos pět, Fable pět i Opus pět.
-    Petr: Čtyřiadvacátého srpna začal problém brzy ráno. Od sedm hodin šest minut ukazuje stavová stránka Anthropicu zvýšenou chybovost u více modelů. Stav k devíti hodinám deseti minutám: incident pořád nevyřešený.
-    Ada: První zápis je z pět šest UTC, tedy ze sedm šest. Anthropic tehdy vyšetřoval čtyři jmenované modely: Mythos pět, Fable pět, Opus pět a Opus čtyři tečka osm.
-    Petr: Ve pět dvacet sedm UTC, u nás v sedm dvacet sedm, už měli příčinu. Napsali, že ji našli. A že problém nezasáhl jen tyhle čtyři — i další Klaude.
-    Ada: Třetí update přišel v šest čtyřicet dva UTC, u nás v osm čtyřicet dva. Pořád na tom pracovali. Konec výpadku v tom zápisu není.
-    Petr: Šlo o částečný výpadek. Postižené služby byly web, API, Code a Cowork. Console a Government zůstaly v provozu.
-    Ada: Zvenku to vývojáři popisovali jinak než firma. Hlásili HTTP pět set dvacet devět, tedy přetížení. Anthropic ta slova oficiálně nepoužil. Ve statusu stojí jen zvýšená chybovost.
-    Petr: Na stejné stránce jsou v srpnu i další incidenty. Konkrétně dvacátého, devatenáctého, osmnáctého a šestnáctého srpna. Délky u nich z těchto údajů neznáme, takže je nebudeme odhadovat.
-    Ada: Stejná stránka ukazuje i devadesátidenní dostupnost. Web má devadesát devět celá třicet pět procent. API devadesát devět celá čtyřicet pět. Code devadesát devět celá třicet sedm. Cowork devadesát devět celá čtyřicet šest procent.
-    Petr: Krátká časová osa znovu: vyšetřování od sedm šest, příčina v sedm dvacet sedm, další update v osm čtyřicet dva, a k devíti deseti stále nevyřešeno.
-    Ada: Modely Klaude v první vlně byly Mythos pět, Fable pět, Opus pět a Opus čtyři tečka osm. Později Anthropic potvrdil, že chyby jdou i přes další Klaude.
-    Petr: A služby ještě jednou: ten model na webu, API, Code a Cowork měly částečný výpadek. Console a vládní instance Government běžely.
-    Ada: Zdroj informací: stavová stránka Anthropicu.
+  url: "https://audio.realtech.cz/claude-vybadek-24-srpna-nlm.mp3?v=bb16e9c23044"
+  duration: 1689
 ---
 
 Pokud vám dnes ráno Claude vracel chyby, nebylo to vaším připojením. Anthropic na své stavové stránce od časného rána řeší incident nazvaný **„Elevated errors for multiple models"** — zvýšenou chybovost napříč několika modely najednou. V době psaní tohoto článku (kolem 9:10 dopoledne našeho času) incident **stále nebyl vyřešený** a čtyři hlavní služby firmy běžely v režimu částečného výpadku.
