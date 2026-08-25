@@ -5,6 +5,9 @@ category: "Sítě"
 date: "2026-08-24"
 zprava: true
 image: "/images/clanky/starlink-grok-voice-hovory.jpg"
+audio:
+  url: "https://audio.realtech.cz/starlink-grok-voice-hovory-nlm.mp3?v=54f95f568151"
+  duration: 926
 ---
 
 V pondělí 24. srpna účet SpaceXAI napsal dvě věty o podpoře Starlinku. První: Grok Voice vyřídí přes 15 000 příchozích hovorů denně, podporu i prodej. Druhá: Grok diagnostikuje hardware, posílá náhradní kusy a vyřídí přes 3 000 objednávek týdně, hlasem i v chatu.
