@@ -23,18 +23,36 @@ function frontmatter(slug) {
   return load(match[1]);
 }
 
+const VERZE_HASH = String.raw`\?v=[0-9a-f]{12}`;
+
+function audioUrl(slug, vydani) {
+  return new RegExp(`^https://audio\\.realtech\\.cz/${slug}-${vydani}\\.mp3${VERZE_HASH}$`);
+}
+
 test('každý článek má publikovatelný audio přehled v R2', () => {
   assert.ok(slugs.length >= 72, 'čekáme aspoň 72 článků');
   for (const slug of slugs) {
     if (AUDIO_PENDING.has(slug)) continue;
     const data = frontmatter(slug);
+    const url = data.audio?.url ?? '';
+    const duration = data.audio?.duration;
+    const nlm = audioUrl(slug, 'nlm').test(url);
+
+    if (nlm) {
+      assert.ok(
+        Number.isInteger(duration) && duration >= 600 && duration <= 3600,
+        `${slug}: NLM Deep Dive má mít 10–60 minut v celých sekundách`,
+      );
+      continue;
+    }
+
     assert.match(
-      data.audio?.url ?? '',
-      new RegExp(`^https://audio\\.realtech\\.cz/${slug}-v3\\.mp3\\?v=[0-9a-f]{12}$`),
+      url,
+      audioUrl(slug, 'v3'),
       `${slug}: URL musí mířit na verzované MP3 v R2`,
     );
     assert.ok(
-      Number.isInteger(data.audio?.duration) && data.audio.duration >= 60 && data.audio.duration <= 300,
+      Number.isInteger(duration) && duration >= 60 && duration <= 300,
       `${slug}: délka má být reálných 1–5 minut v celých sekundách`,
     );
     assert.ok(data.audio?.transcript?.length > 500, `${slug}: chybí plný přepis`);
