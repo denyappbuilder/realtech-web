@@ -97,8 +97,10 @@ test('parseAudioDuration přijme sekundy, ISO i MM:SS a odmítne nulu', () => {
   assert.deepEqual(parseAudioDuration(192), { seconds: 192, iso: 'PT3M12S' });
   assert.deepEqual(parseAudioDuration('PT3M12S'), { seconds: 192, iso: 'PT3M12S' });
   assert.deepEqual(parseAudioDuration('3:12'), { seconds: 192, iso: 'PT3M12S' });
+  assert.deepEqual(parseAudioDuration(2180), { seconds: 2180, iso: 'PT36M20S' });
   assert.equal(parseAudioDuration(0), undefined);
   assert.equal(parseAudioDuration('PT0S'), undefined);
+  assert.equal(parseAudioDuration(3601), undefined);
   assert.equal(parseAudioDuration('javascript:alert(1)'), undefined);
 });
 
