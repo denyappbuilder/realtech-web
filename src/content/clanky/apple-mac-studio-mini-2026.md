@@ -5,6 +5,9 @@ category: "Hardware"
 date: "2026-08-25"
 zprava: true
 image: "/images/clanky/apple-mac-studio-mini-2026.jpg"
+audio:
+  url: "https://audio.realtech.cz/apple-mac-studio-mini-2026-nlm.mp3?v=2c7541fa40a5"
+  duration: 1717
 ---
 
 Apple dnes najednou vyměnil čipy ve dvou stolních Macích. Mac Studio dostává M5 Max a nový M5 Ultra. Mac mini dostává úplně nový M6 a variantu s M5 Pro. Předobjednávky běží od 25. srpna ve 30 zemích včetně USA. První kusy mají dorazit 22. září. Konfigurace Studia s 512 GB jednotné paměti až koncem října.
