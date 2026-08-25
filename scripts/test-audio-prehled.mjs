@@ -104,6 +104,29 @@ test('parseAudioDuration přijme sekundy, ISO i MM:SS a odmítne nulu', () => {
   assert.equal(parseAudioDuration('javascript:alert(1)'), undefined);
 });
 
+test('NotebookLM Deep Dive přes 30 minut pořád sestaví pohled přehrávače', () => {
+  const anthropic = audioPrehledPohled(
+    {
+      url: 'https://audio.realtech.cz/anthropic-ipo-dva-biliony-investori-nlm.mp3?v=38ac2d883a92',
+      duration: 2180,
+    },
+    SITE,
+  );
+  assert.ok(anthropic);
+  assert.equal(anthropic.seconds, 2180);
+  assert.equal(anthropic.src, 'https://audio.realtech.cz/anthropic-ipo-dva-biliony-investori-nlm.mp3?v=38ac2d883a92');
+
+  const openai = audioPrehledPohled(
+    {
+      url: 'https://audio.realtech.cz/openai-pauza-rl-treninku-astra-nlm.mp3?v=e99882992836',
+      duration: 1891,
+    },
+    SITE,
+  );
+  assert.ok(openai);
+  assert.equal(openai.seconds, 1891);
+});
+
 test('bez audio bloku není player ani AudioObject', async () => {
   const { audioLd, jsonLd, audio } = await nactiStranku(clanek());
   assert.equal(audio, undefined);

@@ -224,6 +224,18 @@ test('volitelny audio blok je zpetne kompatibilni a odmitne neplatnou URL i nulu
     }).success,
     false,
   );
+
+  const nlm = articleSchema.parse({
+    ...REQUIRED_FRONTMATTER,
+    audio: {
+      url: 'https://audio.realtech.cz/fixture-nlm.mp3?v=38ac2d883a92',
+      duration: 2180,
+    },
+  });
+  assert.equal(nlm.audio.url, 'https://audio.realtech.cz/fixture-nlm.mp3?v=38ac2d883a92');
+  assert.equal(nlm.audio.duration, 2180);
+  assert.equal(nlm.audio.transcript, undefined);
+  assert.equal(nlm.audio.ttsScript, undefined);
 });
 
 test(
