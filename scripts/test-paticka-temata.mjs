@@ -1,5 +1,5 @@
 // Patička, sloupec Web: hlavička odkazuje na hub /temata/, ale v patičce
-// odkaz chyběl (živě 26. 8. 2026: YouTube, Články, O nás, Kontakt, RSS,
+// odkaz chyběl (živě 26. 8. 2026: YouTube, Články, O nás, Kontakt,
 // RealTvorba — Témata nikde). Sloupec Témata vedle vypisuje jen jednotlivé
 // kategorie, na samotný hub se z patičky nedalo dostat.
 import assert from "node:assert/strict";
@@ -28,4 +28,17 @@ test("Témata stojí mezi Články a O nás — stejné pořadí jako v hlavičc
   const oNas = sloupecWeb.indexOf('href="/o-nas/"');
   assert.ok(clanky !== -1 && temata !== -1 && oNas !== -1, "sloupci Web chybí některá z položek");
   assert.ok(clanky < temata && temata < oNas, "Témata nejsou mezi Články a O nás");
+});
+
+test("patička nenabízí klikací RSS — feed zůstává v <head> pro čtečky", () => {
+  assert.doesNotMatch(
+    paticka,
+    /<a\s[^>]*href="\/rss\.xml"/,
+    "patička pořád nabízí viditelný odkaz na /rss.xml",
+  );
+  assert.match(
+    base,
+    /<link rel="alternate" type="application\/rss\+xml" title="REALTECH CZ" href="\/rss\.xml" \/>/,
+    "<head> ztratil rel=alternate na /rss.xml",
+  );
 });

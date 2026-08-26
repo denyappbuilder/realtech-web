@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { register } from 'node:module';
 import test, { beforeEach } from 'node:test';
 
@@ -212,4 +213,11 @@ test('stránkování: numberOfItems je za všechny publikované, itemListElement
   );
   assert.deepEqual(page1.categories, ['AI', 'Drony']);
   assert.deepEqual(page2.categories, ['AI', 'Drony']);
+});
+
+test('archiv drží H1 Všechny články a nenabízí klikací RSS', () => {
+  const source = readFileSync(new URL('../src/components/ArticleArchivePage.astro', import.meta.url), 'utf8');
+  assert.match(source, /<h1>Všechny články<\/h1>/);
+  assert.doesNotMatch(source, /RSS →/);
+  assert.doesNotMatch(source, /href="\/rss\.xml"/);
 });
