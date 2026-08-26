@@ -19,6 +19,9 @@
 /feed.xml /rss.xml 301
 /rss /rss.xml 301
 /rss/ /rss.xml 301
+/rss.xml/ /rss.xml 301
+/atom /rss.xml 301
+/atom/ /rss.xml 301
 /atom.xml /rss.xml 301
 
 # Vlastní stránka /kontakt neexistuje (kontakt je mailto v patičce),

@@ -53,8 +53,13 @@ test("/temata/:slug/strana/1 i varianta s lomítkem se trvale přesměrují na /
 });
 
 // Feed žije na /rss.xml — konvenční URL (/feed, /rss, /atom.xml) vracely 404.
+// Živě 26. 8. 2026 zbývaly /rss.xml/ (lomítko navíc), /atom a /atom/.
 test("konvenční RSS URL se trvale přesměrují na /rss.xml", () => {
-  for (const source of ["/feed", "/feed/", "/feed.xml", "/rss", "/rss/", "/atom.xml"]) {
+  for (const source of [
+    "/feed", "/feed/", "/feed.xml",
+    "/rss", "/rss/", "/rss.xml/",
+    "/atom", "/atom/", "/atom.xml",
+  ]) {
     const rule = rules.get(source);
     assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
     assert.equal(rule.destination, "/rss.xml");
