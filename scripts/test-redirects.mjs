@@ -41,6 +41,17 @@ test("/clanky/strana/1 i varianta s lomítkem se trvale přesměrují na /clanky
   }
 });
 
+// Paginace témat začíná stejně jako archiv na strana/2 — první stránka žije
+// na /temata/{slug}/, takže /temata/:slug/strana/1(/) musí 301 místo 404.
+test("/temata/:slug/strana/1 i varianta s lomítkem se trvale přesměrují na /temata/:slug/", () => {
+  for (const source of ["/temata/:slug/strana/1", "/temata/:slug/strana/1/"]) {
+    const rule = rules.get(source);
+    assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
+    assert.equal(rule.destination, "/temata/:slug/");
+    assert.equal(rule.status, "301");
+  }
+});
+
 // Feed žije na /rss.xml — konvenční URL (/feed, /rss, /atom.xml) vracely 404.
 test("konvenční RSS URL se trvale přesměrují na /rss.xml", () => {
   for (const source of ["/feed", "/feed/", "/feed.xml", "/rss", "/rss/", "/atom.xml"]) {

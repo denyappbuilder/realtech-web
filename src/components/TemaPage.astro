@@ -1,0 +1,117 @@
+---
+import { getCollection } from 'astro:content';
+import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
+import { ARTICLES_PER_PAGE } from '../lib/pagination.js';
+import { seoTitulek } from '../lib/seo-titulek.js';
+import Base from '../layouts/Base.astro';
+import ArticleCard from './ArticleCard.astro';
+import { slugify } from '../lib/slugify.js';
+import { popisTematu } from '../lib/tema-popis.js';
+
+interface Props {
+  category: string;
+  page: number;
+}
+
+const { category, page } = Astro.props;
+
+const popis = popisTematu(category);
+
+const clanky = (await getCollection('clanky', ({ data }) => !data.draft && data.category === category))
+  .sort(compareArticlesByDateDescThenId);
+// Stránkování zrcadlí archiv (ArticleArchivePage): strana 1 na
+// /temata/{slug}/, strana 2+ na /temata/{slug}/strana/{n}/. Bez něj
+// AI Report (37 článků) posílal všechny karty v jednom HTML a
+// /temata/ai-report/strana/2/ byla 404.
+const totalPages = Math.ceil(clanky.length / ARTICLES_PER_PAGE);
+const start = (page - 1) * ARTICLES_PER_PAGE;
+const articles = clanky.slice(start, start + ARTICLES_PER_PAGE);
+
+const all = await getCollection('clanky', ({ data }) => !data.draft);
+const ostatni = [...new Set(all.map((c) => c.data.category))].filter((c) => c !== category);
+
+const slug = slugify(category);
+const pagePath = (pageNumber: number) =>
+  pageNumber === 1 ? `/temata/${slug}/` : `/temata/${slug}/strana/${pageNumber}/`;
+const temaUrl = new URL(pagePath(1), Astro.site).href;
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'Témata', item: new URL('/temata/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: category, item: temaUrl },
+  ],
+};
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: page === 1 ? category : `${category} – strana ${page}`,
+  description: popis,
+  url: new URL(pagePath(page), Astro.site).href,
+  inLanguage: 'cs',
+  mainEntity: {
+    '@type': 'ItemList',
+    // Počet za celé téma; itemListElement jen za aktuální stranu
+    // s navazujícími pozicemi — stejně jako archiv.
+    numberOfItems: clanky.length,
+    itemListElement: articles.map((c, i) => ({
+      '@type': 'ListItem',
+      position: start + i + 1,
+      url: new URL(`/clanky/${c.id}/`, Astro.site).href,
+      name: c.data.title,
+    })),
+  },
+};
+
+const title = page === 1
+  ? seoTitulek(`${category} — články`)
+  : `${category} – strana ${page} — REALTECH CZ`;
+const ogTitle = page === 1
+  ? `${category} — články | REALTECH CZ`
+  : `${category} – strana ${page} | REALTECH CZ`;
+---
+<Base title={title} ogTitle={ogTitle} description={popis}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
+  {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
+  {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
+  <section class="articles" style="padding-top: 56px;">
+    <div class="wrap">
+      <div class="lower-third">
+        <span class="tag">{category}</span>
+        <span class="time">{clanky.length} článků</span>
+      </div>
+      <div class="section-head" style="margin-top: 18px;">
+        <h1>{category}</h1>
+        <a href="/clanky/">Všechny články →</a>
+      </div>
+      <p class="cat-lead">{popis}</p>
+      <div class="grid featured-lead">
+        {articles.map((article, index) => (
+          <ArticleCard article={article} priority={index === 0} />
+        ))}
+      </div>
+      {totalPages > 1 && (
+        <nav class="archive-pagination" aria-label={`Stránkování tématu ${category}`}>
+          {page > 1 && <a class="btn-ghost" href={pagePath(page - 1)} rel="prev">← Novější</a>}
+          <span>Strana {page} z {totalPages}</span>
+          {page < totalPages && <a class="btn-ghost" href={pagePath(page + 1)} rel="next">Starší →</a>}
+        </nav>
+      )}
+      {ostatni.length > 0 && (
+        <div class="topics">
+          <span class="mono">// Další témata</span>
+          <div class="cat-filter">
+            {ostatni.map((cat) => (
+              <a class="chip" href={`/temata/${slugify(cat)}/`}>{cat}</a>
+            ))}
+            <a class="chip" href="/temata/">Všechna témata</a>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

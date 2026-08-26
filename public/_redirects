@@ -7,6 +7,11 @@
 /clanky/strana/1 /clanky/ 301
 /clanky/strana/1/ /clanky/ 301
 
+# Stejně u témat: první stránka žije na /temata/{slug}/ a strana/1 se
+# negeneruje (paginace témat začíná na strana/2) — bez redirectu 404.
+/temata/:slug/strana/1 /temata/:slug/ 301
+/temata/:slug/strana/1/ /temata/:slug/ 301
+
 # Feed žije na /rss.xml (rel=alternate v <head>, odkaz v patičce),
 # ale čtečky a lidé konvenčně zkoušejí /feed a /rss — bez redirectu tam byla 404.
 /feed /rss.xml 301

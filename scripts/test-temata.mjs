@@ -10,12 +10,15 @@ import {
 
 register('./test-temata-loader.mjs', import.meta.url);
 
-const [{ default: TemataPage, getStaticPaths }, {
-  getMockState,
-  resetTemataMocks,
-  setCollection,
-}] = await Promise.all([
+const [
+  { default: TemaPage },
+  { getStaticPaths },
+  { getStaticPaths: getStaticPathsStrana },
+  { getMockState, resetTemataMocks, setCollection },
+] = await Promise.all([
+  import('../src/components/TemaPage.astro'),
   import('../src/pages/temata/[slug].astro'),
+  import('../src/pages/temata/[slug]/strana/[page].astro'),
   import('./test-temata-mocks/state.mjs'),
 ]);
 
@@ -34,14 +37,23 @@ function article({
   };
 }
 
-async function evaluatePage(category) {
+function reportSeries(count) {
+  return Array.from({ length: count }, (_, index) => article({
+    id: `report-${String(index + 1).padStart(2, '0')}`,
+    category: 'AI Report',
+    date: new Date(Date.UTC(2026, 0, count - index)),
+    title: `Report ${index + 1}`,
+  }));
+}
+
+async function evaluatePage(category, page = 1) {
   const result = {
     createAstro(_baseAstro, props) {
       return { props, site };
     },
   };
 
-  return TemataPage(result, { category }, {});
+  return TemaPage(result, { category, page }, {});
 }
 
 beforeEach(() => {
@@ -90,6 +102,33 @@ test('getStaticPaths vynechá draft-only kategorii a nevytvoří cestu pro nezn�
   assert.equal(paths.find(({ params }) => params.slug === 'nezname-tema'), undefined);
 });
 
+test('téma do plné stránky (15 článků) nevytvoří žádnou /strana/ cestu', async () => {
+  setCollection([
+    ...reportSeries(15),
+    article({ id: 'dron', category: 'Drony' }),
+  ]);
+
+  const paths = await getStaticPathsStrana();
+
+  assert.deepEqual(paths, []);
+});
+
+test('téma s 37 články vytvoří strany 2 a 3 — nikdy stranu 1', async () => {
+  setCollection([
+    ...reportSeries(37),
+    article({ id: 'dron', category: 'Drony' }),
+    article({ id: 'draft-report', category: 'AI Report', draft: true }),
+  ]);
+
+  const paths = await getStaticPathsStrana();
+
+  assert.deepEqual(paths, [
+    { params: { slug: 'ai-report', page: '2' }, props: { category: 'AI Report', page: 2 } },
+    { params: { slug: 'ai-report', page: '3' }, props: { category: 'AI Report', page: 3 } },
+  ]);
+  assert.equal(paths.find(({ params }) => params.page === '1'), undefined);
+});
+
 test('stránka vybírá přesnou kategorii, vyřadí drafty a řadí sestupně podle data', async () => {
   setCollection([
     article({ id: 'jina-kategorie', category: 'AI Agenti', date: new Date('2026-12-31T00:00:00.000Z') }),
@@ -100,13 +139,14 @@ test('stránka vybírá přesnou kategorii, vyřadí drafty a řadí sestupně p
     article({ id: 'prostredni', category: 'AI Report', date: new Date('2026-01-02T00:00:00.000Z') }),
   ]);
 
-  const { clanky, collectionLd } = await evaluatePage('AI Report');
+  const { clanky, articles, collectionLd } = await evaluatePage('AI Report');
 
   assert.deepEqual(clanky.map(({ id }) => id), [
     'nejnovejsi',
     'prostredni',
     'starsi',
   ]);
+  assert.deepEqual(articles.map(({ id }) => id), clanky.map(({ id }) => id));
   assert.equal(collectionLd.mainEntity.numberOfItems, 3);
   assert.deepEqual(
     collectionLd.mainEntity.itemListElement.map(({ position, name }) => ({ position, name })),
@@ -120,6 +160,41 @@ test('stránka vybírá přesnou kategorii, vyřadí drafty a řadí sestupně p
     getMockState().collectionCalls.map(({ name }) => name),
     ['clanky', 'clanky'],
   );
+});
+
+test('stránkování tématu: strana 2 nese karty 16+, pozice navazují a numberOfItems zůstává za celé téma', async () => {
+  const entries = [
+    ...reportSeries(37),
+    article({ id: 'dron', category: 'Drony' }),
+  ];
+
+  setCollection(entries);
+  const page1 = await evaluatePage('AI Report', 1);
+  setCollection(entries);
+  const page2 = await evaluatePage('AI Report', 2);
+  setCollection(entries);
+  const page3 = await evaluatePage('AI Report', 3);
+
+  assert.equal(page1.totalPages, 3);
+  assert.equal(page1.start, 0);
+  assert.equal(page1.articles.length, 15);
+  assert.equal(page1.collectionLd.url, 'https://realtech.cz/temata/ai-report/');
+
+  assert.equal(page2.start, 15);
+  assert.equal(page2.articles.length, 15);
+  assert.deepEqual(page2.articles.map(({ id }) => id).slice(0, 2), ['report-16', 'report-17']);
+  assert.equal(page2.collectionLd.url, 'https://realtech.cz/temata/ai-report/strana/2/');
+  assert.equal(page2.collectionLd.name, 'AI Report – strana 2');
+  assert.equal(page2.collectionLd.mainEntity.numberOfItems, 37);
+  assert.deepEqual(page2.collectionLd.mainEntity.itemListElement[0], {
+    '@type': 'ListItem',
+    position: 16,
+    url: 'https://realtech.cz/clanky/report-16/',
+    name: 'Report 16',
+  });
+
+  assert.equal(page3.articles.length, 7);
+  assert.equal(page3.collectionLd.mainEntity.itemListElement.at(-1).position, 37);
 });
 
 test('stránka kategorie řadí shodné datum stabilně podle ID bez ohledu na pořadí kolekce', async () => {

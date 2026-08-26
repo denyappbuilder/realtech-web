@@ -8,7 +8,7 @@ const koren = join(dirname(fileURLToPath(import.meta.url)), "..");
 const css = readFileSync(join(koren, "src/styles/global.css"), "utf8");
 const index = readFileSync(join(koren, "src/pages/index.astro"), "utf8");
 const archiv = readFileSync(join(koren, "src/pages/clanky/index.astro"), "utf8");
-const tema = readFileSync(join(koren, "src/pages/temata/[slug].astro"), "utf8");
+const tema = readFileSync(join(koren, "src/components/TemaPage.astro"), "utf8");
 
 test("Z10022: úvodka pořád bere šest posledních reportů", () => {
   assert.match(

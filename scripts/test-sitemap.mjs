@@ -52,6 +52,24 @@ test('lastmod kategorie odpovídá nejpozdějšímu datu jejích článků', asy
   );
 });
 
+test('stránkovaný výpis tématu dostane lastmod svojí kategorie a filtr ho nechá projít', async () => {
+  const options = await loadSitemapOptions([
+    article('starsi', ['date: "2025-02-03"', 'category: "AI Report"']),
+    article('nejnovejsi', ['date: "2025-09-10"', 'category: "AI Report"']),
+    article('jina-kategorie', ['date: "2026-01-01"', 'category: "Hardware"']),
+  ]);
+
+  assert.equal(options.filter('https://realtech.cz/temata/ai-report/strana/2/'), true);
+  assert.equal(
+    serialize(options, 'https://realtech.cz/temata/ai-report/strana/2/').lastmod,
+    '2025-09-10T00:00:00.000Z',
+  );
+  assert.equal(
+    serialize(options, 'https://realtech.cz/temata/ai-report/strana/3/').lastmod,
+    '2025-09-10T00:00:00.000Z',
+  );
+});
+
 test('lastmod kategorie s diakritikou určí updated nejnovějšího článku', async () => {
   const options = await loadSitemapOptions([
     article('starsi-site', ['date: "2025-02-03"', 'category: "Sítě"']),

@@ -214,6 +214,8 @@ test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek
     'src/pages/clanky/index.astro',
     'src/pages/clanky/strana/[page].astro',
     'src/pages/temata/[slug].astro',
+    'src/pages/temata/[slug]/strana/[page].astro',
+    'src/components/TemaPage.astro',
     'src/pages/temata/index.astro',
     'src/layouts/Base.astro',
   ]) {
