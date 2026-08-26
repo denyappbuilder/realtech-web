@@ -1,7 +1,12 @@
 // Živě 24. 8. 2026: pásek „Nejnovější videa" na úvodce posílal
 // i.ytimg.com/vi/{id}/hqdefault.jpg s width=480 height=360 — to je 4:3
 // s černými pruhy, zatímco .vc-thumb má aspect-ratio 16/9 a ořezává.
-// Hero i og:image už dávno berou maxresdefault (1280×720, 16:9) — #299.
+//
+// Oprava na maxresdefault ale přestřelila: tři malé thumby (~350 px)
+// stahovaly živě 26. 8. 2026 dohromady ~490 KB v 1280×720. Správně je
+// sddefault (640×480): má sice 4:3 pruhy 60 px nahoře a dole, ale
+// .vc-thumb s object-fit: cover je ořeže PŘESNĚ — zbyde ostrých 640×360.
+// hqdefault by po stejném ořezu nechal měkkých 480×270, proto dál nesmí.
 //
 // Pásek videí nespouští žádný render test (test-homepage.mjs testuje jen
 // frontmatter), takže šablonu hlídáme jako text — stejný přístup jako
@@ -20,11 +25,16 @@ const karta = readFileSync(
   'utf8',
 );
 
-test('pásek videí na úvodce bere maxresdefault v rozměrech 1280×720', () => {
+test('pásek videí na úvodce bere sddefault v rozměrech 640×480', () => {
   assert.match(
     index,
-    /<img src=\{`https:\/\/i\.ytimg\.com\/vi\/\$\{v\.id\}\/maxresdefault\.jpg`\} alt="" aria-hidden="true" width="1280" height="720"/,
-    'video karta na úvodce musí mít maxresdefault a 16:9 rozměry',
+    /<img src=\{`https:\/\/i\.ytimg\.com\/vi\/\$\{v\.id\}\/sddefault\.jpg`\} alt="" aria-hidden="true" width="640" height="480"/,
+    'video karta na úvodce musí mít sddefault a jeho pravdivé rozměry 640×480',
+  );
+  assert.doesNotMatch(
+    index,
+    /\$\{v\.id\}\/maxresdefault\.jpg/,
+    'malý thumb v pásku nesmí stahovat maxresdefault (1280×720, ~170 KB) — maxres patří jen heru',
   );
 });
 
