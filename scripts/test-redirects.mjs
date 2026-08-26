@@ -50,3 +50,14 @@ test("konvenční RSS URL se trvale přesměrují na /rss.xml", () => {
     assert.equal(rule.status, "301");
   }
 });
+
+// Stránka /kontakt neexistuje (kontakt je mailto v patičce) a lidé ji zkoušejí
+// ručně — kontaktní údaje žijí na /o-nas/, takže tam musí vést 301 místo 404.
+test("/kontakt i varianta s lomítkem se trvale přesměrují na /o-nas/", () => {
+  for (const source of ["/kontakt", "/kontakt/"]) {
+    const rule = rules.get(source);
+    assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
+    assert.equal(rule.destination, "/o-nas/");
+    assert.equal(rule.status, "301");
+  }
+});

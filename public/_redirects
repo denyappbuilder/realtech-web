@@ -15,3 +15,9 @@
 /rss /rss.xml 301
 /rss/ /rss.xml 301
 /atom.xml /rss.xml 301
+
+# Vlastní stránka /kontakt neexistuje (kontakt je mailto v patičce),
+# ale lidé URL pořád zkoušejí ručně — bez redirectu tam byla 404.
+# Kontaktní údaje žijí na /o-nas/.
+/kontakt /o-nas/ 301
+/kontakt/ /o-nas/ 301
