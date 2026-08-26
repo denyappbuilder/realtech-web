@@ -232,6 +232,22 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
 </footer>
 
 <script>
+  import { zkratkaHledani } from '../lib/klavesova-zkratka.js';
+
+  // Markup nese ⌘K; mimo Apple platformy (většina návštěvníků) přepni na
+  // Ctrl+K — handler v SearchModal.astro obě kombinace poslouchá odjakživa.
+  const spoustecHledani = document.querySelector<HTMLButtonElement>('.search-trigger');
+  const kbdHledani = spoustecHledani?.querySelector('.st-kbd');
+  const platforma =
+    (navigator as Navigator & { userAgentData?: { platform?: string } })
+      .userAgentData?.platform ?? navigator.platform;
+  const zkratka = zkratkaHledani(platforma);
+  if (spoustecHledani && kbdHledani && kbdHledani.textContent !== zkratka) {
+    kbdHledani.textContent = zkratka;
+    spoustecHledani.setAttribute('aria-label', `Hledat v článcích (${zkratka})`);
+    spoustecHledani.title = `Hledat (${zkratka})`;
+  }
+
   const toggle = document.getElementById('theme-toggle');
   toggle?.addEventListener('click', () => {
     const root = document.documentElement;
