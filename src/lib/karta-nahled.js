@@ -21,6 +21,7 @@ export function nahledKarty(image, exists = (cesta) => fs.existsSync(cesta)) {
       thumbH: 720,
       thumbWebp: null,
       hasWebp: false,
+      hasLocalThumb: false,
     };
   }
 
@@ -39,5 +40,8 @@ export function nahledKarty(image, exists = (cesta) => fs.existsSync(cesta)) {
     thumbH: pouzilSmall ? 360 : 720,
     thumbWebp,
     hasWebp: Boolean(thumbWebp && exists(`public${thumbWebp}`)),
+    // Rozhoduje, jestli u videa vyhraje lokální cover, nebo YouTube náhled —
+    // frontmatter `image` mířící na neexistující soubor nesmí kartu poslat na 404.
+    hasLocalThumb: exists(`public${localThumb}`),
   };
 }

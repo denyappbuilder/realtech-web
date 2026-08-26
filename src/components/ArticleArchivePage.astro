@@ -30,7 +30,7 @@ const prvni = page === 1 ? articles[0] : undefined;
 const prvniVideoId = youtubeId(prvni?.data.video);
 const prvniNahled = nahledKarty(prvni?.data.image);
 const kartaPreload = prvni
-  ? preloadHeroObrazku(prvniVideoId
+  ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
       ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
       : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined })
   : null;

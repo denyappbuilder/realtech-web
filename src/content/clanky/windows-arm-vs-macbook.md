@@ -5,6 +5,7 @@ category: "Hardware"
 date: "2026-07-20"
 video: "https://youtu.be/RdVGr7tldv4"
 videoLength: "8:54"
+image: "/images/clanky/windows-arm-vs-macbook.jpg"
 audio:
   url: "https://audio.realtech.cz/windows-arm-vs-macbook-v3.mp3?v=e163db229385"
   duration: 143

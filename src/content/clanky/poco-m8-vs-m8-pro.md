@@ -5,6 +5,7 @@ category: "Mobily"
 date: "2026-07-02"
 video: "https://youtu.be/eDkin8oFOwQ"
 videoLength: "7:58"
+image: "/images/clanky/poco-m8-vs-m8-pro.jpg"
 audio:
   url: "https://audio.realtech.cz/poco-m8-vs-m8-pro-v3.mp3?v=35e86b7c9f46"
   duration: 133

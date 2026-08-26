@@ -5,6 +5,7 @@ category: "Hardware"
 date: "2026-07-02"
 video: "https://youtu.be/biYMveTpRWc"
 videoLength: "9:04"
+image: "/images/clanky/dji-vs-insta360.jpg"
 audio:
   url: "https://audio.realtech.cz/dji-vs-insta360-v3.mp3?v=b0338bacc87c"
   duration: 147

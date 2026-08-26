@@ -218,9 +218,15 @@ const jsonLd = {
                   <span class="vc-title"> hned vedle. Prázdný alt smí zůstat
                   jen s aria-hidden — jinak by alt={v.title} zdvojil jméno
                   odkazu („Titulek Titulek").
+
+                  sddefault (640×480), ne maxresdefault: tři malé thumby
+                  (~350 px) stahovaly živě ~490 KB v 1280×720. sddefault má
+                  4:3 pruhy 60 px nahoře a dole, ale .vc-thumb je 16:9
+                  s object-fit: cover — ořez odstraní přesně ty pruhy.
+                  hqdefault ne: po stejném ořezu zbyde měkkých 480×270.
                 */}
                 <span class="vc-thumb">
-                  <img src={`https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`} alt="" aria-hidden="true" width="1280" height="720" loading="lazy" decoding="async" />
+                  <img src={`https://i.ytimg.com/vi/${v.id}/sddefault.jpg`} alt="" aria-hidden="true" width="640" height="480" loading="lazy" decoding="async" />
                   <span class="vc-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
                 </span>
                 <span class="vc-title">{v.title}</span>

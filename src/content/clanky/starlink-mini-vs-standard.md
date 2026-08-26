@@ -6,6 +6,7 @@ evergreen: true
 date: "2026-07-20"
 video: "https://youtu.be/Dp4x80FEW_M"
 videoLength: "6:10"
+image: "/images/clanky/starlink-mini-vs-standard.jpg"
 audio:
   url: "https://audio.realtech.cz/starlink-mini-vs-standard-v3.mp3?v=3b4d7b4c7342"
   duration: 156

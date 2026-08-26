@@ -5,6 +5,7 @@ category: "Hardware"
 date: "2026-07-02"
 video: "https://youtu.be/ytDd3Uj8LKw"
 videoLength: "7:26"
+image: "/images/clanky/nvidia-n1x-notebooky.jpg"
 audio:
   url: "https://audio.realtech.cz/nvidia-n1x-notebooky-v3.mp3?v=2f583971a387"
   duration: 142

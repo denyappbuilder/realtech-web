@@ -122,6 +122,14 @@ test('homepage dává do <head> právě jeden preload hero obrázku', () => {
   );
 });
 
+// Karta u videa preferuje lokální cover (KARTA-VIDEO-001) a YouTube bere
+// jen jako fallback — preload musí volit STEJNOU podmínkou, jinak stáhne
+// jiný soubor, než si <picture> karty vybere, a LCP se stáhne dvakrát.
+const VYBER_PRELOADU_KARTY =
+  /preloadHeroObrazku\(prvniVideoId && !prvniNahled\.hasLocalThumb\s*\?\s*\{ src: `https:\/\/i\.ytimg\.com\/vi\/\$\{prvniVideoId\}\/maxresdefault\.jpg` \}\s*:\s*\{ src: prvniNahled\.localThumb, webp: prvniNahled\.hasWebp \? prvniNahled\.thumbWebp : undefined \}\)/;
+const LINK_PRELOADU_KARTY =
+  /\{kartaPreload && \(\s*<link\s+rel="preload"\s+as="image"\s+href=\{kartaPreload\.href\}\s+type=\{kartaPreload\.type\}\s+fetchpriority="high"\s+slot="head"\s+\/>\s*\)\}/;
+
 test('archiv preloaduje první kartu jen na straně 1 — a ze stejných helperů jako karta', () => {
   const archiv = zdroj('src/components/ArticleArchivePage.astro');
 
@@ -135,12 +143,12 @@ test('archiv preloaduje první kartu jen na straně 1 — a ze stejných helper�
   );
   assert.match(
     archiv,
-    /preloadHeroObrazku\(prvniVideoId\s*\?\s*\{ src: `https:\/\/i\.ytimg\.com\/vi\/\$\{prvniVideoId\}\/maxresdefault\.jpg` \}\s*:\s*\{ src: prvniNahled\.localThumb, webp: prvniNahled\.hasWebp \? prvniNahled\.thumbWebp : undefined \}\)/,
-    'preload musí mířit na tentýž soubor jako <picture> karty (WebP > JPG > ytimg)',
+    VYBER_PRELOADU_KARTY,
+    'preload musí mířit na tentýž soubor jako <picture> karty (WebP > JPG > ytimg fallback)',
   );
   assert.match(
     archiv,
-    /\{kartaPreload && \(\s*<link\s+rel="preload"\s+as="image"\s+href=\{kartaPreload\.href\}\s+type=\{kartaPreload\.type\}\s+fetchpriority="high"\s+slot="head"\s+\/>\s*\)\}/,
+    LINK_PRELOADU_KARTY,
     'archiv musí mít <link rel="preload" as="image"> ve slotu head',
   );
   assert.equal(
@@ -150,7 +158,57 @@ test('archiv preloaduje první kartu jen na straně 1 — a ze stejných helper�
   );
 });
 
-test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek a /clanky/', () => {
+// Živě 26. 8. 2026: /vitej/ i 404 dávaly první kartě priority (eager +
+// fetchpriority=high), ale v <head> neměly žádný <link rel="preload"> —
+// prohlížeč našel LCP obrázek až při parsování <body>. Obě stránky nemají
+// hero, takže preload patří první kartě — stejný výpočet jako archiv.
+test('vitej preloaduje první kartu — ze stejných helperů jako karta', () => {
+  const vitej = zdroj('src/pages/vitej.astro');
+
+  assert.match(vitej, /from '\.\.\/lib\/hero-preload\.js'/);
+  assert.match(vitej, /from '\.\.\/lib\/karta-nahled\.js'/);
+  assert.match(vitej, /from '\.\.\/lib\/youtube\.js'/);
+  assert.match(
+    vitej,
+    VYBER_PRELOADU_KARTY,
+    'preload musí mířit na tentýž soubor jako <picture> karty (WebP > JPG > ytimg fallback)',
+  );
+  assert.match(
+    vitej,
+    LINK_PRELOADU_KARTY,
+    'vitej musí mít <link rel="preload" as="image"> ve slotu head',
+  );
+  assert.equal(
+    (vitej.match(/rel="preload"/g) ?? []).length,
+    1,
+    'na /vitej/ smí být právě jeden preload',
+  );
+});
+
+test('404 preloaduje první kartu — ze stejných helperů jako karta', () => {
+  const notfound = zdroj('src/pages/404.astro');
+
+  assert.match(notfound, /from '\.\.\/lib\/hero-preload\.js'/);
+  assert.match(notfound, /from '\.\.\/lib\/karta-nahled\.js'/);
+  assert.match(notfound, /from '\.\.\/lib\/youtube\.js'/);
+  assert.match(
+    notfound,
+    VYBER_PRELOADU_KARTY,
+    'preload musí mířit na tentýž soubor jako <picture> karty (WebP > JPG > ytimg fallback)',
+  );
+  assert.match(
+    notfound,
+    LINK_PRELOADU_KARTY,
+    '404 musí mít <link rel="preload" as="image"> ve slotu head',
+  );
+  assert.equal(
+    (notfound.match(/rel="preload"/g) ?? []).length,
+    1,
+    'na 404 smí být právě jeden preload',
+  );
+});
+
+test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek, /clanky/, /vitej/ a 404', () => {
   for (const rel of [
     'src/components/ArticleCard.astro',
     'src/pages/clanky/index.astro',

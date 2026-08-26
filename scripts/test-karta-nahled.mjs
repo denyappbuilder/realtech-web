@@ -48,7 +48,24 @@ test('JPG bez varianty 640 px použije původní obrázek a rozměry 1280 × 720
   assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [1280, 720]);
 });
 
-test('platné tvary YouTube URL vyhrají nad obrázkem a použijí video náhled', async () => {
+test('video s existujícím lokálním coverem použije lokální 640 px WebP, ne YouTube', async () => {
+  const thumbnail = await loadThumbnail({
+    video: 'https://youtu.be/AbC12_def-3',
+    image: '/images/clanky/cover.jpg',
+    files: [
+      'public/images/clanky/cover-640.jpg',
+      'public/images/clanky/cover-640.webp',
+    ],
+  });
+
+  assert.equal(thumbnail.videoId, 'AbC12_def-3');
+  assert.equal(thumbnail.thumbUrl, '/images/clanky/cover-640.jpg');
+  assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [640, 360]);
+  assert.equal(thumbnail.thumbWebp, '/images/clanky/cover-640.webp');
+  assert.equal(thumbnail.hasWebp, true);
+});
+
+test('platné tvary YouTube URL jsou fallback, když lokální cover na disku chybí', async () => {
   const videoId = 'AbC12_def-3';
   const urls = [
     `https://youtu.be/${videoId}`,
@@ -58,10 +75,12 @@ test('platné tvary YouTube URL vyhrají nad obrázkem a použijí video náhled
   ];
 
   for (const video of urls) {
+    // Frontmatter `image` sice je, ale soubor v repu není — karta nesmí
+    // poslat <img> na 404, YouTube maxresdefault je záchranná síť.
     const thumbnail = await loadThumbnail({
       video,
       image: '/images/clanky/cover.jpg',
-      files: ['public/images/clanky/cover-640.jpg'],
+      files: [],
     });
 
     assert.equal(thumbnail.videoId, videoId, video);
