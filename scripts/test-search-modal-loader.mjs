@@ -32,6 +32,7 @@ export function klientskySkript(zdroj = fs.readFileSync(KOMPONENTA, 'utf8')) {
 
 function prvek(extra = {}) {
   const posluchaci = new Map();
+  const atributy = new Map();
   return {
     posluchaci,
     addEventListener(typ, fn) {
@@ -39,6 +40,15 @@ function prvek(extra = {}) {
     },
     dispatch(typ, udalost = {}) {
       for (const fn of posluchaci.get(typ) ?? []) fn(udalost);
+    },
+    setAttribute(nazev, hodnota) {
+      atributy.set(nazev, String(hodnota));
+    },
+    removeAttribute(nazev) {
+      atributy.delete(nazev);
+    },
+    getAttribute(nazev) {
+      return atributy.has(nazev) ? atributy.get(nazev) : null;
     },
     ...extra,
   };
