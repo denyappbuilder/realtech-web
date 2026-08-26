@@ -5,6 +5,9 @@ category: "Vesmír"
 date: "2026-08-25"
 zprava: true
 image: "/images/clanky/spacex-starbase-louisiana.jpg"
+audio:
+  url: "https://audio.realtech.cz/spacex-starbase-louisiana-nlm.mp3?v=cd90d536894d"
+  duration: 1456
 ---
 
 SpaceX a stát Louisiana 25. srpna oznámily čtvrtou a největší startovací základnu firmy. Jmenuje se Starbase Louisiana. Má stát v Vermilion Parish na Pecan Island, na bývalém pozemku Exxonu. Podle Louisiana Economic Development do ní SpaceX vloží 100 miliard dolarů. Za jaké období a na co přesně tisková zpráva neříká. SpaceNews to samé zdůrazňuje.
