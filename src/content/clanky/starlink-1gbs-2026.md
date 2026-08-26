@@ -5,6 +5,7 @@ category: "Vesmír"
 date: "2026-07-21"
 video: "https://youtu.be/BvVMyDzjY7o"
 videoLength: "8:31"
+image: "/images/clanky/starlink-1gbs-2026.jpg"
 audio:
   url: "https://audio.realtech.cz/starlink-1gbs-2026-v3.mp3?v=8a1789341e59"
   duration: 137

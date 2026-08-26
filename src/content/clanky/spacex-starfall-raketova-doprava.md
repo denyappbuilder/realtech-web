@@ -5,6 +5,7 @@ category: "Vesmír"
 date: "2026-07-03"
 video: "https://youtu.be/dyU7RAa5l0Y"
 videoLength: "6:51"
+image: "/images/clanky/spacex-starfall-raketova-doprava.jpg"
 audio:
   url: "https://audio.realtech.cz/spacex-starfall-raketova-doprava-v3.mp3?v=a8df44ab876f"
   duration: 126

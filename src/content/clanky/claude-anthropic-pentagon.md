@@ -5,6 +5,7 @@ category: "AI Report"
 date: "2026-07-02"
 video: "https://youtu.be/jK3K1a9Z3AA"
 videoLength: "12:50"
+image: "/images/clanky/claude-anthropic-pentagon.jpg"
 audio:
   url: "https://audio.realtech.cz/claude-anthropic-pentagon-v3.mp3?v=ad2948bf1387"
   duration: 138

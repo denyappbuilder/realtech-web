@@ -5,6 +5,7 @@ category: "Sítě"
 date: "2026-07-21"
 video: "https://youtu.be/uwcxvbt8zyQ"
 videoLength: "8:29"
+image: "/images/clanky/starlink-mini-test.jpg"
 audio:
   url: "https://audio.realtech.cz/starlink-mini-test-v3.mp3?v=e996dcb0df67"
   duration: 146

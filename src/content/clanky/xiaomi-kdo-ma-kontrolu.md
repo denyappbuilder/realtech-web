@@ -5,6 +5,7 @@ category: "Mobily"
 date: "2026-07-02"
 video: "https://youtu.be/Kr8Ch6MYhCw"
 videoLength: "9:17"
+image: "/images/clanky/xiaomi-kdo-ma-kontrolu.jpg"
 audio:
   url: "https://audio.realtech.cz/xiaomi-kdo-ma-kontrolu-v3.mp3?v=80219c32b512"
   duration: 139

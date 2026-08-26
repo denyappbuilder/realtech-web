@@ -6,6 +6,7 @@ evergreen: true
 date: "2026-07-02"
 video: "https://youtu.be/YSiw-bae1wU"
 videoLength: "14:40"
+image: "/images/clanky/starlink-konkurenti.jpg"
 audio:
   url: "https://audio.realtech.cz/starlink-konkurenti-v3.mp3?v=01a480eb184b"
   duration: 126
