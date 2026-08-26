@@ -189,29 +189,35 @@ test('náhled videa na kartě není hqdefault 4:3, ale 16:9 jako hero (#299)', (
 });
 
 // ---------------------------------------------------------------------------
-// 🔴 KARTA-VIDEO-001 — nález, v tomhle PR se NEOPRAVUJE
+// KARTA-VIDEO-001 — opraveno: lokální cover vyhrává i u videa
 // ---------------------------------------------------------------------------
 
-test.todo(
-  'KARTA-VIDEO-001: u videa s coverem přebije lokální WebP náhled z YouTube',
-  () => {
-    const karta = vykresliKartu(clanek({ video: VIDEO, image: COVER }));
+// Živě 26. 8. 2026: karta „Starlink v Česku 2026" na úvodce stahovala
+// 168 KB YouTube JPEG, i když /images/clanky/starlink-v-cesku-pruvodce-640.webp
+// (25 KB) v repu byl a vracel 200. YouTube maxresdefault je jen fallback,
+// když soubor lokálního coveru neexistuje.
+test('KARTA-VIDEO-001: u videa s existujícím coverem vyhraje lokální 640×360 WebP', () => {
+  const karta = vykresliKartu(clanek({ video: VIDEO, image: COVER }));
 
-    assert.equal(karta.thumbUrl, 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');
-    assert.equal(karta.thumbW, 1280);
-    assert.equal(karta.thumbH, 720);
+  assert.equal(karta.thumbUrl, '/images/clanky/claude-vodoznak-ai-text-640.jpg');
+  assert.equal(karta.thumbWebp, '/images/clanky/claude-vodoznak-ai-text-640.webp');
+  assert.equal(karta.hasWebp, true);
+  assert.equal(karta.thumbW, 640);
+  assert.equal(karta.thumbH, 360);
+});
 
-    // `hasWebp` se počítá z lokálního coveru, ale `thumbUrl` už ukazuje na
-    // YouTube. Šablona pak vydá <source> na lokální 640×360 WebP vedle
-    // <img src=YouTube width=1280 height=720>: prohlížeč s WebP zobrazí lokální
-    // obrázek, ne náhled videa, a natlačí ho do rozměrů toho druhého.
-    assert.equal(
-      karta.hasWebp,
-      false,
-      'k náhledu z YouTube se nesmí nabídnout <source> na lokální WebP',
-    );
-  },
-);
+test('video s coverem, jehož soubor v repu chybí, padá na YouTube — ne na 404', () => {
+  const karta = vykresliKartu(clanek({ video: VIDEO, image: COVER_BEZ_DERIVATU }));
+
+  assert.equal(karta.thumbUrl, 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg');
+  assert.equal(karta.thumbW, 1280);
+  assert.equal(karta.thumbH, 720);
+  assert.equal(
+    karta.hasWebp,
+    false,
+    'k náhledu z YouTube se nesmí nabídnout <source> na lokální WebP',
+  );
+});
 
 // ---------------------------------------------------------------------------
 // 🔴 KARTA-DATUM-001 — nález, v tomhle PR se NEOPRAVUJE

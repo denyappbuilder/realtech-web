@@ -28,12 +28,12 @@ test("Z10093: hasWebp z coveru nesmí jít rovnou do <source> u videa", () => {
 
 test("Z10093: po volbě YouTube náhledu se WebP vynuluje", () => {
   const vynulujeWebp =
-    /thumbWebp\s*=\s*videoId\s*\?\s*null/.test(karta) ||
-    /hasWebp\s*=\s*videoId\s*\?\s*false/.test(karta) ||
-    /hasWebp\s*=\s*!videoId/.test(karta);
+    /thumbWebp\s*=\s*useYtThumb\s*\?\s*null/.test(karta) ||
+    /hasWebp\s*=\s*useYtThumb\s*\?\s*false/.test(karta) ||
+    /hasWebp\s*=\s*!useYtThumb/.test(karta);
   assert.ok(
     vynulujeWebp,
-    "chybí `thumbWebp = videoId ? null` / `hasWebp = videoId ? false` po volbě náhledu",
+    "chybí `thumbWebp = useYtThumb ? null` / `hasWebp = useYtThumb ? false` po volbě náhledu",
   );
 });
 
@@ -43,8 +43,14 @@ test("Z10093: karta dál bere nahledKarty(image) a pouští <source> jen při ha
     karta,
     /\{hasWebp && <source srcset=\{thumbWebp\} type="image\/webp" \/>\}/,
   );
+  // YouTube je až fallback — lokální cover (existující soubor) má přednost
+  // i u videa, viz KARTA-VIDEO-001 v test-karta-render.mjs.
   assert.match(
     karta,
-    /thumbUrl = videoId \? `https:\/\/i\.ytimg\.com\/vi\/\$\{videoId\}\/maxresdefault\.jpg` : localThumb/,
+    /const useYtThumb = Boolean\(videoId\) && !hasLocalThumb/,
+  );
+  assert.match(
+    karta,
+    /thumbUrl = useYtThumb \? `https:\/\/i\.ytimg\.com\/vi\/\$\{videoId\}\/maxresdefault\.jpg` : localThumb/,
   );
 });

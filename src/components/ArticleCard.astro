@@ -24,16 +24,20 @@ const dateStr = formatCalendarDateCs(date);
 const videoId = youtubeId(video);
 
 // Karta renderuje ~400 px — 640px a WebP jen u JPG (Z1071).
-// WebP se počítá z lokálního coveru. U videa ale thumbUrl míří na YouTube
-// a <source> by v <picture> přebil YouTube náhled (Z10093).
-// YouTube náhled je maxresdefault (1280×720, 16:9) — stejný fallback jako
-// hero článku (#299). hqdefault je 480×360 s černými pruhy (4:3) a karta
-// s aspect-ratio 16/9 by z něj ořezávala.
-const { localThumb, thumbW: localW, thumbH: localH, thumbWebp: localWebp, hasWebp: localHasWebp } = nahledKarty(image);
-const thumbUrl = videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : localThumb;
-const [thumbW, thumbH] = videoId ? [1280, 720] : [localW, localH];
-const thumbWebp = videoId ? null : localWebp;
-const hasWebp = videoId ? false : localHasWebp;
+// Lokální cover má přednost i u videa: 640px WebP má ~25 KB, YouTube
+// maxresdefault ~170 KB (živě 26. 8. 2026 karta „Starlink v Česku 2026"
+// stahovala YT JPEG, i když lokální WebP v repu byl). YouTube náhled je
+// jen fallback, když soubor v repu chybí — a to maxresdefault (1280×720,
+// 16:9), stejně jako hero článku (#299). hqdefault je 480×360 s černými
+// pruhy (4:3) a karta s aspect-ratio 16/9 by z něj ořezávala.
+// Když se použije YouTube, WebP z lokálního coveru se vynuluje — <source>
+// by v <picture> přebil YouTube náhled (Z10093).
+const { localThumb, thumbW: localW, thumbH: localH, thumbWebp: localWebp, hasWebp: localHasWebp, hasLocalThumb } = nahledKarty(image);
+const useYtThumb = Boolean(videoId) && !hasLocalThumb;
+const thumbUrl = useYtThumb ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : localThumb;
+const [thumbW, thumbH] = useYtThumb ? [1280, 720] : [localW, localH];
+const thumbWebp = useYtThumb ? null : localWebp;
+const hasWebp = useYtThumb ? false : localHasWebp;
 const loading = priority ? 'eager' : 'lazy';
 const fetchpriority = priority ? 'high' : undefined;
 ---
