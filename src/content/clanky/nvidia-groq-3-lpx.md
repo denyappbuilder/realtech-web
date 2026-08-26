@@ -5,6 +5,9 @@ category: "Hardware"
 date: "2026-08-24"
 zprava: true
 image: "/images/clanky/nvidia-groq-3-lpx.jpg"
+audio:
+  url: "https://audio.realtech.cz/nvidia-groq-3-lpx-nlm.mp3?v=348b28544e60"
+  duration: 1700
 ---
 
 Nvidia 24. srpna na konferenci Hot Chips oznámila, že akcelerátor Groq 3 LPX je v plné výrobě. Oficiálně ho označuje za stroj na interaktivní AI inferenci. Má rozšířit platformu Vera Rubin a zrychlit tu část běhu, která agentům generuje tokeny.
