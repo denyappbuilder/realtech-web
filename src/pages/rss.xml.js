@@ -15,6 +15,9 @@ export async function GET(context) {
     title: 'REALTECH CZ',
     description: 'Tech novinky a analýzy bez marketingových řečí.',
     site: context.site,
+    // atom:link rel=self — RSS best practice (validátor bez něj warnuje),
+    // čtečky podle něj poznají kanonickou adresu feedu.
+    xmlns: { atom: 'http://www.w3.org/2005/Atom' },
     items: clanky.map((c) => {
       const hasParentSegment = c.data.image?.split(/[\\/]/).includes('..');
       const mime = c.data.image ? mimeTypeProEnclosure(c.data.image) : undefined;
@@ -57,6 +60,12 @@ export async function GET(context) {
         content: html,
       };
     }),
-    customData: '<language>cs</language>',
+    customData: [
+      '<language>cs</language>',
+      `<atom:link href="${new URL('/rss.xml', context.site).href}" rel="self" type="application/rss+xml"/>`,
+      // Čas buildu stačí — feed se mění jen publikací, a ta jde přes build.
+      // toUTCString() je validní RFC-822 formát, který RSS 2.0 vyžaduje.
+      `<lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
+    ].join(''),
   });
 }

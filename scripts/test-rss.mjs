@@ -125,7 +125,15 @@ test("GET mapuje metadata, kategorie a odkazy a absolutizuje kořenové href a s
   assert.equal(options.title, "REALTECH CZ");
   assert.equal(options.description, "Tech novinky a analýzy bez marketingových řečí.");
   assert.strictEqual(options.site, site);
-  assert.equal(options.customData, "<language>cs</language>");
+  assert.deepEqual(options.xmlns, { atom: "http://www.w3.org/2005/Atom" });
+  assert.match(options.customData, /^<language>cs<\/language>/);
+  assert.ok(options.customData.includes(
+    '<atom:link href="https://realtech.cz/rss.xml" rel="self" type="application/rss+xml"/>',
+  ));
+  // lastBuildDate musí být validní RFC-822 datum — toUTCString je round-trip.
+  const lastBuildDate = options.customData.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)?.[1];
+  assert.ok(lastBuildDate, "customData musí obsahovat <lastBuildDate>");
+  assert.equal(new Date(lastBuildDate).toUTCString(), lastBuildDate);
   assert.equal(options.items.length, 1);
 
   const [item] = options.items;

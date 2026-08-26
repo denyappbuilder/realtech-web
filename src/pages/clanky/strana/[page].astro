@@ -1,11 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import ArticleArchivePage from '../../../components/ArticleArchivePage.astro';
+import { ARTICLES_PER_PAGE } from '../../../lib/pagination.js';
 
 export async function getStaticPaths() {
-  const articlesPerPage = 15;
   const articles = await getCollection('clanky', ({ data }) => !data.draft);
-  const totalPages = Math.ceil(articles.length / articlesPerPage);
+  const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE);
 
   return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({
     params: { page: String(index + 2) },

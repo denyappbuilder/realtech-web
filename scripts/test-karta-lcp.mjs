@@ -15,7 +15,7 @@ function zdroj(rel) {
 
 const karta = zdroj('src/components/ArticleCard.astro');
 const archiv = zdroj('src/components/ArticleArchivePage.astro');
-const temata = zdroj('src/pages/temata/[slug].astro');
+const temata = zdroj('src/components/TemaPage.astro');
 const uvodka = zdroj('src/pages/index.astro');
 const vitej = zdroj('src/pages/vitej.astro');
 const notfound = zdroj('src/pages/404.astro');
@@ -45,10 +45,10 @@ test('archiv dá priority první kartě na každé straně', () => {
   );
 });
 
-test('téma dá priority první kartě — featured-lead je LCP', () => {
+test('téma dá priority první kartě na každé straně — featured-lead je LCP', () => {
   assert.match(
     temata,
-    /clanky\.map\(\(article, index\) => \(\s*<ArticleCard article=\{article\} priority=\{index === 0\} \/>/,
+    /articles\.map\(\(article, index\) => \(\s*<ArticleCard article=\{article\} priority=\{index === 0\} \/>/,
   );
 });
 

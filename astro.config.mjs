@@ -71,7 +71,9 @@ export default defineConfig({
       filter: (page) => new URL(page).pathname !== '/vitej/',
       serialize: (item) => {
         const slug = item.url.match(/\/clanky\/(.+)\/$/)?.[1];
-        const category = item.url.match(/\/temata\/([^/]+)\/$/)?.[1];
+        // I stránkované výpisy tématu (/temata/{slug}/strana/2/) se mění
+        // spolu s články svého tématu — lastmod dostanou stejný.
+        const category = item.url.match(/\/temata\/([^/]+)\/(?:strana\/\d+\/)?$/)?.[1];
         if (slug && invalidLastmodSlugs.has(slug)) {
           return item;
         } else if (slug && lastmods[slug]) {

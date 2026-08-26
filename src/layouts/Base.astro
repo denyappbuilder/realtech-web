@@ -68,8 +68,11 @@ const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
  * (změřeno: 66 odkazů na homepage, z toho 0 na realtvorbu) — přitom je to při
  * software-first strategii hlavní trychtýř a waitlist za 11 dní posbíral
  * 1 zápis. Web se 45 články o produktu nemluvil vůbec.
+ *
+ * Pravidlo majitele (2026-08-23/24): odkaz na produkt z realtech.cz vede
+ * rovnou na signup, ne na ceník/landing realtvorba.cz.
  */
-const RTV = 'https://realtvorba.cz/';
+const RTV = 'https://app.realtvorba.cz/signup';
 const path = Astro.url.pathname;
 const current = (href: string) =>
   (href === '/' ? path === '/' : path === href || path.startsWith(href)) ? 'page' : undefined;

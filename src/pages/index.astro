@@ -26,13 +26,20 @@ const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
 const heroOverlay = hero ? textNaHeroObrazku(hero.data) : '';
 
 const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
-const heroThumb = heroVideoId ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg` : hero?.data.image;
+// Lokální cover má přednost i u video článku — YouTube maxresdefault
+// (~170 KB JPEG) je jen fallback, když cover v public/ opravdu není.
+// Stejná volba jako karta (nahledKarty.hasLocalThumb) a facade článku;
+// dřív video hero vždy táhlo YT JPEG a lokální -640.webp ležel ladem.
+const heroMaLokalniCover = Boolean(hero?.data.image && fs.existsSync(`public${hero.data.image}`));
+const heroThumb = heroVideoId && !heroMaLokalniCover
+  ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg`
+  : hero?.data.image;
 // Na mobilu stačí 640px varianta — LCP
-const heroSmall = !heroVideoId && hero?.data.image ? hero.data.image.replace(/\.jpg$/, '-640.jpg') : null;
+const heroSmall = heroMaLokalniCover ? hero.data.image.replace(/\.jpg$/, '-640.jpg') : null;
 const heroSrcset = heroSmall && fs.existsSync(`public${heroSmall}`)
   ? `${heroSmall} 640w, ${heroThumb} 1280w`
   : undefined;
-const heroWebp = !heroVideoId && hero?.data.image ? hero.data.image.replace(/\.jpg$/, '.webp') : null;
+const heroWebp = heroMaLokalniCover ? hero.data.image.replace(/\.jpg$/, '.webp') : null;
 const heroWebpSmall = heroWebp?.replace(/\.webp$/, '-640.webp');
 const heroWebpSrcset = heroWebp && fs.existsSync(`public${heroWebp}`) && fs.existsSync(`public${heroWebpSmall}`)
   ? `${heroWebpSmall} 640w, ${heroWebp} 1280w`

@@ -7,6 +7,7 @@ import {
   getHomepageMockState,
   resetHomepageMocks,
   setCollection,
+  setExistingFiles,
 } from './test-homepage-mocks/state.mjs';
 
 const FIXED_NOW = new Date('2026-01-20T12:00:00.000Z');
@@ -19,6 +20,8 @@ function article({
   draft = false,
   evergreen = false,
   featured = false,
+  image,
+  video,
 }) {
   return {
     id,
@@ -30,6 +33,8 @@ function article({
       draft,
       evergreen,
       featured,
+      image,
+      video,
     },
   };
 }
@@ -150,6 +155,109 @@ test('featured starší než čtrnáct dní nepřebije nejnovější článek v 
   assert.equal(result.hero.id, 'nejnovejsi');
   assert.deepEqual(result.rail.map(({ id }) => id), ['dalsi', 'stary-featured']);
   assert.deepEqual(result.rest.map(({ id }) => id), []);
+});
+
+// ---------------------------------------------------------------------------
+// Hero obrázek — video článek s lokálním coverem nesmí tahat YT maxresdefault
+// (~170 KB JPEG), když v public/ leží -640.webp z #335. YT jen jako fallback.
+// ---------------------------------------------------------------------------
+
+test('video hero s lokálním coverem používá lokální <picture> cestu, ne YT maxres', async (t) => {
+  setExistingFiles([
+    'public/images/clanky/video-hero.jpg',
+    'public/images/clanky/video-hero-640.jpg',
+    'public/images/clanky/video-hero.webp',
+    'public/images/clanky/video-hero-640.webp',
+  ]);
+  const result = await executeHomepage(
+    t,
+    [article({
+      id: 'video-hero',
+      date: '2026-01-19T00:00:00Z',
+      category: 'AI Report',
+      image: '/images/clanky/video-hero.jpg',
+      video: 'https://youtu.be/BvVMyDzjY7o',
+    })],
+    async () => rssResponse('<feed></feed>'),
+  );
+
+  assert.equal(result.heroVideoId, 'BvVMyDzjY7o');
+  assert.equal(result.heroThumb, '/images/clanky/video-hero.jpg');
+  assert.equal(
+    result.heroSrcset,
+    '/images/clanky/video-hero-640.jpg 640w, /images/clanky/video-hero.jpg 1280w',
+  );
+  assert.equal(
+    result.heroWebpSrcset,
+    '/images/clanky/video-hero-640.webp 640w, /images/clanky/video-hero.webp 1280w',
+  );
+  // Preload musí mířit na tentýž WebP, který si <picture> vybere.
+  assert.equal(result.heroPreload.href, '/images/clanky/video-hero.webp');
+  assert.equal(result.heroPreload.type, 'image/webp');
+});
+
+test('video hero bez lokálního coveru padá na YT maxresdefault', async (t) => {
+  const result = await executeHomepage(
+    t,
+    [article({
+      id: 'video-bez-coveru',
+      date: '2026-01-19T00:00:00Z',
+      category: 'AI Report',
+      video: 'https://youtu.be/BvVMyDzjY7o',
+    })],
+    async () => rssResponse('<feed></feed>'),
+  );
+
+  assert.equal(result.heroThumb, 'https://i.ytimg.com/vi/BvVMyDzjY7o/maxresdefault.jpg');
+  assert.equal(result.heroSrcset, undefined);
+  assert.equal(result.heroWebpSrcset, undefined);
+  assert.equal(result.heroPreload.href, 'https://i.ytimg.com/vi/BvVMyDzjY7o/maxresdefault.jpg');
+});
+
+test('frontmatter cover mimo disk nesmí video hero poslat na 404 — vyhraje YT maxresdefault', async (t) => {
+  const result = await executeHomepage(
+    t,
+    [article({
+      id: 'cover-mimo-disk',
+      date: '2026-01-19T00:00:00Z',
+      category: 'AI Report',
+      image: '/images/clanky/neexistuje.jpg',
+      video: 'https://youtu.be/BvVMyDzjY7o',
+    })],
+    async () => rssResponse('<feed></feed>'),
+  );
+
+  assert.equal(result.heroThumb, 'https://i.ytimg.com/vi/BvVMyDzjY7o/maxresdefault.jpg');
+  assert.equal(result.heroSrcset, undefined);
+  assert.equal(result.heroWebpSrcset, undefined);
+});
+
+test('hero bez videa se chová jako dřív — lokální obrázek a WebP jen s oběma variantami', async (t) => {
+  setExistingFiles([
+    'public/images/clanky/clanek-hero.jpg',
+    'public/images/clanky/clanek-hero-640.jpg',
+    'public/images/clanky/clanek-hero.webp',
+  ]);
+  const result = await executeHomepage(
+    t,
+    [article({
+      id: 'clanek-hero',
+      date: '2026-01-19T00:00:00Z',
+      category: 'Hardware',
+      image: '/images/clanky/clanek-hero.jpg',
+    })],
+    async () => rssResponse('<feed></feed>'),
+  );
+
+  assert.equal(result.heroVideoId, undefined);
+  assert.equal(result.heroThumb, '/images/clanky/clanek-hero.jpg');
+  assert.equal(
+    result.heroSrcset,
+    '/images/clanky/clanek-hero-640.jpg 640w, /images/clanky/clanek-hero.jpg 1280w',
+  );
+  // Bez -640.webp se WebP <source> nevyrenderuje — preload jde na JPG.
+  assert.equal(result.heroWebpSrcset, undefined);
+  assert.equal(result.heroPreload.href, '/images/clanky/clanek-hero.jpg');
 });
 
 test('použitelný YouTube RSS odfiltruje Shorts, omezí videa a dekóduje XML entity', async (t) => {

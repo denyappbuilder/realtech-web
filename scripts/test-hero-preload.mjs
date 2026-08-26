@@ -185,6 +185,38 @@ test('vitej preloaduje první kartu — ze stejných helperů jako karta', () =>
   );
 });
 
+// Živě 26. 8. 2026: /temata/{slug}/ dával první kartě priority (eager +
+// fetchpriority=high), ale v <head> neměl žádný <link rel="preload"> —
+// stejný dluh, jaký měly /vitej/ a 404. Preload jen na straně 1, strana 2+
+// nemá eager LCP nad foldem jistou a preload by soupeřil o pásmo.
+test('téma preloaduje první kartu jen na straně 1 — ze stejných helperů jako karta', () => {
+  const tema = zdroj('src/components/TemaPage.astro');
+
+  assert.match(tema, /from '\.\.\/lib\/hero-preload\.js'/);
+  assert.match(tema, /from '\.\.\/lib\/karta-nahled\.js'/);
+  assert.match(tema, /from '\.\.\/lib\/youtube\.js'/);
+  assert.match(
+    tema,
+    /const prvni = page === 1 \? articles\[0\] : undefined;/,
+    '/temata/{slug}/strana/2+ nesmí mít preload',
+  );
+  assert.match(
+    tema,
+    VYBER_PRELOADU_KARTY,
+    'preload musí mířit na tentýž soubor jako <picture> karty (WebP > JPG > ytimg fallback)',
+  );
+  assert.match(
+    tema,
+    LINK_PRELOADU_KARTY,
+    'téma musí mít <link rel="preload" as="image"> ve slotu head',
+  );
+  assert.equal(
+    (tema.match(/rel="preload"/g) ?? []).length,
+    1,
+    'na stránce tématu smí být právě jeden preload',
+  );
+});
+
 test('404 preloaduje první kartu — ze stejných helperů jako karta', () => {
   const notfound = zdroj('src/pages/404.astro');
 
@@ -208,12 +240,13 @@ test('404 preloaduje první kartu — ze stejných helperů jako karta', () => {
   );
 });
 
-test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek, /clanky/, /vitej/ a 404', () => {
+test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek, /clanky/, /temata/{slug}/, /vitej/ a 404', () => {
   for (const rel of [
     'src/components/ArticleCard.astro',
     'src/pages/clanky/index.astro',
     'src/pages/clanky/strana/[page].astro',
     'src/pages/temata/[slug].astro',
+    'src/pages/temata/[slug]/strana/[page].astro',
     'src/pages/temata/index.astro',
     'src/layouts/Base.astro',
   ]) {

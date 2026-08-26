@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import TemaPage from '../../../../components/TemaPage.astro';
+import { ARTICLES_PER_PAGE } from '../../../../lib/pagination.js';
+import { slugify } from '../../../../lib/slugify.js';
+
+export async function getStaticPaths() {
+  const all = await getCollection('clanky', ({ data }) => !data.draft);
+  const categories = [...new Set(all.map((c) => c.data.category))];
+
+  // Strana 1 žije na /temata/{slug}/ — tady vznikají jen strany 2+
+  // (stejně jako /clanky/strana/[page]). /temata/{slug}/strana/1 řeší
+  // 301 v public/_redirects.
+  return categories.flatMap((category) => {
+    const pocet = all.filter((c) => c.data.category === category).length;
+    const totalPages = Math.ceil(pocet / ARTICLES_PER_PAGE);
+    return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({
+      params: { slug: slugify(category), page: String(index + 2) },
+      props: { category, page: index + 2 },
+    }));
+  });
+}
+
+interface Props {
+  category: string;
+  page: number;
+}
+
+const { category, page } = Astro.props;
+---
+<TemaPage category={category} page={page} />

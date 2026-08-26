@@ -8,6 +8,7 @@
 // Část testů jde přes SKUTEČNÝ generátor indexu (src/pages/search-index.json.js),
 // protože obě strany si tentýž text vykládají jinak — viz WEB-SEARCH-002 / Z10026.
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test, { beforeEach } from 'node:test';
 
 import { nactiModal } from './test-search-modal-loader.mjs';
@@ -264,6 +265,75 @@ test('vykreslený výsledek odkazuje na /clanky/<slug>/ a značí aktivní polo�
   const odkazy = [...modal.results.innerHTML.matchAll(/<a class="([^"]+)" href="([^"]+)"/g)];
   assert.deepEqual(odkazy.map((m) => m[2]), ['/clanky/prvni/', '/clanky/druhy/']);
   assert.deepEqual(odkazy.map((m) => m[1]), ['search-item', 'search-item active']);
+});
+
+// ---------------------------------------------------------------------------
+// Combobox — živě 26. 8. 2026 měl modal listbox s option, ale input byl jen
+// type=search: bez role=combobox, aria-expanded, aria-controls a
+// aria-activedescendant čtečka nehlásila ani rozbalení, ani pohyb šipkami.
+// ---------------------------------------------------------------------------
+
+test('input je combobox svázaný s listboxem výsledků', () => {
+  const zdroj = readFileSync(new URL('../src/components/SearchModal.astro', import.meta.url), 'utf8');
+  const inputTag = zdroj.match(/<input[\s\S]*?\/>/)?.[0] ?? '';
+
+  assert.match(inputTag, /role="combobox"/);
+  assert.match(inputTag, /aria-expanded="false"/, 'výchozí stav je sbalený — rozbaluje ho až render()');
+  assert.match(inputTag, /aria-autocomplete="list"/);
+  assert.match(inputTag, /aria-controls="search-results"/, 'aria-controls musí mířit na id listboxu');
+  assert.match(zdroj, /<div class="search-results" id="search-results" role="listbox"/);
+});
+
+test('výsledky rozbalí combobox a option nesou id + aria-selected', () => {
+  const modal = nactiModal({ hledatelne: [] });
+  const vysledky = [
+    polozka({ s: 'prvni', t: 'První' }),
+    polozka({ s: 'druhy', t: 'Druhý' }),
+  ];
+
+  modal.nastavActive(1);
+  modal.render(vysledky, 'q');
+
+  assert.equal(modal.input.getAttribute('aria-expanded'), 'true');
+  assert.equal(modal.input.getAttribute('aria-activedescendant'), 'search-item-1');
+  const option = [...modal.results.innerHTML.matchAll(/role="option" id="([^"]+)" aria-selected="([^"]+)"/g)];
+  assert.deepEqual(option.map((m) => [m[1], m[2]]), [
+    ['search-item-0', 'false'],
+    ['search-item-1', 'true'],
+  ]);
+});
+
+test('nápověda i prázdný výsledek combobox sbalí a aktivní potomek zmizí', () => {
+  const modal = nactiModal({ hledatelne: [] });
+  modal.render([polozka({ s: 'a', t: 'Titulek' })], 'q');
+  assert.equal(modal.input.getAttribute('aria-expanded'), 'true');
+
+  modal.render([], 'nesmysl');
+  assert.equal(modal.input.getAttribute('aria-expanded'), 'false');
+  assert.equal(modal.input.getAttribute('aria-activedescendant'), null);
+
+  modal.render([polozka({ s: 'a', t: 'Titulek' })], 'q');
+  modal.render([], '');
+  assert.equal(modal.input.getAttribute('aria-expanded'), 'false');
+  assert.equal(modal.input.getAttribute('aria-activedescendant'), null);
+});
+
+test('šipka dolů posune aria-activedescendant na další položku', () => {
+  const modal = nactiModal({ hledatelne: [] });
+  modal.spoustec.dispatch('click', kliknuti(modal.spoustec));
+  const vysledky = [
+    polozka({ s: 'prvni', t: 'První' }),
+    polozka({ s: 'druhy', t: 'Druhý' }),
+  ];
+  modal.input.value = 'q';
+  modal.nastavCurrent(vysledky);
+  modal.render(vysledky, 'q');
+  assert.equal(modal.input.getAttribute('aria-activedescendant'), 'search-item-0');
+
+  modal.dokument.dispatch('keydown', klavesa('ArrowDown'));
+
+  assert.equal(modal.input.getAttribute('aria-activedescendant'), 'search-item-1');
+  assert.equal(modal.input.getAttribute('aria-expanded'), 'true');
 });
 
 test('datum se ve výsledku otáčí z ISO na český pořádek', () => {
