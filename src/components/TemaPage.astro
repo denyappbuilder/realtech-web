@@ -2,6 +2,9 @@
 import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 import { ARTICLES_PER_PAGE } from '../lib/pagination.js';
+import { nahledKarty } from '../lib/karta-nahled.js';
+import { youtubeId } from '../lib/youtube.js';
+import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { seoTitulek } from '../lib/seo-titulek.js';
 import Base from '../layouts/Base.astro';
 import ArticleCard from './ArticleCard.astro';
@@ -29,6 +32,20 @@ const articles = clanky.slice(start, start + ARTICLES_PER_PAGE);
 
 const all = await getCollection('clanky', ({ data }) => !data.draft);
 const ostatni = [...new Set(all.map((c) => c.data.category))].filter((c) => c !== category);
+
+// LCP na /temata/{slug}/ je náhled první karty (eager + fetchpriority=high,
+// viz ArticleCard prop `priority`). Preload v <head> počítá ze STEJNÝCH
+// helperů jako karta (nahledKarty + youtubeId) — stejně jako archiv.
+// Živě 26. 8. 2026: první karta byla eager, ale <head> neměl žádný preload.
+// Strana 2+ preload nedostane (stejná volba jako /clanky/strana/2+).
+const prvni = page === 1 ? articles[0] : undefined;
+const prvniVideoId = youtubeId(prvni?.data.video);
+const prvniNahled = nahledKarty(prvni?.data.image);
+const kartaPreload = prvni
+  ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
+      ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined })
+  : null;
 
 const slug = slugify(category);
 const pagePath = (pageNumber: number) =>
@@ -74,6 +91,16 @@ const ogTitle = page === 1
   : `${category} – strana ${page} | REALTECH CZ`;
 ---
 <Base title={title} ogTitle={ogTitle} description={popis}>
+  {kartaPreload && (
+    <link
+      rel="preload"
+      as="image"
+      href={kartaPreload.href}
+      type={kartaPreload.type}
+      fetchpriority="high"
+      slot="head"
+    />
+  )}
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
