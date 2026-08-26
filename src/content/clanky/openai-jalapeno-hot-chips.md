@@ -5,6 +5,9 @@ category: "Hardware"
 date: "2026-08-25"
 zprava: true
 image: "/images/clanky/openai-jalapeno-hot-chips.jpg"
+audio:
+  url: "https://audio.realtech.cz/openai-jalapeno-hot-chips-nlm.mp3?v=e09caeb681b8"
+  duration: 1975
 ---
 
 OpenAI 25. srpna na konferenci Hot Chips ve Stanfordu zveřejnilo první naměřené výsledky Jalapeña, prvního vlastního inference čipu. Srovnání jde přes veřejný bench SemiAnalysis InferenceX na modelech GPT-OSS 120B, DeepSeek R1 670B a Kimi K2.5 1T.
