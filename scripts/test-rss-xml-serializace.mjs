@@ -44,6 +44,17 @@ test("skutečný RSS Response XML escapuje textová metadata článku", () => {
   assert.equal(rendered.xml.includes("<category-node>"), false);
 });
 
+test("kanál deklaruje atom self link a lastBuildDate v RFC-822 formátu", () => {
+  assert.match(rendered.xml, /<rss [^>]*xmlns:atom="http:\/\/www\.w3\.org\/2005\/Atom"/);
+  assert.ok(rendered.xml.includes(
+    '<atom:link href="https://realtech.cz/rss.xml" rel="self" type="application/rss+xml"/>',
+  ));
+
+  const lastBuildDate = rendered.xml.match(/<lastBuildDate>([^<]+)<\/lastBuildDate>/)?.[1];
+  assert.ok(lastBuildDate, "kanálu chybí <lastBuildDate>");
+  assert.equal(new Date(lastBuildDate).toUTCString(), lastBuildDate);
+});
+
 test("markdown a raw HTML se bezpečně serializují a kořenové URL se absolutizují", () => {
   const expectedContent = [
     "<content:encoded>&lt;p&gt;Markdown: A &amp;amp; B &amp;lt; C &amp;gt; D &amp;quot;quoted&amp;quot;.&lt;/p&gt;",
