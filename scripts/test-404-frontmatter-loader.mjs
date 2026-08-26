@@ -4,6 +4,10 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
 
+import { nahledKarty } from '../src/lib/karta-nahled.js';
+import { youtubeId } from '../src/lib/youtube.js';
+import { preloadHeroObrazku } from '../src/lib/hero-preload.js';
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = path.join(ROOT, 'src/pages/404.astro');
 
@@ -122,7 +126,15 @@ export async function loadLatest(entries) {
     });
   };
 
-  const sandbox = { __getCollection: getCollection };
+  // Loader importy stránky odstraňuje — skutečné knihovny preloadu první
+  // karty (stejné jako v produkci) dodává sandbox, jinak by frontmatter
+  // spadl na nedefinovaných identifikátorech.
+  const sandbox = {
+    __getCollection: getCollection,
+    nahledKarty,
+    youtubeId,
+    preloadHeroObrazku,
+  };
   sandbox.globalThis = sandbox;
   const program = `
     (async () => {

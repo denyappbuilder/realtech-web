@@ -1,5 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import { nahledKarty } from '../lib/karta-nahled.js';
+import { youtubeId } from '../lib/youtube.js';
+import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 
@@ -9,12 +12,36 @@ const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
 const latest = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
+
+// LCP na /vitej/ je náhled první karty (dostává priority, stránka nemá hero
+// obrázek), ale živě šla stránka ven bez preloadu v <head> — prohlížeč
+// našel obrázek až při parsování <body>. Stejný výpočet jako na /clanky/
+// (ArticleArchivePage): míří na tentýž soubor, který si <picture> karty
+// vybere — lokální WebP, jinak JPG/ytimg fallback.
+const prvni = latest[0];
+const prvniVideoId = youtubeId(prvni?.data.video);
+const prvniNahled = nahledKarty(prvni?.data.image);
+const kartaPreload = prvni
+  ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
+      ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined })
+  : null;
 ---
 <Base
   title="Vítej v RealTechu — REALTECH CZ"
   description="Odběr potvrzen. Vítej v RealTech newsletteru."
   robots="noindex, max-image-preview:large"
 >
+  {kartaPreload && (
+    <link
+      rel="preload"
+      as="image"
+      href={kartaPreload.href}
+      type={kartaPreload.type}
+      fetchpriority="high"
+      slot="head"
+    />
+  )}
   <section class="about wrap">
     <div class="lower-third">
       <span class="tag">Newsletter</span>
