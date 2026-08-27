@@ -53,7 +53,7 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
      url: "https://audio.realtech.cz/nazev-clanku.mp3"
      duration: 143                  # sekundy, ISO-8601 nebo MM:SS
      transcript: "..."              # volitelné
-   featured: true                   # volitelné — úvodka ho ignoruje; hero = nejnovější podle date
+   featured: true                   # volitelné — úvodka ho ignoruje; hero = poslední vydaný (date vč. času)
    draft: true                      # volitelné — draft se nepublikuje
    ---
 

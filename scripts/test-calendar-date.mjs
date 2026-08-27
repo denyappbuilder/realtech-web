@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { parseCalendarDate } from '../src/lib/calendarDate.js';
+import { formatCalendarDateCs, parseCalendarDate, parsePublishDate } from '../src/lib/calendarDate.js';
 
 test('platná kalendářní data vrací přesnou půlnoc UTC', () => {
   const cases = [
@@ -68,4 +68,32 @@ test('vyžaduje přesný formát YYYY-MM-DD bez trimování a časové části',
   for (const input of invalidFormats) {
     assert.equal(parseCalendarDate(input), undefined, JSON.stringify(input));
   }
+});
+
+test('parsePublishDate bere den i ISO čas; date-only je půlnoc UTC', () => {
+  const den = parsePublishDate('2026-08-27');
+  assert.equal(den?.toISOString(), '2026-08-27T00:00:00.000Z');
+
+  const praha = parsePublishDate('2026-08-27T15:18:00+02:00');
+  assert.equal(praha?.toISOString(), '2026-08-27T13:18:00.000Z');
+  assert.ok(praha.valueOf() > den.valueOf(), 'čas vydání musí být později než date-only téhož dne');
+
+  const utc = parsePublishDate('2026-08-27T13:18:00.000Z');
+  assert.equal(utc?.toISOString(), '2026-08-27T13:18:00.000Z');
+
+  assert.equal(formatCalendarDateCs(praha), '27. 08. 2026');
+  assert.equal(formatCalendarDateCs(den), '27. 08. 2026');
+});
+
+test('parsePublishDate odmítne čas bez pásma, neplatný den i Date objekt', () => {
+  for (const input of [
+    '2026-08-27T15:18:00',
+    '2026-08-27 15:18:00+02:00',
+    '2026-08-27T25:00:00Z',
+    '2025-02-29T12:00:00Z',
+    '2026-08-27T15:18+02:00',
+  ]) {
+    assert.equal(parsePublishDate(input), undefined, input);
+  }
+  assert.equal(parsePublishDate(new Date('2026-08-27T13:18:00.000Z')), undefined);
 });

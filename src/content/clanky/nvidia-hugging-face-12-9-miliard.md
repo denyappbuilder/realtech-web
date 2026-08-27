@@ -2,7 +2,7 @@
 title: "Nvidia má podle The Information koupit Hugging Face za 12,9 miliardy dolarů. Firmy to nepotvrdily"
 description: "The Information píše, že se Nvidia dohodla koupit Hugging Face za 12,9 miliardy dolarů. Reuters cituje osobu obeznámenou s dohodou. Ani jedna firma to veřejně nepotvrdila."
 category: "AI Report"
-date: "2026-08-27"
+date: "2026-08-27T15:18:00+02:00"
 zprava: true
 image: "/images/clanky/nvidia-hugging-face-12-9-miliard.jpg"
 audio:

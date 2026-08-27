@@ -188,6 +188,18 @@ test(
   },
 );
 
+test('quoted ISO čas vydání v date projde, updated zůstává den', (t) => {
+  const root = createFixture(t);
+  writeArticle(root, 'cas-vydani', [
+    ...validFrontmatter({ date: '2026-08-27T15:18:00+02:00' }),
+  ]);
+
+  const result = runValidator(root);
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /\[validate-content\] 1 článků OK/);
+});
+
 test('platné nequoted YAML datum projde', (t) => {
   const root = createFixture(t);
   writeArticle(root, 'platne-nequoted-datum', [

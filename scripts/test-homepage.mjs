@@ -141,6 +141,40 @@ test('frontmatter vynechá draft, řadí sestupně a odvodí hero, rest, průvod
   assert.equal(state.collectionCalls[0].name, 'clanky');
 });
 
+test('stejný kalendářní den: pozdější čas vydání vyhraje nad date-only i dřívějším slugem', async (t) => {
+  const result = await executeHomepage(
+    t,
+    [
+      article({
+        id: 'anthropic-nscale-45-miliard',
+        date: '2026-08-27T00:00:00.000Z',
+        category: 'AI Report',
+        featured: true,
+      }),
+      article({
+        id: 'nvidia-hugging-face-12-9-miliard',
+        date: '2026-08-27T13:18:00.000Z',
+        category: 'AI Report',
+      }),
+      article({
+        id: 'aaa-stejny-den-drive',
+        date: '2026-08-27T08:00:00.000Z',
+        category: 'Hardware',
+      }),
+    ],
+    async () => rssResponse('<feed></feed>'),
+  );
+
+  assert.equal(result.hero.id, 'nvidia-hugging-face-12-9-miliard');
+  assert.equal(result.hero.data.featured, false);
+  assert.deepEqual(result.all.map(({ id }) => id), [
+    'nvidia-hugging-face-12-9-miliard',
+    'aaa-stejny-den-drive',
+    'anthropic-nscale-45-miliard',
+  ]);
+  assert.equal(result.dateStr, '27. 08. 2026');
+});
+
 test('featured nepřebije nejnovější článek v hero, ani když je mladší než čtrnáct dní', async (t) => {
   const result = await executeHomepage(
     t,
