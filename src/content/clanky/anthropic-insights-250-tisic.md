@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-08-26"
 zprava: true
 image: "/images/clanky/anthropic-insights-250-tisic.jpg"
+audio:
+  url: "https://audio.realtech.cz/anthropic-insights-250-tisic-nlm.mp3?v=6e6cb869bf6e"
+  duration: 1857
 ---
 
 Anthropic 26. srpna 2026 zveřejnil pilot, který pustil tři externí skupiny k agregovaným datům o reálném používání Clauda. Nástroj se jmenuje Anthropic Insights. Dřív Clio. Interně ho firma používá na vzorce v milionech konverzací. Sběr dat běžel u Anthropicu. Analýzu si výzkumníci dělali sami.
