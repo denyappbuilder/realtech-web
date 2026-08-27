@@ -13,10 +13,8 @@ const all = (await getCollection('clanky', ({ data }) => !data.draft))
 
 const pruvodci = all.filter((c) => c.data.evergreen).slice(0, 3);
 
-// Hero = článek označený featured: true, jinak nejnovější.
-// featured drží hero max 14 dní od data článku, pak už nesmí přebít novinky.
-const FEATURED_MAX_AGE = 14 * 24 * 60 * 60 * 1000;
-const hero = all.find((c) => c.data.featured && Date.now() - c.data.date.valueOf() <= FEATURED_MAX_AGE) ?? all[0];
+// Hero = vždy nejnovější podle date. featured úvodku nepinuje.
+const hero = all[0];
 const candidates = all.filter((c) => c.id !== hero?.id).slice(0, 9);
 const rail = candidates.slice(0, 3);
 const rest = candidates.slice(3, 9);

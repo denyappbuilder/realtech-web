@@ -34,6 +34,16 @@ function pravidlo(blok, selektor) {
 test("desktopový ATF rail bere tři nejnovější další články, ne featured", () => {
   assert.match(
     index,
+    /const hero = all\[0\]/,
+    "hero musí být nejnovější podle date, ne featured pin",
+  );
+  assert.doesNotMatch(
+    index,
+    /FEATURED_MAX_AGE|c\.data\.featured/,
+    "featured nesmí pinovat homepage hero",
+  );
+  assert.match(
+    index,
     /const candidates = all\.filter\(\(c\) => c\.id !== hero\?\.id\)\.slice\(0,\s*9\)/,
     "jeden seznam 9 kandidátů bez featured",
   );
