@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-08-27"
 zprava: true
 image: "/images/clanky/anthropic-nscale-45-miliard.jpg"
+audio:
+  url: "https://audio.realtech.cz/anthropic-nscale-45-miliard-nlm.mp3?v=9eb237a79aa4"
+  duration: 1664
 ---
 
 Bloomberg Law píše, že Anthropic PBC se dohodl utratit 45 miliard dolarů za pronájem cloudového výpočetního výkonu pro AI od Nscale. Jde o vlajkový datový projekt Nscale v Západní Virginii. Kontext podle Bloombergu: kapacita pro rostoucí byznys před vstupem na burzu.
