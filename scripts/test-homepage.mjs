@@ -101,25 +101,25 @@ test('frontmatter vynechá draft, řadí sestupně a odvodí hero, rest, průvod
     'aktivni-featured',
     'stary-featured',
   ]);
-  assert.equal(result.hero.id, 'aktivni-featured');
+  assert.equal(result.hero.id, 'nejnovejsi');
   assert.deepEqual(result.candidates.map(({ id }) => id), [
-    'nejnovejsi',
     'pruvodce-prvni',
     'pruvodce-druhy',
     'bez-priznaku',
     'pruvodce-treti',
     'pruvodce-ctvrty',
+    'aktivni-featured',
     'stary-featured',
   ]);
   assert.deepEqual(result.rail.map(({ id }) => id), [
-    'nejnovejsi',
     'pruvodce-prvni',
     'pruvodce-druhy',
+    'bez-priznaku',
   ]);
   assert.deepEqual(result.rest.map(({ id }) => id), [
-    'bez-priznaku',
     'pruvodce-treti',
     'pruvodce-ctvrty',
+    'aktivni-featured',
     'stary-featured',
   ]);
   assert.deepEqual(result.pruvodci.map(({ id }) => id), [
@@ -141,11 +141,11 @@ test('frontmatter vynechá draft, řadí sestupně a odvodí hero, rest, průvod
   assert.equal(state.collectionCalls[0].name, 'clanky');
 });
 
-test('featured starší než čtrnáct dní nepřebije nejnovější článek v hero', async (t) => {
+test('featured nepřebije nejnovější článek v hero, ani když je mladší než čtrnáct dní', async (t) => {
   const result = await executeHomepage(
     t,
     [
-      article({ id: 'stary-featured', date: '2026-01-06T11:59:59.999Z', category: 'Sítě', featured: true }),
+      article({ id: 'featured-vcera', date: '2026-01-19T00:00:00.000Z', category: 'Sítě', featured: true }),
       article({ id: 'nejnovejsi', date: '2026-01-20T11:00:00.000Z', category: 'Hardware' }),
       article({ id: 'dalsi', date: '2026-01-18T00:00:00.000Z', category: 'Drony' }),
     ],
@@ -153,7 +153,7 @@ test('featured starší než čtrnáct dní nepřebije nejnovější článek v 
   );
 
   assert.equal(result.hero.id, 'nejnovejsi');
-  assert.deepEqual(result.rail.map(({ id }) => id), ['dalsi', 'stary-featured']);
+  assert.deepEqual(result.rail.map(({ id }) => id), ['featured-vcera', 'dalsi']);
   assert.deepEqual(result.rest.map(({ id }) => id), []);
 });
 
