@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-08-27"
 zprava: true
 image: "/images/clanky/nvidia-hugging-face-12-9-miliard.jpg"
+audio:
+  url: "https://audio.realtech.cz/nvidia-hugging-face-12-9-miliard-nlm.mp3?v=cdd57fff3949"
+  duration: 2288
 ---
 
 The Information píše, že se Nvidia dohodla koupit Hugging Face za 12,9 miliardy dolarů. Titulek zní: Nvidia Agrees to Buy Open Source AI Platform Hugging Face For $12.9 Billion. Autory jsou Amir Efrati, Valida Pau a Phoebe Liu. Článek je za předplatným. Tělo nemáme.
