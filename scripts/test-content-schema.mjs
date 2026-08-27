@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { CORE_SCHEMA, load as parseYaml } from 'js-yaml';
 import ts from 'typescript';
 import { z } from 'astro/zod';
-import { parseCalendarDate } from '../src/lib/calendarDate.js';
+import { parseCalendarDate, parsePublishDate } from '../src/lib/calendarDate.js';
 import { jeAudioUrl, parseAudioDuration } from '../src/lib/audio-prehled.js';
 
 const REPOSITORY_ROOT = path.resolve(
@@ -39,7 +39,7 @@ function loadProductionArticleSchema() {
           return { glob: (options) => options };
         }
         if (specifier === './lib/calendarDate.js') {
-          return { parseCalendarDate };
+          return { parseCalendarDate, parsePublishDate };
         }
         if (specifier === './lib/audio-prehled.js') {
           return { jeAudioUrl, parseAudioDuration };
@@ -146,6 +146,37 @@ test('quoted YYYY-MM-DD ma striktni meze a pro date i updated vraci UTC Date', (
       `${field}: ${value}`,
     );
   }
+});
+
+test('date prijme ISO cas vydani, updated zustava jen kalendarni den', () => {
+  const parsed = articleSchema.parse({
+    ...REQUIRED_FRONTMATTER,
+    date: '2026-08-27T15:18:00+02:00',
+  });
+  assert.equal(parsed.date.toISOString(), '2026-08-27T13:18:00.000Z');
+
+  const midnight = articleSchema.parse({
+    ...REQUIRED_FRONTMATTER,
+    date: '2026-08-27T00:00:00Z',
+  });
+  assert.equal(midnight.date.toISOString(), '2026-08-27T00:00:00.000Z');
+
+  assert.equal(
+    articleSchema.safeParse({
+      ...REQUIRED_FRONTMATTER,
+      date: '2026-08-27T15:18:00',
+    }).success,
+    false,
+    'date bez pasma se odmitne',
+  );
+  assert.equal(
+    articleSchema.safeParse({
+      ...REQUIRED_FRONTMATTER,
+      publishedAt: '2026-08-27T15:18:00+02:00',
+    }).success,
+    false,
+    'schema je strict — novy klic publishedAt neni',
+  );
 });
 
 test('Date v date i updated se odmitne — z yaml timestampu puvodni den neni', () => {

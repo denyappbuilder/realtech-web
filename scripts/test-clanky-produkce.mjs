@@ -7,7 +7,7 @@ import vm from 'node:vm';
 import { load as parseYaml } from 'js-yaml';
 import ts from 'typescript';
 import { z } from 'astro/zod';
-import { parseCalendarDate } from '../src/lib/calendarDate.js';
+import { parseCalendarDate, parsePublishDate } from '../src/lib/calendarDate.js';
 import { jeAudioUrl, parseAudioDuration } from '../src/lib/audio-prehled.js';
 
 const REPOSITORY_ROOT = path.resolve(
@@ -40,7 +40,7 @@ function loadProductionArticleSchema() {
           return { glob: (options) => options };
         }
         if (specifier === './lib/calendarDate.js') {
-          return { parseCalendarDate };
+          return { parseCalendarDate, parsePublishDate };
         }
         if (specifier === './lib/audio-prehled.js') {
           return { jeAudioUrl, parseAudioDuration };

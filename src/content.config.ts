@@ -1,6 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { parseCalendarDate } from './lib/calendarDate.js';
+import { parseCalendarDate, parsePublishDate } from './lib/calendarDate.js';
 import { jeAudioUrl, parseAudioDuration } from './lib/audio-prehled.js';
 
 const calendarDateString = z
@@ -10,11 +10,20 @@ const calendarDateString = z
   })
   .transform((value) => parseCalendarDate(value)!);
 
+const publishDateString = z
+  .string()
+  .refine((value) => parsePublishDate(value) !== undefined, {
+    message: 'Expected a valid calendar date (YYYY-MM-DD) or ISO datetime',
+  })
+  .transform((value) => parsePublishDate(value)!);
+
 // js-yaml default schema turns an unquoted YYYY-MM-DD into Date and rolls
 // invalid civil days (2025-02-29 → 2025-03-01T00:00:00.000Z). From that Date
 // the original day is gone, so the schema must not accept Date at all.
-// Quoted strings stay strings and go through parseCalendarDate.
+// Quoted strings stay strings and go through parseCalendarDate / parsePublishDate.
+// `date` smí nést ISO čas vydání (řazení úvodky); `updated` zůstává jen den.
 const calendarDate = calendarDateString;
+const publishDate = publishDateString;
 
 const audioDuration = z
   .union([z.number(), z.string()])
@@ -51,7 +60,7 @@ const clanky = defineCollection({
       'Mobily',
       'Sítě',
     ]),
-    date: calendarDate,
+    date: publishDate,
     video: z.string().url().optional(),
     videoLength: z.string().optional(),
     image: z.string().optional(),

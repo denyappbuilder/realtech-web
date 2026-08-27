@@ -20,7 +20,7 @@ Dostaneš scénář videa kanálu REALTECH CZ a metadata (odkaz na video, délku
 
 Vytvoř soubor `src/content/clanky/<slug>.md`, kde `<slug>` je titulek bez diakritiky, malými písmeny, slova oddělená pomlčkami (max ~6 slov).
 
-Frontmatter musí projít schématem v `src/content.config.ts`. Je `.strict()` — neznámý klíč (třeba `readingTime`) shodí build. Doba čtení se počítá z těla článku, do frontmatteru nepatří. Datum piš v uvozovkách (`"YYYY-MM-DD"`); bez nich YAML udělá Date a schéma ho odmítne. Úvodka bere vždy nejnovější `date`; `featured` homepage nepinuje, do nových článků ho nedávej.
+Frontmatter musí projít schématem v `src/content.config.ts`. Je `.strict()` — neznámý klíč (třeba `readingTime`) shodí build. Doba čtení se počítá z těla článku, do frontmatteru nepatří. Datum piš v uvozovkách (`"YYYY-MM-DD"` nebo ISO čas, když vychází víc článků týž den); bez nich YAML udělá Date a schéma ho odmítne. Úvodka = poslední vydaný (ne featured, ne abeceda slugu při stejném dni); do nových článků `featured` nedávej.
 
 ```markdown
 ---
