@@ -39,8 +39,16 @@ Volitelná pole, která autoři reálně používají — jen když k nim máš 
 
 - `video` / `videoLength` — u článku z videa (v tomhle promptu je přidej)
 - `zprava: true` — krátká zpráva, typicky bez `video`
-- `image` — cesta k náhledu, např. `/images/clanky/<slug>.jpg`
+- `image` — cesta k náhledu, např. `/images/clanky/<slug>.jpg` (viz Náhledovka)
 - `audio` — objekt `{ url, duration, transcript?, ttsScript? }`; `duration` je sekundy, ISO-8601 nebo MM:SS
+
+## Náhledovka
+
+Ke každému článku patří cover `public/images/clanky/<slug>.jpg` (1280×720). Deriváty `.webp`, `-640.jpg` a `-640.webp` vyrobí `scripts/optimize-images.mjs`. Frontmatter: `image: "/images/clanky/<slug>.jpg"`.
+
+- Bez textu, bez loga, bez watermarku.
+- Světlejší, pozitivnější, čistá 3D / produktová scéna.
+- **Zákaz černo-červeného neonu a hororové tmy.**
 
 ## Publikace
 
