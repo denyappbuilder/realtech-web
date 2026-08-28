@@ -725,7 +725,16 @@ footer.site ul a:hover { color: var(--ink); }
     display: flex;
     align-items: center;
   }
-  .yt-btn { padding: 8px 12px; font-size: 0.8rem; }
+  /* 44px byl u toggle/akcí jen pod 580px. Tabletu 581–900px zůstal 38×38. */
+  header.site .header-actions > * { min-height: 44px; }
+  header.site .theme-toggle { width: 44px; height: 44px; }
+  .yt-btn { padding: 8px 12px; font-size: 0.8rem; min-height: 44px; }
+  footer.site .f-nav a {
+    min-height: 44px;
+    padding-block: 10px;
+    display: flex;
+    align-items: center;
+  }
   /* Z1000: na tabletu a mobilu ticker dělá třetí pruh nad herem. */
   .ticker { display: none; }
 }
