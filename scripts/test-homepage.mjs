@@ -225,6 +225,7 @@ test('video hero s lokálním coverem používá lokální <picture> cestu, ne Y
     result.heroWebpSrcset,
     '/images/clanky/video-hero-640.webp 640w, /images/clanky/video-hero.webp 1280w',
   );
+  assert.equal(result.heroLcpSrc, '/images/clanky/video-hero.webp');
   // Preload musí mířit na tentýž WebP, který si <picture> vybere.
   assert.equal(result.heroPreload.href, '/images/clanky/video-hero.webp');
   assert.equal(result.heroPreload.type, 'image/webp');
@@ -289,9 +290,11 @@ test('hero bez videa se chová jako dřív — lokální obrázek a WebP jen s o
     result.heroSrcset,
     '/images/clanky/clanek-hero-640.jpg 640w, /images/clanky/clanek-hero.jpg 1280w',
   );
-  // Bez -640.webp se WebP <source> nevyrenderuje — preload jde na JPG.
+  // 1280.webp stačí na LCP <img src>, i když 640.webp chybí a srcset není.
   assert.equal(result.heroWebpSrcset, undefined);
-  assert.equal(result.heroPreload.href, '/images/clanky/clanek-hero.jpg');
+  assert.equal(result.heroHasWebp, true);
+  assert.equal(result.heroLcpSrc, '/images/clanky/clanek-hero.webp');
+  assert.equal(result.heroPreload.href, '/images/clanky/clanek-hero.webp');
 });
 
 test('použitelný YouTube RSS odfiltruje Shorts, omezí videa a dekóduje XML entity', async (t) => {

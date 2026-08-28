@@ -28,8 +28,10 @@ export const CLANEK_HERO_SIZES = '(max-width: 1120px) 100vw, 1120px';
  */
 export function heroObrazekClanku(image, videoId, exists = (cesta) => fs.existsSync(cesta)) {
   if (!image) {
+    const src = videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : undefined;
     return {
-      src: videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : undefined,
+      src,
+      lcpSrc: src,
       srcset: undefined,
       webp: undefined,
       webpSrcset: undefined,
@@ -53,6 +55,10 @@ export function heroObrazekClanku(image, videoId, exists = (cesta) => fs.existsS
 
   return {
     src: image,
+    // Chrome s fetchpriority=high spekulativně tahá <img src> dřív, než
+    // vyhodnotí <source type="image/webp">. Živě 28. 8. 2026 proto LCP
+    // hlásil .jpg, i když .webp v public/ bylo.
+    lcpSrc: hasWebp ? webp : image,
     srcset,
     webp: hasWebp ? webp : undefined,
     webpSrcset,

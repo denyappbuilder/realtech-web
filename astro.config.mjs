@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import fs from 'node:fs';
 import { slugify } from './src/lib/slugify.js';
-import { parseCalendarDate } from './src/lib/calendarDate.js';
+import { parsePublishDate } from './src/lib/calendarDate.js';
 import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
 
 // slug → lastmod (updated ?? date) z frontmatteru článků — pro sitemap <lastmod>
@@ -20,11 +20,13 @@ for (const f of fs.readdirSync('./src/content/clanky', { recursive: true }).filt
   // YAML 1.2 / js-yaml: jen true, True a TRUE jsou boolean true.
   // i-flag by sekl i tRuE, které parser bere jako řetězec.
   if (/^draft:\s*(?:true|True|TRUE)\b/m.test(fm)) continue;
-  const d = fm.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1]
-    ?? fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+  // Date-only = půlnoc UTC. ISO čas vydání (Roman 06:30+02) se dřív uřízl
+  // na YYYY-MM-DD, takže homepage/listing i článek dostaly lastmod o půlnoci.
+  const d = fm.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2}(?:T[^\s"']+)?)/m)?.[1]
+    ?? fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2}(?:T[^\s"']+)?)/m)?.[1];
   if (d) {
     const slug = f.replace(/\.md$/, '');
-    const lastmod = parseCalendarDate(d);
+    const lastmod = parsePublishDate(d);
     if (!lastmod) {
       invalidLastmodSlugs.add(slug);
       continue;

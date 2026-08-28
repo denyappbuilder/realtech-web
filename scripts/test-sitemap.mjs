@@ -87,6 +87,29 @@ test('lastmod kategorie s diakritikou určí updated nejnovějšího článku', 
   );
 });
 
+test('lastmod homepage a archivu bere ISO čas nejnovějšího článku, ne date-only půlnoc', async () => {
+  const options = await loadSitemapOptions([
+    article('starsi-date-only', ['date: "2026-08-28"', 'category: "Hardware"']),
+    article('roman', [
+      'date: "2026-08-28T06:30:00+02:00"',
+      'category: "Vesmír"',
+    ]),
+  ]);
+
+  const expected = '2026-08-28T04:30:00.000Z';
+  for (const url of [
+    'https://realtech.cz/',
+    'https://realtech.cz/clanky/',
+    'https://realtech.cz/clanky/roman/',
+  ]) {
+    assert.equal(serialize(options, url).lastmod, expected, url);
+  }
+  assert.equal(
+    serialize(options, 'https://realtech.cz/clanky/starsi-date-only/').lastmod,
+    '2026-08-28T00:00:00.000Z',
+  );
+});
+
 test('statické URL dostanou nejnovější datum ze všech článků', async () => {
   const options = await loadSitemapOptions([
     article('starsi', ['date: "2024-12-31"', 'category: "AI"']),

@@ -32,12 +32,13 @@ const videoId = youtubeId(video);
 // pruhy (4:3) a karta s aspect-ratio 16/9 by z něj ořezávala.
 // Když se použije YouTube, WebP z lokálního coveru se vynuluje — <source>
 // by v <picture> přebil YouTube náhled (Z10093).
-const { localThumb, thumbW: localW, thumbH: localH, thumbWebp: localWebp, hasWebp: localHasWebp, hasLocalThumb } = nahledKarty(image);
+const { localThumb, thumbW: localW, thumbH: localH, thumbWebp: localWebp, hasWebp: localHasWebp, hasLocalThumb, lcpSrc: localLcpSrc } = nahledKarty(image);
 const useYtThumb = Boolean(videoId) && !hasLocalThumb;
 const thumbUrl = useYtThumb ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : localThumb;
 const [thumbW, thumbH] = useYtThumb ? [1280, 720] : [localW, localH];
 const thumbWebp = useYtThumb ? null : localWebp;
 const hasWebp = useYtThumb ? false : localHasWebp;
+const lcpSrc = useYtThumb ? thumbUrl : localLcpSrc;
 const loading = priority ? 'eager' : 'lazy';
 const fetchpriority = priority ? 'high' : undefined;
 ---
@@ -54,7 +55,7 @@ const fetchpriority = priority ? 'high' : undefined;
     {thumbUrl && (
       <picture>
         {hasWebp && <source srcset={thumbWebp} type="image/webp" />}
-        <img src={thumbUrl} alt={title} width={thumbW} height={thumbH} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+        <img src={lcpSrc} alt={title} width={thumbW} height={thumbH} loading={loading} decoding="async" fetchpriority={fetchpriority} />
       </picture>
     )}
     <div class="lt">

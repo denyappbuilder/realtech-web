@@ -37,6 +37,7 @@ test('běžný JPG použije existující variantu 640 px a její WebP náhled', 
   assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [640, 360]);
   assert.equal(thumbnail.thumbWebp, '/images/clanky/cover-640.webp');
   assert.equal(thumbnail.hasWebp, true);
+  assert.equal(thumbnail.lcpSrc, '/images/clanky/cover-640.webp');
 });
 
 test('JPG bez varianty 640 px použije původní obrázek a rozměry 1280 × 720', async () => {
@@ -63,6 +64,7 @@ test('video s existujícím lokálním coverem použije lokální 640 px WebP, n
   assert.deepEqual([thumbnail.thumbW, thumbnail.thumbH], [640, 360]);
   assert.equal(thumbnail.thumbWebp, '/images/clanky/cover-640.webp');
   assert.equal(thumbnail.hasWebp, true);
+  assert.equal(thumbnail.lcpSrc, '/images/clanky/cover-640.webp');
 });
 
 test('platné tvary YouTube URL jsou fallback, když lokální cover na disku chybí', async () => {
