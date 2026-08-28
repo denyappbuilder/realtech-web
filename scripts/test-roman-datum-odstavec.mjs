@@ -1,17 +1,13 @@
 // Živě 28. 8. 2026 Markdown sežral „21. srpna“ na začátku řádku
 // jako <ol start="21">. Čtenář i RSS content:encoded viděli „srpna týmy…".
 // Escape musí být 21\. srpna (lomítko před tečkou). 21.\ srpna nechá \ v HTML.
+// marked = rss.xml.js. Stránku článku po buildu kontroluje stejný tvar.
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { marked } from "marked";
-import rehypeStringify from "rehype-stringify";
-import remarkGfm from "remark-gfm";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CLANEK = path.join(ROOT, "src/content/clanky/nasa-roman-falcon-heavy.md");
@@ -40,18 +36,6 @@ function assertDatumOdstavec(html, zdroj) {
   assert.match(html, /10\. srpna NASA/);
 }
 
-test("Roman: české datum na začátku řádku zůstane odstavcem (marked = RSS)", () => {
+test("Roman: české datum na začátku řádku zůstane odstavcem, ne <ol start>", () => {
   assertDatumOdstavec(String(marked.parse(teloClanku(CLANEK))), "marked");
-});
-
-test("Roman: české datum na začátku řádku zůstane odstavcem (remark = stránka)", async () => {
-  const html = String(
-    await unified()
-      .use(remarkParse)
-      .use(remarkGfm)
-      .use(remarkRehype)
-      .use(rehypeStringify)
-      .process(teloClanku(CLANEK)),
-  );
-  assertDatumOdstavec(html, "remark");
 });
