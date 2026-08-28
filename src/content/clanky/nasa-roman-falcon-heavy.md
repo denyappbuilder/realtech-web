@@ -5,6 +5,9 @@ category: "Vesmír"
 zprava: true
 date: "2026-08-28T06:30:00+02:00"
 image: "/images/clanky/nasa-roman-falcon-heavy.jpg"
+audio:
+  url: "https://audio.realtech.cz/nasa-roman-falcon-heavy-nlm.mp3?v=d8e25c116c9f"
+  duration: 1201
 ---
 
 NASA a SpaceX cílí start observatoře Nancy Grace Roman Space Telescope na neděli 30. srpna v 7:26 EDT. To je 13:26 SELČ. Rampa je Launch Complex 39A na Kennedy Space Center na Floridě, nosič SpaceX Falcon Heavy. NASA v media advisory M26-063 z 24. srpna píše "no earlier than". SpaceX na startovní stránce mise Roman píše "targeting". Ani jedna strana neoznámila, že raketa odstartovala. Tento text vychází 28. srpna, dva dny před cílovým oknem.
