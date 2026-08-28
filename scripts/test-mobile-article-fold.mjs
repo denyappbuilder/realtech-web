@@ -52,6 +52,31 @@ test("tablet 581–900px dává nav.main a stejný 44px cíl jako mobil", () => 
   assert.match(nav, /align-items:\s*center/, "tabletová navigace musí centrovat text v 44px");
 });
 
+test("tablet 581–900px dává 44px i theme-toggle, yt-btn a patičce", () => {
+  assert.match(
+    tablet,
+    /header\.site \.header-actions > \*\s*\{[^}]*min-height:\s*44px/,
+    "tabletové header-actions nemají min-height: 44px — živě zůstalo 38px",
+  );
+  assert.match(
+    tablet,
+    /header\.site \.theme-toggle\s*\{[^}]*width:\s*44px/,
+    "tabletový theme-toggle nemá width: 44px",
+  );
+  assert.match(
+    tablet,
+    /header\.site \.theme-toggle\s*\{[^}]*height:\s*44px/,
+    "tabletový theme-toggle nemá height: 44px",
+  );
+  const yt = tablet.match(/\.yt-btn\s*\{([^}]*)\}/)?.[1] ?? "";
+  assert.ok(yt, "v @media (max-width: 900px) chybí .yt-btn");
+  assert.match(yt, /min-height:\s*44px/, "tabletový .yt-btn nemá min-height: 44px");
+  const footer = tablet.match(/footer\.site \.f-nav a\s*\{([^}]*)\}/)?.[1] ?? "";
+  assert.ok(footer, "v @media (max-width: 900px) chybí footer .f-nav a");
+  assert.match(footer, /min-height:\s*44px/, "tabletová patička nemá min-height: 44px");
+  assert.match(footer, /padding-block:/, "tabletová patička nemá svislý padding");
+});
+
 test("mobilní header zachovává alespoň 44px dotykové cíle", () => {
   assert.match(mobil, /header\.site \.logo\s*\{[^}]*min-height:\s*44px/, "logo odkaz nemá 44px dotykový cíl");
   assert.match(mobil, /header\.site \.header-actions > \*\s*\{[^}]*min-height:\s*44px/, "akce nemají 44px dotykový cíl");
