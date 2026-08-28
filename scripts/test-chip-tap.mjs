@@ -30,6 +30,26 @@ test(".share-btn má minimální zásah 44 px", () => {
   assertMinHeight44(".share-btn");
 });
 
+test(".theme-toggle má 44×44 i mimo media query", () => {
+  const telo = teloPravidla(".theme-toggle");
+  assert.ok(telo, "global.css ztratil základní .theme-toggle");
+  assert.match(
+    telo,
+    /width:\s*44px/,
+    "základní .theme-toggle musí mít width: 44px, ne jen v max-width 900/580",
+  );
+  assert.match(
+    telo,
+    /height:\s*44px/,
+    "základní .theme-toggle musí mít height: 44px, ne jen v max-width 900/580",
+  );
+  assert.doesNotMatch(
+    telo,
+    /width:\s*38px/,
+    "základní .theme-toggle pořád drží 38px",
+  );
+});
+
 test(".search-trigger má minimální zásah 44 px", () => {
   assertMinHeight44(".search-trigger");
 });

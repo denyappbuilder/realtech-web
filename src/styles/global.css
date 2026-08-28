@@ -1099,7 +1099,7 @@ footer.site ul a:hover { color: var(--ink); }
 /* ── Theme toggle ────────────────────── */
 .header-actions { display: flex; align-items: center; gap: 10px; }
 .theme-toggle {
-  width: 38px; height: 38px; border-radius: var(--radius);
+  width: 44px; height: 44px; border-radius: var(--radius);
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
   cursor: pointer; display: grid; place-items: center;
   transition: border-color 0.15s, color 0.15s;
