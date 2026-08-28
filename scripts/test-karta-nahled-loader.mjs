@@ -19,10 +19,10 @@ function extractThumbnailBlock(frontmatter) {
   }
 
   const remainder = frontmatter.slice(start);
-  const endMatch = /^const hasWebp =.*(?:\r?\n|$)/m.exec(remainder);
+  const endMatch = /^const lcpSrc =.*(?:\r?\n|$)/m.exec(remainder);
   if (!endMatch) {
     throw new Error(
-      'V ArticleCard.astro nebyl nalezen konec bloku nahledu: const hasWebp =',
+      'V ArticleCard.astro nebyl nalezen konec bloku nahledu: const lcpSrc =',
     );
   }
 
@@ -53,7 +53,7 @@ export async function load(url, context, nextLoad) {
     'const nahledKarty = (image) => nahledKartyProdukce(image, (cesta) => fs.existsSync(cesta));',
     'const { category, video, image, date } = globalThis.__KARTA_NAHLED__;',
     productionBlock,
-    'export { thumbClass, localThumb, videoId, thumbUrl, thumbW, thumbH, thumbWebp, hasWebp };',
+    'export { thumbClass, localThumb, videoId, thumbUrl, thumbW, thumbH, thumbWebp, hasWebp, lcpSrc };',
   ].join('\n');
   const { outputText } = ts.transpileModule(virtualModule, {
     compilerOptions: {

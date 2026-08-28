@@ -33,6 +33,7 @@ const updatedStr = formatCalendarDateCs(updated);
 const videoId = youtubeId(video);
 const {
   src: heroSrc,
+  lcpSrc: heroLcpSrc,
   srcset: heroSrcset,
   webp: heroWebp,
   webpSrcset: heroWebpSrcset,
@@ -42,8 +43,8 @@ const {
 // preload v <head> ho pustí ke stažení hned. Míří na tentýž kandidát,
 // který si <picture> níž vybere (WebP srcset > WebP > JPG/ytimg).
 const heroPreload = preloadHeroObrazku({
-  src: heroSrc,
-  srcset: heroSrcset,
+  src: heroLcpSrc,
+  srcset: heroWebp ? undefined : heroSrcset,
   webp: heroWebp,
   webpSrcset: heroWebpSrcset,
   sizes: heroSizes,
@@ -184,7 +185,7 @@ const breadcrumbLd = {
           <picture>
             {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
             {!heroWebpSrcset && heroWebp && <source srcset={heroWebp} type="image/webp" />}
-            <img src={heroSrc} srcset={heroSrcset} sizes={heroSrcset ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+            <img src={heroLcpSrc} srcset={heroWebp ? undefined : heroSrcset} sizes={(!heroWebp && heroSrcset) ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
           </picture>
         </div>
       )}
@@ -205,7 +206,7 @@ const breadcrumbLd = {
               <picture>
                 {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
                 {!heroWebpSrcset && heroWebp && <source srcset={heroWebp} type="image/webp" />}
-                <img src={heroSrc} srcset={heroSrcset} sizes={heroSrcset ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+                <img src={heroLcpSrc} srcset={heroWebp ? undefined : heroSrcset} sizes={(!heroWebp && heroSrcset) ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
               </picture>
             )}
             <span class="youtube-facade-play" aria-hidden="true">

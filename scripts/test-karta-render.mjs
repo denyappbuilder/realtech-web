@@ -60,8 +60,8 @@ test('šablona zapojuje náhled přesně tak, jak testy předpokládají', () =>
   );
   assert.match(
     SABLONA,
-    /<img src=\{thumbUrl\}[^>]*width=\{thumbW\} height=\{thumbH\}/,
-    '<img> bere adresu z thumbUrl a rozměry z thumbW/thumbH',
+    /<img src=\{lcpSrc\}[^>]*width=\{thumbW\} height=\{thumbH\}/,
+    '<img> bere LCP adresu (WebP když existuje) a rozměry z thumbW/thumbH',
   );
   assert.match(
     SABLONA,
@@ -132,6 +132,7 @@ test('JPG cover s deriváty jde na kartu jako 640×360 WebP', () => {
 
   assert.equal(karta.thumbUrl, '/images/clanky/claude-vodoznak-ai-text-640.jpg');
   assert.equal(karta.thumbWebp, '/images/clanky/claude-vodoznak-ai-text-640.webp');
+  assert.equal(karta.lcpSrc, '/images/clanky/claude-vodoznak-ai-text-640.webp');
   assert.equal(karta.hasWebp, true);
   assert.equal(karta.thumbW, 640);
   assert.equal(karta.thumbH, 360);
@@ -147,6 +148,7 @@ test('cover bez derivátů si nechá originál i jeho pravdivé rozměry', () =>
   const karta = vykresliKartu(clanek({ image: COVER_BEZ_DERIVATU }));
 
   assert.equal(karta.thumbUrl, COVER_BEZ_DERIVATU);
+  assert.equal(karta.lcpSrc, COVER_BEZ_DERIVATU);
   assert.equal(karta.hasWebp, false, 'neexistující .webp se nesmí nabídnout');
   assert.equal(karta.thumbW, 1280);
   assert.equal(karta.thumbH, 720);
@@ -201,6 +203,7 @@ test('KARTA-VIDEO-001: u videa s existujícím coverem vyhraje lokální 640×36
 
   assert.equal(karta.thumbUrl, '/images/clanky/claude-vodoznak-ai-text-640.jpg');
   assert.equal(karta.thumbWebp, '/images/clanky/claude-vodoznak-ai-text-640.webp');
+  assert.equal(karta.lcpSrc, '/images/clanky/claude-vodoznak-ai-text-640.webp');
   assert.equal(karta.hasWebp, true);
   assert.equal(karta.thumbW, 640);
   assert.equal(karta.thumbH, 360);

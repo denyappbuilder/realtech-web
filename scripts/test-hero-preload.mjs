@@ -81,7 +81,7 @@ test('šablona článku dává do <head> právě jeden preload hero obrázku', (
   assert.match(clanek, /from '\.\.\/\.\.\/lib\/hero-preload\.js'/);
   assert.match(
     clanek,
-    /const heroPreload = preloadHeroObrazku\(\{\s*src: heroSrc,\s*srcset: heroSrcset,\s*webp: heroWebp,\s*webpSrcset: heroWebpSrcset,\s*sizes: heroSizes,\s*\}\)/,
+    /const heroPreload = preloadHeroObrazku\(\{\s*src: heroLcpSrc,\s*srcset: heroWebp \? undefined : heroSrcset,\s*webp: heroWebp,\s*webpSrcset: heroWebpSrcset,\s*sizes: heroSizes,\s*\}\)/,
     'preload musí počítat ze STEJNÝCH hodnot, které dostane <picture>',
   );
   assert.match(
@@ -102,7 +102,7 @@ test('homepage dává do <head> právě jeden preload hero obrázku', () => {
   assert.match(uvodka, /from '\.\.\/lib\/hero-preload\.js'/);
   assert.match(
     uvodka,
-    /const heroPreload = preloadHeroObrazku\(\{\s*src: heroThumb,\s*srcset: heroSrcset,\s*webp: heroWebpSrcset \? heroWebp : undefined,\s*webpSrcset: heroWebpSrcset,\s*sizes: HERO_SIZES,\s*\}\)/,
+    /const heroPreload = preloadHeroObrazku\(\{\s*src: heroLcpSrc,\s*srcset: heroHasWebp \? undefined : heroSrcset,\s*webp: heroHasWebp \? heroWebp : undefined,\s*webpSrcset: heroWebpSrcset,\s*sizes: HERO_SIZES,\s*\}\)/,
     'homepage smí preloadovat WebP jen když ho <picture> opravdu použije',
   );
   assert.match(

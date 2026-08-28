@@ -32,12 +32,13 @@ const videoId = youtubeId(video);
 // pruhy (4:3) a karta s aspect-ratio 16/9 by z něj ořezávala.
 // Když se použije YouTube, WebP z lokálního coveru se vynuluje — <source>
 // by v <picture> přebil YouTube náhled (Z10093).
-const { localThumb, thumbW: localW, thumbH: localH, thumbWebp: localWebp, hasWebp: localHasWebp, hasLocalThumb } = nahledKarty(image);
+const { localThumb, thumbW: localW, thumbH: localH, thumbWebp: localWebp, hasWebp: localHasWebp, hasLocalThumb, lcpSrc: localLcpSrc } = nahledKarty(image);
 const useYtThumb = Boolean(videoId) && !hasLocalThumb;
 const thumbUrl = useYtThumb ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : localThumb;
 const [thumbW, thumbH] = useYtThumb ? [1280, 720] : [localW, localH];
 const thumbWebp = useYtThumb ? null : localWebp;
 const hasWebp = useYtThumb ? false : localHasWebp;
+const lcpSrc = useYtThumb ? thumbUrl : localLcpSrc;
 const loading = priority ? 'eager' : 'lazy';
 const fetchpriority = priority ? 'high' : undefined;
 ---
@@ -46,15 +47,15 @@ const fetchpriority = priority ? 'high' : undefined;
     Náhled karty nese titulek článku jako alt — stejné pravidlo jako hero
     článku (#310). Živě (2026-08-24) šly všechny karty na /clanky/ ven
     s alt="", včetně první eager (LCP). Frontmatter vlastní alt obrázku
-    nemá, alt je data.title. Odkaz kolem náhledu zůstává aria-hidden +
-    tabindex="-1" (duplicitní odkaz — jméno karty dává <h3>), alt ale
-    slouží i při výpadku obrázku a pro vyhledávače obrázků.
+    nemá, alt je data.title. Náhled je <div>, ne druhý <a>: jméno karty
+    dává <h3> a stretched ::after pokrývá celou kartu. Dva <a> na stejné
+    URL byly vnořený interaktivní prvek (živě 28. 8. 2026).
   */}
-  <a href={`/clanky/${article.id}/`} class={`card-thumb ${thumbClass}`} aria-hidden="true" tabindex="-1">
+  <div class={`card-thumb ${thumbClass}`}>
     {thumbUrl && (
       <picture>
         {hasWebp && <source srcset={thumbWebp} type="image/webp" />}
-        <img src={thumbUrl} alt={title} width={thumbW} height={thumbH} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+        <img src={lcpSrc} alt={title} width={thumbW} height={thumbH} loading={loading} decoding="async" fetchpriority={fetchpriority} />
       </picture>
     )}
     <div class="lt">
@@ -62,7 +63,7 @@ const fetchpriority = priority ? 'high' : undefined;
       {zprava && <span class="z">Zpráva</span>}
       {videoLength && <span class="t">{videoLength}</span>}
     </div>
-  </a>
+  </div>
   <div class="card-body">
     <h3><a href={`/clanky/${article.id}/`}>{title}</a></h3>
     <p>{description}</p>

@@ -31,6 +31,7 @@ test('hero článku s 640.webp dá obě šířky do WebP srcset', () => {
   );
 
   assert.equal(out.src, COVER);
+  assert.equal(out.lcpSrc, '/images/clanky/cover.webp');
   assert.equal(
     out.srcset,
     '/images/clanky/cover-640.jpg 640w, /images/clanky/cover.jpg 1280w',
@@ -90,6 +91,7 @@ test('bez jakéhokoli WebP zůstane jen JPG', () => {
   assert.equal(out.webp, undefined);
   assert.equal(out.webpSrcset, undefined);
   assert.equal(out.src, COVER);
+  assert.equal(out.lcpSrc, COVER);
 });
 
 test('prázdný image bez videa nic nevyrobí', () => {
@@ -132,7 +134,7 @@ test('šablona článku zapojuje helper a sizes, ne holé 1280.webp', () => {
   );
   assert.match(
     src,
-    /srcset=\{heroSrcset\} sizes=\{heroSrcset \? heroSizes : undefined\}/,
+    /src=\{heroLcpSrc\} srcset=\{heroWebp \? undefined : heroSrcset\} sizes=\{\(!heroWebp && heroSrcset\) \? heroSizes : undefined\}/,
   );
   assert.doesNotMatch(
     src,

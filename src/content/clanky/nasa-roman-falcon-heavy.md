@@ -18,15 +18,15 @@ Roman je podle NASA další generace observatoře. Má zkoumat temnou energii. J
 
 ## Co z cíle 30. 8. je hotové
 
-21. srpna týmy v Payload Hazardous Servicing Facility na Kennedy uzavřely observatoř do aerodynamického krytu Falconu Heavy. NASA píše, že kryt je 43 stop vysoký. Během výstupu má chránit Roman před hlukem, tlakem a teplem. Po oddělení se dvě poloviny krytu vrátí na Zemi a SpaceX je má vylovit.
+21\. srpna týmy v Payload Hazardous Servicing Facility na Kennedy uzavřely observatoř do aerodynamického krytu Falconu Heavy. NASA píše, že kryt je 43 stop vysoký. Během výstupu má chránit Roman před hlukem, tlakem a teplem. Po oddělení se dvě poloviny krytu vrátí na Zemi a SpaceX je má vylovit.
 
-24. srpna v noci konvoj odvezl zabalený teleskop z PHSF do hangáru SpaceX u rampy 39A. Na místo dorazil v úterý 25. srpna. NASA dodává, že zpracování v PHSF běželo od června. Spojení s raketou v hangáru blog z 25. srpna ještě řadí do "coming days". Rollout na rampu v tom textu jako hotový krok není. Nedomýšlíme ho.
+24\. srpna v noci konvoj odvezl zabalený teleskop z PHSF do hangáru SpaceX u rampy 39A. Na místo dorazil v úterý 25. srpna. NASA dodává, že zpracování v PHSF běželo od června. Spojení s raketou v hangáru blog z 25. srpna ještě řadí do "coming days". Rollout na rampu v tom textu jako hotový krok není. Nedomýšlíme ho.
 
-20. srpna týmy dokončily generálku startu. NASA popisuje end-to-end simulaci: náběh družice, nácvik tankování Falconu Heavy, fiktivní briefingy o počasí, řešení scénářů. Lidé seděli na konzolích v zařízeních NASA a SpaceX na Cape Canaveral Space Force Station a na Kennedy.
+20\. srpna týmy dokončily generálku startu. NASA popisuje end-to-end simulaci: náběh družice, nácvik tankování Falconu Heavy, fiktivní briefingy o počasí, řešení scénářů. Lidé seděli na konzolích v zařízeních NASA a SpaceX na Cape Canaveral Space Force Station a na Kennedy.
 
-21. srpna NASA, mise Roman a SpaceX uzavřely Flight Readiness Review. Podle blogu z toho dne mise dostala razítko, že může jít do závěrečných příprav. Na pátek 28. srpna NASA naplánovala Launch Readiness Review, závěrečné go/no go. Výsledek toho pollu v oficiálních textech, které jsme 28. srpna stáhli, není. Nevymýšlíme ho.
+21\. srpna NASA, mise Roman a SpaceX uzavřely Flight Readiness Review. Podle blogu z toho dne mise dostala razítko, že může jít do závěrečných příprav. Na pátek 28. srpna NASA naplánovala Launch Readiness Review, závěrečné go/no go. Výsledek toho pollu v oficiálních textech, které jsme 28. srpna stáhli, není. Nevymýšlíme ho.
 
-10. srpna NASA napsala, že integrované operace s hardwarem SpaceX začaly "nine months ahead of schedule". 25. srpna tu větu zopakovala. To je skóre NASA, ne náš audit harmonogramu.
+10\. srpna NASA napsala, že integrované operace s hardwarem SpaceX začaly "nine months ahead of schedule". 25. srpna tu větu zopakovala. To je skóre NASA, ne náš audit harmonogramu.
 
 ## Co NASA o Romanu píše
 

@@ -40,18 +40,20 @@ const heroSrcset = heroSmall && fs.existsSync(`public${heroSmall}`)
   : undefined;
 const heroWebp = heroMaLokalniCover ? hero.data.image.replace(/\.jpg$/, '.webp') : null;
 const heroWebpSmall = heroWebp?.replace(/\.webp$/, '-640.webp');
-const heroWebpSrcset = heroWebp && fs.existsSync(`public${heroWebp}`) && fs.existsSync(`public${heroWebpSmall}`)
+const heroHasWebp = Boolean(heroWebp && fs.existsSync(`public${heroWebp}`));
+const heroWebpSrcset = heroHasWebp && heroWebpSmall && fs.existsSync(`public${heroWebpSmall}`)
   ? `${heroWebpSmall} 640w, ${heroWebp} 1280w`
   : undefined;
+// fetchpriority=high na <img> spekulativně stáhne src dřív než <source>.
+// Když WebP existuje, src musí být WebP — jinak LCP zůstane .jpg.
+const heroLcpSrc = heroHasWebp ? heroWebp : heroThumb;
 const HERO_SIZES = '(max-width: 900px) 100vw, 40vw';
 // LCP hero je až v <body> — jediný preload v <head> ho pustí ke stažení hned.
-// WebP jen když se reálně použije (tj. existuje i 640 varianta a <source>
-// se vůbec vyrenderuje) — jinak by se preloadoval soubor, který <picture>
-// nevybere, a hero by se stáhlo dvakrát.
+// Míří na tentýž soubor jako <img src> (WebP, když derivát existuje).
 const heroPreload = preloadHeroObrazku({
-  src: heroThumb,
-  srcset: heroSrcset,
-  webp: heroWebpSrcset ? heroWebp : undefined,
+  src: heroLcpSrc,
+  srcset: heroHasWebp ? undefined : heroSrcset,
+  webp: heroHasWebp ? heroWebp : undefined,
   webpSrcset: heroWebpSrcset,
   sizes: HERO_SIZES,
 });
@@ -159,7 +161,8 @@ const jsonLd = {
             {heroThumb && (
               <picture>
                 {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={HERO_SIZES} type="image/webp" />}
-                <img src={heroThumb} srcset={heroSrcset} sizes={heroSrcset ? HERO_SIZES : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+                {!heroWebpSrcset && heroHasWebp && <source srcset={heroWebp} type="image/webp" />}
+                <img src={heroLcpSrc} srcset={heroHasWebp ? undefined : heroSrcset} sizes={(!heroHasWebp && heroSrcset) ? HERO_SIZES : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
               </picture>
             )}
             {heroThumb && <span class="shade"></span>}

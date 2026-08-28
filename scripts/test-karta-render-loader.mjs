@@ -94,6 +94,7 @@ export function clanek({
  * @returns {{
  *   thumbClass: string, dateStr: string, videoId: string | null,
  *   localThumb: string | undefined, thumbWebp: string | null, hasWebp: boolean,
+ *   lcpSrc: string | undefined,
  *   thumbUrl: string | undefined, thumbW: number, thumbH: number,
  *   readMinutes: number, datetime: string,
  *   loading: 'eager' | 'lazy', fetchpriority: 'high' | undefined,
@@ -128,7 +129,7 @@ export function vykresliKartu(article, { priority = false } = {}) {
   const most = `
     exports.__karta = {
       thumbClass, dateStr, videoId,
-      localThumb, thumbWebp, hasWebp,
+      localThumb, thumbWebp, hasWebp, lcpSrc,
       thumbUrl, thumbW, thumbH,
       readMinutes, loading, fetchpriority,
       datetime: date.toISOString().slice(0, 10),

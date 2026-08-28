@@ -22,13 +22,11 @@ test("odkaz v titulku karty je roztažený přes celou kartu (stretched link)", 
   assert.match(stretched, /inset: 0/, "::after musí pokrýt celou kartu (inset: 0)");
 });
 
-test("ArticleCard má jen dva odkazy na stejný článek a náhled je aria-hidden", () => {
-  const sablona = karta.split("---").slice(2).join("---");
+test("ArticleCard má právě jeden odkaz a náhled není <a>", () => {
+  const sablona = karta.split(/^---\s*$/m).slice(2).join("---");
   const odkazy = sablona.match(/<a\s[^>]*>/g) ?? [];
-  assert.equal(odkazy.length, 2, "karta smí mít jen odkaz na náhledu a v titulku — stretched link nesmí překrýt jiný interaktivní prvek");
-  const cile = odkazy.map((a) => a.match(/href=\{([^}]*)\}/)?.[1]);
-  assert.equal(cile[0], cile[1], "oba odkazy v kartě musí vést na stejný článek");
-  assert.match(odkazy[0], /aria-hidden="true"/, "odkaz na náhledu musí být aria-hidden (jméno karty dává titulek)");
-  assert.match(odkazy[0], /tabindex="-1"/, "odkaz na náhledu nesmí být v tab pořadí");
+  assert.equal(odkazy.length, 1, "karta smí mít jen odkaz v titulku — náhled jako <a> je vnořený interaktivní prvek");
+  assert.match(sablona, /<div class=\{`card-thumb \$\{thumbClass\}`\}>/, "náhled musí být <div class=card-thumb>");
+  assert.doesNotMatch(sablona, /<a\s[^>]*card-thumb/, "náhled nesmí být odkaz na stejné URL jako titulek");
   assert.match(sablona, /<h3><a href=\{`\/clanky\/\$\{article\.id\}\/`\}>\{title\}<\/a><\/h3>/, "titulek karty musí být odkaz — na něm sedí stretched ::after");
 });

@@ -42,6 +42,7 @@ test('Z1071: JPG s 640px variantou zůstane 640×360 + WebP', () => {
   assert.equal(out.thumbH, 360);
   assert.equal(out.thumbWebp, '/images/clanky/cover-640.webp');
   assert.equal(out.hasWebp, true);
+  assert.equal(out.lcpSrc, '/images/clanky/cover-640.webp');
 });
 
 test('Z1071: karta bere helper, ne holý replace na .jpg', () => {

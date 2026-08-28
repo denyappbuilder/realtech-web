@@ -3,6 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { ARTICLES_PER_PAGE } from "../src/lib/pagination.js";
+import { slugify } from "../src/lib/slugify.js";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const REDIRECTS_PATH = path.join(ROOT, "public", "_redirects");
@@ -75,5 +77,61 @@ test("/kontakt i varianta s lomítkem se trvale přesměrují na /o-nas/", () =>
     assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
     assert.equal(rule.destination, "/o-nas/");
     assert.equal(rule.status, "301");
+  }
+});
+
+function kategorieZeSchematu() {
+  const zdroj = fs.readFileSync(path.join(ROOT, "src/content.config.ts"), "utf8");
+  const blok = zdroj.match(/category:\s*z\.enum\(\[([\s\S]*?)\]\)/)?.[1];
+  assert.ok(blok, "v src/content.config.ts nejde najít výčet kategorií");
+  return [...blok.matchAll(/'([^']+)'/g)].map((m) => m[1]);
+}
+
+function pocetClankuPodleKategorie() {
+  const dir = path.join(ROOT, "src/content/clanky");
+  const counts = new Map();
+  for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".md"))) {
+    const fm = fs.readFileSync(path.join(dir, file), "utf8").split(/^---\s*$/m)[1] ?? "";
+    if (/^draft:\s*(?:true|True|TRUE)\b/m.test(fm)) continue;
+    const category = fm.match(/^category:\s*["']?([^\n"']+)/m)?.[1]?.trim();
+    if (!category) continue;
+    counts.set(category, (counts.get(category) ?? 0) + 1);
+  }
+  return counts;
+}
+
+// Živě 28. 8. 2026: /ai-report/ i /ai-report/strana/2/ (a stejně hardware,
+// vesmir, …) vracely 404. Témata žijí pod /temata/{slug}/.
+test("stará URL každého tématu ze schématu se trvale přesměruje na /temata/{slug}/", () => {
+  for (const category of kategorieZeSchematu()) {
+    const slug = slugify(category);
+    for (const source of [`/${slug}`, `/${slug}/`]) {
+      const rule = rules.get(source);
+      assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
+      assert.equal(rule.destination, `/temata/${slug}/`, source);
+      assert.equal(rule.status, "301", source);
+    }
+  }
+});
+
+test("stará paginace tématu: platné strany 2+ jdou na /temata/{slug}/strana/n/, zbytek na hub", () => {
+  const counts = pocetClankuPodleKategorie();
+  for (const category of kategorieZeSchematu()) {
+    const slug = slugify(category);
+    const totalPages = Math.max(1, Math.ceil((counts.get(category) ?? 0) / ARTICLES_PER_PAGE));
+    for (const page of Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => i + 2)) {
+      for (const source of [`/${slug}/strana/${page}`, `/${slug}/strana/${page}/`]) {
+        const rule = rules.get(source);
+        assert.ok(rule, `chybí 301 pro platnou starou stranu ${source}`);
+        assert.equal(rule.destination, `/temata/${slug}/strana/${page}/`, source);
+        assert.equal(rule.status, "301", source);
+      }
+    }
+    for (const source of [`/${slug}/strana/:n`, `/${slug}/strana/:n/`]) {
+      const rule = rules.get(source);
+      assert.ok(rule, `chybí catch-all 301 pro neexistující stranu ${source}`);
+      assert.equal(rule.destination, `/temata/${slug}/`, source);
+      assert.equal(rule.status, "301", source);
+    }
   }
 });

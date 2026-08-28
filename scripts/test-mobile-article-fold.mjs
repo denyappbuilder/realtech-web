@@ -33,6 +33,7 @@ function blokyMedia(maxPx) {
 }
 
 const mobil = blokyMedia(580);
+const tablet = blokyMedia(900);
 const uzkyMobil = blokyMedia(370);
 
 test("mobilní header má dvě kompaktní řady bez skrytí navigace nebo CTA", () => {
@@ -41,6 +42,14 @@ test("mobilní header má dvě kompaktní řady bez skrytí navigace nebo CTA", 
   assert.match(mobil, /grid-template-areas:\s*"logo actions"\s*"nav nav"/, "header nemá dvě určené řady");
   assert.match(mobil, /header\.site nav\.main\s*\{[^}]*overflow-x:\s*auto/, "navigace se na úzkém mobilu nedá vodorovně rolovat");
   assert.doesNotMatch(mobil, /(?:nav\.main|\.header-actions|\.yt-btn)[^{]*\{[^}]*display:\s*none/, "mobilní pravidla skrývají navigaci nebo CTA");
+});
+
+test("tablet 581–900px dává nav.main a stejný 44px cíl jako mobil", () => {
+  const nav = tablet.match(/nav\.main a\s*\{([^}]*)\}/)?.[1] ?? "";
+  assert.ok(nav, "v @media (max-width: 900px) chybí nav.main a");
+  assert.match(nav, /min-height:\s*44px/, "tabletová navigace nemá min-height: 44px");
+  assert.match(nav, /display:\s*flex/, "tabletová navigace musí být flex, ať 44px sedí");
+  assert.match(nav, /align-items:\s*center/, "tabletová navigace musí centrovat text v 44px");
 });
 
 test("mobilní header zachovává alespoň 44px dotykové cíle", () => {

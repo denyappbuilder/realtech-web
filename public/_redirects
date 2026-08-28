@@ -29,3 +29,43 @@
 # Kontaktní údaje žijí na /o-nas/.
 /kontakt /o-nas/ 301
 /kontakt/ /o-nas/ 301
+
+# Témata žijí pod /temata/{slug}/. Starší tvar /{slug}/ (ai-report,
+# hardware, vesmir, …) i /{slug}/strana/2/ živě 28. 8. 2026 vracel 404.
+# Jen slugy ze schématu kategorií — /:slug by sekl i /rss.xml.
+# Platné strany 2+ (dnes jen AI Report) jdou na stejnou stranu pod /temata/.
+# Strana 1 a neexistující N jdou na hub tématu.
+/ai-report/strana/2 /temata/ai-report/strana/2/ 301
+/ai-report/strana/2/ /temata/ai-report/strana/2/ 301
+/ai-report/strana/3 /temata/ai-report/strana/3/ 301
+/ai-report/strana/3/ /temata/ai-report/strana/3/ 301
+
+/ai-report/strana/:n /temata/ai-report/ 301
+/ai-report/strana/:n/ /temata/ai-report/ 301
+/ai-agenti/strana/:n /temata/ai-agenti/ 301
+/ai-agenti/strana/:n/ /temata/ai-agenti/ 301
+/drony/strana/:n /temata/drony/ 301
+/drony/strana/:n/ /temata/drony/ 301
+/vesmir/strana/:n /temata/vesmir/ 301
+/vesmir/strana/:n/ /temata/vesmir/ 301
+/hardware/strana/:n /temata/hardware/ 301
+/hardware/strana/:n/ /temata/hardware/ 301
+/mobily/strana/:n /temata/mobily/ 301
+/mobily/strana/:n/ /temata/mobily/ 301
+/site/strana/:n /temata/site/ 301
+/site/strana/:n/ /temata/site/ 301
+
+/ai-report /temata/ai-report/ 301
+/ai-report/ /temata/ai-report/ 301
+/ai-agenti /temata/ai-agenti/ 301
+/ai-agenti/ /temata/ai-agenti/ 301
+/drony /temata/drony/ 301
+/drony/ /temata/drony/ 301
+/vesmir /temata/vesmir/ 301
+/vesmir/ /temata/vesmir/ 301
+/hardware /temata/hardware/ 301
+/hardware/ /temata/hardware/ 301
+/mobily /temata/mobily/ 301
+/mobily/ /temata/mobily/ 301
+/site /temata/site/ 301
+/site/ /temata/site/ 301

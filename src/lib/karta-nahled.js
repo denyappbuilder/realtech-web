@@ -34,12 +34,16 @@ export function nahledKarty(image, exists = (cesta) => fs.existsSync(cesta)) {
     ? localThumb.replace(/\.jpg$/, '.webp')
     : null;
 
+  const hasWebp = Boolean(thumbWebp && exists(`public${thumbWebp}`));
   return {
     localThumb,
     thumbW: pouzilSmall ? 640 : 1280,
     thumbH: pouzilSmall ? 360 : 720,
     thumbWebp,
-    hasWebp: Boolean(thumbWebp && exists(`public${thumbWebp}`)),
+    hasWebp,
+    // Stejný důvod jako hero: <img src> musí být WebP, jinak LCP první
+    // karty na /clanky/ stáhne -640.jpg i když -640.webp leží vedle.
+    lcpSrc: hasWebp ? thumbWebp : localThumb,
     // Rozhoduje, jestli u videa vyhraje lokální cover, nebo YouTube náhled —
     // frontmatter `image` mířící na neexistující soubor nesmí kartu poslat na 404.
     hasLocalThumb: exists(`public${localThumb}`),

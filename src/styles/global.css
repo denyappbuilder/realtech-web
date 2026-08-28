@@ -428,10 +428,8 @@ a.tag:hover { background: var(--signal-dark); }
 }
 .card-body h3 a { transition: color 0.15s; }
 .card-body h3 a:hover { color: var(--signal-dark); }
-/* Celá karta je klikací: klikatelný byl jen náhled a titulek, popis a meta
-   byly mrtvá zóna. Stretched link přes ::after odkazu v titulku — ten nese
-   jméno karty (odkaz na náhledu je aria-hidden + tabindex="-1"), takže se
-   a11y sémantika nemění. V kartě nesmí být žádný další interaktivní prvek. */
+/* Celá karta je klikací: stretched link přes ::after odkazu v titulku.
+   Náhled je <div>, ne druhý <a> na stejné URL (vnořený interaktivní prvek). */
 .card-body h3 a::after { content: ''; position: absolute; inset: 0; }
 .card-body p { font-size: 0.88rem; color: var(--ink-soft); flex: 1; }
 .card-meta {
@@ -719,7 +717,14 @@ footer.site ul a:hover { color: var(--ink); }
   .logo .cz { font-size: 0.55rem; }
   nav.main { order: 3; width: 100%; }
   nav.main ul { gap: 18px; }
-  nav.main a { font-size: 0.95rem; padding: 6px 0 8px; }
+  /* 44px byl jen pod 580px. Na tabletu 581–900px zůstal padding 6px 0 8px. */
+  nav.main a {
+    font-size: 0.95rem;
+    padding: 6px 0 8px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
   .yt-btn { padding: 8px 12px; font-size: 0.8rem; }
   /* Z1000: na tabletu a mobilu ticker dělá třetí pruh nad herem. */
   .ticker { display: none; }

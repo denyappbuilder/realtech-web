@@ -90,7 +90,7 @@ test('produkční šablona posílá v prvním HTML lokální facade bez iframe',
 
   assert.match(template, /class="video-embed youtube-facade"/);
   assert.doesNotMatch(template, /<iframe\b/i, 'iframe nesmí existovat před souhlasnou aktivací');
-  assert.match(template, /\{heroSrc && \([\s\S]*<img src=\{heroSrc\}/);
+  assert.match(template, /\{heroSrc && \([\s\S]*<img src=\{heroLcpSrc\}/);
   assert.doesNotMatch(template, /ytimg\.com/i, 'facade nesmí stahovat náhled z YouTube');
   assert.match(PAGE, /import \{ inicializujYoutubeFacades \} from '\.\.\/\.\.\/lib\/youtube-facade\.js'/);
   assert.match(PAGE, /inicializujYoutubeFacades\(\)/);
