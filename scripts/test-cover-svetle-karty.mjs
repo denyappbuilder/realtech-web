@@ -25,7 +25,8 @@ const SLUGS = [
 ];
 
 // Živě 28. 8. 2026 večer: /clanky/strana/2/ pořád černo-červený 3D neon.
-// Pixel Watch byl živě tma/neon, proto zůstává v osmičce (ne meta-australie).
+// Pixel Watch byl živě tma/neon, proto zůstává v sadě (ne meta-australie).
+// Druhý audit: ask-maps (černá mapa, červený pin) — max 9 slugů, ne strana 3+.
 const STRANA2_SLUGS = [
   'chatgpt-reklamy-nove-trhy',
   'chatgpt-zdarma-neomezene-chaty',
@@ -35,6 +36,7 @@ const STRANA2_SLUGS = [
   'grok-imagine-image-2-zdarma',
   'anthropic-risk-report-misalignment',
   'pixel-watch-detekce-dechu',
+  'ask-maps-agent-objednavani-jidla',
 ];
 
 function coverPath(slug, name) {

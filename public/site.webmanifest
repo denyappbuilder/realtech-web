@@ -4,7 +4,7 @@
   "description": "Tech novinky a analýzy bez marketingových řečí.",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#0F1216",
+  "background_color": "#F6F7F9",
   "theme_color": "#D42622",
   "lang": "cs",
   "icons": [

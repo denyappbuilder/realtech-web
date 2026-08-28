@@ -201,6 +201,9 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;
   letter-spacing: 0.02em; color: var(--ink-soft);
   white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 .ticker-track a:hover { color: var(--signal-dark); }
 .ticker-track a::before { content: "▪ "; color: var(--signal); }
