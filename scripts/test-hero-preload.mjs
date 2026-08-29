@@ -158,9 +158,9 @@ test('archiv preloaduje první kartu jen na straně 1 — a ze stejných helper�
   );
 });
 
-// Živě 26. 8. 2026: /vitej/ i 404 dávaly první kartě priority (eager +
-// fetchpriority=high), ale v <head> neměly žádný <link rel="preload"> —
-// prohlížeč našel LCP obrázek až při parsování <body>. Obě stránky nemají
+// Živě 26. 8. 2026: /vitej/ dával první kartě priority (eager +
+// fetchpriority=high), ale v <head> neměl žádný <link rel="preload"> —
+// prohlížeč našel LCP obrázek až při parsování <body>. /vitej/ nemá
 // hero, takže preload patří první kartě — stejný výpočet jako archiv.
 test('vitej preloaduje první kartu — ze stejných helperů jako karta', () => {
   const vitej = zdroj('src/pages/vitej.astro');
@@ -187,7 +187,7 @@ test('vitej preloaduje první kartu — ze stejných helperů jako karta', () =>
 
 // Živě 26. 8. 2026: /temata/{slug}/ dával první kartě priority (eager +
 // fetchpriority=high), ale v <head> neměl žádný <link rel="preload"> —
-// stejný dluh, jaký měly /vitej/ a 404. Preload jen na straně 1, strana 2+
+// stejný dluh, jaký mělo /vitej/. Preload jen na straně 1, strana 2+
 // nemá eager LCP nad foldem jistou a preload by soupeřil o pásmo.
 test('téma preloaduje první kartu jen na straně 1 — ze stejných helperů jako karta', () => {
   const tema = zdroj('src/components/TemaPage.astro');
@@ -217,31 +217,21 @@ test('téma preloaduje první kartu jen na straně 1 — ze stejných helperů j
   );
 });
 
-test('404 preloaduje první kartu — ze stejných helperů jako karta', () => {
+test('404 nepreloaduje LCP/hero první karty', () => {
   const notfound = zdroj('src/pages/404.astro');
 
-  assert.match(notfound, /from '\.\.\/lib\/hero-preload\.js'/);
-  assert.match(notfound, /from '\.\.\/lib\/karta-nahled\.js'/);
-  assert.match(notfound, /from '\.\.\/lib\/youtube\.js'/);
-  assert.match(
+  assert.doesNotMatch(notfound, /hero-preload/);
+  assert.doesNotMatch(notfound, /preloadHeroObrazku|kartaPreload/);
+  assert.doesNotMatch(
     notfound,
-    VYBER_PRELOADU_KARTY,
-    'preload musí mířit na tentýž soubor jako <picture> karty (WebP > JPG > ytimg fallback)',
-  );
-  assert.match(
-    notfound,
-    LINK_PRELOADU_KARTY,
-    '404 musí mít <link rel="preload" as="image"> ve slotu head',
-  );
-  assert.equal(
-    (notfound.match(/rel="preload"/g) ?? []).length,
-    1,
-    'na 404 smí být právě jeden preload',
+    /rel="preload"/,
+    '404 nesmí tahat webp/hero první karty přes preload',
   );
 });
 
-test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek, /clanky/, /temata/{slug}/, /vitej/ a 404', () => {
+test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek, /clanky/, /temata/{slug}/ a /vitej/', () => {
   for (const rel of [
+    'src/pages/404.astro',
     'src/components/ArticleCard.astro',
     'src/pages/clanky/index.astro',
     'src/pages/clanky/strana/[page].astro',
