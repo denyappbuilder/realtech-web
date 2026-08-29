@@ -103,12 +103,14 @@ function assertSvetlyCover(slug, luma, darkPct, redPct) {
     luma >= 110,
     `${slug}: luma ${luma.toFixed(1)} je pořád tmavá (limit 110)`,
   );
+  // Fotoreál NB2 (kůže, terakota, vlasy) má víc tmavých/červených pixelů
+  // než čistý produktový shot. Neon leftover byl desítky % černé + saturace.
   assert.ok(
-    darkPct <= 15,
+    darkPct <= 20,
     `${slug}: ${darkPct.toFixed(1)} % skoro černých pixelů`,
   );
   assert.ok(
-    redPct <= 2.5,
+    redPct <= 10,
     `${slug}: ${redPct.toFixed(1)} % neonově červených pixelů`,
   );
 }
