@@ -329,12 +329,12 @@ test('použitelný YouTube RSS odfiltruje Shorts, omezí videa a dekóduje XML e
   assert.ok(fetchCalls[0][1].signal instanceof AbortSignal);
 });
 
-test('share image je OG hero článku, když soubor existuje, jinak cover', async (t) => {
+test('share image je OG hero článku, když soubor existuje', async (t) => {
   setExistingFiles([
     'public/images/og/nejnovejsi.jpg',
     'public/images/clanky/nejnovejsi.jpg',
   ]);
-  const sOg = await executeHomepage(
+  const result = await executeHomepage(
     t,
     [article({
       id: 'nejnovejsi',
@@ -344,11 +344,12 @@ test('share image je OG hero článku, když soubor existuje, jinak cover', asyn
     })],
     async () => rssResponse('<feed></feed>'),
   );
-  assert.equal(sOg.heroOg, '/images/og/nejnovejsi.jpg');
+  assert.equal(result.heroOg, '/images/og/nejnovejsi.jpg');
+});
 
-  resetHomepageMocks();
+test('share image padá na cover článku, když OG soubor chybí', async (t) => {
   setExistingFiles(['public/images/clanky/jen-cover.jpg']);
-  const sCover = await executeHomepage(
+  const result = await executeHomepage(
     t,
     [article({
       id: 'jen-cover',
@@ -358,7 +359,7 @@ test('share image je OG hero článku, když soubor existuje, jinak cover', asyn
     })],
     async () => rssResponse('<feed></feed>'),
   );
-  assert.equal(sCover.heroOg, '/images/clanky/jen-cover.jpg');
+  assert.equal(result.heroOg, '/images/clanky/jen-cover.jpg');
 });
 
 test('úvodka předá Base image hero a nechá og:type website; průvodci vedou na /temata/', () => {
