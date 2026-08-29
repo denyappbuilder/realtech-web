@@ -1,6 +1,6 @@
 ---
-title: "Anthropic pustil venkáře k 250 tisícům konverzací Clauda. Surový chat nikdo z nich neviděl"
-description: "Oficiální pilot Anthropic Insights (dřív Clio): Stanford, Oxford a METR dostali agregovaná data z dubna a května 2026. Firma říká, že je to poprvé."
+title: "Externí výzkumníci viděli 250 tisíc konverzací Clauda. Surový chat ale ne"
+description: "Oficiální pilot Anthropic Insights (dřív Clio): Stanford, Oxford a METR dostali agregovaná data z dubna a května 2026. Surový chat neviděli. Firma říká, že je to poprvé."
 category: "AI Report"
 date: "2026-08-26"
 zprava: true
@@ -10,9 +10,9 @@ audio:
   duration: 1857
 ---
 
-Anthropic 26. srpna 2026 zveřejnil pilot, který pustil tři externí skupiny k agregovaným datům o reálném používání Clauda. Nástroj se jmenuje Anthropic Insights. Dřív Clio. Interně ho firma používá na vzorce v milionech konverzací. Sběr dat běžel u Anthropicu. Analýzu si výzkumníci dělali sami.
+Anthropic 26. srpna 2026 zveřejnil oficiální pilot Anthropic Insights. Lidé zvenčí, externí výzkumníci ze Stanfordu, Oxfordu a METR, dostali přístup k agregovaným datům o reálném používání Clauda. Surové konverzace neviděli. Nástroj dřív běžel interně pod jménem Clio. Firma ho používá na vzorce v milionech konverzací. Sběr dat zůstal u Anthropicu. Analýzu si výzkumníci dělali sami.
 
-Šlo podle firmy zhruba o 250 000 konverzací z Claude.ai nebo Claude Code za duben a květen 2026. Partneři: Social and Language Technologies Lab na Stanfordu, Human Information Processing Lab v Oxfordu a neziskovka METR, která hodnotí frontier modely. Agregovaná data z každého projektu Anthropic zveřejnil. Surové konverzace výzkumníci neviděli. Viděli jen agregované kategorie po právním a privacy review.
+Šlo podle firmy zhruba o 250 000 konverzací z Claude.ai nebo Claude Code za duben a květen 2026. Partneři: Social and Language Technologies Lab na Stanfordu, Human Information Processing Lab v Oxfordu a neziskovka METR, která hodnotí frontier modely. Agregovaná data z každého projektu Anthropic zveřejnil. Surové chaty na veřejnost nešly. Výzkumníci viděli jen agregované kategorie po právním a privacy review.
 
 Firma píše, že věří, že je to poprvé, kdy externí výzkumníci na vlastních usage datech AI laboratoře pustili veřejné nezávislé studie. To je tvrzení Anthropicu. Ne nezávisle ověřený fakt.
 
