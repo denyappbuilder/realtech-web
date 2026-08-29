@@ -51,3 +51,16 @@ test("písmo štítku ŽIVĚ sedí s pohyblivou řádkou", () => {
     "štítek nemá 0.78rem — vedle headlines vypadá jako jiná ikona",
   );
 });
+
+test("ticker-track a má zásah 44 px i na desktopu", () => {
+  const odkazy = pravidla("ticker-track a");
+  assert.ok(odkazy, "global.css nemá .ticker-track a");
+  assert.match(
+    odkazy,
+    /min-height:\s*44px/,
+    "ticker-track a nemá min-height: 44px — živě byl zásah ~13px",
+  );
+  assert.match(odkazy, /display:\s*inline-flex/, "ticker-track a musí být inline-flex");
+  assert.match(odkazy, /align-items:\s*center/, "ticker-track a musí centrovat text v 44px");
+});
+

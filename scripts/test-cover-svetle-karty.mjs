@@ -24,6 +24,21 @@ const SLUGS = [
   'openai-pauza-rl-treninku-astra',
 ];
 
+// Živě 28. 8. 2026 večer: /clanky/strana/2/ pořád černo-červený 3D neon.
+// Pixel Watch byl živě tma/neon, proto zůstává v sadě (ne meta-australie).
+// Druhý audit: ask-maps (černá mapa, červený pin) — max 9 slugů, ne strana 3+.
+const STRANA2_SLUGS = [
+  'chatgpt-reklamy-nove-trhy',
+  'chatgpt-zdarma-neomezene-chaty',
+  'glm-5-3-kybernalezy',
+  'openai-astra-critical-kyberbezpecnost',
+  'pixel-11-tensor-g6',
+  'grok-imagine-image-2-zdarma',
+  'anthropic-risk-report-misalignment',
+  'pixel-watch-detekce-dechu',
+  'ask-maps-agent-objednavani-jidla',
+];
+
 function coverPath(slug, name) {
   return path.join(root, 'public/images/clanky', name ?? `${slug}.jpg`);
 }
@@ -83,6 +98,21 @@ test('Starbase cover už není Falcon Heavy z LC-39A', async () => {
   assert.equal(meta.height, 720);
 });
 
+function assertSvetlyCover(slug, luma, darkPct, redPct) {
+  assert.ok(
+    luma >= 110,
+    `${slug}: luma ${luma.toFixed(1)} je pořád tmavá (limit 110)`,
+  );
+  assert.ok(
+    darkPct <= 15,
+    `${slug}: ${darkPct.toFixed(1)} % skoro černých pixelů`,
+  );
+  assert.ok(
+    redPct <= 2.5,
+    `${slug}: ${redPct.toFixed(1)} % neonově červených pixelů`,
+  );
+}
+
 test('přegenerované leftover slugy jsou světlé, bez červeného neonu', async () => {
   for (const slug of SLUGS) {
     const file = coverPath(slug);
@@ -90,17 +120,33 @@ test('přegenerované leftover slugy jsou světlé, bez červeného neonu', asyn
     assert.equal(meta.width, 1280, `${slug} šířka`);
     assert.equal(meta.height, 720, `${slug} výška`);
     const { luma, darkPct, redPct } = await lumaStats(file);
-    assert.ok(
-      luma >= 110,
-      `${slug}: luma ${luma.toFixed(1)} je pořád tmavá (limit 110)`,
-    );
-    assert.ok(
-      darkPct <= 15,
-      `${slug}: ${darkPct.toFixed(1)} % skoro černých pixelů`,
-    );
-    assert.ok(
-      redPct <= 2.5,
-      `${slug}: ${redPct.toFixed(1)} % neonově červených pixelů`,
-    );
+    assertSvetlyCover(slug, luma, darkPct, redPct);
+  }
+});
+
+test('strana 2 leftover slugy mají 1280×720 cover, deriváty a OG', () => {
+  for (const slug of STRANA2_SLUGS) {
+    const files = [
+      coverPath(slug, `${slug}.jpg`),
+      coverPath(slug, `${slug}.webp`),
+      coverPath(slug, `${slug}-640.jpg`),
+      coverPath(slug, `${slug}-640.webp`),
+      path.join(root, 'public/images/og', `${slug}.jpg`),
+      path.join(root, 'public/images/og', `${slug}.jpg.sha256`),
+    ];
+    for (const file of files) {
+      assert.ok(fs.existsSync(file), `chybí ${path.relative(root, file)}`);
+    }
+  }
+});
+
+test('strana 2 leftover slugy jsou světlé, bez červeného neonu', async () => {
+  for (const slug of STRANA2_SLUGS) {
+    const file = coverPath(slug);
+    const meta = await sharp(file).metadata();
+    assert.equal(meta.width, 1280, `${slug} šířka`);
+    assert.equal(meta.height, 720, `${slug} výška`);
+    const { luma, darkPct, redPct } = await lumaStats(file);
+    assertSvetlyCover(slug, luma, darkPct, redPct);
   }
 });

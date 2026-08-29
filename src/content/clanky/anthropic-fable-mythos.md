@@ -46,7 +46,7 @@ Máme tedy dva výklady téhož: vláda říká „reálná bezpečnostní hrozb
 
 ## Postupné uvolňování
 
-26. června ministr obchodu Howard Lutnick dopisem potvrdil částečné uvolnění: Mythos 5, ten kyberbezpečnostní, se obnovuje pro vybrané důvěryhodné uživatele. Fable 5 zůstal zablokovaný a jednání pokračovala.
+26\. června ministr obchodu Howard Lutnick dopisem potvrdil částečné uvolnění: Mythos 5, ten kyberbezpečnostní, se obnovuje pro vybrané důvěryhodné uživatele. Fable 5 zůstal zablokovaný a jednání pokračovala.
 
 Zlom přišel kolem 1. července: ministerstvo obchodu exportní zákaz na Fable 5 pustilo a model se vrací do světa včetně Evropy. Nenabíhá to naplno hned — první dny platí snížené limity, řádově do padesáti procent běžné týdenní kvóty u placených plánů. Ale princip je jasný: Fable je zpátky.
 
