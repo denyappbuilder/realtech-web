@@ -666,7 +666,7 @@ a.tag:hover { background: var(--signal-dark); }
   transition: background 0.15s;
 }
 .nl-form button:hover { background: var(--signal-dark); }
-.nl-note { font-size: 0.75rem; color: #6B7482; margin-top: 10px; }
+.nl-note { font-size: 0.75rem; color: #848D9B; margin-top: 10px; }
 .nl-cta {
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--signal); color: #fff; text-decoration: none;
@@ -1152,6 +1152,9 @@ footer.site ul a:hover { color: var(--ink); }
 .author-box .btn-ghost {
   background: transparent; border-color: #333B47; color: #A9B2BF;
   padding: 9px 18px; font-size: 0.85rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 .author-box .btn-ghost:hover { border-color: #fff; color: #fff; }
 
