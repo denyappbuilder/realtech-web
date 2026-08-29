@@ -39,6 +39,16 @@ const STRANA2_SLUGS = [
   'ask-maps-agent-objednavani-jidla',
 ];
 
+// Živě 29. 8. 2026: #355 je nechalo jako „product shots".
+// strana 4 galaxy-card (černá deska, neon-červená hrana),
+// strana 5 flex-titanium (3D skládačka, červená hrana + modrý vent)
+// a unpacked-cervenec (clamshell na černé, červené/modré pruhy).
+const SAMSUNG_LEFTOVER_SLUGS = [
+  'samsung-galaxy-card',
+  'samsung-flex-titanium-skladacky',
+  'samsung-galaxy-unpacked-cervenec',
+];
+
 function coverPath(slug, name) {
   return path.join(root, 'public/images/clanky', name ?? `${slug}.jpg`);
 }
@@ -144,6 +154,33 @@ test('strana 2 leftover slugy mají 1280×720 cover, deriváty a OG', () => {
 
 test('strana 2 leftover slugy jsou světlé, bez červeného neonu', async () => {
   for (const slug of STRANA2_SLUGS) {
+    const file = coverPath(slug);
+    const meta = await sharp(file).metadata();
+    assert.equal(meta.width, 1280, `${slug} šířka`);
+    assert.equal(meta.height, 720, `${slug} výška`);
+    const { luma, darkPct, redPct } = await lumaStats(file);
+    assertSvetlyCover(slug, luma, darkPct, redPct);
+  }
+});
+
+test('tři leftover Samsung coverý mají 1280×720, deriváty a OG', () => {
+  for (const slug of SAMSUNG_LEFTOVER_SLUGS) {
+    const files = [
+      coverPath(slug, `${slug}.jpg`),
+      coverPath(slug, `${slug}.webp`),
+      coverPath(slug, `${slug}-640.jpg`),
+      coverPath(slug, `${slug}-640.webp`),
+      path.join(root, 'public/images/og', `${slug}.jpg`),
+      path.join(root, 'public/images/og', `${slug}.jpg.sha256`),
+    ];
+    for (const file of files) {
+      assert.ok(fs.existsSync(file), `chybí ${path.relative(root, file)}`);
+    }
+  }
+});
+
+test('tři leftover Samsung coverý jsou světlé, bez červeného neonu', async () => {
+  for (const slug of SAMSUNG_LEFTOVER_SLUGS) {
     const file = coverPath(slug);
     const meta = await sharp(file).metadata();
     assert.equal(meta.width, 1280, `${slug} šířka`);

@@ -32,16 +32,21 @@ test('karta počítá loading a fetchpriority z props.priority', () => {
   assert.doesNotMatch(karta, /loading="lazy"/);
 });
 
-test('archiv dá priority první kartě na každé straně', () => {
+test('archiv dá priority první kartě jen na straně 1', () => {
   assert.match(
     archiv,
-    /articles\.map\(\(article, index\) => \(\s*<ArticleCard article=\{article\} priority=\{index === 0\} \/>/,
-    'první karta je LCP i na /clanky/strana/2+ — eager dostane jen index 0',
+    /articles\.map\(\(article, index\) => \(\s*<ArticleCard article=\{article\} priority=\{page === 1 && index === 0\} \/>/,
+    'eager/high jen na /clanky/ (page 1), ne na /clanky/strana/2+',
   );
   assert.doesNotMatch(
     archiv,
     /<ArticleCard article=\{article\} \/>/,
     'archiv nesmí vrátit kartu bez rozhodnutí o priority',
+  );
+  assert.doesNotMatch(
+    archiv,
+    /priority=\{index === 0\}/,
+    'strana 2+ nesmí dostat eager jen proto, že karta je první na stránce',
   );
 });
 

@@ -50,7 +50,7 @@ export async function load(url, context, nextLoad) {
     'return {',
     '  all, pruvodci, hero, candidates, rail, rest, categories, videos,',
     '  dateStr, heroVideoId, heroThumb, heroSrcset, heroWebp, heroWebpSrcset,',
-    '  heroHasWebp, heroLcpSrc, heroPreload, jsonLd,',
+    '  heroHasWebp, heroLcpSrc, heroPreload, heroOg, jsonLd,',
     '};',
     renderReturn,
   ].join('\n');

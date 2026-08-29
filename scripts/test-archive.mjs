@@ -221,3 +221,17 @@ test('archiv drží H1 Všechny články a nenabízí klikací RSS', () => {
   assert.doesNotMatch(source, /RSS →/);
   assert.doesNotMatch(source, /href="\/rss\.xml"/);
 });
+
+test('eager + fetchpriority=high má jen první karta strany 1, ne /clanky/strana/2+', () => {
+  const source = readFileSync(new URL('../src/components/ArticleArchivePage.astro', import.meta.url), 'utf8');
+  assert.match(
+    source,
+    /priority=\{page === 1 && index === 0\}/,
+    'živě 29. 8. 2026 měly strany 2–6 eager/high na první kartě',
+  );
+  assert.doesNotMatch(
+    source,
+    /priority=\{index === 0\}/,
+    'page === 1 musí být v podmínce, jinak strana 2+ zase stáhne LCP',
+  );
+});

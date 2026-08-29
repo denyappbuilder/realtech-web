@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { register } from 'node:module';
 import test, { beforeEach } from 'node:test';
 
@@ -208,6 +209,16 @@ test('stránka kategorie řadí shodné datum stabilně podle ID bez ohledu na p
 
   assert.deepEqual(outputs[0], SAME_DATE_EXPECTED_IDS);
   assert.deepEqual(outputs[1], outputs[0]);
+});
+
+test('hub /temata/ kreslí náhled nejnovějšího článku, ne zeď prázdných karet', () => {
+  const hub = readFileSync(new URL('../src/pages/temata/index.astro', import.meta.url), 'utf8');
+  assert.match(hub, /from '\.\.\/\.\.\/lib\/karta-nahled\.js'/);
+  assert.match(hub, /nahledKarty\(nejnovejsi\.data\.image\)/);
+  assert.match(hub, /<picture>/);
+  assert.match(hub, /<img src=\{t\.nahled\.lcpSrc\}/);
+  const odkazy = hub.match(/<article class="card"[\s\S]*?<\/article>/)?.[0]?.match(/<a\s/g) ?? [];
+  assert.equal(odkazy.length, 1, 'hub karta musí mít jediný <a>');
 });
 
 test('ostatní témata tiše zahodí draft-only kategorie, duplicity a aktuální kategorii', async () => {

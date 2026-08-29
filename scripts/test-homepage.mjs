@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test, { beforeEach } from 'node:test';
 
 import './test-homepage-register.mjs';
@@ -326,6 +327,60 @@ test('použitelný YouTube RSS odfiltruje Shorts, omezí videa a dekóduje XML e
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCwWvw3SkWgfDinhnAHpceeA',
   );
   assert.ok(fetchCalls[0][1].signal instanceof AbortSignal);
+});
+
+test('share image je OG hero článku, když soubor existuje', async (t) => {
+  setExistingFiles([
+    'public/images/og/nejnovejsi.jpg',
+    'public/images/clanky/nejnovejsi.jpg',
+  ]);
+  const result = await executeHomepage(
+    t,
+    [article({
+      id: 'nejnovejsi',
+      date: '2026-01-19T00:00:00Z',
+      category: 'Hardware',
+      image: '/images/clanky/nejnovejsi.jpg',
+    })],
+    async () => rssResponse('<feed></feed>'),
+  );
+  assert.equal(result.heroOg, '/images/og/nejnovejsi.jpg');
+});
+
+test('share image padá na cover článku, když OG soubor chybí', async (t) => {
+  setExistingFiles(['public/images/clanky/jen-cover.jpg']);
+  const result = await executeHomepage(
+    t,
+    [article({
+      id: 'jen-cover',
+      date: '2026-01-19T00:00:00Z',
+      category: 'Hardware',
+      image: '/images/clanky/jen-cover.jpg',
+    })],
+    async () => rssResponse('<feed></feed>'),
+  );
+  assert.equal(result.heroOg, '/images/clanky/jen-cover.jpg');
+});
+
+test('úvodka předá Base image hero a nechá og:type website; průvodci vedou na /temata/', () => {
+  const zdroj = readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
+  assert.match(
+    zdroj,
+    /<Base title="REALTECH CZ — Tech novinky a analýzy" image=\{heroOg\}>/,
+    'homepage musí poslat image hero do Base, jinak share dostane og-default.jpg',
+  );
+  assert.doesNotMatch(
+    zdroj,
+    /ogType=/,
+    'homepage musí nechat výchozí og:type website',
+  );
+  assert.match(
+    zdroj,
+    /<a href="\/temata\/">Všechna témata →<\/a>/,
+    'sekce Průvodci musí vést na hub témat, ne na /temata/site/',
+  );
+  assert.doesNotMatch(zdroj, /Téma Sítě/, 'odkaz Téma Sítě u průvodců je špatné téma');
+  assert.doesNotMatch(zdroj, /href="\/temata\/site\/"/, 'průvodci nesmí cílit jen na Sítě');
 });
 
 test('nepoužitelný nebo chybový YouTube RSS vždy použije lokální snapshot', async (t) => {
