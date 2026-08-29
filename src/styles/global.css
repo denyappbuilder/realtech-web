@@ -972,7 +972,13 @@ footer.site ul a:hover { color: var(--ink); }
 
 @media (max-width: 480px) {
   .archive-pagination { gap: 10px; }
-  .archive-pagination .btn-ghost { padding: 10px 14px; }
+  .archive-pagination .btn-ghost {
+    padding: 10px 14px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* ── Reading progress ────────────────── */
