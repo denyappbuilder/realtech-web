@@ -52,6 +52,14 @@ test("tablet 581–900px dává nav.main a stejný 44px cíl jako mobil", () => 
   assert.match(nav, /align-items:\s*center/, "tabletová navigace musí centrovat text v 44px");
 });
 
+test("desktopový .yt-btn má min-height 44px i mimo max-width 900px", () => {
+  const yt = css.match(/\.yt-btn\s*\{([^}]*)\}/)?.[1] ?? "";
+  assert.ok(yt, "chybí základní .yt-btn");
+  assert.match(yt, /min-height:\s*44px/, "živě 29. 8. 2026 bylo desktopové CTA ~34px");
+  assert.match(yt, /display:\s*inline-flex/, "min-height 44px bez flexu nesedí na ikonu");
+  assert.match(yt, /align-items:\s*center/, "text a ikona musí sedět ve 44px");
+});
+
 test("tablet 581–900px dává 44px i theme-toggle, yt-btn a patičce", () => {
   assert.match(
     tablet,

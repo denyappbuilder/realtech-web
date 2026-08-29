@@ -47,6 +47,10 @@ const heroWebpSrcset = heroHasWebp && heroWebpSmall && fs.existsSync(`public${he
 // fetchpriority=high na <img> spekulativně stáhne src dřív než <source>.
 // Když WebP existuje, src musí být WebP — jinak LCP zůstane .jpg.
 const heroLcpSrc = heroHasWebp ? heroWebp : heroThumb;
+const heroOgSoubor = hero ? `public/images/og/${hero.id}.jpg` : null;
+const heroOg = heroOgSoubor && fs.existsSync(heroOgSoubor)
+  ? `/images/og/${hero.id}.jpg`
+  : hero?.data.image;
 const HERO_SIZES = '(max-width: 900px) 100vw, 40vw';
 // LCP hero je až v <body> — jediný preload v <head> ho pustí ke stažení hned.
 // Míří na tentýž soubor jako <img src> (WebP, když derivát existuje).
@@ -103,7 +107,7 @@ const jsonLd = {
   ],
 };
 ---
-<Base title="REALTECH CZ — Tech novinky a analýzy">
+<Base title="REALTECH CZ — Tech novinky a analýzy" image={heroOg}>
   {heroPreload && (
     <link
       rel="preload"
@@ -205,7 +209,7 @@ const jsonLd = {
         <div class="video-strip">
           <div class="section-head">
             <h2>Průvodci a srovnání</h2>
-            <a href="/temata/site/">Téma Sítě →</a>
+            <a href="/temata/">Všechna témata →</a>
           </div>
           <div class="grid">
             {pruvodci.map((article) => <ArticleCard article={article} />)}

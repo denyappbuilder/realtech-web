@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import { formatCalendarDateCs } from '../../lib/calendarDate.js';
+import { nahledKarty } from '../../lib/karta-nahled.js';
 import { seoTitulek } from '../../lib/seo-titulek.js';
 import Base from '../../layouts/Base.astro';
 import { slugify } from '../../lib/slugify.js';
@@ -13,7 +14,14 @@ const all = (await getCollection('clanky', ({ data }) => !data.draft))
 // Pořadí témat = podle nejnovějšího článku (all je seřazené, Set drží první výskyt).
 const temata = [...new Set(all.map((c) => c.data.category))].map((category) => {
   const clanky = all.filter((c) => c.data.category === category);
-  return { category, slug: slugify(category), pocet: clanky.length, nejnovejsi: clanky[0] };
+  const nejnovejsi = clanky[0];
+  return {
+    category,
+    slug: slugify(category),
+    pocet: clanky.length,
+    nejnovejsi,
+    nahled: nahledKarty(nejnovejsi.data.image),
+  };
 });
 
 const pocetClankuText = (n) => (n === 1 ? '1 článek' : n < 5 ? `${n} články` : `${n} článků`);
@@ -61,6 +69,14 @@ const collectionLd = {
       <div class="grid">
         {temata.map((t) => (
           <article class="card" data-category={t.category}>
+            {t.nahled.localThumb && (
+              <div class={`card-thumb th-${t.slug}`}>
+                <picture>
+                  {t.nahled.hasWebp && <source srcset={t.nahled.thumbWebp} type="image/webp" />}
+                  <img src={t.nahled.lcpSrc} alt={t.nejnovejsi.data.title} width={t.nahled.thumbW} height={t.nahled.thumbH} loading="lazy" decoding="async" />
+                </picture>
+              </div>
+            )}
             <div class="card-body">
               <h3><a href={`/temata/${t.slug}/`}>{t.category}</a></h3>
               <p>{popisTematu(t.category)}</p>
@@ -77,9 +93,8 @@ const collectionLd = {
 </Base>
 
 <style>
-  /* Karty témat nemají náhled, takže jediný proklik byl krátký titulek.
-     Stretched link: ::after odkazu v titulku pokryje celou kartu,
-     v kartě zůstává jediný <a> (žádné vnořené interaktivní prvky). */
+  /* Náhled je <div>, ne druhý <a>. Stretched link: ::after odkazu
+     v titulku pokryje celou kartu včetně fotky. Jediný <a>. */
   .grid .card { position: relative; }
   .card-body h3 a::after {
     content: '';

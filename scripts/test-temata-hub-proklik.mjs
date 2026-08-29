@@ -25,3 +25,11 @@ test("odkaz v titulku je roztažený přes celou kartu (stretched link)", () => 
   assert.match(stretched, /position: absolute/, "::after musí být absolutně pozicovaný");
   assert.match(stretched, /inset: 0/, "::after musí pokrýt celou kartu (inset: 0)");
 });
+
+test("karta tématu bere <picture> z nahledKarty(nejnovejsi), ne prázdné card-body", () => {
+  assert.match(hub, /nahledKarty\(nejnovejsi\.data\.image\)/, "hub musí brát cover nejnovějšího článku přes nahledKarty");
+  assert.match(karta, /<picture>/, "hub karta musí mít <picture> jako ArticleCard");
+  assert.match(karta, /class=\{`card-thumb th-\$\{t\.slug\}`\}/, "náhled musí sedět do stejného card-thumb jako ArticleCard");
+  assert.match(karta, /alt=\{t\.nejnovejsi\.data\.title\}/, "alt náhledu je titulek nejnovějšího článku");
+  assert.doesNotMatch(karta, /<a[^>]*>[\s\S]*<picture>/, "náhled nesmí být druhý <a> (vnořený interaktivní prvek)");
+});

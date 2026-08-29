@@ -122,6 +122,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   background: var(--signal); color: #fff;
   padding: 9px 18px; border-radius: var(--radius);
   font-size: 0.85rem; font-weight: 600;
+  min-height: 44px;
   transition: background 0.15s;
   display: inline-flex; align-items: center; gap: 8px;
   white-space: nowrap;
