@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-08-29T13:40:00+02:00"
 zprava: true
 image: "/images/clanky/openai-konci-cursor-spacex.jpg"
+audio:
+  url: "https://audio.realtech.cz/openai-konci-cursor-spacex-nlm.mp3?v=7ab506cdf34e"
+  duration: 725
 ---
 
 OpenAI 28. srpna oznámila, že notifikovala SpaceX. Chce ukončit smlouvu, která do editoru Cursor dodává OpenAI modely. Navrhovaný termín vypnutí je 12. listopad 2026. Firma píše, že dává maximální výpovědní lhůtu podle smlouvy. Cíl je nechat vývojářům co nejvíc času.

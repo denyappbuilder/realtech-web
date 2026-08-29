@@ -47,7 +47,7 @@ Volitelná pole, která autoři reálně používají — jen když k nim máš 
 Ke každému článku patří cover `public/images/clanky/<slug>.jpg` (1280×720). Deriváty `.webp`, `-640.jpg` a `-640.webp` vyrobí `scripts/optimize-images.mjs`. Frontmatter: `image: "/images/clanky/<slug>.jpg"`.
 
 - Bez textu, bez loga, bez watermarku.
-- Světlejší, pozitivnější, čistá 3D / produktová scéna.
+- Světlejší, pozitivnější, atraktivní fotoreálná fotka. Má vypadat jako fotka, ne 3D render, glass karty ani generát.
 - **Zákaz černo-červeného neonu a hororové tmy.**
 
 ## Publikace
