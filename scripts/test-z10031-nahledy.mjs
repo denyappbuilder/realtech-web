@@ -35,7 +35,8 @@ test("Z10031: clona je neutrální, mírná a nechá většinu coveru čistou", 
     Math.max(...kanaly) - Math.min(...kanaly) <= 10,
     `clona není neutrální: rgb(${kanaly.join(",")}) barví všechny covery stejným odstínem`,
   );
-  assert.ok(alpha <= 0.42, `clona je příliš silná (${alpha}) a přebíjí fotografie`);
+  assert.ok(alpha <= 0.16, `clona je příliš silná (${alpha}) a přebíjí fotoreálové covery`);
+  assert.ok(alpha <= 0.14 + 1e-9, `kolo 9: clona má být ~0.14, ne 0.38 (${alpha})`);
   assert.match(
     telo,
     /transparent\s+6[0-9]%/,

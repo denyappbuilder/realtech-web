@@ -202,7 +202,7 @@ test('inline skript u embedu opraví data-theme podle webu — statický, bez in
 
 test('widgets.js startuje defer z <head> jen při xPosts — s preconnectem, ne na celý web', () => {
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="preconnect" href="https:\/\/platform\.twitter\.com" slot="head" \/>\}/,
-    'preconnect šetří DNS+TLS — Base preconnectuje jen ytimg/audio/insights');
+    'preconnect šetří DNS+TLS — Base preconnectuje ytimg/audio jen na stránkách, které je opravdu tahají');
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="dns-prefetch" href="https:\/\/platform\.twitter\.com" slot="head" \/>\}/);
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="preconnect" href="https:\/\/cdn\.syndication\.twimg\.com" slot="head" \/>\}/,
     'widgets.js tahá karty z cdn.syndication.twimg.com — hint jen u článku s embedem');

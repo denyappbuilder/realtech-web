@@ -61,3 +61,10 @@ test(".search-input má minimální zásah 44 px", () => {
 test("a.tag má minimální zásah 44 px", () => {
   assertMinHeight44("a.tag");
 });
+
+test(".nl-form button má minimální zásah 44 px", () => {
+  assertMinHeight44(".nl-form button");
+  const telo = teloPravidla(".nl-form button");
+  assert.match(telo, /display:\s*inline-flex/, "padding 13px nestačí — flex drží 44px i s kratším textem");
+  assert.match(telo, /align-items:\s*center/);
+});

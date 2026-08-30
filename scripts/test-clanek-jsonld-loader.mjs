@@ -33,6 +33,8 @@ const EXPORTY = [
   'breadcrumbLd',
   'videoLd',
   'readMinutes',
+  'preconnectYtimg',
+  'preconnectAudio',
 ];
 
 /**

@@ -667,6 +667,8 @@ a.tag:hover { background: var(--signal-dark); }
   background: var(--signal); color: #fff; border: none; cursor: pointer;
   padding: 13px 22px; border-radius: var(--radius);
   font-family: inherit; font-weight: 600; font-size: 0.9rem;
+  min-height: 44px;
+  display: inline-flex; align-items: center;
   transition: background 0.15s;
 }
 .nl-form button:hover { background: var(--signal-dark); }
@@ -903,11 +905,13 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .card:hover .card-thumb img { transform: scale(1.05); }
 /* Z10031: neutrální clona chrání text, ale neničí vlastní barvy coveru.
-   Kategorii už odlišuje levý okraj celé karty (Z10282), druhý proužek by byl duplicitní. */
+   Kategorii už odlišuje levý okraj celé karty (Z10282), druhý proužek by byl duplicitní.
+   Kolo 9: fotoreálové covery — 38 % černý závoj karty zbytečně stmívál.
+   14 % stačí, aby štítky .lt zůstaly čitelné v obou tématech. */
 .card-thumb::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 62%, rgba(20,23,28,0.38) 100%);
+  background: linear-gradient(180deg, transparent 62%, rgba(20,23,28,0.14) 100%);
 }
 .card-thumb .lt { position: relative; z-index: 1; }
 

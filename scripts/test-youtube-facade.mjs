@@ -138,12 +138,13 @@ test('Starlink má jediné video ve frontmatteru a žádný obsahový iframe', (
 /*
  * Historie: #287 preconnect odstranil, protože článková facade přestala
  * z ytimg stahovat (to dál hlídá test výše — šablona nesmí obsahovat
- * ytimg.com). Jenže náhledy z i.ytimg.com tahá homepage (hero + mřížka
- * videí), listingy (od #292 s eager první kartou) i související články,
- * takže globální preconnect se vrátil. Bez `crossorigin` — <img> jsou
- * no-CORS requesty a CORS-ové spojení by prohlížeč nevyužil.
+ * ytimg.com). Pak se vrátil globálně kvůli homepage video stripu. Kolo 9:
+ * zase podmíněně — jen stránky, které ytimg opravdu tahají. Bez
+ * `crossorigin` — <img> jsou no-CORS requesty a CORS-ové spojení by
+ * prohlížeč nevyužil.
  */
-test('Base předpojuje i.ytimg.com bez crossorigin', () => {
-  assert.match(BASE, /<link rel="preconnect" href="https:\/\/i\.ytimg\.com" \/>/);
+test('Base předpojuje i.ytimg.com jen když stránka náhledy opravdu tahá, bez crossorigin', () => {
+  assert.match(BASE, /\{preconnectYtimg && <link rel="preconnect" href="https:\/\/i\.ytimg\.com" \/>\}/);
   assert.doesNotMatch(BASE, /preconnect" href="https:\/\/i\.ytimg\.com" crossorigin/i);
+  assert.match(BASE, /preconnectYtimg = false/);
 });
