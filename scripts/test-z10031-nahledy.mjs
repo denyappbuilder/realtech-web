@@ -51,3 +51,19 @@ test("Z10031: náhled nepřidává druhý kategoriální proužek", () => {
     "kategorie už odlišuje levý okraj celé karty — druhý proužek na náhledu je duplicitní",
   );
 });
+
+test("kolo 10: YouTube facade má stejně mírnou clonu jako karty", () => {
+  const telo = pravidlo(".youtube-facade-button::after");
+  assert.ok(telo, ".youtube-facade-button::after v CSS chybí");
+  const rgba = telo.match(
+    /rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9.]+)\s*\)/,
+  );
+  assert.ok(rgba, "clona facade nemá čitelnou RGBA barvu");
+  const alpha = Number(rgba[4]);
+  assert.ok(alpha <= 0.14 + 1e-9, `facade clona je příliš silná (${alpha}) — karty mají 0.14`);
+  assert.match(
+    telo,
+    /transparent\s+5[0-9]%/,
+    "facade clona má zůstat krátká dole, play tlačítko nesmí zmizet",
+  );
+});

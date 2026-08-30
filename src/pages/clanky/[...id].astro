@@ -127,7 +127,10 @@ const jsonLd = pripojAudioKClanku({
     logo: { '@type': 'ImageObject', url: new URL('/apple-touch-icon.png', Astro.site).href, width: 180, height: 180 },
   },
 }, audioLd);
-const preconnectYtimg = Boolean(videoId);
+// Facade poster je lokální WebP. ytimg preconnect jen když <img> opravdu
+// sahá na i.ytimg.com/vi/ (článek s video: bez coveru). Homepage strip
+// je jediný běžný konzument; JSON-LD/og:image ytimg nestahují.
+const preconnectYtimg = typeof heroLcpSrc === 'string' && heroLcpSrc.includes('i.ytimg.com');
 const preconnectAudio = Boolean(audioLd);
 const breadcrumbLd = {
   '@context': 'https://schema.org',

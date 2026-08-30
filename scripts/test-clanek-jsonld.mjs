@@ -289,7 +289,7 @@ test('neplatné videoLength nevyrobí rozbité trvání — klíč z JSON zmizí
   assert.equal(videoLd.contentUrl, 'https://www.youtube.com/watch?v=abcdefghijk');
 });
 
-test('YouTube článek předpojí ytimg, článek jen s xPosts/audiem ne', async () => {
+test('YouTube článek předpojí ytimg jen bez lokálního coveru, článek jen s xPosts/audiem ne', async () => {
   const youtube = await nactiStranku({
     article: clanek({
       video: 'https://www.youtube.com/watch?v=abcdefghijk',
@@ -299,8 +299,21 @@ test('YouTube článek předpojí ytimg, článek jen s xPosts/audiem ne', async
       },
     }),
   });
-  assert.equal(youtube.preconnectYtimg, true, 'článek s video: tahá facade/náhled z ytimg');
+  assert.equal(youtube.preconnectYtimg, true, 'video bez coveru padá na i.ytimg.com/vi/ — preconnect patří');
   assert.equal(youtube.preconnectAudio, true, 'platné audio musí předpojit audio.realtech.cz');
+
+  const sCoverem = await nactiStranku({
+    article: clanek({
+      video: 'https://www.youtube.com/watch?v=abcdefghijk',
+      image: '/images/clanky/starlink-v-cesku-pruvodce.jpg',
+    }),
+    soubory: [
+      'public/images/clanky/starlink-v-cesku-pruvodce.jpg',
+      'public/images/clanky/starlink-v-cesku-pruvodce.webp',
+    ],
+  });
+  assert.equal(sCoverem.preconnectYtimg, false,
+    'facade poster je lokální WebP — i.ytimg.com se nestahuje, preconnect je zbytečný TLS');
 
   const flight = await nactiStranku({
     article: clanek({

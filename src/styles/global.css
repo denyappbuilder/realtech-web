@@ -1382,7 +1382,7 @@ a.chip { display: inline-flex; align-items: center; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.25));
+  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.14));
   transition: background 0.18s ease;
 }
 .youtube-facade-play {
