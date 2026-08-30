@@ -163,11 +163,17 @@ const breadcrumbLd = {
     blockquote hned po naparsování dokumentu. Preconnect ušetří DNS+TLS
     handshake (Base preconnectuje jen ytimg/audio/insights), dns-prefetch
     je fallback pro prohlížeče bez preconnectu. Bez crossorigin — klasický
-    <script> je no-CORS request. Vše jen na stránkách s xPosts: widgets.js
+    <script> je no-CORS request. widgets.js sahá i na syndication
+    (cdn.syndication.twimg.com, syndication.twitter.com) — hint jen tady,
+    ne na homepage/archiv. Vše jen na stránkách s xPosts: widgets.js
     se nenačítá na celý web.
   */}
   {xEmbedy.length > 0 && <link rel="preconnect" href="https://platform.twitter.com" slot="head" />}
   {xEmbedy.length > 0 && <link rel="dns-prefetch" href="https://platform.twitter.com" slot="head" />}
+  {xEmbedy.length > 0 && <link rel="preconnect" href="https://cdn.syndication.twimg.com" slot="head" />}
+  {xEmbedy.length > 0 && <link rel="dns-prefetch" href="https://cdn.syndication.twimg.com" slot="head" />}
+  {xEmbedy.length > 0 && <link rel="preconnect" href="https://syndication.twitter.com" slot="head" />}
+  {xEmbedy.length > 0 && <link rel="dns-prefetch" href="https://syndication.twitter.com" slot="head" />}
   {xEmbedy.length > 0 && <script is:inline async src="https://platform.twitter.com/widgets.js" slot="head"></script>}
   <script type="application/ld+json" set:html={jsonLdText(jsonLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={jsonLdText(breadcrumbLd)} slot="head" is:inline />

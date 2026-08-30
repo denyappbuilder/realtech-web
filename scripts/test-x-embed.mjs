@@ -12,6 +12,12 @@
 // je v serverovém HTML a widgets.js startuje async z <head> — stahování
 // se překryje s prvním vykreslením.
 //
+// Kolo 8: po #364 pořád CLS — `.x-facade-loading` nemělo min-height, takže
+// čtenář viděl krátký spinner pruh a karta pak vyskočila na ~550 px.
+// Rezervovaná výška (480–560 px) drží tvar, dokud iframe nepřijde.
+// widgets.js sahá i na cdn.syndication.twimg.com a syndication.twitter.com
+// — preconnect + dns-prefetch jen na článku s xPosts, ne na celý web.
+//
 // Co se tu hlídá a proč:
 //  1. Parser bere jen https status URL na x.com/twitter.com a kanonizuje
 //     href na twitter.com — widgets.js historicky ignoroval x.com odkazy.
@@ -29,8 +35,9 @@
 //     (za první odstavec, u miniaturního prvního za druhý), takže karta
 //     nahoře ani neblikne — žádný klientský přesun.
 //  4. widgets.js jde async z <head> šablony článku JEN při xPosts
-//     (s preconnectem na platform.twitter.com) — nenačítá se na celý web
-//     a mimo článek s embedem na platform.twitter.com nesáhne nic.
+//     (s preconnectem na platform.twitter.com + syndication hosty, které
+//     widgets.js tahá dál) — nenačítá se na celý web a mimo článek
+//     s embedem na ty hosty nesáhne nic.
 //  5. Klientský modul blockquote nestaví — jen hlídá render: spinner
 //     do vložení iframe, po něm fasáda odloží panel (x-facade-loaded),
 //     aby si tweet určil výšku sám. Když widget nenaběhne (adblock),
@@ -66,6 +73,8 @@ import {
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = fs.readFileSync(path.join(ROOT, 'src/pages/clanky/[...id].astro'), 'utf8');
 const BASE = fs.readFileSync(path.join(ROOT, 'src/layouts/Base.astro'), 'utf8');
+const INDEX = fs.readFileSync(path.join(ROOT, 'src/pages/index.astro'), 'utf8');
+const ARCHIV = fs.readFileSync(path.join(ROOT, 'src/pages/clanky/index.astro'), 'utf8');
 const CONFIG = fs.readFileSync(path.join(ROOT, 'astro.config.mjs'), 'utf8');
 const CSS = fs.readFileSync(path.join(ROOT, 'src/styles/global.css'), 'utf8');
 const HEADERS = fs.readFileSync(path.join(ROOT, 'public/_headers'), 'utf8');
@@ -195,12 +204,26 @@ test('widgets.js startuje async z <head> jen při xPosts — s preconnectem, ne 
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="preconnect" href="https:\/\/platform\.twitter\.com" slot="head" \/>\}/,
     'preconnect šetří DNS+TLS — Base preconnectuje jen ytimg/audio/insights');
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="dns-prefetch" href="https:\/\/platform\.twitter\.com" slot="head" \/>\}/);
+  assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="preconnect" href="https:\/\/cdn\.syndication\.twimg\.com" slot="head" \/>\}/,
+    'widgets.js tahá karty z cdn.syndication.twimg.com — hint jen u článku s embedem');
+  assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="dns-prefetch" href="https:\/\/cdn\.syndication\.twimg\.com" slot="head" \/>\}/);
+  assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="preconnect" href="https:\/\/syndication\.twitter\.com" slot="head" \/>\}/,
+    'widgets.js sahá i na syndication.twitter.com — stejný hint, stejná podmínka xPosts');
+  assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="dns-prefetch" href="https:\/\/syndication\.twitter\.com" slot="head" \/>\}/);
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <script is:inline async src="https:\/\/platform\.twitter\.com\/widgets\.js" slot="head"><\/script>\}/,
     'widgets.js se stahuje souběžně s prvním vykreslením — nečeká na náš modul');
   assert.doesNotMatch(PAGE, /<link rel="preconnect" href="https:\/\/platform\.twitter\.com" slot="head" \/>\s*$/m,
     'preconnect nesmí být bez podmínky xPosts');
-  assert.doesNotMatch(BASE, /platform\.twitter\.com/,
+  assert.doesNotMatch(PAGE, /<link rel="preconnect" href="https:\/\/cdn\.syndication\.twimg\.com" slot="head" \/>\s*$/m,
+    'syndication preconnect nesmí být bez podmínky xPosts');
+  assert.doesNotMatch(PAGE, /<link rel="preconnect" href="https:\/\/syndication\.twitter\.com" slot="head" \/>\s*$/m,
+    'syndication.twitter.com preconnect nesmí být bez podmínky xPosts');
+  assert.doesNotMatch(BASE, /platform\.twitter\.com|syndication\.twimg\.com|syndication\.twitter\.com/,
     'Base nesmí widgets.js ani preconnect nést — na stránky bez xPosts nepatří');
+  assert.doesNotMatch(INDEX, /platform\.twitter\.com|syndication\.twimg\.com|syndication\.twitter\.com/,
+    'homepage nesmí preconnectovat X — widgets.js je jen u článku s xPosts');
+  assert.doesNotMatch(ARCHIV, /platform\.twitter\.com|syndication\.twimg\.com|syndication\.twitter\.com/,
+    'archiv nesmí preconnectovat X');
 });
 
 test('fallback „Otevřít na X“ stojí mimo fasádu a funguje i bez JS', () => {
@@ -574,10 +597,18 @@ test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', (
     'mezikostra s logem X padla — serverové HTML nese rovnou stav načítání s blockquote');
   assert.doesNotMatch(sekce, /x-facade-button|x-facade-note \{|cursor: pointer/,
     'click-to-load tlačítko Maky zrušil — žádné interaktivní styly fasády');
-  assert.match(sekce, /\.x-facade-loading \{/);
+  const loading = sekce.match(/\.x-facade-loading \{([^}]+)\}/)?.[1];
+  assert.ok(loading, 'chybí blok .x-facade-loading');
+  const minHeight = loading.match(/min-height:\s*(\d+)px/);
+  assert.ok(minHeight, '.x-facade-loading musí rezervovat výšku karty — jinak spinner pruh a CLS');
+  const reserved = Number(minHeight[1]);
+  assert.ok(reserved >= 480 && reserved <= 560,
+    `.x-facade-loading min-height ${reserved}px má být 480–560 px (typická karta tweetu)`);
   assert.match(sekce, /\.x-facade-spinner \{/);
   assert.match(sekce, /\.x-facade\.x-facade-loaded \{[^}]*background: transparent/,
     'po vložení iframe musí panel zmizet, aby tweet neseděl v orámované studně');
+  assert.doesNotMatch(sekce, /\.x-facade\.x-facade-loaded \{[^}]*min-height/,
+    'x-facade-loaded shodí chrome — iframe si výšku řídí sám, min-height tam nepatří');
   assert.match(sekce, /\.x-facade \.twitter-tweet \{[^}]*max-width: 550px/,
     'zhydratovaný widget drží sloupec ~550 px na střed, ne přes celou šířku');
   assert.match(sekce, /\.x-facade-failed \{/);
