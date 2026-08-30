@@ -5,10 +5,16 @@
 //     href na twitter.com — widgets.js historicky ignoroval x.com odkazy.
 //  2. První HTML článku nesmí poslat nic na platform.twitter.com/twimg —
 //     žádný iframe, blockquote ani widgets.js před kliknutím.
-//  3. Klik vloží oficiální embed (blockquote.twitter-tweet + widgets.js)
-//     s data-dnt. Soubor videa zůstává u X — nikdy nerehostujeme.
-//  4. YouTube cesta (`video` ve frontmatteru) zůstává beze změny.
-//  5. CSP v public/_headers povoluje přesně to, co widget po kliknutí
+//  3. Fasáda vypadá jako YouTube fasáda: cover článku (lokální soubor)
+//     + malý kulatý play. Žádný černý #090b0e panel — ten Maky vykázal —
+//     a žádný červený YT obdélník, ať se to neplete s YouTube.
+//  4. Klik ukáže viditelný stav načítání a vloží oficiální embed
+//     (blockquote.twitter-tweet + widgets.js) s data-dnt, data-conversation
+//     none a tématem podle webu. Soubor videa zůstává u X — nerehostujeme.
+//  5. Po vložení iframe fasáda odloží 16:9 rám (x-facade-loaded), aby si
+//     tweet určil výšku sám a nezbyla po fotce prázdná studna.
+//  6. YouTube cesta (`video` ve frontmatteru) zůstává beze změny.
+//  7. CSP v public/_headers povoluje přesně to, co widget po kliknutí
 //     potřebuje (ověřeno runtime v Chrome: script + frame na
 //     platform.twitter.com; zbytek si widget řeší ve vlastním iframe,
 //     na který se CSP rodiče nevztahuje) — a nic navíc.
@@ -21,13 +27,16 @@ import { fileURLToPath } from 'node:url';
 import { xPostEmbed } from '../src/lib/x-post.js';
 import {
   aktivujXFacade,
+  dokonciXFacade,
   inicializujXFacades,
   nactiWidgetsJs,
+  temaWidgetu,
   WIDGETS_SRC,
 } from '../src/lib/x-embed.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = fs.readFileSync(path.join(ROOT, 'src/pages/clanky/[...id].astro'), 'utf8');
+const CSS = fs.readFileSync(path.join(ROOT, 'src/styles/global.css'), 'utf8');
 const HEADERS = fs.readFileSync(path.join(ROOT, 'public/_headers'), 'utf8');
 const FLIGHT14 = fs.readFileSync(
   path.join(ROOT, 'src/content/clanky/starship-flight-14-super-heavy-static-fire.md'),
@@ -37,7 +46,7 @@ const FLIGHT14 = fs.readFileSync(
 const FLIGHT14_URL = 'https://x.com/SpaceX/status/2093477720638341395';
 
 function xEmbedTemplate(source) {
-  const start = source.indexOf('{xEmbedy.map((post) => (');
+  const start = source.indexOf('{xEmbedy.map((post, poradi) => (');
   const end = source.indexOf('<AudioPrehled', start);
   assert.notEqual(start, -1, 'šablona nemá větev pro embed X');
   assert.notEqual(end, -1, 'nejde vymezit větev pro embed X');
@@ -93,7 +102,8 @@ test('parser odmítá junk — cizí hosty, http, ne-status cesty i nečíselná
 test('produkční šablona posílá v prvním HTML lokální fasádu X bez iframe a widgets.js', () => {
   const template = xEmbedTemplate(PAGE);
 
-  assert.match(template, /class="x-facade"[\s\S]*data-x-facade/);
+  assert.match(template, /x-facade/);
+  assert.match(template, /data-x-facade/);
   assert.match(template, /data-x-post-id=\{post\.id\}/);
   assert.match(template, /data-x-post-href=\{post\.href\}/);
   assert.doesNotMatch(template, /<iframe\b/i, 'iframe nesmí existovat před souhlasnou aktivací');
@@ -104,12 +114,40 @@ test('produkční šablona posílá v prvním HTML lokální fasádu X bez ifram
   assert.match(PAGE, /inicializujXFacades\(\)/);
 });
 
+test('první fasáda X nese cover článku místo samostatného article-hero (LCP jako YouTube fasáda)', () => {
+  const template = xEmbedTemplate(PAGE);
+
+  // Fotoreálná varianta jen pro první embed, a jen když hero nepatří YouTube.
+  assert.match(PAGE, /const heroVeXFacade = !videoId && xEmbedy\.length > 0 && Boolean\(heroSrc\);/);
+  assert.match(template, /poradi === 0 && heroVeXFacade \? ' x-facade-photo' : ''/);
+  assert.match(template, /class="x-facade-button x-facade-button-photo"/);
+  assert.match(
+    template,
+    /<img [^>]*alt=\{title\}[^>]*loading="eager"[^>]*fetchpriority="high"/,
+    'cover ve fasádě je LCP hero článku — eager, fetchpriority=high, alt s titulkem',
+  );
+  // Samostatný hero obrázek se vynechá — jinak by pod fotkou stála druhá karta.
+  assert.match(PAGE, /\{!videoId && !heroVeXFacade && heroSrc && \(/);
+
+  // Play nesmí vypadat jako YouTube: žádný červený zaoblený obdélník 68×48.
+  assert.match(template, /x-facade-play/);
+  assert.doesNotMatch(template, /viewBox="0 0 68 48"|youtube-facade-play/);
+
+  // Varianta bez coveru zůstává (další posty, články bez image).
+  assert.match(template, /x-facade-mark/);
+  assert.match(template, /Kliknutím se načte oficiální vložený příspěvek ze sítě X/);
+});
+
 test('fasáda má nativní tlačítko s přístupným názvem a viditelný fallback „Otevřít na X“', () => {
   const template = xEmbedTemplate(PAGE);
 
   assert.match(
     template,
     /<button[\s\S]*type="button"[\s\S]*class="x-facade-button"[\s\S]*aria-label=\{`Načíst video z příspěvku @\$\{post\.ucet\} na síti X`\}/,
+  );
+  assert.match(
+    template,
+    /class="x-facade-button x-facade-button-photo"[\s\S]*?aria-label=\{`Načíst video z příspěvku @\$\{post\.ucet\} na síti X`\}/,
   );
   // Fallback stojí MIMO [data-x-facade], takže přežije výměnu obsahu fasády.
   const facade = template.indexOf('data-x-facade');
@@ -131,6 +169,13 @@ class FakeElement {
     this.listeners = new Map();
     this.className = '';
     this.textContent = '';
+    this.parentNode = null;
+    const tridy = new Set();
+    this.classList = {
+      add: (c) => tridy.add(c),
+      remove: (c) => tridy.delete(c),
+      contains: (c) => tridy.has(c),
+    };
   }
 
   querySelector(selector) {
@@ -139,6 +184,9 @@ class FakeElement {
     }
     if (selector === 'blockquote') {
       return this.children.find((child) => child.tagName === 'BLOCKQUOTE') ?? null;
+    }
+    if (selector === '.x-facade-loading-note') {
+      return this.children.find((child) => child.className.includes('x-facade-loading-note')) ?? null;
     }
     return null;
   }
@@ -155,11 +203,19 @@ class FakeElement {
 
   replaceChildren(...children) {
     this.children = children;
+    for (const child of children) child.parentNode = this;
   }
 
   appendChild(child) {
     this.children.push(child);
+    child.parentNode = this;
     return child;
+  }
+
+  remove() {
+    if (!this.parentNode) return;
+    this.parentNode.children = this.parentNode.children.filter((child) => child !== this);
+    this.parentNode = null;
   }
 
   setAttribute(name, value) {
@@ -167,10 +223,15 @@ class FakeElement {
   }
 }
 
-function fixture() {
+function fixture({ tema, systemDark } = {}) {
   const created = [];
   const ownerDocument = {
-    defaultView: undefined,
+    defaultView: systemDark === undefined ? undefined : {
+      matchMedia: (dotaz) => ({
+        matches: dotaz === '(prefers-color-scheme: dark)' && systemDark,
+      }),
+    },
+    documentElement: { dataset: tema ? { theme: tema } : {} },
     head: null,
     createElement(tagName) {
       const element = new FakeElement(tagName, ownerDocument);
@@ -213,6 +274,7 @@ test('inicializace nevytvoří nic, klik vloží blockquote.twitter-tweet s data
   assert.ok(blockquote, 'klik musí vložit blockquote');
   assert.equal(blockquote.className, 'twitter-tweet');
   assert.equal(blockquote.attributes.get('data-dnt'), 'true');
+  assert.equal(blockquote.attributes.get('data-conversation'), 'none', 'vlákno pod tweetem nechceme');
 
   const odkaz = blockquote.children[0];
   assert.equal(odkaz.tagName, 'A');
@@ -222,6 +284,45 @@ test('inicializace nevytvoří nic, klik vloží blockquote.twitter-tweet s data
   assert.ok(script, 'klik musí načíst widgets.js');
   assert.equal(script.src, 'https://platform.twitter.com/widgets.js');
   assert.equal(script.async, true);
+});
+
+test('mezi klikem a iframem je viditelný stav načítání, dokonciXFacade ho uklidí', () => {
+  const { facade } = fixture();
+
+  aktivujXFacade(facade);
+
+  assert.ok(facade.classList.contains('x-facade-loading'), 'fasáda musí hlásit načítání');
+  const note = facade.querySelector('.x-facade-loading-note');
+  assert.ok(note, 'klik musí ukázat poznámku o načítání — tlačítko nesmí zmizet do prázdna');
+  assert.ok(note.children.some((child) => child.className === 'x-facade-spinner'));
+  assert.equal(facade.children[0], note, 'poznámka stojí nad blockquote');
+
+  // Jakmile widget vloží iframe (v prohlížeči přes MutationObserver),
+  // spinner zmizí a fasáda odloží 16:9 rám, aby si tweet určil výšku sám.
+  dokonciXFacade(facade);
+  assert.equal(facade.classList.contains('x-facade-loading'), false);
+  assert.ok(facade.classList.contains('x-facade-loaded'));
+  assert.equal(facade.querySelector('.x-facade-loading-note'), null);
+  assert.ok(facade.querySelector('blockquote'), 'blockquote musí úklid přežít');
+});
+
+test('téma widgetu sleduje web: data-theme na <html> má přednost, jinak systémové schéma', () => {
+  const { facade } = fixture({ tema: 'dark' });
+  const blockquote = aktivujXFacade(facade);
+  assert.equal(blockquote.attributes.get('data-theme'), 'dark');
+
+  const svetly = fixture({ tema: 'light', systemDark: true });
+  assert.equal(aktivujXFacade(svetly.facade).attributes.get('data-theme'), 'light',
+    'ruční přepnutí na light má přednost před systémovým dark');
+
+  const systemovy = fixture({ systemDark: true });
+  assert.equal(aktivujXFacade(systemovy.facade).attributes.get('data-theme'), 'dark');
+
+  const vychozi = fixture();
+  assert.equal(aktivujXFacade(vychozi.facade).attributes.get('data-theme'), 'light',
+    'bez matchMedia i bez data-theme padáme na light');
+
+  assert.equal(temaWidgetu({ documentElement: { dataset: {} } }), 'light');
 });
 
 test('druhá aktivace nic nepřidá a widgets.js se načítá nejvýš jednou', () => {
@@ -256,7 +357,24 @@ test('podvržená data-* fasádu neaktivují', () => {
   assert.equal(aktivujXFacade(facade2), null);
 });
 
-// ── 4. Článek Flight 14 ──────────────────────────────────────────────
+// ── 4. Vzhled fasády: žádný černý panel ─────────────────────────────
+
+test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', () => {
+  const start = CSS.indexOf('/* ── X (Twitter) click-to-load');
+  assert.notEqual(start, -1, 'global.css nemá sekci pro X');
+  const sekce = CSS.slice(start);
+
+  assert.doesNotMatch(sekce, /#090b0e|#14171c|#f3ece7|#a9b2bf/i,
+    'černý panel s napevno danými barvami Maky vykázal — fasáda bere tokeny webu');
+  assert.match(sekce, /\.x-facade \{[^}]*background: var\(--surface\)/);
+  assert.match(sekce, /\.x-facade-photo \{[^}]*aspect-ratio: 16 \/ 9/);
+  assert.match(sekce, /\.x-facade-loading \{/);
+  assert.match(sekce, /\.x-facade-spinner \{/);
+  assert.match(sekce, /\.x-facade\.x-facade-loaded \{[^}]*aspect-ratio: auto/,
+    'po vložení iframe musí 16:9 krabice zmizet, aby si tweet určil výšku sám');
+});
+
+// ── 5. Článek Flight 14 ──────────────────────────────────────────────
 
 test('Flight 14 má právě jeden xPost, žádné video ve frontmatteru a žádný obsahový embed', () => {
   assert.match(FLIGHT14, /^xPosts:\n  - "https:\/\/x\.com\/SpaceX\/status\/2093477720638341395"$/m);
@@ -276,7 +394,7 @@ test('článek s embedem X a bez videa nedostane výzvu „K tomuhle článku vi
   assert.match(vetev, /K tomuhle článku video není/);
 });
 
-// ── 5. YouTube cesta zůstává beze změny ──────────────────────────────
+// ── 6. YouTube cesta zůstává beze změny ──────────────────────────────
 
 test('YouTube fasáda i videobar zůstávají v šabloně nedotčené', () => {
   assert.match(PAGE, /\{videoId && \(/);
@@ -286,7 +404,7 @@ test('YouTube fasáda i videobar zůstávají v šabloně nedotčené', () => {
   assert.match(PAGE, /import \{ inicializujYoutubeFacades \} from '\.\.\/\.\.\/lib\/youtube-facade\.js'/);
 });
 
-// ── 6. CSP ───────────────────────────────────────────────────────────
+// ── 7. CSP ───────────────────────────────────────────────────────────
 
 function cspDirectives() {
   const line = HEADERS.split(/\r?\n/).find((l) => l.trim().startsWith('Content-Security-Policy:'));

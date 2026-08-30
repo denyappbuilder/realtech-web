@@ -3,6 +3,26 @@ const TWITTER_HREF = /^https:\/\/twitter\.com\/[A-Za-z0-9_]{1,15}\/status\/\d{1,
 
 export const WIDGETS_SRC = 'https://platform.twitter.com/widgets.js';
 
+// Pojistka pro případ, že widgets.js nenaběhne (blokovaný script, výpadek):
+// spinner nesmí točit donekonečna — po limitu zůstane odkaz z blockquote
+// a viditelný fallback „Otevřít na X“ pod fasádou.
+const LIMIT_NACITANI_MS = 15000;
+
+/**
+ * Widget X umí dark/light — bez toho by na tmavém webu svítila bílá karta.
+ * Ruční přepnutí (data-theme na <html>) má přednost, jinak systémové schéma.
+ *
+ * @param {Document} doc
+ * @returns {'dark' | 'light'}
+ */
+export function temaWidgetu(doc) {
+  const rucni = doc.documentElement?.dataset?.theme;
+  if (rucni === 'dark' || rucni === 'light') return rucni;
+  return doc.defaultView?.matchMedia?.('(prefers-color-scheme: dark)')?.matches
+    ? 'dark'
+    : 'light';
+}
+
 /**
  * Nahradí lokální fasádu oficiálním embedem X až po výslovné aktivaci
  * uživatelem. Do té doby stránka neposílá nic na platform.twitter.com,
@@ -12,6 +32,10 @@ export const WIDGETS_SRC = 'https://platform.twitter.com/widgets.js';
  * odkazem (widgets.js historicky ignoroval x.com URL) a jednou načte
  * widgets.js. Widget si video přehraje ve vlastním iframe na
  * platform.twitter.com — soubor videa zůstává u X, nic nerehostujeme.
+ *
+ * Mezi klikem a iframem fasáda drží tvar se spinnerem a odkazem — tlačítko
+ * nesmí zmizet do prázdného paddingu. Jakmile widget vloží iframe, fasáda
+ * (dokonciXFacade) odloží 16:9 rám i pozadí a tweet si výšku řídí sám.
  *
  * @param {HTMLElement} facade
  * @returns {HTMLQuoteElement | null}
@@ -27,15 +51,65 @@ export function aktivujXFacade(facade) {
   blockquote.className = 'twitter-tweet';
   blockquote.setAttribute('data-dnt', 'true');
   blockquote.setAttribute('data-lang', 'cs');
+  blockquote.setAttribute('data-conversation', 'none');
+  blockquote.setAttribute('data-theme', temaWidgetu(doc));
 
   const odkaz = doc.createElement('a');
   odkaz.href = href;
   odkaz.textContent = facade.dataset.xPostTitle || 'Příspěvek na X';
   blockquote.appendChild(odkaz);
 
-  facade.replaceChildren(blockquote);
+  const spinner = doc.createElement('span');
+  spinner.className = 'x-facade-spinner';
+  spinner.setAttribute('aria-hidden', 'true');
+  const text = doc.createElement('span');
+  text.textContent = 'Načítá se oficiální příspěvek z X…';
+  const nacitani = doc.createElement('p');
+  nacitani.className = 'x-facade-loading-note mono';
+  nacitani.appendChild(spinner);
+  nacitani.appendChild(text);
+
+  facade.classList.add('x-facade-loading');
+  facade.replaceChildren(nacitani, blockquote);
+  sledujRenderWidgetu(facade);
   nactiWidgetsJs(doc);
   return blockquote;
+}
+
+/**
+ * Konec načítání: pryč spinner i 16:9 rám (třída x-facade-loaded shodí
+ * aspect-ratio, rámeček a pozadí), aby si tweet určil výšku sám a kolem
+ * něj nezbyla prázdná studna.
+ *
+ * @param {HTMLElement} facade
+ */
+export function dokonciXFacade(facade) {
+  facade.classList.remove('x-facade-loading');
+  facade.classList.add('x-facade-loaded');
+  facade.querySelector('.x-facade-loading-note')?.remove();
+}
+
+/**
+ * widgets.js nedává callback do našeho kódu — vložený iframe hlídá
+ * MutationObserver. Bez něj (testy) se stav načítání nechá být; odkaz
+ * v blockquote i fallback pod fasádou fungují dál.
+ *
+ * @param {HTMLElement} facade
+ */
+function sledujRenderWidgetu(facade) {
+  const win = facade.ownerDocument.defaultView;
+  if (!win?.MutationObserver) return;
+
+  const konec = () => {
+    observer.disconnect();
+    win.clearTimeout(pojistka);
+    dokonciXFacade(facade);
+  };
+  const observer = new win.MutationObserver(() => {
+    if (facade.querySelector('iframe')) konec();
+  });
+  observer.observe(facade, { childList: true, subtree: true });
+  const pojistka = win.setTimeout(konec, LIMIT_NACITANI_MS);
 }
 
 /**
