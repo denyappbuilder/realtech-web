@@ -12,9 +12,13 @@
 //     blockquote staví až skript při načtení, protože data-theme se musí
 //     spočítat z aktuálního tématu webu. Žádné tlačítko, žádná výzva
 //     ke kliknutí.
-//  3. Fasáda žije v textu článku (.article-body, před <Content />), ne
-//     přes cover — cover jako play tlačítko Maky živě vrátil (náhledovka
-//     widget „schovávala“). Cover je vždy normální fotka.
+//  3. Fasáda žije v textu článku, ne přes cover (cover jako play tlačítko
+//     Maky živě vrátil — náhledovka widget „schovávala“; cover je vždy
+//     normální fotka) — a NE jako první uzel těla článku: karta nad prvním
+//     odstavcem Makymu vadila, napřed má být text, pak widget. Kostru
+//     vkládá do vyrenderovaného markdownu rehype plugin už v BUILDU
+//     (za první odstavec, u miniaturního prvního za druhý), takže karta
+//     nahoře ani neblikne — žádný klientský přesun.
 //  4. Inicializace hned ukáže stav načítání a vloží oficiální embed
 //     (blockquote.twitter-tweet + widgets.js) s data-dnt, data-conversation
 //     none a tématem podle webu. Soubor videa zůstává u X — nerehostujeme.
@@ -44,9 +48,16 @@ import {
   temaWidgetu,
   WIDGETS_SRC,
 } from '../src/lib/x-embed.js';
+import {
+  indexProEmbed,
+  MIN_ZNAKU_PRVNIHO_ODSTAVCE,
+  rehypeXEmbedy,
+  xEmbedHtml,
+} from '../src/lib/rehype-x-embed.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = fs.readFileSync(path.join(ROOT, 'src/pages/clanky/[...id].astro'), 'utf8');
+const CONFIG = fs.readFileSync(path.join(ROOT, 'astro.config.mjs'), 'utf8');
 const CSS = fs.readFileSync(path.join(ROOT, 'src/styles/global.css'), 'utf8');
 const HEADERS = fs.readFileSync(path.join(ROOT, 'public/_headers'), 'utf8');
 const FLIGHT14 = fs.readFileSync(
@@ -56,13 +67,18 @@ const FLIGHT14 = fs.readFileSync(
 
 const FLIGHT14_URL = 'https://x.com/SpaceX/status/2093477720638341395';
 
-function xEmbedTemplate(source) {
-  const start = source.indexOf('{xEmbedy.map((post) => (');
-  const end = source.indexOf('<Content />', start);
-  assert.notEqual(start, -1, 'šablona nemá větev pro embed X');
-  assert.notEqual(end, -1, 'nejde vymezit větev pro embed X');
-  return source.slice(start, end);
-}
+// Kostra fasády, jak ji rehype plugin vkládá do HTML článku.
+const SKELETON = xEmbedHtml(xPostEmbed(FLIGHT14_URL));
+
+// Pomocníci na hast strom, jaký plugin dostává od Astra (mezi bloky
+// stojí textové uzly s \n).
+const p = (text) => ({ type: 'element', tagName: 'p', children: [{ type: 'text', value: text }] });
+const h2 = (text) => ({ type: 'element', tagName: 'h2', children: [{ type: 'text', value: text }] });
+const nl = () => ({ type: 'text', value: '\n' });
+const strom = (...children) => ({ type: 'root', children });
+const soubor = (xPosts) => ({ data: { astro: { frontmatter: xPosts ? { xPosts } : {} } } });
+
+const DLOUHY = 'x'.repeat(MIN_ZNAKU_PRVNIHO_ODSTAVCE);
 
 // ── 1. Parser ────────────────────────────────────────────────────────
 
@@ -108,60 +124,133 @@ test('parser odmítá junk — cizí hosty, http, ne-status cesty i nečíselná
   }
 });
 
-// ── 2. Šablona: kostra bez brány ke kliknutí ─────────────────────────
+// ── 2. Kostra fasády a její místo v článku (rehype, build-time) ──────
 
-test('produkční šablona posílá v prvním HTML jen kostru fasády — bez tlačítka a výzvy ke kliknutí', () => {
-  const template = xEmbedTemplate(PAGE);
-
-  assert.match(template, /class="x-facade"[\s\S]*data-x-facade/);
-  assert.match(template, /data-x-post-id=\{post\.id\}/);
-  assert.match(template, /data-x-post-href=\{post\.href\}/);
-  assert.doesNotMatch(template, /<button\b/i, 'click-to-load tlačítko Maky zrušil — widget se vkládá sám');
-  assert.doesNotMatch(template, /Kliknutím se načte|x-facade-button|x-facade-note/,
+test('kostra fasády nese jen logo X a titulek — bez tlačítka, výzvy ke kliknutí, iframe i blockquote', () => {
+  assert.match(SKELETON, /class="x-facade" data-x-facade/);
+  assert.match(SKELETON, /data-x-post-id="2093477720638341395"/);
+  assert.match(SKELETON, /data-x-post-href="https:\/\/twitter\.com\/SpaceX\/status\/2093477720638341395"/,
+    'href v datech je kanonický twitter.com — widgets.js historicky ignoroval x.com');
+  assert.doesNotMatch(SKELETON, /<button\b/i, 'click-to-load tlačítko Maky zrušil — widget se vkládá sám');
+  assert.doesNotMatch(SKELETON, /Kliknutím se načte|x-facade-button|x-facade-note/,
     'žádná výzva ke kliknutí — prázdný panel „klikni a načtu“ je pryč');
-  assert.doesNotMatch(template, /<iframe\b/i, 'iframe vkládá widgets.js, ne šablona');
-  assert.doesNotMatch(template, /<blockquote\b/i,
+  assert.doesNotMatch(SKELETON, /<iframe\b/i, 'iframe vkládá widgets.js, ne kostra');
+  assert.doesNotMatch(SKELETON, /<blockquote\b/i,
     'blockquote staví až skript při načtení — data-theme se počítá z tématu webu');
-  assert.doesNotMatch(template, /platform\.twitter\.com|widgets\.js/i,
-    'widgets.js načítá skript (jen na stránkách s fasádou), ne HTML šablona');
-  assert.doesNotMatch(template, /twimg\.com/i, 'fasáda nesmí stahovat nic z twimg');
-  assert.match(template, /x-facade-skeleton/, 'kostra drží místo, než ji skript vymění');
+  assert.doesNotMatch(SKELETON, /platform\.twitter\.com|widgets\.js/i,
+    'widgets.js načítá skript (jen na stránkách s fasádou), ne HTML kostra');
+  assert.doesNotMatch(SKELETON, /twimg\.com/i, 'fasáda nesmí stahovat nic z twimg');
+  assert.doesNotMatch(SKELETON, /<picture>|<img /, 'fasáda X nenese žádnou fotku');
+  assert.match(SKELETON, /x-facade-skeleton/, 'kostra drží místo, než ji skript vymění');
+  assert.match(SKELETON, /x-facade-mark/);
+  assert.match(SKELETON, /Video z příspěvku @SpaceX/);
   assert.match(PAGE, /import \{ inicializujXFacades \} from '\.\.\/\.\.\/lib\/x-embed\.js'/);
   assert.match(PAGE, /inicializujXFacades\(\)/);
 });
 
-test('embed X žije v textu článku před <Content />, cover je vždy normální fotka', () => {
-  const template = xEmbedTemplate(PAGE);
+test('fallback „Otevřít na X“ stojí mimo fasádu a funguje i bez JS', () => {
+  // Fallback stojí MIMO [data-x-facade], takže přežije výměnu obsahu fasády.
+  const facade = SKELETON.indexOf('data-x-facade');
+  const konecFasady = SKELETON.indexOf('</div></div>', facade);
+  const fallback = SKELETON.indexOf('x-embed-fallback');
+  assert.notEqual(konecFasady, -1);
+  assert.ok(fallback > konecFasady, 'fallback musí stát mimo fasádu, ne uvnitř');
+  assert.match(SKELETON, /<a href="https:\/\/x\.com\/SpaceX\/status\/2093477720638341395" target="_blank" rel="noopener">Otevřít na X/);
+});
 
-  // Umístění: uvnitř .article-body, před obsahem — v toku čtení, ne pod hero.
+test('embed vkládá rehype plugin v buildu — šablona ho už nenese a .article-body začíná obsahem', () => {
+  // Plugin je registrovaný v markdown pipeline — kostra dojde do statického
+  // HTML a nic se nepřesouvá na klientovi (žádné bliknutí karty nahoře).
+  assert.match(CONFIG, /import \{ rehypeXEmbedy \} from '\.\/src\/lib\/rehype-x-embed\.js'/);
+  assert.match(CONFIG, /rehypePlugins: \[[^\]]*rehypeXEmbedy[^\]]*\]/);
+
+  // Šablona samotná fasádu nerenderuje — takže embed NEMŮŽE být první
+  // dítě .article-body: uvnitř je jen <Content /> s článkem.
+  assert.doesNotMatch(PAGE, /xEmbedy\.map|data-x-facade|x-facade-skeleton|x-embed-fallback/,
+    'fasádu vkládá rehype plugin do markdownu, ne šablona');
   const body = PAGE.indexOf('<div class="article-body">');
-  const map = PAGE.indexOf('{xEmbedy.map((post) => (');
   const content = PAGE.indexOf('<Content />', body);
+  const konecTela = PAGE.indexOf('</div>', body);
   assert.notEqual(body, -1);
-  assert.ok(map > body, 'fasáda X musí stát uvnitř .article-body');
-  assert.ok(content > map, 'fasáda X musí stát před <Content />, ne za ním');
+  assert.ok(content > body && content < konecTela,
+    '.article-body nese <Content /> — článek začíná textem, ne widgetem');
+  const predContentem = PAGE.slice(body + '<div class="article-body">'.length, content);
+  assert.doesNotMatch(predContentem, /<\w|class=/,
+    'před <Content /> nesmí v .article-body stát žádný element — jen komentář');
 
   // Cover NIKDY nefunguje jako play tlačítko embedu — Maky to živě vrátil,
   // náhledovka widget „schovávala“. article-hero se renderuje vždy,
   // když je image a není YouTube video.
   assert.match(PAGE, /\{!videoId && heroSrc && \(\s*\n\s*<div class="article-hero">/);
   assert.doesNotMatch(PAGE, /heroVeXFacade|x-facade-photo|x-facade-button-photo|x-facade-play|x-facade-badge/);
-  assert.doesNotMatch(template, /<picture>|<img /, 'fasáda X nenese žádnou fotku');
-
-  // Kostra: značka X + titulek — nic víc, skript ji hned vymění.
-  assert.match(template, /x-facade-mark/);
-  assert.match(template, /Video z příspěvku @\{post\.ucet\}/);
 });
 
-test('fallback „Otevřít na X“ stojí mimo fasádu a funguje i bez JS', () => {
-  const template = xEmbedTemplate(PAGE);
+test('plugin vloží kostru za první odstavec — nikdy jako první uzel těla článku', () => {
+  const tree = strom(p(DLOUHY), nl(), p('Druhý odstavec.'), nl(), h2('Sekce'));
+  rehypeXEmbedy()(tree, soubor([FLIGHT14_URL]));
 
-  // Fallback stojí MIMO [data-x-facade], takže přežije výměnu obsahu fasády.
-  const facade = template.indexOf('data-x-facade');
-  const konecFasady = template.indexOf('</div>', facade);
-  const fallback = template.indexOf('x-embed-fallback');
-  assert.ok(fallback > konecFasady, 'fallback musí stát mimo fasádu, ne uvnitř');
-  assert.match(template, /<a href=\{post\.webHref\} target="_blank" rel="noopener">Otevřít na X/);
+  assert.equal(tree.children.length, 6);
+  assert.notEqual(tree.children[0].type, 'raw', 'embed nesmí být první uzel — napřed text, pak widget');
+  assert.equal(tree.children[0].tagName, 'p', 'článek začíná odstavcem');
+  assert.equal(tree.children[1].type, 'raw', 'embed stojí hned za prvním odstavcem');
+  assert.equal(tree.children[1].value, SKELETON);
+});
+
+test('miniaturní první odstavec kartu neunese — embed jde až za druhý', () => {
+  const kratky = strom(p('Krátké uvození.'), nl(), p(DLOUHY), nl(), p('Třetí.'));
+  rehypeXEmbedy()(kratky, soubor([FLIGHT14_URL]));
+  assert.equal(kratky.children[3].type, 'raw', 'za miniaturním prvním odstavcem jde embed až za druhý');
+
+  // Nadpis ani jiný blok před prvním odstavcem se nepočítá — embed patří
+  // za PRÓZU, ne za první uzel stromu.
+  const sNadpisem = strom(h2('Nadpis'), nl(), p(DLOUHY), nl(), p('Dál.'));
+  rehypeXEmbedy()(sNadpisem, soubor([FLIGHT14_URL]));
+  assert.equal(sNadpisem.children[0].tagName, 'h2');
+  assert.equal(sNadpisem.children[3].type, 'raw', 'embed stojí za prvním odstavcem, ne za nadpisem');
+
+  // Jediný miniaturní odstavec: embed za ním — pořád ne jako první uzel.
+  const jediny = strom(p('Krátké.'));
+  rehypeXEmbedy()(jediny, soubor([FLIGHT14_URL]));
+  assert.equal(jediny.children[0].tagName, 'p');
+  assert.equal(jediny.children[1].type, 'raw');
+});
+
+test('bez xPosts (nebo s junk URL) plugin strom nechá být', () => {
+  const bez = strom(p(DLOUHY), nl(), p('Druhý.'));
+  rehypeXEmbedy()(bez, soubor(undefined));
+  assert.equal(bez.children.length, 3);
+  assert.ok(bez.children.every((child) => child.type !== 'raw'));
+
+  const junk = strom(p(DLOUHY));
+  rehypeXEmbedy()(junk, soubor(['https://example.com/SpaceX/status/2093477720638341395']));
+  assert.equal(junk.children.length, 1);
+
+  // Jiné markdown soubory (bez astro frontmatteru) projdou bez pádu.
+  const cizi = strom(p(DLOUHY));
+  rehypeXEmbedy()(cizi, { data: {} });
+  assert.equal(cizi.children.length, 1);
+});
+
+test('víc xPosts drží pořadí z frontmatteru na jednom místě vložení', () => {
+  const tree = strom(p(DLOUHY), nl(), p('Druhý.'));
+  rehypeXEmbedy()(tree, soubor([
+    FLIGHT14_URL,
+    'https://x.com/SpaceX/status/2092372845544321445',
+  ]));
+  assert.equal(tree.children[1].type, 'raw');
+  assert.match(tree.children[1].value, /2093477720638341395/);
+  assert.equal(tree.children[2].type, 'raw');
+  assert.match(tree.children[2].value, /2092372845544321445/);
+});
+
+test('Flight 14 má plnohodnotný lede — embed sedí hned za prvním odstavcem', () => {
+  const telo = FLIGHT14.split(/^---\s*$/m)[2] ?? '';
+  const prvniOdstavec = telo.split(/\n{2,}/).map((blok) => blok.trim()).find(Boolean);
+  assert.ok(prvniOdstavec, 'článek musí mít text');
+  assert.ok(prvniOdstavec.length >= MIN_ZNAKU_PRVNIHO_ODSTAVCE,
+    'lede o static fire je dost dlouhý, aby karta stála hned za ním — ne až za druhým odstavcem');
+  assert.equal(indexProEmbed(strom(p(prvniOdstavec), nl(), p('Druhý odstavec.'))), 1,
+    'embed jde hned za první odstavec Flight 14');
 });
 
 // ── 3. Načtení stránky vloží oficiální embed ─────────────────────────
