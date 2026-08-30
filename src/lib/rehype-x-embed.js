@@ -12,8 +12,8 @@ import { xPostEmbed } from './x-post.js';
  * kostru. Dřív blockquote stavěl až klientský modul (deferred) a teprve
  * potom sáhl pro widgets.js — karta tak čekala na HTML → náš bundle →
  * widgets.js → iframe a „někdy se načítala dlouho“. Teď widgets.js
- * (async v <head> šablony článku, jen na stránkách s xPosts) najde
- * blockquote hned po naparsování dokumentu; náš modul už jen hlídá
+ * (defer v <head> šablony článku, jen na stránkách s xPosts) najde
+ * blockquote po naparsování dokumentu; náš modul už jen hlídá
  * render (spinner, 15s únik „Otevřít na X“).
  *
  * Plugin čte `xPosts` z frontmatteru (Astro ho dává do file.data.astro),
@@ -28,9 +28,9 @@ import { xPostEmbed } from './x-post.js';
 export const MIN_ZNAKU_PRVNIHO_ODSTAVCE = 120;
 
 // Téma widgetu se musí trefit dřív, než widgets.js blockquote přečte —
-// jinak na tmavém webu blikne bílá karta. Server téma čtenáře nezná,
-// tak blockquote nese default light a tenhle inline skript (běží
-// synchronně hned při parsování, dávno před async widgets.js) ho opraví
+// jinak na tmavém webu blikne bílá karta. Server téma čtenáře nezná
+// a data-theme v HTML nehardcoduje: tenhle inline skript (běží
+// synchronně hned při parsování, dávno před defer widgets.js) ho nastaví
 // stejnou logikou jako temaWidgetu v x-embed.js: ruční data-theme na
 // <html> (inline skript v Base ho nastavuje z localStorage ještě v <head>)
 // má přednost, jinak systémové schéma. Statický řetězec bez interpolace —
@@ -52,8 +52,8 @@ const THEME_SCRIPT =
  * z blockquote), který drží tvar, dokud iframe neexistuje.
  *
  * href v blockquote je kanonický twitter.com — widgets.js historicky
- * ignoroval x.com odkazy. data-dnt, data-conversation none a default
- * light téma (opravené inline skriptem výš) drží zamčený kontrakt.
+ * ignoroval x.com odkazy. data-dnt, data-conversation none; téma
+ * nastaví inline skript výš, ne hardcoded light.
  *
  * @param {{ id: string, ucet: string, href: string, webHref: string }} post
  * @returns {string}
@@ -66,14 +66,11 @@ export function xEmbedHtml(post) {
     '<span class="x-facade-spinner" aria-hidden="true"></span>',
     '<span>Načítá se oficiální příspěvek z X…</span>',
     '</p>',
-    '<blockquote class="twitter-tweet" data-dnt="true" data-lang="cs" data-conversation="none" data-theme="light">',
+    '<blockquote class="twitter-tweet" data-dnt="true" data-lang="cs" data-conversation="none">',
     `<a href="${post.href}">Příspěvek @${post.ucet} na X</a>`,
     '</blockquote>',
     '</div>',
     THEME_SCRIPT,
-    // Fallback stojí MIMO [data-x-facade]: přežije úklid obsahu fasády
-    // a funguje i bez JS.
-    `<p class="x-embed-fallback mono">Nenačítá se? <a href="${post.webHref}" target="_blank" rel="noopener">Otevřít na X →</a></p>`,
     '</div>',
   ].join('');
 }

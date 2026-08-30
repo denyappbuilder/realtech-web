@@ -30,8 +30,8 @@ export function temaWidgetu(doc) {
  * Převezme fasádu z serverového HTML a hlídá render oficiálního widgetu.
  *
  * Blockquote.twitter-tweet už NESTAVÍ — nese ho serverové HTML
- * (rehype-x-embed.js) a widgets.js startuje async z <head> šablony
- * článku, takže karta se načítá souběžně s prvním vykreslením a nečeká
+ * (rehype-x-embed.js) a widgets.js startuje defer z <head> šablony
+ * článku, takže karta se načítá po naparsování dokumentu a nečeká
  * na tenhle deferred modul. Tady zbývá jen to, co bez JS nejde:
  * MutationObserver na iframe (úklid spinneru a panelu), 15s únik
  * „Otevřít na X“ při selhání, pojistka tématu a pojistka widgets.js
@@ -141,7 +141,7 @@ function sledujRenderWidgetu(facade) {
 }
 
 /**
- * Pojistka načtení widgets.js — primárně ho nese async <script> v <head>
+ * Pojistka načtení widgets.js — primárně ho nese defer <script> v <head>
  * šablony článku (jen na stránkách s xPosts), který tahle funkce najde
  * a nic nepřidá. Když už widgets.js běží, stačí říct widgetu, ať znovu
  * projde dokument.
@@ -159,7 +159,7 @@ export function nactiWidgetsJs(doc) {
 
   const script = doc.createElement('script');
   script.src = WIDGETS_SRC;
-  script.async = true;
+  script.defer = true;
   (doc.head ?? doc.body).appendChild(script);
   return script;
 }

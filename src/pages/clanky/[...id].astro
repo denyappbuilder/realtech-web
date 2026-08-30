@@ -158,17 +158,22 @@ const breadcrumbLd = {
   )}
   {/*
     Embed X nesmí čekat na náš deferred modul: blockquote.twitter-tweet je
-    v serverovém HTML (rehype-x-embed.js) a widgets.js startuje async už
-    z <head> — stahování se překryje s prvním vykreslením a widget najde
-    blockquote hned po naparsování dokumentu. Preconnect ušetří DNS+TLS
-    handshake (Base preconnectuje jen ytimg/audio/insights), dns-prefetch
-    je fallback pro prohlížeče bez preconnectu. Bez crossorigin — klasický
-    <script> je no-CORS request. Vše jen na stránkách s xPosts: widgets.js
-    se nenačítá na celý web.
+    v serverovém HTML (rehype-x-embed.js) a widgets.js startuje defer
+    z <head> — po naparsování dokumentu, až je blockquote v DOM. Preconnect
+    ušetří DNS+TLS handshake (Base preconnectuje jen ytimg/audio/insights),
+    dns-prefetch je fallback pro prohlížeče bez preconnectu. Bez
+    crossorigin — klasický <script> je no-CORS request. widgets.js sahá
+    i na syndication (cdn.syndication.twimg.com, syndication.twitter.com)
+    — hint jen tady, ne na homepage/archiv. Vše jen na stránkách s xPosts:
+    widgets.js se nenačítá na celý web.
   */}
   {xEmbedy.length > 0 && <link rel="preconnect" href="https://platform.twitter.com" slot="head" />}
   {xEmbedy.length > 0 && <link rel="dns-prefetch" href="https://platform.twitter.com" slot="head" />}
-  {xEmbedy.length > 0 && <script is:inline async src="https://platform.twitter.com/widgets.js" slot="head"></script>}
+  {xEmbedy.length > 0 && <link rel="preconnect" href="https://cdn.syndication.twimg.com" slot="head" />}
+  {xEmbedy.length > 0 && <link rel="dns-prefetch" href="https://cdn.syndication.twimg.com" slot="head" />}
+  {xEmbedy.length > 0 && <link rel="preconnect" href="https://syndication.twitter.com" slot="head" />}
+  {xEmbedy.length > 0 && <link rel="dns-prefetch" href="https://syndication.twitter.com" slot="head" />}
+  {xEmbedy.length > 0 && <script is:inline defer src="https://platform.twitter.com/widgets.js" slot="head"></script>}
   <script type="application/ld+json" set:html={jsonLdText(jsonLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={jsonLdText(breadcrumbLd)} slot="head" is:inline />
   {videoLd && <script type="application/ld+json" set:html={jsonLdText(videoLd)} slot="head" is:inline />}
@@ -260,7 +265,7 @@ const breadcrumbLd = {
             widget. Fasádu i s blockquote.twitter-tweet vkládá do
             vyrenderovaného markdownu rehype plugin (src/lib/rehype-x-embed.js,
             registrace v astro.config.mjs) — za první odstavec už v buildu,
-            takže karta nahoře ani neblikne a widgets.js (async z hlavičky
+            takže karta nahoře ani neblikne a widgets.js (defer z hlavičky
             výš) ji hydratuje bez čekání na náš modul. Klientský skript
             (src/lib/x-embed.js) už jen hlídá render: spinner, 15s únik
             „Otevřít na X“, úklid panelu po vložení iframe. Soubor videa
@@ -401,7 +406,10 @@ const breadcrumbLd = {
         e.preventDefault();
         const url = `${location.origin}${location.pathname}#${h.id}`;
         history.replaceState(null, '', `#${h.id}`);
-        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        h.scrollIntoView({
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'start',
+        });
         navigator.clipboard?.writeText(url).then(() => {
           a.textContent = '✓';
           setTimeout(() => { a.textContent = '#'; }, 1500);

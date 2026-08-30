@@ -416,6 +416,9 @@ a.tag:hover { background: var(--signal-dark); }
   position: relative;
   display: flex; align-items: flex-end;
 }
+/* /temata/ hub: náhledy v řadě stejně vysoké, tituly v jedné linii.
+   .th-* poměry zůstávají pro archiv/homepage (Z10282). */
+.temata-hub .card-thumb { aspect-ratio: 16 / 9; }
 .card-thumb .lt { margin: 0 0 12px 12px; display: inline-flex; }
 .card-thumb .lt span {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
@@ -1410,7 +1413,7 @@ a.chip { display: inline-flex; align-items: center; }
    play tlačítko Maky živě vrátil, náhledovka widget „schovávala“. Widget se
    vykresluje hned při načtení — click-to-load bránu Maky zrušil taky.
    Serverové HTML nese rovnou blockquote + stav načítání (spinner), takže
-   žádná mezikostra s logem: spinner svítí, jen než widgets.js (async
+   žádná mezikostra s logem: spinner svítí, jen než widgets.js (defer
    z <head>) vloží iframe. Kompaktní světlý panel z tokenů webu; černý
    gradientní panel Maky vykázal dřív (černo-červený horor). */
 .x-embed { margin: 0 0 24px; }
@@ -1420,13 +1423,15 @@ a.chip { display: inline-flex; align-items: center; }
   overflow: hidden;
   background: var(--surface);
 }
-/* Než widget vloží iframe: fasáda drží tvar, spinner + odkaz z blockquote —
-   panel nesmí zmizet do prázdného paddingu. */
+/* Než widget vloží iframe: fasáda drží tvar karty tweetu (~560 px),
+   spinner uprostřed. Bez min-height je to krátký pruh a karta pak
+   vyskočí (CLS). Panel nesmí zmizet do prázdného paddingu. */
 .x-facade-loading {
   display: grid;
   align-content: center;
   justify-items: center;
   gap: 6px;
+  min-height: 560px;
   padding: 28px 20px;
   background: var(--surface);
 }
@@ -1466,7 +1471,9 @@ a.chip { display: inline-flex; align-items: center; }
   font-size: 0.85rem;
 }
 .x-facade-open {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 9px 18px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1490,6 +1497,3 @@ a.chip { display: inline-flex; align-items: center; }
 }
 .x-facade .twitter-tweet { margin: 0 auto; max-width: 550px; }
 .x-facade iframe { display: block; margin: 0 auto; max-width: 100%; }
-.x-embed-fallback { margin: 8px 0 0; font-size: 0.72rem; color: var(--ink-faint); }
-.x-embed-fallback a { color: inherit; text-decoration: underline; }
-.x-embed-fallback a:hover { color: var(--signal-dark); }
