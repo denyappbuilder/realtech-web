@@ -49,9 +49,9 @@ interface Props {
   /** Vypni u chybových stránek, ať se neexistující URL nekanonizují na /404. */
   includeCanonical?: boolean;
   /**
-   * Preconnect na i.ytimg.com. Jen stránky, které opravdu tahají YouTube
-   * náhled nebo facade (homepage video strip, článek s `video:`).
-   * 404, O nás, archiv a článek jen s xPosts (Flight 14) ho nesmí dostat —
+   * Preconnect na i.ytimg.com. Jen stránky, které v HTML opravdu žádají
+   * i.ytimg.com/vi/ (homepage video strip, článek s video: bez lokálního
+   * coveru). 404, O nás, archiv a článek s vlastním WebP ho nesmí dostat —
    * zbytečný TLS tam soupeří s LCP / widgetem X.
    */
   preconnectYtimg?: boolean;

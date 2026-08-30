@@ -172,7 +172,6 @@ const preconnectYtimg = videos.length > 0;
                 <img src={heroLcpSrc} srcset={heroHasWebp ? undefined : heroSrcset} sizes={(!heroHasWebp && heroSrcset) ? HERO_SIZES : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
               </picture>
             )}
-            {heroThumb && <span class="shade"></span>}
             <span class="rec"><span class="live-dot"></span>REALTECH</span>
             {heroOverlay && <span class="headline-mark">{heroOverlay}</span>}
             {hero.data.videoLength && <span class="tc">TC {hero.data.videoLength}</span>}

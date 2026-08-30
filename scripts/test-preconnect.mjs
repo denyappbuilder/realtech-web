@@ -93,10 +93,12 @@ test('homepage předpojuje ytimg kvůli video stripu, ne audio', () => {
     'homepage nenačítá mp3 — audio přehled je až na článku');
 });
 
-test('článek předpojuje ytimg jen s YouTube videem a audio jen s mp3', () => {
+test('článek předpojuje ytimg jen když <img> sahá na i.ytimg.com, audio jen s mp3', () => {
   const tag = otviraciBase(CLANEK);
-  assert.match(CLANEK, /const preconnectYtimg = Boolean\(videoId\)/,
-    'ytimg jen u článku s video: YouTube — Flight 14 (xPosts) ho nesmí dostat');
+  assert.match(CLANEK, /heroLcpSrc\.includes\('i\.ytimg\.com'\)/,
+    'ytimg jen když LCP src je opravdu i.ytimg.com/vi/ — lokální WebP cover ho nesmí zapnout');
+  assert.doesNotMatch(CLANEK, /const preconnectYtimg = Boolean\(videoId\)/,
+    'článek s video: a lokálním coverem pořád předpojuje ytimg kvůli pouhému videoId');
   assert.match(CLANEK, /const preconnectAudio = Boolean\(audioLd\)/,
     'audio.realtech.cz jen když AudioPrehled opravdu nese mp3');
   assert.match(tag, /preconnectYtimg=\{preconnectYtimg\}/);
