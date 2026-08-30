@@ -68,3 +68,14 @@ test(".nl-form button má minimální zásah 44 px", () => {
   assert.match(telo, /display:\s*inline-flex/, "padding 13px nestačí — flex drží 44px i s kratším textem");
   assert.match(telo, /align-items:\s*center/);
 });
+
+test(".nl-form input má minimální zásah 44 px", () => {
+  assertMinHeight44(".nl-form input");
+});
+
+test(".btn-ghost má minimální zásah 44 px i mimo archive/author", () => {
+  assertMinHeight44(".btn-ghost");
+  const telo = teloPravidla(".btn-ghost");
+  assert.match(telo, /display:\s*inline-flex/, "404, zpět a o-nas potřebují flex, ne jen padding");
+  assert.match(telo, /align-items:\s*center/);
+});
