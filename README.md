@@ -45,8 +45,10 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
    description: "Perex — jedna dvě věty, zobrazí se na kartě a v OG tazích."
    category: "AI Report"        # AI Report | AI Agenti | Drony | Vesmír | Hardware | Mobily | Sítě
    date: "2026-07-02"           # uvozovky — YAML jinak udělá Date a schéma ho odmítne
-   video: "https://youtu.be/XXXX"   # volitelné — u článku z videa
+   video: "https://youtu.be/XXXX"   # volitelné — POUZE YouTube (fasáda, videobar, VideoObject)
    videoLength: "14:32"             # volitelné
+   xPosts:                          # volitelné — oficiální embed příspěvků z X (click-to-load)
+     - "https://x.com/SpaceX/status/2093477720638341395"
    zprava: true                     # volitelné — krátká zpráva, typicky bez video
    image: "/images/clanky/nazev-clanku.jpg"  # volitelné
    audio:                           # volitelné
@@ -61,6 +63,8 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
    ```
 
    Schéma v `src/content.config.ts` je `.strict()`. Extra klíče (třeba `readingTime`) shodí build. Doba čtení se počítá z těla článku.
+
+   Pole `video` je jen pro YouTube — parser, fasáda, videobar „Přehrát na YouTube“ i VideoObject JSON-LD s ním počítají. Video z X do něj nepatří. Na to je volitelné `xPosts`: seznam status URL na x.com/twitter.com. Článek pak ukáže lokální click-to-play fasádu a **až po kliknutí** načte oficiální widget X (`blockquote.twitter-tweet` + `widgets.js`, `data-dnt`). Soubor videa zůstává u X — nikdy ho nestahujeme, nerehostujeme ani nelinkujeme napřímo z twimg.
 
 3. Commit + push. Za minutu je článek živý.
 
