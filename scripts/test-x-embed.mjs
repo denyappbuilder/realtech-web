@@ -14,9 +14,10 @@
 //
 // Kolo 8: po #364 pořád CLS — `.x-facade-loading` nemělo min-height, takže
 // čtenář viděl krátký spinner pruh a karta pak vyskočila na ~550 px.
-// Rezervovaná výška (480–560 px) drží tvar, dokud iframe nepřijde.
-// widgets.js sahá i na cdn.syndication.twimg.com a syndication.twitter.com
-// — preconnect + dns-prefetch jen na článku s xPosts, ne na celý web.
+// Rezervovaná výška (~560 px) drží tvar, dokud iframe nepřijde.
+// widgets.js je defer (ne async) a sahá i na cdn.syndication.twimg.com
+// a syndication.twitter.com — preconnect + dns-prefetch jen na článku
+// s xPosts, ne na celý web. data-theme se nehardcoduje na light.
 //
 // Co se tu hlídá a proč:
 //  1. Parser bere jen https status URL na x.com/twitter.com a kanonizuje
@@ -34,7 +35,7 @@
 //     vkládá do vyrenderovaného markdownu rehype plugin už v BUILDU
 //     (za první odstavec, u miniaturního prvního za druhý), takže karta
 //     nahoře ani neblikne — žádný klientský přesun.
-//  4. widgets.js jde async z <head> šablony článku JEN při xPosts
+//  4. widgets.js jde defer z <head> šablony článku JEN při xPosts
 //     (s preconnectem na platform.twitter.com + syndication hosty, které
 //     widgets.js tahá dál) — nenačítá se na celý web a mimo článek
 //     s embedem na ty hosty nesáhne nic.
@@ -156,8 +157,8 @@ test('serverové HTML nese rovnou blockquote.twitter-tweet — karta nečeká na
   assert.match(blockquote, /data-dnt="true"/);
   assert.match(blockquote, /data-lang="cs"/);
   assert.match(blockquote, /data-conversation="none"/, 'vlákno pod tweetem nechceme');
-  assert.match(blockquote, /data-theme="light"/,
-    'default light — inline skript ho opraví podle tématu webu ještě při parsování');
+  assert.doesNotMatch(blockquote, /data-theme=/,
+    'data-theme se nehardcoduje — inline skript ho nastaví podle webu');
   assert.match(EMBED_HTML,
     /<blockquote[^>]*><a href="https:\/\/twitter\.com\/SpaceX\/status\/2093477720638341395">Příspěvek @SpaceX na X<\/a><\/blockquote>/);
 
@@ -166,7 +167,7 @@ test('serverové HTML nese rovnou blockquote.twitter-tweet — karta nečeká na
     'žádná výzva ke kliknutí — prázdný panel „klikni a načtu“ je pryč');
   assert.doesNotMatch(EMBED_HTML, /<iframe\b/i, 'iframe vkládá widgets.js, ne serverové HTML');
   assert.doesNotMatch(EMBED_HTML, /widgets\.js/i,
-    'widgets.js startuje z <head> šablony článku (jen při xPosts), ne z HTML embedu');
+    'widgets.js startuje defer z <head> šablony článku (jen při xPosts), ne z HTML embedu');
   assert.doesNotMatch(EMBED_HTML, /twimg\.com/i, 'fasáda nesmí stahovat nic z twimg');
   assert.doesNotMatch(EMBED_HTML, /<picture>|<img /, 'fasáda X nenese žádnou fotku');
 
@@ -200,7 +201,7 @@ test('inline skript u embedu opraví data-theme podle webu — statický, bez in
   assert.ok(indexSkriptu < EMBED_HTML.indexOf('x-embed-fallback'));
 });
 
-test('widgets.js startuje async z <head> jen při xPosts — s preconnectem, ne na celý web', () => {
+test('widgets.js startuje defer z <head> jen při xPosts — s preconnectem, ne na celý web', () => {
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="preconnect" href="https:\/\/platform\.twitter\.com" slot="head" \/>\}/,
     'preconnect šetří DNS+TLS — Base preconnectuje jen ytimg/audio/insights');
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="dns-prefetch" href="https:\/\/platform\.twitter\.com" slot="head" \/>\}/);
@@ -210,8 +211,8 @@ test('widgets.js startuje async z <head> jen při xPosts — s preconnectem, ne 
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="preconnect" href="https:\/\/syndication\.twitter\.com" slot="head" \/>\}/,
     'widgets.js sahá i na syndication.twitter.com — stejný hint, stejná podmínka xPosts');
   assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="dns-prefetch" href="https:\/\/syndication\.twitter\.com" slot="head" \/>\}/);
-  assert.match(PAGE, /\{xEmbedy\.length > 0 && <script is:inline async src="https:\/\/platform\.twitter\.com\/widgets\.js" slot="head"><\/script>\}/,
-    'widgets.js se stahuje souběžně s prvním vykreslením — nečeká na náš modul');
+  assert.match(PAGE, /\{xEmbedy\.length > 0 && <script is:inline defer src="https:\/\/platform\.twitter\.com\/widgets\.js" slot="head"><\/script>\}/,
+    'widgets.js jde defer — až po naparsování blockquote, ne async závod');
   assert.doesNotMatch(PAGE, /<link rel="preconnect" href="https:\/\/platform\.twitter\.com" slot="head" \/>\s*$/m,
     'preconnect nesmí být bez podmínky xPosts');
   assert.doesNotMatch(PAGE, /<link rel="preconnect" href="https:\/\/cdn\.syndication\.twimg\.com" slot="head" \/>\s*$/m,
@@ -233,6 +234,8 @@ test('fallback „Otevřít na X“ stojí mimo fasádu a funguje i bez JS', () 
   const fallback = EMBED_HTML.indexOf('x-embed-fallback');
   assert.notEqual(konecFasady, -1);
   assert.ok(fallback > konecFasady, 'fallback musí stát mimo fasádu, ne uvnitř');
+  assert.equal((EMBED_HTML.match(/x-embed-fallback/g) ?? []).length, 1,
+    'jeden fallback řádek — ne druhá výzva pod kartou');
   assert.match(EMBED_HTML, /<a href="https:\/\/x\.com\/SpaceX\/status\/2093477720638341395" target="_blank" rel="noopener">Otevřít na X/);
 });
 
@@ -450,7 +453,8 @@ test('inicializace převezme serverový blockquote — nestaví druhý a načte 
   const script = ownerDocument.head.children.find((child) => child.tagName === 'SCRIPT');
   assert.ok(script, 'bez skriptu v <head> musí pojistka widgets.js načíst');
   assert.equal(script.src, 'https://platform.twitter.com/widgets.js');
-  assert.equal(script.async, true);
+  assert.equal(script.defer, true);
+  assert.equal(script.async, undefined);
 });
 
 test('stránka bez fasád X nenačte widgets.js — skript se nevkládá na celý web', () => {
@@ -612,7 +616,8 @@ test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', (
   assert.match(sekce, /\.x-facade \.twitter-tweet \{[^}]*max-width: 550px/,
     'zhydratovaný widget drží sloupec ~550 px na střed, ne přes celou šířku');
   assert.match(sekce, /\.x-facade-failed \{/);
-  assert.match(sekce, /\.x-facade-open \{/, 'stav selhání potřebuje zřetelný odkaz, ne drobnou poznámku');
+  assert.match(sekce, /\.x-facade-open \{[^}]*min-height:\s*44px/,
+    'únik „Otevřít na X“ musí mít zásah 44 px');
 });
 
 // ── 5. Článek Flight 14 ──────────────────────────────────────────────

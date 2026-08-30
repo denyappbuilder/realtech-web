@@ -1410,7 +1410,7 @@ a.chip { display: inline-flex; align-items: center; }
    play tlačítko Maky živě vrátil, náhledovka widget „schovávala“. Widget se
    vykresluje hned při načtení — click-to-load bránu Maky zrušil taky.
    Serverové HTML nese rovnou blockquote + stav načítání (spinner), takže
-   žádná mezikostra s logem: spinner svítí, jen než widgets.js (async
+   žádná mezikostra s logem: spinner svítí, jen než widgets.js (defer
    z <head>) vloží iframe. Kompaktní světlý panel z tokenů webu; černý
    gradientní panel Maky vykázal dřív (černo-červený horor). */
 .x-embed { margin: 0 0 24px; }
@@ -1420,7 +1420,7 @@ a.chip { display: inline-flex; align-items: center; }
   overflow: hidden;
   background: var(--surface);
 }
-/* Než widget vloží iframe: fasáda drží tvar karty tweetu (~550 px),
+/* Než widget vloží iframe: fasáda drží tvar karty tweetu (~560 px),
    spinner uprostřed. Bez min-height je to krátký pruh a karta pak
    vyskočí (CLS). Panel nesmí zmizet do prázdného paddingu. */
 .x-facade-loading {
@@ -1428,7 +1428,7 @@ a.chip { display: inline-flex; align-items: center; }
   align-content: center;
   justify-items: center;
   gap: 6px;
-  min-height: 520px;
+  min-height: 560px;
   padding: 28px 20px;
   background: var(--surface);
 }
@@ -1468,7 +1468,9 @@ a.chip { display: inline-flex; align-items: center; }
   font-size: 0.85rem;
 }
 .x-facade-open {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   padding: 9px 18px;
   border: 1px solid var(--line);
   border-radius: var(--radius);

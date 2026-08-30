@@ -77,6 +77,11 @@ test('Z1064: plugin i kotva v článku berou ořez PŘED čištěním okrajů', 
     /\.replace\(\/\^-\|-\$\/g,\s*''\)\.slice\(0,\s*60\)/,
     'staré pořadí nesmí zůstat v kotvě článku',
   );
+  assert.match(
+    clanekSrc,
+    /scrollIntoView\([\s\S]{0,200}prefers-reduced-motion:\s*reduce/,
+    'kotva nadpisu nesmí smooth-scrollovat při prefers-reduced-motion',
+  );
 });
 
 test('Z1207: přípona jde ZA ořez, první výskyt zůstane bez čísla', () => {

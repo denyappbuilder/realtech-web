@@ -60,6 +60,18 @@ const R7_LEFTOVER_SLUGS = [
   'spacex-nvidia-starmind-ai1',
 ];
 
+// Kolo 8: šest leftover tmavých karet (studio/red rim, twilight, vesmír,
+// cyberpunk noc, hotel CRITICAL, CGI měsíc). YouTube people composite
+// (dji-vs-insta360 / xiaomi / pentagon / dji-ban-usa) zůstávají.
+const R8_LEFTOVER_SLUGS = [
+  'sony-fx5-cinema-line',
+  'starlink-v-cesku-pruvodce',
+  'starship-flight-13-starlink-v3',
+  'waze-gemini-novinky',
+  'hotelova-wifi-captivecrunch',
+  'falcon-9-narazil-do-mesice-v2',
+];
+
 function coverPath(slug, name) {
   return path.join(root, 'public/images/clanky', name ?? `${slug}.jpg`);
 }
@@ -219,6 +231,34 @@ test('kolo 7: poslední čtyři leftover covery mají 1280×720, deriváty a OG'
 
 test('kolo 7: poslední čtyři leftover covery jsou světlé, bez červeného neonu', async () => {
   for (const slug of R7_LEFTOVER_SLUGS) {
+    const file = coverPath(slug);
+    const meta = await sharp(file).metadata();
+    assert.equal(meta.width, 1280, `${slug} šířka`);
+    assert.equal(meta.height, 720, `${slug} výška`);
+    const { luma, darkPct, redPct } = await lumaStats(file);
+    assertSvetlyCover(slug, luma, darkPct, redPct);
+  }
+});
+
+test('kolo 8: leftover covery mají 1280×720, deriváty a OG', () => {
+  for (const slug of R8_LEFTOVER_SLUGS) {
+    const ogSlug = slug.endsWith('-v2') ? slug.slice(0, -3) : slug;
+    const files = [
+      coverPath(slug, `${slug}.jpg`),
+      coverPath(slug, `${slug}.webp`),
+      coverPath(slug, `${slug}-640.jpg`),
+      coverPath(slug, `${slug}-640.webp`),
+      path.join(root, 'public/images/og', `${ogSlug}.jpg`),
+      path.join(root, 'public/images/og', `${ogSlug}.jpg.sha256`),
+    ];
+    for (const file of files) {
+      assert.ok(fs.existsSync(file), `chybí ${path.relative(root, file)}`);
+    }
+  }
+});
+
+test('kolo 8: leftover covery jsou světlé, bez červeného neonu', async () => {
+  for (const slug of R8_LEFTOVER_SLUGS) {
     const file = coverPath(slug);
     const meta = await sharp(file).metadata();
     assert.equal(meta.width, 1280, `${slug} šířka`);
