@@ -1,20 +1,29 @@
-// Oficiální embed X (Twitter) — click-to-load po vzoru YouTube fasády.
+// Oficiální embed X (Twitter) — vykresluje se hned při načtení stránky.
+//
+// Click-to-load bránu („Kliknutím se načte oficiální vložený příspěvek…“,
+// prázdný panel s logem X) Maky zrušil: čtenář má kartu příspěvku
+// s náhledem videa vidět rovnou, bez kliknutí navíc. Dřívější kontrakt
+// „nic na platform.twitter.com před kliknutím“ tím padá.
 //
 // Co se tu hlídá a proč:
 //  1. Parser bere jen https status URL na x.com/twitter.com a kanonizuje
 //     href na twitter.com — widgets.js historicky ignoroval x.com odkazy.
-//  2. První HTML článku nesmí poslat nic na platform.twitter.com/twimg —
-//     žádný iframe, blockquote ani widgets.js před kliknutím.
+//  2. První HTML článku nese jen krátkou kostru (logo X + titulek) —
+//     blockquote staví až skript při načtení, protože data-theme se musí
+//     spočítat z aktuálního tématu webu. Žádné tlačítko, žádná výzva
+//     ke kliknutí.
 //  3. Fasáda žije v textu článku (.article-body, před <Content />), ne
 //     přes cover — cover jako play tlačítko Maky živě vrátil (náhledovka
-//     widget „schovávala“). Cover je vždy normální fotka. Fasáda je
-//     kompaktní světlý panel z tokenů webu — žádný černý #090b0e panel.
-//  4. Klik ukáže viditelný stav načítání a vloží oficiální embed
+//     widget „schovávala“). Cover je vždy normální fotka.
+//  4. Inicializace hned ukáže stav načítání a vloží oficiální embed
 //     (blockquote.twitter-tweet + widgets.js) s data-dnt, data-conversation
 //     none a tématem podle webu. Soubor videa zůstává u X — nerehostujeme.
-//  5. Po vložení iframe fasáda odloží 16:9 rám (x-facade-loaded), aby si
-//     tweet určil výšku sám a nezbyla po fotce prázdná studna.
-//  6. YouTube cesta (`video` ve frontmatteru) zůstává beze změny.
+//     widgets.js se načítá jen na stránkách, kde fasáda opravdu je.
+//  5. Po vložení iframe fasáda odloží panel (x-facade-loaded), aby si
+//     tweet určil výšku sám a nezbyla kolem něj prázdná studna. Když
+//     widget nenaběhne (adblock), zůstává únik „Otevřít na X“ z #361.
+//  6. YouTube cesta (`video` ve frontmatteru) včetně click-to-load fasády
+//     zůstává beze změny.
 //  7. CSP v public/_headers povoluje přesně to, co widget po kliknutí
 //     potřebuje (ověřeno runtime v Chrome: script + frame na
 //     platform.twitter.com; zbytek si widget řeší ve vlastním iframe,
@@ -99,18 +108,24 @@ test('parser odmítá junk — cizí hosty, http, ne-status cesty i nečíselná
   }
 });
 
-// ── 2. Šablona: první HTML bez widgets.js/iframe ─────────────────────
+// ── 2. Šablona: kostra bez brány ke kliknutí ─────────────────────────
 
-test('produkční šablona posílá v prvním HTML lokální fasádu X bez iframe a widgets.js', () => {
+test('produkční šablona posílá v prvním HTML jen kostru fasády — bez tlačítka a výzvy ke kliknutí', () => {
   const template = xEmbedTemplate(PAGE);
 
   assert.match(template, /class="x-facade"[\s\S]*data-x-facade/);
   assert.match(template, /data-x-post-id=\{post\.id\}/);
   assert.match(template, /data-x-post-href=\{post\.href\}/);
-  assert.doesNotMatch(template, /<iframe\b/i, 'iframe nesmí existovat před souhlasnou aktivací');
-  assert.doesNotMatch(template, /<blockquote\b/i, 'blockquote vkládá až klik');
-  assert.doesNotMatch(template, /platform\.twitter\.com|widgets\.js/i, 'šablona nesmí odkazovat widgets.js');
+  assert.doesNotMatch(template, /<button\b/i, 'click-to-load tlačítko Maky zrušil — widget se vkládá sám');
+  assert.doesNotMatch(template, /Kliknutím se načte|x-facade-button|x-facade-note/,
+    'žádná výzva ke kliknutí — prázdný panel „klikni a načtu“ je pryč');
+  assert.doesNotMatch(template, /<iframe\b/i, 'iframe vkládá widgets.js, ne šablona');
+  assert.doesNotMatch(template, /<blockquote\b/i,
+    'blockquote staví až skript při načtení — data-theme se počítá z tématu webu');
+  assert.doesNotMatch(template, /platform\.twitter\.com|widgets\.js/i,
+    'widgets.js načítá skript (jen na stránkách s fasádou), ne HTML šablona');
   assert.doesNotMatch(template, /twimg\.com/i, 'fasáda nesmí stahovat nic z twimg');
+  assert.match(template, /x-facade-skeleton/, 'kostra drží místo, než ji skript vymění');
   assert.match(PAGE, /import \{ inicializujXFacades \} from '\.\.\/\.\.\/lib\/x-embed\.js'/);
   assert.match(PAGE, /inicializujXFacades\(\)/);
 });
@@ -133,19 +148,14 @@ test('embed X žije v textu článku před <Content />, cover je vždy normáln�
   assert.doesNotMatch(PAGE, /heroVeXFacade|x-facade-photo|x-facade-button-photo|x-facade-play|x-facade-badge/);
   assert.doesNotMatch(template, /<picture>|<img /, 'fasáda X nenese žádnou fotku');
 
-  // Kompaktní světlý panel: značka X + titulek + poznámka.
+  // Kostra: značka X + titulek — nic víc, skript ji hned vymění.
   assert.match(template, /x-facade-mark/);
   assert.match(template, /Video z příspěvku @\{post\.ucet\}/);
-  assert.match(template, /Kliknutím se načte oficiální vložený příspěvek ze sítě X/);
 });
 
-test('fasáda má nativní tlačítko s přístupným názvem a viditelný fallback „Otevřít na X“', () => {
+test('fallback „Otevřít na X“ stojí mimo fasádu a funguje i bez JS', () => {
   const template = xEmbedTemplate(PAGE);
 
-  assert.match(
-    template,
-    /<button[\s\S]*type="button"[\s\S]*class="x-facade-button"[\s\S]*aria-label=\{`Načíst video z příspěvku @\$\{post\.ucet\} na síti X`\}/,
-  );
   // Fallback stojí MIMO [data-x-facade], takže přežije výměnu obsahu fasády.
   const facade = template.indexOf('data-x-facade');
   const konecFasady = template.indexOf('</div>', facade);
@@ -154,7 +164,7 @@ test('fasáda má nativní tlačítko s přístupným názvem a viditelný fallb
   assert.match(template, /<a href=\{post\.webHref\} target="_blank" rel="noopener">Otevřít na X/);
 });
 
-// ── 3. Klik vloží oficiální embed ────────────────────────────────────
+// ── 3. Načtení stránky vloží oficiální embed ─────────────────────────
 
 class FakeElement {
   constructor(tagName, ownerDocument) {
@@ -163,7 +173,6 @@ class FakeElement {
     this.dataset = {};
     this.children = [];
     this.attributes = new Map();
-    this.listeners = new Map();
     this.className = '';
     this.textContent = '';
     this.parentNode = null;
@@ -176,9 +185,6 @@ class FakeElement {
   }
 
   querySelector(selector) {
-    if (selector === '.x-facade-button') {
-      return this.children.find((child) => child.className === 'x-facade-button') ?? null;
-    }
     if (selector === 'blockquote') {
       return this.children.find((child) => child.tagName === 'BLOCKQUOTE') ?? null;
     }
@@ -189,16 +195,6 @@ class FakeElement {
       return this.children.find((child) => child.className.includes('x-facade-failed-note')) ?? null;
     }
     return null;
-  }
-
-  addEventListener(type, callback, options) {
-    this.listeners.set(type, { callback, once: Boolean(options?.once) });
-  }
-
-  activate() {
-    const listener = this.listeners.get('click');
-    listener?.callback({ type: 'click' });
-    if (listener?.once) this.listeners.delete('click');
   }
 
   replaceChildren(...children) {
@@ -253,25 +249,20 @@ function fixture({ tema, systemDark } = {}) {
   facade.dataset.xPostId = '2093477720638341395';
   facade.dataset.xPostHref = 'https://twitter.com/SpaceX/status/2093477720638341395';
   facade.dataset.xPostTitle = 'Příspěvek @SpaceX na X';
-  const button = new FakeElement('button', ownerDocument);
-  button.className = 'x-facade-button';
-  facade.children = [button];
+  const skeleton = new FakeElement('div', ownerDocument);
+  skeleton.className = 'x-facade-skeleton';
+  facade.children = [skeleton];
   const root = { querySelectorAll: () => [facade] };
-  return { root, facade, button, created, ownerDocument };
+  return { root, facade, created, ownerDocument };
 }
 
-test('inicializace nevytvoří nic, klik vloží blockquote.twitter-tweet s data-dnt a widgets.js', () => {
-  const { root, facade, button, created, ownerDocument } = fixture();
+test('inicializace hned vloží blockquote.twitter-tweet s data-dnt a widgets.js — bez kliknutí', () => {
+  const { root, facade, ownerDocument } = fixture();
 
   inicializujXFacades(root);
-  assert.equal(created.length, 0, 'samotné načtení stránky nesmí nic vytvořit');
-  assert.equal(facade.querySelector('blockquote'), null);
-  assert.equal(ownerDocument.head.children.length, 0, 'widgets.js se nesmí načíst před kliknutím');
-
-  button.activate();
 
   const blockquote = facade.querySelector('blockquote');
-  assert.ok(blockquote, 'klik musí vložit blockquote');
+  assert.ok(blockquote, 'načtení stránky musí vložit blockquote — žádná brána ke kliknutí');
   assert.equal(blockquote.className, 'twitter-tweet');
   assert.equal(blockquote.attributes.get('data-dnt'), 'true');
   assert.equal(blockquote.attributes.get('data-conversation'), 'none', 'vlákno pod tweetem nechceme');
@@ -281,19 +272,28 @@ test('inicializace nevytvoří nic, klik vloží blockquote.twitter-tweet s data
   assert.equal(odkaz.href, 'https://twitter.com/SpaceX/status/2093477720638341395');
 
   const script = ownerDocument.head.children.find((child) => child.tagName === 'SCRIPT');
-  assert.ok(script, 'klik musí načíst widgets.js');
+  assert.ok(script, 'inicializace musí načíst widgets.js');
   assert.equal(script.src, 'https://platform.twitter.com/widgets.js');
   assert.equal(script.async, true);
 });
 
-test('mezi klikem a iframem je viditelný stav načítání, dokonciXFacade ho uklidí', () => {
+test('stránka bez fasád X nenačte widgets.js — skript se nevkládá na celý web', () => {
+  const { created, ownerDocument } = fixture();
+  const prazdnyRoot = { querySelectorAll: () => [] };
+
+  inicializujXFacades(prazdnyRoot);
+  assert.equal(created.length, 0, 'bez fasády se nesmí nic vytvořit');
+  assert.equal(ownerDocument.head.children.length, 0, 'bez fasády se widgets.js nenačítá');
+});
+
+test('mezi načtením a iframem je viditelný stav načítání, dokonciXFacade ho uklidí', () => {
   const { facade } = fixture();
 
   aktivujXFacade(facade);
 
   assert.ok(facade.classList.contains('x-facade-loading'), 'fasáda musí hlásit načítání');
   const note = facade.querySelector('.x-facade-loading-note');
-  assert.ok(note, 'klik musí ukázat poznámku o načítání — tlačítko nesmí zmizet do prázdna');
+  assert.ok(note, 'aktivace musí ukázat poznámku o načítání — kostra nesmí zmizet do prázdna');
   assert.ok(note.children.some((child) => child.className === 'x-facade-spinner'));
   assert.equal(facade.children[0], note, 'poznámka stojí nad blockquote');
 
@@ -393,7 +393,7 @@ test('podvržená data-* fasádu neaktivují', () => {
 // ── 4. Vzhled fasády: žádný černý panel ─────────────────────────────
 
 test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', () => {
-  const start = CSS.indexOf('/* ── X (Twitter) click-to-load');
+  const start = CSS.indexOf('/* ── X (Twitter) embed');
   assert.notEqual(start, -1, 'global.css nemá sekci pro X');
   const sekce = CSS.slice(start);
 
@@ -402,6 +402,9 @@ test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', (
   assert.match(sekce, /\.x-facade \{[^}]*background: var\(--surface\)/);
   assert.doesNotMatch(sekce, /x-facade-photo|x-facade-play|x-facade-badge|aspect-ratio: 16/,
     'cover jako fasáda je pryč — kompaktní panel v textu, žádná 16:9 fotovarianta');
+  assert.match(sekce, /\.x-facade-skeleton \{/, 'kostra drží tvar, než skript vloží blockquote');
+  assert.doesNotMatch(sekce, /x-facade-button|x-facade-note|cursor: pointer/,
+    'click-to-load tlačítko Maky zrušil — žádné interaktivní styly fasády');
   assert.match(sekce, /\.x-facade-loading \{/);
   assert.match(sekce, /\.x-facade-spinner \{/);
   assert.match(sekce, /\.x-facade\.x-facade-loaded \{[^}]*background: transparent/,
@@ -410,8 +413,6 @@ test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', (
     'zhydratovaný widget drží sloupec ~550 px na střed, ne přes celou šířku');
   assert.match(sekce, /\.x-facade-failed \{/);
   assert.match(sekce, /\.x-facade-open \{/, 'stav selhání potřebuje zřetelný odkaz, ne drobnou poznámku');
-  assert.doesNotMatch(sekce, /\.x-facade-button:hover \.x-facade-mark[^}]*transform/,
-    'hover scale na značce X byl mrtvý kód — pod reduced-motion ho přepisoval transform: none');
 });
 
 // ── 5. Článek Flight 14 ──────────────────────────────────────────────
@@ -439,6 +440,8 @@ test('článek s embedem X a bez videa nedostane výzvu „K tomuhle článku vi
 test('YouTube fasáda i videobar zůstávají v šabloně nedotčené', () => {
   assert.match(PAGE, /\{videoId && \(/);
   assert.match(PAGE, /class="video-embed youtube-facade"/);
+  assert.match(PAGE, /class="youtube-facade-button"/,
+    'YouTube zůstává click-to-load — zrušení brány platí jen pro embed X');
   assert.match(PAGE, /\{video && \(\n\s*<div class="article-videobar">/);
   assert.match(PAGE, /Přehrát na YouTube/);
   assert.match(PAGE, /import \{ inicializujYoutubeFacades \} from '\.\.\/\.\.\/lib\/youtube-facade\.js'/);

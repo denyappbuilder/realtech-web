@@ -1405,11 +1405,13 @@ a.chip { display: inline-flex; align-items: center; }
   outline-offset: -3px;
 }
 
-/* ── X (Twitter) click-to-load ───────── */
+/* ── X (Twitter) embed ───────── */
 /* Fasáda žije v textu článku (.article-body), ne přes cover — cover jako
-   play tlačítko Maky živě vrátil, náhledovka widget „schovávala“. Kompaktní
-   světlý panel z tokenů webu; černý gradientní panel Maky vykázal dřív
-   (černo-červený horor). Žádný náhled z twimg — první HTML na X nic neposílá. */
+   play tlačítko Maky živě vrátil, náhledovka widget „schovávala“. Widget se
+   vykresluje hned při načtení — click-to-load bránu Maky zrušil taky, takže
+   kostra (logo X + titulek) svítí jen chvilku, než ji skript vymění za
+   blockquote a widgets.js vloží iframe. Kompaktní světlý panel z tokenů
+   webu; černý gradientní panel Maky vykázal dřív (černo-červený horor). */
 .x-embed { margin: 0 0 24px; }
 .x-facade {
   border: 1px solid var(--line);
@@ -1417,17 +1419,13 @@ a.chip { display: inline-flex; align-items: center; }
   overflow: hidden;
   background: var(--surface);
 }
-.x-facade-button {
-  width: 100%;
+.x-facade-skeleton {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   padding: 24px 18px;
-  border: 0;
-  background: transparent;
   color: var(--ink);
-  cursor: pointer;
 }
 .x-facade-mark {
   width: 52px;
@@ -1436,21 +1434,11 @@ a.chip { display: inline-flex; align-items: center; }
   place-items: center;
   border-radius: 50%;
   background: color-mix(in srgb, var(--ink) 8%, transparent);
-  transition: background 0.18s ease;
 }
 .x-facade-mark svg { width: 24px; height: 24px; fill: var(--ink); }
 .x-facade-title { font-weight: 600; font-size: 1.05rem; }
-.x-facade-note { font-size: 0.72rem; color: var(--ink-faint); }
-.x-facade-button:hover .x-facade-mark,
-.x-facade-button:focus-visible .x-facade-mark {
-  background: color-mix(in srgb, var(--ink) 16%, transparent);
-}
-.x-facade-button:focus-visible {
-  outline: 3px solid var(--signal);
-  outline-offset: -3px;
-}
-/* Mezi klikem a iframem: fasáda drží tvar, spinner + odkaz z blockquote —
-   tlačítko nesmí zmizet do prázdného paddingu. */
+/* Než widget vloží iframe: fasáda drží tvar, spinner + odkaz z blockquote —
+   kostra nesmí zmizet do prázdného paddingu. */
 .x-facade-loading {
   display: grid;
   align-content: center;
