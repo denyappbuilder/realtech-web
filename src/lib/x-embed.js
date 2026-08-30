@@ -3,9 +3,9 @@ const TWITTER_HREF = /^https:\/\/twitter\.com\/[A-Za-z0-9_]{1,15}\/status\/\d{1,
 
 export const WIDGETS_SRC = 'https://platform.twitter.com/widgets.js';
 
-// Pojistka pro případ, že widgets.js nenaběhne (blokovaný script, výpadek):
-// spinner nesmí točit donekonečna — po limitu zůstane odkaz z blockquote
-// a viditelný fallback „Otevřít na X“ pod fasádou.
+// Pojistka pro případ, že widgets.js nenaběhne (adblock, výpadek): spinner
+// nesmí točit donekonečna a čtenář nesmí zůstat v mrtvé krabici s holým
+// odkazem — po limitu fasáda ukáže viditelný únik „Otevřít na X“.
 const LIMIT_NACITANI_MS = 15000;
 
 /**
@@ -79,14 +79,49 @@ export function aktivujXFacade(facade) {
 /**
  * Konec načítání: pryč spinner i 16:9 rám (třída x-facade-loaded shodí
  * aspect-ratio, rámeček a pozadí), aby si tweet určil výšku sám a kolem
- * něj nezbyla prázdná studna.
+ * něj nezbyla prázdná studna. Uklidí i případný stav selhání — widget
+ * může zhydratovat dodatečně (pomalá síť), pozorovatel běží dál.
  *
  * @param {HTMLElement} facade
  */
 export function dokonciXFacade(facade) {
   facade.classList.remove('x-facade-loading');
+  facade.classList.remove('x-facade-failed');
   facade.classList.add('x-facade-loaded');
   facade.querySelector('.x-facade-loading-note')?.remove();
+  facade.querySelector('.x-facade-failed-note')?.remove();
+}
+
+/**
+ * Widget nenaběhl (adblock na widgets.js, výpadek X): čtenář nesmí zůstat
+ * v mrtvé krabici s holým odkazem a drobnou poznámkou pod ní. Spinner
+ * končí a fasáda ukáže zřetelný únik „Otevřít na X“ (x.com — lidský odkaz,
+ * twitter.com href v blockquote je jen pro widgets.js). Blockquote zůstává:
+ * kdyby widgets.js dorazil pozdě, pozorovatel selhání zase uklidí.
+ *
+ * @param {HTMLElement} facade
+ */
+export function oznacSelhaniXFacade(facade) {
+  facade.classList.remove('x-facade-loading');
+  facade.classList.add('x-facade-failed');
+  facade.querySelector('.x-facade-loading-note')?.remove();
+  if (facade.querySelector('.x-facade-failed-note')) return;
+
+  const doc = facade.ownerDocument;
+  const text = doc.createElement('span');
+  text.textContent = 'Vložený příspěvek z X se nenačetl.';
+  const odkaz = doc.createElement('a');
+  odkaz.className = 'x-facade-open';
+  odkaz.href = (facade.dataset.xPostHref ?? '').replace('https://twitter.com/', 'https://x.com/');
+  odkaz.target = '_blank';
+  odkaz.rel = 'noopener';
+  odkaz.textContent = 'Otevřít na X →';
+
+  const note = doc.createElement('p');
+  note.className = 'x-facade-failed-note';
+  note.appendChild(text);
+  note.appendChild(odkaz);
+  facade.appendChild(note);
 }
 
 /**
@@ -100,16 +135,14 @@ function sledujRenderWidgetu(facade) {
   const win = facade.ownerDocument.defaultView;
   if (!win?.MutationObserver) return;
 
-  const konec = () => {
+  const observer = new win.MutationObserver(() => {
+    if (!facade.querySelector('iframe')) return;
     observer.disconnect();
     win.clearTimeout(pojistka);
     dokonciXFacade(facade);
-  };
-  const observer = new win.MutationObserver(() => {
-    if (facade.querySelector('iframe')) konec();
   });
   observer.observe(facade, { childList: true, subtree: true });
-  const pojistka = win.setTimeout(konec, LIMIT_NACITANI_MS);
+  const pojistka = win.setTimeout(() => oznacSelhaniXFacade(facade), LIMIT_NACITANI_MS);
 }
 
 /**

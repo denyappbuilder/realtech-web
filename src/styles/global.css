@@ -1437,7 +1437,7 @@ a.chip { display: inline-flex; align-items: center; }
   place-items: center;
   border-radius: 50%;
   background: color-mix(in srgb, var(--ink) 8%, transparent);
-  transition: background 0.18s ease, transform 0.18s ease;
+  transition: background 0.18s ease;
 }
 .x-facade-mark svg { width: 24px; height: 24px; fill: var(--ink); }
 .x-facade-title { font-weight: 600; font-size: 1.05rem; }
@@ -1445,7 +1445,6 @@ a.chip { display: inline-flex; align-items: center; }
 .x-facade-button:hover .x-facade-mark,
 .x-facade-button:focus-visible .x-facade-mark {
   background: color-mix(in srgb, var(--ink) 16%, transparent);
-  transform: scale(1.06);
 }
 .x-facade-button:focus-visible {
   outline: 3px solid var(--signal);
@@ -1538,6 +1537,39 @@ a.chip { display: inline-flex; align-items: center; }
 }
 @keyframes x-facade-spin { to { transform: rotate(360deg); } }
 .x-facade-loading .twitter-tweet { font-size: 0.85rem; color: var(--ink-soft); }
+/* Widget nenaběhl (adblock, výpadek): žádná mrtvá krabice — fasáda ukáže
+   zřetelný únik na X, ne jen drobnou poznámku pod sebou. Krabice se stáhne
+   (aspect-ratio auto), blockquote s odkazem zůstává nad tlačítkem. */
+.x-facade-failed {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  aspect-ratio: auto;
+  padding: 28px 20px;
+  background: var(--surface);
+}
+.x-facade-failed-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.x-facade-open {
+  display: inline-block;
+  padding: 9px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.x-facade-open:hover,
+.x-facade-open:focus-visible {
+  border-color: var(--signal);
+  color: var(--signal-dark);
+}
 /* Jakmile widget vloží iframe, 16:9 krabice končí — tweet si výšku řídí
    sám a kolem něj nesmí zbýt prázdná studna ani rámeček navíc. */
 .x-facade.x-facade-loaded {
@@ -1554,8 +1586,6 @@ a.chip { display: inline-flex; align-items: center; }
 .x-embed-fallback a { color: inherit; text-decoration: underline; }
 .x-embed-fallback a:hover { color: var(--signal-dark); }
 @media (prefers-reduced-motion: reduce) {
-  .x-facade-button:hover .x-facade-mark,
-  .x-facade-button:focus-visible .x-facade-mark { transform: none; }
   .x-facade-button-photo:hover .x-facade-play,
   .x-facade-button-photo:focus-visible .x-facade-play { transform: translate(-50%, -50%); }
 }

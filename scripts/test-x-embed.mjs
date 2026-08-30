@@ -30,6 +30,7 @@ import {
   dokonciXFacade,
   inicializujXFacades,
   nactiWidgetsJs,
+  oznacSelhaniXFacade,
   temaWidgetu,
   WIDGETS_SRC,
 } from '../src/lib/x-embed.js';
@@ -188,6 +189,9 @@ class FakeElement {
     if (selector === '.x-facade-loading-note') {
       return this.children.find((child) => child.className.includes('x-facade-loading-note')) ?? null;
     }
+    if (selector === '.x-facade-failed-note') {
+      return this.children.find((child) => child.className.includes('x-facade-failed-note')) ?? null;
+    }
     return null;
   }
 
@@ -306,6 +310,39 @@ test('mezi klikem a iframem je viditelný stav načítání, dokonciXFacade ho u
   assert.ok(facade.querySelector('blockquote'), 'blockquote musí úklid přežít');
 });
 
+test('když widget nenaběhne, fasáda ukáže zřetelný únik „Otevřít na X“ — a pozdní hydratace ho uklidí', () => {
+  const { facade } = fixture();
+
+  aktivujXFacade(facade);
+  oznacSelhaniXFacade(facade);
+
+  assert.equal(facade.classList.contains('x-facade-loading'), false, 'spinner nesmí točit donekonečna');
+  assert.ok(facade.classList.contains('x-facade-failed'));
+  assert.equal(facade.querySelector('.x-facade-loading-note'), null);
+
+  const note = facade.querySelector('.x-facade-failed-note');
+  assert.ok(note, 'čtenář nesmí zůstat v mrtvé krabici bez viditelného úniku');
+  const odkaz = note.children.find((child) => child.tagName === 'A');
+  assert.equal(odkaz.href, 'https://x.com/SpaceX/status/2093477720638341395',
+    'viditelný únik vede na lidský x.com, twitter.com href je jen pro widgets.js');
+  assert.equal(odkaz.target, '_blank');
+  assert.equal(odkaz.rel, 'noopener');
+  assert.ok(facade.querySelector('blockquote'), 'blockquote zůstává — widget může zhydratovat dodatečně');
+
+  // Druhé selhání nesmí přidat druhou poznámku.
+  oznacSelhaniXFacade(facade);
+  assert.equal(
+    facade.children.filter((child) => child.className.includes('x-facade-failed-note')).length,
+    1,
+  );
+
+  // Pozdní hydratace (pozorovatel běží dál): úklid selhání i poznámky.
+  dokonciXFacade(facade);
+  assert.equal(facade.classList.contains('x-facade-failed'), false);
+  assert.ok(facade.classList.contains('x-facade-loaded'));
+  assert.equal(facade.querySelector('.x-facade-failed-note'), null);
+});
+
 test('téma widgetu sleduje web: data-theme na <html> má přednost, jinak systémové schéma', () => {
   const { facade } = fixture({ tema: 'dark' });
   const blockquote = aktivujXFacade(facade);
@@ -372,6 +409,12 @@ test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', (
   assert.match(sekce, /\.x-facade-spinner \{/);
   assert.match(sekce, /\.x-facade\.x-facade-loaded \{[^}]*aspect-ratio: auto/,
     'po vložení iframe musí 16:9 krabice zmizet, aby si tweet určil výšku sám');
+  assert.match(sekce, /\.x-facade \.twitter-tweet \{[^}]*max-width: 550px/,
+    'zhydratovaný widget drží sloupec ~550 px na střed, ne přes celou šířku');
+  assert.match(sekce, /\.x-facade-failed \{/);
+  assert.match(sekce, /\.x-facade-open \{/, 'stav selhání potřebuje zřetelný odkaz, ne drobnou poznámku');
+  assert.doesNotMatch(sekce, /\.x-facade-button:hover \.x-facade-mark[^}]*transform/,
+    'hover scale na značce X byl mrtvý kód — pod reduced-motion ho přepisoval transform: none');
 });
 
 // ── 5. Článek Flight 14 ──────────────────────────────────────────────
