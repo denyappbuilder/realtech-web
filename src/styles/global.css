@@ -1406,25 +1406,24 @@ a.chip { display: inline-flex; align-items: center; }
 }
 
 /* ── X (Twitter) click-to-load ───────── */
-/* Náhled fasády je vlastní cover článku (lokální soubor jako .article-hero,
-   nic z twimg — první HTML nesmí na X nic poslat). Bez coveru světlý panel
-   v barvách webu; černý gradientní panel Maky vykázal (černo-červený horor). */
-.x-embed { margin: 28px 0 0; }
+/* Fasáda žije v textu článku (.article-body), ne přes cover — cover jako
+   play tlačítko Maky živě vrátil, náhledovka widget „schovávala“. Kompaktní
+   světlý panel z tokenů webu; černý gradientní panel Maky vykázal dřív
+   (černo-červený horor). Žádný náhled z twimg — první HTML na X nic neposílá. */
+.x-embed { margin: 0 0 24px; }
 .x-facade {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--surface);
 }
-/* Černá jen jako podklad fotky (letterbox jako u .article-hero), ne panel. */
-.x-facade-photo { aspect-ratio: 16 / 9; background: #000; }
 .x-facade-button {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 36px 20px;
+  gap: 8px;
+  padding: 24px 18px;
   border: 0;
   background: transparent;
   color: var(--ink);
@@ -1437,7 +1436,7 @@ a.chip { display: inline-flex; align-items: center; }
   place-items: center;
   border-radius: 50%;
   background: color-mix(in srgb, var(--ink) 8%, transparent);
-  transition: background 0.18s ease, transform 0.18s ease;
+  transition: background 0.18s ease;
 }
 .x-facade-mark svg { width: 24px; height: 24px; fill: var(--ink); }
 .x-facade-title { font-weight: 600; font-size: 1.05rem; }
@@ -1445,74 +1444,13 @@ a.chip { display: inline-flex; align-items: center; }
 .x-facade-button:hover .x-facade-mark,
 .x-facade-button:focus-visible .x-facade-mark {
   background: color-mix(in srgb, var(--ink) 16%, transparent);
-  transform: scale(1.06);
 }
 .x-facade-button:focus-visible {
   outline: 3px solid var(--signal);
   outline-offset: -3px;
 }
-/* Fotoreálná varianta — cover článku jako u YouTube fasády. Play je malý
-   kulatý terč, ne červený YT obdélník, aby si to nikdo nespletl s YouTube. */
-.x-facade-button-photo {
-  position: relative;
-  display: block;
-  height: 100%;
-  padding: 0;
-}
-.x-facade-button-photo picture,
-.x-facade-button-photo img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-.x-facade-button-photo img { object-fit: cover; }
-.x-facade-button-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.35));
-  transition: background 0.18s ease;
-}
-.x-facade-button-photo:hover::after { background: rgba(0, 0, 0, 0.08); }
-.x-facade-play {
-  position: absolute;
-  z-index: 1;
-  inset: 50% auto auto 50%;
-  width: 60px;
-  height: 60px;
-  transform: translate(-50%, -50%);
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: rgba(10, 12, 15, 0.62);
-  transition: background 0.18s ease, transform 0.18s ease;
-}
-.x-facade-play svg { width: 26px; height: 26px; margin-left: 3px; fill: #fff; }
-.x-facade-button-photo:hover .x-facade-play,
-.x-facade-button-photo:focus-visible .x-facade-play {
-  background: rgba(10, 12, 15, 0.82);
-  transform: translate(-50%, -50%) scale(1.06);
-}
-.x-facade-badge {
-  position: absolute;
-  z-index: 1;
-  left: 14px;
-  bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  font-size: 0.75rem;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
-}
-.x-facade-badge svg {
-  width: 15px;
-  height: 15px;
-  fill: #fff;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
-}
-/* Mezi klikem a iframem: fasáda drží tvar (fotovarianta i 16:9), spinner
-   + odkaz z blockquote — tlačítko nesmí zmizet do prázdného paddingu. */
+/* Mezi klikem a iframem: fasáda drží tvar, spinner + odkaz z blockquote —
+   tlačítko nesmí zmizet do prázdného paddingu. */
 .x-facade-loading {
   display: grid;
   align-content: center;
@@ -1538,11 +1476,42 @@ a.chip { display: inline-flex; align-items: center; }
 }
 @keyframes x-facade-spin { to { transform: rotate(360deg); } }
 .x-facade-loading .twitter-tweet { font-size: 0.85rem; color: var(--ink-soft); }
-/* Jakmile widget vloží iframe, 16:9 krabice končí — tweet si výšku řídí
-   sám a kolem něj nesmí zbýt prázdná studna ani rámeček navíc. */
+/* Widget nenaběhl (adblock, výpadek): žádná mrtvá krabice — fasáda ukáže
+   zřetelný únik na X, ne jen drobnou poznámku pod sebou. Blockquote
+   s odkazem zůstává nad tlačítkem. */
+.x-facade-failed {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 28px 20px;
+  background: var(--surface);
+}
+.x-facade-failed-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+.x-facade-open {
+  display: inline-block;
+  padding: 9px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.x-facade-open:hover,
+.x-facade-open:focus-visible {
+  border-color: var(--signal);
+  color: var(--signal-dark);
+}
+/* Jakmile widget vloží iframe, panel končí — tweet si výšku řídí sám
+   a kolem něj nesmí zbýt prázdná studna ani rámeček navíc. */
 .x-facade.x-facade-loaded {
   display: block;
-  aspect-ratio: auto;
   padding: 0;
   border: 0;
   background: transparent;
@@ -1553,9 +1522,3 @@ a.chip { display: inline-flex; align-items: center; }
 .x-embed-fallback { margin: 8px 0 0; font-size: 0.72rem; color: var(--ink-faint); }
 .x-embed-fallback a { color: inherit; text-decoration: underline; }
 .x-embed-fallback a:hover { color: var(--signal-dark); }
-@media (prefers-reduced-motion: reduce) {
-  .x-facade-button:hover .x-facade-mark,
-  .x-facade-button:focus-visible .x-facade-mark { transform: none; }
-  .x-facade-button-photo:hover .x-facade-play,
-  .x-facade-button-photo:focus-visible .x-facade-play { transform: translate(-50%, -50%); }
-}

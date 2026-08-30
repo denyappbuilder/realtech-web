@@ -5,9 +5,10 @@
 //     href na twitter.com — widgets.js historicky ignoroval x.com odkazy.
 //  2. První HTML článku nesmí poslat nic na platform.twitter.com/twimg —
 //     žádný iframe, blockquote ani widgets.js před kliknutím.
-//  3. Fasáda vypadá jako YouTube fasáda: cover článku (lokální soubor)
-//     + malý kulatý play. Žádný černý #090b0e panel — ten Maky vykázal —
-//     a žádný červený YT obdélník, ať se to neplete s YouTube.
+//  3. Fasáda žije v textu článku (.article-body, před <Content />), ne
+//     přes cover — cover jako play tlačítko Maky živě vrátil (náhledovka
+//     widget „schovávala“). Cover je vždy normální fotka. Fasáda je
+//     kompaktní světlý panel z tokenů webu — žádný černý #090b0e panel.
 //  4. Klik ukáže viditelný stav načítání a vloží oficiální embed
 //     (blockquote.twitter-tweet + widgets.js) s data-dnt, data-conversation
 //     none a tématem podle webu. Soubor videa zůstává u X — nerehostujeme.
@@ -30,6 +31,7 @@ import {
   dokonciXFacade,
   inicializujXFacades,
   nactiWidgetsJs,
+  oznacSelhaniXFacade,
   temaWidgetu,
   WIDGETS_SRC,
 } from '../src/lib/x-embed.js';
@@ -46,8 +48,8 @@ const FLIGHT14 = fs.readFileSync(
 const FLIGHT14_URL = 'https://x.com/SpaceX/status/2093477720638341395';
 
 function xEmbedTemplate(source) {
-  const start = source.indexOf('{xEmbedy.map((post, poradi) => (');
-  const end = source.indexOf('<AudioPrehled', start);
+  const start = source.indexOf('{xEmbedy.map((post) => (');
+  const end = source.indexOf('<Content />', start);
   assert.notEqual(start, -1, 'šablona nemá větev pro embed X');
   assert.notEqual(end, -1, 'nejde vymezit větev pro embed X');
   return source.slice(start, end);
@@ -102,8 +104,7 @@ test('parser odmítá junk — cizí hosty, http, ne-status cesty i nečíselná
 test('produkční šablona posílá v prvním HTML lokální fasádu X bez iframe a widgets.js', () => {
   const template = xEmbedTemplate(PAGE);
 
-  assert.match(template, /x-facade/);
-  assert.match(template, /data-x-facade/);
+  assert.match(template, /class="x-facade"[\s\S]*data-x-facade/);
   assert.match(template, /data-x-post-id=\{post\.id\}/);
   assert.match(template, /data-x-post-href=\{post\.href\}/);
   assert.doesNotMatch(template, /<iframe\b/i, 'iframe nesmí existovat před souhlasnou aktivací');
@@ -114,27 +115,27 @@ test('produkční šablona posílá v prvním HTML lokální fasádu X bez ifram
   assert.match(PAGE, /inicializujXFacades\(\)/);
 });
 
-test('první fasáda X nese cover článku místo samostatného article-hero (LCP jako YouTube fasáda)', () => {
+test('embed X žije v textu článku před <Content />, cover je vždy normální fotka', () => {
   const template = xEmbedTemplate(PAGE);
 
-  // Fotoreálná varianta jen pro první embed, a jen když hero nepatří YouTube.
-  assert.match(PAGE, /const heroVeXFacade = !videoId && xEmbedy\.length > 0 && Boolean\(heroSrc\);/);
-  assert.match(template, /poradi === 0 && heroVeXFacade \? ' x-facade-photo' : ''/);
-  assert.match(template, /class="x-facade-button x-facade-button-photo"/);
-  assert.match(
-    template,
-    /<img [^>]*alt=\{title\}[^>]*loading="eager"[^>]*fetchpriority="high"/,
-    'cover ve fasádě je LCP hero článku — eager, fetchpriority=high, alt s titulkem',
-  );
-  // Samostatný hero obrázek se vynechá — jinak by pod fotkou stála druhá karta.
-  assert.match(PAGE, /\{!videoId && !heroVeXFacade && heroSrc && \(/);
+  // Umístění: uvnitř .article-body, před obsahem — v toku čtení, ne pod hero.
+  const body = PAGE.indexOf('<div class="article-body">');
+  const map = PAGE.indexOf('{xEmbedy.map((post) => (');
+  const content = PAGE.indexOf('<Content />', body);
+  assert.notEqual(body, -1);
+  assert.ok(map > body, 'fasáda X musí stát uvnitř .article-body');
+  assert.ok(content > map, 'fasáda X musí stát před <Content />, ne za ním');
 
-  // Play nesmí vypadat jako YouTube: žádný červený zaoblený obdélník 68×48.
-  assert.match(template, /x-facade-play/);
-  assert.doesNotMatch(template, /viewBox="0 0 68 48"|youtube-facade-play/);
+  // Cover NIKDY nefunguje jako play tlačítko embedu — Maky to živě vrátil,
+  // náhledovka widget „schovávala“. article-hero se renderuje vždy,
+  // když je image a není YouTube video.
+  assert.match(PAGE, /\{!videoId && heroSrc && \(\s*\n\s*<div class="article-hero">/);
+  assert.doesNotMatch(PAGE, /heroVeXFacade|x-facade-photo|x-facade-button-photo|x-facade-play|x-facade-badge/);
+  assert.doesNotMatch(template, /<picture>|<img /, 'fasáda X nenese žádnou fotku');
 
-  // Varianta bez coveru zůstává (další posty, články bez image).
+  // Kompaktní světlý panel: značka X + titulek + poznámka.
   assert.match(template, /x-facade-mark/);
+  assert.match(template, /Video z příspěvku @\{post\.ucet\}/);
   assert.match(template, /Kliknutím se načte oficiální vložený příspěvek ze sítě X/);
 });
 
@@ -144,10 +145,6 @@ test('fasáda má nativní tlačítko s přístupným názvem a viditelný fallb
   assert.match(
     template,
     /<button[\s\S]*type="button"[\s\S]*class="x-facade-button"[\s\S]*aria-label=\{`Načíst video z příspěvku @\$\{post\.ucet\} na síti X`\}/,
-  );
-  assert.match(
-    template,
-    /class="x-facade-button x-facade-button-photo"[\s\S]*?aria-label=\{`Načíst video z příspěvku @\$\{post\.ucet\} na síti X`\}/,
   );
   // Fallback stojí MIMO [data-x-facade], takže přežije výměnu obsahu fasády.
   const facade = template.indexOf('data-x-facade');
@@ -187,6 +184,9 @@ class FakeElement {
     }
     if (selector === '.x-facade-loading-note') {
       return this.children.find((child) => child.className.includes('x-facade-loading-note')) ?? null;
+    }
+    if (selector === '.x-facade-failed-note') {
+      return this.children.find((child) => child.className.includes('x-facade-failed-note')) ?? null;
     }
     return null;
   }
@@ -306,6 +306,39 @@ test('mezi klikem a iframem je viditelný stav načítání, dokonciXFacade ho u
   assert.ok(facade.querySelector('blockquote'), 'blockquote musí úklid přežít');
 });
 
+test('když widget nenaběhne, fasáda ukáže zřetelný únik „Otevřít na X“ — a pozdní hydratace ho uklidí', () => {
+  const { facade } = fixture();
+
+  aktivujXFacade(facade);
+  oznacSelhaniXFacade(facade);
+
+  assert.equal(facade.classList.contains('x-facade-loading'), false, 'spinner nesmí točit donekonečna');
+  assert.ok(facade.classList.contains('x-facade-failed'));
+  assert.equal(facade.querySelector('.x-facade-loading-note'), null);
+
+  const note = facade.querySelector('.x-facade-failed-note');
+  assert.ok(note, 'čtenář nesmí zůstat v mrtvé krabici bez viditelného úniku');
+  const odkaz = note.children.find((child) => child.tagName === 'A');
+  assert.equal(odkaz.href, 'https://x.com/SpaceX/status/2093477720638341395',
+    'viditelný únik vede na lidský x.com, twitter.com href je jen pro widgets.js');
+  assert.equal(odkaz.target, '_blank');
+  assert.equal(odkaz.rel, 'noopener');
+  assert.ok(facade.querySelector('blockquote'), 'blockquote zůstává — widget může zhydratovat dodatečně');
+
+  // Druhé selhání nesmí přidat druhou poznámku.
+  oznacSelhaniXFacade(facade);
+  assert.equal(
+    facade.children.filter((child) => child.className.includes('x-facade-failed-note')).length,
+    1,
+  );
+
+  // Pozdní hydratace (pozorovatel běží dál): úklid selhání i poznámky.
+  dokonciXFacade(facade);
+  assert.equal(facade.classList.contains('x-facade-failed'), false);
+  assert.ok(facade.classList.contains('x-facade-loaded'));
+  assert.equal(facade.querySelector('.x-facade-failed-note'), null);
+});
+
 test('téma widgetu sleduje web: data-theme na <html> má přednost, jinak systémové schéma', () => {
   const { facade } = fixture({ tema: 'dark' });
   const blockquote = aktivujXFacade(facade);
@@ -367,11 +400,18 @@ test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', (
   assert.doesNotMatch(sekce, /#090b0e|#14171c|#f3ece7|#a9b2bf/i,
     'černý panel s napevno danými barvami Maky vykázal — fasáda bere tokeny webu');
   assert.match(sekce, /\.x-facade \{[^}]*background: var\(--surface\)/);
-  assert.match(sekce, /\.x-facade-photo \{[^}]*aspect-ratio: 16 \/ 9/);
+  assert.doesNotMatch(sekce, /x-facade-photo|x-facade-play|x-facade-badge|aspect-ratio: 16/,
+    'cover jako fasáda je pryč — kompaktní panel v textu, žádná 16:9 fotovarianta');
   assert.match(sekce, /\.x-facade-loading \{/);
   assert.match(sekce, /\.x-facade-spinner \{/);
-  assert.match(sekce, /\.x-facade\.x-facade-loaded \{[^}]*aspect-ratio: auto/,
-    'po vložení iframe musí 16:9 krabice zmizet, aby si tweet určil výšku sám');
+  assert.match(sekce, /\.x-facade\.x-facade-loaded \{[^}]*background: transparent/,
+    'po vložení iframe musí panel zmizet, aby tweet neseděl v orámované studně');
+  assert.match(sekce, /\.x-facade \.twitter-tweet \{[^}]*max-width: 550px/,
+    'zhydratovaný widget drží sloupec ~550 px na střed, ne přes celou šířku');
+  assert.match(sekce, /\.x-facade-failed \{/);
+  assert.match(sekce, /\.x-facade-open \{/, 'stav selhání potřebuje zřetelný odkaz, ne drobnou poznámku');
+  assert.doesNotMatch(sekce, /\.x-facade-button:hover \.x-facade-mark[^}]*transform/,
+    'hover scale na značce X byl mrtvý kód — pod reduced-motion ho přepisoval transform: none');
 });
 
 // ── 5. Článek Flight 14 ──────────────────────────────────────────────
