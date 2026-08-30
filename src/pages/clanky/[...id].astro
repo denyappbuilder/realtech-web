@@ -240,16 +240,19 @@ const breadcrumbLd = {
       <div class="article-layout">
         <div class="article-body">
           {/*
-            Oficiální embed X, click-to-load — v textu článku, ne přes cover.
-            Cover jako fasáda (PR #360) Maky živě vrátil: náhledovka widget
-            „schovávala“. Fasáda je kompaktní světlý panel z tokenů webu
-            (--surface/--ink) na začátku textu — u Flight 14 je první zmínka
-            o videu SpaceX hned v prvním odstavci, tak embed sedí před ním.
-            První HTML nesmí poslat nic na platform.twitter.com / twimg;
-            widget se vloží až po kliknutí (viz src/lib/x-embed.js). Soubor
-            videa zůstává u X — nestahujeme, nerehostujeme, nic z twimg.
-            Fallback odkaz „Otevřít na X“ stojí mimo fasádu, takže přežije
-            i výměnu obsahu fasády a funguje, když widget selže.
+            Oficiální embed X — v textu článku, ne přes cover. Cover jako
+            fasáda (PR #360) Maky živě vrátil: náhledovka widget „schovávala“.
+            Widget se vykresluje HNED při načtení stránky — click-to-load
+            bránu („Kliknutím se načte…“, prázdný panel s logem X) Maky
+            zrušil taky: čtenář má kartu příspěvku s náhledem videa vidět
+            bez kliknutí navíc. Tady v HTML je jen krátká kostra (logo X
+            + titulek), kterou skript při načtení vymění za oficiální
+            blockquote.twitter-tweet + widgets.js (viz src/lib/x-embed.js) —
+            blockquote se staví v JS kvůli data-theme podle tématu webu.
+            Soubor videa zůstává u X — nestahujeme, nerehostujeme, nic
+            z twimg. Fallback odkaz „Otevřít na X“ stojí mimo fasádu, takže
+            přežije výměnu obsahu fasády a funguje bez JS i když widget
+            selže (adblock — únik z #361 zůstává).
           */}
           {xEmbedy.map((post) => (
             <div class="x-embed">
@@ -260,17 +263,12 @@ const breadcrumbLd = {
                 data-x-post-href={post.href}
                 data-x-post-title={`Příspěvek @${post.ucet} na X`}
               >
-                <button
-                  type="button"
-                  class="x-facade-button"
-                  aria-label={`Načíst video z příspěvku @${post.ucet} na síti X`}
-                >
+                <div class="x-facade-skeleton">
                   <span class="x-facade-mark" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                   </span>
                   <span class="x-facade-title">Video z příspěvku @{post.ucet}</span>
-                  <span class="x-facade-note mono">Kliknutím se načte oficiální vložený příspěvek ze sítě X</span>
-                </button>
+                </div>
               </div>
               <p class="x-embed-fallback mono">
                 Nenačítá se? <a href={post.webHref} target="_blank" rel="noopener">Otevřít na X →</a>

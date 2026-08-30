@@ -24,18 +24,20 @@ export function temaWidgetu(doc) {
 }
 
 /**
- * Nahradí lokální fasádu oficiálním embedem X až po výslovné aktivaci
- * uživatelem. Do té doby stránka neposílá nic na platform.twitter.com,
- * syndication.twitter.com ani twimg.
+ * Nahradí lokální kostru fasády oficiálním embedem X. Běží hned při
+ * načtení stránky — click-to-load bránu („Kliknutím se načte…“) Maky
+ * zrušil: čtenář má kartu příspěvku vidět rovnou, bez kliknutí navíc.
+ * Blockquote se přesto staví až tady v JS, ne v serverovém HTML —
+ * data-theme se musí spočítat z aktuálního tématu webu (temaWidgetu).
  *
  * Vloží blockquote.twitter-tweet s data-dnt a kanonickým twitter.com
  * odkazem (widgets.js historicky ignoroval x.com URL) a jednou načte
  * widgets.js. Widget si video přehraje ve vlastním iframe na
  * platform.twitter.com — soubor videa zůstává u X, nic nerehostujeme.
  *
- * Mezi klikem a iframem fasáda drží tvar se spinnerem a odkazem — tlačítko
- * nesmí zmizet do prázdného paddingu. Jakmile widget vloží iframe, fasáda
- * (dokonciXFacade) odloží panel i rámeček a tweet si výšku řídí sám.
+ * Než widget vloží iframe, fasáda drží tvar se spinnerem a odkazem.
+ * Jakmile iframe existuje, fasáda (dokonciXFacade) odloží panel
+ * i rámeček a tweet si výšku řídí sám.
  *
  * @param {HTMLElement} facade
  * @returns {HTMLQuoteElement | null}
@@ -168,13 +170,14 @@ export function nactiWidgetsJs(doc) {
 }
 
 /**
- * Nativní button zajišťuje aktivaci kliknutím, Enterem i mezerníkem.
+ * Aktivuje všechny fasády X hned — bez čekání na klik. widgets.js se tím
+ * načte jen na stránkách, kde fasáda opravdu je (šablona článku s xPosts);
+ * na stránce bez fasád se na platform.twitter.com nesáhne.
  *
  * @param {Document | ParentNode} [root]
  */
 export function inicializujXFacades(root = document) {
   root.querySelectorAll('[data-x-facade]').forEach((facade) => {
-    const button = facade.querySelector('.x-facade-button');
-    button?.addEventListener('click', () => aktivujXFacade(facade), { once: true });
+    aktivujXFacade(facade);
   });
 }

@@ -47,7 +47,7 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
    date: "2026-07-02"           # uvozovky — YAML jinak udělá Date a schéma ho odmítne
    video: "https://youtu.be/XXXX"   # volitelné — POUZE YouTube (fasáda, videobar, VideoObject)
    videoLength: "14:32"             # volitelné
-   xPosts:                          # volitelné — oficiální embed příspěvků z X (click-to-load)
+   xPosts:                          # volitelné — oficiální embed příspěvků z X (načítá se hned)
      - "https://x.com/SpaceX/status/2093477720638341395"
    zprava: true                     # volitelné — krátká zpráva, typicky bez video
    image: "/images/clanky/nazev-clanku.jpg"  # volitelné
@@ -64,7 +64,7 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
 
    Schéma v `src/content.config.ts` je `.strict()`. Extra klíče (třeba `readingTime`) shodí build. Doba čtení se počítá z těla článku.
 
-   Pole `video` je jen pro YouTube — parser, fasáda, videobar „Přehrát na YouTube“ i VideoObject JSON-LD s ním počítají. Video z X do něj nepatří. Na to je volitelné `xPosts`: seznam status URL na x.com/twitter.com. Článek pak ukáže v textu článku kompaktní click-to-play fasádu (světlý panel v barvách webu — nikdy ne cover jako play tlačítko, náhledovka by widget schovávala) a **až po kliknutí** načte oficiální widget X (`blockquote.twitter-tweet` + `widgets.js`, `data-dnt`, téma podle webu). Soubor videa zůstává u X — nikdy ho nestahujeme, nerehostujeme ani nelinkujeme napřímo z twimg.
+   Pole `video` je jen pro YouTube — parser, fasáda, videobar „Přehrát na YouTube“ i VideoObject JSON-LD s ním počítají. Video z X do něj nepatří. Na to je volitelné `xPosts`: seznam status URL na x.com/twitter.com. Článek pak **hned při načtení** vykreslí v textu článku oficiální widget X (`blockquote.twitter-tweet` + `widgets.js`, `data-dnt`, téma podle webu) — žádná click-to-load brána, tu Maky zrušil; do vykreslení drží místo krátká kostra a při selhání (adblock) zůstává únik „Otevřít na X“. Cover není nikdy play tlačítko embedu (náhledovka by widget schovávala). Soubor videa zůstává u X — nikdy ho nestahujeme, nerehostujeme ani nelinkujeme napřímo z twimg.
 
 3. Commit + push. Za minutu je článek živý.
 
