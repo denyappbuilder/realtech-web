@@ -2,6 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { parseCalendarDate, parsePublishDate } from './lib/calendarDate.js';
 import { jeAudioUrl, parseAudioDuration } from './lib/audio-prehled.js';
+import { xPostEmbed } from './lib/x-post.js';
 
 const calendarDateString = z
   .string()
@@ -63,6 +64,17 @@ const clanky = defineCollection({
     date: publishDate,
     video: z.string().url().optional(),
     videoLength: z.string().optional(),
+    // `video` je jen YouTube (fasáda, videobar, VideoObject JSON-LD).
+    // `xPosts` = oficiální click-to-load embed příspěvků z X — status URL
+    // na x.com/twitter.com. Soubor videa zůstává u X, nikdy nerehostujeme.
+    xPosts: z
+      .array(
+        z.string().refine((value) => xPostEmbed(value) !== undefined, {
+          message: 'Expected an https x.com or twitter.com status URL',
+        }),
+      )
+      .min(1)
+      .optional(),
     image: z.string().optional(),
     featured: z.boolean().default(false),
     zprava: z.boolean().default(false),

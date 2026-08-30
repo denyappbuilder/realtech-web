@@ -9,6 +9,7 @@ import ts from 'typescript';
 import { z } from 'astro/zod';
 import { parseCalendarDate, parsePublishDate } from '../src/lib/calendarDate.js';
 import { jeAudioUrl, parseAudioDuration } from '../src/lib/audio-prehled.js';
+import { xPostEmbed } from '../src/lib/x-post.js';
 
 const REPOSITORY_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -44,6 +45,9 @@ function loadProductionArticleSchema() {
         }
         if (specifier === './lib/audio-prehled.js') {
           return { jeAudioUrl, parseAudioDuration };
+        }
+        if (specifier === './lib/x-post.js') {
+          return { xPostEmbed };
         }
         throw new Error(`Neocekavany import z content.config.ts: ${specifier}`);
       },

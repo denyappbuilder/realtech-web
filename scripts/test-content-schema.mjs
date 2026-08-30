@@ -9,6 +9,7 @@ import ts from 'typescript';
 import { z } from 'astro/zod';
 import { parseCalendarDate, parsePublishDate } from '../src/lib/calendarDate.js';
 import { jeAudioUrl, parseAudioDuration } from '../src/lib/audio-prehled.js';
+import { xPostEmbed } from '../src/lib/x-post.js';
 
 const REPOSITORY_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -43,6 +44,9 @@ function loadProductionArticleSchema() {
         }
         if (specifier === './lib/audio-prehled.js') {
           return { jeAudioUrl, parseAudioDuration };
+        }
+        if (specifier === './lib/x-post.js') {
+          return { xPostEmbed };
         }
         throw new Error(`Neocekavany import z content.config.ts: ${specifier}`);
       },
@@ -253,6 +257,42 @@ test('volitelny audio blok je zpetne kompatibilni a odmitne neplatnou URL i nulu
         voice: 'Sal',
       },
     }).success,
+    false,
+  );
+});
+
+test('volitelne xPosts bere jen status URL na x.com/twitter.com a zustava strict', () => {
+  const bezPostu = articleSchema.parse(REQUIRED_FRONTMATTER);
+  assert.equal(bezPostu.xPosts, undefined);
+
+  const sPostem = articleSchema.parse({
+    ...REQUIRED_FRONTMATTER,
+    xPosts: [
+      'https://x.com/SpaceX/status/2093477720638341395',
+      'https://twitter.com/SpaceX/status/2092372845544321445',
+    ],
+  });
+  assert.equal(sPostem.xPosts.length, 2);
+
+  for (const xPosts of [
+    [],
+    ['https://x.com/SpaceX'],
+    ['https://example.com/SpaceX/status/2093477720638341395'],
+    ['http://x.com/SpaceX/status/2093477720638341395'],
+    ['https://x.com/SpaceX/status/abc'],
+    'https://x.com/SpaceX/status/2093477720638341395',
+  ]) {
+    assert.equal(
+      articleSchema.safeParse({ ...REQUIRED_FRONTMATTER, xPosts }).success,
+      false,
+      JSON.stringify(xPosts),
+    );
+  }
+
+  // `video` zustava YouTube-only pole; embed X ma vlastni klic a neznamy
+  // klic dal pada na strict.
+  assert.equal(
+    articleSchema.safeParse({ ...REQUIRED_FRONTMATTER, xPost: [] }).success,
     false,
   );
 });

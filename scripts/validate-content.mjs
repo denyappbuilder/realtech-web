@@ -17,6 +17,7 @@ import { z } from 'astro/zod';
 import { parseCalendarDate, parsePublishDate } from '../src/lib/calendarDate.js';
 import { chybaTvaruImage } from '../src/lib/image-cesta.js';
 import { jeAudioUrl, parseAudioDuration } from '../src/lib/audio-prehled.js';
+import { xPostEmbed } from '../src/lib/x-post.js';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
@@ -41,6 +42,7 @@ function loadArticleSchema() {
     if (specifier === 'astro/loaders') return { glob: (options) => options };
     if (specifier === './lib/calendarDate.js') return { parseCalendarDate, parsePublishDate };
     if (specifier === './lib/audio-prehled.js') return { jeAudioUrl, parseAudioDuration };
+    if (specifier === './lib/x-post.js') return { xPostEmbed };
     throw new Error(`Nepodporovaný import v content.config.ts: ${specifier}`);
   };
 
