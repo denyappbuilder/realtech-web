@@ -71,9 +71,6 @@ export function xEmbedHtml(post) {
     '</blockquote>',
     '</div>',
     THEME_SCRIPT,
-    // Fallback stojí MIMO [data-x-facade]: přežije úklid obsahu fasády
-    // a funguje i bez JS.
-    `<p class="x-embed-fallback mono">Nenačítá se? <a href="${post.webHref}" target="_blank" rel="noopener">Otevřít na X →</a></p>`,
     '</div>',
   ].join('');
 }

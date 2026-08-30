@@ -217,6 +217,10 @@ test('hub /temata/ kreslí náhled nejnovějšího článku, ne zeď prázdných
   assert.match(hub, /nahledKarty\(nejnovejsi\.data\.image\)/);
   assert.match(hub, /<picture>/);
   assert.match(hub, /<img src=\{t\.nahled\.lcpSrc\}/);
+  assert.match(hub, /class="grid temata-hub"/, 'hub musí držet 16:9 náhledy v řadě');
+  const css = readFileSync(new URL('../src/styles/global.css', import.meta.url), 'utf8');
+  assert.match(css, /\.temata-hub \.card-thumb \{[^}]*aspect-ratio:\s*16\s*\/\s*9/,
+    'hub náhledy musí být 16:9, ať tituly v řadě sedí');
   const odkazy = hub.match(/<article class="card"[\s\S]*?<\/article>/)?.[0]?.match(/<a\s/g) ?? [];
   assert.equal(odkazy.length, 1, 'hub karta musí mít jediný <a>');
 });

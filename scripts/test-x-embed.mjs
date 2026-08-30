@@ -198,7 +198,6 @@ test('inline skript u embedu opraví data-theme podle webu — statický, bez in
   assert.notEqual(konecFasady, -1);
   const indexSkriptu = EMBED_HTML.indexOf('<script>');
   assert.ok(indexSkriptu > konecFasady, 'skript stojí až za fasádou');
-  assert.ok(indexSkriptu < EMBED_HTML.indexOf('x-embed-fallback'));
 });
 
 test('widgets.js startuje defer z <head> jen při xPosts — s preconnectem, ne na celý web', () => {
@@ -227,16 +226,10 @@ test('widgets.js startuje defer z <head> jen při xPosts — s preconnectem, ne 
     'archiv nesmí preconnectovat X');
 });
 
-test('fallback „Otevřít na X“ stojí mimo fasádu a funguje i bez JS', () => {
-  // Fallback stojí MIMO [data-x-facade], takže přežije úklid obsahu fasády.
-  const facade = EMBED_HTML.indexOf('data-x-facade');
-  const konecFasady = EMBED_HTML.indexOf('</blockquote></div>', facade);
-  const fallback = EMBED_HTML.indexOf('x-embed-fallback');
-  assert.notEqual(konecFasady, -1);
-  assert.ok(fallback > konecFasady, 'fallback musí stát mimo fasádu, ne uvnitř');
-  assert.equal((EMBED_HTML.match(/x-embed-fallback/g) ?? []).length, 1,
-    'jeden fallback řádek — ne druhá výzva pod kartou');
-  assert.match(EMBED_HTML, /<a href="https:\/\/x\.com\/SpaceX\/status\/2093477720638341395" target="_blank" rel="noopener">Otevřít na X/);
+test('serverové HTML nese jeden únik — blockquote, ne druhý řádek „Nenačítá se?“', () => {
+  assert.doesNotMatch(EMBED_HTML, /x-embed-fallback|Nenačítá se\?/,
+    'druhý řádek pod kartou padl — po 15 s zůstane jen věta + .x-facade-open');
+  assert.match(EMBED_HTML, /<a href="https:\/\/twitter\.com\/SpaceX\/status\/2093477720638341395">Příspěvek @SpaceX na X<\/a>/);
 });
 
 test('embed vkládá rehype plugin v buildu — šablona ho už nenese a .article-body začíná obsahem', () => {
@@ -509,10 +502,12 @@ test('když widget nenaběhne, fasáda ukáže zřetelný únik „Otevřít na 
   const note = facade.querySelector('.x-facade-failed-note');
   assert.ok(note, 'čtenář nesmí zůstat v mrtvé krabici bez viditelného úniku');
   const odkaz = note.children.find((child) => child.tagName === 'A');
+  assert.equal(odkaz.className, 'x-facade-open');
   assert.equal(odkaz.href, 'https://x.com/SpaceX/status/2093477720638341395',
     'viditelný únik vede na lidský x.com, twitter.com href je jen pro widgets.js');
   assert.equal(odkaz.target, '_blank');
   assert.equal(odkaz.rel, 'noopener');
+  assert.equal(note.children.length, 2, 'jedna věta + jedno tlačítko, ne druhý řádek pod kartou');
   assert.ok(facade.querySelector('blockquote'), 'blockquote zůstává — widget může zhydratovat dodatečně');
 
   // Druhé selhání nesmí přidat druhou poznámku.
@@ -618,6 +613,8 @@ test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', (
   assert.match(sekce, /\.x-facade-failed \{/);
   assert.match(sekce, /\.x-facade-open \{[^}]*min-height:\s*44px/,
     'únik „Otevřít na X“ musí mít zásah 44 px');
+  assert.doesNotMatch(sekce, /x-embed-fallback/,
+    'druhý řádek pod kartou nesmí zůstat ve stylech');
 });
 
 // ── 5. Článek Flight 14 ──────────────────────────────────────────────
