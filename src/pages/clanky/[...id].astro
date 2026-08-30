@@ -45,12 +45,6 @@ const {
   webpSrcset: heroWebpSrcset,
   sizes: heroSizes,
 } = heroObrazekClanku(image, videoId);
-// Cover článku žije přímo ve fasádě X — stejný princip jako YouTube fasáda:
-// jedna fotoreálná 16:9 plocha s play ovladačem, žádný druhý tmavý panel
-// pod hero obrázkem. Samostatný .article-hero se pak vynechá; preload v
-// <head> míří pořád na tentýž soubor, takže LCP zůstává eager. Má-li článek
-// YouTube `video` I xPosts, hero patří YouTube a fasády X jdou níž bez fotky.
-const heroVeXFacade = !videoId && xEmbedy.length > 0 && Boolean(heroSrc);
 // LCP hero (obrázek i YouTube facade) se objevuje až v <body> — jediný
 // preload v <head> ho pustí ke stažení hned. Míří na tentýž kandidát,
 // který si <picture> níž vybere (WebP srcset > WebP > JPG/ytimg).
@@ -191,9 +185,11 @@ const breadcrumbLd = {
         (eager, fetchpriority=high), ne dekorativní miniatura. aria-label
         tlačítka pojmenovává ovládací prvek, o obrázku samotném ale čtečka
         s alt="" mlčela (živě ověřeno na /clanky/starlink-mini-vs-standard/).
-        Totéž platí pro cover ve fasádě X níž — i tam je to LCP hero článku.
+        Cover je VŽDY normální fotka — nikdy fasáda X. Zkusili jsme cover
+        použít jako play tlačítko embedu (PR #360) a Maky to živě vrátil:
+        náhledovka pak „schovávala“ widget. Embed X žije v textu článku níž.
       */}
-      {!videoId && !heroVeXFacade && heroSrc && (
+      {!videoId && heroSrc && (
         <div class="article-hero">
           <picture>
             {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
@@ -239,70 +235,48 @@ const breadcrumbLd = {
         </div>
       )}
 
-      {/*
-        Oficiální embed X, click-to-load — stejný princip jako YouTube fasáda
-        výš. První HTML nesmí poslat nic na platform.twitter.com / twimg;
-        widget se vloží až po kliknutí (viz src/lib/x-embed.js). Soubor videa
-        zůstává u X — nestahujeme, nerehostujeme, žádné video src z twimg.
-        První fasáda nese cover článku (lokální soubor, LCP hero — eager,
-        fetchpriority=high) s malým kulatým play — ŽÁDNÝ červený YT obdélník,
-        ať to nevypadá jako YouTube. Bez coveru zůstane světlý panel v barvách
-        webu (--surface/--ink) — černo-červené horory Maky zakázal.
-        Fallback odkaz „Otevřít na X“ stojí mimo fasádu, takže přežije
-        i výměnu obsahu fasády a funguje, když widget selže.
-      */}
-      {xEmbedy.map((post, poradi) => (
-        <div class="x-embed">
-          <div
-            class={`x-facade${poradi === 0 && heroVeXFacade ? ' x-facade-photo' : ''}`}
-            data-x-facade
-            data-x-post-id={post.id}
-            data-x-post-href={post.href}
-            data-x-post-title={`Příspěvek @${post.ucet} na X`}
-          >
-            {poradi === 0 && heroVeXFacade ? (
-              <button
-                type="button"
-                class="x-facade-button x-facade-button-photo"
-                aria-label={`Načíst video z příspěvku @${post.ucet} na síti X`}
-              >
-                <picture>
-                  {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
-                  {!heroWebpSrcset && heroWebp && <source srcset={heroWebp} type="image/webp" />}
-                  <img src={heroLcpSrc} srcset={heroWebp ? undefined : heroSrcset} sizes={(!heroWebp && heroSrcset) ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
-                </picture>
-                <span class="x-facade-play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M8 5.3v13.4L19 12z"/></svg>
-                </span>
-                <span class="x-facade-badge mono" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                  Video z příspěvku @{post.ucet}
-                </span>
-              </button>
-            ) : (
-              <button
-                type="button"
-                class="x-facade-button"
-                aria-label={`Načíst video z příspěvku @${post.ucet} na síti X`}
-              >
-                <span class="x-facade-mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </span>
-                <span class="x-facade-title">Video z příspěvku @{post.ucet}</span>
-                <span class="x-facade-note mono">Kliknutím se načte oficiální vložený příspěvek ze sítě X</span>
-              </button>
-            )}
-          </div>
-          <p class="x-embed-fallback mono">
-            Nenačítá se? <a href={post.webHref} target="_blank" rel="noopener">Otevřít na X →</a>
-          </p>
-        </div>
-      ))}
-
       <AudioPrehled audio={audio} />
 
       <div class="article-layout">
         <div class="article-body">
+          {/*
+            Oficiální embed X, click-to-load — v textu článku, ne přes cover.
+            Cover jako fasáda (PR #360) Maky živě vrátil: náhledovka widget
+            „schovávala“. Fasáda je kompaktní světlý panel z tokenů webu
+            (--surface/--ink) na začátku textu — u Flight 14 je první zmínka
+            o videu SpaceX hned v prvním odstavci, tak embed sedí před ním.
+            První HTML nesmí poslat nic na platform.twitter.com / twimg;
+            widget se vloží až po kliknutí (viz src/lib/x-embed.js). Soubor
+            videa zůstává u X — nestahujeme, nerehostujeme, nic z twimg.
+            Fallback odkaz „Otevřít na X“ stojí mimo fasádu, takže přežije
+            i výměnu obsahu fasády a funguje, když widget selže.
+          */}
+          {xEmbedy.map((post) => (
+            <div class="x-embed">
+              <div
+                class="x-facade"
+                data-x-facade
+                data-x-post-id={post.id}
+                data-x-post-href={post.href}
+                data-x-post-title={`Příspěvek @${post.ucet} na X`}
+              >
+                <button
+                  type="button"
+                  class="x-facade-button"
+                  aria-label={`Načíst video z příspěvku @${post.ucet} na síti X`}
+                >
+                  <span class="x-facade-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </span>
+                  <span class="x-facade-title">Video z příspěvku @{post.ucet}</span>
+                  <span class="x-facade-note mono">Kliknutím se načte oficiální vložený příspěvek ze sítě X</span>
+                </button>
+              </div>
+              <p class="x-embed-fallback mono">
+                Nenačítá se? <a href={post.webHref} target="_blank" rel="noopener">Otevřít na X →</a>
+              </p>
+            </div>
+          ))}
           <Content />
         </div>
         <aside class="article-aside">

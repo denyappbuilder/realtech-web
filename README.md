@@ -64,7 +64,7 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
 
    Schéma v `src/content.config.ts` je `.strict()`. Extra klíče (třeba `readingTime`) shodí build. Doba čtení se počítá z těla článku.
 
-   Pole `video` je jen pro YouTube — parser, fasáda, videobar „Přehrát na YouTube“ i VideoObject JSON-LD s ním počítají. Video z X do něj nepatří. Na to je volitelné `xPosts`: seznam status URL na x.com/twitter.com. Článek pak ukáže lokální click-to-play fasádu (první nese cover článku z `image`, jako YouTube fasáda; bez coveru světlý panel v barvách webu) a **až po kliknutí** načte oficiální widget X (`blockquote.twitter-tweet` + `widgets.js`, `data-dnt`, téma podle webu). Soubor videa zůstává u X — nikdy ho nestahujeme, nerehostujeme ani nelinkujeme napřímo z twimg.
+   Pole `video` je jen pro YouTube — parser, fasáda, videobar „Přehrát na YouTube“ i VideoObject JSON-LD s ním počítají. Video z X do něj nepatří. Na to je volitelné `xPosts`: seznam status URL na x.com/twitter.com. Článek pak ukáže v textu článku kompaktní click-to-play fasádu (světlý panel v barvách webu — nikdy ne cover jako play tlačítko, náhledovka by widget schovávala) a **až po kliknutí** načte oficiální widget X (`blockquote.twitter-tweet` + `widgets.js`, `data-dnt`, téma podle webu). Soubor videa zůstává u X — nikdy ho nestahujeme, nerehostujeme ani nelinkujeme napřímo z twimg.
 
 3. Commit + push. Za minutu je článek živý.
 

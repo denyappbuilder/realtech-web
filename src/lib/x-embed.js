@@ -35,7 +35,7 @@ export function temaWidgetu(doc) {
  *
  * Mezi klikem a iframem fasáda drží tvar se spinnerem a odkazem — tlačítko
  * nesmí zmizet do prázdného paddingu. Jakmile widget vloží iframe, fasáda
- * (dokonciXFacade) odloží 16:9 rám i pozadí a tweet si výšku řídí sám.
+ * (dokonciXFacade) odloží panel i rámeček a tweet si výšku řídí sám.
  *
  * @param {HTMLElement} facade
  * @returns {HTMLQuoteElement | null}
@@ -77,10 +77,10 @@ export function aktivujXFacade(facade) {
 }
 
 /**
- * Konec načítání: pryč spinner i 16:9 rám (třída x-facade-loaded shodí
- * aspect-ratio, rámeček a pozadí), aby si tweet určil výšku sám a kolem
- * něj nezbyla prázdná studna. Uklidí i případný stav selhání — widget
- * může zhydratovat dodatečně (pomalá síť), pozorovatel běží dál.
+ * Konec načítání: pryč spinner i panel (třída x-facade-loaded shodí
+ * rámeček a pozadí), aby si tweet určil výšku sám a kolem něj nezbyla
+ * prázdná studna. Uklidí i případný stav selhání — widget může
+ * zhydratovat dodatečně (pomalá síť), pozorovatel běží dál.
  *
  * @param {HTMLElement} facade
  */
