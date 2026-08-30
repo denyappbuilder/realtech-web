@@ -1,37 +1,45 @@
-// Oficiální embed X (Twitter) — vykresluje se hned při načtení stránky.
+// Oficiální embed X (Twitter) — vykresluje se hned při načtení stránky
+// a NEČEKÁ na náš deferred modul.
 //
 // Click-to-load bránu („Kliknutím se načte oficiální vložený příspěvek…“,
 // prázdný panel s logem X) Maky zrušil: čtenář má kartu příspěvku
 // s náhledem videa vidět rovnou, bez kliknutí navíc. Dřívější kontrakt
 // „nic na platform.twitter.com před kliknutím“ tím padá.
 //
+// Kolo 7: karta se „někdy načítala dlouho“, protože serverové HTML neslo
+// jen kostru a blockquote + widgets.js čekaly na náš deferred modul
+// (HTML → náš bundle → widgets.js → iframe). Nový kontrakt: blockquote
+// je v serverovém HTML a widgets.js startuje async z <head> — stahování
+// se překryje s prvním vykreslením.
+//
 // Co se tu hlídá a proč:
 //  1. Parser bere jen https status URL na x.com/twitter.com a kanonizuje
 //     href na twitter.com — widgets.js historicky ignoroval x.com odkazy.
-//  2. První HTML článku nese jen krátkou kostru (logo X + titulek) —
-//     blockquote staví až skript při načtení, protože data-theme se musí
-//     spočítat z aktuálního tématu webu. Žádné tlačítko, žádná výzva
+//  2. První HTML článku nese rovnou blockquote.twitter-tweet (data-dnt,
+//     data-conversation none, default light) + stav načítání se spinnerem.
+//     Tiny inline skript hned za fasádou opraví data-theme podle tématu
+//     webu ještě při parsování — dávno před async widgets.js, takže na
+//     tmavém webu nesvítí bílá karta. Žádné tlačítko, žádná výzva
 //     ke kliknutí.
 //  3. Fasáda žije v textu článku, ne přes cover (cover jako play tlačítko
 //     Maky živě vrátil — náhledovka widget „schovávala“; cover je vždy
 //     normální fotka) — a NE jako první uzel těla článku: karta nad prvním
-//     odstavcem Makymu vadila, napřed má být text, pak widget. Kostru
+//     odstavcem Makymu vadila, napřed má být text, pak widget. Fasádu
 //     vkládá do vyrenderovaného markdownu rehype plugin už v BUILDU
 //     (za první odstavec, u miniaturního prvního za druhý), takže karta
 //     nahoře ani neblikne — žádný klientský přesun.
-//  4. Inicializace hned ukáže stav načítání a vloží oficiální embed
-//     (blockquote.twitter-tweet + widgets.js) s data-dnt, data-conversation
-//     none a tématem podle webu. Soubor videa zůstává u X — nerehostujeme.
-//     widgets.js se načítá jen na stránkách, kde fasáda opravdu je.
-//  5. Po vložení iframe fasáda odloží panel (x-facade-loaded), aby si
-//     tweet určil výšku sám a nezbyla kolem něj prázdná studna. Když
-//     widget nenaběhne (adblock), zůstává únik „Otevřít na X“ z #361.
+//  4. widgets.js jde async z <head> šablony článku JEN při xPosts
+//     (s preconnectem na platform.twitter.com) — nenačítá se na celý web
+//     a mimo článek s embedem na platform.twitter.com nesáhne nic.
+//  5. Klientský modul blockquote nestaví — jen hlídá render: spinner
+//     do vložení iframe, po něm fasáda odloží panel (x-facade-loaded),
+//     aby si tweet určil výšku sám. Když widget nenaběhne (adblock),
+//     zůstává 15s únik „Otevřít na X“ z #361.
 //  6. YouTube cesta (`video` ve frontmatteru) včetně click-to-load fasády
 //     zůstává beze změny.
-//  7. CSP v public/_headers povoluje přesně to, co widget po kliknutí
-//     potřebuje (ověřeno runtime v Chrome: script + frame na
-//     platform.twitter.com; zbytek si widget řeší ve vlastním iframe,
-//     na který se CSP rodiče nevztahuje) — a nic navíc.
+//  7. CSP v public/_headers povoluje přesně to, co widget potřebuje
+//     (script + frame na platform.twitter.com, inline skripty už dřív) —
+//     a nic navíc. Soubor videa zůstává u X — nerehostujeme, nic z twimg.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -57,6 +65,7 @@ import {
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = fs.readFileSync(path.join(ROOT, 'src/pages/clanky/[...id].astro'), 'utf8');
+const BASE = fs.readFileSync(path.join(ROOT, 'src/layouts/Base.astro'), 'utf8');
 const CONFIG = fs.readFileSync(path.join(ROOT, 'astro.config.mjs'), 'utf8');
 const CSS = fs.readFileSync(path.join(ROOT, 'src/styles/global.css'), 'utf8');
 const HEADERS = fs.readFileSync(path.join(ROOT, 'public/_headers'), 'utf8');
@@ -67,8 +76,8 @@ const FLIGHT14 = fs.readFileSync(
 
 const FLIGHT14_URL = 'https://x.com/SpaceX/status/2093477720638341395';
 
-// Kostra fasády, jak ji rehype plugin vkládá do HTML článku.
-const SKELETON = xEmbedHtml(xPostEmbed(FLIGHT14_URL));
+// HTML embedu, jak ho rehype plugin vkládá do článku už v buildu.
+const EMBED_HTML = xEmbedHtml(xPostEmbed(FLIGHT14_URL));
 
 // Pomocníci na hast strom, jaký plugin dostává od Astra (mezi bloky
 // stojí textové uzly s \n).
@@ -124,49 +133,95 @@ test('parser odmítá junk — cizí hosty, http, ne-status cesty i nečíselná
   }
 });
 
-// ── 2. Kostra fasády a její místo v článku (rehype, build-time) ──────
+// ── 2. Serverové HTML embedu a jeho místo v článku (rehype, build) ───
 
-test('kostra fasády nese jen logo X a titulek — bez tlačítka, výzvy ke kliknutí, iframe i blockquote', () => {
-  assert.match(SKELETON, /class="x-facade" data-x-facade/);
-  assert.match(SKELETON, /data-x-post-id="2093477720638341395"/);
-  assert.match(SKELETON, /data-x-post-href="https:\/\/twitter\.com\/SpaceX\/status\/2093477720638341395"/,
+test('serverové HTML nese rovnou blockquote.twitter-tweet — karta nečeká na náš modul', () => {
+  assert.match(EMBED_HTML, /class="x-facade x-facade-loading" data-x-facade/);
+  assert.match(EMBED_HTML, /data-x-post-id="2093477720638341395"/);
+  assert.match(EMBED_HTML, /data-x-post-href="https:\/\/twitter\.com\/SpaceX\/status\/2093477720638341395"/,
     'href v datech je kanonický twitter.com — widgets.js historicky ignoroval x.com');
-  assert.doesNotMatch(SKELETON, /<button\b/i, 'click-to-load tlačítko Maky zrušil — widget se vkládá sám');
-  assert.doesNotMatch(SKELETON, /Kliknutím se načte|x-facade-button|x-facade-note/,
+
+  const blockquote = EMBED_HTML.match(/<blockquote[^>]*>/)?.[0];
+  assert.ok(blockquote, 'blockquote musí být už v serverovém HTML, ne stavěný klientem');
+  assert.match(blockquote, /class="twitter-tweet"/);
+  assert.match(blockquote, /data-dnt="true"/);
+  assert.match(blockquote, /data-lang="cs"/);
+  assert.match(blockquote, /data-conversation="none"/, 'vlákno pod tweetem nechceme');
+  assert.match(blockquote, /data-theme="light"/,
+    'default light — inline skript ho opraví podle tématu webu ještě při parsování');
+  assert.match(EMBED_HTML,
+    /<blockquote[^>]*><a href="https:\/\/twitter\.com\/SpaceX\/status\/2093477720638341395">Příspěvek @SpaceX na X<\/a><\/blockquote>/);
+
+  assert.doesNotMatch(EMBED_HTML, /<button\b/i, 'click-to-load tlačítko Maky zrušil — widget se vkládá sám');
+  assert.doesNotMatch(EMBED_HTML, /Kliknutím se načte|x-facade-button|x-facade-note/,
     'žádná výzva ke kliknutí — prázdný panel „klikni a načtu“ je pryč');
-  assert.doesNotMatch(SKELETON, /<iframe\b/i, 'iframe vkládá widgets.js, ne kostra');
-  assert.doesNotMatch(SKELETON, /<blockquote\b/i,
-    'blockquote staví až skript při načtení — data-theme se počítá z tématu webu');
-  assert.doesNotMatch(SKELETON, /platform\.twitter\.com|widgets\.js/i,
-    'widgets.js načítá skript (jen na stránkách s fasádou), ne HTML kostra');
-  assert.doesNotMatch(SKELETON, /twimg\.com/i, 'fasáda nesmí stahovat nic z twimg');
-  assert.doesNotMatch(SKELETON, /<picture>|<img /, 'fasáda X nenese žádnou fotku');
-  assert.match(SKELETON, /x-facade-skeleton/, 'kostra drží místo, než ji skript vymění');
-  assert.match(SKELETON, /x-facade-mark/);
-  assert.match(SKELETON, /Video z příspěvku @SpaceX/);
+  assert.doesNotMatch(EMBED_HTML, /<iframe\b/i, 'iframe vkládá widgets.js, ne serverové HTML');
+  assert.doesNotMatch(EMBED_HTML, /widgets\.js/i,
+    'widgets.js startuje z <head> šablony článku (jen při xPosts), ne z HTML embedu');
+  assert.doesNotMatch(EMBED_HTML, /twimg\.com/i, 'fasáda nesmí stahovat nic z twimg');
+  assert.doesNotMatch(EMBED_HTML, /<picture>|<img /, 'fasáda X nenese žádnou fotku');
+
+  assert.match(EMBED_HTML, /x-facade-loading-note/, 'stav načítání drží tvar, než widget vloží iframe');
+  assert.match(EMBED_HTML, /x-facade-spinner/);
   assert.match(PAGE, /import \{ inicializujXFacades \} from '\.\.\/\.\.\/lib\/x-embed\.js'/);
   assert.match(PAGE, /inicializujXFacades\(\)/);
 });
 
+test('inline skript u embedu opraví data-theme podle webu — statický, bez interpolace', () => {
+  const skript = EMBED_HTML.match(/<script>[\s\S]*?<\/script>/)?.[0];
+  assert.ok(skript, 'embed musí nést tiny inline skript na téma — jinak na dark webu blikne bílá karta');
+  assert.match(skript, /documentElement\.dataset\.theme/, 'ruční přepnutí na <html> má přednost');
+  assert.match(skript, /prefers-color-scheme: dark/, 'jinak systémové schéma');
+  assert.match(skript, /setAttribute\("data-theme",t\)/);
+  assert.match(skript, /document\.currentScript/,
+    'skript si najde SVŮJ embed — víc embedů na stránce si nesmí lézt do zelí');
+  assert.doesNotMatch(skript, /\$\{|SpaceX|2093477720638341395/,
+    'statický řetězec — z frontmatteru do inline skriptu nic nevede');
+
+  // Stejný skript pro každý post: žádná interpolace hodnot.
+  const jiny = xEmbedHtml(xPostEmbed('https://x.com/NASA/status/2092372845544321445'));
+  assert.equal(jiny.match(/<script>[\s\S]*?<\/script>/)?.[0], skript);
+
+  // Skript stojí hned ZA fasádou (previousElementSibling) a PŘED fallbackem.
+  const fasada = EMBED_HTML.indexOf('data-x-facade');
+  const konecFasady = EMBED_HTML.indexOf('</blockquote></div>', fasada);
+  assert.notEqual(konecFasady, -1);
+  const indexSkriptu = EMBED_HTML.indexOf('<script>');
+  assert.ok(indexSkriptu > konecFasady, 'skript stojí až za fasádou');
+  assert.ok(indexSkriptu < EMBED_HTML.indexOf('x-embed-fallback'));
+});
+
+test('widgets.js startuje async z <head> jen při xPosts — s preconnectem, ne na celý web', () => {
+  assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="preconnect" href="https:\/\/platform\.twitter\.com" slot="head" \/>\}/,
+    'preconnect šetří DNS+TLS — Base preconnectuje jen ytimg/audio/insights');
+  assert.match(PAGE, /\{xEmbedy\.length > 0 && <link rel="dns-prefetch" href="https:\/\/platform\.twitter\.com" slot="head" \/>\}/);
+  assert.match(PAGE, /\{xEmbedy\.length > 0 && <script is:inline async src="https:\/\/platform\.twitter\.com\/widgets\.js" slot="head"><\/script>\}/,
+    'widgets.js se stahuje souběžně s prvním vykreslením — nečeká na náš modul');
+  assert.doesNotMatch(PAGE, /<link rel="preconnect" href="https:\/\/platform\.twitter\.com" slot="head" \/>\s*$/m,
+    'preconnect nesmí být bez podmínky xPosts');
+  assert.doesNotMatch(BASE, /platform\.twitter\.com/,
+    'Base nesmí widgets.js ani preconnect nést — na stránky bez xPosts nepatří');
+});
+
 test('fallback „Otevřít na X“ stojí mimo fasádu a funguje i bez JS', () => {
-  // Fallback stojí MIMO [data-x-facade], takže přežije výměnu obsahu fasády.
-  const facade = SKELETON.indexOf('data-x-facade');
-  const konecFasady = SKELETON.indexOf('</div></div>', facade);
-  const fallback = SKELETON.indexOf('x-embed-fallback');
+  // Fallback stojí MIMO [data-x-facade], takže přežije úklid obsahu fasády.
+  const facade = EMBED_HTML.indexOf('data-x-facade');
+  const konecFasady = EMBED_HTML.indexOf('</blockquote></div>', facade);
+  const fallback = EMBED_HTML.indexOf('x-embed-fallback');
   assert.notEqual(konecFasady, -1);
   assert.ok(fallback > konecFasady, 'fallback musí stát mimo fasádu, ne uvnitř');
-  assert.match(SKELETON, /<a href="https:\/\/x\.com\/SpaceX\/status\/2093477720638341395" target="_blank" rel="noopener">Otevřít na X/);
+  assert.match(EMBED_HTML, /<a href="https:\/\/x\.com\/SpaceX\/status\/2093477720638341395" target="_blank" rel="noopener">Otevřít na X/);
 });
 
 test('embed vkládá rehype plugin v buildu — šablona ho už nenese a .article-body začíná obsahem', () => {
-  // Plugin je registrovaný v markdown pipeline — kostra dojde do statického
-  // HTML a nic se nepřesouvá na klientovi (žádné bliknutí karty nahoře).
+  // Plugin je registrovaný v markdown pipeline — blockquote dojde do
+  // statického HTML a nic se nepřesouvá na klientovi (žádné bliknutí karty).
   assert.match(CONFIG, /import \{ rehypeXEmbedy \} from '\.\/src\/lib\/rehype-x-embed\.js'/);
   assert.match(CONFIG, /rehypePlugins: \[[^\]]*rehypeXEmbedy[^\]]*\]/);
 
   // Šablona samotná fasádu nerenderuje — takže embed NEMŮŽE být první
   // dítě .article-body: uvnitř je jen <Content /> s článkem.
-  assert.doesNotMatch(PAGE, /xEmbedy\.map|data-x-facade|x-facade-skeleton|x-embed-fallback/,
+  assert.doesNotMatch(PAGE, /xEmbedy\.map|data-x-facade|x-facade-loading-note|x-embed-fallback/,
     'fasádu vkládá rehype plugin do markdownu, ne šablona');
   const body = PAGE.indexOf('<div class="article-body">');
   const content = PAGE.indexOf('<Content />', body);
@@ -185,7 +240,7 @@ test('embed vkládá rehype plugin v buildu — šablona ho už nenese a .articl
   assert.doesNotMatch(PAGE, /heroVeXFacade|x-facade-photo|x-facade-button-photo|x-facade-play|x-facade-badge/);
 });
 
-test('plugin vloží kostru za první odstavec — nikdy jako první uzel těla článku', () => {
+test('plugin vloží embed za první odstavec — nikdy jako první uzel těla článku', () => {
   const tree = strom(p(DLOUHY), nl(), p('Druhý odstavec.'), nl(), h2('Sekce'));
   rehypeXEmbedy()(tree, soubor([FLIGHT14_URL]));
 
@@ -193,7 +248,7 @@ test('plugin vloží kostru za první odstavec — nikdy jako první uzel těla 
   assert.notEqual(tree.children[0].type, 'raw', 'embed nesmí být první uzel — napřed text, pak widget');
   assert.equal(tree.children[0].tagName, 'p', 'článek začíná odstavcem');
   assert.equal(tree.children[1].type, 'raw', 'embed stojí hned za prvním odstavcem');
-  assert.equal(tree.children[1].value, SKELETON);
+  assert.equal(tree.children[1].value, EMBED_HTML);
 });
 
 test('miniaturní první odstavec kartu neunese — embed jde až za druhý', () => {
@@ -253,7 +308,7 @@ test('Flight 14 má plnohodnotný lede — embed sedí hned za prvním odstavcem
     'embed jde hned za první odstavec Flight 14');
 });
 
-// ── 3. Načtení stránky vloží oficiální embed ─────────────────────────
+// ── 3. Klientský modul jen hlídá render — blockquote nestaví ────────
 
 class FakeElement {
   constructor(tagName, ownerDocument) {
@@ -276,6 +331,9 @@ class FakeElement {
   querySelector(selector) {
     if (selector === 'blockquote') {
       return this.children.find((child) => child.tagName === 'BLOCKQUOTE') ?? null;
+    }
+    if (selector === 'iframe') {
+      return this.children.find((child) => child.tagName === 'IFRAME') ?? null;
     }
     if (selector === '.x-facade-loading-note') {
       return this.children.find((child) => child.className.includes('x-facade-loading-note')) ?? null;
@@ -308,6 +366,8 @@ class FakeElement {
   }
 }
 
+// Fasáda tak, jak přichází ze serverového HTML: stav načítání + blockquote
+// s default light tématem — klient nic z toho nestaví.
 function fixture({ tema, systemDark } = {}) {
   const created = [];
   const ownerDocument = {
@@ -335,33 +395,37 @@ function fixture({ tema, systemDark } = {}) {
   ownerDocument.head = new FakeElement('head', ownerDocument);
 
   const facade = new FakeElement('div', ownerDocument);
+  facade.className = 'x-facade x-facade-loading';
+  facade.classList.add('x-facade-loading');
   facade.dataset.xPostId = '2093477720638341395';
   facade.dataset.xPostHref = 'https://twitter.com/SpaceX/status/2093477720638341395';
-  facade.dataset.xPostTitle = 'Příspěvek @SpaceX na X';
-  const skeleton = new FakeElement('div', ownerDocument);
-  skeleton.className = 'x-facade-skeleton';
-  facade.children = [skeleton];
+
+  const note = new FakeElement('p', ownerDocument);
+  note.className = 'x-facade-loading-note mono';
+  const blockquote = new FakeElement('blockquote', ownerDocument);
+  blockquote.className = 'twitter-tweet';
+  blockquote.setAttribute('data-theme', 'light');
+  facade.replaceChildren(note, blockquote);
+
   const root = { querySelectorAll: () => [facade] };
-  return { root, facade, created, ownerDocument };
+  return { root, facade, blockquote, created, ownerDocument };
 }
 
-test('inicializace hned vloží blockquote.twitter-tweet s data-dnt a widgets.js — bez kliknutí', () => {
-  const { root, facade, ownerDocument } = fixture();
+test('inicializace převezme serverový blockquote — nestaví druhý a načte widgets.js', () => {
+  const { root, facade, blockquote, created, ownerDocument } = fixture();
 
   inicializujXFacades(root);
 
-  const blockquote = facade.querySelector('blockquote');
-  assert.ok(blockquote, 'načtení stránky musí vložit blockquote — žádná brána ke kliknutí');
-  assert.equal(blockquote.className, 'twitter-tweet');
-  assert.equal(blockquote.attributes.get('data-dnt'), 'true');
-  assert.equal(blockquote.attributes.get('data-conversation'), 'none', 'vlákno pod tweetem nechceme');
+  assert.equal(facade.querySelector('blockquote'), blockquote,
+    'blockquote ze serverového HTML zůstává — klient nesmí stavět druhý');
+  assert.equal(created.filter((el) => el.tagName === 'BLOCKQUOTE').length, 0);
+  assert.ok(facade.classList.contains('x-facade-loading'), 'do vložení iframe drží stav načítání');
+  assert.ok(facade.querySelector('.x-facade-loading-note'), 'spinner ze serveru zůstává');
 
-  const odkaz = blockquote.children[0];
-  assert.equal(odkaz.tagName, 'A');
-  assert.equal(odkaz.href, 'https://twitter.com/SpaceX/status/2093477720638341395');
-
+  // Pojistka: fixture nemá widgets.js v <head> (na reálné stránce ho nese
+  // šablona), tak ho modul doplní — nejvýš jednou.
   const script = ownerDocument.head.children.find((child) => child.tagName === 'SCRIPT');
-  assert.ok(script, 'inicializace musí načíst widgets.js');
+  assert.ok(script, 'bez skriptu v <head> musí pojistka widgets.js načíst');
   assert.equal(script.src, 'https://platform.twitter.com/widgets.js');
   assert.equal(script.async, true);
 });
@@ -375,19 +439,29 @@ test('stránka bez fasád X nenačte widgets.js — skript se nevkládá na cel�
   assert.equal(ownerDocument.head.children.length, 0, 'bez fasády se widgets.js nenačítá');
 });
 
+test('když widgets.js vloží iframe před naším modulem, aktivace jen uklidí stav načítání', () => {
+  const { facade, ownerDocument } = fixture();
+  const iframe = new FakeElement('iframe', ownerDocument);
+  facade.replaceChildren(facade.children[0], iframe);
+
+  assert.equal(aktivujXFacade(facade), null);
+  assert.equal(facade.classList.contains('x-facade-loading'), false);
+  assert.ok(facade.classList.contains('x-facade-loaded'), 'panel končí — tweet si výšku řídí sám');
+  assert.equal(facade.querySelector('.x-facade-loading-note'), null, 'spinner nesmí zůstat vedle iframe');
+  assert.equal(facade.querySelector('iframe'), iframe);
+});
+
 test('mezi načtením a iframem je viditelný stav načítání, dokonciXFacade ho uklidí', () => {
   const { facade } = fixture();
 
   aktivujXFacade(facade);
 
   assert.ok(facade.classList.contains('x-facade-loading'), 'fasáda musí hlásit načítání');
-  const note = facade.querySelector('.x-facade-loading-note');
-  assert.ok(note, 'aktivace musí ukázat poznámku o načítání — kostra nesmí zmizet do prázdna');
-  assert.ok(note.children.some((child) => child.className === 'x-facade-spinner'));
-  assert.equal(facade.children[0], note, 'poznámka stojí nad blockquote');
+  assert.ok(facade.querySelector('.x-facade-loading-note'),
+    'poznámka o načítání ze serveru zůstává — kostra nesmí zmizet do prázdna');
 
   // Jakmile widget vloží iframe (v prohlížeči přes MutationObserver),
-  // spinner zmizí a fasáda odloží 16:9 rám, aby si tweet určil výšku sám.
+  // spinner zmizí a fasáda odloží panel, aby si tweet určil výšku sám.
   dokonciXFacade(facade);
   assert.equal(facade.classList.contains('x-facade-loading'), false);
   assert.ok(facade.classList.contains('x-facade-loaded'));
@@ -428,20 +502,25 @@ test('když widget nenaběhne, fasáda ukáže zřetelný únik „Otevřít na 
   assert.equal(facade.querySelector('.x-facade-failed-note'), null);
 });
 
-test('téma widgetu sleduje web: data-theme na <html> má přednost, jinak systémové schéma', () => {
-  const { facade } = fixture({ tema: 'dark' });
-  const blockquote = aktivujXFacade(facade);
-  assert.equal(blockquote.attributes.get('data-theme'), 'dark');
+test('pojistka tématu: modul srovná data-theme blockquote podle webu, dokud iframe neexistuje', () => {
+  // Server posílá default light a inline skript ho opraví při parsování;
+  // modul je druhá pojistka se stejnou logikou (temaWidgetu).
+  const tmavy = fixture({ tema: 'dark' });
+  assert.equal(aktivujXFacade(tmavy.facade), tmavy.blockquote);
+  assert.equal(tmavy.blockquote.attributes.get('data-theme'), 'dark');
 
   const svetly = fixture({ tema: 'light', systemDark: true });
-  assert.equal(aktivujXFacade(svetly.facade).attributes.get('data-theme'), 'light',
+  aktivujXFacade(svetly.facade);
+  assert.equal(svetly.blockquote.attributes.get('data-theme'), 'light',
     'ruční přepnutí na light má přednost před systémovým dark');
 
   const systemovy = fixture({ systemDark: true });
-  assert.equal(aktivujXFacade(systemovy.facade).attributes.get('data-theme'), 'dark');
+  aktivujXFacade(systemovy.facade);
+  assert.equal(systemovy.blockquote.attributes.get('data-theme'), 'dark');
 
   const vychozi = fixture();
-  assert.equal(aktivujXFacade(vychozi.facade).attributes.get('data-theme'), 'light',
+  aktivujXFacade(vychozi.facade);
+  assert.equal(vychozi.blockquote.attributes.get('data-theme'), 'light',
     'bez matchMedia i bez data-theme padáme na light');
 
   assert.equal(temaWidgetu({ documentElement: { dataset: {} } }), 'light');
@@ -451,7 +530,7 @@ test('druhá aktivace nic nepřidá a widgets.js se načítá nejvýš jednou', 
   const { facade, ownerDocument } = fixture();
 
   assert.ok(aktivujXFacade(facade));
-  assert.equal(aktivujXFacade(facade), null, 'druhý klik nesmí vložit druhý blockquote');
+  assert.equal(aktivujXFacade(facade), null, 'druhá aktivace je no-op');
   assert.equal(
     ownerDocument.head.children.filter((child) => child.tagName === 'SCRIPT').length,
     1,
@@ -491,8 +570,9 @@ test('styly fasády X stojí na tokenech webu, ne na černém #090b0e panelu', (
   assert.match(sekce, /\.x-facade \{[^}]*background: var\(--surface\)/);
   assert.doesNotMatch(sekce, /x-facade-photo|x-facade-play|x-facade-badge|aspect-ratio: 16/,
     'cover jako fasáda je pryč — kompaktní panel v textu, žádná 16:9 fotovarianta');
-  assert.match(sekce, /\.x-facade-skeleton \{/, 'kostra drží tvar, než skript vloží blockquote');
-  assert.doesNotMatch(sekce, /x-facade-button|x-facade-note|cursor: pointer/,
+  assert.doesNotMatch(sekce, /x-facade-skeleton|x-facade-mark|x-facade-title/,
+    'mezikostra s logem X padla — serverové HTML nese rovnou stav načítání s blockquote');
+  assert.doesNotMatch(sekce, /x-facade-button|x-facade-note \{|cursor: pointer/,
     'click-to-load tlačítko Maky zrušil — žádné interaktivní styly fasády');
   assert.match(sekce, /\.x-facade-loading \{/);
   assert.match(sekce, /\.x-facade-spinner \{/);
@@ -549,14 +629,18 @@ function cspDirectives() {
   return directives;
 }
 
-test('CSP povoluje přesně to, co oficiální widget po kliknutí potřebuje', () => {
+test('CSP povoluje přesně to, co oficiální widget potřebuje', () => {
   const csp = cspDirectives();
 
-  // Runtime ověřeno (Chrome headless, viz PR): rodičovský dokument po kliku
+  // Runtime ověřeno (Chrome headless, viz PR #359): rodičovský dokument
   // stáhne jen widgets.js (script-src) a widget vloží iframy na
   // platform.twitter.com (frame-src). Vše ostatní — pbs.twimg.com,
   // syndication, video — běží uvnitř cross-origin iframe mimo naši CSP.
+  // Inline theme skript u embedu kryje 'unsafe-inline', které script-src
+  // nese odjakživa (theme skript v Base).
   assert.ok(csp.get('script-src').includes('https://platform.twitter.com'));
+  assert.ok(csp.get('script-src').includes("'unsafe-inline'"),
+    'inline theme skript u embedu (a v Base) musí projít');
   assert.ok(csp.get('frame-src').includes('https://platform.twitter.com'));
 
   // YouTube a audio zůstávají.

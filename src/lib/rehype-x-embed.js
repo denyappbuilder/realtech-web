@@ -1,19 +1,24 @@
 import { xPostEmbed } from './x-post.js';
 
 /**
- * Vloží fasádu oficiálního embedu X do vyrenderovaného markdownu článku —
- * v BUILDU, ne na klientovi. Maky živě potvrdil vzhled karty („Super, to je
- * ono“), ale nechtěl ji jako první věc v těle článku: napřed má být text,
- * pak widget. Klientské přesouvání (`firstP.after(embed)`) by kartu nejdřív
+ * Vloží oficiální embed X do vyrenderovaného markdownu článku — v BUILDU,
+ * ne na klientovi. Maky živě potvrdil vzhled karty („Super, to je ono“),
+ * ale nechtěl ji jako první věc v těle článku: napřed má být text, pak
+ * widget. Klientské přesouvání (`firstP.after(embed)`) by kartu nejdřív
  * vykreslilo nahoře a pak s ní škublo — proto rehype plugin: embed stojí
  * za prvním odstavcem už v HTML ze serveru a nic neskáče.
  *
+ * Od kola 7 nese serverové HTML rovnou blockquote.twitter-tweet, ne jen
+ * kostru. Dřív blockquote stavěl až klientský modul (deferred) a teprve
+ * potom sáhl pro widgets.js — karta tak čekala na HTML → náš bundle →
+ * widgets.js → iframe a „někdy se načítala dlouho“. Teď widgets.js
+ * (async v <head> šablony článku, jen na stránkách s xPosts) najde
+ * blockquote hned po naparsování dokumentu; náš modul už jen hlídá
+ * render (spinner, 15s únik „Otevřít na X“).
+ *
  * Plugin čte `xPosts` z frontmatteru (Astro ho dává do file.data.astro),
- * URL pouští přes stejný parser jako dřív šablona (x-post.js) a vkládá
- * tutéž kostru fasády (logo X + titulek + fallback „Otevřít na X“), kterou
- * si při načtení stránky převezme src/lib/x-embed.js a vymění za
- * blockquote.twitter-tweet + widgets.js. Jeden článek = jeden seznam
- * embedů z xPosts, nic navíc.
+ * URL pouští přes stejný parser jako dřív šablona (x-post.js). Jeden
+ * článek = jeden seznam embedů z xPosts, nic navíc.
  */
 
 // Kam přesně embed patří: za první odstavec článku. Když je první odstavec
@@ -22,14 +27,33 @@ import { xPostEmbed } from './x-post.js';
 // plnohodnotný lede o static fire, takže embed sedí hned za ním.
 export const MIN_ZNAKU_PRVNIHO_ODSTAVCE = 120;
 
-const X_LOGO_PATH = 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z';
+// Téma widgetu se musí trefit dřív, než widgets.js blockquote přečte —
+// jinak na tmavém webu blikne bílá karta. Server téma čtenáře nezná,
+// tak blockquote nese default light a tenhle inline skript (běží
+// synchronně hned při parsování, dávno před async widgets.js) ho opraví
+// stejnou logikou jako temaWidgetu v x-embed.js: ruční data-theme na
+// <html> (inline skript v Base ho nastavuje z localStorage ještě v <head>)
+// má přednost, jinak systémové schéma. Statický řetězec bez interpolace —
+// z frontmatteru do něj nic nevede. CSP: script-src má 'unsafe-inline'.
+const THEME_SCRIPT =
+  '<script>(function(s){try{'
+  + 'var b=s.previousElementSibling.querySelector("blockquote.twitter-tweet");'
+  + 'var t=document.documentElement.dataset.theme;'
+  + 'if(t!=="dark"&&t!=="light")t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";'
+  + 'b.setAttribute("data-theme",t)'
+  + '}catch(e){}})(document.currentScript)</script>';
 
 /**
- * HTML jedné fasády — stejná kostra, jakou dřív nesla šablona článku.
- * Hodnoty jdou z parseru x-post.js (účet [A-Za-z0-9_]{1,15}, id jen číslice,
- * href/webHref složené z nich), takže do atributů nemůže utéct nic škodlivého.
- * Žádné tlačítko, žádná výzva ke kliknutí, žádný iframe/blockquote —
- * to všechno staví až skript při načtení (data-theme podle tématu webu).
+ * HTML jedné fasády s oficiálním blockquote uvnitř. Hodnoty jdou z parseru
+ * x-post.js (účet [A-Za-z0-9_]{1,15}, id jen číslice, href/webHref složené
+ * z nich), takže do atributů nemůže utéct nic škodlivého. Žádné tlačítko,
+ * žádná výzva ke kliknutí — widget se hydratuje sám; iframe vkládá až
+ * widgets.js. Fasáda startuje ve stavu načítání (spinner + odkaz
+ * z blockquote), který drží tvar, dokud iframe neexistuje.
+ *
+ * href v blockquote je kanonický twitter.com — widgets.js historicky
+ * ignoroval x.com odkazy. data-dnt, data-conversation none a default
+ * light téma (opravené inline skriptem výš) drží zamčený kontrakt.
  *
  * @param {{ id: string, ucet: string, href: string, webHref: string }} post
  * @returns {string}
@@ -37,13 +61,17 @@ const X_LOGO_PATH = 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.8
 export function xEmbedHtml(post) {
   return [
     '<div class="x-embed">',
-    `<div class="x-facade" data-x-facade data-x-post-id="${post.id}" data-x-post-href="${post.href}" data-x-post-title="Příspěvek @${post.ucet} na X">`,
-    '<div class="x-facade-skeleton">',
-    `<span class="x-facade-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="${X_LOGO_PATH}"/></svg></span>`,
-    `<span class="x-facade-title">Video z příspěvku @${post.ucet}</span>`,
+    `<div class="x-facade x-facade-loading" data-x-facade data-x-post-id="${post.id}" data-x-post-href="${post.href}">`,
+    '<p class="x-facade-loading-note mono">',
+    '<span class="x-facade-spinner" aria-hidden="true"></span>',
+    '<span>Načítá se oficiální příspěvek z X…</span>',
+    '</p>',
+    '<blockquote class="twitter-tweet" data-dnt="true" data-lang="cs" data-conversation="none" data-theme="light">',
+    `<a href="${post.href}">Příspěvek @${post.ucet} na X</a>`,
+    '</blockquote>',
     '</div>',
-    '</div>',
-    // Fallback stojí MIMO [data-x-facade]: přežije výměnu obsahu fasády
+    THEME_SCRIPT,
+    // Fallback stojí MIMO [data-x-facade]: přežije úklid obsahu fasády
     // a funguje i bez JS.
     `<p class="x-embed-fallback mono">Nenačítá se? <a href="${post.webHref}" target="_blank" rel="noopener">Otevřít na X →</a></p>`,
     '</div>',
@@ -82,8 +110,9 @@ export function indexProEmbed(tree) {
 
 /**
  * Rehype plugin pro astro.config.mjs. `raw` uzly serializuje Astro doslovně
- * (stejná cesta jako HTML psané přímo v markdownu), takže kostra dojde do
- * statického HTML beze změny a klientský skript ji najde přes [data-x-facade].
+ * (stejná cesta jako HTML psané přímo v markdownu), takže blockquote
+ * i inline skript dojdou do statického HTML beze změny a klientský skript
+ * fasádu najde přes [data-x-facade].
  */
 export function rehypeXEmbedy() {
   return (tree, file) => {

@@ -1408,10 +1408,11 @@ a.chip { display: inline-flex; align-items: center; }
 /* ── X (Twitter) embed ───────── */
 /* Fasáda žije v textu článku (.article-body), ne přes cover — cover jako
    play tlačítko Maky živě vrátil, náhledovka widget „schovávala“. Widget se
-   vykresluje hned při načtení — click-to-load bránu Maky zrušil taky, takže
-   kostra (logo X + titulek) svítí jen chvilku, než ji skript vymění za
-   blockquote a widgets.js vloží iframe. Kompaktní světlý panel z tokenů
-   webu; černý gradientní panel Maky vykázal dřív (černo-červený horor). */
+   vykresluje hned při načtení — click-to-load bránu Maky zrušil taky.
+   Serverové HTML nese rovnou blockquote + stav načítání (spinner), takže
+   žádná mezikostra s logem: spinner svítí, jen než widgets.js (async
+   z <head>) vloží iframe. Kompaktní světlý panel z tokenů webu; černý
+   gradientní panel Maky vykázal dřív (černo-červený horor). */
 .x-embed { margin: 0 0 24px; }
 .x-facade {
   border: 1px solid var(--line);
@@ -1419,26 +1420,8 @@ a.chip { display: inline-flex; align-items: center; }
   overflow: hidden;
   background: var(--surface);
 }
-.x-facade-skeleton {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 24px 18px;
-  color: var(--ink);
-}
-.x-facade-mark {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
-}
-.x-facade-mark svg { width: 24px; height: 24px; fill: var(--ink); }
-.x-facade-title { font-weight: 600; font-size: 1.05rem; }
 /* Než widget vloží iframe: fasáda drží tvar, spinner + odkaz z blockquote —
-   kostra nesmí zmizet do prázdného paddingu. */
+   panel nesmí zmizet do prázdného paddingu. */
 .x-facade-loading {
   display: grid;
   align-content: center;
