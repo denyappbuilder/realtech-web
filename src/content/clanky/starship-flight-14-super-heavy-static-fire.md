@@ -5,6 +5,9 @@ category: "Vesmír"
 date: "2026-08-30T06:55:00+02:00"
 zprava: true
 image: "/images/clanky/starship-flight-14-super-heavy-static-fire.jpg"
+audio:
+  url: "https://audio.realtech.cz/starship-flight-14-super-heavy-static-fire-nlm.mp3?v=e8a345e9046d"
+  duration: 1351
 ---
 
 Oficiální účet SpaceX v noci na sobotu zveřejnil video. Super Heavy na texaském Starbase hořel se všemi 33 motory. Firma to popsala jako statický zážeh na plnou dobu. Booster se podle stejného textu chystá na Flight 14.
