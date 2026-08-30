@@ -667,6 +667,8 @@ a.tag:hover { background: var(--signal-dark); }
   background: var(--signal); color: #fff; border: none; cursor: pointer;
   padding: 13px 22px; border-radius: var(--radius);
   font-family: inherit; font-weight: 600; font-size: 0.9rem;
+  min-height: 44px;
+  display: inline-flex; align-items: center;
   transition: background 0.15s;
 }
 .nl-form button:hover { background: var(--signal-dark); }
