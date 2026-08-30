@@ -32,10 +32,11 @@ const dateStr = formatCalendarDateCs(date);
 const updatedStr = formatCalendarDateCs(updated);
 
 const videoId = youtubeId(video);
-// Oficiální click-to-load embed X. Schéma pustí jen platné status URL —
-// parser vrací kanonický twitter.com href pro widgets.js a x.com webHref
-// pro lidský fallback odkaz. flatMap místo filter s type-predikátem:
-// frontmatter běží v testech jako čistý JS modul (test-clanek-jsonld-loader).
+// Samotnou fasádu embedu X vkládá do HTML článku rehype plugin
+// (src/lib/rehype-x-embed.js) — tady xEmbedy jen rozhoduje, jestli se smí
+// ukázat výzva „K tomuhle článku video není“. Stejný parser jako plugin,
+// flatMap místo filter s type-predikátem: frontmatter běží v testech jako
+// čistý JS modul (test-clanek-jsonld-loader).
 const xEmbedy = (xPosts ?? []).flatMap((url) => xPostEmbed(url) ?? []);
 const {
   src: heroSrc,
@@ -240,41 +241,18 @@ const breadcrumbLd = {
       <div class="article-layout">
         <div class="article-body">
           {/*
-            Oficiální embed X — v textu článku, ne přes cover. Cover jako
-            fasáda (PR #360) Maky živě vrátil: náhledovka widget „schovávala“.
-            Widget se vykresluje HNED při načtení stránky — click-to-load
-            bránu („Kliknutím se načte…“, prázdný panel s logem X) Maky
-            zrušil taky: čtenář má kartu příspěvku s náhledem videa vidět
-            bez kliknutí navíc. Tady v HTML je jen krátká kostra (logo X
-            + titulek), kterou skript při načtení vymění za oficiální
-            blockquote.twitter-tweet + widgets.js (viz src/lib/x-embed.js) —
-            blockquote se staví v JS kvůli data-theme podle tématu webu.
-            Soubor videa zůstává u X — nestahujeme, nerehostujeme, nic
-            z twimg. Fallback odkaz „Otevřít na X“ stojí mimo fasádu, takže
-            přežije výměnu obsahu fasády a funguje bez JS i když widget
-            selže (adblock — únik z #361 zůstává).
+            Oficiální embed X — v textu článku, ne přes cover (cover jako
+            fasáda z PR #360 Maky živě vrátil) a NE jako první uzel těla:
+            karta nad prvním odstavcem Makymu vadila — napřed text, pak
+            widget. Kostru fasády proto vkládá do vyrenderovaného markdownu
+            rehype plugin (src/lib/rehype-x-embed.js, registrace
+            v astro.config.mjs) — za první odstavec už v buildu, takže
+            karta nahoře ani neblikne. Skript při načtení kostru vymění za
+            blockquote.twitter-tweet + widgets.js (src/lib/x-embed.js),
+            bez click-to-load brány. Soubor videa zůstává u X — nestahujeme,
+            nerehostujeme, nic z twimg. Fallback „Otevřít na X“ stojí mimo
+            fasádu a funguje bez JS i když widget selže (únik z #361 zůstává).
           */}
-          {xEmbedy.map((post) => (
-            <div class="x-embed">
-              <div
-                class="x-facade"
-                data-x-facade
-                data-x-post-id={post.id}
-                data-x-post-href={post.href}
-                data-x-post-title={`Příspěvek @${post.ucet} na X`}
-              >
-                <div class="x-facade-skeleton">
-                  <span class="x-facade-mark" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                  </span>
-                  <span class="x-facade-title">Video z příspěvku @{post.ucet}</span>
-                </div>
-              </div>
-              <p class="x-embed-fallback mono">
-                Nenačítá se? <a href={post.webHref} target="_blank" rel="noopener">Otevřít na X →</a>
-              </p>
-            </div>
-          ))}
           <Content />
         </div>
         <aside class="article-aside">

@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import { slugify } from './src/lib/slugify.js';
 import { parsePublishDate } from './src/lib/calendarDate.js';
 import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
+import { rehypeXEmbedy } from './src/lib/rehype-x-embed.js';
 
 // slug → lastmod (updated ?? date) z frontmatteru článků — pro sitemap <lastmod>
 const lastmods = {};
@@ -64,7 +65,10 @@ function rehypeAsciiHeadingIds() {
 
 export default defineConfig({
   site: 'https://realtech.cz',
-  markdown: { rehypePlugins: [rehypeAsciiHeadingIds] },
+  // rehypeXEmbedy: fasáda embedu X se vkládá do HTML článku už v buildu —
+  // za první odstavec (Maky: napřed text, pak widget; klientský přesun by
+  // kartu nechal bliknout nahoře). Viz src/lib/rehype-x-embed.js.
+  markdown: { rehypePlugins: [rehypeAsciiHeadingIds, rehypeXEmbedy] },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({

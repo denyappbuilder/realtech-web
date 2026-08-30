@@ -24,10 +24,13 @@ setArticles([]);
 const { default: config } = await import('../astro.config.mjs?rehype-heading-test=1');
 
 const plugins = config.markdown.rehypePlugins;
-assert.equal(plugins.length, 1, 'astro.config.mjs má mít právě jeden rehype plugin');
+assert.equal(plugins.length, 2,
+  'astro.config.mjs má mít dva rehype pluginy: ASCII id nadpisů a embed X (rehype-x-embed)');
+const headingPlugin = plugins.find((plugin) => plugin.name === 'rehypeAsciiHeadingIds');
+assert.ok(headingPlugin, 'astro.config.mjs ztratil plugin rehypeAsciiHeadingIds');
 
 /** Vyrobí transformer — plugin je factory, volá se jednou za dokument. */
-const transform = () => plugins[0]();
+const transform = () => headingPlugin();
 
 const text = (value) => ({ type: 'text', value });
 const el = (tagName, children, properties) => ({
