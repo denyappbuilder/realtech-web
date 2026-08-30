@@ -37,7 +37,8 @@ videoLength: "<MM:SS>"
 
 Volitelná pole, která autoři reálně používají — jen když k nim máš data, nic si nevymýšlej:
 
-- `video` / `videoLength` — u článku z videa (v tomhle promptu je přidej)
+- `video` / `videoLength` — u článku z videa (v tomhle promptu je přidej). `video` je POUZE YouTube odkaz — fasáda, videobar i VideoObject JSON-LD s tím počítají. Video z X sem nikdy nedávej.
+- `xPosts` — volitelný seznam status URL na x.com/twitter.com pro oficiální embed příspěvku z X. Načítá se click-to-load (nic se z X nestahuje, dokud čtenář neklikne) a soubor videa zůstává u X — nikdy nerehostujeme.
 - `zprava: true` — krátká zpráva, typicky bez `video`
 - `image` — cesta k náhledu, např. `/images/clanky/<slug>.jpg` (viz Náhledovka)
 - `audio` — objekt `{ url, duration, transcript?, ttsScript? }`; `duration` je sekundy, ISO-8601 nebo MM:SS
