@@ -11,6 +11,9 @@ const LIMIT_NACITANI_MS = 15000;
 /**
  * Widget X umí dark/light — bez toho by na tmavém webu svítila bílá karta.
  * Ruční přepnutí (data-theme na <html>) má přednost, jinak systémové schéma.
+ * Tutéž logiku nese inline skript u embedu (rehype-x-embed.js), který téma
+ * opraví už při parsování HTML — tady slouží jako pojistka, kdyby inline
+ * skript nedoběhl.
  *
  * @param {Document} doc
  * @returns {'dark' | 'light'}
@@ -24,20 +27,20 @@ export function temaWidgetu(doc) {
 }
 
 /**
- * Nahradí lokální kostru fasády oficiálním embedem X. Běží hned při
- * načtení stránky — click-to-load bránu („Kliknutím se načte…“) Maky
- * zrušil: čtenář má kartu příspěvku vidět rovnou, bez kliknutí navíc.
- * Blockquote se přesto staví až tady v JS, ne v serverovém HTML —
- * data-theme se musí spočítat z aktuálního tématu webu (temaWidgetu).
+ * Převezme fasádu z serverového HTML a hlídá render oficiálního widgetu.
  *
- * Vloží blockquote.twitter-tweet s data-dnt a kanonickým twitter.com
- * odkazem (widgets.js historicky ignoroval x.com URL) a jednou načte
- * widgets.js. Widget si video přehraje ve vlastním iframe na
- * platform.twitter.com — soubor videa zůstává u X, nic nerehostujeme.
+ * Blockquote.twitter-tweet už NESTAVÍ — nese ho serverové HTML
+ * (rehype-x-embed.js) a widgets.js startuje async z <head> šablony
+ * článku, takže karta se načítá souběžně s prvním vykreslením a nečeká
+ * na tenhle deferred modul. Tady zbývá jen to, co bez JS nejde:
+ * MutationObserver na iframe (úklid spinneru a panelu), 15s únik
+ * „Otevřít na X“ při selhání, pojistka tématu a pojistka widgets.js
+ * (nactiWidgetsJs je idempotentní — skript z <head> najde a nic nepřidá).
  *
- * Než widget vloží iframe, fasáda drží tvar se spinnerem a odkazem.
- * Jakmile iframe existuje, fasáda (dokonciXFacade) odloží panel
- * i rámeček a tweet si výšku řídí sám.
+ * Když widgets.js stihl iframe vložit ještě před námi, jen se uklidí
+ * stav načítání. Podvržená data-* (hand-written HTML v markdownu) fasádu
+ * neaktivují — z dataset href se staví odkaz úniku a nesmí do něj utéct
+ * nic mimo twitter.com status URL.
  *
  * @param {HTMLElement} facade
  * @returns {HTMLQuoteElement | null}
@@ -46,35 +49,23 @@ export function aktivujXFacade(facade) {
   const id = facade.dataset.xPostId ?? '';
   const href = facade.dataset.xPostHref ?? '';
   if (!STATUS_ID.test(id) || !TWITTER_HREF.test(href)) return null;
-  if (facade.querySelector('blockquote')) return null;
+  if (facade.querySelector('iframe')) {
+    dokonciXFacade(facade);
+    return null;
+  }
+  const blockquote = facade.querySelector('blockquote');
+  if (!blockquote || facade.dataset.xFacadeBezi) return null;
+  facade.dataset.xFacadeBezi = '1';
 
-  const doc = facade.ownerDocument;
-  const blockquote = doc.createElement('blockquote');
-  blockquote.className = 'twitter-tweet';
-  blockquote.setAttribute('data-dnt', 'true');
-  blockquote.setAttribute('data-lang', 'cs');
-  blockquote.setAttribute('data-conversation', 'none');
-  blockquote.setAttribute('data-theme', temaWidgetu(doc));
-
-  const odkaz = doc.createElement('a');
-  odkaz.href = href;
-  odkaz.textContent = facade.dataset.xPostTitle || 'Příspěvek na X';
-  blockquote.appendChild(odkaz);
-
-  const spinner = doc.createElement('span');
-  spinner.className = 'x-facade-spinner';
-  spinner.setAttribute('aria-hidden', 'true');
-  const text = doc.createElement('span');
-  text.textContent = 'Načítá se oficiální příspěvek z X…';
-  const nacitani = doc.createElement('p');
-  nacitani.className = 'x-facade-loading-note mono';
-  nacitani.appendChild(spinner);
-  nacitani.appendChild(text);
+  // Pojistka tématu: inline skript u embedu ho nastavil už při parsování;
+  // kdyby nedoběhl, oprava tady stále stihne widgets.js (čte blockquote
+  // až po DOM ready). Po vložení iframe by už nic nezměnila — proto jen
+  // dokud iframe neexistuje (kontrola výš).
+  blockquote.setAttribute('data-theme', temaWidgetu(facade.ownerDocument));
 
   facade.classList.add('x-facade-loading');
-  facade.replaceChildren(nacitani, blockquote);
   sledujRenderWidgetu(facade);
-  nactiWidgetsJs(doc);
+  nactiWidgetsJs(facade.ownerDocument);
   return blockquote;
 }
 
@@ -129,7 +120,9 @@ export function oznacSelhaniXFacade(facade) {
 /**
  * widgets.js nedává callback do našeho kódu — vložený iframe hlídá
  * MutationObserver. Bez něj (testy) se stav načítání nechá být; odkaz
- * v blockquote i fallback pod fasádou fungují dál.
+ * v blockquote i fallback pod fasádou fungují dál. JS je jednovláknový,
+ * takže mezi kontrolou iframe v aktivujXFacade a observe() nemůže
+ * widgets.js nic vložit — pozorovateli nic neuteče.
  *
  * @param {HTMLElement} facade
  */
@@ -148,8 +141,10 @@ function sledujRenderWidgetu(facade) {
 }
 
 /**
- * widgets.js se načítá nejvýš jednou. Když už běží (druhá fasáda na
- * stránce), stačí říct widgetu, ať znovu projde dokument.
+ * Pojistka načtení widgets.js — primárně ho nese async <script> v <head>
+ * šablony článku (jen na stránkách s xPosts), který tahle funkce najde
+ * a nic nepřidá. Když už widgets.js běží, stačí říct widgetu, ať znovu
+ * projde dokument.
  *
  * @param {Document} doc
  * @returns {HTMLScriptElement | null}
@@ -170,9 +165,9 @@ export function nactiWidgetsJs(doc) {
 }
 
 /**
- * Aktivuje všechny fasády X hned — bez čekání na klik. widgets.js se tím
- * načte jen na stránkách, kde fasáda opravdu je (šablona článku s xPosts);
- * na stránce bez fasád se na platform.twitter.com nesáhne.
+ * Převezme všechny fasády X ze serverového HTML. Na stránce bez fasád se
+ * nic neděje — widgets.js na ni nepatří (v <head> je jen při xPosts a ani
+ * pojistka tady ho bez fasády nenačte).
  *
  * @param {Document | ParentNode} [root]
  */
