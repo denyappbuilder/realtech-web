@@ -1316,7 +1316,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 @media print {
   .topbar, header.site, .ticker, .newsletter, footer.site,
   .article-share, .related, .author-box, .article-nav, .article-back,
-  .article-videobar, .audio-prehled, .read-progress, .video-embed { display: none !important; }
+  .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed { display: none !important; }
   body { background: #fff; color: #000; }
   .article-body { border: none; padding: 0; font-size: 11pt; }
   .article-page { padding: 0; }
@@ -1403,4 +1403,60 @@ a.chip { display: inline-flex; align-items: center; }
 .youtube-facade-button:focus-visible {
   outline: 3px solid var(--signal);
   outline-offset: -3px;
+}
+
+/* ── X (Twitter) click-to-load ───────── */
+/* Fasáda nemá náhledový obrázek — ten by musel přijít z twimg a první HTML
+   nesmí na X nic poslat. Místo něj lokální tmavý panel s logem X. */
+.x-embed { margin: 28px 0 0; }
+.x-facade {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.08), transparent 45%),
+    linear-gradient(135deg, #14171c, #090b0e);
+}
+.x-facade-button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 36px 20px;
+  border: 0;
+  background: transparent;
+  color: #f3ece7;
+  cursor: pointer;
+}
+.x-facade-mark {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.x-facade-mark svg { width: 24px; height: 24px; fill: #fff; }
+.x-facade-title { font-weight: 600; font-size: 1.05rem; }
+.x-facade-note { font-size: 0.72rem; color: #a9b2bf; }
+.x-facade-button:hover .x-facade-mark,
+.x-facade-button:focus-visible .x-facade-mark {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.06);
+}
+.x-facade-button:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: -3px;
+}
+/* widgets.js si výšku iframe řídí sám — fasáda se po aktivaci jen roztáhne. */
+.x-facade .twitter-tweet { margin: 0 auto; padding: 12px; }
+.x-facade iframe { display: block; margin: 0 auto; max-width: 100%; }
+.x-embed-fallback { margin: 8px 0 0; font-size: 0.72rem; color: var(--ink-faint); }
+.x-embed-fallback a { color: inherit; text-decoration: underline; }
+.x-embed-fallback a:hover { color: var(--signal-dark); }
+@media (prefers-reduced-motion: reduce) {
+  .x-facade-button:hover .x-facade-mark,
+  .x-facade-button:focus-visible .x-facade-mark { transform: none; }
 }

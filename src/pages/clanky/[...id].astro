@@ -7,6 +7,7 @@ import ArticleCard from '../../components/ArticleCard.astro';
 import { slugify } from '../../lib/slugify.js';
 import { readingTime } from '../../lib/reading-time.js';
 import { youtubeId } from '../../lib/youtube.js';
+import { xPostEmbed } from '../../lib/x-post.js';
 import { isoDuration } from '../../lib/iso-duration.js';
 import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
@@ -25,12 +26,17 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { Content } = await render(article);
-const { title, seoTitle, description, category, date, video, videoLength, zprava, image, updated, audio } = article.data;
+const { title, seoTitle, description, category, date, video, videoLength, zprava, image, updated, audio, xPosts } = article.data;
 const readMinutes = readingTime(article.body);
 const dateStr = formatCalendarDateCs(date);
 const updatedStr = formatCalendarDateCs(updated);
 
 const videoId = youtubeId(video);
+// Oficiální click-to-load embed X. Schéma pustí jen platné status URL —
+// parser vrací kanonický twitter.com href pro widgets.js a x.com webHref
+// pro lidský fallback odkaz. flatMap místo filter s type-predikátem:
+// frontmatter běží v testech jako čistý JS modul (test-clanek-jsonld-loader).
+const xEmbedy = (xPosts ?? []).flatMap((url) => xPostEmbed(url) ?? []);
 const {
   src: heroSrc,
   lcpSrc: heroLcpSrc,
@@ -226,6 +232,41 @@ const breadcrumbLd = {
         </div>
       )}
 
+      {/*
+        Oficiální embed X, click-to-load — stejný princip jako YouTube fasáda
+        výš. První HTML nesmí poslat nic na platform.twitter.com / twimg;
+        widget se vloží až po kliknutí (viz src/lib/x-embed.js). Soubor videa
+        zůstává u X — nestahujeme, nerehostujeme, žádné video src z twimg.
+        Fallback odkaz „Otevřít na X“ stojí mimo fasádu, takže přežije
+        i výměnu obsahu fasády a funguje, když widget selže.
+      */}
+      {xEmbedy.map((post) => (
+        <div class="x-embed">
+          <div
+            class="x-facade"
+            data-x-facade
+            data-x-post-id={post.id}
+            data-x-post-href={post.href}
+            data-x-post-title={`Příspěvek @${post.ucet} na X`}
+          >
+            <button
+              type="button"
+              class="x-facade-button"
+              aria-label={`Načíst video z příspěvku @${post.ucet} na síti X`}
+            >
+              <span class="x-facade-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </span>
+              <span class="x-facade-title">Video z příspěvku @{post.ucet}</span>
+              <span class="x-facade-note mono">Kliknutím se načte oficiální vložený příspěvek ze sítě X</span>
+            </button>
+          </div>
+          <p class="x-embed-fallback mono">
+            Nenačítá se? <a href={post.webHref} target="_blank" rel="noopener">Otevřít na X →</a>
+          </p>
+        </div>
+      ))}
+
       <AudioPrehled audio={audio} />
 
       <div class="article-layout">
@@ -270,8 +311,10 @@ const breadcrumbLd = {
         varianta „video není".
         Z1003: pruh nesmí sedět mezi hero a prvním odstavcem — působí to jako
         vložená reklama a přerušuje čtení. Výzva zůstává, ale až po textu.
+        Článek s embedem X video má (jen ne naše) — „K tomuhle článku video
+        není" by lhal, proto se výzva u xPosts neukazuje.
       */}
-      {!video && (
+      {!video && xEmbedy.length === 0 && (
         <div class="article-videobar">
           <span class="mono">K tomuhle článku video není. Na kanálu máme další videa o technice a AI</span>
           <a href="https://www.youtube.com/@realtech-cz?sub_confirmation=1" class="yt-btn">
@@ -342,6 +385,7 @@ const breadcrumbLd = {
 
   <script>
     import { inicializujYoutubeFacades } from '../../lib/youtube-facade.js';
+    import { inicializujXFacades } from '../../lib/x-embed.js';
 
     // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů).
     // Stejný helper jako rehype plugin, včetně dedupu (Z1207) — jinak by tlačítko
@@ -392,5 +436,6 @@ const breadcrumbLd = {
     });
 
     inicializujYoutubeFacades();
+    inicializujXFacades();
   </script>
 </Base>

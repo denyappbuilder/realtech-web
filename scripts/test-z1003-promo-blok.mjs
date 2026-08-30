@@ -42,7 +42,7 @@ test("Z1003: videobar nesmí být tmavý panel uprostřed světlého článku", 
 
 test("Z1003: výzva bez videa nesmí sedět mezi hero a prvním odstavcem", () => {
   const telo = clanek.indexOf('class="article-body"');
-  const bezVidea = clanek.indexOf("{!video && (");
+  const bezVidea = clanek.indexOf("{!video && xEmbedy.length === 0 && (");
   assert.notEqual(telo, -1, "šablona ztratila tělo článku");
   assert.notEqual(bezVidea, -1, "šablona ztratila větev bez videa");
   assert.ok(
@@ -52,7 +52,7 @@ test("Z1003: výzva bez videa nesmí sedět mezi hero a prvním odstavcem", () =
 });
 
 test("Z1003: výzva bez videa nesmí tvrdit zastaralé číslo videí", () => {
-  const bezVidea = clanek.indexOf("{!video && (");
+  const bezVidea = clanek.indexOf("{!video && xEmbedy.length === 0 && (");
   const konecVetve = clanek.indexOf("{related.length > 0 && (", bezVidea);
   assert.notEqual(bezVidea, -1, "šablona ztratila větev bez videa");
   assert.notEqual(konecVetve, -1, "šablona ztratila konec výzvy bez videa");
