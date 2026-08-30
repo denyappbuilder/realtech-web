@@ -99,7 +99,6 @@ test('článek předpojuje ytimg jen s YouTube videem a audio jen s mp3', () => 
     'ytimg jen u článku s video: YouTube — Flight 14 (xPosts) ho nesmí dostat');
   assert.match(CLANEK, /const preconnectAudio = Boolean\(audioLd\)/,
     'audio.realtech.cz jen když AudioPrehled opravdu nese mp3');
-  const tag = otviraciBase(CLANEK);
   assert.match(tag, /preconnectYtimg=\{preconnectYtimg\}/);
   assert.match(tag, /preconnectAudio=\{preconnectAudio\}/);
 });
