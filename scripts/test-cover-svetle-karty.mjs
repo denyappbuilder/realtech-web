@@ -49,6 +49,17 @@ const SAMSUNG_LEFTOVER_SLUGS = [
   'samsung-galaxy-unpacked-cervenec',
 ];
 
+// Kolo 7 (audit jasu všech coverů po #356–#363): poslední čtyři černo-červené
+// covery — dva Samsungy (černé desky, rudě podsvícené hrany, luma 15 a 25),
+// whatsapp (tmavý panel, 36) a starmind (černý vesmír, 37). Nahrazeno
+// denním NB2 fotoreálem z audio.realtech.cz/tmp-covers-nb2-r7/.
+const R7_LEFTOVER_SLUGS = [
+  'samsung-galaxy-z-fold8-flip8-prodej',
+  'samsung-unpacked-fold8-watch9',
+  'whatsapp-skupiny-all-ankety',
+  'spacex-nvidia-starmind-ai1',
+];
+
 function coverPath(slug, name) {
   return path.join(root, 'public/images/clanky', name ?? `${slug}.jpg`);
 }
@@ -181,6 +192,33 @@ test('tři leftover Samsung coverý mají 1280×720, deriváty a OG', () => {
 
 test('tři leftover Samsung coverý jsou světlé, bez červeného neonu', async () => {
   for (const slug of SAMSUNG_LEFTOVER_SLUGS) {
+    const file = coverPath(slug);
+    const meta = await sharp(file).metadata();
+    assert.equal(meta.width, 1280, `${slug} šířka`);
+    assert.equal(meta.height, 720, `${slug} výška`);
+    const { luma, darkPct, redPct } = await lumaStats(file);
+    assertSvetlyCover(slug, luma, darkPct, redPct);
+  }
+});
+
+test('kolo 7: poslední čtyři leftover covery mají 1280×720, deriváty a OG', () => {
+  for (const slug of R7_LEFTOVER_SLUGS) {
+    const files = [
+      coverPath(slug, `${slug}.jpg`),
+      coverPath(slug, `${slug}.webp`),
+      coverPath(slug, `${slug}-640.jpg`),
+      coverPath(slug, `${slug}-640.webp`),
+      path.join(root, 'public/images/og', `${slug}.jpg`),
+      path.join(root, 'public/images/og', `${slug}.jpg.sha256`),
+    ];
+    for (const file of files) {
+      assert.ok(fs.existsSync(file), `chybí ${path.relative(root, file)}`);
+    }
+  }
+});
+
+test('kolo 7: poslední čtyři leftover covery jsou světlé, bez červeného neonu', async () => {
+  for (const slug of R7_LEFTOVER_SLUGS) {
     const file = coverPath(slug);
     const meta = await sharp(file).metadata();
     assert.equal(meta.width, 1280, `${slug} šířka`);
