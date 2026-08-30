@@ -321,6 +321,7 @@ test('použitelný YouTube RSS odfiltruje Shorts, omezí videa a dekóduje XML e
     { id: 'ccccccccccc', title: 'Druhé běžné video' },
     { id: 'ddddddddddd', title: 'Třetí běžné video' },
   ]);
+  assert.equal(result.preconnectYtimg, true, 'video strip tahá i.ytimg.com — homepage musí předpojit ytimg');
   assert.equal(fetchCalls.length, 1);
   assert.equal(
     fetchCalls[0][0],
@@ -366,7 +367,7 @@ test('úvodka předá Base image hero a nechá og:type website; průvodci vedou 
   const zdroj = readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
   assert.match(
     zdroj,
-    /<Base title="REALTECH CZ — Tech novinky a analýzy" image=\{heroOg\}>/,
+    /<Base title="REALTECH CZ — Tech novinky a analýzy" image=\{heroOg\} preconnectYtimg=\{preconnectYtimg\}>/,
     'homepage musí poslat image hero do Base, jinak share dostane og-default.jpg',
   );
   assert.doesNotMatch(
@@ -396,6 +397,8 @@ test('nepoužitelný nebo chybový YouTube RSS vždy použije lokální snapshot
       resetHomepageMocks();
       const result = await executeHomepage(subtest, [], fetchImplementation);
       assert.deepEqual(result.videos, snapshot);
+      assert.equal(result.preconnectYtimg, snapshot.length > 0,
+        'snapshot videí tahá i.ytimg.com — homepage musí předpojit ytimg');
     });
   }
 });

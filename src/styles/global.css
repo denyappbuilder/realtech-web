@@ -903,11 +903,13 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .card:hover .card-thumb img { transform: scale(1.05); }
 /* Z10031: neutrální clona chrání text, ale neničí vlastní barvy coveru.
-   Kategorii už odlišuje levý okraj celé karty (Z10282), druhý proužek by byl duplicitní. */
+   Kategorii už odlišuje levý okraj celé karty (Z10282), druhý proužek by byl duplicitní.
+   Kolo 9: fotoreálové covery — 38 % černý závoj karty zbytečně stmívál.
+   14 % stačí, aby štítky .lt zůstaly čitelné v obou tématech. */
 .card-thumb::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 62%, rgba(20,23,28,0.38) 100%);
+  background: linear-gradient(180deg, transparent 62%, rgba(20,23,28,0.14) 100%);
 }
 .card-thumb .lt { position: relative; z-index: 1; }
 

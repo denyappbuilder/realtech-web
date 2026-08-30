@@ -127,6 +127,8 @@ const jsonLd = pripojAudioKClanku({
     logo: { '@type': 'ImageObject', url: new URL('/apple-touch-icon.png', Astro.site).href, width: 180, height: 180 },
   },
 }, audioLd);
+const preconnectYtimg = Boolean(videoId);
+const preconnectAudio = Boolean(audioLd);
 const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -143,6 +145,8 @@ const breadcrumbLd = {
   description={description}
   image={ogImage}
   ogType="article"
+  preconnectYtimg={preconnectYtimg}
+  preconnectAudio={preconnectAudio}
 >
   {heroPreload && (
     <link
@@ -160,7 +164,8 @@ const breadcrumbLd = {
     Embed X nesmí čekat na náš deferred modul: blockquote.twitter-tweet je
     v serverovém HTML (rehype-x-embed.js) a widgets.js startuje defer
     z <head> — po naparsování dokumentu, až je blockquote v DOM. Preconnect
-    ušetří DNS+TLS handshake (Base preconnectuje jen ytimg/audio/insights),
+    ušetří DNS+TLS handshake (Base preconnectuje ytimg/audio jen
+    na stránkách, které je opravdu tahají — tady video/audio flagy výš),
     dns-prefetch je fallback pro prohlížeče bez preconnectu. Bez
     crossorigin — klasický <script> je no-CORS request. widgets.js sahá
     i na syndication (cdn.syndication.twimg.com, syndication.twitter.com)

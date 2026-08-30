@@ -48,6 +48,19 @@ interface Props {
   robots?: string;
   /** Vypni u chybových stránek, ať se neexistující URL nekanonizují na /404. */
   includeCanonical?: boolean;
+  /**
+   * Preconnect na i.ytimg.com. Jen stránky, které opravdu tahají YouTube
+   * náhled nebo facade (homepage video strip, článek s `video:`).
+   * 404, O nás, archiv a článek jen s xPosts (Flight 14) ho nesmí dostat —
+   * zbytečný TLS tam soupeří s LCP / widgetem X.
+   */
+  preconnectYtimg?: boolean;
+  /**
+   * Preconnect na audio.realtech.cz. Jen když stránka opravdu nese <audio>
+   * s mp3 (článek s platným audio frontmatterem). Homepage karta Flight 14
+   * mp3 nenačítá — přehrávač je až na článku.
+   */
+  preconnectAudio?: boolean;
 }
 
 const vsechnyClanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -60,6 +73,8 @@ const {
   ogType = 'website',
   robots = 'max-image-preview:large',
   includeCanonical = true,
+  preconnectYtimg = false,
+  preconnectAudio = false,
 } = Astro.props;
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
@@ -104,13 +119,14 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {/*
-    Preconnect na third-party originy, které stránky reálně brzdí: YouTube
-    náhledy (homepage jich tahá 5+), mp3 audio přehledy a Cloudflare beacon.
-    Vše bez `crossorigin` — img, <audio> bez crossorigin atributu i klasický
-    <script> jsou no-CORS requesty a CORS-ové spojení by se nepoužilo.
+    Preconnect jen na originy, které tahle stránka opravdu použije.
+    ytimg / audio jsou flagy z volající stránky — globálně by 404, O nás
+    i Flight 14 (jen X) platily zbytečný TLS. Insights beacon je na každé
+    stránce. Bez `crossorigin` — <img>, <audio> i klasický <script> jsou
+    no-CORS requesty a CORS-ové spojení by se nepoužilo.
   */}
-  <link rel="preconnect" href="https://i.ytimg.com" />
-  <link rel="preconnect" href="https://audio.realtech.cz" />
+  {preconnectYtimg && <link rel="preconnect" href="https://i.ytimg.com" />}
+  {preconnectAudio && <link rel="preconnect" href="https://audio.realtech.cz" />}
   <link rel="preconnect" href="https://static.cloudflareinsights.com" />
   <title>{title}</title>
   <meta name="description" content={popisSeo} />

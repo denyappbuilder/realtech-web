@@ -34,6 +34,7 @@ function clanek({
   video,
   videoLength,
   image,
+  audio,
   body = 'Text článku.',
 } = {}) {
   return {
@@ -48,6 +49,7 @@ function clanek({
       video,
       videoLength,
       image,
+      audio,
       draft: false,
     },
   };
@@ -285,4 +287,36 @@ test('neplatné videoLength nevyrobí rozbité trvání — klíč z JSON zmizí
     'raději VideoObject bez trvání než s hodnotou, které Google nerozumí',
   );
   assert.equal(videoLd.contentUrl, 'https://www.youtube.com/watch?v=abcdefghijk');
+});
+
+test('YouTube článek předpojí ytimg, článek jen s xPosts/audiem ne', async () => {
+  const youtube = await nactiStranku({
+    article: clanek({
+      video: 'https://www.youtube.com/watch?v=abcdefghijk',
+      audio: {
+        url: 'https://audio.realtech.cz/ukazka.mp3?v=1',
+        duration: 90,
+      },
+    }),
+  });
+  assert.equal(youtube.preconnectYtimg, true, 'článek s video: tahá facade/náhled z ytimg');
+  assert.equal(youtube.preconnectAudio, true, 'platné audio musí předpojit audio.realtech.cz');
+
+  const flight = await nactiStranku({
+    article: clanek({
+      id: 'starship-flight-14-super-heavy-static-fire',
+      audio: {
+        url: 'https://audio.realtech.cz/starship-flight-14-super-heavy-static-fire-nlm.mp3?v=e8a345e9046d',
+        duration: 1351,
+      },
+    }),
+  });
+  assert.equal(flight.preconnectYtimg, false, 'Flight 14 nemá YouTube — ytimg preconnect by byl zbytečný TLS');
+  assert.equal(flight.preconnectAudio, true, 'Flight 14 má mp3 přehrávač');
+
+  const tichy = await nactiStranku({
+    article: clanek({ id: 'bez-videa-i-audia' }),
+  });
+  assert.equal(tichy.preconnectYtimg, false);
+  assert.equal(tichy.preconnectAudio, false);
 });
