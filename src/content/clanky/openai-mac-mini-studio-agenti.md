@@ -15,7 +15,7 @@ Ani OpenAI, ani Apple, ani Anthropic to veřejně nepotvrdili. Píšeme to jako 
 
 ## Co recapy z The Information skutečně říkají
 
-Na veřejné stránce The Information je článek Aaron Tilleyho z 30. srpna 2026: How Apple Stumbled Into AI Hardware Success With the Mac. Plný text je za paywallem. Nečetli jsme ho. Tvrzení o nákupu bereme z recapů, které The Information jmenují jako primár.
+Primár je článek Aaron Tilleyho v The Information: How Apple Stumbled Into AI Hardware Success With the Mac. Recapy ho datují kolem 30. srpna 2026. Plný text je za paywallem. Nečetli jsme ho. Tvrzení o nákupu bereme z recapů, které The Information jmenují jako primár. Wall St Engine text na X zachytil. Status URL nemáme, proto ho neembedujeme.
 
 AIM (Supreeth Koundinya, 31. 8. 2026) píše: OpenAI koupil desítky tisíc Mac mini a Mac Studio. Jde o konfigurace s velkou jednotnou pamětí. Účel: trénink systémů, které umí ovládat počítač.
 
@@ -35,17 +35,17 @@ High-memory konfigurace se podle AIM shánějí těžko. Některé zůstávají 
 
 ## Anthropic přes AWS
 
-OpenAI v tomhle reportu stroje kupuje. Anthropic si podobné Mac mini podle The Information, jak to převzaly AIM i Gadgets Now, pronajímá přes Amazon Web Services. Nekupuje je.
+OpenAI v tomhle reportu stroje kupuje. Anthropic si podobné Mac mini podle The Information, jak to převzaly AIM i Gadgets Now, pronajímá přes Amazon Web Services. Nekupuje je. Objem pronájmu recapy nedávají.
 
-Ani Anthropic to veřejně nepotvrdil. Jde o „reportedly“ z recapů, ne o tiskovou zprávu.
+Ani Anthropic nákup ani pronájem veřejně nepotvrdil. Jde o „reportedly“ z recapů, ne o tiskovou zprávu. OpenAI ani Apple nákup taky nepotvrdili.
 
 ## Cook už v červenci mluvil o agentic AI na mini
 
 Tohle je Apple earnings, ne důkaz nákupu OpenAI.
 
-AIM cituje Tima Cooka z červencového earnings callu. Zákazníci podle něj používají Mac mini jako platformu pro agentic AI. Clustery Mac Studio nasazují na frontier modely lokálně. Mac měl v kvartálu omezení dodávek kvůli „very high levels of demand“.
+Tim Cook 30. července na earnings callu mluvil o „customers“. Laboratoře nejmenoval. Zákazníci podle něj používají Mac mini jako platformu pro agentic AI. Clustery Mac Studio nasazují na frontier modely lokálně. Mac měl v kvartálu omezení dodávek kvůli „very high levels of demand“.
 
-Mac byznys měl za červnový kvartál rekordních 9,4 miliardy dolarů, zhruba +29 procent meziročně. To je číslo Applu. Nespojujeme ho s nákupem OpenAI. Earnings to číslo k OpenAI nepřiřazuje. AIM ho uvádí jako širší kontext Mac byznysu, ne jako důkaz, že ty desítky tisíc koupil právě OpenAI.
+Mac byznys měl za červnový kvartál 10,4 miliardy dolarů, +29 procent meziročně. To je číslo z Cookova callu. Nespojujeme ho s nákupem OpenAI. Earnings to číslo k OpenAI nepřiřazuje. Je to širší kontext Mac byznysu, ne důkaz, že ty desítky tisíc koupil právě OpenAI.
 
 ## Nové mini a Studio z 25. 8.
 
