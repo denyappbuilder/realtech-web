@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-08-31T09:35:00+02:00"
 zprava: true
 image: "/images/clanky/openai-mac-mini-studio-agenti.jpg"
+audio:
+  url: "https://audio.realtech.cz/openai-mac-mini-studio-agenti-nlm.mp3?v=0963422ab958"
+  duration: 818
 ---
 
 The Information píše, že OpenAI v posledních měsících koupil desítky tisíc Mac mini a Mac Studio. Přesné číslo recapy z toho článku nedávají. Tělo je za předplatným. My ho nemáme.
