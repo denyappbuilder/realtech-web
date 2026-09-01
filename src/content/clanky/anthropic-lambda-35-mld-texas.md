@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-09-01T10:00:00+02:00"
 zprava: true
 image: "/images/clanky/anthropic-lambda-35-mld-texas.jpg"
+audio:
+  url: "https://audio.realtech.cz/anthropic-lambda-35-mld-texas-nlm.mp3?v=10e4f43860e1"
+  duration: 761
 ---
 
 Pondělí 31. srpna 2026. Reuters píše, že Anthropic podepsal cloudovou dohodu za 35 miliard dolarů s Lambdou. Místo má být datové centrum v Texasu. Číslo nedodala tisková zpráva. Dodala ho „osoba obeznámená s věcí“, která požádala o anonymitu, protože informace není veřejná.
