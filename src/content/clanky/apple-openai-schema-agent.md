@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-09-01T08:45:00+02:00"
 zprava: true
 image: "/images/clanky/apple-openai-schema-agent.jpg"
+audio:
+  url: "https://audio.realtech.cz/apple-openai-schema-agent-nlm.mp3?v=308786a5d5b2"
+  duration: 1719
 ---
 
 Pondělí 31. srpna Apple podal u federálního soudu v San Jose doplňující briefing. Není to nová žaloba. Je to dodatek k návrhu na zrychlené dokazování. Ve spisu *Apple Inc. v. Chang Liu et al.*, 5:26-cv-07078-EJD, ho vede jako Dkt. 94-1. Soudce je Edward J. Davila.
