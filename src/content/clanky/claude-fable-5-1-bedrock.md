@@ -7,6 +7,9 @@ zprava: true
 image: "/images/clanky/claude-fable-5-1-bedrock.jpg"
 xPosts:
   - "https://x.com/claudeai/status/2094848572143407483"
+audio:
+  url: "https://audio.realtech.cz/claude-fable-5-1-bedrock-nlm.mp3?v=e4cb3cd02b23"
+  duration: 1413
 ---
 
 Oficiální účet Claude 1. září v 18:03 UTC napsal, že uvádí Claude Fable 5.1 a Claude Mythos 5.1. Jsou to podle nich nejpokročilejší modely na světě pro kódování a knowledge work. Stejný den to stojí v [oznámení Anthropicu](https://www.anthropic.com/claude-fable-and-mythos-5-1) i v platform docs: Latest. Released. API `claude-fable-5-1`.
