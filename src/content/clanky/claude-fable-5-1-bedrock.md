@@ -1,6 +1,6 @@
 ---
 title: "Anthropic vypustil Claude Fable 5.1. Stejná cena, levnější cache"
-description: "Oficiálně na X a v docs: Fable 5.1 a Mythos 5.1. 1M kontext, $10/$50, cache reads o 75 % levnější než Fable 5. Knowledge cutoff červen 2026."
+description: "Fable 5.1 a Mythos 5.1 jsou venku. Vstup a výstup stojí stejně jako u Fable 5, čtení z cache je o tři čtvrtiny levnější. Na Macu už model běží."
 category: "AI Report"
 date: "2026-09-01T20:10:00+02:00"
 zprava: true
@@ -12,53 +12,51 @@ audio:
   duration: 1413
 ---
 
-Oficiální účet Claude 1. září v 18:03 UTC napsal, že uvádí Claude Fable 5.1 a Claude Mythos 5.1. Jsou to podle nich nejpokročilejší modely na světě pro kódování a knowledge work. Stejný den to stojí v [oznámení Anthropicu](https://www.anthropic.com/claude-fable-and-mythos-5-1) i v platform docs: Latest. Released. API `claude-fable-5-1`.
+Anthropic 1. září vypustil Claude Fable 5.1 a zároveň Claude Mythos 5.1. Vstup a výstup stojí stejně jako u Fable 5. Čtení z cache je o 75 % levnější. A už to běží: v Claude na Macu model sedí jako Fable 5.1 Medium.
 
-V Claude na Macu už model sedí jako **Fable 5.1 Medium**. To sedí s oficiálním textem: default je Medium na Claude.ai a v Cowork, High v Claude Code. Vstup a výstup stojí stejně jako Fable 5. Cache reads jsou o 75 % levnější.
+Oficiální účet Claude to napsal v 18:03 UTC. Stejný den to stojí v [oznámení Anthropicu](https://www.anthropic.com/claude-fable-and-mythos-5-1) i v platform docs. Výchozí režim je Medium na Claude.ai a v Cowork, High v Claude Code.
 
-## Co Anthropic potvrdil
+## Co je nového
 
-[Přehled Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview) je konkrétní. Kontext 1 milion tokenů. Maximum výstupu 128 tisíc. Adaptive thinking je pořád zapnuté, vypnout nejde. Knowledge cutoff i cutoff trénovacích dat: červen 2026. Retirement ne dřív než 1. září 2027.
+Podle Anthropicu jde o nejpokročilejší modely na světě pro kódování a práci se znalostmi. Na [product page](https://www.anthropic.com/claude/fable) říkají, že Fable 5.1 je Mythos-level model na dlouhé projekty: agenti přes víc aplikací, kód přes celý codebase, firemní workflow a čtení diagramů, tabulek a PDF.
 
-Identifikátory v docs: Claude API `claude-fable-5-1`, Amazon Bedrock `anthropic.claude-fable-5-1`, Google Cloud, Microsoft Foundry a Claude Platform on AWS `claude-fable-5-1`.
+Model umí držet asi milion tokenů kontextu a poslat až 128 tisíc. Dostupný je přes Claude API a velké cloudy, pro tarify Pro, Max, Team a Enterprise. Přemýšlení za běhu se vypnout nedá. Trénovací data končí v červnu 2026.
 
-[Product page](https://www.anthropic.com/claude/fable) říká dostupnost pro Pro, Max, Team a Enterprise. Fable 5.1 je podle Anthropicu Mythos-level model na dlouhé projekty: agenti přes víc aplikací, kód přes celý codebase, enterprise workflow a vision u diagramů, tabulek a PDF. To jsou kvalitativní věty z product copy. Ne naše měření.
+Čísla bereme z [tabulky Anthropicu](https://www.anthropic.com/claude-fable-and-mythos-5-1), ne z vlastního měření. Skok je hlavně u vědy a agentních úloh. Terminal-Bench-Science 0.1: Fable 5.1 má 52,6 %, Fable 5 měl 24,7 %, Opus 5 29,0 %. AutomationBench: 31,4 % proti 17,1 % u Fable 5. Terminal-Bench 4.0: 55,8 % proti 42,0 %.
 
-## Stejná cena, levnější cache
+V oznámení je i citát Jane Street Capital: v interních benchích prý Fable 5.1 řeší víc programátorských úloh než Fable 5 nebo Opus 5. Na product page je věta, že v Devinu přesouvají provoz z Opus 5 na Fable 5.1 v den uvedení. Firmu u toho citátu stránka nejmenuje.
 
-I/O se nemění. 10 dolarů za milion vstupních tokenů, 50 za milion výstupních. Stejně jako Fable 5. Mění se cache: Fable 5 čte za 1 dolar za milion, Fable 5.1 za 0,25. To je o 75 % méně. Cache write zůstává 12,50 za pět minut a 20 za hodinu.
+## Cena
 
-Oficiální thread, product page i oznámení z toho dělají praktický dopad. Typická zátěž má být podle odhadu Anthropicu zhruba o 25 % levnější. Vysoce agentní až o 45 %. Oznámení to opírá o čtyři týdny reálného usage v srpnu 2026. My to neměřili.
+Vstup a výstup se nemění. 10 dolarů za milion tokenů dovnitř, 50 dolarů za milion ven. Stejně jako Fable 5.
 
-## Firemní tabulka
+Mění se cache. Fable 5 četl z cache za 1 dolar za milion. Fable 5.1 čte za 0,25 dolaru. To je o tři čtvrtiny méně. Zápis do cache zůstává: 12,50 za pět minut a 20 za hodinu.
 
-Čísla bereme jen z [tabulky Anthropicu](https://www.anthropic.com/claude-fable-and-mythos-5-1). Terminal-Bench-Science 0.1: Fable 5.1 52,6 %, Fable 5 24,7 %, Opus 5 29,0 %. Terminal-Bench 4.0: Fable 5.1 55,8 %, Mythos 5.1 60,9 %, Fable 5 42,0 %. CursorBench 3.2.0: 73,4 % proti 70,5 % u Fable 5. AutomationBench: 31,4 % proti 17,1 %. Humanity's Last Exam bez nástrojů: 60,9 % proti 57,8 %. OSWorld 2.0 strict: 41,7 % proti 36,1 %.
+Proč to někomu ušetří víc než jiným: kdo pořád dokola posílá stejný začátek požadavku — codebase, systémový prompt, dlouhý brief — platí za čtení z cache. Tam Anthropic srazil cenu. Kdo posílá jednorázové krátké požadavky, uvidí stejnou kartu jako u Fable 5.
 
-Fable 5.1 se podle Anthropicu hodnotil s produkčními pojistkami. Kde pojistky zasáhly, Fable 5.1 i Fable 5 na OSWorld 2.0 dostaly nulu. Kyber úlohy pak běžely na Opus 4.8, biologie na Opus 5. To podle nich skóre snižuje. Nezávislý bench sem nedáváme.
+Anthropic odhaduje, že typická zátěž vyjde zhruba o 25 % levněji a vysoce agentní až o 45 %. Opírá to o čtyři týdny reálného použití v srpnu 2026. Je to jejich odhad.
 
-Z named quotes: Jane Street Capital, Craig Falls, v oznámení Anthropicu. V interních benchích prý Fable 5.1 řeší víc coding problémů než Fable 5 nebo Opus 5. Na product page je citát, že v Devinu přesouvají Opus 5 traffic na Fable 5.1 v den launch. Firmu u toho citátu stránka nejmenuje.
+## Co se láme u API
 
-## Tři breaking, pět additive
+Kdo Fable 5 volá z aplikace, musí počítat se třemi lámavými změnami. [Release notes](https://docs.anthropic.com/en/release-notes/api) z 1. září je jmenují.
 
-Kdo volá Fable 5, musí počítat se třemi lámavými změnami. [Release notes](https://docs.anthropic.com/en/release-notes/api) z 1. září je jmenují.
+Když aplikace modelu přikáže konkrétní nástroj, API to odmítne. Automatický výběr a zákaz nástrojů dál fungují.
 
-Forced tool use končí chybou. `tool_choice` typy `any` a `tool` vrací 400. `auto` a `none` zůstávají.
+Když thinking bloky z 5.1 přehraješ do staršího modelu, API je zahodí. Starší model je nepřečte.
 
-Starší modely nepřečtou thinking bloky z 5.1. API je při přehrání do staršího modelu zahodí.
+A když u nového účtu upravíš dřívější tah — systémový prompt, nástroje nebo starší zprávu — thinking přestane platit. Od 31. srpna 2026 to u nových účtů končí chybou. Nové API účty od dneška nemůžou ručně přepisovat předchozí kontext a přitom thinking zachovat.
 
-Úprava dřívějších tahů thinking invaliduje. U nových účtů od 31. srpna 2026 přehrání bloku po změně `system` promptu, `tools` nebo starší zprávy vrací 400. Oznámení to dává i do anti-distillation: nové API účty od dneška nemůžou ručně editovat prior context a přitom zachovat thinking.
+Text z modelu nese vodoznak Anthropicu. Mezi voláními nástrojů umí model posílat čitelné průběžné aktualizace, zatím v betě.
 
-Pět věcí je additive. Per-message effort je v betě. Turn-scoped system messages taky. Mezi tool cally umí model posílat čitelné progress updaty (`display: "updates"`, beta). Cache read je levnější. Text nese watermark Anthropicu, podporované obrázky a videa z code execution tool nesou C2PA přes Files API.
+## Mythos a pojistky
 
-## Pojistky, retence, Mythos
+Mythos 5.1 je stejný model s uvolněnými pojistkami. Teď jen vybrané americké organizace, přes Cyber Verification Program a Life Sciences Verification Program. Fable je veřejná řada. Tenhle vzorec Anthropic držel už u [Fable 5 a Mythos 5](/clanky/anthropic-fable-mythos/).
 
-Kyber a biologie jdou přes klasifikátory. Zásah padá na Opus: kyber na 4.8, biologie na Opus 5. Za reroute se podle product page neúčtuje Fable cena. Oznámení: kyber pojistky mají o 60 % méně false positives než dřív. Fable 5.1 smí hledat zranitelnosti, ne psát exploity. Elementární biologie a medicína mají o 85 % méně zásahů než při startu Fable 5. Research v life sciences pořád jde na Opus, nebo na Mythos přes program.
+Fable má klasifikátory. Kyber a biologie: zásah padá na Opus (kyber na 4.8, biologie na Opus 5), za přesměrování se neúčtuje Fable cena. Fable 5.1 smí hledat zranitelnosti, ne psát exploity. Anthropic tvrdí, že kyber pojistky mají o 60 % méně falešných poplachů než dřív a u elementární biologie a medicíny o 85 % méně zásahů než při startu Fable 5. Výzkum v biologických vědách pořád jde na Opus, nebo na Mythos přes program.
 
-Default je 30denní retence. Enterprise Frontier Safeguards mají data držet u zákazníka. Než EFS naběhne na podzim, eligible zákazníci můžou Fable 5.1 jet s zero data retention.
+Výchozí je 30denní uchovávání dat. Enterprise Frontier Safeguards mají data držet u zákazníka. Než to naběhne na podzim, oprávnění zákazníci můžou Fable 5.1 jet bez uchovávání dat.
 
-Mythos 5.1 je stejný model s uvolněnými pojistkami. Identifikátor `claude-mythos-5-1`. Cyber Verification Program a Life Sciences Verification Program. Teď jen vybrané US organizace. Fable je veřejná řada. Tenhle vzorec Anthropic držel už u [Fable 5 a Mythos 5](/clanky/anthropic-fable-mythos/).
-
-31\. srpna RuntimeWire psal, že `us.anthropic.claude-fable-5-1` na Bedrocku vrací 404 místo 400. To byl staging. Teď ho překrylo oficiální Released. AWS model card pořád popisuje jen Fable 5. Anthropic v docs Bedrock ID `anthropic.claude-fable-5-1` tvrdí.
+Pár dní před launchi to na Bedrocku jen stagingovalo.
 
 ## Zdroje
 
@@ -69,5 +67,4 @@ Mythos 5.1 je stejný model s uvolněnými pojistkami. Identifikátor `claude-my
 - [Claude na X. Cache reads 75 % less than Fable 5](https://x.com/claudeai/status/2094848588190830982)
 - [Claude Fable 5.1 — platform docs](https://platform.claude.com/docs/en/models/fable-5-1/overview)
 - [API release notes, 1. 9. 2026](https://docs.anthropic.com/en/release-notes/api)
-- [Pricing — Fable 5.1 $10/$50, cache read $0.25](https://platform.claude.com/docs/en/about-claude/pricing)
-- [A Bedrock error suggests Anthropic is staging Claude Fable 5.1 — RuntimeWire, 31. 8. 2026. Jen pozadí.](https://runtimewire.com/article/bedrock-error-anthropic-claude-fable-5-1-staging)
+- [Pricing — Fable 5.1](https://platform.claude.com/docs/en/about-claude/pricing)
