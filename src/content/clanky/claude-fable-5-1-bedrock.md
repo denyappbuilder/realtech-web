@@ -25,7 +25,7 @@ Identifikátory v docs: Claude API `claude-fable-5-1`, Amazon Bedrock `anthropic
 
 I/O se nemění. 10 dolarů za milion vstupních tokenů, 50 za milion výstupních. Stejně jako Fable 5. Mění se cache: Fable 5 čte za 1 dolar za milion, Fable 5.1 za 0,25. To je o 75 % méně. Cache write zůstává 12,50 za pět minut a 20 za hodinu.
 
-Oficiální thread, product page i oznámení z toho dělají praktický dopad. Typická zátěž má být zhruba o 25 % levnější. Vysoce agentní až o 45 %. Anthropic to měřil na čtyřech týdnech reálného usage v srpnu 2026. My to neměřili.
+Oficiální thread, product page i oznámení z toho dělají praktický dopad. Typická zátěž má být podle odhadu Anthropicu zhruba o 25 % levnější. Vysoce agentní až o 45 %. Oznámení to opírá o čtyři týdny reálného usage v srpnu 2026. My to neměřili.
 
 ## Firemní tabulka
 
@@ -33,7 +33,7 @@ Oficiální thread, product page i oznámení z toho dělají praktický dopad. 
 
 Fable 5.1 se podle Anthropicu hodnotil s produkčními pojistkami. Kde pojistky zasáhly, Fable 5.1 i Fable 5 na OSWorld 2.0 dostaly nulu. Kyber úlohy pak běžely na Opus 4.8, biologie na Opus 5. To podle nich skóre snižuje. Nezávislý bench sem nedáváme.
 
-Z named quotes na stránce: Jane Street Capital, Craig Falls. V interních benchích prý Fable 5.1 řeší víc coding problémů než Fable 5 nebo Opus 5. Na product page Cognition píše, že v Devinu přesouvá Opus 5 traffic na Fable 5.1 v den launch.
+Z named quotes: Jane Street Capital, Craig Falls, v oznámení Anthropicu. V interních benchích prý Fable 5.1 řeší víc coding problémů než Fable 5 nebo Opus 5. Na product page je citát, že v Devinu přesouvají Opus 5 traffic na Fable 5.1 v den launch. Firmu u toho citátu stránka nejmenuje.
 
 ## Tři breaking, pět additive
 
