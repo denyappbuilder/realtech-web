@@ -52,18 +52,22 @@ test("Z10031: náhled nepřidává druhý kategoriální proužek", () => {
   );
 });
 
-test("kolo 10: YouTube facade má stejně mírnou clonu jako karty", () => {
+test("kolo 12: YouTube facade nenosí leftover černou clonu přes poster", () => {
   const telo = pravidlo(".youtube-facade-button::after");
   assert.ok(telo, ".youtube-facade-button::after v CSS chybí");
-  const rgba = telo.match(
-    /rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9.]+)\s*\)/,
+  assert.doesNotMatch(
+    telo,
+    /rgba\(\s*0\s*,\s*0\s*,\s*0\s*,\s*0\.14/,
+    "facade pořád tahá 14% černý závoj přes poster — leftover z kola 10",
   );
-  assert.ok(rgba, "clona facade nemá čitelnou RGBA barvu");
-  const alpha = Number(rgba[4]);
-  assert.ok(alpha <= 0.14 + 1e-9, `facade clona je příliš silná (${alpha}) — karty mají 0.14`);
+  assert.doesNotMatch(
+    telo,
+    /linear-gradient/,
+    "facade ::after pořád kreslí gradientní clonu přes cover",
+  );
   assert.match(
     telo,
-    /transparent\s+5[0-9]%/,
-    "facade clona má zůstat krátká dole, play tlačítko nesmí zmizet",
+    /background:\s*transparent/,
+    "výchozí clona facade musí být průhledná, ať poster zůstane čistý",
   );
 });

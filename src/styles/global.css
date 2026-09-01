@@ -31,6 +31,7 @@
   --ink: #E8ECF1;
   --ink-soft: #A9B2BF;
   --ink-faint: #828B98;
+  --signal: #E5322D;
   --line: #262C35;
   --panel: #1D232C;
   --signal-dark: #F0554F;
@@ -827,10 +828,10 @@ footer.site ul a:hover { color: var(--ink); }
 .video-embed {
   margin: 28px 0 0;
   aspect-ratio: 16 / 9;
-  border: 1px solid rgba(243, 236, 231, 0.12);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
-  background: #000;
+  background: var(--panel);
 }
 .video-embed iframe {
   width: 100%;
@@ -869,10 +870,10 @@ footer.site ul a:hover { color: var(--ink); }
 .article-hero {
   margin: 28px 0 0;
   aspect-ratio: 16 / 9;
-  border: 1px solid rgba(243, 236, 231, 0.12);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
-  background: #000;
+  background: var(--panel);
 }
 .article-hero img {
   width: 100%;
@@ -1242,7 +1243,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 
 .search-overlay {
   position: fixed; inset: 0; z-index: 200;
-  background: rgba(13, 7, 7, 0.6);
+  background: color-mix(in srgb, var(--ink) 18%, color-mix(in srgb, var(--panel) 50%, transparent));
   -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   display: flex; align-items: flex-start; justify-content: center;
   padding: 12vh 20px 20px;
@@ -1356,9 +1357,7 @@ a.chip { display: inline-flex; align-items: center; }
 
 /* ── YouTube click-to-load ───────────── */
 .youtube-facade {
-  background:
-    radial-gradient(circle at 50% 45%, rgba(226, 0, 0, 0.18), transparent 32%),
-    linear-gradient(135deg, var(--surface), #090b0e);
+  background: var(--panel);
 }
 .youtube-facade-button {
   position: relative;
@@ -1382,7 +1381,7 @@ a.chip { display: inline-flex; align-items: center; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.14));
+  background: transparent;
   transition: background 0.18s ease;
 }
 .youtube-facade-play {

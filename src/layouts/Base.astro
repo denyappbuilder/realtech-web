@@ -268,6 +268,17 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   }
 
   const toggle = document.getElementById('theme-toggle');
+  // První nátěr drží media theme-color (--bg light #F6F7F9 / dark #0F1216).
+  // Po přepnutí musí chrome (Safari, Android) sledovat ruční téma, ne OS.
+  const nastavThemeColor = () => {
+    const barva = getComputedStyle(document.documentElement)
+      .getPropertyValue('--bg')
+      .trim();
+    if (!barva) return;
+    document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+      meta.setAttribute('content', barva);
+    });
+  };
   toggle?.addEventListener('click', () => {
     const root = document.documentElement;
     const effective = root.dataset.theme
@@ -275,6 +286,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
     const next = effective === 'dark' ? 'light' : 'dark';
     root.dataset.theme = next;
     try { localStorage.setItem('theme', next); } catch {}
+    nastavThemeColor();
   });
 
   const nlForm = document.querySelector<HTMLFormElement>('.nl-form');
