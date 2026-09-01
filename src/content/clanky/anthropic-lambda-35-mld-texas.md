@@ -43,7 +43,7 @@ Reuters píše, že Wall Street Journal, který dohodu měl první, uvedl, že n
 
 28. července 2026 Reuters přetiskl Financial Times. FT podle pěti lidí obeznámených s dohodou jmenoval Nvidii jako nájemce Beacon Point. Reuters to nedokázal ihned ověřit. Hut 8 mimo pracovní dobu neodpověděla. Nvidia komentovala architekturu DSX. Jméno nájemce nepotvrdila ani nevyvrátila.
 
-Takže: DSX v tiskovce Hut 8 je potvrzené. Nvidia jako nájemce Beacon Point je údajné z července. Nvidia jako držitel nájmu v dnešním příběhu o Lambdě je údajná podle parafráze WSJ u Reuters. Tři vrstvy. Jedna tiskovka. Dva anonymní reporty.
+Takže: DSX v tiskovce Hut 8 je potvrzené. Nvidia jako nájemce Beacon Point je údajná z července. Nvidia jako držitel nájmu v dnešním příběhu o Lambdě je údajná podle parafráze WSJ u Reuters. Tři vrstvy. Jedna tiskovka. Dva anonymní reporty.
 
 ## Vedle Nscale ve West Virginii
 
