@@ -57,7 +57,7 @@ Fable je veřejná řada. Mythos je invitation. Tenhle vzorec Anthropic držel u
 
 ## Den předtím na Bedrocku
 
-31. srpna RuntimeWire psal, že `us.anthropic.claude-fable-5-1` a globální varianta na Bedrocku vrací 404 Model not found, zatímco nesmysl a `opus-5-1` vrací 400 invalid. To byl staging signál. Teď ho docs i účet @claudeai překryly oficiálním Released. AWS model card pořád popisuje jen Fable 5. Anthropic v docs u 5.1 Bedrock ID `anthropic.claude-fable-5-1` tvrdí.
+31\. srpna RuntimeWire psal, že `us.anthropic.claude-fable-5-1` a globální varianta na Bedrocku vrací 404 Model not found, zatímco nesmysl a `opus-5-1` vrací 400 invalid. To byl staging signál. Teď ho docs i účet @claudeai překryly oficiálním Released. AWS model card pořád popisuje jen Fable 5. Anthropic v docs u 5.1 Bedrock ID `anthropic.claude-fable-5-1` tvrdí.
 
 ## Zdroje
 
