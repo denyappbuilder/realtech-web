@@ -893,15 +893,24 @@ footer.site ul a:hover { color: var(--ink); }
   display: block;
 }
 .notfound {
-  padding: 90px 0 40px;
+  /* Kolo 15: stejná past jako Z10254 u .about — shorthand `padding: 90px 0 40px`
+     přebíjel vodorovných 24px z .wrap a na mobilu seděl nadpis na x=0. */
+  padding-block: 90px 40px;
   max-width: 640px;
 }
+/* Kolo 15: h1 a perex 404 žily na UA výchozím stylu (Plex Sans 2em bold,
+   700 se ani nenačítá). Titulek bere Archivo jako O nás, perex jako hero. */
 .notfound h1 {
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.05;
   margin: 14px 0 12px;
+  text-wrap: balance;
 }
+.notfound .lead { font-size: 1.05rem; color: var(--ink-soft); max-width: 54ch; }
 .notfound .hero-actions {
   margin-top: 26px;
 }
+.notfound-more { margin-top: 48px; }
 
 /* ── Real video thumbnails ───────────── */
 .card-thumb {
