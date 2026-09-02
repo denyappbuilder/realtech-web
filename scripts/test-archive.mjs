@@ -144,6 +144,11 @@ test('JSON-LD ItemList používá pořadí archivu, souvislé pozice, kanonické
   ]);
 
   assert.equal(result.collectionLd.url, 'https://realtech.cz/clanky/');
+  assert.equal(result.breadcrumbLd['@type'], 'BreadcrumbList');
+  assert.deepEqual(result.breadcrumbLd.itemListElement, [
+    { '@type': 'ListItem', position: 1, name: 'Novinky', item: 'https://realtech.cz/' },
+    { '@type': 'ListItem', position: 2, name: 'Články', item: 'https://realtech.cz/clanky/' },
+  ]);
   assert.equal(result.collectionLd.mainEntity.numberOfItems, 3);
   assert.deepEqual(result.collectionLd.mainEntity.itemListElement, [
     {

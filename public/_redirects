@@ -30,6 +30,13 @@
 /kontakt /o-nas/ 301
 /kontakt/ /o-nas/ 301
 
+# Anglické hádání stejných stránek: /about → O nás, /blog → archiv.
+# Živě 2. 9. 2026 obě vracely 404 (stejný dluh jako /kontakt).
+/about /o-nas/ 301
+/about/ /o-nas/ 301
+/blog /clanky/ 301
+/blog/ /clanky/ 301
+
 # Témata žijí pod /temata/{slug}/. Starší tvar /{slug}/ (ai-report,
 # hardware, vesmir, …) i /{slug}/strana/2/ živě 28. 8. 2026 vracel 404.
 # Jen slugy ze schématu kategorií — /:slug by sekl i /rss.xml.
