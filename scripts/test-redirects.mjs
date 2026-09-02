@@ -80,6 +80,23 @@ test("/kontakt i varianta s lomítkem se trvale přesměrují na /o-nas/", () =>
   }
 });
 
+// Živě 2. 9. 2026: /about/ a /blog/ vracely 404. Anglické hádání
+// stejných stránek jako /kontakt → /o-nas/.
+test("/about i /blog se trvale přesměrují na české stránky", () => {
+  for (const source of ["/about", "/about/"]) {
+    const rule = rules.get(source);
+    assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
+    assert.equal(rule.destination, "/o-nas/");
+    assert.equal(rule.status, "301");
+  }
+  for (const source of ["/blog", "/blog/"]) {
+    const rule = rules.get(source);
+    assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
+    assert.equal(rule.destination, "/clanky/");
+    assert.equal(rule.status, "301");
+  }
+});
+
 function kategorieZeSchematu() {
   const zdroj = fs.readFileSync(path.join(ROOT, "src/content.config.ts"), "utf8");
   const blok = zdroj.match(/category:\s*z\.enum\(\[([\s\S]*?)\]\)/)?.[1];

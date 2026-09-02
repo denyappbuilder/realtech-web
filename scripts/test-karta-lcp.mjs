@@ -16,6 +16,7 @@ function zdroj(rel) {
 const karta = zdroj('src/components/ArticleCard.astro');
 const archiv = zdroj('src/components/ArticleArchivePage.astro');
 const temata = zdroj('src/components/TemaPage.astro');
+const hub = zdroj('src/pages/temata/index.astro');
 const uvodka = zdroj('src/pages/index.astro');
 const vitej = zdroj('src/pages/vitej.astro');
 const notfound = zdroj('src/pages/404.astro');
@@ -54,6 +55,29 @@ test('téma dá priority první kartě na každé straně — featured-lead je L
   assert.match(
     temata,
     /articles\.map\(\(article, index\) => \(\s*<ArticleCard article=\{article\} priority=\{index === 0\} \/>/,
+  );
+});
+
+test('hub /temata/ dá eager + fetchpriority první kartě, ostatní zůstanou lazy', () => {
+  assert.match(
+    hub,
+    /temata\.map\(\(t, i\) =>/,
+    'hub musí mapovat s indexem, ať první karta může být LCP',
+  );
+  assert.match(
+    hub,
+    /loading=\{i === 0 \? 'eager' : 'lazy'\}/,
+    'první náhled hubu nesmí zůstat loading=lazy — živě 2. 9. 2026 všechny karty čekaly na observer',
+  );
+  assert.match(
+    hub,
+    /fetchpriority=\{i === 0 \? 'high' : undefined\}/,
+    'první náhled hubu musí dostat fetchpriority=high',
+  );
+  assert.doesNotMatch(
+    hub,
+    /loading="lazy"/,
+    'hub nesmí hardcodovat lazy na všechny náhledy',
   );
 });
 

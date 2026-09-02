@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 import { nahledKarty } from '../../lib/karta-nahled.js';
+import { preloadHeroObrazku } from '../../lib/hero-preload.js';
 import { seoTitulek } from '../../lib/seo-titulek.js';
 import Base from '../../layouts/Base.astro';
 import { slugify } from '../../lib/slugify.js';
@@ -25,6 +26,18 @@ const temata = [...new Set(all.map((c) => c.data.category))].map((category) => {
 });
 
 const pocetClankuText = (n) => (n === 1 ? '1 článek' : n < 5 ? `${n} články` : `${n} článků`);
+
+// LCP na /temata/ je náhled první karty (živě 2. 9. 2026: všech 7 <img>
+// šlo ven jako loading=lazy, <head> neměl preload). Stejný výpočet jako
+// archiv — lokální WebP, jinak JPG. Hub YouTube fallback nemá: karta
+// kreslí náhled jen když soubor v public/ opravdu je.
+const prvniHub = temata[0];
+const kartaPreload = prvniHub?.nahled.hasLocalThumb
+  ? preloadHeroObrazku({
+      src: prvniHub.nahled.localThumb,
+      webp: prvniHub.nahled.hasWebp ? prvniHub.nahled.thumbWebp : undefined,
+    })
+  : null;
 
 const popis = 'Všechna témata REALTECH CZ na jednom místě — AI, drony, vesmír, hardware, mobily a sítě. Tech bez marketingových řečí.';
 
@@ -57,6 +70,16 @@ const collectionLd = {
 };
 ---
 <Base title={seoTitulek('Témata')} ogTitle="Témata | REALTECH CZ" description={popis}>
+  {kartaPreload && (
+    <link
+      rel="preload"
+      as="image"
+      href={kartaPreload.href}
+      type={kartaPreload.type}
+      fetchpriority="high"
+      slot="head"
+    />
+  )}
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   <section class="articles" style="padding-top: 56px;">
@@ -67,13 +90,13 @@ const collectionLd = {
       </div>
       <p class="cat-lead">{popis}</p>
       <div class="grid temata-hub">
-        {temata.map((t) => (
+        {temata.map((t, i) => (
           <article class="card" data-category={t.category}>
             {t.nahled.localThumb && (
               <div class={`card-thumb th-${t.slug}`}>
                 <picture>
                   {t.nahled.hasWebp && <source srcset={t.nahled.thumbWebp} type="image/webp" />}
-                  <img src={t.nahled.lcpSrc} alt={t.nejnovejsi.data.title} width={t.nahled.thumbW} height={t.nahled.thumbH} loading="lazy" decoding="async" />
+                  <img src={t.nahled.lcpSrc} alt={t.nejnovejsi.data.title} width={t.nahled.thumbW} height={t.nahled.thumbH} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" fetchpriority={i === 0 ? 'high' : undefined} />
                 </picture>
               </div>
             )}

@@ -53,7 +53,7 @@ export async function load(url, context, nextLoad) {
     throw new Error('Kompilovaný modul archivu nemá očekávanou strukturu.');
   }
 
-  const testReturn = '\nreturn { all, articles, categories, collectionLd, start, totalPages, page };';
+  const testReturn = '\nreturn { all, articles, categories, collectionLd, breadcrumbLd, start, totalPages, page };';
   const instrumented = `${outputText.slice(0, templateReturn)}${testReturn}${outputText.slice(templateReturn)}`;
 
   return {

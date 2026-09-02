@@ -18,9 +18,12 @@ const zakladatele = [
   { '@type': 'Person', name: 'Daniel Soukup', jobTitle: 'Autor a spoluzakladatel' },
   { '@type': 'Person', name: 'Sam', jobTitle: 'Autor a spoluzakladatel' },
 ];
+const orgId = `${Astro.site?.href}#org`;
+const onasUrl = new URL('/o-nas/', Astro.site).href;
 const orgLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': orgId,
   name: 'REALTECH CZ',
   url: Astro.site?.href,
   email: 'info@realtech.cz',
@@ -31,9 +34,28 @@ const orgLd = {
   founder: zakladatele,
   employee: zakladatele,
 };
+const aboutLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'O nás',
+  description: 'Kdo stojí za REALTECH CZ a proč děláme tech obsah bez marketingových řečí.',
+  url: onasUrl,
+  inLanguage: 'cs',
+  mainEntity: { '@id': orgId },
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'O nás', item: onasUrl },
+  ],
+};
 ---
 <Base title="O nás — REALTECH CZ" description="Kdo stojí za REALTECH CZ a proč děláme tech obsah bez marketingových řečí.">
+  <script type="application/ld+json" set:html={JSON.stringify(aboutLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={JSON.stringify(orgLd)} slot="head" is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
   <section class="about about-wide wrap">
     <div class="lower-third">
       <span class="tag">O nás</span>

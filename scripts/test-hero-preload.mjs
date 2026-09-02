@@ -229,7 +229,34 @@ test('404 nepreloaduje LCP/hero první karty', () => {
   );
 });
 
-test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek, /clanky/, /temata/{slug}/ a /vitej/', () => {
+test('hub /temata/ preloaduje první kartu — ze stejných helperů jako karta', () => {
+  const hub = zdroj('src/pages/temata/index.astro');
+
+  assert.match(hub, /from '\.\.\/\.\.\/lib\/hero-preload\.js'/);
+  assert.match(hub, /from '\.\.\/\.\.\/lib\/karta-nahled\.js'/);
+  assert.match(
+    hub,
+    /const prvniHub = temata\[0\];/,
+    'preload patří první kartě hubu (nejnovější téma), ne všem náhledům',
+  );
+  assert.match(
+    hub,
+    /preloadHeroObrazku\(\{\s*src: prvniHub\.nahled\.localThumb,\s*webp: prvniHub\.nahled\.hasWebp \? prvniHub\.nahled\.thumbWebp : undefined,\s*\}\)/,
+    'preload musí mířit na tentýž soubor jako <picture> první karty',
+  );
+  assert.match(
+    hub,
+    LINK_PRELOADU_KARTY,
+    'hub musí mít <link rel="preload" as="image"> ve slotu head',
+  );
+  assert.equal(
+    (hub.match(/rel="preload"/g) ?? []).length,
+    1,
+    'na /temata/ smí být právě jeden preload',
+  );
+});
+
+test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek, /clanky/, /temata/, /temata/{slug}/ a /vitej/', () => {
   for (const rel of [
     'src/pages/404.astro',
     'src/components/ArticleCard.astro',
@@ -237,7 +264,6 @@ test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek
     'src/pages/clanky/strana/[page].astro',
     'src/pages/temata/[slug].astro',
     'src/pages/temata/[slug]/strana/[page].astro',
-    'src/pages/temata/index.astro',
     'src/layouts/Base.astro',
   ]) {
     assert.doesNotMatch(
