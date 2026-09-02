@@ -7,6 +7,9 @@ zprava: true
 image: "/images/clanky/gemini-38-flash.jpg"
 xPosts:
   - "https://x.com/GoogleDeepMind/status/2095175498967949359"
+audio:
+  url: "https://audio.realtech.cz/gemini-38-flash-nlm.mp3?v=3af65a5cb94b"
+  duration: 1113
 ---
 
 Google 2. září vypustil další Flash — a je to třetí za zhruba šest týdnů. Gemini 3.8 Flash má být nový tahoun pro kódování, agenty a vícestupňové uvažování. Vedle něj jde ven i Gemini 3.8 Flash Cyber, jenže ten už není pro každého: Google ho drží za programem Fairwind pro důvěryhodné obránce. Oznámení podepsali Tulsee Doshi a Raluca Ada Popa.
