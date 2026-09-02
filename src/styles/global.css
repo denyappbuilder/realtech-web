@@ -270,6 +270,9 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   }
 }
 .lower-third { display: inline-flex; align-items: stretch; margin-bottom: 20px; }
+/* Kolo 15: a.tag má 44px cíl a sourozenci se k němu natahují (stretch) —
+   „Zpráva", datum i „ČTENÍ“ pak seděly u horního okraje 44px pruhu. */
+.lower-third > * { display: inline-flex; align-items: center; }
 .lower-third .tag {
   background: var(--signal); color: #fff;
   font-family: 'IBM Plex Mono', monospace;
@@ -371,6 +374,7 @@ a.tag:hover { background: var(--signal-dark); }
 /* ── Section headers ─────────────────── */
 .section-head {
   display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px;
   border-bottom: 2px solid var(--ink);
   padding-bottom: 10px; margin-bottom: 28px;
   position: relative;
@@ -387,7 +391,14 @@ a.tag:hover { background: var(--signal-dark); }
   font-size: 1.35rem; letter-spacing: -0.01em;
   text-wrap: balance;
 }
-.section-head a { color: var(--signal-dark); font-weight: 600; font-size: 0.85rem; }
+.section-head a {
+  color: var(--signal-dark); font-weight: 600; font-size: 0.85rem;
+  /* Kolo 15: na 375px „Všechna témata →" lámalo šipku na vlastní řádek;
+     zalomit se má nadpis, ne odkaz. Padding s záporným marginem dává
+     44px dotykový cíl bez posunu linky. */
+  white-space: nowrap; flex-shrink: 0;
+  padding-block: 11px; margin-block: -11px;
+}
 .section-head a:hover { text-decoration: underline; }
 
 /* ── Article grid ────────────────────── */
@@ -600,6 +611,10 @@ a.tag:hover { background: var(--signal-dark); }
   font-size: 0.92rem;
   line-height: 1.35;
 }
+/* Kolo 15: odkaz na téma v „V článku" vypadal jako prostý text — stejná
+   afordance jako .about-aside-meta a. */
+.article-aside-meta a { color: var(--signal-dark); }
+.article-aside-meta a:hover { text-decoration: underline; }
 .article-aside-related a { transition: color 0.15s; }
 .article-aside-related a:hover { color: var(--signal-dark); }
 .article-body h2 {
@@ -798,6 +813,8 @@ footer.site ul a:hover { color: var(--ink); }
   .hero p.lead { margin-bottom: 16px; }
   .hero-visual { max-height: 160px; }
   .grid { grid-template-columns: 1fr; }
+  /* Pole hledání v archivu končilo na 210px uprostřed řádku; pod čipy jde přes celou šířku. */
+  .filter-bar .search-input { width: 100%; }
   .nl-form { flex-direction: column; }
   .nl-form button { width: 100%; justify-content: center; }
 
@@ -1253,6 +1270,11 @@ footer.site ul a:hover { color: var(--ink); }
 .f-nav { display: flex; gap: 56px; flex-wrap: wrap; }
 .f-nav-head { color: var(--ink-faint); display: block; margin-bottom: 10px; }
 footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
+/* Na mobilu mají odkazy 44px řádky (viz max-width 900px) — s 8px gap byl
+   sloupec 7 témat 364px. Až tady: stejná specificita, pozdější vyhrává. */
+@media (max-width: 900px) {
+  footer.site .f-nav ul { gap: 0; }
+}
 
 /* ── Vyhledávání (⌘K) ────────────────── */
 .search-trigger {
