@@ -7,7 +7,6 @@
   --line: #E2E6EB;
   --signal: #D42622;
   --signal-dark: #B7211D;
-  --steel: #2B4A6F;
   --panel: #14171C;
   --radius: 8px;
 }
@@ -51,7 +50,9 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--signal); color: #fff; }
-a:focus-visible, button:focus-visible {
+/* summary: <details> přepisu audia je jediný další ovládací prvek s fokusem
+   z klávesnice — bez něj měl UA modrý rámeček místo signální. */
+a:focus-visible, button:focus-visible, summary:focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: 3px;
 }
@@ -437,7 +438,8 @@ a.tag:hover { background: var(--signal-dark); }
 }
 /* Z1002: štítek kategorie nesmí být všude stejná --signal. Fallback je neutrální; barvu dává .th-* .k. */
 .card-thumb .lt .k { background: var(--panel); }
-.card-thumb .lt .t { background: rgba(20,23,28,0.85); }
+/* Kolo 15: délka videa brala rgba(20,23,28) = light --panel; v darku se lišila od .k. */
+.card-thumb .lt .t { background: color-mix(in srgb, var(--panel) 85%, transparent); }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card-body h3 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
@@ -696,7 +698,9 @@ a.tag:hover { background: var(--signal-dark); }
   transition: background 0.15s;
 }
 .nl-form button:hover { background: var(--signal-dark); }
-.nl-note { font-size: 0.75rem; color: #848D9B; margin-top: 10px; }
+/* Newsletter sedí na --panel v obou tématech, proto tmavé tokeny natvrdo:
+   #A9B2BF = dark --ink-soft, #828B98 = dark --ink-faint (dřív #848D9B mimo paletu). */
+.nl-note { font-size: 0.75rem; color: #828B98; margin-top: 10px; }
 .nl-cta {
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--signal); color: #fff; text-decoration: none;
@@ -887,11 +891,14 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .stat strong {
   display: block;
-  font-family: 'Archivo Variable', sans-serif;
+  /* Kolo 15: jediný Archivo nadpis s kladným prokladem (+0.5px) a bez
+     font-stretch — čísla teď sedí k ostatním titulkům. */
+  font-family: 'Archivo Variable', 'Archivo', sans-serif;
   font-size: 1.7rem;
   font-weight: 800;
+  font-stretch: 108%;
   color: var(--signal);
-  letter-spacing: 0.5px;
+  letter-spacing: -0.01em;
 }
 .stat span {
   font-size: 0.85rem;
