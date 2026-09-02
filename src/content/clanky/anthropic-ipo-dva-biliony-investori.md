@@ -6,22 +6,8 @@ date: "2026-08-23"
 zprava: true
 image: "/images/clanky/anthropic-ipo-dva-biliony-investori.jpg"
 audio:
-  url: "https://audio.realtech.cz/anthropic-ipo-dva-biliony-investori-v3.mp3?v=932a84e1f8a1"
-  duration: 140
-  transcript: |-
-    Dnes v RealTechu: Investoři čekají IPO Anthropicu za dva tisíce miliard dolarů. Firma to číslo neřekla. Šest investorů podle FT sází na ocenění dva tisíce miliard a termín v říjnu. Anthropic potvrdil jen důvěrný es jedna a květnové kolo za devět set šedesát pět miliard. Titulky o dvoubilionovém IPO Anthropicu zní, jako by je vypustila sama firma. Nevypustila. Šest investorů podle Financial Times, jak je třináctého srpna shrnul Quartz, čeká vstup na burzu v říjnu a ocenění dva tisíce miliard dolarů nebo víc. To by podle nich bylo největší IPO v historii. Anthropic se k tomu nevyjádřil. Prvního června dva tisíce dvacet šest Anthropic PBC důvěrně podal k americké Komisi pro cenné papíry návrh registračního formuláře es jedna. Jde o navrhovanou primární emisi kmenových akcií. Po dokončení přezkumu SEC tím firma získá možnost jít na burzu. Samotná emise závisí na tržních podmínkách a dalších faktorech. Počet akcií ani cenu Anthropic nestanovil. Text je oznámení podle pravidla sto třicet pět, ne nabídka cenných papírů. Čtyři dny předtím, osmadvacátého května, uzavřel sérii H. Získal šedesát pět miliard dolarů při ocenění devět set šedesát pět miliard po vstupu peněz. Kolo vedli Altimeter Capital, Dragoneer, Greenoaks a Sequoia Capital. Run-rate tržeb podle firmy překročil čtyřicet sedm miliard dolarů začátkem téhož měsíce. Reuters prvního června zopakoval totéž: firma oznámila důvěrný filing a poslední kolo šedesát pět miliard při devět set šedesát pět miliardách. Mezi květnem a dneškem se z devět set šedesát pět miliard v tisku staly dva biliony. Ten skok nepřišel z účetní uzávěrky. Přišel z očekávání investorů. Stejní lidé podle FT čekají, že anualizované tržby do konce roku stoupnou na sto až sto dvacet miliard dolarů. Nejvyšší vedení Anthropicu podle FT zatím nestanovilo cíl ocenění, a to ani v soukromých rozhovorech. Nabídku mají podle tohoto textu vést Morgan Stanley, Goldman Sachs a JPMorgan. Zdroj: Anthropic, Reuters, Financial Times přes Quartz a CNBC
-  ttsScript: |-
-    Ada: Dnes v RealTechu: Investoři čekají IPO Anthropicu za dva tisíce miliard dolarů. Firma to číslo neřekla.
-    Petr: Šest investorů podle FT sází na ocenění dva tisíce miliard a termín v říjnu. Anthropic potvrdil jen důvěrný es jedna a květnové kolo za devět set šedesát pět miliard.
-    Ada: Titulky o dvoubilionovém IPO Anthropicu zní, jako by je vypustila sama firma. Nevypustila. Šest investorů podle Financial Times, jak je třináctého srpna shrnul Quartz, čeká vstup na burzu v říjnu a ocenění dva tisíce miliard dolarů nebo víc.
-    Petr: To by podle nich bylo největší IPO v historii. Anthropic se k tomu nevyjádřil. Prvního června dva tisíce dvacet šest Anthropic PBC důvěrně podal k americké Komisi pro cenné papíry návrh registračního formuláře es jedna.
-    Ada: Jde o navrhovanou primární emisi kmenových akcií. Po dokončení přezkumu SEC tím firma získá možnost jít na burzu. Samotná emise závisí na tržních podmínkách a dalších faktorech. Počet akcií ani cenu Anthropic nestanovil.
-    Petr: Text je oznámení podle pravidla sto třicet pět, ne nabídka cenných papírů. Čtyři dny předtím, osmadvacátého května, uzavřel sérii H. Získal šedesát pět miliard dolarů při ocenění devět set šedesát pět miliard po vstupu peněz.
-    Ada: Kolo vedli Altimeter Capital, Dragoneer, Greenoaks a Sequoia Capital. Run-rate tržeb podle firmy překročil čtyřicet sedm miliard dolarů začátkem téhož měsíce. Reuters prvního června zopakoval totéž: firma oznámila důvěrný filing a poslední kolo šedesát pět miliard při devět set šedesát pět miliardách.
-    Petr: Mezi květnem a dneškem se z devět set šedesát pět miliard v tisku staly dva biliony. Ten skok nepřišel z účetní uzávěrky. Přišel z očekávání investorů.
-    Ada: Stejní lidé podle FT čekají, že anualizované tržby do konce roku stoupnou na sto až sto dvacet miliard dolarů. Nejvyšší vedení Anthropicu podle FT zatím nestanovilo cíl ocenění, a to ani v soukromých rozhovorech.
-    Petr: Nabídku mají podle tohoto textu vést Morgan Stanley, Goldman Sachs a JPMorgan.
-    Ada: Zdroj: Anthropic, Reuters, Financial Times přes Quartz a CNBC
+  url: "https://audio.realtech.cz/anthropic-ipo-dva-biliony-investori-nlm.mp3?v=38ac2d883a92"
+  duration: 2180
 ---
 
 Titulky o dvoubilionovém IPO Anthropicu zní, jako by je vypustila sama firma. Nevypustila. Šest investorů podle Financial Times, jak je 13. srpna shrnul Quartz, čeká vstup na burzu v říjnu a ocenění 2 biliony dolarů nebo víc. To by podle nich bylo největší IPO v historii. Anthropic se k tomu nevyjádřil.

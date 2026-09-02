@@ -6,22 +6,8 @@ date: "2026-08-18"
 image: "/images/clanky/starship-ship-40-vanocni-ostrov.jpg"
 zprava: true
 audio:
-  url: "https://audio.realtech.cz/starship-ship-40-vanocni-ostrov-v3.mp3?v=d62d671fe882"
-  duration: 138
-  transcript: |-
-    Dnes v RealTechu: Starship po dvacet čtyři dnech na moři doplul k Vánočnímu ostrovu. Poprvé se SpaceX vrací celý horní stupeň. Ship čtyřicet přistál v Indickém oceánu čtyřiadvacátého července a nepotopil se. Po téměř měsíci vlečení ho dvě lodě dotáhly k australskému Vánočnímu ostrovu — a místní se sjíždějí na pobřeží kouknout. Když jsme koncem července psali o třináctém testovacím letu Starship, zmínili jsme, že přistání horního stupně na hladině Indického oceánu bylo podle SpaceX nejjemnější dosud. Ukázalo se, že to byl podceněný detail: loď se totiž nerozlomila ani nepotopila. A dnes, po čtyřiadvaceti dnech na moři, doplula k pevnině. Měsíc vlečení přes rozbouřený oceán Ship čtyřicet odstartoval čtyřiadvacátého července z Texasu a po úspěšné misi přistál v mezinárodních vodách daleko od západní Austrálie. Místo aby skončil na dně, zůstal neporušený a plovoucí — a SpaceX se rozhodl ho vytáhnout. Sám SpaceX dnes napsal, že po zhruba dvacet čtyři dnech na moři dovedl záchranný tým Starship k místu těsně u pobřeží Vánočního ostrova a že tam míří skupina inženýrů kvůli další práci na lodi. Nebyla to procházka. Firma v průběhu operace popisovala „stále drsnější moře" a několik týdnů to vypadalo, že se vlek nepovede. Dvaapadesátimetrový stroj nakonec táhly dvě velké lodě. Australská vláda to koordinuje, kolem je zóna zákazu Mluvčí Australian Space Agency potvrdil, že australská vláda operaci koordinuje se SpaceX: „SpaceX odvlekl stroj k Vánočnímu ostrovu poté, co vstoupil do atmosféry a přistál v mezinárodních vodách." Otázky na to, co bude dál a jestli se loď vrátí do USA, agentura odkázala na SpaceX. Pro místní je to událost roku. Šéf tamního turistického sdružení David Watchorn popsal pohled zblízka jako „neuvěřitelný", fotograf Chris Bray mluví o „tématu celého ostrova" a lidé objíždějí vyhlídky, aby loď zahlédli. Kolem plavidla platí zóna zákazu vplutí. Starship má být plně opakovaně použitelný. Zdroj: ABC News a @SpaceX na X
-  ttsScript: |-
-    Ada: Dnes v RealTechu: Starship po dvacet čtyři dnech na moři doplul k Vánočnímu ostrovu. Poprvé se SpaceX vrací celý horní stupeň.
-    Petr: Ship čtyřicet přistál v Indickém oceánu čtyřiadvacátého července a nepotopil se. Po téměř měsíci vlečení ho dvě lodě dotáhly k australskému Vánočnímu ostrovu — a místní se sjíždějí na pobřeží kouknout.
-    Ada: Když jsme koncem července psali o třináctém testovacím letu Starship, zmínili jsme, že přistání horního stupně na hladině Indického oceánu bylo podle SpaceX nejjemnější dosud. Ukázalo se, že to byl podceněný detail: loď se totiž nerozlomila ani nepotopila.
-    Petr: A dnes, po čtyřiadvaceti dnech na moři, doplula k pevnině. Měsíc vlečení přes rozbouřený oceán Ship čtyřicet odstartoval čtyřiadvacátého července z Texasu a po úspěšné misi přistál v mezinárodních vodách daleko od západní Austrálie.
-    Ada: Místo aby skončil na dně, zůstal neporušený a plovoucí — a SpaceX se rozhodl ho vytáhnout.
-    Petr: Sám SpaceX dnes napsal, že po zhruba dvacet čtyři dnech na moři dovedl záchranný tým Starship k místu těsně u pobřeží Vánočního ostrova a že tam míří skupina inženýrů kvůli další práci na lodi. Nebyla to procházka.
-    Ada: Firma v průběhu operace popisovala „stále drsnější moře" a několik týdnů to vypadalo, že se vlek nepovede. Dvaapadesátimetrový stroj nakonec táhly dvě velké lodě. Australská vláda to koordinuje, kolem je zóna zákazu
-    Petr: Mluvčí Australian Space Agency potvrdil, že australská vláda operaci koordinuje se SpaceX: „SpaceX odvlekl stroj k Vánočnímu ostrovu poté, co vstoupil do atmosféry a přistál v mezinárodních vodách." Otázky na to, co bude dál a jestli se loď vrátí do USA, agentura odkázala na SpaceX.
-    Ada: Pro místní je to událost roku. Šéf tamního turistického sdružení David Watchorn popsal pohled zblízka jako „neuvěřitelný", fotograf Chris Bray mluví o „tématu celého ostrova" a lidé objíždějí vyhlídky, aby loď zahlédli.
-    Petr: Kolem plavidla platí zóna zákazu vplutí. Starship má být plně opakovaně použitelný.
-    Ada: Zdroj: ABC News a @SpaceX na X
+  url: "https://audio.realtech.cz/starship-ship-40-vanocni-ostrov-nlm.mp3?v=99d910d00f58"
+  duration: 1286
 ---
 
 Když jsme koncem července psali o třináctém testovacím letu Starship, zmínili jsme, že přistání horního stupně na hladině Indického oceánu bylo podle SpaceX **nejjemnější dosud**. Ukázalo se, že to byl podceněný detail: loď se totiž nerozlomila ani nepotopila. A dnes, po čtyřiadvaceti dnech na moři, doplula k pevnině.

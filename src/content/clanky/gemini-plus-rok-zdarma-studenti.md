@@ -6,22 +6,8 @@ date: "2026-08-20"
 zprava: true
 image: "/images/clanky/gemini-plus-rok-zdarma-studenti.jpg"
 audio:
-  url: "https://audio.realtech.cz/gemini-plus-rok-zdarma-studenti-v3.mp3?v=e911354a9208"
-  duration: 132
-  transcript: |-
-    Dnes v RealTechu: Google rozdává studentům rok Gemini zdarma. Česko na seznamu výjimek není. Vysokoškoláci mimo USA můžou do konce roku vybrat dvanáct měsíců Google umělá inteligence Plus zadarmo — dva× vyšší limity, Gemini Omni a čtyři sta GB. Kartu ale chce hned a po roce začne strhávat. Google včera večer spustil školní nabídku, která je slušně štědrá: vysokoškolákům dává rok placeného plánu Gemini zadarmo. A na rozdíl od většiny podobných akcí to není jen pro Ameriku. Co konkrétně dostaneš Nabídka je rozdělená na dvě větve. Studenti v USA dostanou rok Google umělá inteligence Pro (jinak devatenáct tečka devadesát devět $ měsíčně) — čtyři× vyšší limity v Gemini, přístup ke Gemini Spark, Gemini v Gmailu a Docs, pět TB úložiště a Google Health Premium. Studenti mimo USA dostanou rok Google umělá inteligence Plus: Gemini Omni, dvojnásobné limity oproti neplatícím a čtyři sta GB úložiště. Po skončení roku se plán sám překlopí na čtyři tečka devadesát devět $ měsíčně (nebo ekvivalent v místní měně), zrušit jde kdykoli. A teď to podstatné pro nás: v poznámkách pod čarou Google píše, že nabídka platí ve více než sto čtyřicet trzích, kde je Google umělá inteligence Plus dostupný — s výjimkou USA, Bolívie, Albánie, Kanady, Macaa, Hongkongu a Tuniska. Česko ani Slovensko na tom seznamu nejsou. Vybrat se to dá do třicátého prvního prosince dva tisíce dvacet šest a při registraci je potřeba zadat platnou platební metodu — takže si po roce nastav připomínku, ať tě strhávání nepřekvapí. Kdo chce navíc streamování bez reklam, může vzít balíček Google umělá inteligence Pro + YouTube Premium se slevou až sedmdesát procent. Tam už je ale potřeba ověření studenta přes SheerID a platí to jen ve vybraných zemích. Zadarmo i bez předplatného Zdroj: Start the semester with one year of Gemini, on us
-  ttsScript: |-
-    Ada: Dnes v RealTechu: Google rozdává studentům rok Gemini zdarma. Česko na seznamu výjimek není.
-    Petr: Vysokoškoláci mimo USA můžou do konce roku vybrat dvanáct měsíců Google umělá inteligence Plus zadarmo — dva× vyšší limity, Gemini Omni a čtyři sta GB. Kartu ale chce hned a po roce začne strhávat.
-    Ada: Google včera večer spustil školní nabídku, která je slušně štědrá: vysokoškolákům dává rok placeného plánu Gemini zadarmo. A na rozdíl od většiny podobných akcí to není jen pro Ameriku.
-    Petr: Co konkrétně dostaneš Nabídka je rozdělená na dvě větve.
-    Ada: Studenti v USA dostanou rok Google umělá inteligence Pro (jinak devatenáct tečka devadesát devět $ měsíčně) — čtyři× vyšší limity v Gemini, přístup ke Gemini Spark, Gemini v Gmailu a Docs, pět TB úložiště a Google Health Premium.
-    Petr: Studenti mimo USA dostanou rok Google umělá inteligence Plus: Gemini Omni, dvojnásobné limity oproti neplatícím a čtyři sta GB úložiště. Po skončení roku se plán sám překlopí na čtyři tečka devadesát devět $ měsíčně (nebo ekvivalent v místní měně), zrušit jde kdykoli.
-    Ada: A teď to podstatné pro nás: v poznámkách pod čarou Google píše, že nabídka platí ve více než sto čtyřicet trzích, kde je Google umělá inteligence Plus dostupný — s výjimkou USA, Bolívie, Albánie, Kanady, Macaa, Hongkongu a Tuniska.
-    Petr: Česko ani Slovensko na tom seznamu nejsou. Vybrat se to dá do třicátého prvního prosince dva tisíce dvacet šest a při registraci je potřeba zadat platnou platební metodu — takže si po roce nastav připomínku, ať tě strhávání nepřekvapí.
-    Ada: Kdo chce navíc streamování bez reklam, může vzít balíček Google umělá inteligence Pro + YouTube Premium se slevou až sedmdesát procent. Tam už je ale potřeba ověření studenta přes SheerID a platí to jen ve vybraných zemích.
-    Petr: Zadarmo i bez předplatného
-    Ada: Zdroj: Start the semester with one year of Gemini, on us
+  url: "https://audio.realtech.cz/gemini-plus-rok-zdarma-studenti-nlm.mp3?v=509787884eeb"
+  duration: 1441
 ---
 
 Google včera večer spustil školní nabídku, která je slušně štědrá: **vysokoškolákům dává rok placeného plánu Gemini zadarmo**. A na rozdíl od většiny podobných akcí to není jen pro Ameriku.

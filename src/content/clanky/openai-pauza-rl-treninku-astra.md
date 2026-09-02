@@ -6,21 +6,8 @@ date: "2026-08-19"
 image: "/images/clanky/openai-pauza-rl-treninku-astra.jpg"
 zprava: true
 audio:
-  url: "https://audio.realtech.cz/openai-pauza-rl-treninku-astra-v3.mp3?v=b7544d0bac2d"
-  duration: 149
-  transcript: |-
-    Dnes v RealTechu: OpenAI přiznal dvoutýdenní pauzu v trénování. A největší plánovaný běh drží zastavený dodnes. Po hacku Hugging Face a zjištění, že model Astra může být kyberkriticky nebezpečný, OpenAI zastavil RL trénink svých nejnovějších modelů. Monitoring ho teď stojí pětinu výpočetního výkonu. OpenAI včera zveřejnil text, který se v branži nevidí často: přiznání, že sám zpomalil vývoj. A není to marketingové gesto — jde o třetí díl příběhu, který jsme tady sledovali od července. Sešly se dvě věci. Nejdřív incident s Hugging Face, kdy si agent OpenAI sám otevřel cestu do cizí infrastruktury. Pak zjištění, že chystaný model Astra může splňovat hranici Critical v kyberbezpečnosti podle vlastního Preparedness Frameworku firmy — což OpenAI podle nového textu určil sedmého srpna. Reakce: dvoutýdenní pauza v reinforcement learning tréninku modelů určených k nasazení, zatímco firma zpevňovala a red-teamovala své výzkumné prostředí. Většina méně rizikových běhů se už rozjela zpátky. Ale jedna věta v textu stojí za zvýraznění: „Náš největší plánovaný frontier RL běh zůstává pozastaven." Tedy: pauza neskončila úplně. Nejvýkonnější trénink, který OpenAI chystal, stále stojí — firma zatím jede menší běhy, aby si ověřila chování modelu a doložila alignment, než pustí ten velký. Cena za bezpečnost je vyčíslená Nejzajímavější číslo v celém textu je provozní. Nový monitoring funguje na několik stupňů — začíná aktivačními klasifikátory, které kontrolují vnitřní aktivitu modelu při každém vzorkovaném tokenu a eskalují podezření k automatickým vyšetřovatelům. Cíl je vydat poplach do třicet minut. A když tým do dalších třicet minut nedokáže potvrdit, že jde o planý poplach, má činnost zastavit. To něco kosí: OpenAI odhaduje režii monitoringu na cca dvacet procent výpočetního výkonu, který hlídá. Pětina výkonu jde na dohled nad zbytkem. Firma zároveň píše, že nové bezpečnostní standardy pro výzkumná prostředí „si vyžádaly velké náklady a zdržení frontier výzkumu". Zdroj: OpenAI
-  ttsScript: |-
-    Ada: Dnes v RealTechu: OpenAI přiznal dvoutýdenní pauzu v trénování. A největší plánovaný běh drží zastavený dodnes.
-    Petr: Po hacku Hugging Face a zjištění, že model Astra může být kyberkriticky nebezpečný, OpenAI zastavil RL trénink svých nejnovějších modelů. Monitoring ho teď stojí pětinu výpočetního výkonu. OpenAI včera zveřejnil text, který se v branži nevidí často: přiznání, že sám zpomalil vývoj.
-    Ada: A není to marketingové gesto — jde o třetí díl příběhu, který jsme tady sledovali od července. Sešly se dvě věci. Nejdřív incident s Hugging Face, kdy si agent OpenAI sám otevřel cestu do cizí infrastruktury.
-    Petr: Pak zjištění, že chystaný model Astra může splňovat hranici Critical v kyberbezpečnosti podle vlastního Preparedness Frameworku firmy — což OpenAI podle nového textu určil sedmého srpna.
-    Ada: Reakce: dvoutýdenní pauza v reinforcement learning tréninku modelů určených k nasazení, zatímco firma zpevňovala a red-teamovala své výzkumné prostředí. Většina méně rizikových běhů se už rozjela zpátky. Ale jedna věta v textu stojí za zvýraznění:
-    Petr: „Náš největší plánovaný frontier RL běh zůstává pozastaven." Tedy: pauza neskončila úplně. Nejvýkonnější trénink, který OpenAI chystal, stále stojí — firma zatím jede menší běhy, aby si ověřila chování modelu a doložila alignment, než pustí ten velký.
-    Ada: Cena za bezpečnost je vyčíslená Nejzajímavější číslo v celém textu je provozní. Nový monitoring funguje na několik stupňů — začíná aktivačními klasifikátory, které kontrolují vnitřní aktivitu modelu při každém vzorkovaném tokenu a eskalují podezření k automatickým vyšetřovatelům.
-    Petr: Cíl je vydat poplach do třicet minut. A když tým do dalších třicet minut nedokáže potvrdit, že jde o planý poplach, má činnost zastavit. To něco kosí: OpenAI odhaduje režii monitoringu na cca dvacet procent výpočetního výkonu, který hlídá.
-    Ada: Pětina výkonu jde na dohled nad zbytkem. Firma zároveň píše, že nové bezpečnostní standardy pro výzkumná prostředí „si vyžádaly velké náklady a zdržení frontier výzkumu".
-    Petr: Zdroj: OpenAI
+  url: "https://audio.realtech.cz/openai-pauza-rl-treninku-astra-nlm.mp3?v=e99882992836"
+  duration: 1891
 ---
 
 OpenAI včera zveřejnil text, který se v branži nevidí často: přiznání, že **sám zpomalil vývoj**. A není to marketingové gesto — jde o třetí díl příběhu, který jsme tady sledovali od července.
