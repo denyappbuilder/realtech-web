@@ -84,7 +84,7 @@ const title = page === 1
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
   {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
-  <section class="articles" style="padding-top: 56px;" data-archive data-total-pages={totalPages}>
+  <section class="articles hub" data-archive data-total-pages={totalPages}>
     <div class="wrap">
       <div class="section-head">
         <h1>Všechny články</h1>

@@ -79,3 +79,10 @@ test(".btn-ghost má minimální zásah 44 px i mimo archive/author", () => {
   assert.match(telo, /display:\s*inline-flex/, "404, zpět a o-nas potřebují flex, ne jen padding");
   assert.match(telo, /align-items:\s*center/);
 });
+
+test(".btn-primary má minimální zásah 44 px (hero, O nás, 404)", () => {
+  assertMinHeight44(".btn-primary");
+  const telo = teloPravidla(".btn-primary");
+  assert.match(telo, /display:\s*inline-flex/, "min-height 44px bez flexu nesedí na text");
+  assert.match(telo, /align-items:\s*center/);
+});

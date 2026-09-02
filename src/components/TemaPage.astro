@@ -105,13 +105,13 @@ const ogTitle = page === 1
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
   {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
-  <section class="articles" style="padding-top: 56px;">
+  <section class="articles hub">
     <div class="wrap">
       <div class="lower-third">
         <span class="tag">{category}</span>
         <span class="time">{clanky.length} článků</span>
       </div>
-      <div class="section-head" style="margin-top: 18px;">
+      <div class="section-head with-tag">
         <h1>{category}</h1>
         <a href="/clanky/">Všechny články →</a>
       </div>

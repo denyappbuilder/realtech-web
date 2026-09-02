@@ -64,8 +64,8 @@ a:focus-visible, button:focus-visible {
 .skip-link:focus { left: 0; }
 .mono {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
@@ -81,14 +81,11 @@ a:focus-visible, button:focus-visible {
 
 /* ── Header ──────────────────────────── */
 header.site {
-  background: color-mix(in srgb, var(--surface) 84%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
-  backdrop-filter: blur(14px) saturate(1.4);
+  /* Kolo 14: pryč skleněná clona (84 % + blur 14 + saturate).
+     Sticky header drží --surface, ne glassmorphism. */
+  background: var(--surface);
   border-bottom: 1px solid var(--line);
   position: sticky; top: 0; z-index: 50;
-}
-@supports not (backdrop-filter: blur(1px)) {
-  header.site { background: var(--surface); }
 }
 header.site .wrap {
   display: flex; align-items: center; justify-content: space-between;
@@ -267,8 +264,8 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
     display: block;
     margin-top: 6px;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
     color: var(--ink-faint);
   }
 }
@@ -320,8 +317,9 @@ a.tag:hover { background: var(--signal-dark); }
   font-weight: 600; font-size: 0.92rem;
   transition: background 0.15s;
   display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px;
 }
-.btn-primary:hover { background: #000; }
+.btn-primary:hover { background: color-mix(in srgb, #000 22%, var(--ink)); }
 .btn-ghost {
   padding: 12px 24px; border-radius: var(--radius);
   border: 1px solid var(--line); background: var(--surface);
@@ -363,7 +361,7 @@ a.tag:hover { background: var(--signal-dark); }
 .hero-visual .play {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%);
   width: 64px; height: 64px; border-radius: 50%;
-  background: rgba(229,50,45,0.92);
+  background: color-mix(in srgb, var(--signal) 92%, transparent);
   display: grid; place-items: center;
   transition: transform 0.2s;
 }
@@ -393,7 +391,10 @@ a.tag:hover { background: var(--signal-dark); }
 .section-head a:hover { text-decoration: underline; }
 
 /* ── Article grid ────────────────────── */
-.articles { padding: 24px 0 56px; }
+.articles { padding: 24px 0 40px; }
+/* Archiv, hub témat a stránka tématu nemají hero — 24 px shora nestačí. */
+.articles.hub { padding-top: 56px; }
+.section-head.with-tag { margin-top: 18px; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .card {
   background: var(--surface);
@@ -406,7 +407,7 @@ a.tag:hover { background: var(--signal-dark); }
 }
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 48px -24px rgba(20,23,28,0.4);
+  box-shadow: 0 14px 32px -18px color-mix(in srgb, var(--ink) 42%, transparent);
   border-color: color-mix(in srgb, var(--signal) 38%, var(--line));
 }
 .card-thumb {
@@ -419,8 +420,8 @@ a.tag:hover { background: var(--signal-dark); }
 .temata-hub .card-thumb { aspect-ratio: 16 / 9; }
 .card-thumb .lt { margin: 0 0 12px 12px; display: inline-flex; }
 .card-thumb .lt span {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
-  letter-spacing: 0.1em; text-transform: uppercase;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
   padding: 4px 9px; color: #fff;
 }
 /* Z1002: štítek kategorie nesmí být všude stejná --signal. Fallback je neutrální; barvu dává .th-* .k. */
@@ -436,10 +437,10 @@ a.tag:hover { background: var(--signal-dark); }
 /* Celá karta je klikací: stretched link přes ::after odkazu v titulku.
    Náhled je <div>, ne druhý <a> na stejné URL (vnořený interaktivní prvek). */
 .card-body h3 a::after { content: ''; position: absolute; inset: 0; }
-.card-body p { font-size: 0.88rem; color: var(--ink-soft); flex: 1; }
+.card-body p { font-size: 0.95rem; color: var(--ink-soft); flex: 1; }
 .card-meta {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
-  color: var(--ink-faint); letter-spacing: 0.05em;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem;
+  color: var(--ink-faint); letter-spacing: 0.04em;
   display: flex; gap: 14px;
   border-top: 1px solid var(--line); padding-top: 12px;
 }
@@ -565,8 +566,14 @@ a.tag:hover { background: var(--signal-dark); }
   min-width: 0;
   background: var(--surface); border: 1px solid var(--line);
   border-radius: 14px; padding: clamp(24px, 5vw, 48px);
-  font-size: 1.04rem;
-  line-height: 1.72;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+/* Desktop sloupec je ~68 ch; na tabletu (1 col, 700–900 px) by řádky šly k 90 ch. */
+.article-body p,
+.article-body li,
+.article-body blockquote {
+  max-width: 68ch;
 }
 .article-aside {
   min-width: 0;
@@ -633,7 +640,7 @@ a.tag:hover { background: var(--signal-dark); }
 
 /* ── Newsletter ──────────────────────── */
 .newsletter {
-  background: var(--panel); color: #fff; padding: 56px 0;
+  background: var(--panel); color: #fff; padding: 48px 0;
   position: relative; overflow: hidden;
 }
 .newsletter::before {
@@ -656,11 +663,14 @@ a.tag:hover { background: var(--signal-dark); }
 .nl-form { display: flex; gap: 10px; }
 .nl-form input {
   flex: 1; padding: 13px 16px; border-radius: var(--radius);
-  border: 1px solid #333B47; background: #1D232C; color: #fff;
+  /* Hardcoded #1D232C = dark --panel: v forced dark pole splynulo s blokem. */
+  border: 1px solid color-mix(in srgb, #fff 16%, var(--panel));
+  background: color-mix(in srgb, #000 28%, var(--panel));
+  color: #fff;
   font-family: inherit; font-size: 0.9rem;
   min-height: 44px;
 }
-.nl-form input::placeholder { color: #6B7482; }
+.nl-form input::placeholder { color: color-mix(in srgb, #fff 42%, var(--panel)); }
 .nl-form input:focus { outline: 2px solid var(--signal); outline-offset: 1px; }
 .nl-form button {
   background: var(--signal); color: #fff; border: none; cursor: pointer;
@@ -789,6 +799,7 @@ footer.site ul a:hover { color: var(--ink); }
   .hero-visual { max-height: 160px; }
   .grid { grid-template-columns: 1fr; }
   .nl-form { flex-direction: column; }
+  .nl-form button { width: 100%; justify-content: center; }
 
   /* Článek má na mobilu rychleji dojít k médiu a textu, bez odebrání obsahu. */
   .article-page { padding: 28px 0 48px; }
@@ -953,8 +964,8 @@ footer.site ul a:hover { color: var(--ink); }
   margin: -8px 0 24px;
 }
 .chip {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
-  letter-spacing: 0.08em; text-transform: uppercase;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem;
+  letter-spacing: 0.05em; text-transform: uppercase;
   padding: 7px 14px; border-radius: 999px; cursor: pointer;
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
   transition: border-color 0.15s, color 0.15s, background 0.15s;
@@ -1095,13 +1106,11 @@ footer.site ul a:hover { color: var(--ink); }
 /* ── Dark mode component tweaks ──────── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .btn-primary:hover { background: #fff; }
-  :root:not([data-theme="light"]) .card:hover { box-shadow: 0 16px 40px -24px rgba(0,0,0,0.8); }
   :root:not([data-theme="light"]) .article-body code { background: var(--panel); }
   :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
   :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
 }
 :root[data-theme="dark"] .btn-primary:hover { background: #fff; }
-:root[data-theme="dark"] .card:hover { box-shadow: 0 16px 40px -24px rgba(0,0,0,0.8); }
 :root[data-theme="dark"] .article-body code { background: var(--panel); }
 :root[data-theme="dark"] .theme-toggle .moon { display: none; }
 :root[data-theme="dark"] .theme-toggle .sun { display: block; }
@@ -1114,7 +1123,10 @@ footer.site ul a:hover { color: var(--ink); }
   cursor: pointer; display: grid; place-items: center;
   transition: border-color 0.15s, color 0.15s;
 }
-.theme-toggle:hover { border-color: var(--ink); color: var(--ink); }
+.theme-toggle:hover {
+  border-color: var(--ink); color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 6%, var(--surface));
+}
 .theme-toggle svg { width: 17px; height: 17px; fill: currentColor; }
 .theme-toggle .sun { display: none; fill: none; stroke: currentColor; }
 .theme-toggle .sun circle { fill: currentColor; stroke: none; }
@@ -1151,7 +1163,9 @@ footer.site ul a:hover { color: var(--ink); }
 .ab-body p strong { color: #fff; }
 .ab-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .author-box .btn-ghost {
-  background: transparent; border-color: #333B47; color: #A9B2BF;
+  background: transparent;
+  border-color: color-mix(in srgb, #fff 16%, var(--panel));
+  color: #A9B2BF;
   padding: 9px 18px; font-size: 0.85rem;
   min-height: 44px;
   display: inline-flex;
@@ -1160,7 +1174,7 @@ footer.site ul a:hover { color: var(--ink); }
 .author-box .btn-ghost:hover { border-color: #fff; color: #fff; }
 
 /* ── Nejnovější videa ────────────────── */
-.video-strip { margin-top: 48px; }
+.video-strip { margin-top: 40px; }
 .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .video-card { display: block; }
 .vc-thumb {
@@ -1232,7 +1246,10 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-faint);
   cursor: pointer; transition: border-color 0.15s, color 0.15s;
 }
-.search-trigger:hover { border-color: var(--ink); color: var(--ink); }
+.search-trigger:hover {
+  border-color: var(--ink); color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 6%, var(--surface));
+}
 .search-trigger svg { width: 16px; height: 16px; fill: currentColor; }
 .st-kbd {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
@@ -1279,7 +1296,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 .search-item:last-child { border-bottom: none; }
 .search-item.active, .search-item:hover { background: color-mix(in srgb, var(--signal) 8%, transparent); }
 .si-cat {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em;
   text-transform: uppercase; background: var(--signal); color: #fff;
   padding: 3px 7px; border-radius: 3px; white-space: nowrap;
 }
