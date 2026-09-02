@@ -7,6 +7,9 @@ zprava: true
 image: "/images/clanky/gemini-agentic-video-understanding.jpg"
 xPosts:
   - "https://x.com/Google/status/2094840325789430066"
+audio:
+  url: "https://audio.realtech.cz/gemini-agentic-video-understanding-nlm.mp3?v=3dd39ce01e55"
+  duration: 1279
 ---
 
 Google 1. září vypustil u Gemini nový způsob, jak číst video. Místo aby model sežral celý soubor snímek po snímku, chová se spíš jako editor: podívá se, kde je to důležité, a zbytek přeskočí. Funkce se jmenuje agentic video understanding a startuje na třech Flash modelech — Gemini 3.7 Flash, 3.6 Flash a 3.5 Flash-Lite. Oznámení podepsali Rohan Doshi a Mario Lučić z DeepMindu.
