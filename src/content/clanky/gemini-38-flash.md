@@ -11,7 +11,7 @@ xPosts:
 
 Google 2. září vypustil další Flash — a je to třetí za zhruba šest týdnů. Gemini 3.8 Flash má být nový tahoun pro kódování, agenty a vícestupňové uvažování. Vedle něj jde ven i Gemini 3.8 Flash Cyber, jenže ten už není pro každého: Google ho drží za programem Fairwind pro důvěryhodné obránce. Oznámení podepsali Tulsee Doshi a Raluca Ada Popa.
 
-Navazuje to na [3.7 Flash zhruba tři týdny zpátky](/clanky/gemini-agentic-video-understanding/) a na dřívější vlnu [3.6 Flash a 3.5 Flash Cyber](/clanky/gemini-36-flash-gemini-4/). Tempo je rychlé. Otázka je, jestli se za ním schovává reálný posun, nebo jen další číslo v názvu.
+Navazuje to na 3.7 Flash zhruba tři týdny zpátky a na dřívější vlnu [3.6 Flash a 3.5 Flash Cyber](/clanky/gemini-36-flash-gemini-4/). Tempo je rychlé. Otázka je, jestli se za ním schovává reálný posun, nebo jen další číslo v názvu.
 
 ## Stejná intro cena jako u 3.7
 
