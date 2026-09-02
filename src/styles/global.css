@@ -7,7 +7,6 @@
   --line: #E2E6EB;
   --signal: #D42622;
   --signal-dark: #B7211D;
-  --steel: #2B4A6F;
   --panel: #14171C;
   --radius: 8px;
 }
@@ -51,7 +50,9 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 ::selection { background: var(--signal); color: #fff; }
-a:focus-visible, button:focus-visible {
+/* summary: <details> přepisu audia je jediný další ovládací prvek s fokusem
+   z klávesnice — bez něj měl UA modrý rámeček místo signální. */
+a:focus-visible, button:focus-visible, summary:focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: 3px;
 }
@@ -270,6 +271,9 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   }
 }
 .lower-third { display: inline-flex; align-items: stretch; margin-bottom: 20px; }
+/* Kolo 15: a.tag má 44px cíl a sourozenci se k němu natahují (stretch) —
+   „Zpráva", datum i „ČTENÍ“ pak seděly u horního okraje 44px pruhu. */
+.lower-third > * { display: inline-flex; align-items: center; }
 .lower-third .tag {
   background: var(--signal); color: #fff;
   font-family: 'IBM Plex Mono', monospace;
@@ -371,6 +375,7 @@ a.tag:hover { background: var(--signal-dark); }
 /* ── Section headers ─────────────────── */
 .section-head {
   display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px;
   border-bottom: 2px solid var(--ink);
   padding-bottom: 10px; margin-bottom: 28px;
   position: relative;
@@ -387,7 +392,14 @@ a.tag:hover { background: var(--signal-dark); }
   font-size: 1.35rem; letter-spacing: -0.01em;
   text-wrap: balance;
 }
-.section-head a { color: var(--signal-dark); font-weight: 600; font-size: 0.85rem; }
+.section-head a {
+  color: var(--signal-dark); font-weight: 600; font-size: 0.85rem;
+  /* Kolo 15: na 375px „Všechna témata →" lámalo šipku na vlastní řádek;
+     zalomit se má nadpis, ne odkaz. Padding s záporným marginem dává
+     44px dotykový cíl bez posunu linky. */
+  white-space: nowrap; flex-shrink: 0;
+  padding-block: 11px; margin-block: -11px;
+}
 .section-head a:hover { text-decoration: underline; }
 
 /* ── Article grid ────────────────────── */
@@ -426,7 +438,8 @@ a.tag:hover { background: var(--signal-dark); }
 }
 /* Z1002: štítek kategorie nesmí být všude stejná --signal. Fallback je neutrální; barvu dává .th-* .k. */
 .card-thumb .lt .k { background: var(--panel); }
-.card-thumb .lt .t { background: rgba(20,23,28,0.85); }
+/* Kolo 15: délka videa brala rgba(20,23,28) = light --panel; v darku se lišila od .k. */
+.card-thumb .lt .t { background: color-mix(in srgb, var(--panel) 85%, transparent); }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card-body h3 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
@@ -600,6 +613,10 @@ a.tag:hover { background: var(--signal-dark); }
   font-size: 0.92rem;
   line-height: 1.35;
 }
+/* Kolo 15: odkaz na téma v „V článku" vypadal jako prostý text — stejná
+   afordance jako .about-aside-meta a. */
+.article-aside-meta a { color: var(--signal-dark); }
+.article-aside-meta a:hover { text-decoration: underline; }
 .article-aside-related a { transition: color 0.15s; }
 .article-aside-related a:hover { color: var(--signal-dark); }
 .article-body h2 {
@@ -681,7 +698,9 @@ a.tag:hover { background: var(--signal-dark); }
   transition: background 0.15s;
 }
 .nl-form button:hover { background: var(--signal-dark); }
-.nl-note { font-size: 0.75rem; color: #848D9B; margin-top: 10px; }
+/* Newsletter sedí na --panel v obou tématech, proto tmavé tokeny natvrdo:
+   #A9B2BF = dark --ink-soft, #828B98 = dark --ink-faint (dřív #848D9B mimo paletu). */
+.nl-note { font-size: 0.75rem; color: #828B98; margin-top: 10px; }
 .nl-cta {
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--signal); color: #fff; text-decoration: none;
@@ -798,6 +817,8 @@ footer.site ul a:hover { color: var(--ink); }
   .hero p.lead { margin-bottom: 16px; }
   .hero-visual { max-height: 160px; }
   .grid { grid-template-columns: 1fr; }
+  /* Pole hledání v archivu končilo na 210px uprostřed řádku; pod čipy jde přes celou šířku. */
+  .filter-bar .search-input { width: 100%; }
   .nl-form { flex-direction: column; }
   .nl-form button { width: 100%; justify-content: center; }
 
@@ -827,12 +848,18 @@ footer.site ul a:hover { color: var(--ink); }
   .article-layout { margin-top: 20px; }
   .article-body { padding: 20px; }
 }
-@media (max-width: 370px) {
-  /* I na 320–360px se první řada vejde bez překryvu nebo zmenšení 44px cílů. */
-  header.site .wrap { padding-inline: 8px; column-gap: 4px; }
+@media (max-width: 400px) {
+  /* Kolo 15: na 375px (iPhone SE/13 mini) měřilo logo 132px, akce 200px a mezera
+     8px = 340 > 327px obsahu. „CZ" se kreslilo pod tlačítko hledání; 371–400px
+     spadalo mezi 580px a 370px pravidla. Cíle 44px zůstávají. */
   header.site .logo { font-size: 0.95rem; }
   header.site .logo .cz { font-size: 0.5rem; }
   header.site .header-actions { gap: 4px; }
+  header.site .yt-btn { padding-inline: 10px; }
+}
+@media (max-width: 370px) {
+  /* I na 320–360px se první řada vejde bez překryvu nebo zmenšení 44px cílů. */
+  header.site .wrap { padding-inline: 8px; column-gap: 4px; }
   header.site .yt-btn { padding-inline: 6px; gap: 6px; font-size: 0.75rem; }
 }
 
@@ -864,11 +891,14 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .stat strong {
   display: block;
-  font-family: 'Archivo Variable', sans-serif;
+  /* Kolo 15: jediný Archivo nadpis s kladným prokladem (+0.5px) a bez
+     font-stretch — čísla teď sedí k ostatním titulkům. */
+  font-family: 'Archivo Variable', 'Archivo', sans-serif;
   font-size: 1.7rem;
   font-weight: 800;
+  font-stretch: 108%;
   color: var(--signal);
-  letter-spacing: 0.5px;
+  letter-spacing: -0.01em;
 }
 .stat span {
   font-size: 0.85rem;
@@ -893,15 +923,24 @@ footer.site ul a:hover { color: var(--ink); }
   display: block;
 }
 .notfound {
-  padding: 90px 0 40px;
+  /* Kolo 15: stejná past jako Z10254 u .about — shorthand `padding: 90px 0 40px`
+     přebíjel vodorovných 24px z .wrap a na mobilu seděl nadpis na x=0. */
+  padding-block: 90px 40px;
   max-width: 640px;
 }
+/* Kolo 15: h1 a perex 404 žily na UA výchozím stylu (Plex Sans 2em bold,
+   700 se ani nenačítá). Titulek bere Archivo jako O nás, perex jako hero. */
 .notfound h1 {
+  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.05;
   margin: 14px 0 12px;
+  text-wrap: balance;
 }
+.notfound .lead { font-size: 1.05rem; color: var(--ink-soft); max-width: 54ch; }
 .notfound .hero-actions {
   margin-top: 26px;
 }
+.notfound-more { margin-top: 48px; }
 
 /* ── Real video thumbnails ───────────── */
 .card-thumb {
@@ -1238,6 +1277,11 @@ footer.site ul a:hover { color: var(--ink); }
 .f-nav { display: flex; gap: 56px; flex-wrap: wrap; }
 .f-nav-head { color: var(--ink-faint); display: block; margin-bottom: 10px; }
 footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
+/* Na mobilu mají odkazy 44px řádky (viz max-width 900px) — s 8px gap byl
+   sloupec 7 témat 364px. Až tady: stejná specificita, pozdější vyhrává. */
+@media (max-width: 900px) {
+  footer.site .f-nav ul { gap: 0; }
+}
 
 /* ── Vyhledávání (⌘K) ────────────────── */
 .search-trigger {
