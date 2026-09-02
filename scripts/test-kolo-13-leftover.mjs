@@ -10,6 +10,10 @@ const onas = readFileSync(join(koren, "src/pages/o-nas.astro"), "utf8");
 const archiv = readFileSync(join(koren, "src/components/ArticleArchivePage.astro"), "utf8");
 const hub = readFileSync(join(koren, "src/pages/temata/index.astro"), "utf8");
 const redirects = readFileSync(join(koren, "public/_redirects"), "utf8");
+const grokImagine = readFileSync(
+  join(koren, "src/content/clanky/grok-imagine-image-2-zdarma.md"),
+  "utf8",
+);
 
 function telo(selektor) {
   const shoda = css.match(
@@ -69,6 +73,30 @@ test("kolo 13: hub /temata/ preloaduje první náhled", () => {
   assert.match(hub, /preloadHeroObrazku/);
   assert.match(hub, /rel="preload"/);
   assert.match(hub, /loading=\{i === 0 \? 'eager' : 'lazy'\}/);
+});
+
+test("kolo 13: Grok Imagine má xPost na oznámení ze Zdrojů, cover zůstává fotka", () => {
+  assert.match(
+    grokImagine,
+    /^xPosts:\n  - "https:\/\/x\.com\/imagine\/status\/2086142677481930861"$/m,
+    "článek cituje tenhle status v Zdrojích, ale neměl embed",
+  );
+  assert.equal(
+    (grokImagine.match(/^  - "https:\/\/(x|twitter)\.com\//gm) ?? []).length,
+    1,
+    "jen oznámení Image 2.0, žádný další post",
+  );
+  assert.match(
+    grokImagine,
+    /^image: "\/images\/clanky\/grok-imagine-image-2-zdarma\.jpg"$/m,
+    "cover musí zůstat fotka — widget je v textu, ne přes hero",
+  );
+  assert.doesNotMatch(grokImagine, /^video:/m, "pole video je jen YouTube");
+  assert.match(
+    grokImagine,
+    /\[Grok Imagine na X — oznámení Image 2\.0 \(8\. 8\. 2026\)\]\(https:\/\/x\.com\/imagine\/status\/2086142677481930861\)/,
+    "stejné status URL musí zůstat v Zdrojích",
+  );
 });
 
 test("kolo 13: /about a /blog se 301 na české stránky, /newsletter se nestaví", () => {

@@ -5,6 +5,8 @@ category: "AI Report"
 date: "2026-08-09"
 zprava: true
 image: "/images/clanky/grok-imagine-image-2-zdarma.jpg"
+xPosts:
+  - "https://x.com/imagine/status/2086142677481930861"
 audio:
   url: "https://audio.realtech.cz/grok-imagine-image-2-zdarma-v3.mp3?v=72c7d727a4aa"
   duration: 147
