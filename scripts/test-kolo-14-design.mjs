@@ -18,8 +18,8 @@ function telo(selektor) {
 }
 
 test("kolo 14: header je --surface, ne skleněná clona", () => {
-  const head = telo("header.site");
-  assert.ok(head, "header.site v CSS chybí");
+  const head = telo("header.site").replace(/\/\*[\s\S]*?\*\//g, "");
+  assert.ok(head.trim(), "header.site v CSS chybí");
   assert.match(head, /background:\s*var\(--surface\)/, "header musí držet --surface");
   assert.doesNotMatch(
     head,
