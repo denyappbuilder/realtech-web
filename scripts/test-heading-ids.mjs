@@ -100,7 +100,6 @@ test('omezí výsledné id přesně na 60 znaků', () => {
 
 test(
   'codex-testy-web/HEADING-ID-001: zkrácení nenechá na konci fragmentu oddělovač',
-  { todo: 'codex-testy-web/HEADING-ID-001' },
   () => {
     const heading = element('h2', [text(`${'a'.repeat(59)} závěr`)]);
 
