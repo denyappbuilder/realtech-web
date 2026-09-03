@@ -20,7 +20,7 @@ Doteď Gemini u videa pracoval „staticky“. Model video spolkl pevným tempem
 
 U krátkého klipu to ještě ujde. U desetiminutového tutoriálu, devadesátiminutové přednášky nebo několikahodinového záznamu už ne. Buď platíte horu tokenů za každý snímek, nebo tempo srazíte a riskujete, že vám zmizí přesně ten okamžik, kvůli kterému video otevíráte. Google to v blogu popisuje jako volbu mezi vysokými náklady a technikami, které zahodí důležité detaily.
 
-Nový režim tu volbu obchází. Model dostane nativní nástroje na video a s nimi si sám hledá, skenuje a prohlíží konkrétní úseky — snímky, zvuk i přepis. Podobně jako u agentic vision, kde Gemini k obrázkům připojuje vykonávání kódu, tady jde o video.
+Nový režim tu volbu obchází. Model dostane nativní nástroje na video a s nimi si sám hledá, skenuje a prohlíží konkrétní úseky — snímky, zvuk i přepis. Podobně jako u agentního vidění, kde Gemini k obrázkům připojuje vykonávání kódu, tady jde o video.
 
 Dřív si vývojář takovou smyčku skládal ručně: rozhodnout, kam se podívat, načíst ten kousek, znovu se zeptat. Teď to má udělat model. Načte jen tu část souboru, která k otázce patří.
 
@@ -32,7 +32,7 @@ Google uvádí, že napříč standardními srovnávacími testy na analýzu vid
 
 Nejlepší kombinaci kvality a ceny Google dává Gemini 3.7 Flash s agentním čtením. U všech tří podporovaných modelů prý zisky jsou, ale 3.7 Flash má podle Googlu sedět na hranici přesnosti a ceny.
 
-To jsou jejich tvrzení z vlastních benchů. Jestli to drží na vašem materiálu, uvidíte až na vlastních datech.
+To jsou jejich tvrzení z vlastních srovnávacích testů. Jestli to drží na vašem materiálu, uvidíte až na vlastních datech.
 
 ## K čemu to má být
 
@@ -50,9 +50,9 @@ Nic z toho jsme sami neměřili. Je to to, co Google v blogu slibuje a ukazuje n
 
 ## Kde to dnes zapnete
 
-Dnes to běží u nahraných videí a u YouTube přes Gemini API — v Google AI Studio a na Gemini Enterprise Agent Platform. V API zapneš režim agentic. Platíte běžné tokeny, žádný příplatek za funkci Google neuvádí.
+Dnes to běží u nahraných videí a u YouTube přes Gemini API — v Google AI Studio a na Gemini Enterprise Agent Platform. V API zapneš agentní režim. Platíte běžné tokeny, žádný příplatek za funkci Google neuvádí.
 
-V aplikaci Gemini to zatím není. Google říká, že to tam brzy pustí u Flash a Flash-Lite. A v nadcházejících měsících má stejný přístup pohánět Ask YouTube na stránce videa — odpovědi opřené o to, co je ve záběru, ne jen o titulek a popis. To je roadmap, ne dnešní stav. Kdo si dnes otevře Gemini v telefonu nebo Ask YouTube pod videem, tuhle novinku tam ještě nečekejte.
+V aplikaci Gemini to zatím není. Google říká, že to tam brzy pustí u Flash a Flash-Lite. A v nadcházejících měsících má stejný přístup pohánět Ask YouTube na stránce videa — odpovědi opřené o to, co je ve záběru, ne jen o titulek a popis. To je plán na další měsíce, ne dnešní stav. Kdo si dnes otevře Gemini v telefonu nebo Ask YouTube pod videem, tuhle novinku tam ještě nečekejte.
 
 ## Co si z toho odnést
 
