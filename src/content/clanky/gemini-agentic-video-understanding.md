@@ -12,7 +12,7 @@ audio:
   duration: 1279
 ---
 
-Google 1. září vypustil u Gemini nový způsob, jak číst video. Místo aby model sežral celý soubor snímek po snímku, chová se spíš jako editor: podívá se, kde je to důležité, a zbytek přeskočí. Funkce se jmenuje agentic video understanding a startuje na třech Flash modelech — Gemini 3.7 Flash, 3.6 Flash a 3.5 Flash-Lite. Oznámení podepsali Rohan Doshi a Mario Lučić z DeepMindu.
+Google 1. září vypustil u Gemini nový způsob, jak číst video. Místo aby model sežral celý soubor snímek po snímku, chová se spíš jako editor: podívá se, kde je to důležité, a zbytek přeskočí. Funkce se jmenuje agentní čtení videa (agentic video understanding) a startuje na třech Flash modelech — Gemini 3.7 Flash, 3.6 Flash a 3.5 Flash-Lite. Oznámení podepsali Rohan Doshi a Mario Lučić z DeepMindu.
 
 ## Proč to sedí u dlouhých videí
 
@@ -28,11 +28,11 @@ Dřív si vývojář takovou smyčku skládal ručně: rozhodnout, kam se podív
 
 Čísla bereme z [oznámení Googlu](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-agentic-video-in-gemini/), ne z vlastního měření.
 
-Google uvádí, že napříč standardními benchmarky na analýzu videa Gemini s tímhle režimem snižuje spotřebu tokenů až o 88 %, náklady až o 66 % a přesnost zvedá až o 7 %. Úspora má být nejviditelnější právě u dlouhých videí — od desetiminutových návodů přes devadesátiminutové přednášky až po několikahodinové záznamy.
+Google uvádí, že napříč standardními srovnávacími testy na analýzu videa Gemini s tímhle režimem snižuje spotřebu tokenů až o 88 %, náklady až o 66 % a přesnost zvedá až o 7 %. Úspora má být nejviditelnější právě u dlouhých videí — od desetiminutových návodů přes devadesátiminutové přednášky až po několikahodinové záznamy.
 
 Nejlepší kombinaci kvality a ceny Google dává Gemini 3.7 Flash s agentním čtením. U všech tří podporovaných modelů prý zisky jsou, ale 3.7 Flash má podle Googlu sedět na hranici přesnosti a ceny.
 
-To jsou jejich claimy z vlastních benchů. Jestli to drží na vašem materiálu, uvidíte až na vlastních datech.
+To jsou jejich tvrzení z vlastních benchů. Jestli to drží na vašem materiálu, uvidíte až na vlastních datech.
 
 ## K čemu to má být
 
@@ -58,7 +58,7 @@ V aplikaci Gemini to zatím není. Google říká, že to tam brzy pustí u Flas
 
 Je to oznámení pro vývojáře, ne pro každého, kdo si večer pouští Gemini v telefonu. Pokud přes API taháte dlouhá videa, Google slibuje, že přestanete platit za každý snímek a model si sáhne jen tam, kde to dává smysl.
 
-Háček je stejný jako u každého takového launchi: čísla jsou z blogu výrobce. Až 88 % méně tokenů a až 7 % vyšší přesnost zní dobře, ale „až“ v takových větách vždycky nese nejlepší případ, ne průměr. Pořád je to ale posun, který u dlouhého videa dává logiku — pevné tempo bylo drahé nebo hluché, a teď Google tvrdí, že model umí tu volbu udělat sám.
+Háček je stejný jako u každého takového uvedení: čísla jsou z blogu výrobce. Až 88 % méně tokenů a až 7 % vyšší přesnost zní dobře, ale „až“ v takových větách vždycky nese nejlepší případ, ne průměr. Pořád je to ale posun, který u dlouhého videa dává logiku — pevné tempo bylo drahé nebo hluché, a teď Google tvrdí, že model umí tu volbu udělat sám.
 
 Zatím máme blog Rohana Doshiho a Maria Lučiće z DeepMindu a jeden tweet Googlu. A API, které tohle umí zapnout už dnes.
 
