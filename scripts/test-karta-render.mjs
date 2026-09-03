@@ -223,7 +223,8 @@ test('video s coverem, jehož soubor v repu chybí, padá na YouTube — ne na 4
 });
 
 // ---------------------------------------------------------------------------
-// 🔴 KARTA-DATUM-001 — nález, v tomhle PR se NEOPRAVUJE
+// KARTA-DATUM-001 — opraveno: formatCalendarDateCs formátuje s timeZone UTC,
+// stejně jako se čte atribut datetime. Test je ostrý, ne todo.
 // ---------------------------------------------------------------------------
 
 /** Spustí kartu v podprocesu s daným časovým pásmem. */
@@ -252,13 +253,13 @@ test('v UTC i ve středoevropském pásmu sedí viditelné datum na strojové', 
   }
 });
 
-test.todo(
+test(
   'KARTA-DATUM-001: viditelné datum se nesmí lišit od atributu datetime',
   () => {
     // Datum článku je půlnoc v UTC (parseCalendarDate), atribut `datetime`
-    // se čte v UTC (toISOString), ale viditelný text jde přes
-    // toLocaleDateString v MÍSTNÍM pásmu buildu. Kdekoli se staví v záporném
-    // posunu, karta ukazuje o den dřív, než tvrdí strojové datum.
+    // se čte v UTC (toISOString). Viditelný text dřív šel přes
+    // toLocaleDateString v MÍSTNÍM pásmu buildu — v záporném posunu karta
+    // ukazovala o den dřív, než tvrdilo strojové datum.
     for (const TZ of ['America/Los_Angeles', 'Pacific/Honolulu']) {
       const { dateStr, datetime } = kartaVPasmu(TZ, '2026-08-19');
       const [rok, mesic, den] = datetime.split('-');
