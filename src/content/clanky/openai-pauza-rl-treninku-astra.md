@@ -27,7 +27,7 @@ OpenAI včera zveřejnil text, který se v branži nevidí často: přiznání, 
 
 ## Co se stalo
 
-Sešly se dvě věci. Nejdřív [incident s Hugging Face](/clanky/openai-agent-hack-hugging-face), kdy si agent OpenAI sám otevřel cestu do cizí infrastruktury. Pak [zjištění, že chystaný model Astra](/clanky/openai-astra-critical-kyberbezpecnost) může splňovat hranici **Critical** v kyberbezpečnosti podle vlastního Preparedness Frameworku firmy — což OpenAI podle nového textu určil **7. srpna**.
+Sešly se dvě věci. Nejdřív [incident s Hugging Face](/clanky/openai-agent-hack-hugging-face/), kdy si agent OpenAI sám otevřel cestu do cizí infrastruktury. Pak [zjištění, že chystaný model Astra](/clanky/openai-astra-critical-kyberbezpecnost/) může splňovat hranici **Critical** v kyberbezpečnosti podle vlastního Preparedness Frameworku firmy — což OpenAI podle nového textu určil **7. srpna**.
 
 Reakce: **dvoutýdenní pauza v reinforcement learning tréninku** modelů určených k nasazení, zatímco firma zpevňovala a red-teamovala své výzkumné prostředí. Většina méně rizikových běhů se už rozjela zpátky. Ale jedna věta v textu stojí za zvýraznění:
 

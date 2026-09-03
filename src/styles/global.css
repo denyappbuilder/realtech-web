@@ -546,11 +546,15 @@ a.tag:hover { background: var(--signal-dark); }
 }
 .audio-prehled-delka .mono { margin-right: 8px; }
 .audio-prehled audio { width: 100%; display: block; }
-.audio-prehled-prepis { margin-top: 12px; }
+.audio-prehled-prepis { margin-top: 3px; }
 .audio-prehled-prepis summary {
   cursor: pointer;
   color: var(--ink-soft);
   font-weight: 600;
+  /* Kolo 16: jediný ovládací prvek článku pod 44px (26px). padding-block
+     ho zvedne na 44px a nechá disclosure trojúhelník (display zůstává
+     list-item); 3px margin výš drží původních 12px nad textem. */
+  padding-block: 9px;
 }
 .audio-prehled-prepis p {
   margin: 10px 0 0;
@@ -842,7 +846,7 @@ footer.site ul a:hover { color: var(--ink); }
     padding: 12px 14px;
   }
   .audio-prehled-head { gap: 8px; margin-bottom: 8px; }
-  .audio-prehled-prepis { margin-top: 8px; }
+  .audio-prehled-prepis { margin-top: 0; }
   .article-hero,
   .video-embed { margin-top: 20px; }
   .article-layout { margin-top: 20px; }
@@ -856,11 +860,17 @@ footer.site ul a:hover { color: var(--ink); }
   header.site .logo .cz { font-size: 0.5rem; }
   header.site .header-actions { gap: 4px; }
   header.site .yt-btn { padding-inline: 10px; }
+  /* Kolo 16: pět položek s padding 10px měřilo 349px, na 375px (obsah 327px)
+     i 390px se „O nás" seklo — bez náznaku, že navigace roluje, a na /o-nas/
+     s půlkou červeného podtržení aktivní položky. 7px = 319px, vejde se. */
+  header.site nav.main a { padding-inline: 7px; }
 }
 @media (max-width: 370px) {
   /* I na 320–360px se první řada vejde bez překryvu nebo zmenšení 44px cílů. */
   header.site .wrap { padding-inline: 8px; column-gap: 4px; }
   header.site .yt-btn { padding-inline: 6px; gap: 6px; font-size: 0.75rem; }
+  /* 320px má na navigaci 304px: 0.9rem + 6px = ~297px, poslední položka celá. */
+  header.site nav.main a { padding-inline: 6px; font-size: 0.9rem; }
 }
 
 .video-embed {
@@ -1364,6 +1374,15 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 
 /* ── Kotvy u nadpisů v článku ────────── */
 .article-body h2, .article-body h3 { scroll-margin-top: 90px; position: relative; }
+/* Kolo 16: sticky header má na desktopu 65px, ale na 581–900px 117px a pod
+   580px 93px — po kliku na „#" nebo příchodu z odkazu s #fragmentem zůstal
+   nadpis zčásti schovaný pod hlavičkou (na tabletu o 27px). */
+@media (max-width: 900px) {
+  .article-body h2, .article-body h3 { scroll-margin-top: 130px; }
+}
+@media (max-width: 580px) {
+  .article-body h2, .article-body h3 { scroll-margin-top: 106px; }
+}
 .heading-anchor {
   opacity: 0; margin-left: 8px; color: var(--ink-faint);
   font-size: 0.7em; text-decoration: none; transition: opacity 0.15s, color 0.15s;

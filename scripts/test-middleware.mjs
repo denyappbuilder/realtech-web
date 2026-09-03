@@ -112,8 +112,7 @@ test("hostname obsahující pouze text povoleného aliasu se nepřesměruje", as
 });
 
 test(
-  "absolutní www hostname s koncovou tečkou se přesměruje",
-  { todo: "[codex-testy-web/CANONICAL-HOST-001]" },
+  "absolutní www hostname s koncovou tečkou se přesměruje [codex-testy-web/CANONICAL-HOST-001]",
   async () => {
     await assertRedirect(
       "https://www.realtech.cz./clanky/fqdn/?a=1",
@@ -123,8 +122,7 @@ test(
 );
 
 test(
-  "absolutní pages.dev hostname s koncovou tečkou se přesměruje",
-  { todo: "[codex-testy-web/CANONICAL-HOST-001]" },
+  "absolutní pages.dev hostname s koncovou tečkou se přesměruje [codex-testy-web/CANONICAL-HOST-001]",
   async () => {
     await assertRedirect(
       "https://realtech-web.pages.dev./clanky/fqdn/?a=1",
