@@ -20,6 +20,7 @@ export function nahledKarty(image, exists = (cesta) => fs.existsSync(cesta)) {
       thumbW: 1280,
       thumbH: 720,
       thumbWebp: null,
+      thumbWebpSrcset: null,
       hasWebp: false,
       hasLocalThumb: false,
     };
@@ -35,11 +36,17 @@ export function nahledKarty(image, exists = (cesta) => fs.existsSync(cesta)) {
     : null;
 
   const hasWebp = Boolean(thumbWebp && exists(`public${thumbWebp}`));
+  // Retina / širší karta: když leží plný WebP vedle -640.webp, dej srcset
+  // 640w+1280w (stejný vzor jako hero). Jinak single URL beze změny.
+  const fullWebp = jeJpg ? image.replace(/\.jpg$/, '.webp') : null;
+  const hasFullWebp = Boolean(fullWebp && pouzilSmall && hasWebp && exists(`public${fullWebp}`));
+  const thumbWebpSrcset = hasFullWebp ? `${thumbWebp} 640w, ${fullWebp} 1280w` : null;
   return {
     localThumb,
     thumbW: pouzilSmall ? 640 : 1280,
     thumbH: pouzilSmall ? 360 : 720,
     thumbWebp,
+    thumbWebpSrcset,
     hasWebp,
     // Stejný důvod jako hero: <img src> musí být WebP, jinak LCP první
     // karty na /clanky/ stáhne -640.jpg i když -640.webp leží vedle.

@@ -27,10 +27,9 @@ const temata = [...new Set(all.map((c) => c.data.category))].map((category) => {
 
 const pocetClankuText = (n) => (n === 1 ? '1 článek' : n < 5 ? `${n} články` : `${n} článků`);
 
-// LCP na /temata/ je náhled první karty (živě 2. 9. 2026: všech 7 <img>
-// šlo ven jako loading=lazy, <head> neměl preload). Stejný výpočet jako
-// archiv — lokální WebP, jinak JPG. Hub YouTube fallback nemá: karta
-// kreslí náhled jen když soubor v public/ opravdu je.
+// LCP na /temata/ je náhled první karty (fetchpriority=high jen i===0).
+// První řada (i<3) je eager — 2./3. karta na desktopu nesmí vyhrát LCP
+// jako lazy. Stejný výpočet jako archiv — lokální WebP, jinak JPG.
 const prvniHub = temata[0];
 const kartaPreload = prvniHub?.nahled.hasLocalThumb
   ? preloadHeroObrazku({
@@ -95,13 +94,18 @@ const collectionLd = {
             {t.nahled.localThumb && (
               <div class={`card-thumb th-${t.slug}`}>
                 <picture>
-                  {t.nahled.hasWebp && <source srcset={t.nahled.thumbWebp} type="image/webp" />}
-                  <img src={t.nahled.lcpSrc} alt={t.nejnovejsi.data.title} width={t.nahled.thumbW} height={t.nahled.thumbH} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" fetchpriority={i === 0 ? 'high' : undefined} />
+                  {t.nahled.hasWebp && t.nahled.thumbWebpSrcset && (
+                    <source srcset={t.nahled.thumbWebpSrcset} sizes="(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw" type="image/webp" />
+                  )}
+                  {t.nahled.hasWebp && !t.nahled.thumbWebpSrcset && (
+                    <source srcset={t.nahled.thumbWebp} type="image/webp" />
+                  )}
+                  <img src={t.nahled.lcpSrc} alt={t.nejnovejsi.data.title} width={t.nahled.thumbW} height={t.nahled.thumbH} loading={i < 3 ? 'eager' : 'lazy'} decoding="async" fetchpriority={i === 0 ? 'high' : undefined} />
                 </picture>
               </div>
             )}
             <div class="card-body">
-              <h3><a href={`/temata/${t.slug}/`}>{t.category}</a></h3>
+              <h2><a href={`/temata/${t.slug}/`}>{t.category}</a></h2>
               <p>{popisTematu(t.category)}</p>
               <div class="card-meta">
                 <time datetime={t.nejnovejsi.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(t.nejnovejsi.data.date)}</time>
@@ -119,6 +123,7 @@ const collectionLd = {
   /* Náhled je <div>, ne druhý <a>. Stretched link: ::after odkazu
      v titulku pokryje celou kartu včetně fotky. Jediný <a>. */
   .grid .card { position: relative; }
+  .card-body h2 a::after,
   .card-body h3 a::after {
     content: '';
     position: absolute;

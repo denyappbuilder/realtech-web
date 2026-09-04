@@ -126,6 +126,20 @@ header.site .wrap {
   margin-left: 4px;
   letter-spacing: 0.1em;
 }
+
+/* Kolo 20: logo TECH v darku — --signal #E5322D na --surface má 3,97:1
+   (AA normal 4,5; large text 3,0 těsně prochází). --signal-dark #F0554F
+   dá 5,03:1, stejně jako odkazy .signal-dark. Light beze změny (#D42622). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .logo .tech,
+  :root:not([data-theme="light"]) .ab-logo .tech {
+    color: var(--signal-dark);
+  }
+}
+:root[data-theme="dark"] .logo .tech,
+:root[data-theme="dark"] .ab-logo .tech {
+  color: var(--signal-dark);
+}
 nav.main ul { display: flex; gap: 28px; list-style: none; }
 nav.main a {
   font-size: 0.88rem; font-weight: 500; color: var(--ink-soft);
@@ -462,14 +476,18 @@ a.tag:hover { background: var(--signal-fill-hover); }
 /* Kolo 15: délka videa brala rgba(20,23,28) = light --panel; v darku se lišila od .k. */
 .card-thumb .lt .t { background: color-mix(in srgb, var(--panel) 85%, transparent); }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card-body h2,
 .card-body h3 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
   font-size: 1.08rem; line-height: 1.25; letter-spacing: -0.01em;
 }
+.card-body h2 a,
 .card-body h3 a { transition: color 0.15s; }
+.card-body h2 a:hover,
 .card-body h3 a:hover { color: var(--signal-dark); }
 /* Celá karta je klikací: stretched link přes ::after odkazu v titulku.
    Náhled je <div>, ne druhý <a> na stejné URL (vnořený interaktivní prvek). */
+.card-body h2 a::after,
 .card-body h3 a::after { content: ''; position: absolute; inset: 0; }
 .card-body p { font-size: 0.95rem; color: var(--ink-soft); flex: 1; }
 .card-meta {
@@ -516,6 +534,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
     aspect-ratio: auto;
     min-height: 220px;
   }
+  .featured-lead > .card:first-child .card-body h2,
   .featured-lead > .card:first-child .card-body h3 {
     font-size: 1.35rem;
   }
@@ -1255,6 +1274,7 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .related .section-head h2 { font-size: 1.15rem; }
 .related .grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.related .card-body h2,
 .related .card-body h3 { font-size: 0.95rem; }
 .related .card-body p { display: none; }
 @media (max-width: 700px) {

@@ -30,6 +30,7 @@ test('běžný JPG použije existující variantu 640 px a její WebP náhled', 
     files: [
       'public/images/clanky/cover-640.jpg',
       'public/images/clanky/cover-640.webp',
+      'public/images/clanky/cover.webp',
     ],
   });
 
@@ -38,6 +39,24 @@ test('běžný JPG použije existující variantu 640 px a její WebP náhled', 
   assert.equal(thumbnail.thumbWebp, '/images/clanky/cover-640.webp');
   assert.equal(thumbnail.hasWebp, true);
   assert.equal(thumbnail.lcpSrc, '/images/clanky/cover-640.webp');
+  assert.equal(
+    thumbnail.thumbWebpSrcset,
+    '/images/clanky/cover-640.webp 640w, /images/clanky/cover.webp 1280w',
+  );
+});
+
+test('JPG s 640 WebP bez plného WebP nechá srcset prázdný', async () => {
+  const image = '/images/clanky/cover.jpg';
+  const thumbnail = await loadThumbnail({
+    image,
+    files: [
+      'public/images/clanky/cover-640.jpg',
+      'public/images/clanky/cover-640.webp',
+    ],
+  });
+
+  assert.equal(thumbnail.thumbWebp, '/images/clanky/cover-640.webp');
+  assert.equal(thumbnail.thumbWebpSrcset, null);
 });
 
 test('JPG bez varianty 640 px použije původní obrázek a rozměry 1280 × 720', async () => {

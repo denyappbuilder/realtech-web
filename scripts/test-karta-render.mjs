@@ -55,8 +55,13 @@ function kategorieZeSchematu() {
 test('šablona zapojuje náhled přesně tak, jak testy předpokládají', () => {
   assert.match(
     SABLONA,
-    /\{hasWebp && <source srcset=\{thumbWebp\} type="image\/webp" \/>\}/,
-    'WebP <source> se řídí jen hodnotou hasWebp',
+    /hasWebp && thumbWebpSrcset && <source srcset=\{thumbWebpSrcset\}/,
+    'WebP srcset <source> když je thumbWebpSrcset',
+  );
+  assert.match(
+    SABLONA,
+    /hasWebp && !thumbWebpSrcset && <source srcset=\{thumbWebp\} type="image\/webp" \/>/,
+    'WebP single <source> když srcset chybí',
   );
   assert.match(
     SABLONA,

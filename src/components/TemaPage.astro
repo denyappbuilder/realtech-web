@@ -118,7 +118,12 @@ const ogTitle = page === 1
       <p class="cat-lead">{popis}</p>
       <div class="grid featured-lead">
         {articles.map((article, index) => (
-          <ArticleCard article={article} priority={index === 0} />
+          <ArticleCard
+            article={article}
+            titleTag="h2"
+            priority={index === 0}
+            eager={index < 3}
+          />
         ))}
       </div>
       {totalPages > 1 && (
