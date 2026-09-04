@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-09-04T06:30:00+02:00"
 zprava: true
 image: "/images/clanky/gpt-6-astra-vysla.jpg"
+audio:
+  url: "https://audio.realtech.cz/gpt-6-astra-vysla-nlm.mp3?v=c78eb8305318"
+  duration: 1711
 ---
 
 OpenAI ve čtvrtek 3. září vydal GPT-6 Astra. Model, o kterém se předchozí dva dny mluvilo hlavně kvůli kyberbezpečnosti, je tím venku jako produkt. Dnes se k němu ale nedostane kdokoli. Přístup má podle OpenAI „omezená skupina organizací“, v praxi firemní zákazníci s přístupem do kyberprogramu Daybreak. ChatGPT Plus, Pro, Business a Enterprise, API i AWS mají následovat „v následujících dnech“.
