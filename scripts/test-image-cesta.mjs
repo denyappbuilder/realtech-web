@@ -45,13 +45,10 @@ test('prázdná a null hodnota znamenají chybějící volitelný obrázek', () 
   assert.equal(chybaTvaruImage(undefined), null);
 });
 
-test(
-  'povoluje dvě tečky uvnitř bezpečného názvu souboru [codex-testy-web/IMAGE-CESTA-001]',
-  { todo: '[codex-testy-web/IMAGE-CESTA-001]' },
-  () => {
-    assert.equal(chybaTvaruImage('/images/clanky/nahled..final.jpg'), null);
-  },
-);
+test('povoluje dvě tečky uvnitř bezpečného názvu souboru [codex-testy-web/IMAGE-CESTA-001]', () => {
+  assert.equal(chybaTvaruImage('/images/clanky/nahled..final.jpg'), null);
+  assert.equal(chybaTvaruImage('/images/clanky/serie/v1..2/nahled.jpg'), null);
+});
 
 // ---------------------------------------------------------------------------
 // Skutečný obsah repa: `image:` ve frontmatteru musí mířit na existující

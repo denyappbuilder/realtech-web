@@ -106,9 +106,6 @@ test('image cesta v podadresáři /images/clanky projde', (t) => {
 
 test(
   'CONTENT-IMAGE-001 image traversal cesta mimo public musí být odmítnuta',
-  {
-    todo: 'Odstranit TODO, až validator odmítne traversal i při existujícím cíli mimo public.',
-  },
   (t) => {
     const root = createFixture(t);
     const image = '/../package.json';
@@ -127,9 +124,6 @@ test(
 
 test(
   'CONTENT-IMAGE-002 image cesta jako absolutní externí URL musí být odmítnuta',
-  {
-    todo: 'Odstranit TODO, až validator odmítne absolutní externí URL i při existujícím cíli složené fs cesty.',
-  },
   (t) => {
     const root = createFixture(t);
     const image = 'https://example.invalid/cover.jpg';
@@ -148,9 +142,6 @@ test(
 
 test(
   'CONTENT-IMAGE-003 image cesta bez úvodního lomítka musí být odmítnuta',
-  {
-    todo: 'Odstranit TODO, až validator odmítne cestu bez úvodního lomítka i při existujícím cíli složené fs cesty.',
-  },
   (t) => {
     const root = createFixture(t);
     const image = 'images/clanky/bez-lomitka.jpg';
@@ -169,9 +160,6 @@ test(
 
 test(
   'CONTENT-IMAGE-004 image cesta k souboru mimo /images/clanky musí být odmítnuta',
-  {
-    todo: 'Odstranit TODO, až validator odmítne existující soubor mimo /images/clanky.',
-  },
   (t) => {
     const root = createFixture(t);
     const image = '/assets/jiny-soubor.jpg';
@@ -681,8 +669,7 @@ test('chybějící interní odkaz s query a fragmentem ukončí validaci chybou'
 });
 
 test(
-  'chybějící interní odkaz s cílem v úhlových závorkách se nesmí tiše přeskočit',
-  { todo: 'codex-testy-web/CONTENT-LINK-001' },
+  'chybějící interní odkaz s cílem v úhlových závorkách se nesmí tiše přeskočit [codex-testy-web/CONTENT-LINK-001]',
   (t) => {
     const root = createFixture(t);
     writeArticle(
