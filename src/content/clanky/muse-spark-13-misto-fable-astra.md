@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-09-04T11:15:00+02:00"
 zprava: true
 image: "/images/clanky/muse-spark-13-misto-fable-astra.jpg"
+audio:
+  url: "https://audio.realtech.cz/muse-spark-13-misto-fable-astra-nlm.mp3?v=37b731d915ac"
+  duration: 981
 ---
 
 Meta vypustila **Muse Spark 1.3**. Režim **xhigh** běží ode dneška v Muse Code a v Meta Model API. Silnější režim **max** zůstává v uzavřeném náhledu pro partnery a čeká na dokončení bezpečnostních testů. Ceník xhigh se nemění: **1,25 dolaru** za milion vstupních tokenů a **4,25 dolaru** za výstupní, čtení z cache **0,15 dolaru**.
