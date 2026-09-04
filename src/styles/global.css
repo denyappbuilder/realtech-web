@@ -625,6 +625,14 @@ a.tag:hover { background: var(--signal-fill-hover); }
   border-radius: 14px;
   padding: 20px 22px;
 }
+/* Kolo 19: aside drží krok s textem. Bez toho odjelo „Sdílej dál“
+   i „Další reporty“ po prvních 500px z obrazovky a vedle 5000px článku
+   zůstal prázdný sloupec (živě 4. 9. 2026, 1280px). 81px = sticky header
+   (65px) + 16px. Jen na výškách, kam se karta (~450px) vejde celá —
+   na nižším okně by sticky schoval spodní odkazy až do konce článku. */
+@media (min-width: 901px) and (min-height: 640px) {
+  .article-aside { position: sticky; top: 81px; }
+}
 .article-aside .mono {
   color: var(--ink-faint);
   margin: 18px 0 8px;
@@ -818,6 +826,14 @@ footer.site ul a:hover { color: var(--ink); }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   .article-layout { grid-template-columns: 1fr; }
+  /* Kolo 19: aside vznikl pro desktopovou díru vedle těla (Z10069). Pod
+     901px se skládal POD text a všechno v něm už na stránce je: kategorie,
+     datum a čtení nese .lower-third nahoře, tři tlačítka sdílení stojí
+     200px níž v .article-share a tři „Další reporty“ jsou hned pod tím
+     karty .related (stejné pole `related`). Živě 4. 9. 2026 na 390px
+     ~330px duplicit mezi koncem článku a výzvou na kanál; čtečka slyšela
+     šest tlačítek sdílení. */
+  .article-aside { display: none; }
   header.site .wrap {
     flex-wrap: wrap; height: auto;
     padding-top: 10px; padding-bottom: 10px; row-gap: 8px;
