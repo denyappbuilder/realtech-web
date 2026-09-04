@@ -1216,6 +1216,16 @@ footer.site ul a:hover { color: var(--ink); }
   margin: 12px 0 18px;
 }
 .about p { margin: 0 0 1.1em; color: var(--ink-soft); font-size: 1.02rem; }
+/* Kolo 19: odkazy v textu O nás (RealTvorba, info@realtech.cz, „Vyzkoušet
+   RealTvorbu →“) dědily `a { color: inherit; text-decoration: none }` —
+   živě 4. 9. 2026 nešly od okolního textu poznat (WCAG 1.4.1). Stejná
+   afordance jako v těle článku; .about-aside-meta a už má vlastní. */
+.about-main p a {
+  color: var(--signal-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.about-main p a:hover { color: var(--ink); }
 .about h2 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
   font-size: 1.25rem; margin: 2em 0 0.6em;
