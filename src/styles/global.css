@@ -7,6 +7,14 @@
   --line: #E2E6EB;
   --signal: #D42622;
   --signal-dark: #B7211D;
+  /* Kolo 19: výplň pod bílým textem (tlačítka Odebírat, štítek kategorie,
+     newsletter, badge ve hledání). --signal se v darku zesvětluje na
+     #E5322D kvůli červenému textu a tečkám na tmavém podkladu — bílý text
+     na téže barvě má ale jen 4,35:1 (AA chce 4,5; živě 4. 9. 2026 na
+     všech stránkách v darku). Výplň proto drží #D42622 (5,1:1) v obou
+     tématech a hover ztmavuje, ne zesvětluje. Dark bloky ji nepřepisují. */
+  --signal-fill: #D42622;
+  --signal-fill-hover: #B7211D;
   --panel: #14171C;
   --radius: 8px;
   /* Kolo 18: color-scheme řídí nativní UA prvky, které tokeny nestylují —
@@ -126,7 +134,7 @@ nav.main a {
 }
 nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: var(--signal); }
 .yt-btn {
-  background: var(--signal); color: #fff;
+  background: var(--signal-fill); color: #fff;
   padding: 9px 18px; border-radius: var(--radius);
   font-size: 0.85rem; font-weight: 600;
   min-height: 44px;
@@ -134,7 +142,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   display: inline-flex; align-items: center; gap: 8px;
   white-space: nowrap;
 }
-.yt-btn:hover { background: var(--signal-dark); }
+.yt-btn:hover { background: var(--signal-fill-hover); }
 .yt-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* ── News ticker ─────────────────────── */
@@ -288,7 +296,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
    „Zpráva", datum i „ČTENÍ“ pak seděly u horního okraje 44px pruhu. */
 .lower-third > * { display: inline-flex; align-items: center; }
 .lower-third .tag {
-  background: var(--signal); color: #fff;
+  background: var(--signal-fill); color: #fff;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
   padding: 5px 12px; text-transform: uppercase;
@@ -298,7 +306,7 @@ a.tag {
   min-height: 44px;
   transition: background 0.15s;
 }
-a.tag:hover { background: var(--signal-dark); }
+a.tag:hover { background: var(--signal-fill-hover); }
 .lower-third .time {
   background: var(--panel); color: #fff;
   font-family: 'IBM Plex Mono', monospace;
@@ -755,25 +763,25 @@ a.tag:hover { background: var(--signal-dark); }
 .nl-form input::placeholder { color: color-mix(in srgb, #fff 42%, var(--panel)); }
 .nl-form input:focus { outline: 2px solid var(--signal); outline-offset: 1px; }
 .nl-form button {
-  background: var(--signal); color: #fff; border: none; cursor: pointer;
+  background: var(--signal-fill); color: #fff; border: none; cursor: pointer;
   padding: 13px 22px; border-radius: var(--radius);
   font-family: inherit; font-weight: 600; font-size: 0.9rem;
   min-height: 44px;
   display: inline-flex; align-items: center;
   transition: background 0.15s;
 }
-.nl-form button:hover { background: var(--signal-dark); }
+.nl-form button:hover { background: var(--signal-fill-hover); }
 /* Newsletter sedí na --panel v obou tématech, proto tmavé tokeny natvrdo:
    #A9B2BF = dark --ink-soft, #828B98 = dark --ink-faint (dřív #848D9B mimo paletu). */
 .nl-note { font-size: 0.75rem; color: #828B98; margin-top: 10px; }
 .nl-cta {
   display: inline-flex; align-items: center; gap: 10px;
-  background: var(--signal); color: #fff; text-decoration: none;
+  background: var(--signal-fill); color: #fff; text-decoration: none;
   padding: 14px 26px; border-radius: var(--radius);
   font-weight: 600; font-size: 0.95rem;
   transition: background 0.15s;
 }
-.nl-cta:hover { background: var(--signal-dark); }
+.nl-cta:hover { background: var(--signal-fill-hover); }
 
 /* ── Footer ──────────────────────────── */
 footer.site {
@@ -1430,7 +1438,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 .search-item.active, .search-item:hover { background: color-mix(in srgb, var(--signal) 8%, transparent); }
 .si-cat {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em;
-  text-transform: uppercase; background: var(--signal); color: #fff;
+  text-transform: uppercase; background: var(--signal-fill); color: #fff;
   padding: 3px 7px; border-radius: 3px; white-space: nowrap;
 }
 .si-title {
