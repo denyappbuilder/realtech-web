@@ -23,7 +23,18 @@
         aria-controls="search-results"
         aria-label="Hledaný výraz"
       />
-      <kbd class="search-esc">ESC</kbd>
+      {/*
+        Kolo 19: „ESC“ byl jen <kbd> — dialog neměl žádný ovládací prvek
+        k zavření (WAI-ARIA dialog pattern ho chce). Na telefonu, kde Esc
+        neexistuje, se dal modal opustit jen klepnutím do 20px lemu kolem
+        okna (živě 4. 9. 2026 na 390px). Tlačítko kreslí na desktopu dál
+        klávesu ESC, pod 900px křížek (stejný práh jako skrytí .st-kbd
+        v hlavičce — bez fyzické klávesnice nemá klávesa co říct).
+      */}
+      <button type="button" class="search-esc" data-search-close aria-label="Zavřít hledání">
+        <kbd class="search-esc-kbd" aria-hidden="true">ESC</kbd>
+        <svg class="search-esc-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6z"/></svg>
+      </button>
     </div>
     <div class="search-results" id="search-results" role="listbox" aria-label="Výsledky"></div>
     <div class="search-foot mono">
@@ -202,5 +213,8 @@
 
   document.querySelectorAll('[data-search-open]').forEach((el) =>
     el.addEventListener('click', (e) => { e.preventDefault(); open(e.currentTarget as HTMLElement); })
+  );
+  document.querySelectorAll('[data-search-close]').forEach((el) =>
+    el.addEventListener('click', () => close())
   );
 </script>

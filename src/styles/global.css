@@ -7,6 +7,14 @@
   --line: #E2E6EB;
   --signal: #D42622;
   --signal-dark: #B7211D;
+  /* Kolo 19: výplň pod bílým textem (tlačítka Odebírat, štítek kategorie,
+     newsletter, badge ve hledání). --signal se v darku zesvětluje na
+     #E5322D kvůli červenému textu a tečkám na tmavém podkladu — bílý text
+     na téže barvě má ale jen 4,35:1 (AA chce 4,5; živě 4. 9. 2026 na
+     všech stránkách v darku). Výplň proto drží #D42622 (5,1:1) v obou
+     tématech a hover ztmavuje, ne zesvětluje. Dark bloky ji nepřepisují. */
+  --signal-fill: #D42622;
+  --signal-fill-hover: #B7211D;
   --panel: #14171C;
   --radius: 8px;
   /* Kolo 18: color-scheme řídí nativní UA prvky, které tokeny nestylují —
@@ -126,7 +134,7 @@ nav.main a {
 }
 nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: var(--signal); }
 .yt-btn {
-  background: var(--signal); color: #fff;
+  background: var(--signal-fill); color: #fff;
   padding: 9px 18px; border-radius: var(--radius);
   font-size: 0.85rem; font-weight: 600;
   min-height: 44px;
@@ -134,7 +142,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   display: inline-flex; align-items: center; gap: 8px;
   white-space: nowrap;
 }
-.yt-btn:hover { background: var(--signal-dark); }
+.yt-btn:hover { background: var(--signal-fill-hover); }
 .yt-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
 /* ── News ticker ─────────────────────── */
@@ -288,7 +296,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
    „Zpráva", datum i „ČTENÍ“ pak seděly u horního okraje 44px pruhu. */
 .lower-third > * { display: inline-flex; align-items: center; }
 .lower-third .tag {
-  background: var(--signal); color: #fff;
+  background: var(--signal-fill); color: #fff;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em;
   padding: 5px 12px; text-transform: uppercase;
@@ -298,7 +306,7 @@ a.tag {
   min-height: 44px;
   transition: background 0.15s;
 }
-a.tag:hover { background: var(--signal-dark); }
+a.tag:hover { background: var(--signal-fill-hover); }
 .lower-third .time {
   background: var(--panel); color: #fff;
   font-family: 'IBM Plex Mono', monospace;
@@ -617,6 +625,14 @@ a.tag:hover { background: var(--signal-dark); }
   border-radius: 14px;
   padding: 20px 22px;
 }
+/* Kolo 19: aside drží krok s textem. Bez toho odjelo „Sdílej dál“
+   i „Další reporty“ po prvních 500px z obrazovky a vedle 5000px článku
+   zůstal prázdný sloupec (živě 4. 9. 2026, 1280px). 81px = sticky header
+   (65px) + 16px. Jen na výškách, kam se karta (~450px) vejde celá —
+   na nižším okně by sticky schoval spodní odkazy až do konce článku. */
+@media (min-width: 901px) and (min-height: 640px) {
+  .article-aside { position: sticky; top: 81px; }
+}
 .article-aside .mono {
   color: var(--ink-faint);
   margin: 18px 0 8px;
@@ -755,25 +771,25 @@ a.tag:hover { background: var(--signal-dark); }
 .nl-form input::placeholder { color: color-mix(in srgb, #fff 42%, var(--panel)); }
 .nl-form input:focus { outline: 2px solid var(--signal); outline-offset: 1px; }
 .nl-form button {
-  background: var(--signal); color: #fff; border: none; cursor: pointer;
+  background: var(--signal-fill); color: #fff; border: none; cursor: pointer;
   padding: 13px 22px; border-radius: var(--radius);
   font-family: inherit; font-weight: 600; font-size: 0.9rem;
   min-height: 44px;
   display: inline-flex; align-items: center;
   transition: background 0.15s;
 }
-.nl-form button:hover { background: var(--signal-dark); }
+.nl-form button:hover { background: var(--signal-fill-hover); }
 /* Newsletter sedí na --panel v obou tématech, proto tmavé tokeny natvrdo:
    #A9B2BF = dark --ink-soft, #828B98 = dark --ink-faint (dřív #848D9B mimo paletu). */
 .nl-note { font-size: 0.75rem; color: #828B98; margin-top: 10px; }
 .nl-cta {
   display: inline-flex; align-items: center; gap: 10px;
-  background: var(--signal); color: #fff; text-decoration: none;
+  background: var(--signal-fill); color: #fff; text-decoration: none;
   padding: 14px 26px; border-radius: var(--radius);
   font-weight: 600; font-size: 0.95rem;
   transition: background 0.15s;
 }
-.nl-cta:hover { background: var(--signal-dark); }
+.nl-cta:hover { background: var(--signal-fill-hover); }
 
 /* ── Footer ──────────────────────────── */
 footer.site {
@@ -810,6 +826,14 @@ footer.site ul a:hover { color: var(--ink); }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   .article-layout { grid-template-columns: 1fr; }
+  /* Kolo 19: aside vznikl pro desktopovou díru vedle těla (Z10069). Pod
+     901px se skládal POD text a všechno v něm už na stránce je: kategorie,
+     datum a čtení nese .lower-third nahoře, tři tlačítka sdílení stojí
+     200px níž v .article-share a tři „Další reporty“ jsou hned pod tím
+     karty .related (stejné pole `related`). Živě 4. 9. 2026 na 390px
+     ~330px duplicit mezi koncem článku a výzvou na kanál; čtečka slyšela
+     šest tlačítek sdílení. */
+  .article-aside { display: none; }
   header.site .wrap {
     flex-wrap: wrap; height: auto;
     padding-top: 10px; padding-bottom: 10px; row-gap: 8px;
@@ -1208,6 +1232,16 @@ footer.site ul a:hover { color: var(--ink); }
   margin: 12px 0 18px;
 }
 .about p { margin: 0 0 1.1em; color: var(--ink-soft); font-size: 1.02rem; }
+/* Kolo 19: odkazy v textu O nás (RealTvorba, info@realtech.cz, „Vyzkoušet
+   RealTvorbu →“) dědily `a { color: inherit; text-decoration: none }` —
+   živě 4. 9. 2026 nešly od okolního textu poznat (WCAG 1.4.1). Stejná
+   afordance jako v těle článku; .about-aside-meta a už má vlastní. */
+.about-main p a {
+  color: var(--signal-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.about-main p a:hover { color: var(--ink); }
 .about h2 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
   font-size: 1.25rem; margin: 2em 0 0.6em;
@@ -1414,10 +1448,33 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
    (WCAG 2.4.7). Indikátor nese celá hlavička: signální linka místo --line. */
 .search-head:focus-within { box-shadow: inset 0 -2px 0 var(--signal); }
 #search-q::placeholder { color: var(--ink-faint); }
-.search-esc, .search-foot kbd {
+/* Kolo 19: vedle zavíracího křížku kreslil WebKit/Blink do type=search
+   ještě vlastní křížek na smazání textu — dva ✕ vedle sebe s různým
+   významem (390px). Firefox ho nemá nikdy; tady ho schováváme i v Chrome
+   a Safari. Pole se při každém otevření maže samo (open()), archivní
+   .search-input si nativní křížek nechává. */
+#search-q::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+.search-esc-kbd, .search-foot kbd {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
   border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px;
   color: var(--ink-faint);
+}
+/* Kolo 19: zavírací tlačítko dialogu. 44px cíl, ale záporný svislý margin
+   drží hlavičku modalu ve stejné výšce jako dřív s pouhým <kbd>. */
+.search-esc {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px;
+  margin: -10px -12px -10px 0;
+  border: none; background: none; cursor: pointer;
+  color: var(--ink-faint);
+  transition: color 0.15s;
+}
+.search-esc:hover { color: var(--ink); }
+.search-esc:hover .search-esc-kbd { color: inherit; border-color: var(--ink-faint); }
+.search-esc-x { display: none; width: 18px; height: 18px; fill: currentColor; }
+@media (max-width: 900px) {
+  .search-esc-kbd { display: none; }
+  .search-esc-x { display: block; }
 }
 .search-results { max-height: 52vh; overflow-y: auto; }
 .search-hint { padding: 24px 18px; color: var(--ink-faint); font-size: 0.9rem; }
@@ -1430,7 +1487,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 .search-item.active, .search-item:hover { background: color-mix(in srgb, var(--signal) 8%, transparent); }
 .si-cat {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em;
-  text-transform: uppercase; background: var(--signal); color: #fff;
+  text-transform: uppercase; background: var(--signal-fill); color: #fff;
   padding: 3px 7px; border-radius: 3px; white-space: nowrap;
 }
 .si-title {
