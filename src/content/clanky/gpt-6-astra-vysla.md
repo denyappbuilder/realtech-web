@@ -7,13 +7,13 @@ zprava: true
 image: "/images/clanky/gpt-6-astra-vysla.jpg"
 ---
 
-OpenAI ve čtvrtek 3. září vydal GPT-6 Astra. Model, o kterém se předchozí dva dny mluvilo hlavně kvůli kyberbezpečnosti, je tím ven jako produkt. Kdokoli ho ale dnes nedostane. Přístup má podle OpenAI „omezená skupina organizací“, v praxi firemní zákazníci s přístupem do kyberprogramu Daybreak. ChatGPT Plus, Pro, Business a Enterprise, API i AWS mají následovat „v následujících dnech“.
+OpenAI ve čtvrtek 3. září vydal GPT-6 Astra. Model, o kterém se předchozí dva dny mluvilo hlavně kvůli kyberbezpečnosti, je tím venku jako produkt. Dnes se k němu ale nedostane kdokoli. Přístup má podle OpenAI „omezená skupina organizací“, v praxi firemní zákazníci s přístupem do kyberprogramu Daybreak. ChatGPT Plus, Pro, Business a Enterprise, API i AWS mají následovat „v následujících dnech“.
 
-Sami OpenAI píšou, že Astra ještě není obecně dostupná. Kdo si dnes večer otevře ChatGPT s předplatným Plus, s velkou pravděpodobností v přepínači modelů nic nového nenajde. To není chyba účtu, to je fáze uvolňování.
+Sami OpenAI píšou, že Astra ještě není obecně dostupná. Kdo si dnes večer otevře ChatGPT s předplatným Plus, s velkou pravděpodobností v přepínači modelů nic nového nenajde. Účet je v pořádku, jen se model teprve zapíná po vlnách.
 
 ## Co má Astra podle OpenAI umět
 
-OpenAI ji popisuje jako svůj nejinteligentnější a nejlépe zarovnaný model. Nejlepší výsledky si připisuje v ovládání počítače, prohlížeči, softwarovém inženýrství, kyberbezpečnosti, vědě a profesní práci. Jsou to jejich formulace z launch blogu, ne naše měření.
+OpenAI ji popisuje jako svůj nejinteligentnější a nejlépe zarovnaný model. Nejlepší výsledky si připisuje v ovládání počítače, prohlížeči, softwarovém inženýrství, kyberbezpečnosti, vědě a profesní práci. Jsou to formulace z jejich oznámení. My jsme nic z toho neměřili.
 
 Nejvíc prostoru dostalo ovládání počítače. Astra má vyplňovat webové formuláře, aktualizovat záznamy v CRM, uklízet kalendář, hledat na webu a psát souhrny do e-mailu nebo do editoru dokumentů. Má taky analyzovat data, kreslit grafy, postavit web a pak si na něm sama proklikat, jestli funkce fungují. OpenAI zmiňuje i instalaci a testování softwaru.
 
@@ -21,7 +21,7 @@ Druhá věc je kancelářský výstup. Astra má vyrábět dokumenty, tabulky a 
 
 Zajímavý je jeden ekonomický claim. OpenAI tvrdí, že Astra v několika hodnoceních dosahuje lepších výsledků a přitom spálí podstatně méně výstupních tokenů. Odhadovaná cena za úlohu proto podle nich vychází nižší než u starších modelů, i když je cena za token vyšší. Zase jejich čísla z jejich konfigurací.
 
-The Verge i CNBC psaly 3. září ve stejné linii: ovládání počítače jako hlavní novinka a postupné uvolňování po vlnách. Prezident OpenAI Greg Brockman na briefingu pro novináře řekl, že „není nerozumné cítit, že jsme teď v éře AGI“. To je jeho hodnocení, ne měřitelný výsledek a ne naše tvrzení.
+The Verge i CNBC psaly 3. září ve stejné linii: ovládání počítače jako hlavní novinka a postupné uvolňování po vlnách. Prezident OpenAI Greg Brockman na briefingu pro novináře řekl, že „není nerozumné cítit, že jsme teď v éře AGI“. Je to jeho osobní hodnocení. Žádné měření za tou větou nestojí a my ji nepřebíráme.
 
 ## Kdo a kdy se k ní dostane
 
@@ -32,11 +32,11 @@ Mapa dostupnosti z oficiálního oznámení vypadá takto:
 
 Spotřeba Astry se v ChatGPT počítá do existujících limitů předplatného. Uživatelé i firmy si navíc budou moct dokupovat kredity na provoz nad rámec těch limitů. Konkrétní počty zpráv na tarif OpenAI v těchto textech neuvádí, takže je nikde nečekejte.
 
-Tarify Pro, Business a Enterprise mají kromě běžné Astry dostat i **GPT-6 Astra Pro**. U Enterprise je jedna praktická past: přístup musí zapnout správce pracovního prostoru a při uvedení je **vypnutý ve výchozím stavu**. Kdo pracuje pro firmu s Enterprise účtem a Astru neuvidí ani za týden, řeší to s administrátorem, ne s podporou OpenAI.
+Tarify Pro, Business a Enterprise mají kromě běžné Astry dostat i **GPT-6 Astra Pro**. U Enterprise je jedna praktická past: přístup musí zapnout správce pracovního prostoru a při uvedení je **vypnutý ve výchozím stavu**. Kdo pracuje pro firmu s Enterprise účtem a Astru neuvidí ani za týden, obrátí se na svého administrátora. Podpora OpenAI s tím nepomůže.
 
 ## Ceny v API a co se mění pro vývojáře
 
-Model má v API identifikátor `gpt-6-astra` a jde i přes Amazon Bedrock. Standardní ceník z launch blogu:
+Model má v API identifikátor `gpt-6-astra` a jde i přes Amazon Bedrock. Standardní ceník z oznámení:
 
 - vstup **10 dolarů** za milion tokenů
 - výstup **50 dolarů** za milion tokenů
@@ -53,7 +53,7 @@ Astra je první model OpenAI, který podle jejich Preparedness Framework splnil 
 
 Verze, která vyšla dnes, podle OpenAI zvládne obranné úlohy typu revize kódu na bezpečnost a záplatování. Pokročilejší kyberzadání, třeba tvorbu proof-of-concept exploitů, ale odmítne. Méně restriktivní režim pro ověřené obránce chce OpenAI rozšířit přes Daybreak „v následujících týdnech“, s tím pak mají přijít i validace zranitelností a PoC, analýza malwaru a detection engineering.
 
-## Pozastavené konverzace jsou funkce, ne porucha
+## Monitoring, který umí zastavit rozjetou úlohu
 
 Kvůli skoku v kyberschopnostech pustil OpenAI do provozu asynchronní **monitoring misalignmentu**. Systém klasifikátorů kontroluje uvažování i akce modelu a hlídá, jestli agent nepochopil zadání jinak, než jste mysleli.
 
