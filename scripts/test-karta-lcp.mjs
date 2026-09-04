@@ -21,10 +21,12 @@ const uvodka = zdroj('src/pages/index.astro');
 const vitej = zdroj('src/pages/vitej.astro');
 const notfound = zdroj('src/pages/404.astro');
 
-test('karta počítá loading a fetchpriority z props.priority', () => {
+test('karta počítá loading a fetchpriority z props.priority / eager', () => {
   assert.match(karta, /priority\?:\s*boolean/);
+  assert.match(karta, /eager\?:\s*boolean/);
+  assert.match(karta, /titleTag\?:\s*'h2' \| 'h3'/);
   assert.match(karta, /const \{ article, priority = false(?:, [^}]*)? \} = Astro\.props/);
-  assert.match(karta, /const loading = priority \? 'eager' : 'lazy'/);
+  assert.match(karta, /const loading = \(priority \|\| eager\) \? 'eager' : 'lazy'/);
   assert.match(karta, /const fetchpriority = priority \? 'high' : undefined/);
   assert.match(
     karta,
@@ -33,11 +35,21 @@ test('karta počítá loading a fetchpriority z props.priority', () => {
   assert.doesNotMatch(karta, /loading="lazy"/);
 });
 
-test('archiv dá priority první kartě jen na straně 1', () => {
+test('archiv dá priority první kartě jen na straně 1, eager první řadě', () => {
   assert.match(
     archiv,
-    /articles\.map\(\(article, index\) => \(\s*<ArticleCard article=\{article\} priority=\{page === 1 && index === 0\} \/>/,
-    'eager/high jen na /clanky/ (page 1), ne na /clanky/strana/2+',
+    /priority=\{page === 1 && index === 0\}/,
+    'fetchpriority=high jen na /clanky/ (page 1) index 0',
+  );
+  assert.match(
+    archiv,
+    /eager=\{page === 1 && index < 3\}/,
+    'první řada (3 col) na straně 1 je eager — 2./3. karta nesmí být lazy LCP',
+  );
+  assert.match(
+    archiv,
+    /titleTag="h2"/,
+    'archiv pod h1 musí mít h2 titulky karet (ne h1→h3 skok)',
   );
   assert.doesNotMatch(
     archiv,
@@ -47,18 +59,17 @@ test('archiv dá priority první kartě jen na straně 1', () => {
   assert.doesNotMatch(
     archiv,
     /priority=\{index === 0\}/,
-    'strana 2+ nesmí dostat eager jen proto, že karta je první na stránce',
+    'strana 2+ nesmí dostat high jen proto, že karta je první na stránce',
   );
 });
 
 test('téma dá priority první kartě na každé straně — featured-lead je LCP', () => {
-  assert.match(
-    temata,
-    /articles\.map\(\(article, index\) => \(\s*<ArticleCard article=\{article\} priority=\{index === 0\} \/>/,
-  );
+  assert.match(temata, /priority=\{index === 0\}/);
+  assert.match(temata, /eager=\{index < 3\}/);
+  assert.match(temata, /titleTag="h2"/);
 });
 
-test('hub /temata/ dá eager + fetchpriority první kartě, ostatní zůstanou lazy', () => {
+test('hub /temata/ dá eager první řadě + fetchpriority jen první kartě', () => {
   assert.match(
     hub,
     /temata\.map\(\(t, i\) =>/,
@@ -66,13 +77,18 @@ test('hub /temata/ dá eager + fetchpriority první kartě, ostatní zůstanou l
   );
   assert.match(
     hub,
-    /loading=\{i === 0 \? 'eager' : 'lazy'\}/,
-    'první náhled hubu nesmí zůstat loading=lazy — živě 2. 9. 2026 všechny karty čekaly na observer',
+    /loading=\{i < 3 \? 'eager' : 'lazy'\}/,
+    'první řada hubu (i<3) musí být eager — 2./3. karta nesmí vyhrát lazy LCP',
   );
   assert.match(
     hub,
     /fetchpriority=\{i === 0 \? 'high' : undefined\}/,
     'první náhled hubu musí dostat fetchpriority=high',
+  );
+  assert.match(
+    hub,
+    /<h2><a href=\{\`\/temata\/\$\{t\.slug\}\/\`\}>/,
+    'hub pod h1 musí mít h2 titulky (ne h1→h3 skok)',
   );
   assert.doesNotMatch(
     hub,

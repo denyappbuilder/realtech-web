@@ -17,6 +17,7 @@ test("globální .card je position: relative, jinak se stretched link roztáhne 
 test("odkaz v titulku karty je roztažený přes celou kartu (stretched link)", () => {
   const stretched = css.match(/\.card-body h3 a::after \{([^}]*)\}/)?.[1] ?? "";
   assert.ok(stretched, "global.css ztratil stretched link .card-body h3 a::after — popis a meta karet jsou mrtvá zóna");
+  assert.match(css, /\.card-body h2 a::after,\s*\.card-body h3 a::after/, "stretched link musí pokrývat i h2 titulky");
   assert.match(stretched, /content: ''/, "::after bez content se nevykreslí");
   assert.match(stretched, /position: absolute/, "::after musí být absolutně pozicovaný");
   assert.match(stretched, /inset: 0/, "::after musí pokrýt celou kartu (inset: 0)");
@@ -28,5 +29,5 @@ test("ArticleCard má právě jeden odkaz a náhled není <a>", () => {
   assert.equal(odkazy.length, 1, "karta smí mít jen odkaz v titulku — náhled jako <a> je vnořený interaktivní prvek");
   assert.match(sablona, /<div class=\{`card-thumb \$\{thumbClass\}`\}>/, "náhled musí být <div class=card-thumb>");
   assert.doesNotMatch(sablona, /<a\s[^>]*card-thumb/, "náhled nesmí být odkaz na stejné URL jako titulek");
-  assert.match(sablona, /<h3><a href=\{`\/clanky\/\$\{article\.id\}\/`\}>\{title\}<\/a><\/h3>/, "titulek karty musí být odkaz — na něm sedí stretched ::after");
+  assert.match(sablona, /<TitleTag><a href=\{`\/clanky\/\$\{article\.id\}\/`\}>\{title\}<\/a><\/TitleTag>/, "titulek karty musí být odkaz — na něm sedí stretched ::after");
 });

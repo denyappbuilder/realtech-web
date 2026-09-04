@@ -53,7 +53,7 @@ export async function load(url, context, nextLoad) {
     'const nahledKarty = (image) => nahledKartyProdukce(image, (cesta) => fs.existsSync(cesta));',
     'const { category, video, image, date } = globalThis.__KARTA_NAHLED__;',
     productionBlock,
-    'export { thumbClass, localThumb, videoId, thumbUrl, thumbW, thumbH, thumbWebp, hasWebp, lcpSrc };',
+    'export { thumbClass, localThumb, videoId, thumbUrl, thumbW, thumbH, thumbWebp, thumbWebpSrcset, hasWebp, lcpSrc };',
   ].join('\n');
   const { outputText } = ts.transpileModule(virtualModule, {
     compilerOptions: {

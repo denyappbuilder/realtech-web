@@ -41,7 +41,11 @@ test("Z10093: karta dál bere nahledKarty(image) a pouští <source> jen při ha
   assert.match(karta, /nahledKarty\(image\)/);
   assert.match(
     karta,
-    /\{hasWebp && <source srcset=\{thumbWebp\} type="image\/webp" \/>\}/,
+    /hasWebp && thumbWebpSrcset && <source srcset=\{thumbWebpSrcset\}/,
+  );
+  assert.match(
+    karta,
+    /hasWebp && !thumbWebpSrcset && <source srcset=\{thumbWebp\} type="image\/webp" \/>/,
   );
   // YouTube je až fallback — lokální cover (existující soubor) má přednost
   // i u videa, viz KARTA-VIDEO-001 v test-karta-render.mjs.

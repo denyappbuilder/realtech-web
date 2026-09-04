@@ -21,11 +21,10 @@ const articles = all.slice(start, start + ARTICLES_PER_PAGE);
 const categories = [...new Set(all.map((article) => article.data.category))];
 const pagePath = (pageNumber: number) => pageNumber === 1 ? '/clanky/' : `/clanky/strana/${pageNumber}/`;
 
-// LCP na /clanky/ je náhled první karty (eager + fetchpriority=high jen na
-// straně 1, viz ArticleCard prop `priority`). Preload v <head> počítá ze
-// STEJNÝCH helperů jako karta (nahledKarty + youtubeId), takže míří na
-// tentýž soubor, který si <picture> karty vybere — WebP s `type`, jinak
-// JPG/ytimg. /clanky/strana/2+ nemá eager kartu, tak ani preload.
+// LCP na /clanky/ je náhled první karty (fetchpriority=high jen index 0 na
+// straně 1). První řada (index < 3) je eager, ať 2./3. karta na desktopu
+// nesoutěží jako lazy LCP (sub-pixel). Preload v <head> míří na první kartu.
+// /clanky/strana/2+ nemá eager kartu, tak ani preload.
 const prvni = page === 1 ? articles[0] : undefined;
 const prvniVideoId = youtubeId(prvni?.data.video);
 const prvniNahled = nahledKarty(prvni?.data.image);
@@ -100,7 +99,12 @@ const title = page === 1
       )}
       <div class="grid" id="articles-grid" aria-busy="false">
         {articles.map((article, index) => (
-          <ArticleCard article={article} priority={page === 1 && index === 0} />
+          <ArticleCard
+            article={article}
+            titleTag="h2"
+            priority={page === 1 && index === 0}
+            eager={page === 1 && index < 3}
+          />
         ))}
       </div>
       {/* Kolo 18: role=status jako u .filter-loading — bez něj čtečka po
