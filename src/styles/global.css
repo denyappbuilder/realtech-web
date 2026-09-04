@@ -1432,10 +1432,33 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
    (WCAG 2.4.7). Indikátor nese celá hlavička: signální linka místo --line. */
 .search-head:focus-within { box-shadow: inset 0 -2px 0 var(--signal); }
 #search-q::placeholder { color: var(--ink-faint); }
-.search-esc, .search-foot kbd {
+/* Kolo 19: vedle zavíracího křížku kreslil WebKit/Blink do type=search
+   ještě vlastní křížek na smazání textu — dva ✕ vedle sebe s různým
+   významem (390px). Firefox ho nemá nikdy; tady ho schováváme i v Chrome
+   a Safari. Pole se při každém otevření maže samo (open()), archivní
+   .search-input si nativní křížek nechává. */
+#search-q::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+.search-esc-kbd, .search-foot kbd {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
   border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px;
   color: var(--ink-faint);
+}
+/* Kolo 19: zavírací tlačítko dialogu. 44px cíl, ale záporný svislý margin
+   drží hlavičku modalu ve stejné výšce jako dřív s pouhým <kbd>. */
+.search-esc {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px;
+  margin: -10px -12px -10px 0;
+  border: none; background: none; cursor: pointer;
+  color: var(--ink-faint);
+  transition: color 0.15s;
+}
+.search-esc:hover { color: var(--ink); }
+.search-esc:hover .search-esc-kbd { color: inherit; border-color: var(--ink-faint); }
+.search-esc-x { display: none; width: 18px; height: 18px; fill: currentColor; }
+@media (max-width: 900px) {
+  .search-esc-kbd { display: none; }
+  .search-esc-x { display: block; }
 }
 .search-results { max-height: 52vh; overflow-y: auto; }
 .search-hint { padding: 24px 18px; color: var(--ink-faint); font-size: 0.9rem; }
