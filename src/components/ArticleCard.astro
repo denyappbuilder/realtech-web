@@ -9,8 +9,11 @@ interface Props {
   article: CollectionEntry<'clanky'>;
   /** První karta nad okrajem na výpisu — LCP. Úvodka to nesmí dostat, tam už ho má hero. */
   priority?: boolean;
+  /** Další třída na <article class="card"> — např. mobilní náhrada railu na úvodce. */
+  class?: string;
 }
-const { article, priority = false } = Astro.props;
+const { article, priority = false, class: extraClass } = Astro.props;
+const cardClass = extraClass ? `card ${extraClass}` : 'card';
 const { title, description, category, date, video, videoLength, zprava, image } = article.data;
 const readMinutes = readingTime(article.body);
 
@@ -42,7 +45,7 @@ const lcpSrc = useYtThumb ? thumbUrl : localLcpSrc;
 const loading = priority ? 'eager' : 'lazy';
 const fetchpriority = priority ? 'high' : undefined;
 ---
-<article class="card" data-category={category}>
+<article class={cardClass} data-category={category}>
   {/*
     Náhled karty nese titulek článku jako alt — stejné pravidlo jako hero
     článku (#310). Živě (2026-08-24) šly všechny karty na /clanky/ ven

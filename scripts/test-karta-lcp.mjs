@@ -23,7 +23,7 @@ const notfound = zdroj('src/pages/404.astro');
 
 test('karta počítá loading a fetchpriority z props.priority', () => {
   assert.match(karta, /priority\?:\s*boolean/);
-  assert.match(karta, /const \{ article, priority = false \} = Astro\.props/);
+  assert.match(karta, /const \{ article, priority = false(?:, [^}]*)? \} = Astro\.props/);
   assert.match(karta, /const loading = priority \? 'eager' : 'lazy'/);
   assert.match(karta, /const fetchpriority = priority \? 'high' : undefined/);
   assert.match(

@@ -227,6 +227,11 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
     padding-top: 10px;
     border-top: 1px solid var(--line);
   }
+  /* Kolo 17: tytéž tři články jsou pod 901px karty v mřížce (rail se tam
+     nekreslí). Na desktopu je rail ukazuje, karty by byly duplicita.
+     .card.card-rail-mobile: samotná třída by prohrála s pozdějším
+     .card { display: flex } (stejná specificita, pořadí v souboru). */
+  .card.card-rail-mobile { display: none; }
   .hero-rail-label {
     color: var(--ink-faint);
     margin: 0 0 10px;
@@ -657,6 +662,49 @@ a.tag:hover { background: var(--signal-dark); }
 .article-body pre code { background: none; border: none; padding: 0; color: inherit; }
 .article-body img { max-width: 100%; border-radius: 8px; }
 .article-body hr { border: none; border-top: 1px solid var(--line); margin: 2em 0; }
+/* Kolo 17: markdown tabulky (srovnání modelů, ceny, specifikace). Bez stylů
+   šly články na seznamy. Obal .table-wrap vkládá rehype plugin
+   (src/lib/rehype-tabulky.js): na úzkém displeji roluje vodorovně,
+   tabulka se nemačká pod čitelnost a nerozbíjí sloupec článku. */
+.article-body .table-wrap {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+  margin: 1.4em 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+/* Bez min-width buněk: sloupec článku má ~560px, šest sloupců s 7em by
+   rolovalo i na desktopu. Auto layout dá úzkým číslům málo a textu víc;
+   obal roluje, až když se min-content opravdu nevejde. */
+.article-body th,
+.article-body td {
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+.article-body th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: var(--bg);
+  border-bottom: 2px solid var(--ink);
+}
+.article-body td { border-top: 1px solid var(--line); }
+.article-body tbody tr:first-child td { border-top: none; }
+.article-body td:first-child { font-weight: 600; }
+.article-body tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--bg) 55%, transparent); }
+.article-body table code { white-space: nowrap; }
 .article-back { max-width: 760px; margin: 28px auto 0; }
 
 /* ── Newsletter ──────────────────────── */
@@ -851,6 +899,17 @@ footer.site ul a:hover { color: var(--ink); }
   .video-embed { margin-top: 20px; }
   .article-layout { margin-top: 20px; }
   .article-body { padding: 20px; }
+  /* Tabulka jde až k okrajům karty článku — na 375px má o 40px víc místa. */
+  .article-body .table-wrap {
+    margin-inline: -20px;
+    border-inline: none;
+    border-radius: 0;
+  }
+  /* min-width: pod 580px auto layout mačkal „1,25 $" na dva řádky, aby se
+     tabulka vešla do 100 %. Radši roluje obal; 6em × 3 sloupce se do 390px
+     ještě vejde bez rolování. */
+  .article-body th,
+  .article-body td { padding: 9px 12px; min-width: 6em; }
 }
 @media (max-width: 400px) {
   /* Kolo 15: na 375px (iPhone SE/13 mini) měřilo logo 132px, akce 200px a mezera
