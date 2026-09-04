@@ -17,15 +17,15 @@ OpenAI ji popisuje jako svůj nejinteligentnější a nejlépe zarovnaný model.
 
 Nejvíc prostoru dostalo ovládání počítače. Astra má vyplňovat webové formuláře, aktualizovat záznamy v CRM, uklízet kalendář, hledat na webu a psát souhrny do e-mailu nebo do editoru dokumentů. Má taky analyzovat data, kreslit grafy, postavit web a pak si na něm sama proklikat, jestli funkce fungují. OpenAI zmiňuje i instalaci a testování softwaru.
 
-Druhá věc je kancelářský výstup. Astra má vyrábět dokumenty, tabulky a prezentace podle vašich šablon a instrukcí a přizpůsobit se, když v průběhu přidáte požadavek nebo změníte směr. Do toho spadají vícekrokové agentní úlohy napříč kódem, prohlížečem a profesním softwarem.
+Vedle toho má zvládat kancelářský výstup: dokumenty, tabulky a prezentace podle vašich šablon a instrukcí, včetně toho, že se přizpůsobí, když v průběhu přidáte požadavek nebo změníte směr. Do toho spadají vícekrokové agentní úlohy napříč kódem, prohlížečem a profesním softwarem.
 
-Zajímavý je jeden ekonomický claim. OpenAI tvrdí, že Astra v několika hodnoceních dosahuje lepších výsledků a přitom spálí podstatně méně výstupních tokenů. Odhadovaná cena za úlohu proto podle nich vychází nižší než u starších modelů, i když je cena za token vyšší. Zase jejich čísla z jejich konfigurací.
+OpenAI taky tvrdí, že Astra v několika hodnoceních dosahuje lepších výsledků a přitom spálí podstatně méně výstupních tokenů. Odhadovaná cena za úlohu proto podle nich vychází nižší než u starších modelů, i když je cena za token vyšší. Zase jejich čísla z jejich konfigurací.
 
 The Verge i CNBC psaly 3. září ve stejné linii: ovládání počítače jako hlavní novinka a postupné uvolňování po vlnách. Prezident OpenAI Greg Brockman na briefingu pro novináře řekl, že „není nerozumné cítit, že jsme teď v éře AGI“. Je to jeho osobní hodnocení. Žádné měření za tou větou nestojí a my ji nepřebíráme.
 
 ## Kdo a kdy se k ní dostane
 
-Mapa dostupnosti z oficiálního oznámení vypadá takto:
+Mapa dostupnosti z oficiálního oznámení:
 
 - **Dnes:** omezená skupina organizací, tedy firmy v kyberprogramu Trusted Access a Daybreak.
 - **V následujících dnech:** všichni uživatelé ChatGPT Plus, Pro, Business a Enterprise, dál OpenAI API a AWS.
@@ -43,7 +43,7 @@ Model má v API identifikátor `gpt-6-astra` a jde i přes Amazon Bedrock. Stand
 - pro čtení a zápis do cache platí samostatné sazby
 - **Fast mode** dává až dvojnásobnou rychlost za dvojnásobnou cenu
 
-Vedle ceny přišly tři novinky, které stojí za pozornost, pokud stavíte agenty. **Async tool calling** nechá model přemýšlet dál nebo řešit nezávislé části zadání, zatímco vaše aplikace na pozadí dokončuje nástroj. **Mid-turn steering** umožní poslat opravu nebo nový požadavek ještě v průběhu práce, přes WebSocket se dokončená práce zachová. A položka `configuration_update` mění úroveň uvažování uprostřed konverzace, aniž se rozbije cache.
+Vedle ceny přišly tři novinky, které stojí za pozornost, pokud stavíte agenty. Asynchronní volání nástrojů nechá model přemýšlet dál nebo řešit nezávislé části zadání, zatímco vaše aplikace na pozadí dokončuje nástroj. Řízení uprostřed tahu umožní poslat opravu nebo nový požadavek ještě v průběhu práce; přes WebSocket se dokončená práce zachová. A položka `configuration_update` mění úroveň uvažování uprostřed konverzace, aniž se rozbije cache.
 
 Dvě omezení se hodí vědět dopředu. Astra nepodporuje úroveň uvažování `none`. A Fast mode není dostupný, když máte zapnutou datovou rezidenci v EU. Volání nástrojů navíc vyžaduje Responses API, i když model umí i Chat Completions.
 
@@ -51,17 +51,17 @@ Dvě omezení se hodí vědět dopředu. Astra nepodporuje úroveň uvažování
 
 Astra je první model OpenAI, který podle jejich Preparedness Framework splnil práh **Critical** v kyberbezpečnosti. Celou tu historku jsme rozebrali v samostatném textu o [Astře, Critical prahu a Daybreak Blue](/clanky/astra-critical-daybreak-blue/), tady jen to, co se dnešním vydáním potvrdilo.
 
-Verze, která vyšla dnes, podle OpenAI zvládne obranné úlohy typu revize kódu na bezpečnost a záplatování. Pokročilejší kyberzadání, třeba tvorbu proof-of-concept exploitů, ale odmítne. Méně restriktivní režim pro ověřené obránce chce OpenAI rozšířit přes Daybreak „v následujících týdnech“, s tím pak mají přijít i validace zranitelností a PoC, analýza malwaru a detection engineering.
+Verze, která vyšla dnes, podle OpenAI zvládne obranné úlohy typu revize kódu na bezpečnost a záplatování. Pokročilejší kyberzadání, třeba tvorbu proof-of-concept exploitů, ale odmítne. Méně restriktivní režim pro ověřené obránce chce OpenAI rozšířit přes Daybreak „v následujících týdnech“, s tím pak mají přijít i validace zranitelností a PoC, analýza malwaru a stavba detekcí.
 
-## Monitoring, který umí zastavit rozjetou úlohu
+## Hlídání, které umí zastavit rozjetou úlohu
 
-Kvůli skoku v kyberschopnostech pustil OpenAI do provozu asynchronní **monitoring misalignmentu**. Systém klasifikátorů kontroluje uvažování i akce modelu a hlídá, jestli agent nepochopil zadání jinak, než jste mysleli.
+Kvůli skoku v kyberschopnostech pustil OpenAI do provozu asynchronní monitoring toho, jestli agent neujíždí od zadání. Systém klasifikátorů kontroluje uvažování i akce modelu a hlídá, jestli agent nepochopil zadání jinak, než jste mysleli.
 
 Důsledek je popsaný v oficiálním textu i v poznámkách k vydání ChatGPT. Kontroly můžou legitimní práci zpomalit, pozastavit nebo zastavit. V ChatGPT a v Codexu vás model může požádat, abyste akci před pokračováním zkontrolovali. Na API se úloha zastaví. OpenAI píše, že na snižování zbytečných přerušení dál pracuje.
 
 Pro praxi to znamená jedno: noční agentní běh, který dosud jen tiše dojel, teď může skončit u čekání na vaše potvrzení. Počítejte s tím u všeho, co jste plánovali nechat běžet bez dozoru.
 
-## Co s tím dnes udělat
+## Prakticky
 
 Na Plus nebo Pro se dá jen čekat, uvolňování je otázka dní. Kdo je ve firmě na Enterprise účtu, může už teď napsat správci, ať Astru v pracovním prostoru zapne.
 
@@ -71,9 +71,9 @@ A u agentů, kteří klikají v prohlížeči nebo v cizích systémech, se vypl
 
 ## Zdroje
 
-- [GPT-6 Astra: A new generation of intelligence — OpenAI, 3. 9. 2026](https://openai.com/index/gpt-6-astra/)
-- [ChatGPT Release Notes, 3. 9. 2026 — OpenAI Help Center](https://help.openai.com/en/articles/6825453-chatgpt-release-notes)
-- [Using GPT-6 Astra — OpenAI API](https://developers.openai.com/api/docs/guides/latest-model)
-- [GPT-6 Astra system card — OpenAI](https://deploymentsafety.openai.com/gpt-6-astra)
-- [OpenAI's next big AI model has 'entered the AGI era' — The Verge, 3. 9. 2026](https://www.theverge.com/ai-artificial-intelligence/989601/openai-gpt-6-astra-release)
-- [OpenAI announces rollout of GPT-6 Astra model — CNBC, 3. 9. 2026](https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html)
+- [GPT-6 Astra: A new generation of intelligence (OpenAI, 3. 9. 2026)](https://openai.com/index/gpt-6-astra/)
+- [ChatGPT Release Notes, 3. 9. 2026 (OpenAI Help Center)](https://help.openai.com/en/articles/6825453-chatgpt-release-notes)
+- [Using GPT-6 Astra (OpenAI API)](https://developers.openai.com/api/docs/guides/latest-model)
+- [GPT-6 Astra system card (OpenAI)](https://deploymentsafety.openai.com/gpt-6-astra)
+- [OpenAI's next big AI model has 'entered the AGI era' (The Verge, 3. 9. 2026)](https://www.theverge.com/ai-artificial-intelligence/989601/openai-gpt-6-astra-release)
+- [OpenAI announces rollout of GPT-6 Astra model (CNBC, 3. 9. 2026)](https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html)
