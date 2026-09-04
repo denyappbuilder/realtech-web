@@ -5,6 +5,7 @@ import { slugify } from './src/lib/slugify.js';
 import { parsePublishDate } from './src/lib/calendarDate.js';
 import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
 import { rehypeXEmbedy } from './src/lib/rehype-x-embed.js';
+import { rehypeTabulky } from './src/lib/rehype-tabulky.js';
 
 // slug → lastmod (updated ?? date) z frontmatteru článků — pro sitemap <lastmod>
 const lastmods = {};
@@ -68,7 +69,9 @@ export default defineConfig({
   // rehypeXEmbedy: fasáda embedu X se vkládá do HTML článku už v buildu —
   // za první odstavec (Maky: napřed text, pak widget; klientský přesun by
   // kartu nechal bliknout nahoře). Viz src/lib/rehype-x-embed.js.
-  markdown: { rehypePlugins: [rehypeAsciiHeadingIds, rehypeXEmbedy] },
+  // rehypeTabulky: markdown tabulky dostanou rolovací obal .table-wrap
+  // (Kolo 17), viz src/lib/rehype-tabulky.js.
+  markdown: { rehypePlugins: [rehypeAsciiHeadingIds, rehypeXEmbedy, rehypeTabulky] },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({

@@ -19,6 +19,13 @@ const hero = all[0];
 const candidates = all.filter((c) => c.id !== hero?.id).slice(0, 9);
 const rail = candidates.slice(0, 3);
 const rest = candidates.slice(3, 9);
+// Rail je jen desktop (≥ 901px); pod tím ho CSS nekreslí, takže by tři
+// nejnovější články po heru z úvodky úplně zmizely a „Poslední reporty"
+// by začínaly až 5. článkem (živě 4. 9. 2026: Astra vyšla, Critical
+// a Gemini 3.8 chyběly na mobilu). Proto jdou ty tři i do mřížky jako
+// karty s .card-rail-mobile, které CSS od 901px skryje — desktop zůstává
+// hero + rail + 6 karet, mobil hero + 9 karet, oboje chronologicky.
+const railCards = rail;
 const categories = [...new Set(all.map((c) => c.data.category))];
 
 const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
@@ -204,6 +211,7 @@ const preconnectYtimg = videos.length > 0;
         <a href="/clanky/">Všechny články →</a>
       </div>
       <div class="grid">
+        {railCards.map((article) => <ArticleCard article={article} class="card-rail-mobile" />)}
         {rest.map((article) => <ArticleCard article={article} />)}
       </div>
 
