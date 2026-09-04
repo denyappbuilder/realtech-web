@@ -164,7 +164,9 @@ for (const f of files) {
 const slugs = new Set(files.map((f) => f.replace(/\.md$/, '')));
 for (const f of files) {
   const body = fs.readFileSync(path.join(DIR, f), 'utf8');
-  for (const m of body.matchAll(/\]\(\/clanky\/([^/)#?]+)/g)) {
+  // CommonMark dovoluje cíl v úhlových závorkách `](</clanky/x/>)` — dřív
+  // regex takový odkaz vůbec neviděl a 404 prošla tiše (CONTENT-LINK-001).
+  for (const m of body.matchAll(/\]\(<?\/clanky\/([^/)#?>]+)/g)) {
     if (!slugs.has(m[1])) errors.push(`${f.replace(/\.md$/, '')}: odkaz na neexistující článek /clanky/${m[1]}/`);
   }
 }

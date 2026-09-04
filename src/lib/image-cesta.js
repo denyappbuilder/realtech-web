@@ -11,7 +11,10 @@
 export function chybaTvaruImage(image) {
   const hodnota = String(image ?? '');
   if (!hodnota) return null;
-  if (hodnota.includes('://') || hodnota.includes('..')) {
+  // Traversal je jen celý segment `..` (Unix i Windows oddělovač) — dvě
+  // tečky uvnitř názvu (`nahled..final.jpg`) jsou legitimní (IMAGE-CESTA-001).
+  const maParentSegment = hodnota.split(/[\\/]/).includes('..');
+  if (hodnota.includes('://') || maParentSegment) {
     return `image "${hodnota}" nemá povolený tvar`;
   }
   if (!hodnota.startsWith('/images/clanky/')) {

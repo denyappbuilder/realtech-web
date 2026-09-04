@@ -98,9 +98,7 @@ test("GET nečte enclosure mimo public přes nadřazené segmenty [codex-testy-w
   assert.equal(state.rssCalls[0].items[0].enclosure, undefined);
 });
 
-test("GET odvodí MIME enclosure z přípony obrázku [codex-testy-web/RSS-MIME-005]", {
-  todo: "Všem enclosure se napevno zapisuje image/jpeg; viz codex-testy-web/RSS-MIME-005.",
-}, async () => {
+test("GET odvodí MIME enclosure z přípony obrázku [codex-testy-web/RSS-MIME-005]", async () => {
   setExistingFiles([
     ["public/images/nahled.png", 201],
     ["public/images/nahled.webp", 202],

@@ -9,6 +9,12 @@
   --signal-dark: #B7211D;
   --panel: #14171C;
   --radius: 8px;
+  /* Kolo 18: color-scheme řídí nativní UA prvky, které tokeny nestylují —
+     <audio controls>, křížek v type=search, posuvníky, marker <details>.
+     Bez něj kreslil prohlížeč v tmavém režimu světlý přehrávač audia
+     v tmavé kartě článku (živě 4. 9. 2026). Sleduje stejné podmínky jako
+     tokeny: OS dark bez ručního light, nebo ruční dark. */
+  color-scheme: light;
 }
 /* Dark mode: systémový (pokud uživatel nepřepnul na light) i ruční přepnutí */
 @media (prefers-color-scheme: dark) {
@@ -22,6 +28,7 @@
     --line: #262C35;
     --panel: #1D232C;
     --signal-dark: #F0554F;
+    color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
@@ -34,6 +41,7 @@
   --line: #262C35;
   --panel: #1D232C;
   --signal-dark: #F0554F;
+  color-scheme: dark;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -523,7 +531,12 @@ a.tag:hover { background: var(--signal-dark); }
 .article-head p.lead { font-size: 1.08rem; color: var(--ink-soft); }
 .audio-prehled {
   max-width: 760px;
-  margin: 0 auto 36px;
+  /* Kolo 18: karta původně stála hned pod hlavičkou (#265, horní odstup
+     dávalo margin-bottom .article-head). Po přesunu pod cover/videobar
+     (#313, jen šablona) jí nikdo horní okraj nedal — živě seděla nalepená na obrázku
+     bez mezery (0 px, desktop i mobil). 28px = rytmus .article-hero
+     a .article-layout. */
+  margin: 28px auto 36px;
   background: var(--surface);
   color: var(--ink);
   border: 1px solid var(--line);
@@ -890,6 +903,7 @@ footer.site ul a:hover { color: var(--ink); }
   .article-head h1 { font-size: 1.65rem; margin-bottom: 12px; }
   .article-head p.lead { font-size: 1rem; line-height: 1.5; }
   .audio-prehled {
+    margin-top: 20px;
     margin-bottom: 20px;
     padding: 12px 14px;
   }
@@ -951,6 +965,8 @@ footer.site ul a:hover { color: var(--ink); }
   grid-template-columns: repeat(3, 1fr);
   gap: 14px;
   margin: 26px 0 10px;
+  /* Kolo 18: je to <ul> (aria-label potřebuje roli) — bez odrážek. */
+  list-style: none;
 }
 .stat {
   background: var(--surface);
@@ -1393,6 +1409,10 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   flex: 1; border: none; background: none; color: var(--ink);
   font-family: inherit; font-size: 1.05rem; outline: none;
 }
+/* Kolo 18: pole má outline: none, aby rámeček neseděl uvnitř hlavičky
+   modalu — ale při Tabu zpět z výsledků pak fokus nebyl vidět vůbec
+   (WCAG 2.4.7). Indikátor nese celá hlavička: signální linka místo --line. */
+.search-head:focus-within { box-shadow: inset 0 -2px 0 var(--signal); }
 #search-q::placeholder { color: var(--ink-faint); }
 .search-esc, .search-foot kbd {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
@@ -1455,7 +1475,10 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 @media print {
   .topbar, header.site, .ticker, .newsletter, footer.site,
   .article-share, .related, .author-box, .article-nav, .article-back,
-  .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed { display: none !important; }
+  .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed,
+  .skip-link, .heading-anchor { display: none !important; }
+  /* Kolo 18: bez toho pravidla výš tiskl každý nadpis „# (#kotva)“ —
+     kotva je <a> a a::after níž k ní přidal href. */
   body { background: #fff; color: #000; }
   .article-body { border: none; padding: 0; font-size: 11pt; }
   .article-page { padding: 0; }

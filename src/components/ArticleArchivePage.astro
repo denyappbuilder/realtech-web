@@ -103,7 +103,9 @@ const title = page === 1
           <ArticleCard article={article} priority={page === 1 && index === 0} />
         ))}
       </div>
-      <p class="filter-empty" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
+      {/* Kolo 18: role=status jako u .filter-loading — bez něj čtečka po
+          filtru bez shody slyšela jen mizející karty, ne „Nic nenalezeno“. */}
+      <p class="filter-empty" role="status" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
       <p class="filter-loading" role="status" hidden>Načítám celý archiv pro hledání…</p>
       <nav class="archive-pagination" aria-label="Stránkování článků">
         {page > 1 && <a class="btn-ghost" href={pagePath(page - 1)} rel="prev">← Novější</a>}

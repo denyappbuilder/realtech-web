@@ -132,7 +132,12 @@ const preconnectYtimg = videos.length > 0;
   )}
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
 
-  <div class="ticker" aria-label="Nejnovější články">
+  {/*
+    Kolo 18: aria-label na <div> bez role je zakázaný (ARIA „generic“,
+    axe aria-prohibited-attr) — čtečky ho ignorovaly. Pruh je seznam
+    odkazů na články, takže <nav> landmark s tím jménem.
+  */}
+  <nav class="ticker" aria-label="Nejnovější články">
     <span class="ticker-label"><span class="live-dot"></span>ŽIVĚ</span>
     <div class="ticker-viewport">
       <div class="ticker-track">
@@ -148,7 +153,7 @@ const preconnectYtimg = videos.length > 0;
         ))}
       </div>
     </div>
-  </div>
+  </nav>
 
   {hero && (
     <section class="hero">
