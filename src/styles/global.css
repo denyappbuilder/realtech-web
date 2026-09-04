@@ -9,6 +9,12 @@
   --signal-dark: #B7211D;
   --panel: #14171C;
   --radius: 8px;
+  /* Kolo 18: color-scheme řídí nativní UA prvky, které tokeny nestylují —
+     <audio controls>, křížek v type=search, posuvníky, marker <details>.
+     Bez něj kreslil prohlížeč v tmavém režimu světlý přehrávač audia
+     v tmavé kartě článku (živě 4. 9. 2026). Sleduje stejné podmínky jako
+     tokeny: OS dark bez ručního light, nebo ruční dark. */
+  color-scheme: light;
 }
 /* Dark mode: systémový (pokud uživatel nepřepnul na light) i ruční přepnutí */
 @media (prefers-color-scheme: dark) {
@@ -22,6 +28,7 @@
     --line: #262C35;
     --panel: #1D232C;
     --signal-dark: #F0554F;
+    color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
@@ -34,6 +41,7 @@
   --line: #262C35;
   --panel: #1D232C;
   --signal-dark: #F0554F;
+  color-scheme: dark;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -523,7 +531,12 @@ a.tag:hover { background: var(--signal-dark); }
 .article-head p.lead { font-size: 1.08rem; color: var(--ink-soft); }
 .audio-prehled {
   max-width: 760px;
-  margin: 0 auto 36px;
+  /* Kolo 18: karta původně stála hned pod hlavičkou (#265, horní odstup
+     dávalo margin-bottom .article-head). Po přesunu pod cover/videobar
+     (#313, jen šablona) jí nikdo horní okraj nedal — živě seděla nalepená na obrázku
+     bez mezery (0 px, desktop i mobil). 28px = rytmus .article-hero
+     a .article-layout. */
+  margin: 28px auto 36px;
   background: var(--surface);
   color: var(--ink);
   border: 1px solid var(--line);
@@ -890,6 +903,7 @@ footer.site ul a:hover { color: var(--ink); }
   .article-head h1 { font-size: 1.65rem; margin-bottom: 12px; }
   .article-head p.lead { font-size: 1rem; line-height: 1.5; }
   .audio-prehled {
+    margin-top: 20px;
     margin-bottom: 20px;
     padding: 12px 14px;
   }

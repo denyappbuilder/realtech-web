@@ -110,6 +110,32 @@ test("kolo 18: archiv hlásí „Nic nenalezeno“ jako role=status, stejně jak
   assert.match(archiv, /<p class="filter-loading" role="status" hidden>/);
 });
 
+// ── Dark mode: nativní UA prvky (audio, search křížek, posuvníky) ─────
+
+test("kolo 18: color-scheme sleduje tokeny — light v :root, dark v obou tmavých blocích", () => {
+  const rootBlok = css.match(/^:root\s*\{([^}]+)\}/m)?.[1] ?? "";
+  assert.match(rootBlok, /color-scheme:\s*light/, ":root musí deklarovat color-scheme: light");
+  const system = blokMedia("\\(prefers-color-scheme: dark\\)");
+  assert.match(system, /:root:not\(\[data-theme="light"\]\)\s*\{[^}]*color-scheme:\s*dark/, "systémový dark bez color-scheme: dark");
+  const forced = css.match(/:root\[data-theme="dark"\]\s*\{([^}]+)\}/)?.[1] ?? "";
+  assert.match(forced, /color-scheme:\s*dark/, "forced dark bez color-scheme: dark");
+  assert.match(forced, /--bg:\s*#0F1216/, "tokeny forced dark zůstávají");
+});
+
+// ── Článek: Audio přehled nesmí sedět nalepený na coveru ──────────────
+
+test("kolo 18: .audio-prehled má horní odstup ve stejném rytmu jako cover a tělo", () => {
+  const karta = css.match(/\.audio-prehled\s*\{([^}]+)\}/)?.[1] ?? "";
+  assert.match(karta, /margin:\s*28px auto 36px/, "desktop: 28px nad kartou (jako .article-hero/.article-layout)");
+  const mobil = blokMedia("\\(max-width: 580px\\)");
+  assert.match(
+    mobil,
+    /\.audio-prehled\s*\{[^}]*margin-top:\s*20px[^}]*margin-bottom:\s*20px/,
+    "mobil: 20px nad kartou (jako .article-hero pod 580px)",
+  );
+  assert.match(css, /\.article-hero\s*\{\s*margin:\s*28px 0 0/, "rytmus .article-hero se nezměnil");
+});
+
 // ── Tisk ─────────────────────────────────────────────────────────────
 
 test("kolo 18: tisk skrývá kotvy nadpisů a skip link", () => {
