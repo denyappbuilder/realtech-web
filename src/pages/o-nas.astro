@@ -69,11 +69,13 @@ const breadcrumbLd = {
 
     <div class="about-layout">
       <div class="about-main">
-        <div class="stats" aria-label="Kanál v číslech">
-          <div class="stat"><strong>80+</strong><span>videí na kanále</span></div>
-          <div class="stat"><strong>260&nbsp;000+</strong><span>zhlédnutí celkem</span></div>
-          <div class="stat"><strong>{pocetClanku}</strong><span>článků na webu</span></div>
-        </div>
+        {/* Kolo 18: aria-label smí jen na prvek s rolí — na <div> ho čtečky
+            ignorují (axe aria-prohibited-attr). Tři čísla jsou seznam. */}
+        <ul class="stats" role="list" aria-label="Kanál v číslech">
+          <li class="stat"><strong>80+</strong><span>videí na kanále</span></li>
+          <li class="stat"><strong>260&nbsp;000+</strong><span>zhlédnutí celkem</span></li>
+          <li class="stat"><strong>{pocetClanku}</strong><span>článků na webu</span></li>
+        </ul>
 
         <h2>Jak pracujeme</h2>
         <p>
