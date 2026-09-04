@@ -65,7 +65,12 @@ test("kolo 17: .card-rail-mobile skrývá jen desktop (≥901px), kde rail vidí
     ".card-rail-mobile nesmí mít pravidlo mimo @media (min-width: 901px) — na mobilu by karty zmizely",
   );
   const desktop = blokMedia("min-width:\\s*901px");
-  assert.match(pravidlo(desktop, ".card-rail-mobile"), /display:\s*none/, "od 901px musí být duplicitní karty skryté");
+  assert.match(
+    pravidlo(desktop, ".card.card-rail-mobile"),
+    /display:\s*none/,
+    "od 901px musí být duplicitní karty skryté — a to selektorem .card.card-rail-mobile, samotná třída prohrává s pozdějším .card { display: flex }",
+  );
+  assert.equal(pravidlo(desktop, ".card-rail-mobile"), "", "samotný .card-rail-mobile nestačí (specificita vs .card)");
   assert.match(pravidlo(desktop, ".hero-rail"), /display:\s*block/, "rail se od 901px musí ukázat");
 });
 
