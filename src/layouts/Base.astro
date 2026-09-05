@@ -43,6 +43,12 @@ interface Props {
   ogTitle?: string;
   description?: string;
   image?: string;
+  /**
+   * Alt sociálního náhledu (og:image:alt, twitter:image:alt). Nevyplněno =
+   * `title`. Úvodka posílá titulek hero článku, protože její og:image je
+   * jeho cover — „REALTECH CZ — Tech novinky a analýzy“ fotku nepopisoval.
+   */
+  imageAlt?: string;
   ogType?: string;
   /** Direktivy pro roboty; velké náhledy obrázků jsou povolené ve výchozím stavu. */
   robots?: string;
@@ -70,6 +76,7 @@ const {
   ogTitle,
   description = 'Tech novinky a analýzy bez marketingových řečí. Web YouTube kanálu REALTECH CZ.',
   image = '/og-default.jpg',
+  imageAlt,
   ogType = 'website',
   robots = 'max-image-preview:large',
   includeCanonical = true,
@@ -92,6 +99,7 @@ const path = Astro.url.pathname;
 const current = (href: string) =>
   (href === '/' ? path === '/' : path === href || path.startsWith(href)) ? 'page' : undefined;
 const socialniTitulek = ogTitle ?? title;
+const altNahledu = imageAlt ?? title;
 /*
  * Popis pro vyhledávače a náhledy na sítích. Řeže se PO VĚTÁCH na 160 znaků —
  * viz `popis-pro-vyhledavace.js`. Původní `description` zůstává nedotčený
@@ -121,9 +129,10 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   {/*
     Preconnect jen na originy, které tahle stránka opravdu použije.
     ytimg / audio jsou flagy z volající stránky — globálně by 404, O nás
-    i Flight 14 (jen X) platily zbytečný TLS. Insights beacon je na každé
-    stránce. Bez `crossorigin` — <img>, <audio> i klasický <script> jsou
-    no-CORS requesty a CORS-ové spojení by se nepoužilo.
+    i Flight 14 (jen X) platily zbytečný TLS. Insights beacon (vkládá ho
+    Cloudflare Pages, viz konec <head>) je na každé stránce. Bez
+    `crossorigin` — <img>, <audio> i klasický <script> jsou no-CORS
+    requesty a CORS-ové spojení by se nepoužilo.
   */}
   {preconnectYtimg && <link rel="preconnect" href="https://i.ytimg.com" />}
   {preconnectAudio && <link rel="preconnect" href="https://audio.realtech.cz" />}
@@ -139,14 +148,14 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <meta property="og:image" content={ogImage} />
   <meta property="og:image:width" content={ogSize.w} />
   <meta property="og:image:height" content={ogSize.h} />
-  <meta property="og:image:alt" content={title} />
+  <meta property="og:image:alt" content={altNahledu} />
   <meta property="og:site_name" content="REALTECH CZ" />
   <meta property="og:locale" content="cs_CZ" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={socialniTitulek} />
   <meta name="twitter:description" content={popisSeo} />
   <meta name="twitter:image" content={ogImage} />
-  <meta name="twitter:image:alt" content={title} />
+  <meta name="twitter:image:alt" content={altNahledu} />
   <meta name="theme-color" content="#F6F7F9" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)" />
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -156,7 +165,13 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="alternate" type="application/rss+xml" title="REALTECH CZ" href="/rss.xml" />
   <slot name="head" />
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c2d8811d709646ad986cb0e671b8ffd6"}'></script>
+  {/*
+    Kolo 22: Cloudflare Insights beacon tu NEPATŘÍ. Pages ho vkládá sám na
+    konec <body> (Web Analytics auto-injection, token db6b4d88…) — živě
+    5. 9. 2026 měla každá stránka dva beacony a každé zobrazení se počítalo
+    dvakrát (do dvou různých webů v Insights). Ruční <script> s druhým
+    tokenem c2d8811d… je pryč; preconnect výš zůstává pro ten vložený.
+  */}
 </head>
 <body>
 
@@ -165,7 +180,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
 
 <header class="site">
   <div class="wrap">
-    <a href="/" class="logo" aria-label="REALTECHCZ — domů">
+    <a href="/" class="logo" aria-label="REALTECH CZ — domů">
       <span class="real">REAL</span><span class="tech">TECH</span><span class="cz">CZ</span>
     </a>
     <nav class="main" aria-label="Hlavní navigace">
@@ -220,7 +235,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
 <footer class="site">
   <div class="wrap f-top">
     <div class="f-brand">
-      <a href="/" class="logo" aria-label="REALTECHCZ — domů">
+      <a href="/" class="logo" aria-label="REALTECH CZ — domů">
         <span class="real">REAL</span><span class="tech">TECH</span><span class="cz">CZ</span>
       </a>
       <p class="f-tag">Tech bez marketingových řečí. Novinky a analýzy z AI a techu — česky.</p>

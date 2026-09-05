@@ -35,16 +35,17 @@ test('karta počítá loading a fetchpriority z props.priority / eager', () => {
   assert.doesNotMatch(karta, /loading="lazy"/);
 });
 
-test('archiv dá priority první kartě jen na straně 1, eager první řadě', () => {
+test('archiv dá priority první kartě jen na straně 1, ostatní karty jsou lazy', () => {
   assert.match(
     archiv,
     /priority=\{page === 1 && index === 0\}/,
     'fetchpriority=high jen na /clanky/ (page 1) index 0',
   );
-  assert.match(
+  // Kolo 22: eager celé první řady (index < 3) soupeřilo s preloadovaným LCP.
+  assert.doesNotMatch(
     archiv,
-    /eager=\{page === 1 && index < 3\}/,
-    'první řada (3 col) na straně 1 je eager — 2./3. karta nesmí být lazy LCP',
+    /eager=\{/,
+    'archiv nesmí dávat eager dalším kartám — eager + high má jen první',
   );
   assert.match(
     archiv,
@@ -63,13 +64,13 @@ test('archiv dá priority první kartě jen na straně 1, eager první řadě', 
   );
 });
 
-test('téma dá priority první kartě na každé straně — featured-lead je LCP', () => {
+test('téma dá priority první kartě na každé straně — featured-lead je LCP, zbytek lazy', () => {
   assert.match(temata, /priority=\{index === 0\}/);
-  assert.match(temata, /eager=\{index < 3\}/);
+  assert.doesNotMatch(temata, /eager=\{/, 'kolo 22: eager jen featured karta');
   assert.match(temata, /titleTag="h2"/);
 });
 
-test('hub /temata/ dá eager první řadě + fetchpriority jen první kartě', () => {
+test('hub /temata/ dá eager + fetchpriority jen první kartě', () => {
   assert.match(
     hub,
     /temata\.map\(\(t, i\) =>/,
@@ -77,8 +78,8 @@ test('hub /temata/ dá eager první řadě + fetchpriority jen první kartě', (
   );
   assert.match(
     hub,
-    /loading=\{i < 3 \? 'eager' : 'lazy'\}/,
-    'první řada hubu (i<3) musí být eager — 2./3. karta nesmí vyhrát lazy LCP',
+    /loading=\{i === 0 \? 'eager' : 'lazy'\}/,
+    'eager jen první karta hubu (kolo 22) — zbytek lazy',
   );
   assert.match(
     hub,

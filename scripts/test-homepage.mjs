@@ -367,7 +367,7 @@ test('úvodka předá Base image hero a nechá og:type website; průvodci vedou 
   const zdroj = readFileSync(new URL('../src/pages/index.astro', import.meta.url), 'utf8');
   assert.match(
     zdroj,
-    /<Base title="REALTECH CZ — Tech novinky a analýzy" image=\{heroOg\} preconnectYtimg=\{preconnectYtimg\}>/,
+    /<Base title="REALTECH CZ — Tech novinky a analýzy" image=\{heroOg\} imageAlt=\{heroOgAlt\} preconnectYtimg=\{preconnectYtimg\}>/,
     'homepage musí poslat image hero do Base, jinak share dostane og-default.jpg',
   );
   assert.doesNotMatch(

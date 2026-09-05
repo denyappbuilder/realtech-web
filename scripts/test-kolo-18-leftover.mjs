@@ -133,7 +133,8 @@ test("kolo 18: .audio-prehled má horní odstup ve stejném rytmu jako cover a t
     /\.audio-prehled\s*\{[^}]*margin-top:\s*20px[^}]*margin-bottom:\s*20px/,
     "mobil: 20px nad kartou (jako .article-hero pod 580px)",
   );
-  assert.match(css, /\.article-hero\s*\{\s*margin:\s*28px 0 0/, "rytmus .article-hero se nezměnil");
+  // Kolo 22: cover drží 760px sloupec (margin auto), horní odstup 28px zůstává.
+  assert.match(css, /\.article-hero\s*\{[^}]*margin:\s*28px auto 0/, "rytmus .article-hero se nezměnil");
 });
 
 // ── Tisk ─────────────────────────────────────────────────────────────
@@ -145,7 +146,8 @@ test("kolo 18: tisk skrývá kotvy nadpisů a skip link", () => {
   for (const selektor of [".heading-anchor", ".skip-link", ".read-progress"]) {
     assert.ok(skryte.includes(selektor), `${selektor} musí být v tisku skrytý`);
   }
-  assert.match(tisk, /\.article-body a::after\s*\{\s*content: " \(" attr\(href\) "\)"/, "tisk dál doplňuje href k odkazům");
+  // Kolo 22: href jen u absolutních http(s) odkazů, ne u relativních /clanky/… a kotev.
+  assert.match(tisk, /\.article-body a\[href\^="https:\/\/"\]::after\s*\{\s*content: " \(" attr\(href\) "\)"/, "tisk dál doplňuje href k odkazům");
 });
 
 // ── Validátor obsahu: uzavřené TODO ─────────────────────────────────────

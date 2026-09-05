@@ -72,7 +72,7 @@ test("kolo 13: archiv /clanky/ má BreadcrumbList jako hub /temata/", () => {
 test("kolo 13: hub /temata/ preloaduje první náhled", () => {
   assert.match(hub, /preloadHeroObrazku/);
   assert.match(hub, /rel="preload"/);
-  assert.match(hub, /loading=\{i < 3 \? 'eager' : 'lazy'\}/);
+  assert.match(hub, /loading=\{i === 0 \? 'eager' : 'lazy'\}/);
 });
 
 test("kolo 13: Grok Imagine má xPost na oznámení ze Zdrojů, cover zůstává fotka", () => {

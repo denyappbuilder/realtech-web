@@ -41,7 +41,7 @@ test('kolo 20: ArticleCard má eager + titleTag a srcset sizes', () => {
 test('kolo 20: hub /temata/ má h2 a srcset sizes', () => {
   assert.match(hub, /<h2><a href=\{\`\/temata\/\$\{t\.slug\}\/\`\}>/);
   assert.match(hub, /thumbWebpSrcset/);
-  assert.match(hub, /loading=\{i < 3 \? 'eager' : 'lazy'\}/);
+  assert.match(hub, /loading=\{i === 0 \? 'eager' : 'lazy'\}/);
 });
 
 test('kolo 20: logo TECH v darku bere --signal-dark (≥4,5:1)', () => {

@@ -116,8 +116,11 @@ const jsonLd = {
 // Video strip tahá i.ytimg.com/sddefault.jpg. Hero Flight 14 má lokální
 // cover a homepage mp3 nenačítá — audio preconnect sem nepatří.
 const preconnectYtimg = videos.length > 0;
+// og:image úvodky je cover hero článku — og:image:alt nese jeho titulek,
+// ne název webu (kolo 22). Bez coveru padá Base na /og-default.jpg + title.
+const heroOgAlt = heroOg ? hero.data.title : undefined;
 ---
-<Base title="REALTECH CZ — Tech novinky a analýzy" image={heroOg} preconnectYtimg={preconnectYtimg}>
+<Base title="REALTECH CZ — Tech novinky a analýzy" image={heroOg} imageAlt={heroOgAlt} preconnectYtimg={preconnectYtimg}>
   {heroPreload && (
     <link
       rel="preload"

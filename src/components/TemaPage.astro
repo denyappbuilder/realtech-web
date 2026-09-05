@@ -33,8 +33,10 @@ const articles = clanky.slice(start, start + ARTICLES_PER_PAGE);
 const all = await getCollection('clanky', ({ data }) => !data.draft);
 const ostatni = [...new Set(all.map((c) => c.data.category))].filter((c) => c !== category);
 
-// LCP na /temata/{slug}/ je náhled první karty (eager + fetchpriority=high,
-// viz ArticleCard prop `priority`). Preload v <head> počítá ze STEJNÝCH
+// LCP na /temata/{slug}/ je náhled první (featured) karty (eager +
+// fetchpriority=high, viz ArticleCard prop `priority`); ostatní karty jsou
+// lazy — eager celé první řady soupeřilo s LCP o pásmo (kolo 22, viz
+// ArticleArchivePage). Preload v <head> počítá ze STEJNÝCH
 // helperů jako karta (nahledKarty + youtubeId) — stejně jako archiv.
 // Živě 26. 8. 2026: první karta byla eager, ale <head> neměl žádný preload.
 // Strana 2+ preload nedostane (stejná volba jako /clanky/strana/2+).
@@ -126,7 +128,6 @@ const ogTitle = page === 1
             article={article}
             titleTag="h2"
             priority={index === 0}
-            eager={index < 3}
             sizes={index === 0 ? KARTA_SIZES_FEATURED : undefined}
           />
         ))}

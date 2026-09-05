@@ -9,7 +9,11 @@ interface Props {
   article: CollectionEntry<'clanky'>;
   /** První karta nad okrajem na výpisu — LCP. Úvodka to nesmí dostat, tam už ho má hero. */
   priority?: boolean;
-  /** Above-fold bez LCP (2.–3. karta v první řadě). Eager, bez fetchpriority=high. */
+  /**
+   * Eager bez fetchpriority=high. Výpisy ho od kola 22 nepoužívají — eager
+   * celé první řady soupeřilo s preloadovaným LCP; zůstává jen pro případ
+   * above-fold karty, která LCP není.
+   */
   eager?: boolean;
   /** Nadpis karty: na výpisech pod h1 použij h2 (hierarchie), na úvodce pod h2 sekcí nech h3. */
   titleTag?: 'h2' | 'h3';

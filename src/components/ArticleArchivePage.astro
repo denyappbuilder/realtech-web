@@ -21,9 +21,12 @@ const articles = all.slice(start, start + ARTICLES_PER_PAGE);
 const categories = [...new Set(all.map((article) => article.data.category))];
 const pagePath = (pageNumber: number) => pageNumber === 1 ? '/clanky/' : `/clanky/strana/${pageNumber}/`;
 
-// LCP na /clanky/ je náhled první karty (fetchpriority=high jen index 0 na
-// straně 1). První řada (index < 3) je eager, ať 2./3. karta na desktopu
-// nesoutěží jako lazy LCP (sub-pixel). Preload v <head> míří na první kartu
+// LCP na /clanky/ je náhled první karty (eager + fetchpriority=high jen
+// index 0 na straně 1), ostatní karty jsou lazy. Kolo 20 dalo eager celé
+// první řadě (index < 3), ať 2./3. karta na desktopu nesoutěží jako lazy
+// LCP — jenže tři eager náhledy najednou soupeřily o pásmo s tím jediným
+// preloadovaným (živě 5. 9. 2026), a lazy s Chrome thresholdem 1250px
+// nad foldem stejně startuje hned. Preload v <head> míří na první kartu
 // a nese imagesrcset/imagesizes = srcset/sizes <source> karty: bez nich
 // preload stáhl -640.webp a karta si na DPR>1 vybrala plný .webp (kolo 21).
 // /clanky/strana/2+ nemá eager kartu, tak ani preload.
@@ -107,7 +110,6 @@ const title = page === 1
             article={article}
             titleTag="h2"
             priority={page === 1 && index === 0}
-            eager={page === 1 && index < 3}
           />
         ))}
       </div>

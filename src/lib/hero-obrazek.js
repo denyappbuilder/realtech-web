@@ -10,16 +10,18 @@ import fs from 'node:fs';
  * 640 do srcset jen když soubor opravdu existuje. Jinak zůstane samotné
  * 1280.webp (nebo JPG) — chybějící derivát nesmí rozbít <picture>.
  *
- * Článek je přes celou šířku `.wrap` (1120 px), ne 40vw jako homepage.
+ * Cover drží sloupec hlavičky článku — 760 px (.article-head, .audio-prehled,
+ * .related), ne celý `.wrap` 1120 px jako do kola 22, ani 40vw jako homepage.
+ * 760 + 2×24 px padding wrapu = 808 px: pod tím jde přes viewport.
  *
  * Video článek bez frontmatter `image:` dřív vracel prázdné `src` a YouTube
  * facade se renderovala bez náhledu — LCP byl prázdný 16:9 box s play ikonou
  * (živě např. /clanky/dji-vs-insta360/). Karty (ArticleCard) přitom už dávno
  * padají na i.ytimg.com. Tady bereme maxresdefault (1280×720, 16:9) — facade
- * je 1120 px široká a šablona už na maxres spoléhá u og:image i VideoObject.
+ * je na retině přes 1280 px a šablona už na maxres spoléhá u og:image i VideoObject.
  * Lokální cover má přednost, YouTube thumb je jen fallback.
  */
-export const CLANEK_HERO_SIZES = '(max-width: 1120px) 100vw, 1120px';
+export const CLANEK_HERO_SIZES = '(max-width: 808px) 100vw, 760px';
 
 /**
  * @param {string | null | undefined} image

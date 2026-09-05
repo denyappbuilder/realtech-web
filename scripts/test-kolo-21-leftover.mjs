@@ -116,7 +116,8 @@ test('kolo 21: .hero-visual pod 901px má width: 100% — strop výšky se nesm�
   const mobil = mediaBlok('max-width:\\s*900px');
   const telo = mobil.match(/\.hero-visual\s*\{([^}]+)\}/)?.[1] ?? '';
   assert.match(telo, /width:\s*100%/, 'grid item s aspect-ratio se neroztáhne; bez šířky je cover 391px z 720px');
-  assert.match(telo, /max-height:\s*220px/, 'Z10024 strop výšky zůstává');
+  // Kolo 22: strop 220px dělal z coveru proužek 3,3:1 — výšku dává jen aspect-ratio.
+  assert.doesNotMatch(telo, /max-height/, 'kolo 22 strop výšky zrušilo, cover drží 16/9');
 });
 
 // ── Tisk ───────────────────────────────────────────────────────────────────
