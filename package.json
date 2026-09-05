@@ -16,7 +16,7 @@
     "@fontsource-variable/archivo": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/ibm-plex-sans": "^5.2.8",
-    "astro": "^5.7.0"
+    "astro": "^7.1.1"
   },
   "devDependencies": {
     "@astrojs/compiler": "^2.13.1",
