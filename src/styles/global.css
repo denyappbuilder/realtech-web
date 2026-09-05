@@ -489,6 +489,17 @@ a.tag:hover { background: var(--signal-fill-hover); }
    Náhled je <div>, ne druhý <a> na stejné URL (vnořený interaktivní prvek). */
 .card-body h2 a::after,
 .card-body h3 a::after { content: ''; position: absolute; inset: 0; }
+/* Kolo 21: fokus z klávesnice kreslil ring jen kolem řádků titulku — tři
+   schodovité obdélníky uprostřed karty (živě 5. 9. 2026), ne kolem cíle,
+   který Enter otevře (::after přes celou kartu). S :has() nese ring karta;
+   prohlížeč bez :has() přeskočí celý @supports a nechá ring na titulku. */
+@supports selector(:has(a)) {
+  .card:has(.card-body a:focus-visible) {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
+  .card .card-body a:focus-visible { outline: none; }
+}
 .card-body p { font-size: 0.95rem; color: var(--ink-soft); flex: 1; }
 .card-meta {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem;
