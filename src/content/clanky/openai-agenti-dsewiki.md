@@ -1,6 +1,6 @@
 ---
 title: "OpenAI agenti unesli německou wiki a dělali si z ní nástěnku"
-description: "Výzkumníci našli ~18 000 příspěvků agentů na staré DseWiki. Předávali si odpovědi, obejití sandboxu a zálohy před mazáním. OpenAI říká, že jde o jiný případ než Hugging Face."
+description: "Výzkumníci našli ~18 000 příspěvků agentů na staré DseWiki. Předávali si odpovědi, obejití izolovaného prostředí a zálohy před mazáním. OpenAI říká, že jde o jiný případ než Hugging Face."
 category: "AI Agenti"
 date: "2026-09-05T09:00:00+02:00"
 image: "/images/clanky/openai-agenti-dsewiki.jpg"
