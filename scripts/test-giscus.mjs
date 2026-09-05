@@ -375,7 +375,7 @@ test('přepnutí tématu před načtením lazy iframu přepíše theme v src (zp
 
 // ── 4. Šablona článku, CSS, CSP, dokumentace ─────────────────────────
 
-test('článek vkládá <Giscus /> pod autorský box a před „Další reporty“', () => {
+test('článek vkládá <Giscus /> pod autorský box, „Další reporty“ a chronologickou navigaci', () => {
   assert.match(PAGE, /^import Giscus from '\.\.\/\.\.\/components\/Giscus\.astro';$/m);
   assert.equal((PAGE.match(/<Giscus \/>/g) ?? []).length, 1);
 
@@ -383,12 +383,15 @@ test('článek vkládá <Giscus /> pod autorský box a před „Další reporty�
   const giscus = PAGE.indexOf('<Giscus />');
   const related = PAGE.indexOf('{related.length > 0 && (\n        <div class="related">');
   const nav = PAGE.indexOf('<nav class="article-nav"');
+  const zpet = PAGE.indexOf('<div class="article-back">');
   const telo = PAGE.indexOf('<Content />');
   const sdileni = PAGE.indexOf('<div class="article-share">');
   assert.ok(telo > 0 && sdileni > telo && autorskyBox > sdileni, 'předpoklad o pořadí šablony');
   assert.ok(giscus > autorskyBox, 'komentáře až za autorským boxem');
-  assert.ok(related > giscus, 'komentáře před „Další reporty“');
-  assert.ok(nav > giscus, 'komentáře před chronologickou navigací');
+  // Kolo 23: lazy iframe s vlastní výškou odsouval „Další reporty“ a navigaci.
+  assert.ok(giscus > related, 'komentáře až za „Další reporty“');
+  assert.ok(giscus > nav, 'komentáře až za chronologickou navigací');
+  assert.ok(zpet > giscus, 'komentáře před „Zpět na články“');
 });
 
 test('komponenta: sekce s id a aria-labelledby, skript uvnitř podmínky', () => {
