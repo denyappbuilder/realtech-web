@@ -9,10 +9,17 @@ Widget je **podmíněný konfigurací**: bez `PUBLIC_GISCUS_REPO_ID` a
 `PUBLIC_GISCUS_CATEGORY_ID` se sekce vůbec nevykreslí (žádný rozbitý
 iframe). Dokud tedy nejsou proměnné nastavené, web vypadá jako dřív.
 
+**Živý stav (kolo 24):** repozitář `denyappbuilder/realtech-web` je
+**public** (giscus soukromé repo neumí), Discussions zapnuté, aplikace
+giscus nainstalovaná, kategorie **Announcements**. Kroky níže jsou tedy
+hotové — slouží jako reference pro nové prostředí nebo když se něco rozbije.
+
 ## 1. Zapnout Discussions v repozitáři
 
 GitHub → repozitář `denyappbuilder/realtech-web` → **Settings → General →
-Features** → zaškrtnout **Discussions**.
+Features** → zaškrtnout **Discussions**. Repozitář musí být **veřejný** —
+giscus čte diskuze bez přihlášení čtenáře, u privátního repa by widget
+skončil chybou.
 
 ## 2. Nainstalovat aplikaci giscus
 
@@ -21,14 +28,18 @@ Otevřít <https://github.com/apps/giscus> → **Install** → vybrat účet
 
 Aplikace potřebuje jen právo číst a psát Discussions v tom jednom repozitáři.
 
-## 3. Vytvořit kategorii pro komentáře
+## 3. Kategorie pro komentáře: Announcements
 
-V záložce **Discussions** repozitáře → ⚙️ vedle *Categories* → **New category**:
+Živě se používá vestavěná kategorie **Announcements** (formát
+*Announcement*). Je to záměr, ne provizorium: v tomto formátu zakládá nová
+vlákna jen giscus app (a správci repa), čtenář nemůže omylem založit
+diskuzi mimo článek — pod každou URL je tak vždy právě jedno vlákno.
+Reagovat a komentovat v existujícím vlákně může kdokoli s GitHub účtem.
 
-- Název: `Komentáře` (nebo `General` — název je volitelný, ID je to podstatné)
-- Formát: **Announcements** — giscus to doporučuje: nové diskuze pak
-  zakládá jen giscus (a správci), čtenář nemůže omylem založit vlákno mimo
-  článek.
+Vlastní kategorie (např. `Komentáře`) není potřeba. Kdyby přece — záložka
+**Discussions** → ⚙️ vedle *Categories* → **New category**, formát
+**Announcements**, a pak nové `PUBLIC_GISCUS_CATEGORY_ID` z kroku 4
+(staré diskuze zůstanou v původní kategorii, giscus je nepřesune).
 
 ## 4. Získat ID na giscus.app
 
@@ -53,7 +64,7 @@ reakce, pozice pole nahoře, lazy loading, téma) nastavuje komponenta sama.
 | `PUBLIC_GISCUS_REPO_ID`      | ano     | `data-repo-id` z giscus.app (`R_kgDO…`)                   |
 | `PUBLIC_GISCUS_CATEGORY_ID`  | ano     | `data-category-id` z giscus.app (`DIC_kwDO…`)             |
 | `PUBLIC_GISCUS_REPO`         | ne      | výchozí `denyappbuilder/realtech-web`                     |
-| `PUBLIC_GISCUS_CATEGORY`     | ne      | název kategorie z kroku 3 (informativní, rozhoduje ID)    |
+| `PUBLIC_GISCUS_CATEGORY`     | ne      | `Announcements` (informativní, rozhoduje ID)              |
 
 Prefix `PUBLIC_` je nutný — Astro jen takové proměnné pustí do klientského
 kódu. Hodnoty nejsou tajné (jsou vidět v HTML každého článku), ale do repa
@@ -65,14 +76,21 @@ nepatří — jsou to identifikátory konkrétního repozitáře a kategorie.
 je potřeba **znovu nasadit** (Deployments → Retry deployment, nebo další
 push na `main`).
 
-**Lokálně:** vytvořit `.env` v kořeni projektu (je v `.gitignore`, do repa
-nejde):
+**Lokálně:** zkopírovat šablonu `.env.example` na `.env` (ten je
+v `.gitignore`, do repa nejde) a doplnit skutečná ID:
+
+```bash
+cp .env.example .env
+```
 
 ```bash
 PUBLIC_GISCUS_REPO_ID=R_kgDO…
 PUBLIC_GISCUS_CATEGORY_ID=DIC_kwDO…
-PUBLIC_GISCUS_CATEGORY=Komentáře
+PUBLIC_GISCUS_CATEGORY=Announcements
 ```
+
+`.env.example` má jen placeholdery (`R_kgDO…`, `DIC_kwDO…`) — skutečná ID
+do něj nepatří, hlídá to `scripts/test-kolo-24-leftover.mjs`.
 
 Bez proměnných dev server jednou varuje do konzole
 (`[giscus] Komentáře pod články se nevykreslí…`) a sekci vynechá.
@@ -102,3 +120,17 @@ pod článkem založí v Discussions vlákno s titulkem `clanky/<slug>/`.
 
 Testy: `npm test` (soubor `scripts/test-giscus.mjs`) hlídá, že sekce je
 v HTML jen s kompletní konfigurací a že CSP giscus pouští.
+
+## Ops checklist (Cloudflare Pages)
+
+- **Web Analytics beacon jen jednou.** `src/layouts/Base.astro` žádný
+  `beacon.min.js` nevkládá — Pages ho injektuje sám (Web Analytics
+  auto-injection). Když někdo v dashboardu tuhle auto-injekci vypne a zapne
+  nebo přidá beacon ručně, vzniknou dva beacony a každé zobrazení se počítá
+  dvakrát; po změně nastavení analytics ověřit `view-source` článku — v HTML
+  smí být přesně jeden `static.cloudflareinsights.com/beacon.min.js`.
+- **`Access-Control-Allow-Origin: *` na HTML** není z repa (`public/_headers`
+  ani `functions/_middleware.js` ho nenastavují) — je to CF dashboard
+  (Transform Rules / Pages nastavení). Řešit tam, ne v kódu.
+- **Env proměnné** se čtou při buildu: po změně `PUBLIC_GISCUS_*` je
+  potřeba **Retry deployment**, jinak běží starý HTML.
