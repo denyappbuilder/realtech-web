@@ -17,7 +17,7 @@ function zdroj(rel) {
   return readFileSync(path.join(KOREN, rel), 'utf8');
 }
 
-const SIZES = '(max-width: 1120px) 100vw, 1120px';
+const SIZES = '(max-width: 808px) 100vw, 760px';
 
 test('WebP srcset → preload s imagesrcset, imagesizes a type', () => {
   const out = preloadHeroObrazku({

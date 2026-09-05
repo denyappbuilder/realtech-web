@@ -29,41 +29,37 @@ function pravidlo(blok, selektor) {
   return shoda?.[1] ?? "";
 }
 
-test("Z10024: hero obrázek na mobilu musí mít strop výšky", () => {
+// Kolo 22: strop výšky (220px tablet / 160px na 390px) z původního Z10024
+// dělal z LCP coveru ořezaný proužek (720×220 = 3,3:1, 342×160 = 2,1:1).
+// Fold hlídá kompaktní rytmus níž; výšku coveru dává jen aspect-ratio 16/9.
+test("Z10024/kolo 22: hero obrázek na mobilu drží 16/9 přes celý sloupec, bez stropu výšky", () => {
   const desktop = pravidlo(css, ".hero-visual");
   assert.match(
     desktop,
     /aspect-ratio:\s*16\s*\/\s*9/,
-    "desktopový hero musí zůstat 16/9 — léčba je strop na mobilu, ne změna desktopu",
+    "desktopový hero musí zůstat 16/9",
   );
 
   const mobil = mediaBlok("max-width:\\s*900px");
   assert.ok(mobil, "chybí @media (max-width: 900px)");
 
   const telo = pravidlo(mobil, ".hero-visual");
-  assert.ok(
+  assert.ok(telo, ".hero-visual v mobilní media query chybí — grid item s aspect-ratio se bez width: 100% neroztáhne");
+  assert.match(telo, /width:\s*100%/, "cover musí jít přes celý sloupec (kolo 21)");
+  assert.doesNotMatch(
     telo,
-    ".hero-visual v mobilní media query chybí — 16/10 přes celou šířku žere fold",
+    /max-height/,
+    ".hero-visual má na tabletu max-height — s object-fit: cover z 16/9 fotky zbyde ořezaný proužek",
   );
+  assert.doesNotMatch(telo, /aspect-ratio/, "mobil nesmí přepisovat desktopové 16/9");
 
-  const stropPx = telo.match(/max-height:\s*([0-9.]+)px/);
-  const stropVh = telo.match(/max-height:\s*([0-9.]+)vh/);
-  assert.ok(
-    stropPx || stropVh,
-    ".hero-visual na mobilu nemá max-height — aspect-ratio 16/10 bez stropu tlačí karty pod fold",
+  const uzky = mediaBlok("max-width:\\s*580px");
+  const teloUzky = pravidlo(uzky, ".hero-visual");
+  assert.doesNotMatch(
+    teloUzky,
+    /max-height/,
+    ".hero-visual má na 390px max-height — 342px sloupec má být 192px vysoký (16/9), ne 160px proužek",
   );
-  if (stropPx) {
-    assert.ok(
-      Number(stropPx[1]) <= 240,
-      `.hero-visual max-height ${stropPx[1]}px je moc vysoko — na tabletu pořád žere fold`,
-    );
-  }
-  if (stropVh) {
-    assert.ok(
-      Number(stropVh[1]) <= 40,
-      `.hero-visual max-height ${stropVh[1]}vh je moc vysoko — pořád dominuje první obrazovku`,
-    );
-  }
 });
 
 test("Z10024: mobilní hero má kompaktní rytmus a pustí další obsah k foldu", () => {
@@ -85,11 +81,9 @@ test("Z10024: na 390px hero ukáže i náznak další sekce", () => {
   const mobil = mediaBlok("max-width:\\s*580px");
   const hero = pravidlo(mobil, ".hero");
   const grid = pravidlo(mobil, ".hero-grid");
-  const visual = pravidlo(mobil, ".hero-visual");
   const title = pravidlo(mobil, ".hero h1");
 
   assert.match(hero, /padding:\s*24px\s+0/, "úzký mobil pořád používá tabletové odsazení hero");
   assert.match(grid, /gap:\s*18px/, "mezera před coverem vytlačuje další sekci pod fold");
-  assert.match(visual, /max-height:\s*160px/, "cover na 390px pořád zabírá skoro čtvrt obrazovky");
   assert.match(title, /font-size:\s*1\.95rem/, "titulek na 390px zbytečně roste přes šest vysokých řádků");
 });

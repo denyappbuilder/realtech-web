@@ -79,6 +79,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   border-radius: 0 0 var(--radius) 0;
 }
 .skip-link:focus { left: 0; }
+/* Jen pro čtečky (živé oblasti stavu) — display: none by aria-live umlčelo. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px;
+  padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0);
+  clip-path: inset(50%); white-space: nowrap;
+}
 .mono {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.78rem;
@@ -851,14 +857,14 @@ footer.site ul a:hover { color: var(--ink); }
   .lower-third { margin-bottom: 16px; }
   .hero h1 { margin-bottom: 16px; }
   .hero p.lead { margin-bottom: 22px; }
-  /* Z10024: obrázek přes celou šířku bez stropu tlačí první reporty hluboko pod fold.
-     Kolo 21: grid item s aspect-ratio se v mřížce neroztahuje (justify-self
-     normal = start) a strop výšky se mu přenesl do šířky — živě 5. 9. 2026
-     byl cover 391px z 720px na tabletu a 282px z 342px na 390px, přilepený
-     vlevo s prázdným místem vpravo. Explicitní šířka nechá aspect-ratio
-     spočítat výšku, max-height ji ořízne a <img> (object-fit: cover) ořízne
-     fotku — výška zůstává, jen se obrázek roztáhne přes sloupec. */
-  .hero-visual { width: 100%; max-height: 220px; }
+  /* Kolo 21: grid item s aspect-ratio se v mřížce neroztahuje (justify-self
+     normal = start) — bez explicitní šířky byl cover 391px z 720px na
+     tabletu, přilepený vlevo. width: 100% ho roztáhne přes sloupec.
+     Kolo 22: strop max-height 220px (Z10024, tablet) / 160px (390px) k tomu
+     dělal z LCP fotky ořezaný proužek — na 768px 720×220 (3,3:1), na 390px
+     342×160 (2,1:1); object-fit: cover uřízl horní i dolní třetinu. Strop
+     je pryč, výšku dává jen aspect-ratio 16/9 (342px → 192px na 390px). */
+  .hero-visual { width: 100%; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   .article-layout { grid-template-columns: 1fr; }
@@ -940,7 +946,6 @@ footer.site ul a:hover { color: var(--ink); }
   .lower-third { margin-bottom: 12px; }
   .hero h1 { font-size: 1.95rem; margin-bottom: 12px; }
   .hero p.lead { margin-bottom: 16px; }
-  .hero-visual { max-height: 160px; }
   .grid { grid-template-columns: 1fr; }
   /* Pole hledání v archivu končilo na 210px uprostřed řádku; pod čipy jde přes celou šířku. */
   .filter-bar .search-input { width: 100%; }
@@ -1007,7 +1012,8 @@ footer.site ul a:hover { color: var(--ink); }
 }
 
 .video-embed {
-  margin: 28px 0 0;
+  max-width: 760px;
+  margin: 28px auto 0;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1053,8 +1059,14 @@ footer.site ul a:hover { color: var(--ink); }
   .stats { grid-template-columns: 1fr; }
 }
 
+/* Kolo 22: cover byl jediný prvek přes celý wrap (1120px) — hlavička, audio
+   karta i „Další reporty“ drží 760px. Živě 5. 9. 2026 tak fotka přečnívala
+   180px na každou stranu přes titulek nad sebou. Stejný sloupec jako
+   .article-head; sizes/preload míří na 760px (CLANEK_HERO_SIZES). Platí
+   i pro fasádu videa (.video-embed) — je to tentýž hero slot. */
 .article-hero {
-  margin: 28px 0 0;
+  max-width: 760px;
+  margin: 28px auto 0;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1606,10 +1618,16 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   /* .tag.tag-zprava: pravidlo `.lower-third .tag-zprava` (--ink/--bg) stojí
      v souboru až za tiskem a se stejnou specificitou by vyhrálo. */
   .lower-third .tag.tag-zprava { background: none; color: #000; }
+  /* Kolo 22: štítek REALTECH na hero úvodky je bílý text na --panel, který
+     tisk přepíše na #fff — bílé na bílém. Stejná léčba jako .tag výš. */
+  .hero-visual .rec { background: none; color: #000; border: 1px solid #000; }
   .article-body pre { background: none; color: #000; border: 1px solid #bbb; }
   .article-body { border: none; padding: 0; font-size: 11pt; }
   .article-page { padding: 0; }
-  .article-body a::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; }
+  /* Kolo 22: href za odkazem jen u absolutních http(s) URL. Relativní
+     (/clanky/…, /temata/…) a kotvy (#sekce) na papíře nikam nevedou. */
+  .article-body a[href^="http://"]::after,
+  .article-body a[href^="https://"]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; }
 }
 
 /* ── Homepage topics strip ───────────── */
