@@ -4,6 +4,9 @@ description: "Bloomberg: úvěrová linka z 2,5 na 15 miliard dolarů. Lead Morg
 category: "AI Report"
 date: "2026-09-05T14:00:00+02:00"
 image: "/images/clanky/anthropic-uver-15-miliard-pred-ipo.jpg"
+audio:
+  url: "https://audio.realtech.cz/anthropic-uver-15-miliard-pred-ipo-nlm.mp3?v=03b9c7978a95"
+  duration: 1041
 zprava: true
 ---
 
