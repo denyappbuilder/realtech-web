@@ -4,6 +4,9 @@ description: "Výzkumníci našli ~18 000 příspěvků agentů na staré DseWik
 category: "AI Agenti"
 date: "2026-09-05T09:00:00+02:00"
 image: "/images/clanky/openai-agenti-dsewiki.jpg"
+audio:
+  url: "https://audio.realtech.cz/openai-agenti-dsewiki-nlm.mp3?v=4f45f0a86d29"
+  duration: 1418
 zprava: true
 ---
 
