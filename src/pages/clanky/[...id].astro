@@ -193,6 +193,10 @@ const breadcrumbLd = {
   <div class="read-progress" aria-hidden="true"><span></span></div>
   <div class="article-page">
     <div class="wrap">
+      {/* Kolo 22: „Zkopírováno“ / „✓“ se dřív měnilo jen vizuálně v tlačítku
+          a kotvě — čtečka o výsledku nevěděla. Jedna živá oblast pro obě
+          tlačítka Kopírovat odkaz i kotvy nadpisů (skript níž). */}
+      <p class="sr-only" role="status" aria-live="polite" data-copy-status></p>
 
       <div class="article-head">
         <div class="lower-third">
@@ -293,7 +297,7 @@ const breadcrumbLd = {
           </ul>
           <p class="mono">Sdílej dál</p>
           <div class="share-btns">
-            <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">X</a>
+            <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
             <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">Facebook</a>
             <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
           </div>
@@ -338,7 +342,7 @@ const breadcrumbLd = {
       <div class="article-share">
         <span class="mono">// Sdílej dál</span>
         <div class="share-btns">
-          <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">X</a>
+          <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
           <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener">Facebook</a>
           <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href}>Kopírovat odkaz</button>
         </div>
@@ -405,14 +409,27 @@ const breadcrumbLd = {
     // „#“ u druhé stejné sekce zkopírovalo odkaz na první.
     import { asciiHeadingId, nextUniqueHeadingId } from '../../lib/heading-id.js';
 
+    // Živá oblast pro čtečky: stejný text musí přijít až PO vymazání, jinak
+    // opakované „Zkopírováno“ čtečka nepřečte (žádná změna DOM).
+    const copyStatus = document.querySelector<HTMLElement>('[data-copy-status]');
+    let copyStatusTimer: ReturnType<typeof setTimeout> | undefined;
+    const ohlasKopii = (text: string) => {
+      if (!copyStatus) return;
+      clearTimeout(copyStatusTimer);
+      copyStatus.textContent = '';
+      copyStatusTimer = setTimeout(() => { copyStatus.textContent = text; }, 50);
+    };
+
     const seen = new Map<string, number>();
     document.querySelectorAll<HTMLElement>('.article-body h2, .article-body h3').forEach((h) => {
-      if (!h.id) h.id = nextUniqueHeadingId(asciiHeadingId(h.textContent ?? ''), seen);
+      // Text nadpisu PŘED přidáním kotvy — po appendChild by nesl i „#“/„✓“.
+      const nazevSekce = (h.textContent ?? '').trim();
+      if (!h.id) h.id = nextUniqueHeadingId(asciiHeadingId(nazevSekce), seen);
       const a = document.createElement('a');
       a.href = `#${h.id}`;
       a.className = 'heading-anchor';
       a.textContent = '#';
-      a.setAttribute('aria-label', `Odkaz na sekci ${h.textContent}`);
+      a.setAttribute('aria-label', `Odkaz na sekci ${nazevSekce}`);
       a.addEventListener('click', (e) => {
         e.preventDefault();
         const url = `${location.origin}${location.pathname}#${h.id}`;
@@ -423,6 +440,7 @@ const breadcrumbLd = {
         });
         navigator.clipboard?.writeText(url).then(() => {
           a.textContent = '✓';
+          ohlasKopii(`Odkaz na sekci ${nazevSekce} zkopírován`);
           setTimeout(() => { a.textContent = '#'; }, 1500);
         }).catch(() => {});
       });
@@ -444,6 +462,7 @@ const breadcrumbLd = {
         try {
           await navigator.clipboard.writeText(url);
           copyBtn.textContent = 'Zkopírováno ✓';
+          ohlasKopii('Odkaz na článek zkopírován');
           setTimeout(() => { copyBtn.textContent = 'Kopírovat odkaz'; }, 2000);
         } catch {
           location.href = url;
