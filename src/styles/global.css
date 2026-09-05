@@ -16,6 +16,11 @@
   --signal-fill: #D42622;
   --signal-fill-hover: #B7211D;
   --panel: #14171C;
+  /* Kolo 23: rámeček bloků s výplní --panel (.hero-visual, .article-hero,
+     .video-embed, .vc-thumb). Ve světlém = --line (tmavý panel na světlém
+     pozadí ho nepotřebuje), v darku je --line #262C35 na --panel #1D232C
+     prakticky neviditelný (živě 5. 9. 2026) — tam je o krok světlejší. */
+  --line-panel: #E2E6EB;
   --radius: 8px;
   /* Kolo 18: color-scheme řídí nativní UA prvky, které tokeny nestylují —
      <audio controls>, křížek v type=search, posuvníky, marker <details>.
@@ -35,6 +40,7 @@
     --signal: #E5322D;
     --line: #262C35;
     --panel: #1D232C;
+    --line-panel: #3A4350;
     --signal-dark: #F0554F;
     color-scheme: dark;
   }
@@ -48,6 +54,7 @@
   --signal: #E5322D;
   --line: #262C35;
   --panel: #1D232C;
+  --line-panel: #3A4350;
   --signal-dark: #F0554F;
   color-scheme: dark;
 }
@@ -379,7 +386,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   border-radius: 10px;
   background: var(--panel);
   position: relative; overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-panel);
   box-shadow: none;
   display: block;
 }
@@ -1015,7 +1022,7 @@ footer.site ul a:hover { color: var(--ink); }
   max-width: 760px;
   margin: 28px auto 0;
   aspect-ratio: 16 / 9;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-panel);
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--panel);
@@ -1068,7 +1075,7 @@ footer.site ul a:hover { color: var(--ink); }
   max-width: 760px;
   margin: 28px auto 0;
   aspect-ratio: 16 / 9;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-panel);
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--panel);
@@ -1322,8 +1329,19 @@ footer.site ul a:hover { color: var(--ink); }
 .komentare-note a { color: var(--ink-soft); text-decoration: underline; }
 .komentare-note a:hover { color: var(--ink); }
 /* Výšku si iframe nastavuje sám (postMessage resizeHeight z client.js);
-   min-height drží místo pro lazy iframe, aby stránka pod ním neskákala. */
-.komentare .giscus { min-height: 180px; }
+   min-height drží místo pro lazy iframe, aby stránka pod ním neskákala.
+   Kolo 23: 180px bylo málo — prázdná diskuze (hlavička s reakcemi, pole
+   pro komentář nahoře, patička giscusu) měří ~340px, zbytek skákal (CLS).
+   Kostra: dokud je kontejner prázdný nebo iframe teprve načítá
+   (giscus-frame--loading od client.js, opacity 0), vidí čtenář rámeček
+   místo díry. */
+.komentare .giscus { min-height: 340px; }
+.komentare .giscus:empty,
+.komentare .giscus:has(> .giscus-frame--loading) {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
 .komentare .giscus-frame { border: 0; }
 
 /* ── Dark mode component tweaks ──────── */
@@ -1404,7 +1422,7 @@ footer.site ul a:hover { color: var(--ink); }
   display: block; position: relative;
   aspect-ratio: 16/9; border-radius: 14px; overflow: hidden;
   background: var(--panel);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-panel);
 }
 .vc-thumb img {
   position: absolute; inset: 0;
@@ -1595,9 +1613,13 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 
 /* ── Tisk ────────────────────────────── */
 @media print {
-  .topbar, header.site, .ticker, .newsletter, footer.site,
+  /* Kolo 23: /clanky/ tiskl chipy filtru, pole hledání i „Strana 1 z 7“
+     s tlačítky — na papíře nic z toho nefunguje. Mrtvý selektor staré
+     horní lišty (v markupu už není) ze seznamu pryč. */
+  header.site, .ticker, .newsletter, footer.site,
   .article-share, .related, .author-box, .article-nav, .article-back,
   .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed, .komentare,
+  .filter-bar, #art-search, .archive-pagination,
   .skip-link, .heading-anchor { display: none !important; }
   /* Kolo 18: bez toho pravidla výš tiskl každý nadpis „# (#kotva)“ —
      kotva je <a> a a::after níž k ní přidal href. */
@@ -1616,6 +1638,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
     --ink-soft: #333;
     --ink-faint: #555;
     --line: #bbb;
+    --line-panel: #bbb;
     --panel: #fff;
     --signal: #B7211D;
     --signal-dark: #B7211D;
