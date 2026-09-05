@@ -219,6 +219,18 @@ test('shoda v titulku má přednost před shodou v popisu, kategorii i úryvku',
   assert.equal(modal.search('starlink').length, 3);
 });
 
+test('při stejném skóre vyhraje novější datum p, chybějící p nespadne', () => {
+  const modal = nactiModal({
+    hledatelne: [
+      polozka({ s: 'stary', t: 'Astra v Česku', p: '2024-01-01' }),
+      polozka({ s: 'novejsi', t: 'Astra na oběžné dráze', p: '2026-09-01' }),
+      { s: 'bez-data', t: 'Astra bez data', d: 'Popis', k: 'AI', b: '' },
+    ],
+  });
+
+  assert.deepEqual(slugy(modal.search('astra')), ['novejsi', 'stary', 'bez-data']);
+});
+
 test('kategorie je prohledávatelná stejně jako popis a úryvek', () => {
   const modal = nactiModal({
     hledatelne: [polozka({ s: 'a', t: 'Bez klíčového slova v titulku', k: 'Hardware' })],
@@ -241,6 +253,8 @@ test('bez dotazu se vypíše nápověda, ne prázdný seznam', () => {
   modal.render([], '');
 
   assert.match(modal.results.innerHTML, /Napiš, co hledáš/);
+  assert.match(modal.results.innerHTML, /<em>Astra<\/em>, <em>Anthropic<\/em> nebo <em>Starlink<\/em>/);
+  assert.doesNotMatch(modal.results.innerHTML, /<em>DJI<\/em>|<em>Claude<\/em>/);
 });
 
 test('dotaz bez výsledku vypíše hlášku, ne nápovědu', () => {

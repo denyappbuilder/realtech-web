@@ -120,6 +120,7 @@ async function renderBaseHead({ props, pathname }) {
         canonicalHref: typeof canonical === 'undefined' ? undefined : String(canonical),
         preconnectYtimg: typeof preconnectYtimg === 'undefined' ? undefined : preconnectYtimg,
         preconnectAudio: typeof preconnectAudio === 'undefined' ? undefined : preconnectAudio,
+        preconnectGiscus: typeof preconnectGiscus === 'undefined' ? undefined : preconnectGiscus,
       };
     })()
   `;
@@ -138,8 +139,8 @@ test('404: stránka předá Base noindex, follow a vypne self-canonical', () => 
   assert.equal(attribute(tag, 'robots'), 'noindex, follow');
   assert.equal(attribute(tag, 'includeCanonical'), false);
   assert.doesNotMatch(tag, /\bcanonical=/);
-  assert.doesNotMatch(tag, /preconnectYtimg|preconnectAudio/,
-    '404 nepředává ytimg/audio preconnect — karty berou lokální webp a mp3 tu není');
+  assert.doesNotMatch(tag, /preconnectYtimg|preconnectAudio|preconnectGiscus/,
+    '404 nepředává ytimg/audio/giscus preconnect — karty berou lokální webp a mp3 tu není');
 });
 
 test('Base: includeCanonical je volitelný boolean a kanonický odkaz je podmíněný', () => {
@@ -151,6 +152,8 @@ test('Base: includeCanonical je volitelný boolean a kanonický odkaz je podmín
     'preconnectYtimg musí být typově `boolean | undefined`');
   assert.ok(isOptionalBoolean(propMember(props, 'preconnectAudio')),
     'preconnectAudio musí být typově `boolean | undefined`');
+  assert.ok(isOptionalBoolean(propMember(props, 'preconnectGiscus')),
+    'preconnectGiscus musí být typově `boolean | undefined`');
 
   assert.ok(includeCanonical, 'Base.astro musí mít volitelný prop includeCanonical');
   assert.ok(
@@ -180,6 +183,7 @@ test('Base: výchozí stránka pořád emituje canonical své vlastní URL', asy
   assert.equal(head.canonicalHref, 'https://realtech.cz/clanky/existujici-clanek/');
   assert.equal(head.preconnectYtimg, false, 'bez flagu se i.ytimg.com nesmí předpojovat');
   assert.equal(head.preconnectAudio, false, 'bez flagu se audio.realtech.cz nesmí předpojovat');
+  assert.equal(head.preconnectGiscus, false, 'bez flagu se giscus.app nesmí předpojovat');
 });
 
 test('404: HTML z /404 nesmí kanonizovat chybějící URL na sebe', async () => {
@@ -202,13 +206,15 @@ test('404: HTML z /404 nesmí kanonizovat chybějící URL na sebe', async () =>
   assert.equal(head.includeCanonical, false);
   assert.equal(head.preconnectYtimg, false);
   assert.equal(head.preconnectAudio, false);
+  assert.equal(head.preconnectGiscus, false);
 });
 
 test('Base: zapnuté flagy předají ytimg i audio preconnect', async () => {
   const head = await renderBaseHead({
-    props: { title: 'YouTube článek', preconnectYtimg: true, preconnectAudio: true },
+    props: { title: 'YouTube článek', preconnectYtimg: true, preconnectAudio: true, preconnectGiscus: true },
     pathname: '/clanky/starlink-v-cesku-pruvodce/',
   });
   assert.equal(head.preconnectYtimg, true);
   assert.equal(head.preconnectAudio, true);
+  assert.equal(head.preconnectGiscus, true);
 });

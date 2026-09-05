@@ -1,3 +1,4 @@
 Contact: mailto:info@realtech.cz
+Canonical: https://realtech.cz/.well-known/security.txt
 Preferred-Languages: cs, en
 Expires: 2027-07-18T00:00:00.000Z

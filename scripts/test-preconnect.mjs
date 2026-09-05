@@ -43,10 +43,17 @@ test('Base: ytimg a audio preconnect jen za flagem, insights vždy, bez crossori
     /preconnectAudio\?: boolean/,
     'Base musí mít volitelný prop preconnectAudio',
   );
+  assert.match(
+    BASE,
+    /preconnectGiscus\?: boolean/,
+    'Base musí mít volitelný prop preconnectGiscus',
+  );
   assert.match(BASE, /preconnectYtimg = false/);
   assert.match(BASE, /preconnectAudio = false/);
+  assert.match(BASE, /preconnectGiscus = false/);
   assert.match(BASE, /\{preconnectYtimg && <link rel="preconnect" href="https:\/\/i\.ytimg\.com" \/>\}/);
   assert.match(BASE, /\{preconnectAudio && <link rel="preconnect" href="https:\/\/audio\.realtech\.cz" \/>\}/);
+  assert.match(BASE, /\{preconnectGiscus && <link rel="preconnect" href="https:\/\/giscus\.app" \/>\}/);
   assert.match(BASE, /<link rel="preconnect" href="https:\/\/static\.cloudflareinsights\.com" \/>/);
   assert.equal(
     (BASE.match(/href="https:\/\/i\.ytimg\.com"/g) ?? []).length,
@@ -58,15 +65,21 @@ test('Base: ytimg a audio preconnect jen za flagem, insights vždy, bez crossori
     1,
     'audio preconnect smí být v Base jen jednou, a to za flagem',
   );
+  assert.equal(
+    (BASE.match(/href="https:\/\/giscus\.app"/g) ?? []).length,
+    1,
+    'giscus preconnect smí být v Base jen jednou, a to za flagem',
+  );
   assert.doesNotMatch(BASE, /preconnect" href="https:\/\/i\.ytimg\.com"[^>]*crossorigin/i);
   assert.doesNotMatch(BASE, /preconnect" href="https:\/\/audio\.realtech\.cz"[^>]*crossorigin/i);
+  assert.doesNotMatch(BASE, /preconnect" href="https:\/\/giscus\.app"[^>]*crossorigin/i);
 });
 
 test('404 a O nás nepředávají ytimg ani audio preconnect', () => {
   const tag404 = otviraciBase(PAGE_404);
   const tagOnas = otviraciBase(ONAS);
-  assert.doesNotMatch(tag404, /preconnectYtimg|preconnectAudio/);
-  assert.doesNotMatch(tagOnas, /preconnectYtimg|preconnectAudio/);
+  assert.doesNotMatch(tag404, /preconnectYtimg|preconnectAudio|preconnectGiscus/);
+  assert.doesNotMatch(tagOnas, /preconnectYtimg|preconnectAudio|preconnectGiscus/);
   assert.doesNotMatch(PAGE_404, /i\.ytimg\.com|audio\.realtech\.cz/);
   assert.doesNotMatch(ONAS, /i\.ytimg\.com|audio\.realtech\.cz/);
 });
@@ -79,8 +92,8 @@ test('archiv, témata a vitej nepředávají ytimg ani audio — karty berou lok
     ['vítej', VITEJ],
   ]) {
     const tag = otviraciBase(zdroj);
-    assert.doesNotMatch(tag, /preconnectYtimg|preconnectAudio/,
-      `${jmeno} nesmí zapínat ytimg/audio preconnect`);
+    assert.doesNotMatch(tag, /preconnectYtimg|preconnectAudio|preconnectGiscus/,
+      `${jmeno} nesmí zapínat ytimg/audio/giscus preconnect`);
   }
 });
 
@@ -89,8 +102,8 @@ test('homepage předpojuje ytimg kvůli video stripu, ne audio', () => {
   assert.match(INDEX, /const preconnectYtimg = videos\.length > 0/,
     'mřížka videí tahá i.ytimg.com/sddefault.jpg — preconnect jen když videa opravdu jsou');
   assert.match(tag, /preconnectYtimg=\{preconnectYtimg\}/);
-  assert.doesNotMatch(tag, /preconnectAudio/,
-    'homepage nenačítá mp3 — audio přehled je až na článku');
+  assert.doesNotMatch(tag, /preconnectAudio|preconnectGiscus/,
+    'homepage nenačítá mp3 ani giscus — přehrávač i komentáře jsou až na článku');
 });
 
 test('článek předpojuje ytimg jen když <img> sahá na i.ytimg.com, audio jen s mp3', () => {
@@ -101,6 +114,9 @@ test('článek předpojuje ytimg jen když <img> sahá na i.ytimg.com, audio jen
     'článek s video: a lokálním coverem pořád předpojuje ytimg kvůli pouhému videoId');
   assert.match(CLANEK, /const preconnectAudio = Boolean\(audioLd\)/,
     'audio.realtech.cz jen když AudioPrehled opravdu nese mp3');
+  assert.match(CLANEK, /const preconnectGiscus = Boolean\(giscusKonfigurace\(import\.meta\.env\)\)/,
+    'giscus.app jen když se sekce komentářů opravdu vykreslí');
   assert.match(tag, /preconnectYtimg=\{preconnectYtimg\}/);
   assert.match(tag, /preconnectAudio=\{preconnectAudio\}/);
+  assert.match(tag, /preconnectGiscus=\{preconnectGiscus\}/);
 });

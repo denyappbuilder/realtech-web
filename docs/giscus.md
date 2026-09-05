@@ -108,9 +108,10 @@ Bez proměnných dev server jednou varuje do konzole
   giscus `light`/`dark`; bez přepnutí `preferred_color_scheme` (sleduje OS).
   Přepnutí za běhu pošle widgetu `setConfig` přes `postMessage`.
 - CSP (`public/_headers`) povoluje `https://giscus.app` v `script-src`
-  (client.js), `style-src` (client.js vkládá `default.css`) a `frame-src`
-  (iframe widgetu). Nic dalšího widget v rodičovské stránce nepotřebuje —
-  GitHub API i avatary tahá uvnitř svého iframu.
+  (client.js), `style-src` (client.js vkládá `default.css`), `frame-src`
+  (iframe widgetu) a `connect-src` (parent-page fetch na giscus.app).
+  GitHub API i avatary tahá uvnitř svého iframu — do `img-src` rodiče
+  nepatří.
 
 ## Ověření
 
