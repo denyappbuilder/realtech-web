@@ -68,6 +68,16 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
 
 3. Commit + push. Za minutu je článek živý.
 
+## Komentáře pod články (giscus)
+
+Pod články je sekce **Komentáře** přes [giscus](https://giscus.app) — GitHub
+Discussions tohoto repozitáře. Zapíná se **jen proměnnými prostředí**
+(`PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY_ID`; volitelně
+`PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_CATEGORY`), bez nich se sekce
+nevykreslí. Celý postup — zapnutí Discussions, instalace aplikace giscus,
+získání ID a nastavení proměnných v Cloudflare Pages — je v
+[`docs/giscus.md`](docs/giscus.md).
+
 ## Publikace přes agenta (Kepler)
 
 Doporučený workflow: agent **vytváří pull requesty, ne přímé pushe na main**.

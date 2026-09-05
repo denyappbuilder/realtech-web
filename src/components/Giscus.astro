@@ -1,0 +1,49 @@
+---
+/*
+ * Komentáře pod článkem — giscus nad GitHub Discussions repozitáře webu.
+ *
+ * Vykreslí se JEN s kompletní konfigurací v env (PUBLIC_GISCUS_REPO_ID a
+ * PUBLIC_GISCUS_CATEGORY_ID, viz docs/giscus.md). Bez nich sekce v HTML
+ * vůbec není — rozbitý iframe s chybou giscus API pod článkem nechceme.
+ * Na dev serveru o tom jednou řekne konzole.
+ *
+ * Samotný client.js vkládá až klientský modul (src/lib/giscus-klient.js),
+ * který zná téma webu — důvod je popsaný tam. Serverové HTML nese kostru
+ * sekce, konfiguraci v data-* kontejneru a únik bez JavaScriptu.
+ */
+import { giscusDiskuzeUrl, giscusKonfigurace, varujGiscus } from '../lib/giscus.js';
+
+const konfigurace = giscusKonfigurace(import.meta.env);
+if (!konfigurace && import.meta.env.DEV) varujGiscus(import.meta.env);
+---
+{konfigurace && (
+  <section class="komentare" id="komentare" aria-labelledby="komentare-nadpis">
+    <div class="section-head">
+      <h2 id="komentare-nadpis">Komentáře</h2>
+      <a href={giscusDiskuzeUrl(konfigurace.repo)} rel="noopener">Diskuze na GitHubu →</a>
+    </div>
+    <p class="komentare-note">
+      Komentáře běží přes GitHub Discussions — k napsání stačí účet na GitHubu, čtení je bez přihlášení.
+    </p>
+    <div
+      class="giscus"
+      data-giscus
+      data-repo={konfigurace.repo}
+      data-repo-id={konfigurace.repoId}
+      data-category={konfigurace.category}
+      data-category-id={konfigurace.categoryId}
+    ></div>
+    <noscript>
+      <p class="komentare-note">
+        Komentáře potřebují JavaScript. Diskuze k článkům najdeš
+        <a href={giscusDiskuzeUrl(konfigurace.repo)} rel="noopener">přímo na GitHubu</a>.
+      </p>
+    </noscript>
+    {/* Uvnitř podmínky schválně: bez konfigurace se nemá stahovat ani modul. */}
+    <script>
+      import { inicializujGiscus } from '../lib/giscus-klient.js';
+
+      inicializujGiscus(document);
+    </script>
+  </section>
+)}

@@ -12,6 +12,7 @@ import { isoDuration } from '../../lib/iso-duration.js';
 import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import AudioPrehled from '../../components/AudioPrehled.astro';
+import Giscus from '../../components/Giscus.astro';
 import { jsonLdText, pripojAudioKClanku, vytvorAudioObject } from '../../lib/audio-prehled.js';
 import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
 import { preloadHeroObrazku } from '../../lib/hero-preload.js';
@@ -363,6 +364,14 @@ const breadcrumbLd = {
           </div>
         </div>
       </div>
+
+      {/*
+        Komentáře (giscus) až za autorským boxem — článek, sdílení a autoři
+        tvoří jeden celek, diskuze k němu následuje a „Další reporty“ zůstávají
+        úplně dole jako výstup ze stránky. Sekce se vykreslí jen s nastaveným
+        PUBLIC_GISCUS_REPO_ID a PUBLIC_GISCUS_CATEGORY_ID (docs/giscus.md).
+      */}
+      <Giscus />
 
       {related.length > 0 && (
         <div class="related">
