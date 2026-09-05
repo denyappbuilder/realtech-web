@@ -1574,6 +1574,39 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   /* Kolo 18: bez toho pravidla výš tiskl každý nadpis „# (#kotva)“ —
      kotva je <a> a a::after níž k ní přidal href. */
   body { background: #fff; color: #000; }
+  /* Kolo 21: tisk bral tokeny aktuálního tématu. Kdo měl web v darku
+     (OS nebo přepínač), tiskl perex, první odstavec a metadata v
+     --ink-soft #A9B2BF na bílý papír (2,2:1) a odkazy v #F0554F.
+     Pozadí prohlížeč netiskne, tak tokeny na papír natvrdo — všechny
+     tři selektory, kterými web tmavé tokeny nastavuje. */
+  :root,
+  :root[data-theme="dark"],
+  :root:not([data-theme="light"]) {
+    --bg: #fff;
+    --surface: #fff;
+    --ink: #000;
+    --ink-soft: #333;
+    --ink-faint: #555;
+    --line: #bbb;
+    --panel: #fff;
+    --signal: #B7211D;
+    --signal-dark: #B7211D;
+    color-scheme: light;
+  }
+  /* Štítek kategorie a datum jsou bílý text na barevné výplni — bez
+     tisku pozadí byly na papíře neviditelné (obě témata). Kód v <pre>
+     měl natvrdo světlý text #E8ECF1 na --panel. */
+  .lower-third .tag,
+  .lower-third .time,
+  .article-head .lower-third .time {
+    background: none;
+    color: #000;
+    border: 1px solid #000;
+  }
+  /* .tag.tag-zprava: pravidlo `.lower-third .tag-zprava` (--ink/--bg) stojí
+     v souboru až za tiskem a se stejnou specificitou by vyhrálo. */
+  .lower-third .tag.tag-zprava { background: none; color: #000; }
+  .article-body pre { background: none; color: #000; border: 1px solid #bbb; }
   .article-body { border: none; padding: 0; font-size: 11pt; }
   .article-page { padding: 0; }
   .article-body a::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; }
