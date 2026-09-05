@@ -489,6 +489,17 @@ a.tag:hover { background: var(--signal-fill-hover); }
    Náhled je <div>, ne druhý <a> na stejné URL (vnořený interaktivní prvek). */
 .card-body h2 a::after,
 .card-body h3 a::after { content: ''; position: absolute; inset: 0; }
+/* Kolo 21: fokus z klávesnice kreslil ring jen kolem řádků titulku — tři
+   schodovité obdélníky uprostřed karty (živě 5. 9. 2026), ne kolem cíle,
+   který Enter otevře (::after přes celou kartu). S :has() nese ring karta;
+   prohlížeč bez :has() přeskočí celý @supports a nechá ring na titulku. */
+@supports selector(:has(a)) {
+  .card:has(.card-body a:focus-visible) {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
+  .card .card-body a:focus-visible { outline: none; }
+}
 .card-body p { font-size: 0.95rem; color: var(--ink-soft); flex: 1; }
 .card-meta {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem;
@@ -840,8 +851,14 @@ footer.site ul a:hover { color: var(--ink); }
   .lower-third { margin-bottom: 16px; }
   .hero h1 { margin-bottom: 16px; }
   .hero p.lead { margin-bottom: 22px; }
-  /* Z10024: obrázek přes celou šířku bez stropu tlačí první reporty hluboko pod fold. */
-  .hero-visual { max-height: 220px; }
+  /* Z10024: obrázek přes celou šířku bez stropu tlačí první reporty hluboko pod fold.
+     Kolo 21: grid item s aspect-ratio se v mřížce neroztahuje (justify-self
+     normal = start) a strop výšky se mu přenesl do šířky — živě 5. 9. 2026
+     byl cover 391px z 720px na tabletu a 282px z 342px na 390px, přilepený
+     vlevo s prázdným místem vpravo. Explicitní šířka nechá aspect-ratio
+     spočítat výšku, max-height ji ořízne a <img> (object-fit: cover) ořízne
+     fotku — výška zůstává, jen se obrázek roztáhne přes sloupec. */
+  .hero-visual { width: 100%; max-height: 220px; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   .article-layout { grid-template-columns: 1fr; }
@@ -1557,6 +1574,39 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   /* Kolo 18: bez toho pravidla výš tiskl každý nadpis „# (#kotva)“ —
      kotva je <a> a a::after níž k ní přidal href. */
   body { background: #fff; color: #000; }
+  /* Kolo 21: tisk bral tokeny aktuálního tématu. Kdo měl web v darku
+     (OS nebo přepínač), tiskl perex, první odstavec a metadata v
+     --ink-soft #A9B2BF na bílý papír (2,2:1) a odkazy v #F0554F.
+     Pozadí prohlížeč netiskne, tak tokeny na papír natvrdo — všechny
+     tři selektory, kterými web tmavé tokeny nastavuje. */
+  :root,
+  :root[data-theme="dark"],
+  :root:not([data-theme="light"]) {
+    --bg: #fff;
+    --surface: #fff;
+    --ink: #000;
+    --ink-soft: #333;
+    --ink-faint: #555;
+    --line: #bbb;
+    --panel: #fff;
+    --signal: #B7211D;
+    --signal-dark: #B7211D;
+    color-scheme: light;
+  }
+  /* Štítek kategorie a datum jsou bílý text na barevné výplni — bez
+     tisku pozadí byly na papíře neviditelné (obě témata). Kód v <pre>
+     měl natvrdo světlý text #E8ECF1 na --panel. */
+  .lower-third .tag,
+  .lower-third .time,
+  .article-head .lower-third .time {
+    background: none;
+    color: #000;
+    border: 1px solid #000;
+  }
+  /* .tag.tag-zprava: pravidlo `.lower-third .tag-zprava` (--ink/--bg) stojí
+     v souboru až za tiskem a se stejnou specificitou by vyhrálo. */
+  .lower-third .tag.tag-zprava { background: none; color: #000; }
+  .article-body pre { background: none; color: #000; border: 1px solid #bbb; }
   .article-body { border: none; padding: 0; font-size: 11pt; }
   .article-page { padding: 0; }
   .article-body a::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; }

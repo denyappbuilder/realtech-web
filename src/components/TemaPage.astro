@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 import { ARTICLES_PER_PAGE } from '../lib/pagination.js';
-import { nahledKarty } from '../lib/karta-nahled.js';
+import { KARTA_SIZES_FEATURED, nahledKarty } from '../lib/karta-nahled.js';
 import { youtubeId } from '../lib/youtube.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { seoTitulek } from '../lib/seo-titulek.js';
@@ -38,13 +38,15 @@ const ostatni = [...new Set(all.map((c) => c.data.category))].filter((c) => c !=
 // helperů jako karta (nahledKarty + youtubeId) — stejně jako archiv.
 // Živě 26. 8. 2026: první karta byla eager, ale <head> neměl žádný preload.
 // Strana 2+ preload nedostane (stejná volba jako /clanky/strana/2+).
+// První karta je featured (širší slot) — sizes karty i imagesizes preloadu
+// berou KARTA_SIZES_FEATURED, ať oba vyberou stejnou šířku (kolo 21).
 const prvni = page === 1 ? articles[0] : undefined;
 const prvniVideoId = youtubeId(prvni?.data.video);
 const prvniNahled = nahledKarty(prvni?.data.image);
 const kartaPreload = prvni
   ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
       ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
-      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined })
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, sizes: KARTA_SIZES_FEATURED })
   : null;
 
 const slug = slugify(category);
@@ -96,6 +98,8 @@ const ogTitle = page === 1
       rel="preload"
       as="image"
       href={kartaPreload.href}
+      imagesrcset={kartaPreload.imagesrcset}
+      imagesizes={kartaPreload.imagesizes}
       type={kartaPreload.type}
       fetchpriority="high"
       slot="head"
@@ -123,6 +127,7 @@ const ogTitle = page === 1
             titleTag="h2"
             priority={index === 0}
             eager={index < 3}
+            sizes={index === 0 ? KARTA_SIZES_FEATURED : undefined}
           />
         ))}
       </div>

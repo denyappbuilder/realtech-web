@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { readingTime } from '../lib/reading-time.js';
 import { youtubeId } from '../lib/youtube.js';
-import { nahledKarty } from '../lib/karta-nahled.js';
+import { KARTA_SIZES, nahledKarty } from '../lib/karta-nahled.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
 
 interface Props {
@@ -13,10 +13,17 @@ interface Props {
   eager?: boolean;
   /** Nadpis karty: na výpisech pod h1 použij h2 (hierarchie), na úvodce pod h2 sekcí nech h3. */
   titleTag?: 'h2' | 'h3';
+  /**
+   * `sizes` pro srcset 640w+1280w. Výchozí je mřížka .grid (KARTA_SIZES);
+   * featured karta tématu a „Další reporty“ pod článkem mají jiné sloty
+   * (KARTA_SIZES_FEATURED / KARTA_SIZES_RELATED). Rodič, který kartu
+   * preloaduje, musí do imagesizes dát TUTÉŽ hodnotu.
+   */
+  sizes?: string;
   /** Další třída na <article class="card"> — např. mobilní náhrada railu na úvodce. */
   class?: string;
 }
-const { article, priority = false, eager = false, titleTag = 'h3', class: extraClass } = Astro.props;
+const { article, priority = false, eager = false, titleTag = 'h3', sizes = KARTA_SIZES, class: extraClass } = Astro.props;
 const cardClass = extraClass ? `card ${extraClass}` : 'card';
 const TitleTag = titleTag;
 const { title, description, category, date, video, videoLength, zprava, image } = article.data;
@@ -50,8 +57,6 @@ const hasWebp = useYtThumb ? false : localHasWebp;
 const lcpSrc = useYtThumb ? thumbUrl : localLcpSrc;
 const loading = (priority || eager) ? 'eager' : 'lazy';
 const fetchpriority = priority ? 'high' : undefined;
-// Mřížka: 1 col ≤580, 2 col ≤900, 3 col desktop — karta ~33–100 vw.
-const CARD_SIZES = '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw';
 ---
 <article class={cardClass} data-category={category}>
   {/*
@@ -65,7 +70,7 @@ const CARD_SIZES = '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw';
   <div class={`card-thumb ${thumbClass}`}>
     {thumbUrl && (
       <picture>
-        {hasWebp && thumbWebpSrcset && <source srcset={thumbWebpSrcset} sizes={CARD_SIZES} type="image/webp" />}
+        {hasWebp && thumbWebpSrcset && <source srcset={thumbWebpSrcset} sizes={sizes} type="image/webp" />}
         {hasWebp && !thumbWebpSrcset && <source srcset={thumbWebp} type="image/webp" />}
         <img src={lcpSrc} alt={title} width={thumbW} height={thumbH} loading={loading} decoding="async" fetchpriority={fetchpriority} />
       </picture>

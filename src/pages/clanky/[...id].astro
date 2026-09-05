@@ -15,6 +15,7 @@ import AudioPrehled from '../../components/AudioPrehled.astro';
 import { jsonLdText, pripojAudioKClanku, vytvorAudioObject } from '../../lib/audio-prehled.js';
 import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
 import { preloadHeroObrazku } from '../../lib/hero-preload.js';
+import { KARTA_SIZES_RELATED } from '../../lib/karta-nahled.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -366,7 +367,9 @@ const breadcrumbLd = {
             <a href="/clanky/">Všechny →</a>
           </div>
           <div class="grid">
-            {related.map((c) => <ArticleCard article={c} />)}
+            {/* .related .grid je 3 col v 760px (241px karta) — obecné sizes 33vw
+                by na retině tahaly 1280w plný WebP na tři malé náhledy (kolo 21). */}
+            {related.map((c) => <ArticleCard article={c} sizes={KARTA_SIZES_RELATED} />)}
           </div>
         </div>
       )}
