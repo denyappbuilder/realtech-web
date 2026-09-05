@@ -1,6 +1,33 @@
 import fs from 'node:fs';
 
 /**
+ * `sizes` pro srcset 640w+1280w karty. Jedna konstanta pro <source> karty
+ * i pro imagesizes preloadu v <head> — když se liší, prohlížeč si z
+ * preloadu vybere jiný soubor než z <picture> a LCP se stáhne dvakrát
+ * (kolo 21, živě 5. 9. 2026: /clanky/, /temata/ i /temata/{slug}/ na
+ * telefonu preloadovaly -640.webp a karta pak tahala plný .webp).
+ *
+ * Mřížka .grid: 1 col ≤580, 2 col ≤900, 3 col desktop (~341px z 1072).
+ */
+export const KARTA_SIZES = '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw';
+
+/**
+ * Featured první karta na /temata/{slug}/ (.featured-lead > .card:first-child):
+ * od 581px přes celou šířku mřížky, náhled 1.2fr z 2.2fr ≈ 55 % karty,
+ * na 1120px wrapu 582px. S obecnými 33vw bral na DPR 1,5 (Windows 150 %)
+ * 640w do 873px slotu — měkký obrázek.
+ */
+export const KARTA_SIZES_FEATURED = '(max-width: 580px) 100vw, (max-width: 1168px) 55vw, 582px';
+
+/**
+ * Karty „Další reporty“ pod článkem (.related .grid): 3 col v 760px
+ * bloku = 241px, 1 col pod 701px. S obecnými 33vw (422px) si retina
+ * desktop bral 1280w plný WebP na tři 236px náhledy (živě 5. 9. 2026,
+ * DPR 2: 3× 43–91 KB místo 3× ~20 KB).
+ */
+export const KARTA_SIZES_RELATED = '(max-width: 700px) 100vw, (max-width: 808px) 30vw, 241px';
+
+/**
  * Náhled na kartě článku.
  *
  * `replace(/\.jpg$/, …)` na PNG/WebP nic nenahradí, takže `small === image`,

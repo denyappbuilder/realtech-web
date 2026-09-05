@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import { formatCalendarDateCs } from '../../lib/calendarDate.js';
-import { nahledKarty } from '../../lib/karta-nahled.js';
+import { KARTA_SIZES, nahledKarty } from '../../lib/karta-nahled.js';
 import { preloadHeroObrazku } from '../../lib/hero-preload.js';
 import { seoTitulek } from '../../lib/seo-titulek.js';
 import Base from '../../layouts/Base.astro';
@@ -30,11 +30,14 @@ const pocetClankuText = (n) => (n === 1 ? '1 článek' : n < 5 ? `${n} články`
 // LCP na /temata/ je náhled první karty (fetchpriority=high jen i===0).
 // První řada (i<3) je eager — 2./3. karta na desktopu nesmí vyhrát LCP
 // jako lazy. Stejný výpočet jako archiv — lokální WebP, jinak JPG.
+// imagesrcset/imagesizes = srcset/sizes <source> první karty (kolo 21).
 const prvniHub = temata[0];
 const kartaPreload = prvniHub?.nahled.hasLocalThumb
   ? preloadHeroObrazku({
       src: prvniHub.nahled.localThumb,
       webp: prvniHub.nahled.hasWebp ? prvniHub.nahled.thumbWebp : undefined,
+      webpSrcset: prvniHub.nahled.thumbWebpSrcset ?? undefined,
+      sizes: KARTA_SIZES,
     })
   : null;
 
@@ -74,6 +77,8 @@ const collectionLd = {
       rel="preload"
       as="image"
       href={kartaPreload.href}
+      imagesrcset={kartaPreload.imagesrcset}
+      imagesizes={kartaPreload.imagesizes}
       type={kartaPreload.type}
       fetchpriority="high"
       slot="head"
@@ -95,7 +100,7 @@ const collectionLd = {
               <div class={`card-thumb th-${t.slug}`}>
                 <picture>
                   {t.nahled.hasWebp && t.nahled.thumbWebpSrcset && (
-                    <source srcset={t.nahled.thumbWebpSrcset} sizes="(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw" type="image/webp" />
+                    <source srcset={t.nahled.thumbWebpSrcset} sizes={KARTA_SIZES} type="image/webp" />
                   )}
                   {t.nahled.hasWebp && !t.nahled.thumbWebpSrcset && (
                     <source srcset={t.nahled.thumbWebp} type="image/webp" />

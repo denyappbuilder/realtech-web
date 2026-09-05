@@ -32,7 +32,9 @@ test('kolo 20: nahledKarty umí thumbWebpSrcset 640w+1280w', () => {
 test('kolo 20: ArticleCard má eager + titleTag a srcset sizes', () => {
   assert.match(karta, /eager\?:\s*boolean/);
   assert.match(karta, /titleTag\?:\s*'h2' \| 'h3'/);
-  assert.match(karta, /CARD_SIZES/);
+  // Kolo 21: konstanta se přestěhovala do karta-nahled.js (KARTA_SIZES),
+  // aby ji sdílel i imagesizes preloadu na výpisech.
+  assert.match(karta, /KARTA_SIZES/);
   assert.match(karta, /thumbWebpSrcset/);
 });
 

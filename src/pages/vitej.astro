@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { nahledKarty } from '../lib/karta-nahled.js';
+import { KARTA_SIZES, nahledKarty } from '../lib/karta-nahled.js';
 import { youtubeId } from '../lib/youtube.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import Base from '../layouts/Base.astro';
@@ -24,7 +24,7 @@ const prvniNahled = nahledKarty(prvni?.data.image);
 const kartaPreload = prvni
   ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
       ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
-      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined })
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, sizes: KARTA_SIZES })
   : null;
 ---
 <Base
@@ -37,6 +37,8 @@ const kartaPreload = prvni
       rel="preload"
       as="image"
       href={kartaPreload.href}
+      imagesrcset={kartaPreload.imagesrcset}
+      imagesizes={kartaPreload.imagesizes}
       type={kartaPreload.type}
       fetchpriority="high"
       slot="head"

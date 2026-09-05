@@ -125,10 +125,14 @@ test('homepage dává do <head> právě jeden preload hero obrázku', () => {
 // Karta u videa preferuje lokální cover (KARTA-VIDEO-001) a YouTube bere
 // jen jako fallback — preload musí volit STEJNOU podmínkou, jinak stáhne
 // jiný soubor, než si <picture> karty vybere, a LCP se stáhne dvakrát.
+// Kolo 21: karta má od kola 20 srcset 640w+1280w — preload musí nést
+// imagesrcset/imagesizes ze STEJNÝCH hodnot (thumbWebpSrcset + sdílená
+// konstanta sizes), jinak na DPR>1 preloaduje -640.webp a <picture> si
+// vybere plný .webp (živě 5. 9. 2026 na /clanky/, /temata/, /temata/{slug}/).
 const VYBER_PRELOADU_KARTY =
-  /preloadHeroObrazku\(prvniVideoId && !prvniNahled\.hasLocalThumb\s*\?\s*\{ src: `https:\/\/i\.ytimg\.com\/vi\/\$\{prvniVideoId\}\/maxresdefault\.jpg` \}\s*:\s*\{ src: prvniNahled\.localThumb, webp: prvniNahled\.hasWebp \? prvniNahled\.thumbWebp : undefined \}\)/;
+  /preloadHeroObrazku\(prvniVideoId && !prvniNahled\.hasLocalThumb\s*\?\s*\{ src: `https:\/\/i\.ytimg\.com\/vi\/\$\{prvniVideoId\}\/maxresdefault\.jpg` \}\s*:\s*\{ src: prvniNahled\.localThumb, webp: prvniNahled\.hasWebp \? prvniNahled\.thumbWebp : undefined, webpSrcset: prvniNahled\.thumbWebpSrcset \?\? undefined, sizes: KARTA_SIZES(?:_FEATURED)? \}\)/;
 const LINK_PRELOADU_KARTY =
-  /\{kartaPreload && \(\s*<link\s+rel="preload"\s+as="image"\s+href=\{kartaPreload\.href\}\s+type=\{kartaPreload\.type\}\s+fetchpriority="high"\s+slot="head"\s+\/>\s*\)\}/;
+  /\{kartaPreload && \(\s*<link\s+rel="preload"\s+as="image"\s+href=\{kartaPreload\.href\}\s+imagesrcset=\{kartaPreload\.imagesrcset\}\s+imagesizes=\{kartaPreload\.imagesizes\}\s+type=\{kartaPreload\.type\}\s+fetchpriority="high"\s+slot="head"\s+\/>\s*\)\}/;
 
 test('archiv preloaduje první kartu jen na straně 1 — a ze stejných helperů jako karta', () => {
   const archiv = zdroj('src/components/ArticleArchivePage.astro');
@@ -241,7 +245,7 @@ test('hub /temata/ preloaduje první kartu — ze stejných helperů jako karta'
   );
   assert.match(
     hub,
-    /preloadHeroObrazku\(\{\s*src: prvniHub\.nahled\.localThumb,\s*webp: prvniHub\.nahled\.hasWebp \? prvniHub\.nahled\.thumbWebp : undefined,\s*\}\)/,
+    /preloadHeroObrazku\(\{\s*src: prvniHub\.nahled\.localThumb,\s*webp: prvniHub\.nahled\.hasWebp \? prvniHub\.nahled\.thumbWebp : undefined,\s*webpSrcset: prvniHub\.nahled\.thumbWebpSrcset \?\? undefined,\s*sizes: KARTA_SIZES,\s*\}\)/,
     'preload musí mířit na tentýž soubor jako <picture> první karty',
   );
   assert.match(
