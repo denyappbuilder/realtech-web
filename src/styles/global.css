@@ -840,8 +840,14 @@ footer.site ul a:hover { color: var(--ink); }
   .lower-third { margin-bottom: 16px; }
   .hero h1 { margin-bottom: 16px; }
   .hero p.lead { margin-bottom: 22px; }
-  /* Z10024: obrázek přes celou šířku bez stropu tlačí první reporty hluboko pod fold. */
-  .hero-visual { max-height: 220px; }
+  /* Z10024: obrázek přes celou šířku bez stropu tlačí první reporty hluboko pod fold.
+     Kolo 21: grid item s aspect-ratio se v mřížce neroztahuje (justify-self
+     normal = start) a strop výšky se mu přenesl do šířky — živě 5. 9. 2026
+     byl cover 391px z 720px na tabletu a 282px z 342px na 390px, přilepený
+     vlevo s prázdným místem vpravo. Explicitní šířka nechá aspect-ratio
+     spočítat výšku, max-height ji ořízne a <img> (object-fit: cover) ořízne
+     fotku — výška zůstává, jen se obrázek roztáhne přes sloupec. */
+  .hero-visual { width: 100%; max-height: 220px; }
   .grid { grid-template-columns: repeat(2, 1fr); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   .article-layout { grid-template-columns: 1fr; }
