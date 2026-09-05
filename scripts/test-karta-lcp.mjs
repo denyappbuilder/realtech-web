@@ -35,11 +35,12 @@ test('karta počítá loading a fetchpriority z props.priority / eager', () => {
   assert.doesNotMatch(karta, /loading="lazy"/);
 });
 
-test('archiv dá priority první kartě jen na straně 1, ostatní karty jsou lazy', () => {
+test('archiv dá priority první kartě každé strany, ostatní karty jsou lazy', () => {
+  // Kolo 23: i /clanky/strana/2+ — první karta je tam LCP (bez filtru ještě výš).
   assert.match(
     archiv,
-    /priority=\{page === 1 && index === 0\}/,
-    'fetchpriority=high jen na /clanky/ (page 1) index 0',
+    /priority=\{index === 0\}/,
+    'fetchpriority=high na první kartě každé strany archivu',
   );
   // Kolo 22: eager celé první řady (index < 3) soupeřilo s preloadovaným LCP.
   assert.doesNotMatch(
@@ -59,8 +60,8 @@ test('archiv dá priority první kartě jen na straně 1, ostatní karty jsou la
   );
   assert.doesNotMatch(
     archiv,
-    /priority=\{index === 0\}/,
-    'strana 2+ nesmí dostat high jen proto, že karta je první na stránce',
+    /priority=\{page === 1 && index === 0\}/,
+    'kolo 23: strana 2+ má LCP kartu eager/high jako strana 1 a téma',
   );
 });
 

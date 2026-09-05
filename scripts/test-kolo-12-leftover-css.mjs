@@ -39,7 +39,7 @@ test("kolo 12: forced dark nese --signal stejně jako prefers-color-scheme dark"
   assert.match(forced, /--bg:\s*#0F1216;/);
 });
 
-test("kolo 12: .video-embed a .article-hero berou --line/--panel, ne cream+black", () => {
+test("kolo 12: .video-embed a .article-hero berou --line-panel/--panel, ne cream+black", () => {
   for (const selektor of [".video-embed", ".article-hero"]) {
     const shoda = css.match(
       new RegExp(
@@ -48,7 +48,8 @@ test("kolo 12: .video-embed a .article-hero berou --line/--panel, ne cream+black
     );
     const rule = shoda?.[1] ?? "";
     assert.ok(rule, `${selektor} (16/9 blok) v CSS chybí`);
-    assert.match(rule, /border:\s*1px solid var\(--line\)/, `${selektor} nemá var(--line)`);
+    // Kolo 23: rámeček na --panel bere --line-panel (ve světlém = --line).
+    assert.match(rule, /border:\s*1px solid var\(--line-panel\)/, `${selektor} nemá var(--line-panel)`);
     assert.match(rule, /background:\s*var\(--panel\)/, `${selektor} nemá var(--panel)`);
     assert.doesNotMatch(
       rule,

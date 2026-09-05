@@ -143,7 +143,7 @@ test('archiv preloaduje první kartu jen na straně 1 — a ze stejných helper�
   assert.match(
     archiv,
     /const prvni = page === 1 \? articles\[0\] : undefined;/,
-    '/clanky/strana/2+ nemá eager kartu, takže nesmí mít ani preload',
+    '/clanky/strana/2+ nemá preload (stejná volba jako TemaPage; eager kartu od kola 23 má)',
   );
   assert.match(
     archiv,

@@ -29,7 +29,10 @@ const pagePath = (pageNumber: number) => pageNumber === 1 ? '/clanky/' : `/clank
 // nad foldem stejně startuje hned. Preload v <head> míří na první kartu
 // a nese imagesrcset/imagesizes = srcset/sizes <source> karty: bez nich
 // preload stáhl -640.webp a karta si na DPR>1 vybrala plný .webp (kolo 21).
-// /clanky/strana/2+ nemá eager kartu, tak ani preload.
+// Kolo 23: první karta je LCP i na /clanky/strana/2+ (bez filtru sedí
+// ještě výš než na straně 1) — eager + high dostává na každé straně,
+// stejně jako featured karta tématu. Preload zůstává jen na straně 1
+// (stejná volba jako TemaPage), strana 2+ o pásmo s ničím nesoupeří.
 const prvni = page === 1 ? articles[0] : undefined;
 const prvniVideoId = youtubeId(prvni?.data.video);
 const prvniNahled = nahledKarty(prvni?.data.image);
@@ -109,7 +112,7 @@ const title = page === 1
           <ArticleCard
             article={article}
             titleTag="h2"
-            priority={page === 1 && index === 0}
+            priority={index === 0}
           />
         ))}
       </div>
@@ -153,7 +156,14 @@ const title = page === 1
             if (!response.ok) throw new Error(`Archiv: strana ${pageNumber} se nenačetla.`);
             const documentPage = new DOMParser().parseFromString(await response.text(), 'text/html');
             documentPage.querySelectorAll('#articles-grid .card').forEach((card) => {
-              grid?.append(document.importNode(card, true));
+              const kopie = document.importNode(card, true);
+              // Kolo 23: první karta každé strany nese eager + fetchpriority=high
+              // (LCP té strany). Přilepená pod ohyb na straně 1 LCP není.
+              kopie.querySelectorAll('img').forEach((img) => {
+                img.setAttribute('loading', 'lazy');
+                img.removeAttribute('fetchpriority');
+              });
+              grid?.append(kopie);
             });
             nextPageToLoad = pageNumber + 1;
           }

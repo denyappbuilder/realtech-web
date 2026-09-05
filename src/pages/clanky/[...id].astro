@@ -365,14 +365,6 @@ const breadcrumbLd = {
         </div>
       </div>
 
-      {/*
-        Komentáře (giscus) až za autorským boxem — článek, sdílení a autoři
-        tvoří jeden celek, diskuze k němu následuje a „Další reporty“ zůstávají
-        úplně dole jako výstup ze stránky. Sekce se vykreslí jen s nastaveným
-        PUBLIC_GISCUS_REPO_ID a PUBLIC_GISCUS_CATEGORY_ID (docs/giscus.md).
-      */}
-      <Giscus />
-
       {related.length > 0 && (
         <div class="related">
           <div class="section-head">
@@ -401,6 +393,18 @@ const breadcrumbLd = {
           </a>
         ) : <span />}
       </nav>
+
+      {/*
+        Komentáře (giscus) až ZA „Další reporty“ a chronologickou navigací
+        (kolo 23). V #392 stály mezi autorským boxem a related — jenže
+        iframe giscusu je lazy a výšku si nastavuje sám (resizeHeight), takže
+        když se pod ohybem načetl, odsunul „Další reporty“ i navigaci o stovky
+        px níž (živě 5. 9. 2026). Vlastní obsah webu má stát nad diskuzí;
+        cizí iframe je poslední blok před „Zpět na články“. Sekce se vykreslí
+        jen s nastaveným PUBLIC_GISCUS_REPO_ID a PUBLIC_GISCUS_CATEGORY_ID
+        (docs/giscus.md).
+      */}
+      <Giscus />
 
       <div class="article-back">
         <a href="/clanky/" class="btn-ghost">← Zpět na články</a>

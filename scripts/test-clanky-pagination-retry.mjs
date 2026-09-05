@@ -76,23 +76,43 @@ class TestElement {
     for (const listener of this.listeners.get(type) ?? []) listener({ type, target: this });
   }
 
-  cloneNode() {
-    return new TestElement(this.tagName, {
+  // Jen selektor podle názvu značky — víc klientský skript archivu nepotřebuje
+  // (kolo 23: `img` v přilepené kartě).
+  querySelectorAll(selector) {
+    assert.match(selector, /^[a-z]+$/, `Neočekávaný selektor na prvku: ${selector}`);
+    return this.children.flatMap((child) => [
+      ...(child.tagName === selector.toUpperCase() ? [child] : []),
+      ...child.querySelectorAll(selector),
+    ]);
+  }
+
+  cloneNode(deep = false) {
+    const clone = new TestElement(this.tagName, {
       attributes: Object.fromEntries(this.attributes),
       text: this.textContent,
     });
+    if (deep) for (const child of this.children) clone.append(child.cloneNode(true));
+    return clone;
   }
 }
 
-const card = (id, text = id) => new TestElement('article', {
-  attributes: { class: 'card', 'data-card-id': id, 'data-category': 'Test' },
-  text,
-});
+// Karta nese náhled jako na výpisu: první karta každé strany má od kola 23
+// eager + fetchpriority=high (LCP té strany).
+const card = (id, text = id, { lcp = false } = {}) => {
+  const element = new TestElement('article', {
+    attributes: { class: 'card', 'data-card-id': id, 'data-category': 'Test' },
+    text,
+  });
+  element.append(new TestElement('img', {
+    attributes: lcp ? { loading: 'eager', fetchpriority: 'high' } : { loading: 'lazy' },
+  }));
+  return element;
+};
 
 class ParsedDocument {
   constructor(html) {
     this.parsedCards = [...html.matchAll(/<article class="card" data-card-id="([^"]+)">([^<]*)<\/article>/g)]
-      .map((match) => card(match[1], match[2]));
+      .map((match, index) => card(match[1], match[2], { lcp: index === 0 }));
   }
 
   querySelectorAll(selector) {
@@ -150,7 +170,7 @@ const createArchive = () => {
   const archive = new TestElement('section', { attributes: { 'data-archive': '', 'data-total-pages': '3' } });
   const allChip = new TestElement('button', { attributes: { class: 'chip active', 'data-cat': '' } });
   const grid = new TestElement('div', { attributes: { id: 'articles-grid', 'aria-busy': 'false' } });
-  grid.append(card('first-page'));
+  grid.append(card('first-page', 'first-page', { lcp: true }));
   const empty = new TestElement('p', { attributes: { class: 'filter-empty', hidden: '' } });
   const loading = new TestElement('p', {
     attributes: { class: 'filter-loading', hidden: '' },
@@ -245,4 +265,31 @@ test('retry po pádu uprostřed archivu nepřipojí již načtené karty podruh�
   );
 
   assert.deepEqual(cardIds(archive), ['first-page', 'page-2', 'page-3']);
+});
+
+// Kolo 23: první karta každé strany má eager + fetchpriority=high (LCP té
+// strany). Přilepená pod ohyb na stranu 1 to nesmí zdědit — jinak by každý
+// filtr spustil N přednostních stahování mimo obraz.
+test('karty přilepené ze stran 2+ ztrácí eager/fetchpriority, původní karta strany 1 ne', async () => {
+  const archive = createArchive();
+  startFilteredLoad(archive);
+  const page2 = await archive.fetchController.next('/clanky/strana/2/');
+  page2.succeed(pageHtml('page-2', 'page-2b'));
+  const page3 = await archive.fetchController.next('/clanky/strana/3/');
+  page3.succeed(pageHtml('page-3'));
+  await waitFor(
+    () => archive.grid.getAttribute('aria-busy') === 'false',
+    'načtení archivu se nedokončilo',
+  );
+
+  const nahledy = archive.grid.children.map((item) => {
+    const [img] = item.querySelectorAll('img');
+    return [item.getAttribute('data-card-id'), img.getAttribute('loading'), img.getAttribute('fetchpriority')];
+  });
+  assert.deepEqual(nahledy, [
+    ['first-page', 'eager', 'high'],
+    ['page-2', 'lazy', null],
+    ['page-2b', 'lazy', null],
+    ['page-3', 'lazy', null],
+  ]);
 });

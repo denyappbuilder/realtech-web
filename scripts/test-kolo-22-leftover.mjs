@@ -43,9 +43,11 @@ const pravidlo = (zdroj, selektor, { vnorene = false } = {}) =>
 
 // ── 1) Jeden Cloudflare Insights beacon ────────────────────────────────────
 
-test('kolo 22: Base nevkládá vlastní Insights beacon — Pages ho injektuje sám na konec <body>', () => {
-  assert.doesNotMatch(base, /beacon\.min\.js/, 'ruční <script> beaconu = druhý token, každé zobrazení dvakrát');
-  assert.doesNotMatch(base, /data-cf-beacon/);
+// Kolo 23 obrátilo: Pages auto-injection po #391 živě neběžela (žádný
+// beacon v HTML), ruční snippet je zpátky. Test hlídá, že je JEDEN.
+test('kolo 22/23: Base vkládá právě jeden Insights beacon', () => {
+  assert.equal((base.match(/beacon\.min\.js/g) ?? []).length, 1, 'právě jeden ruční <script> beaconu');
+  assert.equal((base.match(/data-cf-beacon=/g) ?? []).length, 1);
   assert.match(
     base,
     /<link rel="preconnect" href="https:\/\/static\.cloudflareinsights\.com" \/>/,
@@ -67,7 +69,8 @@ test('kolo 22: .hero-visual pod 901px ani 581px nemá max-height — cover není
 // ── 3) Výpisy: eager + high jen první karta ─────────────────────────────────
 
 test('kolo 22: archiv, téma i hub dávají eager jen první kartě, zbytek lazy', () => {
-  assert.match(archiv, /priority=\{page === 1 && index === 0\}/);
+  // Kolo 23: i na /clanky/strana/2+ (dřív jen page === 1).
+  assert.match(archiv, /priority=\{index === 0\}/);
   assert.doesNotMatch(archiv, /eager=\{/, 'tři eager náhledy soupeřily s preloadovaným LCP');
   assert.match(tema, /priority=\{index === 0\}/);
   assert.doesNotMatch(tema, /eager=\{/);

@@ -129,8 +129,8 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   {/*
     Preconnect jen na originy, které tahle stránka opravdu použije.
     ytimg / audio jsou flagy z volající stránky — globálně by 404, O nás
-    i Flight 14 (jen X) platily zbytečný TLS. Insights beacon (vkládá ho
-    Cloudflare Pages, viz konec <head>) je na každé stránce. Bez
+    i Flight 14 (jen X) platily zbytečný TLS. Insights beacon (viz konec
+    <head>) je na každé stránce. Bez
     `crossorigin` — <img>, <audio> i klasický <script> jsou no-CORS
     requesty a CORS-ové spojení by se nepoužilo.
   */}
@@ -166,12 +166,16 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <link rel="alternate" type="application/rss+xml" title="REALTECH CZ" href="/rss.xml" />
   <slot name="head" />
   {/*
-    Kolo 22: Cloudflare Insights beacon tu NEPATŘÍ. Pages ho vkládá sám na
-    konec <body> (Web Analytics auto-injection, token db6b4d88…) — živě
-    5. 9. 2026 měla každá stránka dva beacony a každé zobrazení se počítalo
-    dvakrát (do dvou různých webů v Insights). Ruční <script> s druhým
-    tokenem c2d8811d… je pryč; preconnect výš zůstává pro ten vložený.
+    Cloudflare Web Analytics — JEDEN beacon, tenhle. Kolo 22 ruční <script>
+    odstranilo s tím, že druhý beacon (token db6b4d88…) vkládá Pages sám
+    (auto-injection) a zobrazení se počítala dvakrát. Po nasazení #391 ale
+    živě 5. 9. 2026 nebyl v HTML žádné stránky vůbec žádný beacon
+    — auto-injection neběží, analytics měla nulu. Snippet je
+    zpátky s tokenem c2d8811d… (jediný celý token v historii repa, #18).
+    Kdyby se auto-injection v Pages zase zapnula, smazat je potřeba TAM,
+    ne tady — jinak jsou beacony znovu dva. Preconnect výš je pro něj.
   */}
+  <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c2d8811d709646ad986cb0e671b8ffd6"}'></script>
 </head>
 <body>
 

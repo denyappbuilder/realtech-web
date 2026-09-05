@@ -97,10 +97,12 @@ test("kolo 10: hero sedí jako karta, ne jako neonový 3D panel", () => {
     /229\s*,\s*50\s*,\s*45/,
     ".hero-visual pořád vrhá červenou záři",
   );
+  // Kolo 23: --line-panel = --line ve světlém, v darku o krok světlejší
+  // (--line na --panel nebyl vidět). Pořád tokenový rámeček, žádná záře.
   assert.match(
     visual,
-    /border:\s*1px\s+solid\s+var\(--line\)/,
-    ".hero-visual musí mít stejný --line rámeček jako karty",
+    /border:\s*1px\s+solid\s+var\(--line-panel\)/,
+    ".hero-visual musí mít tokenový rámeček (--line-panel) jako karty",
   );
   assert.doesNotMatch(
     css,

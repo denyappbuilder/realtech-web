@@ -227,16 +227,13 @@ test('archiv drží H1 Všechny články a nenabízí klikací RSS', () => {
   assert.doesNotMatch(source, /href="\/rss\.xml"/);
 });
 
-test('eager + fetchpriority=high má jen první karta strany 1, ne /clanky/strana/2+', () => {
+// Kolo 23 obrátilo rozhodnutí z 29. 8. 2026: první karta je LCP na KAŽDÉ
+// straně archivu (na /clanky/strana/2+ bez filtru sedí ještě výš), takže
+// eager + fetchpriority=high dostává i tam — stejně jako featured karta
+// tématu (TemaPage). Zbytek karet zůstává lazy.
+test('eager + fetchpriority=high má první karta každé strany archivu, zbytek lazy', () => {
   const source = readFileSync(new URL('../src/components/ArticleArchivePage.astro', import.meta.url), 'utf8');
-  assert.match(
-    source,
-    /priority=\{page === 1 && index === 0\}/,
-    'živě 29. 8. 2026 měly strany 2–6 eager/high na první kartě',
-  );
-  assert.doesNotMatch(
-    source,
-    /priority=\{index === 0\}/,
-    'page === 1 musí být v podmínce, jinak strana 2+ zase stáhne LCP',
-  );
+  assert.match(source, /priority=\{index === 0\}/, 'strana 2+ musí mít LCP kartu eager/high jako strana 1');
+  assert.doesNotMatch(source, /priority=\{page === 1 && index === 0\}/);
+  assert.doesNotMatch(source, /eager=\{/, 'jen první karta, ne celá řada (kolo 22)');
 });
