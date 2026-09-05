@@ -1310,6 +1310,22 @@ footer.site ul a:hover { color: var(--ink); }
   .related .grid { grid-template-columns: 1fr; }
 }
 
+/* ── Komentáře (giscus) ──────────────── */
+.komentare {
+  max-width: 760px; margin: 44px auto 0;
+}
+.komentare .section-head h2 { font-size: 1.15rem; }
+.komentare-note {
+  color: var(--ink-faint); font-size: 0.85rem; line-height: 1.5;
+  margin: -12px 0 20px;
+}
+.komentare-note a { color: var(--ink-soft); text-decoration: underline; }
+.komentare-note a:hover { color: var(--ink); }
+/* Výšku si iframe nastavuje sám (postMessage resizeHeight z client.js);
+   min-height drží místo pro lazy iframe, aby stránka pod ním neskákala. */
+.komentare .giscus { min-height: 180px; }
+.komentare .giscus-frame { border: 0; }
+
 /* ── Dark mode component tweaks ──────── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .btn-primary:hover { background: #fff; }
@@ -1581,7 +1597,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 @media print {
   .topbar, header.site, .ticker, .newsletter, footer.site,
   .article-share, .related, .author-box, .article-nav, .article-back,
-  .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed,
+  .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed, .komentare,
   .skip-link, .heading-anchor { display: none !important; }
   /* Kolo 18: bez toho pravidla výš tiskl každý nadpis „# (#kotva)“ —
      kotva je <a> a a::after níž k ní přidal href. */

@@ -4,3 +4,6 @@ dist/
 .DS_Store
 .wrangler/
 scripts/og-fonts/
+.env
+.env.*
+!.env.example
