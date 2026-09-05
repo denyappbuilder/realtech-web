@@ -21,7 +21,7 @@ const pohled = audioPrehledPohled(Astro.props.audio, Astro.site);
         <time datetime={pohled.iso}>{pohled.delkaText}</time>
       </p>
     </div>
-    <audio controls preload="none" src={pohled.src}>
+    <audio controls preload="none" src={pohled.src} aria-label="Audio přehled článku">
       <a href={pohled.src}>Stáhnout audio přehled</a>
     </audio>
     {pohled.prepis && (

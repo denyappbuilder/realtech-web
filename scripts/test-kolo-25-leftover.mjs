@@ -1,7 +1,8 @@
 // Kolo 25: leftover po živém auditu 5. 9. 2026 (po kolech 15–24).
 // Tie-break hledání podle data, Dependabot ignore major Astro, CSP
 // connect-src pro giscus.app, Canonical v security.txt, NewsArticle
-// isAccessibleForFree, preconnect giscus jen u článku s komentáři.
+// isAccessibleForFree, preconnect giscus jen u článku s komentáři,
+// <audio> má vlastní aria-label.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -18,6 +19,7 @@ const headers = cti('public/_headers');
 const security = cti('public/.well-known/security.txt');
 const clanek = cti('src/pages/clanky/[...id].astro');
 const base = cti('src/layouts/Base.astro');
+const audio = cti('src/components/AudioPrehled.astro');
 
 function cspDirektiva(jmeno) {
   const radek = headers.split(/\r?\n/).find((l) => l.trim().startsWith('Content-Security-Policy:'));
@@ -106,4 +108,15 @@ test('kolo 25: giscus.app se předpojuje jen když se komentáře vykreslí', ()
   assert.match(clanek, /const preconnectGiscus = Boolean\(giscusKonfigurace\(import\.meta\.env\)\)/);
   assert.match(clanek, /preconnectGiscus=\{preconnectGiscus\}/);
   assert.doesNotMatch(cti('src/pages/index.astro'), /preconnectGiscus/);
+});
+
+// ── 7) Audio přehrávač má vlastní přístupný název ──────────────────────────
+
+test('kolo 25: nativní <audio> nese aria-label, section dál jen obaluje', () => {
+  assert.match(audio, /<section class="audio-prehled" aria-labelledby="audio-prehled-nadpis">/);
+  assert.match(
+    audio,
+    /<audio controls preload="none" src=\{pohled\.src\} aria-label="Audio přehled článku">/,
+  );
+  assert.doesNotMatch(audio, /autoplay/i);
 });
