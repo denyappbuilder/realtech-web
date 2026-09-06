@@ -73,7 +73,11 @@ test('šablona článku zapojuje přehrávač a AudioObject jen přes produkčn�
 
 test('přehrávač je přístupný, bez autoplay a s nativním přepisem', () => {
   assert.match(KOMPONENTA, /<h2 id="audio-prehled-nadpis">Audio přehled<\/h2>/);
-  assert.match(KOMPONENTA, /<audio controls preload="none" src=\{pohled\.src\}>/);
+  assert.match(
+    KOMPONENTA,
+    /<audio controls preload="none" src=\{pohled\.src\} aria-label="Audio přehled článku">/,
+    'nativní <audio> musí mít vlastní jméno — aria-labelledby na section ho nepojmenuje',
+  );
   assert.match(KOMPONENTA, /<a href=\{pohled\.src\}>Stáhnout audio přehled<\/a>/);
   assert.match(KOMPONENTA, /<details class="audio-prehled-prepis">/);
   assert.match(KOMPONENTA, /<summary>Přepis<\/summary>/);
@@ -83,7 +87,7 @@ test('přehrávač je přístupný, bez autoplay a s nativním přepisem', () =>
 });
 
 test('reálná komponenta nepřednačítá audio před kliknutím na přehrání', () => {
-  assert.match(KOMPONENTA, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="none"[^>]*\bsrc=\{pohled\.src\}[^>]*>/);
+  assert.match(KOMPONENTA, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="none"[^>]*\bsrc=\{pohled\.src\}[^>]*\baria-label="Audio přehled článku"[^>]*>/);
   assert.doesNotMatch(KOMPONENTA, /<audio\b[^>]*\bpreload="(?:metadata|auto)"/i);
 });
 

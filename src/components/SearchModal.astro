@@ -91,7 +91,7 @@
   function render(items: any[], q: string) {
     if (!results) return;
     if (!q) {
-      results.innerHTML = `<p class="search-hint">Napiš, co hledáš — třeba <em>starlink</em>, <em>DJI</em> nebo <em>Claude</em>.</p>`;
+      results.innerHTML = `<p class="search-hint">Napiš, co hledáš — třeba <em>Astra</em>, <em>Anthropic</em> nebo <em>Starlink</em>.</p>`;
       syncCombobox(false);
       return;
     }
@@ -129,7 +129,15 @@
         return { it, score };
       })
       .filter(Boolean)
-      .sort((a: any, b: any) => b.score - a.score)
+      .sort((a: any, b: any) => {
+        const byScore = b.score - a.score;
+        if (byScore !== 0) return byScore;
+        // Stejné skóre → novější `p` (YYYY-MM-DD) první. Chybějící datum
+        // nesmí shodit řazení — bere se jako nejstarší.
+        const dateA = typeof a.it?.p === 'string' ? a.it.p : '';
+        const dateB = typeof b.it?.p === 'string' ? b.it.p : '';
+        return dateB.localeCompare(dateA);
+      })
       .slice(0, 8)
       .map((r: any) => r.it);
   }

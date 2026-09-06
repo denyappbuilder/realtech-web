@@ -429,18 +429,20 @@ test('CSP povoluje giscus.app přesně tam, kde ho client.js potřebuje, a nikde
   const csp = cspDirektivy();
 
   // client.js (script-src) vloží <link rel=stylesheet href=giscus.app/default.css>
-  // (style-src) a iframe na giscus.app/cs/widget (frame-src). GitHub API,
+  // (style-src) a iframe na giscus.app/cs/widget (frame-src). Parent-page
+  // fetch na giscus.app potřebuje connect-src (kolo 25). GitHub API,
   // avatary i fonty běží uvnitř cross-origin iframu mimo naši CSP.
   assert.ok(csp.get('script-src').includes('https://giscus.app'), 'script-src');
   assert.ok(csp.get('style-src').includes('https://giscus.app'), 'style-src (default.css)');
   assert.ok(csp.get('frame-src').includes('https://giscus.app'), 'frame-src');
+  assert.ok(csp.get('connect-src').includes('https://giscus.app'), 'connect-src');
 
-  for (const direktiva of ['img-src', 'connect-src', 'font-src', 'media-src', 'form-action', 'default-src']) {
+  for (const direktiva of ['img-src', 'font-src', 'media-src', 'form-action', 'default-src']) {
     for (const hodnota of csp.get(direktiva)) {
       assert.doesNotMatch(hodnota, /giscus|github/, `${direktiva}: ${hodnota}`);
     }
   }
-  assert.equal((HEADERS.match(/giscus\.app/g) ?? []).length, 3, 'jen tři výskyty giscus.app v _headers');
+  assert.equal((HEADERS.match(/giscus\.app/g) ?? []).length, 4, 'script/style/frame/connect — ne img-src');
   assert.doesNotMatch(HEADERS, /api\.github\.com|githubusercontent/);
 
   // Tvrdé zámky a stávající povolení zůstávají.

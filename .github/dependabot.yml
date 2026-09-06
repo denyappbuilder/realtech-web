@@ -7,6 +7,14 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # Major skok Astro (5 → 7 a další) potřebuje vlastní kolo, ne týdenní
+    # Dependabot — lámou build, integrace i obsahové testy. Minor/patch
+    # hlídáme dál. Existující major PR se tím nezavírá.
+    ignore:
+      - dependency-name: astro
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@astrojs/*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /

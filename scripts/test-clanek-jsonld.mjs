@@ -157,6 +157,7 @@ test('NewsArticle drží povinná pole, autory a vydavatele', async () => {
 
   assert.equal(jsonLd['@context'], 'https://schema.org');
   assert.equal(jsonLd['@type'], 'NewsArticle');
+  assert.equal(jsonLd.isAccessibleForFree, true, 'články jsou zdarma — Google to čte z NewsArticle');
   assert.equal(jsonLd.headline, 'Titulek článku');
   assert.equal(jsonLd.description, 'Popis článku.');
   assert.equal(jsonLd.inLanguage, 'cs');
@@ -301,6 +302,7 @@ test('YouTube článek předpojí ytimg jen bez lokálního coveru, článek jen
   });
   assert.equal(youtube.preconnectYtimg, true, 'video bez coveru padá na i.ytimg.com/vi/ — preconnect patří');
   assert.equal(youtube.preconnectAudio, true, 'platné audio musí předpojit audio.realtech.cz');
+  assert.equal(youtube.preconnectGiscus, false, 'jsonld fixture nemá PUBLIC_GISCUS_* — sekce se nevykreslí');
 
   const sCoverem = await nactiStranku({
     article: clanek({
@@ -332,4 +334,5 @@ test('YouTube článek předpojí ytimg jen bez lokálního coveru, článek jen
   });
   assert.equal(tichy.preconnectYtimg, false);
   assert.equal(tichy.preconnectAudio, false);
+  assert.equal(tichy.preconnectGiscus, false);
 });

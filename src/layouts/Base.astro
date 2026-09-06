@@ -67,6 +67,11 @@ interface Props {
    * mp3 nenačítá — přehrávač je až na článku.
    */
   preconnectAudio?: boolean;
+  /**
+   * Preconnect na giscus.app. Jen článek, kde se komentáře opravdu
+   * vykreslí (kompletní PUBLIC_GISCUS_*). Jinde by to byl zbytečný TLS.
+   */
+  preconnectGiscus?: boolean;
 }
 
 const vsechnyClanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -82,6 +87,7 @@ const {
   includeCanonical = true,
   preconnectYtimg = false,
   preconnectAudio = false,
+  preconnectGiscus = false,
 } = Astro.props;
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
@@ -128,14 +134,15 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {/*
     Preconnect jen na originy, které tahle stránka opravdu použije.
-    ytimg / audio jsou flagy z volající stránky — globálně by 404, O nás
-    i Flight 14 (jen X) platily zbytečný TLS. Insights beacon (viz konec
-    <head>) je na každé stránce. Bez
+    ytimg / audio / giscus jsou flagy z volající stránky — globálně by
+    404, O nás i Flight 14 (jen X) platily zbytečný TLS. Insights beacon
+    (viz konec <head>) je na každé stránce. Bez
     `crossorigin` — <img>, <audio> i klasický <script> jsou no-CORS
     requesty a CORS-ové spojení by se nepoužilo.
   */}
   {preconnectYtimg && <link rel="preconnect" href="https://i.ytimg.com" />}
   {preconnectAudio && <link rel="preconnect" href="https://audio.realtech.cz" />}
+  {preconnectGiscus && <link rel="preconnect" href="https://giscus.app" />}
   <link rel="preconnect" href="https://static.cloudflareinsights.com" />
   <title>{title}</title>
   <meta name="description" content={popisSeo} />
