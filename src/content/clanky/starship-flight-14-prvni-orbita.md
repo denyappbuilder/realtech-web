@@ -7,6 +7,9 @@ zprava: true
 image: "/images/clanky/starship-flight-14-prvni-orbita.jpg"
 xPosts:
   - "https://x.com/SpaceX/status/2090482050562146364"
+audio:
+  url: "https://audio.realtech.cz/starship-flight-14-prvni-orbita-nlm.mp3?v=ef91ea1e81bd"
+  duration: 2274
 ---
 
 SpaceX požádal americkou Federální komunikační komisi FCC o povolení pro rádia na Starship při Flight 14. Žádost počítá s orbitálním druhým stupněm a s provozním oknem od 15. září 2026. Stejné datum se objevuje v plánovacích podkladech pro řízení letového provozu a v žádosti o povolení pro satelity Starlink V3. Je to úřední stopa toho, že čtrnáctý let má poprvé skončit na skutečné oběžné dráze a nést satelity Starlink V3 do provozu. Datum startu to není. Loď se navíc tentokrát chytat nebude.
