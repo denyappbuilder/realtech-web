@@ -1,5 +1,5 @@
 ---
-title: "Starship Flight 14: SpaceX žádá FCC o rádia od 15. září. Orbita je v papírech, FAA ještě ne"
+title: "Starship Flight 14 míří na první orbitu. NET 15. září u FCC, chytání lodi až za měsíce"
 description: "Žádosti SpaceX u FCC pro čtrnáctý let Starship počítají s orbitálním druhým stupněm a s oknem od 15. září 2026. Je to povolení pro vysílačky, ne pro start. Licenci k letu drží FAA a ta ji zatím nezveřejnila."
 category: "Vesmír"
 date: "2026-09-06T10:40:00+02:00"
@@ -9,31 +9,41 @@ xPosts:
   - "https://x.com/SpaceX/status/2090482050562146364"
 ---
 
-SpaceX požádal americkou Federální komunikační komisi FCC o povolení pro rádia na Starship při Flight 14. Žádost počítá s orbitálním druhým stupněm a s provozním oknem od 15. září 2026. Tak to popisují weby, které dokument přetiskly. Je to úřední stopa toho, že čtrnáctý let má poprvé skončit na skutečné oběžné dráze a nést satelity Starlink V3 do provozu. Datum startu to není.
+SpaceX požádal americkou Federální komunikační komisi FCC o povolení pro rádia na Starship při Flight 14. Žádost počítá s orbitálním druhým stupněm a s provozním oknem od 15. září 2026. Stejné datum se objevuje v plánovacích podkladech pro řízení letového provozu a v žádosti o povolení pro satelity Starlink V3. Je to úřední stopa toho, že čtrnáctý let má poprvé skončit na skutečné oběžné dráze a nést satelity Starlink V3 do provozu. Datum startu to není. Loď se navíc tentokrát chytat nebude.
 
 ## Co je v žádostech u FCC
 
-Podle serveru TeslaNorth, který text žádosti citoval 1. září, jde o experimentální STA, tedy Special Temporary Authority. Podepsala ji 21. srpna 2026 Kristi Key, specialistka SpaceX na regulaci startů. Firma v ní žádá o záložní frekvence 2228,5 a 2234,5 MHz pro loď, která "startuje ze Starbase v Texasu", a dodává, že žádost "zahrnuje orbitální druhý stupeň". Data o trajektorii mají jít úřadu NTIA, americkému letectvu a NASA. Jako licenční úřad pro start je v dokumentu uvedený FAA Office of Commercial Space Transportation. Požadované období běží od 15. září 2026 do 15. března 2027.
+V databázi experimentálních povolení FCC jsme dohledali dvě žádosti k Flight 14. Obě podepsala Kristi Key, specialistka SpaceX na regulaci startů.
 
-Druhý dokument popsal 2. září Tesla Oracle. SpaceX ho podal 31. srpna a týká se samotných satelitů Starlink, ne rakety. Firma v něm žádá o dočasné povolení na 60 dní pro pásmo 42,0 až 42,5 GHz ve směru z vesmíru na Zemi. Tesla Oracle z textu cituje větu, že SpaceX žádá o udělení "do 15. září 2026, což je plánované datum vysazení nových vysokokapacitních satelitů".
+První je z 10. srpna 2026. Žádá o další frekvence v pásmu 2200 až 2290 MHz pro "suborbitální booster Starship Flight 14" a jako začátek provozu uvádí 28. srpna 2026. To byl původní termín, o kterém Elon Musk mluvil na začátku srpna. Nevyšel.
 
-Obě žádosti jsme chtěli ověřit přímo v databázi FCC. Vyhledávání na apps.fcc.gov nám při psaní tohoto textu vracelo chybu serveru, takže citujeme z reportů, které dokumenty přetiskly. Formulace "orbitální druhý stupeň" přitom u FCC není úplně nová. SpaceX ji použil už v žádosti pro Flight 13, který pak letěl po zkušební dráze a satelity shořely. Nové je to, že filings i reporting teď u Flight 14 shodně mluví o setrvání na dráze a o satelitech, které mají zůstat v síti.
+Druhá je z 21. srpna 2026. Žádá o záložní frekvence 2228,5 a 2234,5 MHz pro komunikaci s lodí při Flight 14 "startujícím ze Starbase v Texasu" a dodává, že žádost "zahrnuje orbitální druhý stupeň". Data o trajektorii mají jít úřadu NTIA, americkému letectvu a NASA. Jako licenční úřad pro start je uvedený FAA Office of Commercial Space Transportation. Požadované období běží od 15. září 2026 do 15. března 2027.
+
+Třetí dokument se týká samotných satelitů, ne rakety. Podle serveru Tesla Oracle ho SpaceX podal 31. srpna a žádá v něm o dočasné povolení na 60 dní pro pásmo 42,0 až 42,5 GHz ve směru z vesmíru na Zemi. Tesla Oracle z textu cituje větu, že SpaceX žádá o udělení "do 15. září 2026, což je plánované datum vysazení nových vysokokapacitních satelitů". Tenhle dokument jsme v primární podobě neotevřeli, citujeme ho z reportu.
+
+## "Orbitální druhý stupeň" není novinka
+
+Formulace o orbitálním druhém stupni sama o sobě první orbitu nedokazuje. SpaceX ji u FCC používá jako šablonu. Žádost pro Flight 13 z 3. dubna 2026 říká doslova, že "zahrnuje suborbitální booster prvního stupně a orbitální druhý stupeň", a dodává, že oba stupně "se buď vrátí na místo startu, nebo přistanou na vodě". Flight 13 pak letěl po zkušební dráze a jeho satelity shořely.
+
+Stejná věta je i v žádosti pro Flight 15, kterou Kristi Key podepsala 20. srpna 2026 s požadovaným oknem od 28. září 2026. Půlroční okna a shodné formulace ukazují, že FCC papíry jsou rezervace frekvencí, ne letový plán.
+
+Co u Flight 14 vybočuje, je kombinace. Žádost o rádia pro loď, žádost o povolení pro satelity s "plánovaným datem vysazení" a výroky Muska o provozní dráze míří stejným směrem. Proto píšeme o záměru první orbity. Ne proto, že by to jedna věta v šabloně FCC potvrzovala.
 
 ## STA je povolení pro vysílačky, ne pro start
 
-STA od FCC znamená jen to, že firma smí v daném období na daných frekvencích vysílat. Neříká nic o tom, jestli raketa smí vzlétnout. To rozhoduje FAA, která vydává licenci ke startu i k návratu. Sama žádost u FCC to připouští tím, že FAA uvádí jako licenční úřad.
+STA, Special Temporary Authority, znamená jen to, že firma smí v daném období na daných frekvencích vysílat. Neříká nic o tom, jestli raketa smí vzlétnout. To rozhoduje FAA, která vydává licenci ke startu i k návratu. Sama žádost u FCC to připouští tím, že FAA uvádí jako licenční úřad.
 
-Z toho plyne i čtení data 15. září. V žádosti o rádia je to začátek požadovaného okna, které trvá půl roku. V žádosti o satelity je to "plánované datum vysazení". Ani jedno není T-0. SpaceX sám žádný termín Flight 14 nezveřejnil, stránku letu na svém webu nemá a v příspěvcích na X mluví jen o přípravě. Správné čtení je NET, nejdříve 15. září, pokud všechno ostatní vyjde.
+Z toho plyne i čtení data 15. září. V žádosti o rádia je to začátek půlročního okna. V žádosti o satelity je to "plánované datum vysazení". Podle NASASpaceflight a TechTimes se 15. září objevuje i v týdenních přehledech letového provozu COMPASS/CADENA jako NET, tedy nejdřívější možný termín pro koordinaci vzdušného prostoru. Ještě v srpnu tam stálo 28. srpna. Ani jedno není T-0. SpaceX sám žádný termín Flight 14 nezveřejnil, stránku letu na svém webu nemá a v příspěvcích na X mluví jen o přípravě.
 
 ## FAA: hodnocení životního prostředí hotové, licence ne
 
-FAA 2. září podepsala a 4. září ve Federal Register oznámila závěrečné hodnocení vlivu na životní prostředí pro Starship. Dokument se týká záložních přistávacích oblastí v Pacifiku a další trajektorie návratu ke Starbase. FAA k němu vydala takzvané FONSI, tedy zjištění, že významný dopad nehrozí.
+FAA 2. září podepsala a 4. září ve Federal Register oznámila závěrečné hodnocení vlivu na životní prostředí pro Starship, dokument FR 2026-18135, spis FAA-2026-6968. Týká se rozšíření záložních přistávacích oblastí v Pacifiku, nové severopacifické oblasti pro trajektorii z floridského Eastern Range ke Starbase a uzavírek vzdušného prostoru pro další trajektorii návratu lodi ke Starbase. FAA k němu vydala FONSI, zjištění, že významný dopad nehrozí.
 
 Text oznámení ale výslovně říká, že SpaceX "musí získat úpravu své stávající licence provozovatele" od FAA, aby mohl nové oblasti používat. Hodnocení životního prostředí tu úpravu neprovádí, jen jí otevírá cestu. Když Tesla Oracle napsal, že FAA schválila chytání lodi při Flight 14, tiskové oddělení FAA se webu ozvalo. Podle opravy, kterou web zveřejnil, dokončení hodnocení "nezaručuje licenci ke startu".
 
-Pro Flight 14 tedy platí stav ke dni psaní: FCC řeší rádia, FAA licenci nezveřejnila. Bez ní nikdo neletí.
+Pro Flight 14 tedy platí stav ke dni psaní: FCC řeší rádia, FAA licenci ani její úpravu nezveřejnila. Bez ní nikdo neletí.
 
-## Kdo řekl orbitu
+## Kdo řekl orbitu a kdo odložil chytání
 
 O orbitálním záměru mluvil Elon Musk na prvním hovoru SpaceX s investory 4. srpna. Podle Space.com tam řekl, že další let je předběžně plánovaný na konec srpna a že firma se, "za předpokladu, že dostaneme regulační souhlas", pokusí chytit loď věží. TeslaNorth z téhož hovoru cituje záměr vynést satelity Starlink V3 na provozní dráhu místo krátkého zkušebního oblouku. Je to výrok z hovoru s investory, ne technická dokumentace letu.
 
@@ -57,16 +67,21 @@ Označení lodi SpaceX v těchto příspěvcích neuvádí. Reporty pracují s S
 
 Do startu zbývá několik věcí, které jsou veřejně dohledatelné. Licence nebo její úprava od FAA. Vlastní oznámení termínu od SpaceX, typicky stránka letu na spacex.com a příspěvek na X. Sestavení obou stupňů na rampě a zkušební tankování. Nic z toho zatím není venku.
 
-Pro čtenáře v Česku se ani po tomto letu nezmění tarif ani rychlost [Starlinku](/clanky/starlink-v-cesku-pruvodce/). Dvacet satelitů síť neposune. Změní se to, že Starship poprvé udělá to, k čemu ho SpaceX pro Starlink V3 potřebuje: dojet na dráhu a nechat tam náklad. Datum 15. září je začátek okna v žádosti o rádia. Jestli se z něj stane termín startu, řekne FAA a pak SpaceX.
+Pro čtenáře v Česku se ani po tomto letu nezmění tarif ani rychlost [Starlinku](/clanky/starlink-v-cesku-pruvodce/). Dvacet satelitů síť neposune. Změní se to, že Starship poprvé udělá to, k čemu ho SpaceX pro Starlink V3 potřebuje: dojet na dráhu a nechat tam náklad. Datum 15. září je začátek okna v žádosti o rádia a plánovací značka pro letový provoz. Jestli se z něj stane termín startu, řekne FAA a pak SpaceX.
 
 ## Zdroje
 
-- [TeslaNorth, 1. 9. 2026. SpaceX Files Starship Flight 14 for First Orbit Starting September 15](https://teslanorth.com/2026/09/01/spacex-starship-flight-14-first-orbit/)
+- [FCC OET, STA SpaceX pro Starship Flight 14, záložní frekvence lodi, podepsáno 21. 8. 2026, okno 15. 9. 2026 až 15. 3. 2027](https://apps.fcc.gov/oetcf/els/reports/STA_Print.cfm?mode=current&application_seq=153852)
+- [FCC OET, STA SpaceX pro suborbitální booster Starship Flight 14, podepsáno 10. 8. 2026, okno od 28. 8. 2026](https://apps.fcc.gov/oetcf/els/reports/STA_Print.cfm?mode=current&application_seq=153554)
+- [FCC OET, STA SpaceX pro Starship Flight 13, podepsáno 3. 4. 2026, "orbital second stage"](https://apps.fcc.gov/oetcf/els/reports/STA_Print.cfm?mode=current&application_seq=150221)
+- [FCC OET, STA SpaceX pro Starship Flight 15, podepsáno 20. 8. 2026, okno od 28. 9. 2026](https://apps.fcc.gov/oetcf/els/reports/STA_Print.cfm?mode=current&application_seq=153823)
+- [Federal Register, 4. 9. 2026, FR 2026-18135. FAA: Final Tiered EA a FONSI/ROD, SpaceX Starship](https://www.federalregister.gov/d/2026-18135)
+- [FAA. SpaceX Starship Super Heavy Project at the Boca Chica Launch Site, dokumenty Final Tiered EA a FONSI/ROD](https://www.faa.gov/space/stakeholder_engagement/spacex_starship)
 - [Tesla Oracle, 2. 9. 2026. FCC filing reveals Starship Flight 14 launch on September 15](https://www.teslaoracle.com/2026/09/02/fcc-filing-reveals-starship-flight-14-launch-on-september-15-spacex-conducts-33-engine-static-fire-on-booster-21/)
 - [Tesla Oracle, 3. 9. 2026, s opravou od FAA. Landing catch of Starship in Flight 14 gets environmental clearance from the FAA](https://www.teslaoracle.com/2026/09/03/the-faa-approves-landing-catch-of-starship-in-flight-14/)
-- [Federal Register, 4. 9. 2026. FAA: Notice of Availability, Final Tiered EA and FONSI/ROD, SpaceX Starship](https://www.federalregister.gov/documents/2026/09/04/2026-18135/notice-of-availability-on-the-final-tiered-environmental-assessment-and-finding-of-no-significant)
-- [Starpath Global, 3. 9. 2026. SpaceX FCC Filing Outlines First Full Orbital Attempt for Starship Flight 14](https://starpath.global/news/spacex-fcc-filing-outlines-first-full-orbital-attempt-for-starship-flight-14/)
+- [TeslaNorth, 1. 9. 2026. SpaceX Files Starship Flight 14 for First Orbit Starting September 15](https://teslanorth.com/2026/09/01/spacex-starship-flight-14-first-orbit/)
 - [TechTimes, 2. 9. 2026. Starship Flight 14: FCC Filing Confirms First Orbital Profile, FAA Approval Remains](https://www.techtimes.com/articles/326372/20260902/starship-flight-14-fcc-filing-confirms-first-orbital-profile-faa-approval-remains.htm)
+- [NASASpaceflight, 21. 8. 2026. Ship 41 Completes Engine Testing Ahead of Flight 14](https://www.nasaspaceflight.com/2026/08/ship-41-engine-testing-flight-14/)
 - [Space.com přes Yahoo News, 20. 8. 2026. SpaceX will try for 1st Starship tower catch 'in a few months,' Elon Musk says](https://www.yahoo.com/news/science/articles/spacex-try-1st-starship-tower-203000063.html)
 - [Elon Musk na X, 20. 8. 2026 05:10 UTC. Chytání lodi "za pár měsíců"](https://x.com/elonmusk/status/2090305535937851863)
 - [SpaceX na X, 20. 8. 2026 16:52 UTC. Jednomotorový deorbit burn](https://x.com/SpaceX/status/2090482050562146364)
