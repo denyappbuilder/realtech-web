@@ -8,13 +8,18 @@
 //     jméno + aria-pressed.
 // P1: potvrzení newsletteru nahradilo formulář přes innerHTML — tlačítko
 //     s fokusem zmizelo, fokus spadl na <body>, čtečka o výsledku nevěděla.
+// P0: na desktopu (≥ 901px) stála tři tlačítka sdílení dvakrát — v aside
+//     u textu i v .article-share pod ním (pod 900px aside nekreslíme).
+// P1: na úvodce vedly na hero článek tři odkazy za sebou (h1, CTA, cover
+//     s alt = h1) — čtečka titulek třikrát, tabulátor tři zastávky.
 // P2: sdílení na Facebook nemělo popisek (X „Sdílet na X“ má od dřív) —
 //     odkaz se jmenoval jen „Facebook“ a v novém okně; nebylo jasné, že sdílí.
-// P2: odkaz coveru na úvodce (.hero-visual) se pro čtečku jmenoval
-//     „<titulek> REALTECH Pustit video TC 12:34“ — štítky REC a TC jsou
-//     vizuální dekorace „záznamu“, ne obsah.
+//     Kopírovat odkaz měnilo jméno na „Zkopírováno ✓“ — stálý popisek,
+//     výsledek hlásí živá oblast z kola 22.
 // P2: filtr archivu ohlašoval jen „Nic nenalezeno“ a načítání; při shodě
 //     čtečka slyšela ticho (⌘K hledání hlásí „3 výsledky“ od kola 28).
+// P2: WebSite JSON-LD bez SearchAction, ač archiv ?q= čte; /security.txt
+//     404, zatímco /.well-known/security.txt (Cloudflare) odpovídá.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -104,16 +109,75 @@ test("kolo 29: oba odkazy Facebook mají aria-label „Sdílet na Facebooku“ (
   assert.equal(x.length, 2, "X má popisek z dřívějška, oba");
 });
 
-// ── P2: jméno odkazu coveru na úvodce ────────────────────────────────────
+// ── P0: sdílení na desktopu jen jednou ───────────────────────────────────
 
-test("kolo 29: .hero-visual — štítky REC a TC jsou aria-hidden, overlay „Pustit video“ ne", () => {
-  const visual = uvodka.match(/class="hero-visual">([\s\S]*?)<\/a>/)?.[1];
-  assert.ok(visual, "blok .hero-visual na úvodce chybí");
-  assert.match(visual, /<span class="rec" aria-hidden="true">/, "„REALTECH“ štítek je dekorace záznamu");
-  assert.match(visual, /<span class="tc" aria-hidden="true">TC \{hero\.data\.videoLength\}<\/span>/, "délku videa už čte tlačítko „Video · 12:34“");
-  assert.match(visual, /<span class="headline-mark">\{heroOverlay\}<\/span>/, "„Pustit video“ říká, že odkaz vede na YouTube — zůstává čitelný");
-  assert.match(visual, /alt=\{hero\.data\.title\}/, "jméno odkazu dává alt s titulkem (test-cover-alt)");
-  assert.match(visual, /<span class="play"><svg viewBox="0 0 24 24" aria-hidden="true">/, "ikona play byla skrytá už dřív");
+function blokMedia(dotaz) {
+  const start = css.search(new RegExp(`@media\\s*${dotaz}\\s*\\{`));
+  if (start < 0) return "";
+  let hloubka = 0;
+  for (let i = css.indexOf("{", start); i < css.length; i += 1) {
+    if (css[i] === "{") hloubka += 1;
+    else if (css[i] === "}") {
+      hloubka -= 1;
+      if (hloubka === 0) return css.slice(start, i + 1);
+    }
+  }
+  return "";
+}
+
+test("kolo 29: .article-share se skrývá přesně tam, kde je aside sticky (≥ 901px a ≥ 640px na výšku)", () => {
+  const sticky = blokMedia("\\(min-width: 901px\\) and \\(min-height: 640px\\)");
+  assert.ok(sticky, "chybí @media (min-width: 901px) and (min-height: 640px)");
+  assert.match(sticky, /\.article-aside\s*\{\s*position:\s*sticky;\s*top:\s*81px;?\s*\}/, "sticky aside z kola 19 zůstává");
+  assert.match(sticky, /\.article-share\s*\{\s*display:\s*none;?\s*\}/, "tři tlačítka sdílení pod textem byla na desktopu totéž podruhé");
+  const tablet = blokMedia("\\(max-width: 900px\\)");
+  assert.match(tablet, /\.article-aside\s*\{\s*display:\s*none;?\s*\}/, "pod 901px je jediná cesta .article-share (kolo 19)");
+  assert.doesNotMatch(tablet, /\.article-share\s*\{[^}]*display:\s*none/, "pod 901px .article-share zůstává — aside tam není");
+  const zakladni = css.match(/\n\.article-share\s*\{([^}]*)\}/)?.[1] ?? "";
+  assert.match(zakladni, /max-width:\s*760px/, "základní (neodsazené) pravidlo .article-share v CSS chybí");
+  assert.doesNotMatch(zakladni, /display:\s*none/, "základní pravidlo nesmí sdílení skrýt všude");
+  assert.equal((clanek.match(/class="share-btns"/g) ?? []).length, 2, "markup nese obě místa — vybírá CSS podle viewportu");
+});
+
+test("kolo 29: Kopírovat odkaz má stálé jméno — „Zkopírováno ✓“ v textu hlásí živá oblast", () => {
+  const kopirovat = clanek.match(/<button class="share-btn copy-link"[^>]*>Kopírovat odkaz<\/button>/g) ?? [];
+  assert.equal(kopirovat.length, 2);
+  for (const tlacitko of kopirovat) assert.match(tlacitko, /aria-label="Kopírovat odkaz na článek"/);
+  assert.match(clanek, /<p class="sr-only" role="status" aria-live="polite" data-copy-status><\/p>/, "živá oblast z kola 22 zůstává");
+  assert.match(clanek, /ohlasKopii\('Odkaz na článek zkopírován'\)/);
+});
+
+// ── P1: cover na úvodce jako dekorace ────────────────────────────────────
+
+test("kolo 29: .hero-visual je pro čtečku a tabulátor dekorace, pro myš dál odkaz", () => {
+  const odkaz = uvodka.match(/<a [^>]*class="hero-visual"[^>]*>/)?.[0];
+  assert.ok(odkaz, "odkaz .hero-visual na úvodce chybí");
+  assert.match(odkaz, /href=\{hero\.data\.video \?\? `\/clanky\/\$\{hero\.id\}\/`\}/, "cíl pro myš zůstává (video → YouTube, jinak článek)");
+  assert.match(odkaz, /tabindex="-1"/);
+  assert.match(odkaz, /aria-hidden="true"/);
+  const visual = uvodka.match(/class="hero-visual"[^>]*>([\s\S]*?)<\/a>/)?.[1];
+  assert.match(visual, /<img [^>]*alt=""/);
+  assert.match(visual, /fetchpriority="high"/, "LCP zůstává eager + high — dekorace pro čtečku, ne pro prohlížeč");
+  assert.doesNotMatch(visual, /aria-hidden="true">(?:<span class="live-dot">)?(?:REALTECH|TC)/, "štítky nepotřebují vlastní aria-hidden, skrytý je celý odkaz");
+  // Jméno a cíl nesou h1 a CTA — musí zůstat.
+  assert.match(uvodka, /<h1 [^>]*><a href=\{`\/clanky\/\$\{hero\.id\}\/`\}>\{hero\.data\.title\}<\/a><\/h1>/);
+  assert.match(uvodka, /<a href=\{`\/clanky\/\$\{hero\.id\}\/`\} class="btn-primary">Přečíst analýzu<\/a>/);
+  assert.match(uvodka, /<a href=\{hero\.data\.video\} class="btn-ghost">/, "s videem je YouTube dostupné z klávesnice přes .btn-ghost");
+});
+
+// ── P2: SearchAction a /security.txt ─────────────────────────────────────
+
+test("kolo 29: WebSite JSON-LD má SearchAction na /clanky/?q= (archiv ?q= čte)", () => {
+  const website = uvodka.match(/'@type': 'WebSite',([\s\S]*?)\n\s*\},\n\s*\{/)?.[1] ?? "";
+  assert.match(website, /'@type': 'SearchAction'/);
+  assert.match(website, /urlTemplate: `\$\{new URL\('\/clanky\/', Astro\.site\)\.href\}\?q=\{search_term_string\}`/);
+  assert.match(website, /'query-input': 'required name=search_term_string'/);
+  assert.match(archiv, /params\.get\('q'\)/, "SearchAction smí ukazovat jen na URL, kterou archiv opravdu čte");
+});
+
+test("kolo 29: /security.txt → /.well-known/security.txt 301", () => {
+  const redirects = cti("public/_redirects");
+  assert.match(redirects, /^\/security\.txt \/\.well-known\/security\.txt 301$/m);
 });
 
 // ── P2: filtr archivu hlásí počet ────────────────────────────────────────

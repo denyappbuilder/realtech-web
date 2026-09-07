@@ -1,7 +1,7 @@
-// Živý web servíroval hlavní cover článku i hero-visual na úvodce s alt="".
-// Ani jeden není dekorace: nemají aria-hidden a hero-visual je odkaz, který
-// bez altu nemá jméno. Alt nese titulek článku — frontmatter vlastní alt
-// obrázku nemá. Náhledy karet (ArticleCard) hlídá test-karta-alt.mjs.
+// Živý web servíroval hlavní cover článku s alt="". Není dekorace: nemá
+// aria-hidden. Alt nese titulek článku — frontmatter vlastní alt obrázku
+// nemá. Náhledy karet (ArticleCard) hlídá test-karta-alt.mjs. Hero-visual
+// na úvodce viz poslední test (kolo 29 z něj dekoraci udělalo vědomě).
 //
 // První verze testu fasádu videa výslovně přeskočila (jméno tlačítka dává
 // aria-label) — jenže poster ve fasádě je u video článků LCP hero (eager,
@@ -58,17 +58,18 @@ test('poster video fasády (LCP hero video článku) nesmí mít alt=""', () => 
   );
 });
 
-test('hero-visual na úvodce nesmí mít alt=""', () => {
-  const visual = uvodka.match(/class="hero-visual">([\s\S]*?)<\/a>/)?.[1];
+// Kolo 29: hero-visual na úvodce už NENÍ pojmenovaný odkaz. Na stejný cíl
+// vedou hned vedle h1 a „Přečíst analýzu“ (s videem „Video · 12:34“) —
+// třetí odkaz s alt = h1 četl titulek třikrát a přidával zastávku tabulátoru.
+// Cover je dekorace: aria-hidden + tabindex=-1 (myš kliká dál) a alt="".
+// alt="" tu smí být JEN s aria-hidden na odkazu — sám o sobě by odkaz
+// zůstal v tabulátoru beze jména (původní nález). Hlídá to test-kolo-29.
+test('hero-visual na úvodce je dekorace: alt="" jen s aria-hidden a tabindex=-1 na odkazu', () => {
+  const odkaz = uvodka.match(/<a [^>]*class="hero-visual"[^>]*>/)?.[0];
+  assert.ok(odkaz, 'odkaz .hero-visual na úvodce chybí');
+  assert.match(odkaz, /aria-hidden="true"/, 'bez aria-hidden by odkaz s alt="" byl beze jména');
+  assert.match(odkaz, /tabindex="-1"/, 'aria-hidden na fokusovatelném prvku = axe aria-hidden-focus');
+  const visual = uvodka.match(/class="hero-visual"[^>]*>([\s\S]*?)<\/a>/)?.[1];
   assert.ok(visual, 'blok .hero-visual na úvodce chybí');
-  assert.doesNotMatch(
-    visual,
-    /alt=""/,
-    'hero-visual má prázdný alt — odkaz na hero článek je pro čtečku beze jména',
-  );
-  assert.match(
-    visual,
-    /<img [^>]*alt=\{hero\.data\.title\}/,
-    'hero-visual musí mít alt s titulkem hero článku',
-  );
+  assert.match(visual, /<img [^>]*alt=""/, 'cover v aria-hidden odkazu je dekorace — alt musí být prázdný');
 });

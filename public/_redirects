@@ -78,3 +78,8 @@
 /mobily/ /temata/mobily/ 301
 /site /temata/site/ 301
 /site/ /temata/site/ 301
+
+# security.txt žije podle RFC 9116 na /.well-known/security.txt (servíruje
+# ho Cloudflare mimo repo). Starší umístění /security.txt vracelo 404
+# (živě 7. 9. 2026) — RFC ho dovoluje jen jako redirect na .well-known.
+/security.txt /.well-known/security.txt 301

@@ -738,6 +738,12 @@ a.tag:hover { background: var(--signal-fill-hover); }
    na nižším okně by sticky schoval spodní odkazy až do konce článku. */
 @media (min-width: 901px) and (min-height: 640px) {
   .article-aside { position: sticky; top: 81px; }
+  /* Kolo 29: když aside sedí u textu celou dobu, jsou tři tlačítka
+     sdílení v .article-share pod textem totéž podruhé (živě 7. 9. 2026,
+     ≥ 901px; pod 900px aside nekreslíme — viz níž). Jedna cesta: aside.
+     Na nižším okně aside sticky není a odjede — tam zůstává sdílení
+     pod textem. */
+  .article-share { display: none; }
 }
 .article-aside .mono {
   color: var(--ink-faint);
