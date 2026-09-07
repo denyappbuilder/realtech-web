@@ -2,7 +2,7 @@
 title: "OpenAI hlásí, že má „automatizovaného výzkumného stážistu“. Agenti prý odvedou 3,1 pracovního dne na jeden lidský"
 description: "Podle vlastních měření OpenAI splnil cíl, který Sam Altman vyhlásil loni v říjnu. Medián výzkumníka utratí za agenty přes 600 dolarů denně, špička přes 7 000. Víc než polovina delších úkolů ale pořád potřebuje lidský zásah."
 category: "AI Report"
-date: "2026-09-07T11:30:00+02:00"
+date: "2026-09-07T11:15:00+02:00"
 image: "/images/clanky/openai-research-intern-zari-2026.jpg"
 zprava: true
 ---
