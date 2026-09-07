@@ -9,7 +9,8 @@ const index = readFileSync(join(koren, "src/pages/index.astro"), "utf8");
 const css = readFileSync(join(koren, "src/styles/global.css"), "utf8");
 
 const hero = index.match(/<section class="hero">([\s\S]*?)<\/section>/)?.[0] ?? "";
-const h1 = hero.match(/<h1>([\s\S]*?)<\/h1>/)?.[1] ?? "";
+// Kolo 27: h1 nese class:list (.h1-dlouhy), atributy jsou povolené.
+const h1 = hero.match(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/)?.[1] ?? "";
 const clanekHref = "`/clanky/${hero.id}/`";
 
 function pravidlo(selektor) {
