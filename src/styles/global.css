@@ -1753,6 +1753,9 @@ a.chip { display: inline-flex; align-items: center; }
 
 /* Newsletter stavy */
 .nl-done { color: #fff; font-weight: 600; font-size: 1rem; margin: 0; }
+/* Kolo 29: zpráva dostává fokus programově (tabindex=-1), není to ovládací
+   prvek — rámeček UA kolem textu by jen mátl. */
+.nl-done:focus { outline: none; }
 .nl-note a { color: #A9B2BF; text-decoration: underline; }
 .nl-note a:hover { color: #fff; }
 

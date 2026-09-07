@@ -208,7 +208,15 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 1 0 4.2 12.6l4.1 4.1 1.4-1.4-4.1-4.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
         <kbd class="st-kbd">⌘K</kbd>
       </button>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Přepnout světlý/tmavý režim" title="Světlý/tmavý režim">
+      {/*
+        Kolo 29: přepínač je toggle button (WAI-ARIA), ale čtečce říkal jen
+        „Přepnout světlý/tmavý režim“ — bez stavu. Kdo nevidí ikonu, nevěděl,
+        v jakém režimu je ani co klik udělá. aria-pressed nese stav (true =
+        tmavý režim zapnutý), jméno zůstává stálé — APG: u aria-pressed se
+        popisek při přepnutí nemění. Výchozí false = světlé téma webu;
+        skutečný stav (OS / localStorage) dosadí skript níž hned po načtení.
+      */}
+      <button id="theme-toggle" class="theme-toggle" aria-label="Tmavý režim" aria-pressed="false" title="Světlý/tmavý režim">
         <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
@@ -324,14 +332,25 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   // a web přepnutý na tmavý, měl světlý rám prohlížeče nad tmavou stránkou
   // (a naopak) při každém načtení, ne jen do prvního kliknutí na toggle.
   if (document.documentElement.dataset.theme) nastavThemeColor();
-  toggle?.addEventListener('click', () => {
-    const root = document.documentElement;
-    const effective = root.dataset.theme
+  const aktualniTema = () =>
+    document.documentElement.dataset.theme
       || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    const next = effective === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
+  // Kolo 29: aria-pressed = „tmavý režim zapnutý“. Server posílá false
+  // (světlé výchozí téma); tady se srovná s OS / uloženou volbou a při
+  // změně OS tématu bez ruční volby se drží dál.
+  const nastavStavPrepinace = () => {
+    toggle?.setAttribute('aria-pressed', String(aktualniTema() === 'dark'));
+  };
+  nastavStavPrepinace();
+  // Safari < 14 má na MediaQueryList jen addListener — bez `?.` by pád
+  // tady vzal s sebou i odeslání newsletteru níž.
+  matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', nastavStavPrepinace);
+  toggle?.addEventListener('click', () => {
+    const next = aktualniTema() === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
     try { localStorage.setItem('theme', next); } catch {}
     nastavThemeColor();
+    nastavStavPrepinace();
   });
 
   const nlForm = document.querySelector<HTMLFormElement>('.nl-form');
@@ -347,7 +366,16 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         headers: { Accept: 'application/json' },
       });
       if (!res.ok) throw new Error(String(res.status));
-      nlForm.innerHTML = '<p class="nl-done">✓ Skoro hotovo — mrkni do mailu a potvrď odběr.</p>';
+      // Kolo 29: potvrzení dřív jen nahradilo formulář (innerHTML) — tlačítko
+      // s fokusem zmizelo, fokus spadl na <body> a čtečka o výsledku nevěděla.
+      // role=status + fokus na zprávu: ohlásí se hned a čtenář ví, kde je.
+      const hotovo = document.createElement('p');
+      hotovo.className = 'nl-done';
+      hotovo.setAttribute('role', 'status');
+      hotovo.tabIndex = -1;
+      hotovo.textContent = '✓ Skoro hotovo — mrkni do mailu a potvrď odběr.';
+      nlForm.replaceChildren(hotovo);
+      hotovo.focus();
     } catch {
       nlForm.submit();
     }
