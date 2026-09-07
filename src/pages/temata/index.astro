@@ -8,6 +8,7 @@ import { seoTitulek } from '../../lib/seo-titulek.js';
 import Base from '../../layouts/Base.astro';
 import { slugify } from '../../lib/slugify.js';
 import { popisTematu } from '../../lib/tema-popis.js';
+import { ogObrazekClanku } from '../../lib/og-vypis.js';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort(compareArticlesByDateDescThenId);
@@ -43,6 +44,7 @@ const kartaPreload = prvniHub?.nahled.hasLocalThumb
   : null;
 
 const popis = 'Všechna témata REALTECH CZ na jednom místě — AI, drony, vesmír, hardware, mobily a sítě. Tech bez marketingových řečí.';
+const vypisOg = ogObrazekClanku(prvniHub?.nejnovejsi);
 
 const breadcrumbLd = {
   '@context': 'https://schema.org',
@@ -72,7 +74,7 @@ const collectionLd = {
   },
 };
 ---
-<Base title={seoTitulek('Témata')} ogTitle="Témata | REALTECH CZ" description={popis}>
+<Base title={seoTitulek('Témata')} ogTitle="Témata | REALTECH CZ" description={popis} image={vypisOg.image} imageAlt={vypisOg.imageAlt}>
   {kartaPreload && (
     <link
       rel="preload"

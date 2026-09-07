@@ -82,11 +82,11 @@ test('kolo 23: první karta každé strany archivu má eager + fetchpriority=hig
   assert.match(tema, /priority=\{index === 0\}/, 'stejný vzor jako featured karta tématu');
 });
 
-test('kolo 23: karty přilepené filtrem ze stran 2+ na stranu 1 ztrácí eager/high', () => {
-  const importKarty = archiv.match(/documentPage\.querySelectorAll\('#articles-grid \.card'\)\.forEach\(\(card\) => \{([\s\S]*?)\n\s*\}\);/)?.[1] ?? '';
-  assert.ok(importKarty, 'archiv importuje karty ze stran 2+');
-  assert.match(importKarty, /setAttribute\('loading', 'lazy'\)/, 'pod ohybem na straně 1 karta LCP není');
-  assert.match(importKarty, /removeAttribute\('fetchpriority'\)/);
+test('kolo 23/26: filtr archivu bere search-index.json, ne HTML stran 2+', () => {
+  assert.match(archiv, /fetch\('\/search-index\.json'\)/, 'jeden JSON místo sériového stahování /clanky/strana/2–N');
+  assert.doesNotMatch(archiv, /fetch\(`\/clanky\/strana\//);
+  assert.doesNotMatch(archiv, /DOMParser/);
+  assert.match(archiv, /data-from-index/, 'karty mimo stranu 1 se skládají z indexu');
 });
 
 // ── 4) Tisk /clanky/ ────────────────────────────────────────────────────────

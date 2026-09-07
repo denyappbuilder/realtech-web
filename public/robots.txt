@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+# Cloudflare email-protection (/cdn-cgi/l/email-protection) vrací 404
+# crawlerům. Prefix /cdn-cgi/ je rezervovaný Cloudflare, není obsah webu.
+Disallow: /cdn-cgi/
 
 Sitemap: https://realtech.cz/sitemap-index.xml
 

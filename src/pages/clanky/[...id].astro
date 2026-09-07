@@ -18,6 +18,7 @@ import { jsonLdText, pripojAudioKClanku, vytvorAudioObject } from '../../lib/aud
 import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
 import { preloadHeroObrazku } from '../../lib/hero-preload.js';
 import { KARTA_SIZES_RELATED } from '../../lib/karta-nahled.js';
+import { autoriClanku } from '../../lib/autori.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -81,10 +82,7 @@ const idx = chrono.findIndex((c) => c.id === article.id);
 const newer = idx > 0 ? chrono[idx - 1] : null;
 const older = idx >= 0 && idx < chrono.length - 1 ? chrono[idx + 1] : null;
 
-const autori = [
-  { '@type': 'Person', name: 'Daniel Soukup', url: new URL('/o-nas/', Astro.site).href },
-  { '@type': 'Person', name: 'Sam', url: new URL('/o-nas/', Astro.site).href },
-];
+const autori = autoriClanku(Astro.site);
 
 const articleUrl = new URL(Astro.url.pathname, Astro.site).href;
 const audioLd = vytvorAudioObject(audio, {

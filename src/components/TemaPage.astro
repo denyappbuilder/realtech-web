@@ -10,6 +10,7 @@ import Base from '../layouts/Base.astro';
 import ArticleCard from './ArticleCard.astro';
 import { slugify } from '../lib/slugify.js';
 import { popisTematu } from '../lib/tema-popis.js';
+import { ogObrazekClanku } from '../lib/og-vypis.js';
 
 interface Props {
   category: string;
@@ -93,8 +94,9 @@ const title = page === 1
 const ogTitle = page === 1
   ? `${category} — články | REALTECH CZ`
   : `${category} – strana ${page} | REALTECH CZ`;
+const vypisOg = ogObrazekClanku(articles[0]);
 ---
-<Base title={title} ogTitle={ogTitle} description={popis}>
+<Base title={title} ogTitle={ogTitle} description={popis} image={vypisOg.image} imageAlt={vypisOg.imageAlt}>
   {kartaPreload && (
     <link
       rel="preload"

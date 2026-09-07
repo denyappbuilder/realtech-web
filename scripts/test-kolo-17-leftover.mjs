@@ -81,7 +81,7 @@ test("kolo 17: ArticleCard přijímá class a bez ní vrací přesně class=\"ca
     /const cardClass = extraClass \? `card \$\{extraClass\}` : 'card';/,
     "bez class musí zůstat přesně \"card\" (testy archivu a hubu na to parsují)",
   );
-  assert.match(karta, /<article class=\{cardClass\} data-category=\{category\}>/);
+  assert.match(karta, /<article class=\{cardClass\} data-category=\{category\} data-slug=\{article\.id\}>/);
 });
 
 // ── P1: markdown tabulky v článku ───────────────────────────────────────

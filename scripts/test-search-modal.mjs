@@ -295,6 +295,7 @@ test('input je combobox svázaný s listboxem výsledků', () => {
   assert.match(inputTag, /aria-expanded="false"/, 'výchozí stav je sbalený — rozbaluje ho až render()');
   assert.match(inputTag, /aria-autocomplete="list"/);
   assert.match(inputTag, /aria-controls="search-results"/, 'aria-controls musí mířit na id listboxu');
+  assert.match(inputTag, /aria-haspopup="listbox"/, 'APG combobox hlásí, že popup je listbox');
   assert.match(zdroj, /<div class="search-results" id="search-results" role="listbox"/);
 });
 
@@ -310,11 +311,12 @@ test('výsledky rozbalí combobox a option nesou id + aria-selected', () => {
 
   assert.equal(modal.input.getAttribute('aria-expanded'), 'true');
   assert.equal(modal.input.getAttribute('aria-activedescendant'), 'search-item-1');
-  const option = [...modal.results.innerHTML.matchAll(/role="option" id="([^"]+)" aria-selected="([^"]+)"/g)];
+  const option = [...modal.results.innerHTML.matchAll(/role="option" id="([^"]+)" aria-selected="([^"]+)" tabindex="-1"/g)];
   assert.deepEqual(option.map((m) => [m[1], m[2]]), [
     ['search-item-0', 'false'],
     ['search-item-1', 'true'],
   ]);
+  assert.match(modal.results.innerHTML, /<a class="search-item[^"]*" href="\/clanky\/prvni\/" role="option"/);
 });
 
 test('nápověda i prázdný výsledek combobox sbalí a aktivní potomek zmizí', () => {

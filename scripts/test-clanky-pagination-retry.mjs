@@ -25,6 +25,7 @@ class TestElement {
     this.tagName = tagName.toUpperCase();
     this.attributes = new Map(Object.entries(attributes));
     this.children = [];
+    this.parent = null;
     this.listeners = new Map();
     this.textContent = text;
     this.value = '';
@@ -33,6 +34,14 @@ class TestElement {
       remove: (...names) => this.#setClasses(this.#classes().filter((name) => !names.includes(name))),
       contains: (name) => this.#classes().includes(name),
     };
+  }
+
+  get className() {
+    return this.getAttribute('class') ?? '';
+  }
+
+  set className(value) {
+    this.setAttribute('class', value);
   }
 
   #classes() {
@@ -55,6 +64,10 @@ class TestElement {
     this.attributes.delete(name);
   }
 
+  hasAttribute(name) {
+    return this.attributes.has(name);
+  }
+
   toggleAttribute(name, force) {
     const enabled = force === undefined ? !this.attributes.has(name) : force;
     if (enabled) this.setAttribute(name, '');
@@ -62,8 +75,17 @@ class TestElement {
     return enabled;
   }
 
-  append(child) {
-    this.children.push(child);
+  append(...nodes) {
+    for (const child of nodes) {
+      child.parent = this;
+      this.children.push(child);
+    }
+  }
+
+  remove() {
+    if (!this.parent) return;
+    this.parent.children = this.parent.children.filter((child) => child !== this);
+    this.parent = null;
   }
 
   addEventListener(type, listener) {
@@ -76,61 +98,36 @@ class TestElement {
     for (const listener of this.listeners.get(type) ?? []) listener({ type, target: this });
   }
 
-  // Jen selektor podle názvu značky — víc klientský skript archivu nepotřebuje
-  // (kolo 23: `img` v přilepené kartě).
-  querySelectorAll(selector) {
-    assert.match(selector, /^[a-z]+$/, `Neočekávaný selektor na prvku: ${selector}`);
-    return this.children.flatMap((child) => [
-      ...(child.tagName === selector.toUpperCase() ? [child] : []),
-      ...child.querySelectorAll(selector),
-    ]);
+  querySelector(selector) {
+    if (selector.startsWith('a[href^="/clanky/"]')) {
+      return this.children.flatMap((child) => [
+        ...(child.tagName === 'A' && (child.getAttribute('href') ?? '').startsWith('/clanky/') ? [child] : []),
+        ...(child.querySelector(selector) ? [child.querySelector(selector)] : []),
+      ])[0] ?? null;
+    }
+    return null;
   }
 
-  cloneNode(deep = false) {
-    const clone = new TestElement(this.tagName, {
-      attributes: Object.fromEntries(this.attributes),
-      text: this.textContent,
-    });
-    if (deep) for (const child of this.children) clone.append(child.cloneNode(true));
-    return clone;
+  querySelectorAll(selector) {
+    if (selector === 'a' || selector === 'img') {
+      return this.children.flatMap((child) => [
+        ...(child.tagName === selector.toUpperCase() ? [child] : []),
+        ...child.querySelectorAll(selector),
+      ]);
+    }
+    return [];
   }
 }
 
-// Karta nese náhled jako na výpisu: první karta každé strany má od kola 23
-// eager + fetchpriority=high (LCP té strany).
-const card = (id, text = id, { lcp = false } = {}) => {
+const card = (id, text = id, { category = 'Test' } = {}) => {
   const element = new TestElement('article', {
-    attributes: { class: 'card', 'data-card-id': id, 'data-category': 'Test' },
+    attributes: { class: 'card', 'data-slug': id, 'data-category': category },
     text,
   });
-  element.append(new TestElement('img', {
-    attributes: lcp ? { loading: 'eager', fetchpriority: 'high' } : { loading: 'lazy' },
-  }));
+  const odkaz = new TestElement('a', { attributes: { href: `/clanky/${id}/` }, text });
+  element.append(odkaz);
   return element;
 };
-
-class ParsedDocument {
-  constructor(html) {
-    this.parsedCards = [...html.matchAll(/<article class="card" data-card-id="([^"]+)">([^<]*)<\/article>/g)]
-      .map((match, index) => card(match[1], match[2], { lcp: index === 0 }));
-  }
-
-  querySelectorAll(selector) {
-    assert.equal(selector, '#articles-grid .card');
-    return this.parsedCards;
-  }
-}
-
-class TestDOMParser {
-  parseFromString(html, type) {
-    assert.equal(type, 'text/html');
-    return new ParsedDocument(html);
-  }
-}
-
-const pageHtml = (...ids) => ids
-  .map((id) => `<article class="card" data-card-id="${id}">${id}</article>`)
-  .join('');
 
 const waitFor = async (predicate, message) => {
   for (let attempt = 0; attempt < 100; attempt++) {
@@ -155,38 +152,54 @@ const createFetchController = () => {
       const request = pending.shift();
       assert.equal(request.url, expectedUrl);
       return {
-        succeed(html) {
-          request.resolve({ ok: true, text: async () => html });
+        succeed(body) {
+          request.resolve({
+            ok: true,
+            json: async () => body,
+            text: async () => JSON.stringify(body),
+          });
         },
         fail(status = 500) {
-          request.resolve({ ok: false, status, text: async () => '' });
+          request.resolve({
+            ok: false,
+            status,
+            json: async () => { throw new Error('neparsovat'); },
+            text: async () => '',
+          });
         },
       };
     },
   };
 };
 
+const INDEX = [
+  { s: 'first-page', t: 'První na straně 1', d: 'Popis first', k: 'Test', b: '', p: '2026-09-01' },
+  { s: 'page-2', t: 'Článek ze strany 2', d: 'Popis page', k: 'Test', b: 'úryvek', p: '2026-08-01' },
+  { s: 'page-3', t: 'Článek ze strany 3', d: 'Jiný popis', k: 'AI Report', b: '', p: '2026-07-01' },
+];
+
 const createArchive = () => {
-  const archive = new TestElement('section', { attributes: { 'data-archive': '', 'data-total-pages': '3' } });
   const allChip = new TestElement('button', { attributes: { class: 'chip active', 'data-cat': '' } });
   const grid = new TestElement('div', { attributes: { id: 'articles-grid', 'aria-busy': 'false' } });
-  grid.append(card('first-page', 'first-page', { lcp: true }));
+  grid.append(card('first-page', 'first-page'));
   const empty = new TestElement('p', { attributes: { class: 'filter-empty', hidden: '' } });
   const loading = new TestElement('p', {
     attributes: { class: 'filter-loading', hidden: '' },
-    text: 'Načítám celý archiv pro hledání…',
+    text: 'Načítám index článků…',
   });
   const pagination = new TestElement('nav', { attributes: { class: 'archive-pagination' } });
   const search = new TestElement('input', { attributes: { id: 'art-search' } });
   const fetchController = createFetchController();
 
   const document = {
+    createElement(tagName) {
+      return new TestElement(tagName);
+    },
     getElementById(id) {
       return id === 'articles-grid' ? grid : id === 'art-search' ? search : null;
     },
     querySelector(selector) {
       return {
-        '[data-archive]': archive,
         '.filter-empty': empty,
         '.filter-loading': loading,
         '.archive-pagination': pagination,
@@ -195,25 +208,28 @@ const createArchive = () => {
     },
     querySelectorAll(selector) {
       if (selector === '.cat-filter .chip') return [allChip];
-      if (selector === '#articles-grid .card') return grid.children;
+      if (selector === '#articles-grid .card') return [...grid.children];
       throw new Error(`Neočekávaný selektor: ${selector}`);
-    },
-    importNode(node) {
-      return node.cloneNode(true);
     },
   };
 
   const location = { pathname: '/clanky/', search: '' };
   vm.runInNewContext(clientScript, {
     document,
+    window: {
+      setTimeout(fn) {
+        fn();
+        return 1;
+      },
+      clearTimeout() {},
+    },
     fetch: fetchController.fetch,
-    DOMParser: TestDOMParser,
     URLSearchParams,
     location,
     history: { replaceState() {} },
   }, { filename: 'ArticleArchivePage.client.js' });
 
-  return { fetchController, grid, loading, search };
+  return { fetchController, grid, loading, search, pagination, empty };
 };
 
 const startFilteredLoad = (archive) => {
@@ -221,75 +237,69 @@ const startFilteredLoad = (archive) => {
   archive.search.dispatch('input');
 };
 
-const failOnThirdPage = async (archive) => {
+const slugs = (archive) => archive.grid.children
+  .filter((item) => !item.hasAttribute('hidden'))
+  .map((item) => item.getAttribute('data-slug'));
+
+test('selhání indexu dovolí nový pokus a nenačítá HTML stran', async () => {
+  const archive = createArchive();
   startFilteredLoad(archive);
-  const page2 = await archive.fetchController.next('/clanky/strana/2/');
-  page2.succeed(pageHtml('page-2'));
-  const page3 = await archive.fetchController.next('/clanky/strana/3/');
-  page3.fail();
+  const first = await archive.fetchController.next('/search-index.json');
+  first.fail();
   await waitFor(
     () => archive.loading.textContent.includes('nepodařilo načíst'),
-    'uživatel nedostal zprávu o selhání načítání archivu',
+    'uživatel nedostal zprávu o selhání načítání indexu',
   );
-};
 
-const cardIds = (archive) => archive.grid.children.map((item) => item.getAttribute('data-card-id'));
-
-test('selhání uprostřed načítání zachová připojenou stránku a dovolí nový pokus', async () => {
-  const archive = createArchive();
-  await failOnThirdPage(archive);
-
-  assert.deepEqual(cardIds(archive), ['first-page', 'page-2']);
+  assert.deepEqual(archive.fetchController.urls, ['/search-index.json']);
   assert.equal(archive.grid.getAttribute('aria-busy'), 'false');
 
   startFilteredLoad(archive);
-  await archive.fetchController.next('/clanky/strana/3/');
-
+  await archive.fetchController.next('/search-index.json');
   assert.deepEqual(archive.fetchController.urls, [
-    '/clanky/strana/2/',
-    '/clanky/strana/3/',
-    '/clanky/strana/3/',
+    '/search-index.json',
+    '/search-index.json',
   ]);
 });
 
-test('retry po pádu uprostřed archivu nepřipojí již načtené karty podruhé', async () => {
+test('úspěšný index doplní karty mimo stranu 1 a nenačítá /clanky/strana/', async () => {
   const archive = createArchive();
-  await failOnThirdPage(archive);
-
   startFilteredLoad(archive);
-  const retryPage3 = await archive.fetchController.next('/clanky/strana/3/');
-  retryPage3.succeed(pageHtml('page-3'));
+  const req = await archive.fetchController.next('/search-index.json');
+  req.succeed(INDEX);
   await waitFor(
-    () => archive.grid.getAttribute('aria-busy') === 'false',
-    'opakované načtení archivu se nedokončilo',
+    () => archive.grid.getAttribute('aria-busy') === 'false'
+      && archive.grid.children.some((item) => item.hasAttribute('data-from-index')),
+    'index se nenačetl nebo se nedoplnily karty',
   );
 
-  assert.deepEqual(cardIds(archive), ['first-page', 'page-2', 'page-3']);
+  assert.deepEqual(slugs(archive), ['page-2']);
+  assert.equal(
+    archive.grid.children.find((item) => item.getAttribute('data-slug') === 'page-2')?.hasAttribute('data-from-index'),
+    true,
+  );
+  assert.equal(archive.pagination.hasAttribute('hidden'), true);
+  assert.doesNotMatch(archive.fetchController.urls.join(' '), /\/clanky\/strana\//);
 });
 
-// Kolo 23: první karta každé strany má eager + fetchpriority=high (LCP té
-// strany). Přilepená pod ohyb na stranu 1 to nesmí zdědit — jinak by každý
-// filtr spustil N přednostních stahování mimo obraz.
-test('karty přilepené ze stran 2+ ztrácí eager/fetchpriority, původní karta strany 1 ne', async () => {
+test('vyčištění dotazu smaže karty z indexu a vrátí stránkování', async () => {
   const archive = createArchive();
   startFilteredLoad(archive);
-  const page2 = await archive.fetchController.next('/clanky/strana/2/');
-  page2.succeed(pageHtml('page-2', 'page-2b'));
-  const page3 = await archive.fetchController.next('/clanky/strana/3/');
-  page3.succeed(pageHtml('page-3'));
+  const req = await archive.fetchController.next('/search-index.json');
+  req.succeed(INDEX);
   await waitFor(
-    () => archive.grid.getAttribute('aria-busy') === 'false',
-    'načtení archivu se nedokončilo',
+    () => archive.grid.children.some((item) => item.hasAttribute('data-from-index')),
+    'karta z indexu se nepřipojila',
   );
 
-  const nahledy = archive.grid.children.map((item) => {
-    const [img] = item.querySelectorAll('img');
-    return [item.getAttribute('data-card-id'), img.getAttribute('loading'), img.getAttribute('fetchpriority')];
-  });
-  assert.deepEqual(nahledy, [
-    ['first-page', 'eager', 'high'],
-    ['page-2', 'lazy', null],
-    ['page-2b', 'lazy', null],
-    ['page-3', 'lazy', null],
-  ]);
+  archive.search.value = '';
+  archive.search.dispatch('input');
+  await waitFor(
+    () => !archive.grid.children.some((item) => item.hasAttribute('data-from-index')),
+    'karty z indexu po vyčištění dotazu zůstaly',
+  );
+
+  assert.deepEqual(slugs(archive), ['first-page']);
+  assert.equal(archive.pagination.hasAttribute('hidden'), false);
+  assert.equal(archive.empty.hasAttribute('hidden'), true);
 });
