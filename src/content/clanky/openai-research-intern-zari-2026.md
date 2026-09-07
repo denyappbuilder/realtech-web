@@ -4,6 +4,9 @@ description: "Podle vlastních měření OpenAI splnil cíl, který Sam Altman v
 category: "AI Report"
 date: "2026-09-07T11:15:00+02:00"
 image: "/images/clanky/openai-research-intern-zari-2026.jpg"
+audio:
+  url: "https://audio.realtech.cz/openai-research-intern-zari-2026-nlm.mp3?v=230566a9f9d8"
+  duration: 1392
 zprava: true
 ---
 
