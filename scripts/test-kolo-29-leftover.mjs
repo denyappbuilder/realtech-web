@@ -129,7 +129,12 @@ test("kolo 29: .article-share se skrývá přesně tam, kde je aside sticky (≥
   const sticky = blokMedia("\\(min-width: 901px\\) and \\(min-height: 640px\\)");
   assert.ok(sticky, "chybí @media (min-width: 901px) and (min-height: 640px)");
   assert.match(sticky, /\.article-aside\s*\{\s*position:\s*sticky;\s*top:\s*81px;?\s*\}/, "sticky aside z kola 19 zůstává");
-  assert.match(sticky, /\.article-share\s*\{\s*display:\s*none;?\s*\}/, "tři tlačítka sdílení pod textem byla na desktopu totéž podruhé");
+  const skryti = css.match(/@media\s*\(min-width: 901px\) and \(min-height: 640px\)\s*\{\s*\.article-share\s*\{\s*display:\s*none;?\s*\}\s*\}/);
+  assert.ok(skryti, "tři tlačítka sdílení pod textem byla na desktopu totéž podruhé — chybí blok, který .article-share skryje");
+  // Stejná specificita jako základní .article-share { display: flex } —
+  // kdyby blok stál dřív (třeba u sticky aside), základní pravidlo by ho
+  // přebilo a na 1280px by zůstalo šest tlačítek (první pokus kola 29).
+  assert.ok(skryti.index > css.search(/\n\.article-share\s*\{/), "skrytí musí stát v CSS až ZA základním pravidlem .article-share");
   const tablet = blokMedia("\\(max-width: 900px\\)");
   assert.match(tablet, /\.article-aside\s*\{\s*display:\s*none;?\s*\}/, "pod 901px je jediná cesta .article-share (kolo 19)");
   assert.doesNotMatch(tablet, /\.article-share\s*\{[^}]*display:\s*none/, "pod 901px .article-share zůstává — aside tam není");

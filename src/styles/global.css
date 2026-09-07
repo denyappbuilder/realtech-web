@@ -738,12 +738,6 @@ a.tag:hover { background: var(--signal-fill-hover); }
    na nižším okně by sticky schoval spodní odkazy až do konce článku. */
 @media (min-width: 901px) and (min-height: 640px) {
   .article-aside { position: sticky; top: 81px; }
-  /* Kolo 29: když aside sedí u textu celou dobu, jsou tři tlačítka
-     sdílení v .article-share pod textem totéž podruhé (živě 7. 9. 2026,
-     ≥ 901px; pod 900px aside nekreslíme — viz níž). Jedna cesta: aside.
-     Na nižším okně aside sticky není a odjede — tam zůstává sdílení
-     pod textem. */
-  .article-share { display: none; }
 }
 .article-aside .mono {
   color: var(--ink-faint);
@@ -1285,6 +1279,15 @@ footer.site ul a:hover { color: var(--ink); }
   display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
 }
 .article-share .mono { color: var(--ink-faint); font-size: 0.75rem; letter-spacing: 0.08em; }
+/* Kolo 29: když aside sedí u textu celou dobu (sticky, stejný dotaz jako
+   u .article-aside výš), jsou tři tlačítka sdílení pod textem totéž podruhé
+   (živě 7. 9. 2026 na 1280px: šest tlačítek; pod 900px aside nekreslíme).
+   Jedna cesta: aside. Na nižším okně aside sticky není a odjede — tam
+   zůstává sdílení pod textem. Pravidlo MUSÍ stát až za základním
+   .article-share { display: flex } — stejná specificita, rozhoduje pořadí. */
+@media (min-width: 901px) and (min-height: 640px) {
+  .article-share { display: none; }
+}
 .share-btns { display: flex; gap: 8px; flex-wrap: wrap; }
 .share-btn {
   font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
