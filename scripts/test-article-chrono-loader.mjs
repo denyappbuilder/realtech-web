@@ -36,7 +36,7 @@ export async function load(url, context, nextLoad) {
     }
 
     const startMarker = '// Chronologická navigace (novější/starší)';
-    const endMarker = 'const autori = [';
+    const endMarker = 'const autori = autoriClanku(Astro.site);';
     const start = frontmatter.value.indexOf(startMarker);
     const end = frontmatter.value.indexOf(endMarker, start);
     const articleDeclaration = frontmatter.value.match(

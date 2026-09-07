@@ -98,7 +98,7 @@ test('kolo 26: filtr /clanky/ bere search-index.json, debounce 300 ms, ne strany
   assert.match(archiv, /const DEBOUNCE_MS = 300/);
   assert.match(archiv, /window\.setTimeout/);
   assert.match(archiv, /data-from-index/);
-  assert.doesNotMatch(archiv, /\/clanky\/strana\/\$\{/);
+  assert.doesNotMatch(archiv, /fetch\(`\/clanky\/strana\//);
   assert.doesNotMatch(archiv, /DOMParser/);
   assert.match(karta, /data-slug=\{article\.id\}/);
   assert.match(archiv, /Načítám index článků/);
@@ -126,6 +126,11 @@ test('kolo 26: schema i zobrazení sdílí Deny jako alternateName Daniela Souku
   assert.equal(org[0].name, 'Daniel Soukup');
   assert.match(clanek, /import \{ autoriClanku \} from '\.\.\/\.\.\/lib\/autori\.js'/);
   assert.match(clanek, /const autori = autoriClanku\(Astro\.site\)/);
+  assert.match(
+    clanek,
+    /\/\/ Chronologická navigace \(novější\/starší\)[\s\S]*const autori = autoriClanku\(Astro\.site\);/,
+    'test-article-chrono-loader řeže blok mezi tímhle komentářem a autoriClanku',
+  );
   assert.match(onas, /import \{ zakladateleOrg \} from '\.\.\/lib\/autori\.js'/);
   assert.match(onas, /<strong>Daniel \(Deny\) a Sam<\/strong>/);
   assert.match(onas, /<strong>Daniel Soukup<\/strong> \(Deny\)/);

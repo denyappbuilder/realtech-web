@@ -84,7 +84,7 @@ test('kolo 23: první karta každé strany archivu má eager + fetchpriority=hig
 
 test('kolo 23/26: filtr archivu bere search-index.json, ne HTML stran 2+', () => {
   assert.match(archiv, /fetch\('\/search-index\.json'\)/, 'jeden JSON místo sériového stahování /clanky/strana/2–N');
-  assert.doesNotMatch(archiv, /\/clanky\/strana\/\$\{/);
+  assert.doesNotMatch(archiv, /fetch\(`\/clanky\/strana\//);
   assert.doesNotMatch(archiv, /DOMParser/);
   assert.match(archiv, /data-from-index/, 'karty mimo stranu 1 se skládají z indexu');
 });
