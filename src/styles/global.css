@@ -67,7 +67,13 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  /* Kolo 28: Arial (Windows/macOS), Roboto (Android) a Liberation Sans
+     (Linux — na něm běží i PageSpeed) před system-ui. Plex Sans 400 je
+     proti Arialu 0,98–1,01× široký, takže perex, karty i tělo článku
+     lámou řádky stejně před swapem i po něm. system-ui byl na Linuxu
+     DejaVu Sans (Plex je jen 0,88× tak široký) — živě 7. 9. 2026 na 1024px
+     odskočil perex hero o řádek (27 px) a s ním CTA i celý výpis. */
+  font-family: 'IBM Plex Sans', Arial, Roboto, 'Liberation Sans', system-ui, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -308,7 +314,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
-    font-family: 'Archivo Variable', 'Archivo', sans-serif;
+    font-family: 'Archivo Variable', 'Archivo Karta Fallback', 'Archivo', sans-serif;
     font-weight: 750;
     font-stretch: 105%;
     font-size: 0.95rem;
@@ -358,6 +364,26 @@ a.tag:hover { background: var(--signal-fill-hover); }
   src: local('Arial Bold'), local('Arial'), local('Roboto Bold'), local('Roboto'), local('Liberation Sans Bold');
   font-weight: 100 1000;
   size-adjust: 117.6%;
+}
+/* Kolo 28: totéž pro ostatní Archivo titulky nad ohybem. Kolo 27 srovnalo
+   jen hero úvodky; h1 článku (850/108 %) swapoval dál a cover — LCP
+   článku — pod ním živě 7. 9. 2026 poskočil o +31 px (768), +40 px (1024),
+   +49 px (1280) a −24 px (390) na KAŽDÉM článku. Poměr šířek k Arial Bold
+   (Liberation Sans Bold) změřený v DOM při 100px na všech 98 titulcích:
+   850/108 % ls −0.02em = medián 1,146 (1,12–1,18) → 114,6 %; karty
+   750/105 % ls −0.01em = medián 1,059 (1,04–1,09) → 105,9 % (proto vlastní
+   rodina — kolo 27 to předvídalo). Stejné 850/108 % má i h1 O nás a 404. */
+@font-face {
+  font-family: 'Archivo Clanek Fallback';
+  src: local('Arial Bold'), local('Arial'), local('Roboto Bold'), local('Roboto'), local('Liberation Sans Bold');
+  font-weight: 100 1000;
+  size-adjust: 114.6%;
+}
+@font-face {
+  font-family: 'Archivo Karta Fallback';
+  src: local('Arial Bold'), local('Arial'), local('Roboto Bold'), local('Roboto'), local('Liberation Sans Bold');
+  font-weight: 100 1000;
+  size-adjust: 105.9%;
 }
 .hero h1 {
   font-family: 'Archivo Variable', 'Archivo Hero Fallback', 'Archivo', sans-serif;
@@ -528,7 +554,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card-body h2,
 .card-body h3 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
+  font-family: 'Archivo Variable', 'Archivo Karta Fallback', 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
   font-size: 1.08rem; line-height: 1.25; letter-spacing: -0.01em;
 }
 .card-body h2 a,
@@ -611,7 +637,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   border: 1px solid var(--line);
 }
 .article-head h1 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: 'Archivo Variable', 'Archivo Clanek Fallback', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.8rem, 3.6vw, 2.8rem); line-height: 1.08;
   letter-spacing: -0.02em; margin-bottom: 16px;
   text-wrap: balance;
@@ -1134,7 +1160,7 @@ footer.site ul a:hover { color: var(--ink); }
 /* Kolo 15: h1 a perex 404 žily na UA výchozím stylu (Plex Sans 2em bold,
    700 se ani nenačítá). Titulek bere Archivo jako O nás, perex jako hero. */
 .notfound h1 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: 'Archivo Variable', 'Archivo Clanek Fallback', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.05;
   margin: 14px 0 12px;
   text-wrap: balance;
@@ -1321,7 +1347,7 @@ footer.site ul a:hover { color: var(--ink); }
   line-height: 1.45;
 }
 .about h1 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: 'Archivo Variable', 'Archivo Clanek Fallback', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.05;
   margin: 12px 0 18px;
 }
@@ -1480,7 +1506,7 @@ footer.site ul a:hover { color: var(--ink); }
 .vc-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 2px; }
 .vc-title {
   display: block; margin-top: 12px;
-  font-family: 'Archivo Variable', 'Archivo', sans-serif;
+  font-family: 'Archivo Variable', 'Archivo Karta Fallback', 'Archivo', sans-serif;
   font-weight: 750; font-stretch: 105%;
   font-size: 0.98rem; line-height: 1.3; letter-spacing: -0.01em;
   transition: color 0.15s;
@@ -1600,6 +1626,10 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 }
 .search-results { max-height: 52vh; overflow-y: auto; }
 .search-hint { padding: 24px 18px; color: var(--ink-faint); font-size: 0.9rem; }
+/* Kolo 28: s výsledky nese .search-hint jen ohlášení počtu pro čtečku.
+   .sr-only stojí v souboru dřív a se stejnou specificitou by padding
+   24px 18px zůstal — absolutně umístěný, ale zbytečný. */
+.search-hint.sr-only { padding: 0; }
 .search-hint em { color: var(--ink-soft); font-style: normal; font-weight: 600; }
 .search-item {
   display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
