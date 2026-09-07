@@ -345,8 +345,22 @@ a.tag:hover { background: var(--signal-fill-hover); }
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem; padding: 5px 12px; letter-spacing: 0.06em;
 }
+/* Kolo 27: Archivo 870/110 % je o 17,6 % širší než Arial Bold (šířka
+   titulků z úvodky v DOM při 100px a letter-spacing -0.025em: 1,1765;
+   Liberation Sans Bold = metriky Arial Bold). Než se woff2 stáhne
+   (font-display: swap), kreslil se titulek v Arialu o 1–2 řádky kratší a při
+   swapu odskočil perex, CTA i cover — živě 7. 9. 2026 CLS 0.037 na 1280px,
+   0.022 na 390px, jediný zdroj posunu na úvodce. size-adjust srovná šířku,
+   takže počet řádků sedí už před swapem. Jen pro hero h1: karty (750/105 %)
+   mají poměr 1,057 a společný fallback by je rozhodil na druhou stranu. */
+@font-face {
+  font-family: 'Archivo Hero Fallback';
+  src: local('Arial Bold'), local('Arial'), local('Roboto Bold'), local('Roboto'), local('Liberation Sans Bold');
+  font-weight: 100 1000;
+  size-adjust: 117.6%;
+}
 .hero h1 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif;
+  font-family: 'Archivo Variable', 'Archivo Hero Fallback', 'Archivo', sans-serif;
   font-weight: 870;
   font-stretch: 110%;
   font-size: clamp(2.1rem, 4.8vw, 3.1rem);
