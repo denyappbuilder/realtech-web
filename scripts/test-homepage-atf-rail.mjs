@@ -99,9 +99,11 @@ test("rail je jen od 901px — mobilní hero, CTA i mřížka zůstávají", () 
   );
 
   const mobil = mediaBlok("max-width:\\s*900px");
+  // Kolo 27: minmax(0, 1fr) — holé 1fr = minmax(auto, 1fr), dlouhé slovo
+  // titulku by na úzkém mobilu roztáhlo sloupec přes viewport.
   assert.match(
     pravidlo(mobil, ".hero-grid"),
-    /grid-template-columns:\s*1fr/,
+    /grid-template-columns:\s*(?:minmax\(0,\s*)?1fr\)?\s*;/,
     "mobilní hero-grid se nesmí rozbít kvůli railu",
   );
   assert.match(index, /class="btn-primary"/, "featured CTA zmizelo");
