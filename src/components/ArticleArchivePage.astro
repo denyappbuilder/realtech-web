@@ -7,6 +7,7 @@ import { youtubeId } from '../lib/youtube.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import Base from '../layouts/Base.astro';
 import ArticleCard from './ArticleCard.astro';
+import { ogObrazekClanku } from '../lib/og-vypis.js';
 
 interface Props {
   page: number;
@@ -75,8 +76,9 @@ const breadcrumbLd = {
 const title = page === 1
   ? 'Všechny články — REALTECH CZ'
   : `Všechny články – strana ${page} — REALTECH CZ`;
+const vypisOg = ogObrazekClanku(articles[0]);
 ---
-<Base title={title} description="Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí.">
+<Base title={title} description="Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí." image={vypisOg.image} imageAlt={vypisOg.imageAlt}>
   {kartaPreload && (
     <link
       rel="preload"
@@ -119,7 +121,7 @@ const title = page === 1
       {/* Kolo 18: role=status jako u .filter-loading — bez něj čtečka po
           filtru bez shody slyšela jen mizející karty, ne „Nic nenalezeno“. */}
       <p class="filter-empty" role="status" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
-      <p class="filter-loading" role="status" hidden>Načítám celý archiv pro hledání…</p>
+      <p class="filter-loading" role="status" hidden>Načítám index článků…</p>
       <nav class="archive-pagination" aria-label="Stránkování článků">
         {page > 1 && <a class="btn-ghost" href={pagePath(page - 1)} rel="prev">← Novější</a>}
         <span>Strana {page} z {totalPages}</span>
@@ -130,77 +132,130 @@ const title = page === 1
 
   {page === 1 && (
     <script>
-      const archive = document.querySelector('[data-archive]');
       const chips = [...document.querySelectorAll('.cat-filter .chip')];
       const grid = document.getElementById('articles-grid');
       const empty = document.querySelector('.filter-empty');
       const loading = document.querySelector('.filter-loading');
       const pagination = document.querySelector('.archive-pagination');
       const search = document.getElementById('art-search') as HTMLInputElement | null;
-      const totalPages = Number(archive?.getAttribute('data-total-pages') ?? 1);
-      let loadedAll = totalPages <= 1;
-      let loadingAll: Promise<void> | null = null;
-      let nextPageToLoad = 2;
+      const LOADING_TEXT = 'Načítám index článků…';
+      const DEBOUNCE_MS = 300;
+      let index: { s: string; t: string; d: string; k: string; b: string; p: string }[] | null = null;
+      let loadingIndex: Promise<typeof index> | null = null;
+      let debounceTimer = 0;
+      let debounceGen = 0;
 
       const cards = () => [...document.querySelectorAll('#articles-grid .card')];
 
-      const loadFullArchive = () => {
-        if (loadedAll) return Promise.resolve();
-        if (loadingAll) return loadingAll;
+      const norm = (s: string) =>
+        s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
+      const slugKarty = (card: Element) =>
+        card.getAttribute('data-slug')
+        ?? card.querySelector('a[href^="/clanky/"]')?.getAttribute('href')?.match(/\/clanky\/([^/]+)/)?.[1]
+        ?? '';
+
+      const kartaZIndexu = (it: { s: string; t: string; d: string; k: string; p: string }) => {
+        const article = document.createElement('article');
+        article.className = 'card';
+        article.setAttribute('data-category', it.k);
+        article.setAttribute('data-slug', it.s);
+        article.setAttribute('data-from-index', '');
+        const body = document.createElement('div');
+        body.className = 'card-body';
+        const nadpis = document.createElement('h2');
+        const odkaz = document.createElement('a');
+        odkaz.setAttribute('href', `/clanky/${it.s}/`);
+        odkaz.textContent = it.t;
+        nadpis.append(odkaz);
+        const perex = document.createElement('p');
+        perex.textContent = it.d;
+        const meta = document.createElement('div');
+        meta.className = 'card-meta';
+        const cas = document.createElement('time');
+        cas.setAttribute('datetime', it.p);
+        cas.textContent = it.p.split('-').reverse().join('. ');
+        meta.append(cas);
+        body.append(nadpis, perex, meta);
+        article.append(body);
+        return article;
+      };
+
+      const loadIndex = () => {
+        if (index) return Promise.resolve(index);
+        if (loadingIndex) return loadingIndex;
         grid?.setAttribute('aria-busy', 'true');
-        loading?.removeAttribute('hidden');
-        loadingAll = (async () => {
-          for (let pageNumber = nextPageToLoad; pageNumber <= totalPages; pageNumber++) {
-            const response = await fetch(`/clanky/strana/${pageNumber}/`);
-            if (!response.ok) throw new Error(`Archiv: strana ${pageNumber} se nenačetla.`);
-            const documentPage = new DOMParser().parseFromString(await response.text(), 'text/html');
-            documentPage.querySelectorAll('#articles-grid .card').forEach((card) => {
-              const kopie = document.importNode(card, true);
-              // Kolo 23: první karta každé strany nese eager + fetchpriority=high
-              // (LCP té strany). Přilepená pod ohyb na straně 1 LCP není.
-              kopie.querySelectorAll('img').forEach((img) => {
-                img.setAttribute('loading', 'lazy');
-                img.removeAttribute('fetchpriority');
-              });
-              grid?.append(kopie);
-            });
-            nextPageToLoad = pageNumber + 1;
-          }
-          loadedAll = true;
-        })().finally(() => {
+        if (loading) {
+          loading.textContent = LOADING_TEXT;
+          loading.removeAttribute('hidden');
+        }
+        loadingIndex = (async () => {
+          const response = await fetch('/search-index.json');
+          if (!response.ok) throw new Error('Archiv: search-index.json se nenačetl.');
+          index = await response.json();
+          return index;
+        })().catch((err) => {
+          loadingIndex = null;
+          throw err;
+        }).finally(() => {
           grid?.setAttribute('aria-busy', 'false');
           loading?.setAttribute('hidden', '');
         });
-        return loadingAll;
+        return loadingIndex;
       };
 
       const apply = async () => {
         const category = document.querySelector('.chip.active')?.getAttribute('data-cat') ?? '';
-        const query = (search?.value ?? '').trim().toLowerCase();
-        if (category || query) {
-          try {
-            await loadFullArchive();
-          } catch {
-            loadingAll = null;
-            if (loading) {
-              loading.textContent = 'Celý archiv se nepodařilo načíst. Zkus hledání znovu.';
-              loading.removeAttribute('hidden');
-            }
-            return;
-          }
+        const query = (search?.value ?? '').trim();
+        const nq = norm(query);
+        cards().forEach((card) => {
+          if (card.hasAttribute('data-from-index')) card.remove();
+        });
+        if (!category && !nq) {
+          cards().forEach((card) => card.toggleAttribute('hidden', false));
+          empty?.toggleAttribute('hidden', true);
+          pagination?.toggleAttribute('hidden', false);
+          history.replaceState(null, '', location.pathname);
+          return;
         }
 
+        try {
+          await loadIndex();
+        } catch {
+          if (loading) {
+            loading.textContent = 'Index článků se nepodařilo načíst. Zkus hledání znovu.';
+            loading.removeAttribute('hidden');
+          }
+          return;
+        }
+
+        const slugs = new Set(
+          (index ?? [])
+            .filter((it) => {
+              if (category && it.k !== category) return false;
+              if (!nq) return true;
+              return norm(`${it.t} ${it.d} ${it.k} ${it.b}`).includes(nq);
+            })
+            .map((it) => it.s),
+        );
+        const naStrane = new Set<string>();
         let shown = 0;
         cards().forEach((card) => {
-          const categoryMatches = !category || card.getAttribute('data-category') === category;
-          const queryMatches = !query || (card.textContent ?? '').toLowerCase().includes(query);
-          const show = categoryMatches && queryMatches;
+          const slug = slugKarty(card);
+          const show = slugs.has(slug);
           card.toggleAttribute('hidden', !show);
-          if (show) shown++;
+          if (show) {
+            shown++;
+            if (slug) naStrane.add(slug);
+          }
         });
+        for (const it of index ?? []) {
+          if (!slugs.has(it.s) || naStrane.has(it.s)) continue;
+          grid?.append(kartaZIndexu(it));
+          shown++;
+        }
         empty?.toggleAttribute('hidden', shown > 0);
-        pagination?.toggleAttribute('hidden', Boolean(category || query));
+        pagination?.toggleAttribute('hidden', true);
 
         const params = new URLSearchParams();
         if (category) params.set('kat', category);
@@ -221,10 +276,18 @@ const title = page === 1
       chips.forEach((chip) => {
         chip.addEventListener('click', () => {
           activate(chip);
+          debounceGen++;
+          if (debounceTimer) window.clearTimeout(debounceTimer);
           void apply();
         });
       });
-      search?.addEventListener('input', () => void apply());
+      search?.addEventListener('input', () => {
+        const gen = ++debounceGen;
+        if (debounceTimer) window.clearTimeout(debounceTimer);
+        debounceTimer = window.setTimeout(() => {
+          if (gen === debounceGen) void apply();
+        }, DEBOUNCE_MS);
+      });
 
       const params = new URLSearchParams(location.search);
       const initialCategory = params.get('kat');

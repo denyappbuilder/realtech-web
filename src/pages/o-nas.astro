@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import { zakladateleOrg } from '../lib/autori.js';
 const YT = 'https://www.youtube.com/@realtech-cz';
 
 /**
@@ -14,10 +15,7 @@ const YT = 'https://www.youtube.com/@realtech-cz';
 const pocetClanku = (await getCollection('clanky')).length;
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
 
-const zakladatele = [
-  { '@type': 'Person', name: 'Daniel Soukup', jobTitle: 'Autor a spoluzakladatel' },
-  { '@type': 'Person', name: 'Sam', jobTitle: 'Autor a spoluzakladatel' },
-];
+const zakladatele = zakladateleOrg();
 const orgId = `${Astro.site?.href}#org`;
 const onasUrl = new URL('/o-nas/', Astro.site).href;
 const orgLd = {
@@ -63,7 +61,7 @@ const breadcrumbLd = {
     <h1>Tech bez marketingových řečí.</h1>
     <p>
       REALTECH CZ je český YouTube kanál a web o technologiích a umělé inteligenci.
-      Děláme ho dva — <strong>Daniel a Sam</strong>. Točíme videa a píšeme analýzy o tom,
+      Děláme ho dva — <strong>Daniel (Deny) a Sam</strong>. Točíme videa a píšeme analýzy o tom,
       co se v techu skutečně děje: od AI přes drony a Starlink až po mobily.
     </p>
 
@@ -114,11 +112,14 @@ const breadcrumbLd = {
           <a href="https://app.realtvorba.cz/signup">Vyzkoušet RealTvorbu →</a>
         </p>
 
-        <h2>Kontakt</h2>
+        <h2 id="kontakt">Kontakt</h2>
         <p>
           Nejrychleji nás zastihneš v komentářích na YouTube — čteme je všechny.
-          Spolupráce a byznys: <a href="mailto:info@realtech.cz">info@realtech.cz</a>.
+          Spolupráce a byznys: <!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off-->.
         </p>
+        <noscript>
+          <p><!--email_off-->E-mail: info@realtech.cz<!--/email_off--></p>
+        </noscript>
 
         <div class="hero-actions">
           <a href={YT_SUB} class="btn-primary">Odebírat na YouTube</a>
@@ -129,7 +130,7 @@ const breadcrumbLd = {
       <aside class="about-aside">
         <p class="mono">Kdo točí</p>
         <ul class="about-aside-meta">
-          <li><strong>Daniel Soukup</strong> — autor a spoluzakladatel</li>
+          <li><strong>Daniel Soukup</strong> (Deny) — autor a spoluzakladatel</li>
           <li><strong>Sam</strong> — autor a spoluzakladatel</li>
         </ul>
         <p class="mono">Kam dál</p>
@@ -137,7 +138,7 @@ const breadcrumbLd = {
           <li><a href={YT}>YouTube kanál</a></li>
           <li><a href="/clanky/">Všechny články</a></li>
           <li><a href="https://app.realtvorba.cz/signup">RealTvorba</a></li>
-          <li><a href="mailto:info@realtech.cz">info@realtech.cz</a></li>
+          <li><!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off--></li>
         </ul>
         <p class="mono">Proč to děláme</p>
         <p class="about-aside-quote">

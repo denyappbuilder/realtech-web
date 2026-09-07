@@ -62,7 +62,7 @@ const lcpSrc = useYtThumb ? thumbUrl : localLcpSrc;
 const loading = (priority || eager) ? 'eager' : 'lazy';
 const fetchpriority = priority ? 'high' : undefined;
 ---
-<article class={cardClass} data-category={category}>
+<article class={cardClass} data-category={category} data-slug={article.id}>
   {/*
     Náhled karty nese titulek článku jako alt — stejné pravidlo jako hero
     článku (#310). Živě (2026-08-24) šly všechny karty na /clanky/ ven

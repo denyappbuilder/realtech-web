@@ -163,10 +163,10 @@ test('NewsArticle drží povinná pole, autory a vydavatele', async () => {
   assert.equal(jsonLd.inLanguage, 'cs');
   assert.equal(jsonLd.datePublished, '2025-04-05T00:00:00.000Z');
   assert.deepEqual(
-    jsonLd.author.map(({ '@type': typ, name, url }) => [typ, name, url]),
+    jsonLd.author.map(({ '@type': typ, name, alternateName, url }) => [typ, name, alternateName, url]),
     [
-      ['Person', 'Daniel Soukup', 'https://realtech.cz/o-nas/'],
-      ['Person', 'Sam', 'https://realtech.cz/o-nas/'],
+      ['Person', 'Daniel Soukup', 'Deny', 'https://realtech.cz/o-nas/'],
+      ['Person', 'Sam', undefined, 'https://realtech.cz/o-nas/'],
     ],
   );
   assert.deepEqual(jsonLd.publisher, {
