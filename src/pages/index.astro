@@ -30,6 +30,11 @@ const categories = [...new Set(all.map((c) => c.data.category))];
 
 const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
 const heroOverlay = hero ? textNaHeroObrazku(hero.data) : '';
+// Kolo 27: od 90 znaků dostane h1 menší desktopový stupeň (.h1-dlouhy v CSS).
+// 102znakový titulek měl živě 9–10 řádků při 3.1rem a cover plaval uprostřed
+// dvakrát vyššího sloupce. Práh: ~15 z 98 titulků, typicky dvouvěté.
+const HERO_DLOUHY_TITULEK = 90;
+const heroTitulekDlouhy = Boolean(hero && hero.data.title.length >= HERO_DLOUHY_TITULEK);
 
 const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
 // Lokální cover má přednost i u video článku — YouTube maxresdefault
@@ -162,12 +167,12 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
     <section class="hero">
       <div class="wrap">
         <div class="hero-grid">
-          <div>
+          <div class="hero-copy">
             <div class="lower-third">
               <span class="tag">{hero.data.category}</span>
               <time class="time" datetime={hero?.data.date.toISOString().slice(0, 10)}>{dateStr}</time>
             </div>
-            <h1><a href={`/clanky/${hero.id}/`}>{hero.data.title}</a></h1>
+            <h1 class:list={[{ 'h1-dlouhy': heroTitulekDlouhy }]}><a href={`/clanky/${hero.id}/`}>{hero.data.title}</a></h1>
             <p class="lead">{hero.data.description}</p>
             <div class="hero-actions">
               <a href={`/clanky/${hero.id}/`} class="btn-primary">Přečíst analýzu</a>

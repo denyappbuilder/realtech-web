@@ -261,6 +261,12 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 40px;
   align-items: center;
 }
+/* Kolo 27: minmax(0, 1fr) pustí stopu pod min-content, ale grid item má
+   min-width: auto = nejdelší slovo. Živě 7. 9. 2026 „automatizovaného“
+   (~530 px v Archivo 870/110 % při 3.1rem) přetekl 480px sloupec přes
+   mezeru až pod cover. Sloupec musí umět být užší než slovo a slovo se
+   musí umět zlomit (.hero h1 níž). */
+.hero-copy { min-width: 0; }
 .hero-rail { display: none; }
 @media (min-width: 901px) {
   .hero { padding: 36px 0 22px; }
@@ -339,8 +345,22 @@ a.tag:hover { background: var(--signal-fill-hover); }
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem; padding: 5px 12px; letter-spacing: 0.06em;
 }
+/* Kolo 27: Archivo 870/110 % je o 17,6 % širší než Arial Bold (šířka
+   titulků z úvodky v DOM při 100px a letter-spacing -0.025em: 1,1765;
+   Liberation Sans Bold = metriky Arial Bold). Než se woff2 stáhne
+   (font-display: swap), kreslil se titulek v Arialu o 1–2 řádky kratší a při
+   swapu odskočil perex, CTA i cover — živě 7. 9. 2026 CLS 0.037 na 1280px,
+   0.022 na 390px, jediný zdroj posunu na úvodce. size-adjust srovná šířku,
+   takže počet řádků sedí už před swapem. Jen pro hero h1: karty (750/105 %)
+   mají poměr 1,057 a společný fallback by je rozhodil na druhou stranu. */
+@font-face {
+  font-family: 'Archivo Hero Fallback';
+  src: local('Arial Bold'), local('Arial'), local('Roboto Bold'), local('Roboto'), local('Liberation Sans Bold');
+  font-weight: 100 1000;
+  size-adjust: 117.6%;
+}
 .hero h1 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif;
+  font-family: 'Archivo Variable', 'Archivo Hero Fallback', 'Archivo', sans-serif;
   font-weight: 870;
   font-stretch: 110%;
   font-size: clamp(2.1rem, 4.8vw, 3.1rem);
@@ -348,6 +368,23 @@ a.tag:hover { background: var(--signal-fill-hover); }
   letter-spacing: -0.025em;
   margin-bottom: 20px;
   text-wrap: balance;
+  /* Kolo 27: titulek nesmí nikdy přetéct pod cover. hyphens: auto (html
+     lang="cs") dělí dlouhá slova na slabice se spojovníkem; limit 10/4/4
+     nechá krátká slova na pokoji a nedělí „au-tomatizovaného“. Kde
+     dělení chybí (headless, starý engine), overflow-wrap zlomí slovo
+     natvrdo — ošklivé, ale viditelné. Balance Chrome nad 6 řádků vypíná,
+     tak zůstává jen wrap. */
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
+/* Kolo 27: titulky od 90 znaků (index.astro přidá .h1-dlouhy) — živě
+   7. 9. 2026 měl 102znakový titulek při 3.1rem 9 řádků na 1280px a 10 na
+   1024px; sloupec textu byl 2× vyšší než cover a ten plaval uprostřed.
+   Menší stupeň jen na desktopu (dva sloupce); pod 901px je titulek přes
+   celou šířku a mobilní 1.95rem stačí. Strop 2.5rem = zhruba h1 článku. */
+@media (min-width: 901px) {
+  .hero h1.h1-dlouhy { font-size: clamp(2rem, 3.6vw, 2.5rem); }
 }
 .hero h1 a {
   display: block;
@@ -860,7 +897,9 @@ footer.site ul a:hover { color: var(--ink); }
 @media (max-width: 900px) {
   /* Mobilní hero má vést k obsahu, ne spolknout skoro dvě obrazovky. */
   .hero { padding: 32px 0 40px; }
-  .hero-grid { grid-template-columns: 1fr; gap: 24px; }
+  /* Kolo 27: minmax(0, …) i tady — holé 1fr = minmax(auto, 1fr) a dlouhé
+     slovo titulku by na úzkém mobilu roztáhlo sloupec přes viewport. */
+  .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .lower-third { margin-bottom: 16px; }
   .hero h1 { margin-bottom: 16px; }
   .hero p.lead { margin-bottom: 22px; }
