@@ -37,7 +37,17 @@
         <svg class="search-esc-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6z"/></svg>
       </button>
     </div>
-    <div class="search-results" id="search-results" role="listbox" aria-label="Výsledky"></div>
+    {/*
+      Kolo 28: nápověda a „Nic nenalezeno“ stály UVNITŘ listboxu jako <p>
+      (axe aria-required-children, critical — listbox smí mít jen option)
+      a čtečka o nich nevěděla: stav se jen přepsal v DOM. Teď je to
+      sourozenec s role=status: nápověda a prázdný výsledek jsou vidět,
+      počet nalezených („3 výsledky“) se jen ohlásí (.sr-only). Listbox
+      s option se ukáže, až když je co vybírat — do té doby je hidden
+      (APG combobox: zavřený popup není v DOM vidět).
+    */}
+    <p class="search-hint" id="search-hint" role="status"></p>
+    <div class="search-results" id="search-results" role="listbox" aria-label="Výsledky" hidden></div>
     <div class="search-foot mono">
       <span><kbd>↑</kbd><kbd>↓</kbd> pohyb</span>
       <span><kbd>↵</kbd> otevřít</span>
@@ -50,7 +60,13 @@
   const overlay = document.getElementById('search-overlay');
   const input = document.getElementById('search-q') as HTMLInputElement | null;
   const results = document.getElementById('search-results');
+  const hint = document.getElementById('search-hint');
   let index: any[] | null = null;
+  // Kolo 28: jeden fetch indexu najednou (open() i první stisk klávesy ho
+  // chtějí zároveň) a flag, že poslední pokus selhal — ať render umí
+  // rozlišit „ještě se načítá“ od „nefunguje“.
+  let nacitaniIndexu: Promise<any[]> | null = null;
+  let indexSelhal = false;
   let active = 0;
   let returnFocus: HTMLElement | null = null;
 
@@ -72,12 +88,25 @@
 
   async function loadIndex() {
     if (index) return index;
-    try {
-      const res = await fetch('/search-index.json');
-      if (!res.ok) return [];
-      index = await res.json();
-      return index;
-    } catch { return []; }
+    if (nacitaniIndexu) return nacitaniIndexu;
+    nacitaniIndexu = (async () => {
+      try {
+        const res = await fetch('/search-index.json');
+        if (!res.ok) {
+          indexSelhal = true;
+          return [];
+        }
+        index = await res.json();
+        indexSelhal = false;
+        return index as any[];
+      } catch {
+        indexSelhal = true;
+        return [];
+      } finally {
+        nacitaniIndexu = null;
+      }
+    })();
+    return nacitaniIndexu;
   }
 
   // Input je combobox — když listbox ukazuje option, musí mít
@@ -89,16 +118,40 @@
     else input?.removeAttribute('aria-activedescendant');
   }
 
+  // Česká shoda: 1 výsledek, 2–4 výsledky, 5+ výsledků (výsledků je max 8).
+  function textPoctuVysledku(pocet: number) {
+    if (pocet === 1) return '1 výsledek';
+    if (pocet >= 2 && pocet <= 4) return `${pocet} výsledky`;
+    return `${pocet} výsledků`;
+  }
+
+  // Stavový řádek pod polem: viditelná nápověda / prázdný výsledek, nebo
+  // jen ohlášení počtu pro čtečku (jenProCtecky → .sr-only), když listbox
+  // ukazuje výsledky. role=status ohlásí každou změnu textu sám.
+  function nastavStav(html: string, jenProCtecky: boolean) {
+    if (!hint) return;
+    hint.innerHTML = html;
+    hint.classList.toggle('sr-only', jenProCtecky);
+  }
+
   function render(items: any[], q: string) {
     if (!results) return;
-    if (!q) {
-      results.innerHTML = `<p class="search-hint">Napiš, co hledáš — třeba <em>Astra</em>, <em>Anthropic</em> nebo <em>Starlink</em>.</p>`;
+    if (!q || !items.length) {
+      results.innerHTML = '';
+      results.hidden = true;
       syncCombobox(false);
-      return;
-    }
-    if (!items.length) {
-      results.innerHTML = `<p class="search-hint">Nic nenalezeno. Zkus jiné slovo.</p>`;
-      syncCombobox(false);
+      if (!q) {
+        nastavStav(`Napiš, co hledáš — třeba <em>Astra</em>, <em>Anthropic</em> nebo <em>Starlink</em>.`, false);
+      } else if (index) {
+        nastavStav('Nic nenalezeno. Zkus jiné slovo.', false);
+      } else if (indexSelhal) {
+        nastavStav('Index článků se nepodařilo načíst. Zkus hledání znovu.', false);
+      } else {
+        // Kolo 28: kdo začal psát dřív, než dorazil index, viděl
+        // „Nic nenalezeno“ — a to až do dalšího stisku klávesy, protože
+        // po načtení indexu nikdo výsledky nepřekreslil (viz obnovVysledky).
+        nastavStav('Načítám články…', false);
+      }
       return;
     }
     results.innerHTML = items
@@ -109,6 +162,8 @@
           <span class="si-date mono">${it.p.split('-').reverse().join('. ')}</span>
         </a>`)
       .join('');
+    results.hidden = false;
+    nastavStav(textPoctuVysledku(items.length), true);
     syncCombobox(true);
   }
 
@@ -145,6 +200,15 @@
 
   let current: any[] = [];
 
+  // Přehledá, co je právě v poli, a překreslí — po doručení indexu.
+  // Zavřený modal nechává být (index dorazil až po Escape).
+  function obnovVysledky() {
+    if (!overlay || overlay.hidden || !input) return;
+    active = 0;
+    current = search(input.value);
+    render(current, input.value);
+  }
+
   async function open(invoker?: HTMLElement | null) {
     if (!overlay || !input) return;
     const focused = invoker ?? document.activeElement;
@@ -158,6 +222,7 @@
     render([], '');
     input.focus();
     await loadIndex();
+    obnovVysledky();
   }
 
   function close() {
@@ -214,6 +279,10 @@
     active = 0;
     current = search(input.value);
     render(current, input.value);
+    // Index ještě není (pomalá síť, nebo minule selhal): stáhnout a po
+    // doručení dotaz zopakovat — druhý pokus po chybě je tady, ne až po
+    // zavření a otevření modalu.
+    if (!index) void loadIndex().then(obnovVysledky);
   });
 
   overlay?.addEventListener('click', (e) => {

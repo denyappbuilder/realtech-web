@@ -73,13 +73,30 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
     contains: (el) => prvkyModalu.includes(el),
     querySelectorAll: () => prvkyModalu,
   });
-  const results = prvek({ innerHTML: '', querySelector: () => null });
+  const results = prvek({ innerHTML: '', hidden: true, querySelector: () => null });
+  // Kolo 28: stavový řádek (nápověda / „Nic nenalezeno“ / počet pro čtečku)
+  // stojí mimo listbox; skript na něm přepíná jen třídu .sr-only.
+  const hint = prvek({
+    innerHTML: '',
+    classList: {
+      tridy: new Set(),
+      toggle(trida, force) {
+        const zapnout = force === undefined ? !this.tridy.has(trida) : Boolean(force);
+        if (zapnout) this.tridy.add(trida);
+        else this.tridy.delete(trida);
+        return zapnout;
+      },
+      contains(trida) {
+        return this.tridy.has(trida);
+      },
+    },
+  });
   const spoustec = prvek({ fokusovan: 0, focus });
   dokument = prvek({
     body: { style: {} },
     activeElement: spoustec,
     getElementById: (id) =>
-      ({ 'search-overlay': overlay, 'search-q': input, 'search-results': results })[id] ?? null,
+      ({ 'search-overlay': overlay, 'search-q': input, 'search-results': results, 'search-hint': hint })[id] ?? null,
     querySelectorAll: (selector) => selector === '[data-search-open]' ? [spoustec] : [],
   });
 
@@ -102,9 +119,10 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
   // uzavřené a nešly by z testu ani zavolat, ani nastavit.
   const most = `
     globalThis.__modal = {
-      norm, search, render, loadIndex, open, close,
+      norm, search, render, loadIndex, open, close, textPoctuVysledku, obnovVysledky,
       nastavIndex: (v) => { index = v; },
       dejIndex: () => index,
+      dejIndexSelhal: () => indexSelhal,
       nastavActive: (v) => { active = v; },
       dejActive: () => active,
       nastavCurrent: (v) => { current = v; },
@@ -116,5 +134,5 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
 
   const modal = sandbox.__modal;
   if (hledatelne !== null) modal.nastavIndex(hledatelne);
-  return { ...modal, overlay, input, odkaz, results, spoustec, dokument, sandbox };
+  return { ...modal, overlay, input, odkaz, results, hint, spoustec, dokument, sandbox };
 }
