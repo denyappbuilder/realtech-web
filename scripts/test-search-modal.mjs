@@ -247,14 +247,19 @@ test('výsledků se vypisuje nejvýš 8, i když vyhoví víc článků', () => 
   assert.equal(modal.search('test').length, 8);
 });
 
+// Kolo 28: nápověda i „Nic nenalezeno“ žijí v #search-hint (role=status)
+// vedle listboxu, ne v něm — listbox je bez option prázdný a skrytý.
 test('bez dotazu se vypíše nápověda, ne prázdný seznam', () => {
   const modal = nactiModal({ hledatelne: [] });
 
   modal.render([], '');
 
-  assert.match(modal.results.innerHTML, /Napiš, co hledáš/);
-  assert.match(modal.results.innerHTML, /<em>Astra<\/em>, <em>Anthropic<\/em> nebo <em>Starlink<\/em>/);
-  assert.doesNotMatch(modal.results.innerHTML, /<em>DJI<\/em>|<em>Claude<\/em>/);
+  assert.match(modal.hint.innerHTML, /Napiš, co hledáš/);
+  assert.match(modal.hint.innerHTML, /<em>Astra<\/em>, <em>Anthropic<\/em> nebo <em>Starlink<\/em>/);
+  assert.doesNotMatch(modal.hint.innerHTML, /<em>DJI<\/em>|<em>Claude<\/em>/);
+  assert.equal(modal.hint.classList.contains('sr-only'), false, 'nápověda je viditelná');
+  assert.equal(modal.results.innerHTML, '');
+  assert.equal(modal.results.hidden, true);
 });
 
 test('dotaz bez výsledku vypíše hlášku, ne nápovědu', () => {
@@ -262,8 +267,11 @@ test('dotaz bez výsledku vypíše hlášku, ne nápovědu', () => {
 
   modal.render([], 'nesmysl');
 
-  assert.match(modal.results.innerHTML, /Nic nenalezeno/);
-  assert.doesNotMatch(modal.results.innerHTML, /Napiš, co hledáš/);
+  assert.match(modal.hint.innerHTML, /Nic nenalezeno/);
+  assert.doesNotMatch(modal.hint.innerHTML, /Napiš, co hledáš/);
+  assert.equal(modal.hint.classList.contains('sr-only'), false);
+  assert.equal(modal.results.innerHTML, '');
+  assert.equal(modal.results.hidden, true);
 });
 
 test('vykreslený výsledek odkazuje na /clanky/<slug>/ a značí aktivní položku', () => {

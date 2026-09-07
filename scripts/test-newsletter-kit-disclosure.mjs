@@ -9,8 +9,9 @@ const base = readFileSync(join(koren, "src/layouts/Base.astro"), "utf8");
 const KIT_ACTION = "https://app.kit.com/forms/9640609/subscriptions";
 
 function newsletter() {
+  // Kolo 28 přidal aria-labelledby — sekce smí mít další atributy.
   const shoda = base.match(
-    /<section\s+class="newsletter"\s+id="newsletter">[\s\S]*?<\/section>/,
+    /<section\s+class="newsletter"\s+id="newsletter"[^>]*>[\s\S]*?<\/section>/,
   );
   assert.ok(shoda, "Base.astro nemá očekávanou newsletter sekci");
   return shoda[0];

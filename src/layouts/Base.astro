@@ -224,11 +224,17 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <slot />
 </main>
 
-<section class="newsletter" id="newsletter">
+{/*
+  Kolo 28: <section> bez jména není landmark — newsletter (nadpis, pole,
+  tlačítko, poznámka) stál na každé stránce mimo landmarky (axe region,
+  3 uzly) a čtečka ho při skoku po oblastech přeskočila. aria-labelledby
+  na h2 z něj dělá region „Tech bez marketingových řečí. Přímo do mailu.“
+*/}
+<section class="newsletter" id="newsletter" aria-labelledby="newsletter-nadpis">
   <div class="wrap">
     <div>
       <span class="mono">// Newsletter</span>
-      <h2>Tech bez marketingových řečí.<br />Přímo do mailu.</h2>
+      <h2 id="newsletter-nadpis">Tech bez marketingových řečí.<br />Přímo do mailu.</h2>
       <p>Nejdůležitější novinky a analýzy z AI a techu — česky, stručně a jen když je co říct. Žádný spam.</p>
     </div>
     <div>
