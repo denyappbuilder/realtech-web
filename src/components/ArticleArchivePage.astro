@@ -122,6 +122,10 @@ const vypisOg = ogObrazekClanku(articles[0]);
           filtru bez shody slyšela jen mizející karty, ne „Nic nenalezeno“. */}
       <p class="filter-empty" role="status" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
       <p class="filter-loading" role="status" hidden>Načítám index článků…</p>
+      {/* Kolo 29: se shodou čtečka slyšela jen ticho — hlásilo se jen
+          „Nic nenalezeno“ a načítání. Počet nalezených jde jen pro čtečku
+          (.sr-only), stejně jako „3 výsledky“ v ⌘K hledání (kolo 28). */}
+      <p class="filter-count sr-only" role="status" data-filter-count></p>
       <nav class="archive-pagination" aria-label="Stránkování článků">
         {page > 1 && <a class="btn-ghost" href={pagePath(page - 1)} rel="prev">← Novější</a>}
         <span>Strana {page} z {totalPages}</span>
@@ -136,6 +140,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const grid = document.getElementById('articles-grid');
       const empty = document.querySelector('.filter-empty');
       const loading = document.querySelector('.filter-loading');
+      const count = document.querySelector('[data-filter-count]');
       const pagination = document.querySelector('.archive-pagination');
       const search = document.getElementById('art-search') as HTMLInputElement | null;
       const LOADING_TEXT = 'Načítám index článků…';
@@ -149,6 +154,21 @@ const vypisOg = ogObrazekClanku(articles[0]);
 
       const norm = (s: string) =>
         s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+      // Česká shoda: 1 článek, 2–4 články, 5+ článků.
+      const textPoctuClanku = (pocet: number) => {
+        if (pocet === 1) return '1 článek';
+        if (pocet >= 2 && pocet <= 4) return `${pocet} články`;
+        return `${pocet} článků`;
+      };
+
+      // Stejný text musí přijít až po vymazání — jinak čtečka opakovaný
+      // „12 článků“ (jiná kategorie, stejný počet) nepřečte (žádná změna DOM).
+      const ohlasPocet = (pocet: number) => {
+        if (!count) return;
+        count.textContent = '';
+        if (pocet > 0) window.setTimeout(() => { count.textContent = textPoctuClanku(pocet); }, 50);
+      };
 
       const slugKarty = (card: Element) =>
         card.getAttribute('data-slug')
@@ -215,6 +235,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
           cards().forEach((card) => card.toggleAttribute('hidden', false));
           empty?.toggleAttribute('hidden', true);
           pagination?.toggleAttribute('hidden', false);
+          ohlasPocet(0);
           history.replaceState(null, '', location.pathname);
           return;
         }
@@ -256,6 +277,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
         }
         empty?.toggleAttribute('hidden', shown > 0);
         pagination?.toggleAttribute('hidden', true);
+        ohlasPocet(shown);
 
         const params = new URLSearchParams();
         if (category) params.set('kat', category);
