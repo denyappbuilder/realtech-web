@@ -1672,17 +1672,32 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   .search-foot span:not(:last-child) { display: none; }
 }
 
-/* ── Kotvy u nadpisů v článku ────────── */
-.article-body h2, .article-body h3 { scroll-margin-top: 90px; position: relative; }
+/* ── Cíle kotev pod sticky hlavičkou ─── */
 /* Kolo 16: sticky header má na desktopu 65px, ale na 581–900px 117px a pod
    580px 93px — po kliku na „#" nebo příchodu z odkazu s #fragmentem zůstal
-   nadpis zčásti schovaný pod hlavičkou (na tabletu o 27px). */
+   nadpis zčásti schovaný pod hlavičkou (na tabletu o 27px).
+   Kolo 31: odstup měly jen nadpisy v těle článku. Každý JINÝ cíl fragmentu
+   skončil pod hlavičkou: skip link „Přeskočit na obsah“ (#obsah) posunul
+   <main> na horní okraj okna — živě 8. 9. 2026 na 390px zmizel štítek
+   tématu, datum i horní řádek h1 článku, tedy přesně to, kam čtenář
+   skákal. „Kontakt“ z patičky (/o-nas/#kontakt, na každé stránce) ukázal
+   na 1280px jen tlačítka pod nadpisem: h2 i odstavec s e-mailem seděly
+   pod hlavičkou; na 390px h2 na y=36 pod 93px hlavičkou. Jedna proměnná
+   se třemi prahy, aby další cíl nešel zase bez odstupu. U #obsah je
+   výsledek scroll 0 (main začíná hned pod hlavičkou) — přesně to, co má
+   skip link udělat: přesunout fokus, ne schovat začátek obsahu. */
+:root { --kotva-odstup: 90px; }
 @media (max-width: 900px) {
-  .article-body h2, .article-body h3 { scroll-margin-top: 130px; }
+  :root { --kotva-odstup: 130px; }
 }
 @media (max-width: 580px) {
-  .article-body h2, .article-body h3 { scroll-margin-top: 106px; }
+  :root { --kotva-odstup: 106px; }
 }
+#obsah,
+.about h2,
+.article-body h2,
+.article-body h3 { scroll-margin-top: var(--kotva-odstup); }
+.article-body h2, .article-body h3 { position: relative; }
 .heading-anchor {
   opacity: 0; margin-left: 8px; color: var(--ink-faint);
   font-size: 0.7em; text-decoration: none; transition: opacity 0.15s, color 0.15s;
