@@ -1,6 +1,6 @@
 ---
-title: "Starship Flight 14 míří na první orbitu. NET 15. září u FCC, chytání lodi až za měsíce"
-description: "Žádosti SpaceX u FCC pro čtrnáctý let Starship počítají s orbitálním druhým stupněm a s oknem od 15. září 2026. Je to povolení pro vysílačky, ne pro start. Licenci k letu drží FAA a ta ji zatím nezveřejnila."
+title: "Starship Flight 14 míří na první oběžnou dráhu. Okno od 15. září, chytání lodi až za měsíce"
+description: "Žádosti SpaceX u americké FCC pro čtrnáctý let Starship počítají s druhým stupněm na oběžné dráze a s oknem od 15. září 2026. Je to povolení pro vysílačky, ne pro start. Licenci k letu drží FAA a ta ji zatím nezveřejnila."
 category: "Vesmír"
 date: "2026-09-06T10:40:00+02:00"
 zprava: true

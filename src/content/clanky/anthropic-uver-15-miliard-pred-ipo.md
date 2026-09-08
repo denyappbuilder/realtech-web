@@ -1,6 +1,6 @@
 ---
-title: "Anthropic si před IPO chystá úvěrovou linku za 15 miliard dolarů"
-description: "Bloomberg: úvěrová linka z 2,5 na 15 miliard dolarů. Lead Morgan Stanley, s GS, JPM a Citi. Firma i banky odmítly komentovat. Důvěrný S-1 od června."
+title: "Anthropic si před vstupem na burzu chystá úvěr až za 15 miliard dolarů"
+description: "Bloomberg: úvěrová linka z 2,5 na 15 miliard dolarů. Lead Morgan Stanley, s GS, JPM a Citi. Firma i banky odmítly komentovat. Důvěrný prospekt (S-1) od června."
 category: "AI Report"
 date: "2026-09-05T14:00:00+02:00"
 image: "/images/clanky/anthropic-uver-15-miliard-pred-ipo.jpg"
