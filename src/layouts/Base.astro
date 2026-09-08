@@ -125,13 +125,29 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
 <html lang="cs">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {/*
+    Kolo 32: theme-color stojí PŘED inline skriptem, aby ho mohl při
+    uloženém tématu přepsat ještě před prvním nátěrem. Do té doby ho měnil
+    jen deferred modul na konci <body> (nastavThemeColor, kolo 18) — kdo má
+    OS světlý a web přepnutý na tmavý, viděl na Androidu/iOS rám prohlížeče
+    při KAŽDÉM načtení světlý a až po doběhnutí modulu tmavý (a naopak).
+    Barvy = --bg z global.css (light #F6F7F9 / dark #0F1216); modul pak
+    hodnotu z CSS jen potvrdí.
+  */}
+  <meta name="theme-color" content="#F6F7F9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)" />
   <script is:inline>
     try {
       var t = localStorage.getItem('theme');
-      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.dataset.theme = t;
+        var barva = t === 'dark' ? '#0F1216' : '#F6F7F9';
+        var mety = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < mety.length; i++) mety[i].setAttribute('content', barva);
+      }
     } catch (e) {}
   </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {/*
     Preconnect jen na originy, které tahle stránka opravdu použije.
     ytimg / audio / giscus jsou flagy z volající stránky — globálně by
@@ -163,8 +179,6 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <meta name="twitter:description" content={popisSeo} />
   <meta name="twitter:image" content={ogImage} />
   <meta name="twitter:image:alt" content={altNahledu} />
-  <meta name="theme-color" content="#F6F7F9" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#0F1216" media="(prefers-color-scheme: dark)" />
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -331,6 +345,8 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   // <meta theme-color> zůstaly na media query = barva OS. Kdo má OS světlý
   // a web přepnutý na tmavý, měl světlý rám prohlížeče nad tmavou stránkou
   // (a naopak) při každém načtení, ne jen do prvního kliknutí na toggle.
+  // Kolo 32: první nátěr už řeší inline skript v <head> (natvrdo --bg obou
+  // témat); tady se hodnota jen srovná s tím, co CSS opravdu vykreslilo.
   if (document.documentElement.dataset.theme) nastavThemeColor();
   const aktualniTema = () =>
     document.documentElement.dataset.theme
