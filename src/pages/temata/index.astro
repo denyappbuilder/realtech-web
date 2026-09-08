@@ -9,6 +9,7 @@ import Base from '../../layouts/Base.astro';
 import { slugify } from '../../lib/slugify.js';
 import { popisTematu } from '../../lib/tema-popis.js';
 import { ogObrazekClanku } from '../../lib/og-vypis.js';
+import { textPoctuClanku } from '../../lib/pocet-clanku.js';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort(compareArticlesByDateDescThenId);
@@ -25,8 +26,6 @@ const temata = [...new Set(all.map((c) => c.data.category))].map((category) => {
     nahled: nahledKarty(nejnovejsi.data.image),
   };
 });
-
-const pocetClankuText = (n) => (n === 1 ? '1 článek' : n < 5 ? `${n} články` : `${n} článků`);
 
 // LCP na /temata/ je náhled první karty (eager + fetchpriority=high jen
 // i===0), ostatní lazy — stejné pravidlo jako archiv a téma (kolo 22:
@@ -117,7 +116,7 @@ const collectionLd = {
               <p>{popisTematu(t.category)}</p>
               <div class="card-meta">
                 <time datetime={t.nejnovejsi.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(t.nejnovejsi.data.date)}</time>
-                <span>{pocetClankuText(t.pocet).toUpperCase()}</span>
+                <span>{textPoctuClanku(t.pocet).toUpperCase()}</span>
               </div>
             </div>
           </article>
