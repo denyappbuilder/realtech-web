@@ -7,6 +7,9 @@ zprava: true
 image: "/images/clanky/aa-index-v43-astra-fable.jpg"
 xPosts:
   - "https://x.com/ArtificialAnlys/status/2097025638695940590"
+audio:
+  url: "https://audio.realtech.cz/aa-index-v43-astra-fable-nlm.mp3?v=0a1c1c21d9ec"
+  duration: 1430
 ---
 
 Artificial Analysis vydal 7. září verzi 4.3 svého Intelligence Indexu. Na špici je remíza: **Claude Fable 5.1** (max, s fallbackem) i **GPT-6 Astra** (max) mají shodně **53 bodů**. Rozdíl je v účtu. Průměrná úloha indexu stojí u Astry asi **3,26 dolaru**, u Fable 5.1 **7,63 dolaru**. Za stejné skóre vyjde Astra o 57 % levněji.
