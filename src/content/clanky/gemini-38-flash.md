@@ -1,6 +1,6 @@
 ---
 title: "Gemini 3.8 Flash má pracovat víc. Cyber zůstává jen pro důvěryhodné obránce"
-description: "Google vypustil Gemini 3.8 Flash a specializovanou variantu Cyber. Flash má podle Googlu dohnat dražší frontier modely za intro cenu 3.7, Cyber zůstává jen pro důvěryhodné obránce v programu Fairwind."
+description: "Google vypustil Gemini 3.8 Flash a specializovanou variantu Cyber. Flash má podle Googlu dohnat dražší špičkové modely za úvodní cenu 3.7, Cyber zůstává jen pro důvěryhodné obránce v programu Fairwind."
 category: "AI Report"
 date: "2026-09-02T18:15:00+02:00"
 zprava: true
@@ -16,73 +16,73 @@ Google 2. září vypustil další Flash — a je to třetí za zhruba šest tý
 
 Navazuje to na 3.7 Flash zhruba tři týdny zpátky a na dřívější vlnu [3.6 Flash a 3.5 Flash Cyber](/clanky/gemini-36-flash-gemini-4/). Tempo je rychlé. Otázka je, jestli se za ním schovává reálný posun, nebo jen další číslo v názvu.
 
-## Stejná intro cena jako u 3.7
+## Stejná úvodní cena
 
-Google uvádí, že 3.8 Flash startuje za stejnou úvodní cenu jako 3.7 Flash: **0,75 dolaru za milion vstupních tokenů a 3,75 dolaru za milion výstupních**. Intro má vypršet 31. prosince 2026. Od 1. ledna 2027 má platit 1,50 / 7,50 dolaru za milion tokenů.
+Google uvádí, že 3.8 Flash startuje za stejnou úvodní cenu jako 3.7 Flash: **0,75 dolaru za milion vstupních tokenů a 3,75 dolaru za milion výstupních**. Úvodní cena má vypršet 31. prosince 2026. Od 1. ledna 2027 má platit 1,50 / 7,50 dolaru za milion tokenů.
 
 To je důležité číst jako firemní ceník, ne jako slib, že model bude navždy levný. Do konce roku Google drží 3.8 na úrovni 3.7. Pak se cena zdvojnásobí. Kdo staví agenty přes API, má čtyři měsíce na to, aby si spočítal, jestli mu ten posun stojí za pozdější zdražení.
 
 ## Flash jako tahoun, ne jako sprinter
 
-Google 3.8 Flash popisuje jako workhorse: kódování, agentní úlohy a vícestupňové uvažování ve specializovaných oborech. Tvrdí **substantial gains** oproti 3.7 Flash a že se model často blíží výkonem dražším frontier modelům — jen za Flash cenu.
+Google 3.8 Flash popisuje jako tahouna: kódování, agentní úlohy a vícestupňové uvažování ve specializovaných oborech. Tvrdí **výrazné zisky** oproti 3.7 Flash a že se model často blíží výkonem dražším špičkovým modelům — jen za Flash cenu.
 
-Čísla, která Google v blogu cituje, bereme jako jejich claim, ne jako naše měření.
+Čísla, která Google v blogu cituje, bereme jako jejich tvrzení, ne jako naše měření.
 
-Na **DeepSWE v1.1** (long-horizon software engineering) má 3.8 Flash podle Googlu autonomně dořešit složité inženýrské problémy od začátku do konce a přitom překonat většinu větších frontier modelů — za zlomek ceny. V kvantitativních a profesních úlohách Google jmenuje **Vals Finance Agent V2** a **Harvey Legal Agent**: 3.8 Flash tam prý předčí 3.7 Flash i jiné frontier modely. Na **HLE-Verified** Google uvádí **54,9 %** — vícestupňové uvažování napříč STEM, humanitními a profesními obory.
+Na **DeepSWE v1.1** (dlouhodobé softwarové inženýrství) má 3.8 Flash podle Googlu autonomně dořešit složité inženýrské problémy od začátku do konce a přitom překonat většinu větších špičkových modelů — za zlomek ceny. V kvantitativních a profesních úlohách Google jmenuje **Vals Finance Agent V2** a **Harvey Legal Agent**: 3.8 Flash tam prý předčí 3.7 Flash i jiné špičkové modely. Na **HLE-Verified** Google uvádí **54,9 %** — vícestupňové uvažování napříč STEM, humanitními a profesními obory.
 
-To jsou jejich benchy a jejich slova. Jestli to drží na vašem kódu, uvidíte až na vlastních datech.
+To jsou jejich srovnávací testy a jejich slova. Jestli to drží na vašem kódu, uvidíte až na vlastních datech.
 
-## „Works harder“ — a proto i žere víc
+## „Pracuje víc“ — a proto i žere víc
 
-Google ten posun vysvětluje jednou větou: **3.8 Flash works harder**. U složitých úloh má dělat víc reasoning kroků a volat nástroje opakovaně. Občas prý spotřebuje víc tokenů, hlavně při vyšším úsilí, aby vytáhl výkon.
+Google ten posun vysvětluje jednou větou: **3.8 Flash pracuje víc**. U složitých úloh má dělat víc kroků uvažování a volat nástroje opakovaně. Občas prý spotřebuje víc tokenů, hlavně při vyšším úsilí, aby vytáhl výkon.
 
-To je poctivé přiznání, i když je schované v marketingovém blogu. Levnější model, který „pracuje víc“, může ve výsledku stát stejně nebo víc než ten, který se méně motá. Google proto říká rovnou: když je hlavní omezení výpočet, sáhněte po **nižším effort** nebo zůstaňte u **3.7 Flash**, který prý dál zůstává plně podporovaný pro úlohy, kde jde hlavně o efektivitu.
+To je poctivé přiznání, i když je schované v marketingovém blogu. Levnější model, který „pracuje víc“, může ve výsledku stát stejně nebo víc než ten, který se méně motá. Google proto říká rovnou: když je hlavní omezení výpočet, sáhněte po **nižším úsilí** nebo zůstaňte u **3.7 Flash**, který prý dál zůstává plně podporovaný pro úlohy, kde jde hlavně o efektivitu.
 
-V [Google Antigravity](https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/) a AI Studiu Google ukazuje dema — 3D hru, DOS verzi Map i interaktivní rozklad hardwaru. Jsou to ukázky z launch blogu, ne katalog toho, co model umí u vás.
+V [Google Antigravity](https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/) a AI Studiu Google ukazuje ukázky — 3D hru, DOS verzi Map i interaktivní rozklad hardwaru. Jsou to ukázky z blogu k uvedení, ne katalog toho, co model umí u vás.
 
-## Cyber: frontier claim, ale jen pro Fairwind
+## Cyber: špičkové tvrzení, ale jen pro Fairwind
 
-Gemini 3.8 Flash Cyber je podle Googlu jejich zatím nejschopnější kybernetický model. Má jet Flash rychlostí a cenou, aby se dalo rychle iterovat. Dostupný je ale jen **důvěryhodným obráncům** přes nový **Fairwind Program** — vlády, provozovatelé kritické infrastruktury a správci softwaru. Žádost jde přes apply formulář Googlu.
+Gemini 3.8 Flash Cyber je podle Googlu jejich zatím nejschopnější kybernetický model. Má jet Flash rychlostí a cenou, aby se dalo rychle iterovat. Dostupný je ale jen **důvěryhodným obráncům** přes nový **program Fairwind** — vlády, provozovatelé kritické infrastruktury a správci softwaru. Žádost jde přes formulář Googlu.
 
 Obě varianty mají podle Googlu stejný základ. Část zisků v kódování a uvažování prý přišla právě z tvrdého tréninku v kybernetice. Cyber je ta ostřejší větev: víc schopností na hledání děr a záplatování, míň zábran, proto i přísnější brána.
 
 ### Hledání děr
 
-Na **CyberGym**, standardním průmyslovém benchi na hledání zranitelností, má 3.8 Flash Cyber podle Googlu **frontier-level** výkon v autonomním discovery. Má překonat [3.5 Flash Cyber](/clanky/gemini-36-flash-gemini-4/) i výrazně větší frontier modely.
+Na **CyberGym**, standardním průmyslovém srovnávacím testu na hledání zranitelností, má 3.8 Flash Cyber podle Googlu **špičkový** výkon v autonomním objevování. Má překonat [3.5 Flash Cyber](/clanky/gemini-36-flash-gemini-4/) i výrazně větší špičkové modely.
 
-CyberGym je ale hlavně C/C++. Google proto zmiňuje i **interní bench napříč 20 jazyky**, kde má model hledat široké spektrum děr ve složitých codebases. Tam Google uvádí **success rate přes 70 %**. Interní bench, jejich číslo.
+CyberGym je ale hlavně C/C++. Google proto zmiňuje i **interní srovnávací test napříč 20 jazyky**, kde má model hledat široké spektrum děr ve složitých projektech. Tam Google uvádí **úspěšnost přes 70 %**. Interní srovnávací test, jejich číslo.
 
 ### Záplatování
 
-U patchování Google říká, že od začátku investoval do oprav, ne do exploitu. Na **CWE-Bench** (Collinear) má 3.8 Flash Cyber podle Googlu **pass@1 47,2 %** proti **47,8 %** u leading frontier modelu — skoro stejné číslo, prý za výrazně nižší cenu. Google to popisuje jako Pareto frontier.
+U záplatování Google říká, že od začátku investoval do oprav, ne do kódu k jejich zneužití. Na **CWE-Bench** (Collinear) má 3.8 Flash Cyber podle Googlu **pass@1 47,2 %** proti **47,8 %** u předního špičkového modelu — skoro stejné číslo, prý za výrazně nižší cenu. Google to popisuje jako Pareto hranici.
 
 ### Co s tím prý Google už dělá
 
-Tady Google přikládá tři příklady z praxe. Zase jejich claimy.
+Tady Google přikládá tři příklady z praxe. Zase jejich tvrzení.
 
-Tým **Chrome Security** prý s 3.8 Flash Cyber vyrobil **2,6× víc správných záplat** proti nejlepším komerčním větším modelům. **Wiz** v blogu Googlu uvádí **o 7,5–9,7 % vyšší recall** na interním pentest benchi při **2,3–5,2× nižší ceně** než u jiných leading frontier modelů. A Cloud Vulnerability Research tým Googlu prý s modelem našel **kritickou foundational zranitelnost za méně než dvě hodiny** — u věci, jejíž výzkum a discovery prý obvykle trvá měsíce.
+Tým **Chrome Security** prý s 3.8 Flash Cyber vyrobil **2,6× víc správných záplat** proti nejlepším komerčním větším modelům. **Wiz** v blogu Googlu uvádí **o 7,5–9,7 % vyšší úplnost** na interním pentestovém srovnávacím testu při **2,3–5,2× nižší ceně** než u jiných předních špičkových modelů. A Cloud Vulnerability Research tým Googlu prý s modelem našel **kritickou základní zranitelnost za méně než dvě hodiny** — u věci, jejíž výzkum a objevování prý obvykle trvá měsíce.
 
-To zní silně. Je to ale firemní blog s firemními čísly a jedním partnerským claimem (Wiz), ne nezávislý audit.
+To zní silně. Je to ale firemní blog s firemními čísly a jedním partnerským tvrzením (Wiz), ne nezávislý audit.
 
-## Safety: Flash brzdí, Cyber pouští dál
+## Pojistky: Flash brzdí, Cyber pouští dál
 
-Google říká, že 3.8 Flash jde ven se **safeguards proti zneužití v CBRN a kybernetickém útoku**, podle Frontier Safety Framework. Cyber má **permissive mitigations** — proto jen Fairwind, ne veřejné API.
+Google říká, že 3.8 Flash jde ven se **pojistkami proti zneužití v CBRN a kybernetickém útoku**, podle Frontier Safety Framework. Cyber má **volnější zmírnění** — proto jen Fairwind, ne veřejné API.
 
-U prompt injection Google tvrdí **significant leap** v robustnosti podle **Gray Swan**. Zase jejich měření, jejich slova.
+U podstrčení pokynu Google tvrdí **výrazný skok** v robustnosti podle **Gray Swan**. Zase jejich měření, jejich slova.
 
 Přeloženo: běžný Flash má zůstat univerzální tahoun s brzdou. Cyber má mít víc zubů, proto ho Google nepustí ven bez žádosti a bez důvěryhodného profilu.
 
 ## Kde to dnes zapnete
 
-**Vývojáři** mají 3.8 Flash v Antigravity, Gemini API / AI Studiu, Android Studiu, Stitchi a Gemini Enterprise. **Spotřebitelé** s Pro nebo Ultra předplatným ho potkají v aplikaci Gemini, v AI Mode ve Vyhledávání a v Gemini v Google Sheets. **Cyber** jen přes Fairwind apply.
+**Vývojáři** mají 3.8 Flash v Antigravity, Gemini API / AI Studiu, Android Studiu, Stitchi a Gemini Enterprise. **Spotřebitelé** s Pro nebo Ultra předplatným ho potkají v aplikaci Gemini, v AI Mode ve Vyhledávání a v Gemini v Google Sheets. **Cyber** jen přes žádost do Fairwind.
 
-To je dnešní mapa z blogu, ne slib, že model už teď sedí v každé Gemini záložce. Kdo nemá Pro/Ultra a nestaví přes API, tenhle launch zatím potká jen jako zprávu.
+To je dnešní mapa z blogu, ne slib, že model už teď sedí v každé Gemini záložce. Kdo nemá Pro/Ultra a nestaví přes API, tohle uvedení zatím potká jen jako zprávu.
 
 ## Co si z toho odnést
 
-Google znovu zrychlil tempo Flash řady. 3.8 má být chytřejší tahoun za intro cenu 3.7, který podle Googlu často sahá po výkonu dražších modelů — za cenu toho, že „pracuje víc“ a občas spálí víc tokenů. Cyber má být ostřejší nástroj na díry a záplaty, ale zůstává za branou Fairwind.
+Google znovu zrychlil tempo Flash řady. 3.8 má být chytřejší tahoun za úvodní cenu 3.7, který podle Googlu často sahá po výkonu dražších modelů — za cenu toho, že „pracuje víc“ a občas spálí víc tokenů. Cyber má být ostřejší nástroj na díry a záplaty, ale zůstává za branou Fairwind.
 
-Háček je stejný jako u každého takového launchi: DeepSWE, HLE-Verified 54,9 %, CWE-Bench 47,2 %, CyberGym, 2,6× v Chromu i Wiz recall bereme z [blogu Googlu](https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/). Nezměřili jsme to. Intro cena drží do konce roku, od ledna 2027 se má zdvojnásobit. A Cyber není veřejný model, který si večer zapnete v telefonu.
+Háček je stejný jako u každého takového uvedení: DeepSWE, HLE-Verified 54,9 %, CWE-Bench 47,2 %, CyberGym, 2,6× v Chromu i Wiz úplnost bereme z [blogu Googlu](https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/). Nezměřili jsme to. Úvodní cena drží do konce roku, od ledna 2027 se má zdvojnásobit. A Cyber není veřejný model, který si večer zapnete v telefonu.
 
 Zatím máme blog Tulsee Doshi a Ralucy Ady Popy a jeden tweet DeepMindu. A mapu, kde to Google dnes pouští.
 
