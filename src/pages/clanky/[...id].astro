@@ -469,6 +469,13 @@ const breadcrumbLd = {
       bar.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : '0%';
     };
     document.addEventListener('scroll', onScroll, { passive: true });
+    // Kolo 31: šířka se přepočítávala jen při scrollu. Otočení telefonu
+    // (jiná výška okna) i dorůstání dokumentu bez scrollu — lazy iframe
+    // giscusu nad 340px kostru, widget X nad 560px — nechaly pruh na
+    // staré hodnotě, až do dalšího posunu skočil. ResizeObserver na <html>
+    // chytá růst obsahu i otočení (mění šířku), resize změnu výšky okna.
+    window.addEventListener('resize', onScroll, { passive: true });
+    if ('ResizeObserver' in window) new ResizeObserver(onScroll).observe(document.documentElement);
     onScroll();
 
     document.querySelectorAll<HTMLButtonElement>('.copy-link').forEach((copyBtn) => {
