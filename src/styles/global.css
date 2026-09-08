@@ -874,7 +874,10 @@ a.tag:hover { background: var(--signal-fill-hover); }
   font-family: inherit; font-size: 0.9rem;
   min-height: 44px;
 }
-.nl-form input::placeholder { color: color-mix(in srgb, #fff 42%, var(--panel)); }
+/* Kolo 30: 42 % bílé na poli (72 % --panel) dávalo 4,31:1 light / 4,40:1
+   dark — pod AA 4,5 (placeholder je jediný text v poli, dokud se nepíše).
+   52 % = 5,9:1 v obou tématech a pořád zřetelně tlumenější než psaný #fff. */
+.nl-form input::placeholder { color: color-mix(in srgb, #fff 52%, var(--panel)); }
 .nl-form input:focus { outline: 2px solid var(--signal); outline-offset: 1px; }
 .nl-form button {
   background: var(--signal-fill); color: #fff; border: none; cursor: pointer;
@@ -1689,7 +1692,19 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   .article-share, .related, .author-box, .article-nav, .article-back,
   .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed, .komentare,
   .filter-bar, #art-search, .archive-pagination,
+  .article-aside, .topics,
   .skip-link, .heading-anchor { display: none !important; }
+  /* Kolo 30: .article-aside (Sdílej dál, Kopírovat odkaz, Další reporty)
+     tisk nikdy neskrýval — na papíře stál vedle textu druhý sloupec tří
+     tlačítek a odkazů, a .article-layout zůstal dvousloupcový grid, takže
+     tělo článku mělo jen ~63 % šířky strany. Chipy .topics (úvodka, téma)
+     jsou totéž jako filtr archivu — mrtvé odkazy. */
+  .article-layout { display: block; }
+  /* Tabulky a kód: overflow-x: auto na papíře nic neroluje — co se
+     nevešlo, bylo uříznuté. Kód se má zlomit, tabulka smí přetéct do
+     okraje, ať je vidět aspoň celá. */
+  .article-body .table-wrap { overflow: visible; border: none; }
+  .article-body pre { overflow: visible; white-space: pre-wrap; overflow-wrap: anywhere; }
   /* Kolo 18: bez toho pravidla výš tiskl každý nadpis „# (#kotva)“ —
      kotva je <a> a a::after níž k ní přidal href. */
   body { background: #fff; color: #000; }
@@ -1768,6 +1783,8 @@ a.chip { display: inline-flex; align-items: center; }
   .video-card:hover .vc-thumb img { transform: none; }
   .hero-visual:hover .play { transform: translate(-50%, -60%); }
   .video-card:hover .vc-play { transform: translate(-50%, -50%); }
+  /* Play fasády YouTube (.youtube-facade-play) má svůj reset až u svého
+     hover pravidla níž — stejná specificita, rozhoduje pořadí v souboru. */
 }
 
 /* ── YouTube click-to-load ───────────── */
@@ -1813,6 +1830,13 @@ a.chip { display: inline-flex; align-items: center; }
 .youtube-facade-play-triangle { fill: #fff; }
 .youtube-facade-button:hover::after { background: rgba(0, 0, 0, 0.08); }
 .youtube-facade-button:hover .youtube-facade-play { transform: translate(-50%, -50%) scale(1.06); }
+/* Kolo 30: v seznamu hover transformů u prefers-reduced-motion výš chyběl —
+   globální kill-switch vypne jen přechod, takže play při reduce na hover
+   skočil na scale(1.06) okamžitě. Jako .play a .vc-play: zůstane centrování.
+   Musí stát ZA hover pravidlem výš (stejná specificita, rozhoduje pořadí). */
+@media (prefers-reduced-motion: reduce) {
+  .youtube-facade-button:hover .youtube-facade-play { transform: translate(-50%, -50%); }
+}
 .youtube-facade-button:focus-visible {
   outline: 3px solid var(--signal);
   outline-offset: -3px;
