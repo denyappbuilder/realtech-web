@@ -7,6 +7,9 @@ zprava: true
 image: "/images/clanky/mistral-series-d-3-miliardy-eur.jpg"
 xPosts:
   - "https://x.com/MistralAI/status/2097188835897586083"
+audio:
+  url: "https://audio.realtech.cz/mistral-series-d-3-miliardy-eur-nlm.mp3?v=d7d76b2b8c19"
+  duration: 1459
 ---
 
 Mistral dnes oznámil investiční kolo Series D za **3 miliardy eur**. Valuace po vstupu peněz přesahuje **21 miliard eur**. Podle firmy jde o největší kapitálové kolo, jaké kdy evropská technologická firma uzavřela, a přichází tři roky po jejím startu. Kolo vedl Samsung Electronics, spolu s ním Scaleup Europe Fund pod správou EQT a stávající investor PSG Equity.
