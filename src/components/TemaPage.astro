@@ -141,8 +141,9 @@ const vypisOg = ogObrazekClanku(articles[0]);
           {page < totalPages && <a class="btn-ghost" href={pagePath(page + 1)} rel="next">Starší →</a>}
         </nav>
       )}
+      {/* Kolo 30: stejně jako .topics na úvodce — <nav> se jménem. */}
       {ostatni.length > 0 && (
-        <div class="topics">
+        <nav class="topics" aria-label="Další témata">
           <span class="mono">// Další témata</span>
           <div class="cat-filter">
             {ostatni.map((cat) => (
@@ -150,7 +151,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
             ))}
             <a class="chip" href="/temata/">Všechna témata</a>
           </div>
-        </div>
+        </nav>
       )}
     </div>
   </section>

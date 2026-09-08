@@ -291,14 +291,17 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
         </div>
       )}
 
-      <div class="topics">
+      {/* Kolo 30: sedm odkazů na témata bylo v holém <div> — pro čtečku bez
+          jména a mimo landmarky (Tab přes ně jde, ale rotor je nenajde).
+          <nav> se jménem; „// Témata“ zůstává jen vizuální štítek. */}
+      <nav class="topics" aria-label="Témata">
         <span class="mono">// Témata</span>
         <div class="cat-filter">
           {categories.map((cat) => (
             <a class="chip" href={`/temata/${slugify(cat)}/`}>{cat}</a>
           ))}
         </div>
-      </div>
+      </nav>
     </div>
   </section>
 
