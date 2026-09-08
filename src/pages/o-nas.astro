@@ -11,8 +11,12 @@ const YT = 'https://www.youtube.com/@realtech-cz';
  * který jsme v tu dobu nedrželi (poslední video 3. 7., tedy 26 dní předtím).
  * Vyměnit ho za pevné číslo článků by problém jen odložilo: za týden by lhalo
  * zas. Tohle je jediné číslo v té řadě, které se udržuje samo.
+ *
+ * Kolo 32: jen publikované — všude jinde (archiv, hub, llms.txt, patička)
+ * se drafty filtrují, tady se počítaly taky. S rozepsaným draftem v repu
+ * by „článků na webu“ bylo o jeden víc, než web opravdu má.
  */
-const pocetClanku = (await getCollection('clanky')).length;
+const pocetClanku = (await getCollection('clanky', ({ data }) => !data.draft)).length;
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
 
 const zakladatele = zakladateleOrg();
