@@ -5,6 +5,9 @@ category: "AI Agenti"
 date: "2026-09-09T08:30:00+02:00"
 zprava: true
 image: "/images/clanky/meta-muse-agent-usa.jpg"
+audio:
+  url: "https://audio.realtech.cz/meta-muse-agent-usa-nlm.mp3?v=7ba2092494eb"
+  duration: 1589
 xPosts:
   - "https://x.com/finkd/status/2097402101332590646"
   - "https://x.com/Muse/status/2097399178376671666"
