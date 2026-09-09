@@ -41,8 +41,13 @@ test("overlay nesmí opakovat primární CTA tlačítka", () => {
   const src = readFileSync(path.join(REPOSITORY_ROOT, "src/pages/index.astro"), "utf8");
   assert.match(
     src,
-    /class="btn-primary">Přečíst analýzu</,
+    /class="btn-primary">\{heroCta\}</,
     "tlačítko v hero musí zůstat — léčba je overlay, ne smazání výzvy",
+  );
+  assert.match(
+    src,
+    /const heroCta = heroJeZprava \? 'Přečíst zprávu' : 'Přečíst analýzu';/,
+    "kolo 34: CTA sleduje zprava: true",
   );
   const overlay = textNaHeroObrazku({
     title: "Novinky ze světa umělé inteligence",

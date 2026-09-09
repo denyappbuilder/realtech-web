@@ -34,8 +34,9 @@ test("hero h1 je odkaz na článek, stejný cíl jako Přečíst analýzu", () =
     "nadpis musí jít na článek, ne na video",
   );
 
+  // Kolo 34: text CTA je {heroCta} (Přečíst zprávu / Přečíst analýzu).
   const tlacitkoHref = hero.match(
-    /<a href=\{(`\/clanky\/\$\{hero\.id\}\/`)\} class="btn-primary">Přečíst analýzu<\/a>/,
+    /<a href=\{(`\/clanky\/\$\{hero\.id\}\/`)\} class="btn-primary">\{heroCta\}<\/a>/,
   )?.[1];
   assert.equal(
     tlacitkoHref,
