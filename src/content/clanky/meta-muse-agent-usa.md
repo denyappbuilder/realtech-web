@@ -10,7 +10,7 @@ xPosts:
   - "https://x.com/Muse/status/2097399178376671666"
 ---
 
-Meta v úterý 8. září vypustila **Muse**, osobního AI agenta, který má za člověka vyřizovat úkoly: poslat e-mail, zabookovat cestu, prodat auto nebo shodit účet za služby. Podle Reuters jde o produkt známý interně jako **Hatch** a o hlavní pilíř plánu Marka Zuckerberga dodat „osobní superinteligenci“ miliardám lidí, kteří služby Mety denně používají. Start je zatím **jen v USA**: aplikace pro iOS a Android, web muse.ai a WhatsApp. Do AI brýlí Mety má agent přijít „brzy“, bez bližšího termínu.
+Meta v úterý 8. září vypustila **Muse**, osobního AI agenta, který má za člověka vyřizovat úkoly: poslat e-mail, zarezervovat cestu, prodat auto nebo shodit účet za služby. Podle Reuters jde o produkt známý interně jako **Hatch** a o hlavní pilíř plánu Marka Zuckerberga dodat „osobní superinteligenci“ miliardám lidí, kteří služby Mety denně používají. Start je zatím **jen v USA**: aplikace pro iOS a Android, web muse.ai a WhatsApp. Do AI brýlí Mety má agent přijít „brzy“, bez bližšího termínu.
 
 ## Co agent umí a na čem běží
 
