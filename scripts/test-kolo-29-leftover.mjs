@@ -53,7 +53,8 @@ test("kolo 29: #theme-toggle je toggle button — stálé jméno „Tmavý reži
   assert.match(tlacitko, /aria-label="Tmavý režim"/, "jméno musí říkat, CO je stisknuté (pressed = tmavý režim zapnutý)");
   assert.match(tlacitko, /aria-pressed="false"/, "server posílá výchozí světlé téma; skript dosadí skutečný stav");
   assert.doesNotMatch(tlacitko, /Přepnout světlý\/tmavý/, "APG: u aria-pressed se popisek při přepnutí nemění, akce je ve stavu");
-  assert.match(tlacitko, /title="Světlý\/tmavý režim"/, "tooltip pro myš zůstává");
+  // Kolo 34: serverový title popisuje akci pro výchozí stav, ne „Světlý/tmavý režim“.
+  assert.match(tlacitko, /title="Přepnout na tmavý režim"/, "tooltip pro myš zůstává, sedí s aria-pressed=false");
 });
 
 test("kolo 29: skript srovná aria-pressed s OS / localStorage hned a po každém kliknutí", () => {
@@ -166,7 +167,7 @@ test("kolo 29: .hero-visual je pro čtečku a tabulátor dekorace, pro myš dál
   assert.doesNotMatch(visual, /aria-hidden="true">(?:<span class="live-dot">)?(?:REALTECH|TC)/, "štítky nepotřebují vlastní aria-hidden, skrytý je celý odkaz");
   // Jméno a cíl nesou h1 a CTA — musí zůstat.
   assert.match(uvodka, /<h1 [^>]*><a href=\{`\/clanky\/\$\{hero\.id\}\/`\}>\{hero\.data\.title\}<\/a><\/h1>/);
-  assert.match(uvodka, /<a href=\{`\/clanky\/\$\{hero\.id\}\/`\} class="btn-primary">Přečíst analýzu<\/a>/);
+  assert.match(uvodka, /<a href=\{`\/clanky\/\$\{hero\.id\}\/`\} class="btn-primary">\{heroCta\}<\/a>/, "kolo 34: text CTA nese heroCta");
   assert.match(uvodka, /<a href=\{hero\.data\.video\} class="btn-ghost">/, "s videem je YouTube dostupné z klávesnice přes .btn-ghost");
 });
 

@@ -21,10 +21,12 @@ function normalizuj(hodnota) {
     .toLowerCase();
 }
 
-const CTA_TLACITKA = "Přečíst analýzu";
+// Kolo 34: úvodka má dvě CTA — „Přečíst zprávu“ u zprava: true, jinak
+// „Přečíst analýzu“ (index.astro, heroCta). Overlay nesmí zdvojit ani jedno.
+export const CTA_TLACITKA = ["Přečíst analýzu", "Přečíst zprávu"];
 
 /**
- * @param {{ title?: string, video?: string }} [clanek]
+ * @param {{ title?: string, video?: string, zprava?: boolean }} [clanek]
  * @returns {string} text do `.headline-mark`, nebo prázdný řetězec
  */
 export function textNaHeroObrazku(clanek = {}) {
@@ -32,6 +34,6 @@ export function textNaHeroObrazku(clanek = {}) {
   const overlay = String(clanek.video ?? "").trim() ? "Pustit video" : "";
   if (!overlay) return "";
   if (titulek && normalizuj(overlay) === normalizuj(titulek)) return "";
-  if (normalizuj(overlay) === normalizuj(CTA_TLACITKA)) return "";
+  if (CTA_TLACITKA.some((cta) => normalizuj(overlay) === normalizuj(cta))) return "";
   return overlay;
 }

@@ -229,8 +229,11 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         tmavý režim zapnutý), jméno zůstává stálé — APG: u aria-pressed se
         popisek při přepnutí nemění. Výchozí false = světlé téma webu;
         skutečný stav (OS / localStorage) dosadí skript níž hned po načtení.
+        Kolo 34: i title ze serveru popisuje akci pro výchozí světlý stav
+        (aria-pressed="false") — „Přepnout na tmavý režim“, ne statické
+        „Světlý/tmavý režim“, které bez JS (nebo do jeho doběhnutí) zůstávalo.
       */}
-      <button id="theme-toggle" class="theme-toggle" aria-label="Tmavý režim" aria-pressed="false" title="Světlý/tmavý režim">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Tmavý režim" aria-pressed="false" title="Přepnout na tmavý režim">
         <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>

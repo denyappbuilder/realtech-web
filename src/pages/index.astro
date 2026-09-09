@@ -40,6 +40,12 @@ const heroOverlay = hero ? textNaHeroObrazku(hero.data) : '';
 // (5–7 na 1280px), s .h1-dlouhy na 4–5. Pod 75 drží 4–5 řádků i bez třídy.
 const HERO_DLOUHY_TITULEK = 75;
 const heroTitulekDlouhy = Boolean(hero && hero.data.title.length >= HERO_DLOUHY_TITULEK);
+// Kolo 34: krátká zpráva (zprava: true) není analýza — karta i hlava
+// článku ji značí chipem „Zpráva“, ale CTA úvodky slibovalo „Přečíst
+// analýzu“ (živě 9. 9. 2026 u Muse). Text tlačítka sleduje frontmatter;
+// hero-overlay.js zná oba texty, aby overlay CTA nezdvojil.
+const heroJeZprava = Boolean(hero?.data.zprava);
+const heroCta = heroJeZprava ? 'Přečíst zprávu' : 'Přečíst analýzu';
 
 const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
 // Lokální cover má přednost i u video článku — YouTube maxresdefault
@@ -185,12 +191,13 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
           <div class="hero-copy">
             <div class="lower-third">
               <span class="tag">{hero.data.category}</span>
+              {heroJeZprava && <span class="tag tag-zprava">Zpráva</span>}
               <time class="time" datetime={hero?.data.date.toISOString().slice(0, 10)}>{dateStr}</time>
             </div>
             <h1 class:list={[{ 'h1-dlouhy': heroTitulekDlouhy }]}><a href={`/clanky/${hero.id}/`}>{hero.data.title}</a></h1>
             <p class="lead">{hero.data.description}</p>
             <div class="hero-actions">
-              <a href={`/clanky/${hero.id}/`} class="btn-primary">Přečíst analýzu</a>
+              <a href={`/clanky/${hero.id}/`} class="btn-primary">{heroCta}</a>
               {hero.data.video && (
                 <a href={hero.data.video} class="btn-ghost">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
