@@ -1,6 +1,6 @@
 ---
 title: "NSA, FBI a CISA: čínské AI firmy průmyslově destilují americké modely"
-description: "Joint advisory AA26-251A (8. 9.): DeepSeek, Moonshot, Alibaba, MiniMax, StepFun a Z.AI od konce 2024 tahaly miliardy tokenů z Claude, GPT, Gemini a Groku. Destilace má být jádro strategie, ne doplněk."
+description: "Společné varování AA26-251A (8. 9.): DeepSeek, Moonshot, Alibaba, MiniMax, StepFun a Z.AI od konce 2024 tahaly miliardy tokenů z Claude, GPT, Gemini a Groku. Destilace má být jádro strategie, ne doplněk."
 category: "AI Report"
 date: "2026-09-09T09:30:00+02:00"
 zprava: true
