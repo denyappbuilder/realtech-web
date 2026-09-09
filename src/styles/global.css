@@ -404,9 +404,10 @@ a.tag:hover { background: var(--signal-fill-hover); }
   hyphens: auto;
   hyphenate-limit-chars: 10 4 4;
 }
-/* Kolo 27: titulky od 90 znaků (index.astro přidá .h1-dlouhy) — živě
-   7. 9. 2026 měl 102znakový titulek při 3.1rem 9 řádků na 1280px a 10 na
-   1024px; sloupec textu byl 2× vyšší než cover a ten plaval uprostřed.
+/* Kolo 27: dlouhé titulky (index.astro přidá .h1-dlouhy; práh od kola 33
+   75 znaků, dřív 90) — živě 7. 9. 2026 měl 102znakový titulek při 3.1rem
+   9 řádků na 1280px a 10 na 1024px; sloupec textu byl 2× vyšší než cover
+   a ten plaval uprostřed.
    Menší stupeň jen na desktopu (dva sloupce); pod 901px je titulek přes
    celou šířku a mobilní 1.95rem stačí. Strop 2.5rem = zhruba h1 článku. */
 @media (min-width: 901px) {
@@ -1247,6 +1248,9 @@ footer.site ul a:hover { color: var(--ink); }
 .chip.active { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 .filter-empty,
 .filter-loading { color: var(--ink-soft); font-size: 0.9rem; padding: 12px 0; }
+/* Kolo 33: Zrušit filtr pod „Nic nenalezeno“ — .btn-ghost (44 px) stačí,
+   jen odstup od stránkování/patičky. */
+.filter-reset { margin-bottom: 12px; }
 .archive-pagination {
   display: flex; align-items: center; justify-content: center; gap: 16px;
   margin-top: 32px;
