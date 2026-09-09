@@ -121,6 +121,10 @@ const vypisOg = ogObrazekClanku(articles[0]);
       {/* Kolo 18: role=status jako u .filter-loading — bez něj čtečka po
           filtru bez shody slyšela jen mizející karty, ne „Nic nenalezeno“. */}
       <p class="filter-empty" role="status" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
+      {/* Kolo 33: prázdný filtr (kategorie + dotaz bez shody) končil jen
+          větou — čtenář musel sám najít čip Vše a smazat pole. Tlačítko
+          vrátí Vše + prázdné hledání, tedy karty, stránkování i čistou URL. */}
+      <button type="button" class="btn-ghost filter-reset" hidden>Zrušit filtr</button>
       <p class="filter-loading" role="status" hidden>Načítám index článků…</p>
       {/* Kolo 29: se shodou čtečka slyšela jen ticho — hlásilo se jen
           „Nic nenalezeno“ a načítání. Počet nalezených jde jen pro čtečku
@@ -142,6 +146,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const loading = document.querySelector('.filter-loading');
       const count = document.querySelector('[data-filter-count]');
       const pagination = document.querySelector('.archive-pagination');
+      const reset = document.querySelector('.filter-reset');
       const search = document.getElementById('art-search') as HTMLInputElement | null;
       const LOADING_TEXT = 'Načítám index článků…';
       const DEBOUNCE_MS = 300;
@@ -234,6 +239,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
         if (!category && !nq) {
           cards().forEach((card) => card.toggleAttribute('hidden', false));
           empty?.toggleAttribute('hidden', true);
+          reset?.toggleAttribute('hidden', true);
           pagination?.toggleAttribute('hidden', false);
           ohlasPocet(0);
           history.replaceState(null, '', location.pathname);
@@ -276,6 +282,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
           shown++;
         }
         empty?.toggleAttribute('hidden', shown > 0);
+        reset?.toggleAttribute('hidden', shown > 0);
         pagination?.toggleAttribute('hidden', true);
         ohlasPocet(shown);
 
@@ -302,6 +309,18 @@ const vypisOg = ogObrazekClanku(articles[0]);
           if (debounceTimer) window.clearTimeout(debounceTimer);
           void apply();
         });
+      });
+      // Kolo 33: Zrušit filtr = čip Vše + prázdné pole + apply() (ten sám
+      // odkryje karty, vrátí stránkování a zahodí ?kat/?q z URL). Tlačítko
+      // se přitom schová, tak fokus jde na čip Vše — jinak by spadl na body.
+      reset?.addEventListener('click', () => {
+        const vse = chips.find((chip) => chip.getAttribute('data-cat') === '');
+        if (vse) activate(vse);
+        if (search) search.value = '';
+        debounceGen++;
+        if (debounceTimer) window.clearTimeout(debounceTimer);
+        void apply();
+        (vse as HTMLElement | undefined)?.focus?.();
       });
       search?.addEventListener('input', () => {
         const gen = ++debounceGen;

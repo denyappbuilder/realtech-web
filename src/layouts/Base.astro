@@ -354,8 +354,16 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   // Kolo 29: aria-pressed = „tmavý režim zapnutý“. Server posílá false
   // (světlé výchozí téma); tady se srovná s OS / uloženou volbou a při
   // změně OS tématu bez ruční volby se drží dál.
+  // Kolo 33: aria-label zůstává stálý „Tmavý režim“ (APG: u toggle
+  // buttonu s aria-pressed se jméno nemění — „Světlý režim, zapnuto“ by
+  // v tmavém režimu lhalo). Co se mění, je title: statický „Světlý/tmavý
+  // režim“ neříkal myši, co klik udělá. Title není jméno (aria-label má
+  // přednost), jen popis — čtečka slyší „Tmavý režim, zapnuto, Přepnout
+  // na světlý režim“, bez rozporu.
   const nastavStavPrepinace = () => {
-    toggle?.setAttribute('aria-pressed', String(aktualniTema() === 'dark'));
+    const tmavy = aktualniTema() === 'dark';
+    toggle?.setAttribute('aria-pressed', String(tmavy));
+    toggle?.setAttribute('title', tmavy ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim');
   };
   nastavStavPrepinace();
   // Safari < 14 má na MediaQueryList jen addListener — bez `?.` by pád

@@ -671,6 +671,17 @@ test('CSP povoluje přesně to, co oficiální widget potřebuje', () => {
   // syndication, video — běží uvnitř cross-origin iframe mimo naši CSP.
   // Inline theme skript u embedu kryje 'unsafe-inline', které script-src
   // nese odjakživa (theme skript v Base).
+  //
+  // Kolo 33 (2026-09-09) znovu ověřeno přes CDP na živém webu
+  // (meta-muse-agent-usa se dvěma posty, starship-flight-14-prvni-orbita
+  // s videem): rodičovský rámec z X tahá jen platform.twitter.com/widgets.js
+  // a platform.twitter.com/js/tweet.<hash>.js, iframy Tweet.html se vložily
+  // (273/600/576 px, x-facade-loaded), Network.loadingFailed s blockedReason
+  // „csp“ nula, CSP hlášky v konzoli nula. Ve widgets.js jde
+  // cdn.syndication.twimg.com z rodiče jen na legacy timeline/grid/moments,
+  // ne na embed tweetu. Preconnect na syndication hosty v šabloně článku
+  // tedy NENÍ důvod pouštět twimg do img-src/connect-src — auditní
+  // doporučení „CSP rozbíjí embedy X“ neplatí.
   assert.ok(csp.get('script-src').includes('https://platform.twitter.com'));
   assert.ok(csp.get('script-src').includes("'unsafe-inline'"),
     'inline theme skript u embedu (a v Base) musí projít');
