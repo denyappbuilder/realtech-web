@@ -744,7 +744,9 @@ a.tag:hover { background: var(--signal-fill-hover); }
   color: var(--ink-faint);
   margin: 18px 0 8px;
 }
-.article-aside .mono:first-child { margin-top: 0; }
+/* Jen přímý potomek: „Sdílej dál“ je od kola 34 první v obalu
+   .article-aside-share a nesmí přijít o 18px odstup od meta seznamu. */
+.article-aside > .mono:first-child { margin-top: 0; }
 .article-aside-meta,
 .article-aside-related {
   list-style: none;
@@ -1294,6 +1296,16 @@ footer.site ul a:hover { color: var(--ink); }
    .article-share { display: flex } — stejná specificita, rozhoduje pořadí. */
 @media (min-width: 901px) and (min-height: 640px) {
   .article-share { display: none; }
+}
+/* Kolo 34: pod 640px na výšku (notebook s lištami, 1280×600) se aside
+   nekreslí sticky a kolo 29 nechalo .article-share — jenže aside i s jeho
+   „Sdílej dál“ zůstal, takže na ≥ 901px byla dvě sdílení zase vidět
+   (živě 9. 9. 2026: šest tlačítek, nahoře v aside a dole pod textem).
+   Doplněk k dotazu výš: v každé výšce desktopu je vidět přesně JEDNA
+   skupina — sticky aside (≥ 640px) nebo .article-share pod textem
+   (< 640px, aside tam odjede s hlavou článku). Pod 901px aside není. */
+@media (min-width: 901px) and (max-height: 639px) {
+  .article-aside-share { display: none; }
 }
 .share-btns { display: flex; gap: 8px; flex-wrap: wrap; }
 .share-btn {

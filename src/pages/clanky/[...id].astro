@@ -298,11 +298,16 @@ const breadcrumbLd = {
             <li><time datetime={date.toISOString().slice(0, 10)}>{dateStr}</time></li>
             <li>Čtení {readMinutes} min</li>
           </ul>
-          <p class="mono">Sdílej dál</p>
-          <div class="share-btns">
-            <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
-            <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na Facebooku">Facebook</a>
-            <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href} aria-label="Kopírovat odkaz na článek">Kopírovat odkaz</button>
+          {/* Kolo 34: obal jen pro CSS — na desktopu nižším než 640px aside
+              sticky není a sdílení tu odjede s hlavou článku; tam zůstává
+              jediná cesta .article-share pod textem (global.css). */}
+          <div class="article-aside-share">
+            <p class="mono">Sdílej dál</p>
+            <div class="share-btns">
+              <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
+              <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na Facebooku">Facebook</a>
+              <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href} aria-label="Kopírovat odkaz na článek">Kopírovat odkaz</button>
+            </div>
           </div>
           {related.length > 0 && (
             <>
