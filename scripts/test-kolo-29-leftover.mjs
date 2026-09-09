@@ -60,8 +60,8 @@ test("kolo 29: skript srovná aria-pressed s OS / localStorage hned a po každé
   assert.ok(skriptBase, "hlavní <script> v Base chybí");
   assert.match(
     skriptBase,
-    /const nastavStavPrepinace = \(\) => \{\s*toggle\?\.setAttribute\('aria-pressed', String\(aktualniTema\(\) === 'dark'\)\);\s*\};/,
-    "aria-pressed = true jen v tmavém režimu (ručním i z OS)",
+    /const nastavStavPrepinace = \(\) => \{\s*const tmavy = aktualniTema\(\) === 'dark';\s*toggle\?\.setAttribute\('aria-pressed', String\(tmavy\)\);/,
+    "aria-pressed = true jen v tmavém režimu (ručním i z OS); kolo 33 přidalo do téže funkce title",
   );
   const definice = skriptBase.indexOf("const nastavStavPrepinace");
   const prvniVolani = skriptBase.indexOf("nastavStavPrepinace();", definice);
