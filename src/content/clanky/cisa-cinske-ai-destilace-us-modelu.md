@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-09-09T09:30:00+02:00"
 zprava: true
 image: "/images/clanky/cisa-cinske-ai-destilace-us-modelu.jpg"
+audio:
+  url: "https://audio.realtech.cz/cisa-cinske-ai-destilace-us-modelu-nlm.mp3?v=31253259b8b4"
+  duration: 1720
 ---
 
 Tři americké bezpečnostní agentury, NSA, CISA a FBI, vydaly 8. září společné varování s označením AA26-251A. Tvrdí v něm, že šest čínských AI firem, konkrétně **DeepSeek, Moonshot AI, Alibaba, MiniMax, StepFun a Z.AI**, od konce roku 2024 systematicky vytahuje schopnosti z amerických špičkových modelů technikou destilace znalostí. Podle agentur šlo o miliardy tokenů v milionech dotazů na varianty modelů Claude, GPT, Gemini a Grok, a to „pravděpodobně s vědomím čínské vlády“.
