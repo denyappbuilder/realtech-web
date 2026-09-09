@@ -11,6 +11,7 @@ import ArticleCard from './ArticleCard.astro';
 import { slugify } from '../lib/slugify.js';
 import { popisTematu } from '../lib/tema-popis.js';
 import { ogObrazekClanku } from '../lib/og-vypis.js';
+import { textPoctuClanku } from '../lib/pocet-clanku.js';
 
 interface Props {
   category: string;
@@ -117,7 +118,11 @@ const vypisOg = ogObrazekClanku(articles[0]);
     <div class="wrap">
       <div class="lower-third">
         <span class="tag">{category}</span>
-        <span class="time">{clanky.length} článků</span>
+        {/* Kolo 32: natvrdo „{n} článků“ dávalo živě 8. 9. 2026 na
+            /temata/drony/ „2 článků“. Skloňuje stejný helper jako hub
+            /temata/; verzálky jako ostatní texty v .time („ČTENÍ 4 MIN“,
+            „AKTUALIZOVÁNO“) a jako počet v patičce karty hubu. */}
+        <span class="time">{textPoctuClanku(clanky.length).toUpperCase()}</span>
       </div>
       <div class="section-head with-tag">
         <h1>{category}</h1>

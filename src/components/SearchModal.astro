@@ -270,7 +270,11 @@
       results?.querySelector('.search-item.active')?.scrollIntoView({ block: 'nearest' });
       return;
     }
-    if (e.key === 'Enter' && current[active]) {
+    // Kolo 32: Enter otvírá aktivní výsledek jen z pole. Handler sedí na
+    // document, takže Enter na tlačítku „Zavřít hledání“ (Tab z pole) dřív
+    // s výsledky v listboxu poslal čtenáře na první článek místo zavření —
+    // navigace předběhla click, který Enter na <button> vyvolá.
+    if (e.key === 'Enter' && e.target === input && current[active]) {
       location.href = `/clanky/${current[active].s}/`;
     }
   });
