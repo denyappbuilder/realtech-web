@@ -112,6 +112,12 @@ export function oznacSelhaniXFacade(facade) {
 
   const note = doc.createElement('p');
   note.className = 'x-facade-failed-note';
+  // Kolo 34: poznámka přichází až po 15 s, kdy čtečka je dávno jinde —
+  // bez role="status" o selhání (a o úniku) nikdo nevidomý neví.
+  // status = aria-live polite implicitně; explicitní aria-live pro AT,
+  // které role samotnou neoznamují. Odkaz zůstává i pro Tab.
+  note.setAttribute('role', 'status');
+  note.setAttribute('aria-live', 'polite');
   note.appendChild(text);
   note.appendChild(odkaz);
   facade.appendChild(note);
