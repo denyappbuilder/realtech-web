@@ -104,8 +104,10 @@ test("kolo 27: html má lang=cs, bez něj hyphens: auto nedělí", () => {
 
 // ── P1: dlouhý titulek = menší desktopový stupeň ─────────────────────────
 
-test("kolo 27: index.astro přidá .h1-dlouhy od 90 znaků přes class:list", () => {
-  assert.match(index, /const HERO_DLOUHY_TITULEK = 90;/, "práh 90 znaků (≈ 15 z 98 titulků) musí být pojmenovaná konstanta");
+test("kolo 27: index.astro přidá .h1-dlouhy od prahu délky přes class:list", () => {
+  // Kolo 27 začalo na 90; kolo 33 snížilo na 75 (76znakový Muse měl živě
+  // 6 řádků na 1024px). Hodnotu hlídá test-kolo-33-leftover.
+  assert.match(index, /const HERO_DLOUHY_TITULEK = \d+;/, "práh musí být pojmenovaná konstanta");
   assert.match(
     index,
     /const heroTitulekDlouhy = Boolean\(hero && hero\.data\.title\.length >= HERO_DLOUHY_TITULEK\);/,

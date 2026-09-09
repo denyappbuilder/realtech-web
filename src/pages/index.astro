@@ -30,10 +30,15 @@ const categories = [...new Set(all.map((c) => c.data.category))];
 
 const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
 const heroOverlay = hero ? textNaHeroObrazku(hero.data) : '';
-// Kolo 27: od 90 znaků dostane h1 menší desktopový stupeň (.h1-dlouhy v CSS).
+// Kolo 27: od 90 znaků dostal h1 menší desktopový stupeň (.h1-dlouhy v CSS).
 // 102znakový titulek měl živě 9–10 řádků při 3.1rem a cover plaval uprostřed
-// dvakrát vyššího sloupce. Práh: ~15 z 98 titulků, typicky dvouvěté.
-const HERO_DLOUHY_TITULEK = 90;
+// dvakrát vyššího sloupce.
+// Kolo 33: práh 75. Živě 9. 9. 2026 měl 76znakový titulek Muse bez třídy
+// 5 řádků na 1280px a 6 na 1024px (sloupec 553px proti coveru 275px —
+// stejný 2× nepoměr jako v kole 27). Měření všech 102 titulků v živém
+// heru: od ~75 znaků jde titulek při 3.1rem na 6–7 řádků na 1024px
+// (5–7 na 1280px), s .h1-dlouhy na 4–5. Pod 75 drží 4–5 řádků i bez třídy.
+const HERO_DLOUHY_TITULEK = 75;
 const heroTitulekDlouhy = Boolean(hero && hero.data.title.length >= HERO_DLOUHY_TITULEK);
 
 const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([A-Za-z0-9_-]{11})/)?.[1];
