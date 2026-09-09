@@ -423,6 +423,7 @@ const breadcrumbLd = {
   <script>
     import { inicializujYoutubeFacades } from '../../lib/youtube-facade.js';
     import { inicializujXFacades } from '../../lib/x-embed.js';
+    import { zkopirujText } from '../../lib/kopirovat-odkaz.js';
 
     // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů).
     // Stejný helper jako rehype plugin, včetně dedupu (Z1207) — jinak by tlačítko
@@ -483,17 +484,24 @@ const breadcrumbLd = {
     if ('ResizeObserver' in window) new ResizeObserver(onScroll).observe(document.documentElement);
     onScroll();
 
+    // Kolo 34: při selhání Clipboard API se dřív dělalo location.href = url
+    // — reload, ztráta pozice, žádné vysvětlení. Teď execCommand fallback
+    // (src/lib/kopirovat-odkaz.js) a když nejde ani ten, řekne to tlačítko
+    // i živá oblast; stránka zůstává, kde byla.
     document.querySelectorAll<HTMLButtonElement>('.copy-link').forEach((copyBtn) => {
+      let copyBtnTimer: ReturnType<typeof setTimeout> | undefined;
       copyBtn.addEventListener('click', async () => {
         const url = copyBtn.getAttribute('data-url') ?? location.href;
-        try {
-          await navigator.clipboard.writeText(url);
+        const ok = await zkopirujText(url);
+        if (ok) {
           copyBtn.textContent = 'Zkopírováno ✓';
           ohlasKopii('Odkaz na článek zkopírován');
-          setTimeout(() => { copyBtn.textContent = 'Kopírovat odkaz'; }, 2000);
-        } catch {
-          location.href = url;
+        } else {
+          copyBtn.textContent = 'Kopírování selhalo';
+          ohlasKopii('Odkaz se nepodařilo zkopírovat. Zkopíruj adresu z řádku prohlížeče.');
         }
+        clearTimeout(copyBtnTimer);
+        copyBtnTimer = setTimeout(() => { copyBtn.textContent = 'Kopírovat odkaz'; }, 2000);
       });
     });
 
