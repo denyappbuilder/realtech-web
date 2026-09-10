@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-09-10T16:27:02+02:00"
 zprava: true
 image: "/images/clanky/chatgpt-images-2-5-sketch.jpg"
+audio:
+  url: "https://audio.realtech.cz/chatgpt-images-2-5-sketch-nlm.mp3?v=2ee83f97f959"
+  duration: 1062
 ---
 
 OpenAI v pondělí 8. září oznámila **ChatGPT Images 2.5**, nový obrazový model pro ChatGPT i API. Podle firmy přináší ostřejší detaily, přesnější úpravy existujících obrázků a **až o 50 % kratší dobu generování** oproti Images 2.0. Firma zároveň uvádí, že lidé přes ChatGPT Images a modely GPT-Image v API vytvoří **přes 3 miliardy obrázků týdně**.
