@@ -678,6 +678,14 @@ a.tag:hover { background: var(--signal-fill-hover); }
   font-size: 0.95rem;
 }
 .audio-prehled-delka .mono { margin-right: 8px; }
+/* Kolo 36: popisek formátu (Deep Dive vs. krátký přehled) pod hlavou karty,
+   nad přehrávačem. Záporný horní okraj sedí k 12px mezeře .audio-prehled-head. */
+.audio-prehled-popis {
+  margin: -4px 0 12px;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
 .audio-prehled audio { width: 100%; display: block; }
 .audio-prehled-prepis { margin-top: 3px; }
 .audio-prehled-prepis summary {
@@ -1022,7 +1030,10 @@ footer.site ul a:hover { color: var(--ink); }
   .hero { padding: 24px 0; }
   .hero-grid { gap: 18px; }
   .lower-third { margin-bottom: 12px; }
-  .hero h1 { font-size: 1.95rem; margin-bottom: 12px; }
+  /* Kolo 36: základních 1.02 je pro desktopový jednořádkový titulek; na
+     390px se dvou- až třířádkový titulek s háčky a čárkami (Images 2.5 živě
+     10. 9. 2026) mačkal — diakritika horního řádku sahala k dolnímu. */
+  .hero h1 { font-size: 1.95rem; line-height: 1.14; margin-bottom: 12px; }
   .hero p.lead { margin-bottom: 16px; }
   .grid { grid-template-columns: 1fr; }
   /* Pole hledání v archivu končilo na 210px uprostřed řádku; pod čipy jde přes celou šířku. */
@@ -1051,6 +1062,7 @@ footer.site ul a:hover { color: var(--ink); }
     padding: 12px 14px;
   }
   .audio-prehled-head { gap: 8px; margin-bottom: 8px; }
+  .audio-prehled-popis { margin: -2px 0 8px; }
   .audio-prehled-prepis { margin-top: 0; }
   .article-hero,
   .video-embed { margin-top: 20px; }

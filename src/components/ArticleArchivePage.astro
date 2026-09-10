@@ -106,7 +106,16 @@ const vypisOg = ogObrazekClanku(articles[0]);
             <button class="chip active" data-cat="" aria-pressed="true">Vše</button>
             {categories.map((category) => <button class="chip" data-cat={category} aria-pressed="false">{category}</button>)}
           </div>
-          <input type="search" class="search-input" id="art-search" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
+          {/*
+            Kolo 36: holý <input> na straně 1 bez JS nedělal nic — Enter
+            nikam nevedl (živě 10. 9. 2026). Stejný GET formulář jako na
+            strana/2+ níž: bez JS odešle /clanky/?q=…, s JS ho skript zachytí
+            (preventDefault) a filtr spustí hned bez debounce. name=q drží
+            tvar URL, který skript čte při načtení (initialQuery).
+          */}
+          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
+            <input type="search" name="q" class="search-input" id="art-search" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
+          </form>
         </div>
       ) : (
         <div class="filter-bar" data-filter-odkaz>
@@ -166,6 +175,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const pagination = document.querySelector('.archive-pagination');
       const reset = document.querySelector('.filter-reset');
       const search = document.getElementById('art-search') as HTMLInputElement | null;
+      const searchForm = document.querySelector<HTMLFormElement>('.filter-bar .search-form');
       const LOADING_TEXT = 'Načítám index článků…';
       const DEBOUNCE_MS = 300;
       // Tvar položky drží search-index.json.js: m = minuty čtení, i = náhled
@@ -404,6 +414,15 @@ const vypisOg = ogObrazekClanku(articles[0]);
         debounceTimer = window.setTimeout(() => {
           if (gen === debounceGen) void apply();
         }, DEBOUNCE_MS);
+      });
+      // Kolo 36: Enter ve formuláři by bez zachycení znovu načetl stránku
+      // (GET /clanky/?q=…) a filtr by běžel až po reloadu. S JS jen
+      // zrušíme čekající debounce a filtrujeme hned; URL doplní apply().
+      searchForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        debounceGen++;
+        if (debounceTimer) window.clearTimeout(debounceTimer);
+        void apply();
       });
 
       const params = new URLSearchParams(location.search);
