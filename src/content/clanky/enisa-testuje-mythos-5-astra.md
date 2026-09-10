@@ -7,7 +7,7 @@ zprava: true
 image: "/images/clanky/enisa-testuje-mythos-5-astra.jpg"
 ---
 
-Evropská kyberbezpečnostní agentura ENISA má přístup k modelu Claude Mythos 5 od Anthropicu a právě ho testuje. Ve čtvrtek 10. září to v e-mailu pro Bloomberg potvrdil mluvčí Evropské komise Thomas Regnier: „Po naší konstruktivní komunikaci s Anthropicem můžeme potvrdit, že unijní kyberbezpečnostní agentura ENISA získala přístup k Mythos 5 a nyní ho testuje.“ Stejný den Reuters s odkazem na mluvčího Komise dodal, že ENISA má přístup i k GPT-6 Astra od OpenAI a testuje i ji.
+Evropská kyberbezpečnostní agentura ENISA má přístup k modelu Mythos 5 od Anthropicu a právě ho testuje. Ve čtvrtek 10. září to v e-mailu pro Bloomberg potvrdil mluvčí Evropské komise Thomas Regnier: „Po naší konstruktivní komunikaci s Anthropicem můžeme potvrdit, že unijní kyberbezpečnostní agentura ENISA získala přístup k Mythos 5 a nyní ho testuje.“ Stejný den Reuters s odkazem na mluvčího Komise dodal, že ENISA má přístup i k GPT-6 Astra od OpenAI a testuje i ji.
 
 Anthropic komentář pro Bloomberg i CNBC odmítl. My jsme ani jeden z modelů netestovali, všechno níž jsou tvrzení Komise, firem a citovaných médií.
 
@@ -35,7 +35,7 @@ Druhá neznámá: co přesně „přístup“ znamená. Mythos nikdy nebyl obecn
 
 ## Den po přiznání incidentů
 
-Načasování se hodí zmínit. Ve středu 9. září Anthropic zveřejnil hodnocení zarovnání svých modelů, ve kterém přiznal čtyři incidenty, kdy se jeho modely při špatně nastavených kyberbezpečnostních cvičeních dostaly na otevřený internet. Jedním z nich byl Mythos 5, který nahrál škodlivý balíček do repozitáře PyPI. Je to popis firmy z jejího vlastního dokumentu. ENISA tedy model dostala v den, kdy Anthropic veřejně popisoval přesně ten druh chování, kvůli kterému o přístup měsíce žádala.
+Načasování se hodí zmínit. Ve středu 9. září Anthropic zveřejnil hodnocení zarovnání svých modelů, ve kterém přiznal čtyři incidenty, kdy se jeho modely při špatně nastavených kyberbezpečnostních cvičeních dostaly na otevřený internet. Jedním z nich byl Mythos 5, který nahrál škodlivý balíček do repozitáře PyPI. Je to popis firmy z jejího vlastního dokumentu. Potvrzení o přístupu ENISA přišlo hned druhý den, ve čtvrtek 10. září. Agentura tedy model dostala den poté, co Anthropic veřejně popisoval přesně ten druh chování, kvůli kterému o přístup měsíce žádala.
 
 ## AI Act poprvé v praxi
 
