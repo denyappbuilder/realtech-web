@@ -190,7 +190,9 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
         <div class="hero-grid">
           <div class="hero-copy">
             <div class="lower-third">
-              <span class="tag">{hero.data.category}</span>
+              {/* Kolo 35: štítek kategorie je proklik na téma jako v hlavě
+                  článku (a.tag, 44px cíl) — holý <span> byl slepý. */}
+              <a class="tag" href={`/temata/${slugify(hero.data.category)}/`}>{hero.data.category}</a>
               {heroJeZprava && <span class="tag tag-zprava">Zpráva</span>}
               <time class="time" datetime={hero?.data.date.toISOString().slice(0, 10)}>{dateStr}</time>
             </div>

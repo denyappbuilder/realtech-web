@@ -1224,6 +1224,10 @@ footer.site ul a:hover { color: var(--ink); }
   margin: -8px 0 24px;
 }
 .filter-bar .cat-filter { margin: 0; }
+/* Kolo 35: na /clanky/strana/2+ je pole GET formulář na /clanky/?q=…;
+   display: contents nechá <input> stát v .filter-bar jako přímé dítě, takže
+   platí stejný layout i `≤580px width: 100%` jako na straně 1. */
+.filter-bar .search-form { display: contents; }
 .search-input {
   font-family: inherit; font-size: 0.88rem;
   padding: 8px 16px; border-radius: 999px;

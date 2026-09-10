@@ -11,7 +11,7 @@ import {
   sameDateArticles,
   SAME_DATE_EXPECTED_IDS,
 } from "./test-fixtures/same-date-articles.mjs";
-import { GET } from "../src/pages/search-index.json.js";
+import { GET, nahledProIndex } from "../src/pages/search-index.json.js";
 
 function article({
   id,
@@ -21,11 +21,15 @@ function article({
   description = `Popis ${id}`,
   category = "Testy",
   body = "",
+  image,
+  video,
+  videoLength,
+  zprava,
 }) {
   return {
     id,
     body,
-    data: { title, description, category, date, draft },
+    data: { title, description, category, date, draft, image, video, videoLength, zprava },
   };
 }
 
@@ -87,7 +91,8 @@ test("GET vrátí přesný minifikovaný JSON kontrakt a Content-Type", async ()
   assert.equal(response.headers.get("Content-Type"), "application/json; charset=utf-8");
   assert.equal(
     await response.text(),
-    '[{"s":"presny-kontrakt","t":"Přesný titulek","d":"Přesný popis","k":"Hardware","b":"Obsah článku","p":"2025-04-05"}]',
+    // Kolo 35: m = minuty čtení (readingTime, min. 1) pro karty filtru /clanky/.
+    '[{"s":"presny-kontrakt","t":"Přesný titulek","d":"Přesný popis","k":"Hardware","b":"Obsah článku","p":"2025-04-05","m":1}]',
   );
 });
 
@@ -114,6 +119,79 @@ test("GET odstraní Markdown, HTML, code fence a cíle odkazů, ale zachová či
     "Nadpis HTML tučně . Dokumentace inline citace seznam tabulka kurziva podtržení",
   );
   assert.doesNotMatch(item.b, /example\.com|const tajne|<[^>]+>|[#*_>`|\[\]()]/);
+});
+
+// ── Kolo 35: náhled a štítky karty pro filtr /clanky/ ─────────────────────
+// Karty doplněné z indexu byly jen text (CLS, nejednotná mřížka). Index
+// nese `i` = TÝŽ soubor, jaký dává ArticleCard do <img src>, a volitelné
+// `z` (Zpráva) / `v` (délka videa) pro štítky .lt. Bez hodnoty klíč v JSON
+// není — index se nenafukuje kvůli článkům bez videa.
+
+test("kolo 35: nahledProIndex volí soubor jako ArticleCard — WebP -640 z public/, YouTube jen bez lokálního coveru", () => {
+  // Skutečný cover v repu (test-z1072 hlídá, že derivát -640.webp je commitnutý).
+  assert.equal(
+    nahledProIndex({ image: "/images/clanky/anthropic-claude-opus-5.jpg" }),
+    "/images/clanky/anthropic-claude-opus-5-640.webp",
+  );
+  // Lokální cover má přednost i u videa.
+  assert.equal(
+    nahledProIndex({ image: "/images/clanky/anthropic-claude-opus-5.jpg", video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" }),
+    "/images/clanky/anthropic-claude-opus-5-640.webp",
+  );
+  // Cover ve frontmatteru, ale soubor v public/ chybí → YouTube maxresdefault (ne 404).
+  assert.equal(
+    nahledProIndex({ image: "/images/clanky/neexistuje.jpg", video: "https://youtu.be/dQw4w9WgXcQ" }),
+    "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+  );
+  // Bez videa zůstává cesta z frontmatteru (stejně jako <img src> SSR karty).
+  assert.equal(nahledProIndex({ image: "/images/clanky/neexistuje.png" }), "/images/clanky/neexistuje.png");
+  assert.equal(nahledProIndex({}), undefined);
+  assert.equal(nahledProIndex({ video: "https://example.com/ne-youtube" }), undefined);
+});
+
+test("kolo 35: GET dává m vždy a i/z/v jen tam, kde článek hodnotu má; kontrakt s/t/d/k/b/p zůstává", async () => {
+  setCollection([
+    article({
+      id: "zprava-s-videem",
+      title: "Zpráva",
+      description: "Popis",
+      category: "Vesmír",
+      date: new Date("2026-09-01T00:00:00.000Z"),
+      // 900 slov / 180 = 5 min; do `b` jde jen prvních 400 znaků.
+      body: "slovo ".repeat(900),
+      video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      videoLength: "12:34",
+      zprava: true,
+    }),
+    article({
+      id: "holy",
+      title: "Holý",
+      description: "Popis",
+      category: "AI Report",
+      date: new Date("2026-08-01T00:00:00.000Z"),
+      zprava: false,
+    }),
+  ]);
+
+  const response = await GET();
+  const text = await response.text();
+  const [zprava, holy] = JSON.parse(text);
+
+  assert.deepEqual(zprava, {
+    s: "zprava-s-videem",
+    t: "Zpráva",
+    d: "Popis",
+    k: "Vesmír",
+    b: "slovo ".repeat(900).slice(0, 400).trim(),
+    p: "2026-09-01",
+    m: 5,
+    i: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+    z: 1,
+    v: "12:34",
+  });
+  assert.deepEqual(Object.keys(holy), ["s", "t", "d", "k", "b", "p", "m"], "bez coveru, videa a zprávy žádný i/z/v; m je vždy");
+  assert.equal(holy.m, 1, "readingTime dává minimálně 1 minutu");
+  assert.doesNotMatch(text, /"z":false|"v":""|"i":null|undefined/, "prázdné hodnoty se do JSON nedostanou");
 });
 
 test("GET po normalizaci whitespace neponechá na hranici 400 znaků koncovou mezeru [WEB-SEARCH-001]", async () => {
