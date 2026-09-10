@@ -1390,6 +1390,17 @@ footer.site ul a:hover { color: var(--ink); }
   text-underline-offset: 2px;
 }
 .about-main p a:hover { color: var(--ink); }
+/* /gdpr/: odrážky v textu (newsletter, embedy) — stejný rytmus a barva
+   jako odstavce, odkazy stejná afordance jako .about-main p a. */
+.about-main ul,
+.about-main ol { margin: 0 0 1.1em 1.4em; padding: 0; color: var(--ink-soft); font-size: 1.02rem; }
+.about-main li { margin-bottom: 0.5em; }
+.about-main li a {
+  color: var(--signal-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.about-main li a:hover { color: var(--ink); }
 .about h2 {
   font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
   font-size: 1.25rem; margin: 2em 0 0.6em;

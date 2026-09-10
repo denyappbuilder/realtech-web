@@ -1,0 +1,216 @@
+---
+import Base from '../layouts/Base.astro';
+
+/**
+ * Ochrana osobních údajů — /gdpr/.
+ *
+ * Cíl stránky: čtenář má po přečtení vědět, co se děje s jeho e-mailem
+ * a jak se odhlásí. Ne právnický wall-of-text. Každé tvrzení tady musí
+ * odpovídat tomu, co web opravdu dělá — zdroj pravdy je repo:
+ *   - newsletter: Kit formulář v Base.astro (app.kit.com) — double opt-in,
+ *     odhlášení jedním klikem (hlídá test-gdpr.mjs),
+ *   - hosting a analytics: Cloudflare Pages + Cloudflare Web Analytics
+ *     beacon v Base.astro (bez cookies),
+ *   - embedy: YouTube přes youtube-nocookie.com až po kliknutí (fasáda),
+ *     X widgets.js jen u článků s příspěvkem z X, komentáře giscus
+ *     (GitHub Discussions) pod články,
+ *   - žádná cookie lišta — web sám žádné cookies nenastavuje (jen
+ *     localStorage „theme“ pro světlý/tmavý režim).
+ * Když se něco z toho změní (nová analytika, jiný newsletter, cookies),
+ * musí se změnit i tahle stránka.
+ */
+const KIT_PRIVACY = 'https://kit.com/privacy';
+const CF_PRIVACY = 'https://www.cloudflare.com/privacypolicy/';
+const UOOU = 'https://uoou.gov.cz/';
+const AKTUALIZACE = 'září 2026';
+
+const orgId = `${Astro.site?.href}#org`;
+const gdprUrl = new URL('/gdpr/', Astro.site).href;
+const popis = 'Co se děje s tvým e-mailem v newsletteru, co o tobě ví web realtech.cz a jak se odhlásit. Srozumitelně, bez právnické omáčky.';
+const pageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Ochrana osobních údajů',
+  description: popis,
+  url: gdprUrl,
+  inLanguage: 'cs',
+  about: { '@id': orgId },
+  publisher: { '@id': orgId },
+  isPartOf: { '@type': 'WebSite', url: Astro.site?.href, name: 'REALTECH CZ' },
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'Ochrana údajů', item: gdprUrl },
+  ],
+};
+---
+<Base title="Ochrana osobních údajů — REALTECH CZ" description={popis}>
+  <script type="application/ld+json" set:html={JSON.stringify(pageLd)} slot="head" is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
+  <section class="about about-wide wrap">
+    <div class="lower-third">
+      <span class="tag">Ochrana údajů</span>
+    </div>
+    <h1>Co se děje s tvým e-mailem.</h1>
+    <p>
+      Tohle je stránka o osobních údajích na realtech.cz. Krátká verze: web sám o tobě
+      skoro nic neví, žádné cookies nenastavuje a nic neprodává. Jediné, co od tebe
+      opravdu chceme, je e-mail — když se přihlásíš k newsletteru nebo nám napíšeš.
+      Tady je, co se s ním děje a jak se kdykoli odhlásíš.
+    </p>
+
+    <div class="about-layout">
+      <div class="about-main">
+        <h2 id="spravce">Kdo za to odpovídá</h2>
+        <p>
+          Web realtech.cz a newsletter provozuje <strong>Daniel Jan Soukup</strong>
+          (živnost), IČO <strong>29973911</strong>, se sídlem v Netunicích. Je správcem
+          osobních údajů, o kterých tu čteš. Cokoli k údajům napiš na
+          <!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off-->.
+          Web děláme dva — Deny a Sam — víc o nás je na <a href="/o-nas/">O nás</a>.
+        </p>
+
+        <h2 id="newsletter">Newsletter</h2>
+        <p>
+          Přihlašovací formulář dole na každé stránce posílá tvůj e-mail do služby
+          <strong>Kit</strong> (dřív ConvertKit), přes kterou newsletter rozesíláme.
+          Kit je pro nás <em>zpracovatel</em>: e-maily drží a rozesílá za nás, sám je
+          k ničemu jinému nepoužívá. Do našich rukou se dostane tvoje adresa, datum
+          přihlášení a to, jestli sis odběr potvrdil.
+        </p>
+        <ul>
+          <li>
+            <strong>Potvrzení (double opt-in).</strong> Po odeslání formuláře ti přijde
+            e-mail s potvrzovacím odkazem. Dokud na něj neklikneš, nic ti neposíláme
+            a adresa se odběratelem nestane.
+          </li>
+          <li>
+            <strong>Co ti chodí.</strong> Tech novinky a analýzy z AI a techu, česky,
+            jen když je co říct. Žádné reklamní kampaně třetích stran.
+          </li>
+          <li>
+            <strong>Odhlášení jedním klikem.</strong> Každý e-mail má na konci odkaz
+            „Odhlásit“. Klikneš — a je hotovo, žádné dotazy proč. Kdyby odkaz
+            nefungoval, napiš na <!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off-->
+            a odhlásíme tě ručně.
+          </li>
+          <li>
+            <strong>Právní základ.</strong> Tvůj souhlas. Dáváš ho potvrzením odběru
+            a kdykoli ho odvoláš odhlášením.
+          </li>
+          <li>
+            <strong>Jak dlouho.</strong> Dokud odebíráš. Po odhlášení tvoji adresu
+            u Kitu smažeme, případně ji Kit drží jen v seznamu odhlášených, aby ti
+            už nic nepřišlo.
+          </li>
+          <li>
+            <strong>Kde data leží.</strong> Kit je americká firma, e-maily odběratelů
+            tedy míří mimo EU. Předání řeší Kit podle svých podmínek (standardní
+            smluvní doložky EU) — podrobnosti v <a href={KIT_PRIVACY}>zásadách ochrany
+            soukromí Kit</a>.
+          </li>
+        </ul>
+
+        <h2 id="e-mail">Když nám napíšeš</h2>
+        <p>
+          Když pošleš e-mail na info@realtech.cz, uložíme si to, co v něm je — adresu,
+          jméno, pokud ho uvedeš, a obsah zprávy — abychom ti mohli odpovědět. Právní
+          základ je náš oprávněný zájem odpovídat lidem, kteří nás oslovili. Korespondenci
+          držíme, dokud je k něčemu (typicky dokud spolupráce nebo dotaz běží), a
+          nikam dál ji neposíláme.
+        </p>
+
+        <h2 id="web">Návštěva webu</h2>
+        <p>
+          Web je statický a běží na <strong>Cloudflare Pages</strong>. Cloudflare jako
+          hostitel zpracovává technická data, bez kterých se stránka nedoručí: IP adresu,
+          typ prohlížeče, čas požadavku a adresu stránky. Používá je na doručení obsahu
+          a ochranu proti útokům a drží je podle vlastních pravidel — přesné lhůty
+          najdeš v <a href={CF_PRIVACY}>zásadách ochrany soukromí Cloudflare</a>.
+          Právní základ je oprávněný zájem: provoz a zabezpečení webu.
+        </p>
+        <p>
+          Návštěvnost měříme přes <strong>Cloudflare Web Analytics</strong>. Ta podle
+          Cloudflare nepoužívá cookies ani neskládá profil jednotlivých návštěvníků —
+          vidíme souhrnná čísla (kolik lidí, které stránky, odkud přišli), ne tebe.
+          Google Analytics ani jiné reklamní měření na webu nemáme.
+        </p>
+        <p>
+          Některé části webu načítají obsah od třetích stran, a to až když je použiješ:
+        </p>
+        <ul>
+          <li>
+            <strong>Videa z YouTube</strong> se načtou z youtube-nocookie.com teprve po
+            kliknutí na náhled. Do té doby s Googlem nekomunikuješ.
+          </li>
+          <li>
+            <strong>Příspěvky z X</strong> (dřív Twitter) jsou vložené jen u článků, které
+            na ně odkazují. Tam se načítá skript X a platí podmínky X.
+          </li>
+          <li>
+            <strong>Komentáře pod články</strong> běží přes giscus nad GitHub Discussions.
+            Číst můžeš bez přihlášení; komentovat jen pod GitHub účtem — pak platí
+            podmínky GitHubu.
+          </li>
+        </ul>
+
+        <h2 id="cookies">Cookies</h2>
+        <p>
+          Web sám žádné cookies nenastavuje. Proto tu nenajdeš cookie lištu — není co
+          odklikávat. Jediné, co si prohlížeč uloží, je volba světlého nebo tmavého
+          režimu (v localStorage, ne jako cookie), a ta zůstává jen u tebe. Cloudflare
+          může jako hostitel nastavit vlastní technické cookies pro bezpečnost provozu;
+          řídí se svými podmínkami odkázanými výš. Žádná data o návštěvnících neprodáváme
+          ani nepředáváme reklamním sítím.
+        </p>
+
+        <h2 id="prava">Tvoje práva</h2>
+        <p>
+          Podle GDPR máš právo vědět, co o tobě máme (<strong>přístup</strong>), nechat to
+          <strong>opravit</strong> nebo <strong>vymazat</strong>, <strong>omezit</strong>
+          zpracování, vznést <strong>námitku</strong> proti zpracování z oprávněného zájmu
+          a u newsletteru kdykoli <strong>odvolat souhlas</strong>. Stačí napsat na
+          <!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off-->
+          — odpovíme do měsíce, obvykle výrazně dřív. Když si budeš myslet, že s tvými
+          údaji nakládáme špatně, můžeš se obrátit na
+          <a href={UOOU}>Úřad pro ochranu osobních údajů</a>.
+        </p>
+
+        <h2 id="zmeny">Změny</h2>
+        <p>
+          Když na web přidáme něco, co s údaji pracuje jinak, upravíme i tuhle stránku.
+          Poslední aktualizace: {AKTUALIZACE}.
+        </p>
+        <noscript>
+          <p><!--email_off-->E-mail: info@realtech.cz<!--/email_off--></p>
+        </noscript>
+      </div>
+
+      <aside class="about-aside">
+        <p class="mono">Správce údajů</p>
+        <ul class="about-aside-meta">
+          <li><strong>Daniel Jan Soukup</strong></li>
+          <li>IČO 29973911</li>
+          <li>Netunice</li>
+          <li><!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off--></li>
+        </ul>
+        <p class="mono">Newsletter ve zkratce</p>
+        <ul class="about-aside-meta">
+          <li>Rozesílá Kit (zpracovatel)</li>
+          <li>Potvrzení e-mailem</li>
+          <li>Odhlášení jedním klikem</li>
+        </ul>
+        <p class="mono">Kam dál</p>
+        <ul class="about-aside-meta">
+          <li><a href={KIT_PRIVACY}>Zásady soukromí Kit</a></li>
+          <li><a href={CF_PRIVACY}>Zásady soukromí Cloudflare</a></li>
+          <li><a href={UOOU}>ÚOOÚ</a></li>
+          <li><a href="/o-nas/">O nás</a></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+</Base>
