@@ -5,6 +5,9 @@ category: "Mobily"
 date: "2026-09-10T08:30:00+02:00"
 zprava: true
 image: "/images/clanky/iphone-duo-prvni-skladacka.jpg"
+audio:
+  url: "https://audio.realtech.cz/iphone-duo-prvni-skladacka-nlm.mp3?v=4dd32c56bac1"
+  duration: 1246
 ---
 
 Apple ve středu 9. září na akci „Surprise and Shine“ v Cupertinu představil svůj první skládací telefon. Jmenuje se **iPhone Duo**, v USA startuje na **1999 dolarech** a v Česku ho CHIP uvádí od **54 990 Kč**. Byla to zároveň první keynote nového šéfa firmy **Johna Ternuse**. Tim Cook ho v úvodním videu předal větou „Not me. That's your guy.“
