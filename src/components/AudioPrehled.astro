@@ -16,12 +16,20 @@ const pohled = audioPrehledPohled(Astro.props.audio, Astro.site);
   <section class="audio-prehled" aria-labelledby="audio-prehled-nadpis">
     <div class="audio-prehled-head">
       <h2 id="audio-prehled-nadpis">Audio přehled</h2>
+      {/* Kolo 36: mezi „Délka“ a <time> musí být skutečný textový uzel —
+          kompilátor mezeru mezi elementy vyhodil a čtečka četla „Délka17:42“
+          (živě 10. 9. 2026). Vizuální odstup drží margin-right .mono. */}
       <p class="audio-prehled-delka">
-        <span class="mono">Délka</span>
+        <span class="mono">Délka</span>{' '}
         <time datetime={pohled.iso}>{pohled.delkaText}</time>
       </p>
     </div>
-    <audio controls preload="none" src={pohled.src} aria-label="Audio přehled článku">
+    {/* Kolo 36: „ČTENÍ 4 MIN“ v hlavě článku vs. „Délka 17:42“ tady vypadalo
+        jako chyba. Popisek říká, že Deep Dive je celý rozbor (delší než čtení),
+        krátký přehled jen to hlavní — text volí audioPrehledPohled podle
+        souboru (-nlm.mp3). Je i popisem přehrávače pro čtečku. */}
+    <p class="audio-prehled-popis" id="audio-prehled-popis">{pohled.popis}</p>
+    <audio controls preload="none" src={pohled.src} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">
       <a href={pohled.src}>Stáhnout audio přehled</a>
     </audio>
     {pohled.prepis && (

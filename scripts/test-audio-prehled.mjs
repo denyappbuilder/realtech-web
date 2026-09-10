@@ -75,7 +75,7 @@ test('přehrávač je přístupný, bez autoplay a s nativním přepisem', () =>
   assert.match(KOMPONENTA, /<h2 id="audio-prehled-nadpis">Audio přehled<\/h2>/);
   assert.match(
     KOMPONENTA,
-    /<audio controls preload="none" src=\{pohled\.src\} aria-label="Audio přehled článku">/,
+    /<audio controls preload="none" src=\{pohled\.src\} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">/,
     'nativní <audio> musí mít vlastní jméno — aria-labelledby na section ho nepojmenuje',
   );
   assert.match(KOMPONENTA, /<a href=\{pohled\.src\}>Stáhnout audio přehled<\/a>/);

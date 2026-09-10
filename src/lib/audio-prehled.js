@@ -62,6 +62,31 @@ export function audioSrc(url, site) {
   }
 }
 
+/**
+ * Kolo 36: NotebookLM Deep Dive (10–60 min, dva moderátoři) poznáme podle
+ * konvence názvu souboru `<slug>-nlm.mp3` v R2 — stejnou kotvu drží
+ * scripts/test-audio-last10.mjs a test-audio-transcript-readable.mjs.
+ * Krátké TTS přehledy (`-v3.mp3`, 1–5 min) jsou všechno ostatní.
+ */
+export function jeNotebookLmDeepDive(url) {
+  if (!jeAudioUrl(url)) return false;
+  return /-nlm\.[a-z0-9]+$/i.test(new URL(url, 'https://realtech.cz').pathname);
+}
+
+/**
+ * Kolo 36: „ČTENÍ 4 MIN“ v hlavě článku vedle „Délka 17:42“ u přehrávače
+ * vypadalo živě jako chyba (10. 9. 2026). Popisek pod nadpisem řekne,
+ * co posluchač dostane — u Deep Dive celý rozbor, který je delší než čtení,
+ * u krátkého přehledu jen to hlavní. Žádná smyšlená kratší délka.
+ */
+export const POPIS_DEEP_DIVE =
+  'Celý audio přehled článku ve formátu NotebookLM Deep Dive — jde do hloubky, proto trvá déle než přečtení textu.';
+export const POPIS_KRATKY = 'Stručný audio přehled článku — to hlavní za pár minut.';
+
+export function popisAudioPrehledu(deepDive) {
+  return deepDive ? POPIS_DEEP_DIVE : POPIS_KRATKY;
+}
+
 function encodingFromUrl(src) {
   const path = new URL(src).pathname.toLowerCase();
   if (path.endsWith('.m4a')) return 'audio/mp4';
@@ -91,11 +116,14 @@ export function audioPrehledPohled(audio, site) {
   if (!duration || !src) return null;
   // Do HTML i JSON-LD smí jít jen čitelný přepis, nikdy fonetický ttsScript.
   const prepis = neprázdnýText(audio.transcript);
+  const deepDive = jeNotebookLmDeepDive(audio.url);
   return {
     src,
     iso: duration.iso,
     seconds: duration.seconds,
     delkaText: formatAudioDuration(duration.seconds),
+    deepDive,
+    popis: popisAudioPrehledu(deepDive),
     prepis,
   };
 }
