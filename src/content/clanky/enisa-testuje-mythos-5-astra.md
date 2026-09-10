@@ -5,6 +5,9 @@ category: "AI Report"
 date: "2026-09-11T08:30:00+02:00"
 zprava: true
 image: "/images/clanky/enisa-testuje-mythos-5-astra.jpg"
+audio:
+  url: "https://audio.realtech.cz/enisa-testuje-mythos-5-astra-nlm.mp3?v=373d1a6bbf07"
+  duration: 950
 ---
 
 Evropská kyberbezpečnostní agentura ENISA má přístup k modelu Mythos 5 od Anthropicu a právě ho testuje. Ve čtvrtek 10. září to v e-mailu pro Bloomberg potvrdil mluvčí Evropské komise Thomas Regnier: „Po naší konstruktivní komunikaci s Anthropicem můžeme potvrdit, že unijní kyberbezpečnostní agentura ENISA získala přístup k Mythos 5 a nyní ho testuje.“ Stejný den Reuters s odkazem na mluvčího Komise dodal, že ENISA má přístup i k GPT-6 Astra od OpenAI a testuje i ji.
