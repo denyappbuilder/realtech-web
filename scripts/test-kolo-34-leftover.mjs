@@ -75,9 +75,10 @@ test("kolo 34: overlay hero nezdvojí ani jednu z obou CTA", () => {
 test("kolo 34: hero úvodky nese chip „Zpráva“ hned za kategorií, stejně jako hlava článku", () => {
   const lowerThird = uvodka.match(/<div class="lower-third">([\s\S]*?)<\/div>/)?.[1] ?? "";
   assert.ok(lowerThird, "hero ztratil .lower-third");
+  // Kolo 35: štítek kategorie je a.tag na /temata/{slug}/ (jako v článku), ne <span>.
   assert.match(
     lowerThird,
-    /<span class="tag">\{hero\.data\.category\}<\/span>\s*\{heroJeZprava && <span class="tag tag-zprava">Zpráva<\/span>\}\s*<time class="time"/,
+    /<a class="tag" href=\{`\/temata\/\$\{slugify\(hero\.data\.category\)\}\/`\}>\{hero\.data\.category\}<\/a>\s*\{heroJeZprava && <span class="tag tag-zprava">Zpráva<\/span>\}\s*<time class="time"/,
     "pořadí kategorie → Zpráva → datum jako v článku",
   );
   assert.match(clanek, /\{zprava && <span class="tag tag-zprava">Zpráva<\/span>\}/, "vzor z hlavy článku zůstává");
