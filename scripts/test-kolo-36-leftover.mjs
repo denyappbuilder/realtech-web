@@ -6,6 +6,8 @@
 //     (delší než čtení) a krátký přehled jen to hlavní — podle -nlm.mp3.
 // P2: mezi „Délka“ a <time> je textový uzel — kompilátor mezeru mezi
 //     elementy vyhodil a čtečka četla „Délka17:42“.
+// P2: <audio preload="metadata"> — nativní ovládání ukáže délku bez stažení
+//     celého souboru (none ji nechávalo prázdnou do kliknutí).
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -85,4 +87,12 @@ test("kolo 36: mezi „Délka“ a <time> je explicitní textový uzel", () => {
     /<span class="mono">Délka<\/span>\{' '\}\s*<time datetime=\{pohled\.iso\}>\{pohled\.delkaText\}<\/time>/,
     "holá mezera mezi elementy v šabloně nestačí — kompilátor ji vyhodil",
   );
+});
+
+// ── P2: <audio preload="metadata"> ───────────────────────────────────────
+
+test("kolo 36: přehrávač načte jen metadata — délku ukáže bez stažení souboru", () => {
+  assert.match(audio, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="metadata"[^>]*\bsrc=\{pohled\.src\}[^>]*>/);
+  assert.doesNotMatch(audio, /preload="(?:none|auto)"/, "none nechává délku prázdnou, auto tahá celý MP3");
+  assert.doesNotMatch(audio, /autoplay/i);
 });

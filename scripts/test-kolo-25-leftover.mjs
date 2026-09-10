@@ -116,7 +116,7 @@ test('kolo 25: nativní <audio> nese aria-label, section dál jen obaluje', () =
   assert.match(audio, /<section class="audio-prehled" aria-labelledby="audio-prehled-nadpis">/);
   assert.match(
     audio,
-    /<audio controls preload="none" src=\{pohled\.src\} aria-label="Audio přehled článku"[^>]*>/,
+    /<audio controls preload="metadata" src=\{pohled\.src\} aria-label="Audio přehled článku"[^>]*>/,
   );
   assert.doesNotMatch(audio, /autoplay/i);
 });

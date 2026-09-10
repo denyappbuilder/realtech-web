@@ -29,7 +29,10 @@ const pohled = audioPrehledPohled(Astro.props.audio, Astro.site);
         krátký přehled jen to hlavní — text volí audioPrehledPohled podle
         souboru (-nlm.mp3). Je i popisem přehrávače pro čtečku. */}
     <p class="audio-prehled-popis" id="audio-prehled-popis">{pohled.popis}</p>
-    <audio controls preload="none" src={pohled.src} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">
+    {/* Kolo 36: preload="metadata" — nativní ovládání ukáže délku hned
+        (jen hlavička souboru), zatímco none ji nechávalo prázdnou do kliknutí.
+        auto ne: tahalo by celý 17minutový MP3 každému čtenáři. */}
+    <audio controls preload="metadata" src={pohled.src} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">
       <a href={pohled.src}>Stáhnout audio přehled</a>
     </audio>
     {pohled.prepis && (
