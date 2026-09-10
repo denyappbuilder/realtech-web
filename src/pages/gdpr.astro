@@ -115,8 +115,14 @@ const breadcrumbLd = {
         </ul>
 
         <h2 id="e-mail">Když nám napíšeš</h2>
+        {/*
+          Kolo 35: adresa tu stála jako holý text (bez mailto a bez obalu)
+          a Cloudflare Email Obfuscation ji živě 10. 9. 2026 přepsala na
+          /cdn-cgi/l/email-protection → 404 bez JS. email_off musí obalit
+          KAŽDÝ výskyt adresy v HTML, i prostý text — hlídá test-gdpr.mjs.
+        */}
         <p>
-          Když pošleš e-mail na info@realtech.cz, uložíme si to, co v něm je — adresu,
+          Když pošleš e-mail na <!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off-->, uložíme si to, co v něm je — adresu,
           jméno, pokud ho uvedeš, a obsah zprávy — abychom ti mohli odpovědět. Právní
           základ je náš oprávněný zájem odpovídat lidem, kteří nás oslovili. Korespondenci
           držíme, dokud je k něčemu (typicky dokud spolupráce nebo dotaz běží), a

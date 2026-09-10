@@ -375,7 +375,8 @@ test('generátor indexu a modal se shodnou na tvaru položky', async () => {
   const modal = nactiModal({ hledatelne: [polozkaIndexu] });
 
   // Kdyby generátor přejmenoval klíč, hledání i výpis tiše zmlknou.
-  assert.deepEqual(Object.keys(polozkaIndexu).sort(), ['b', 'd', 'k', 'p', 's', 't']);
+  // Kolo 35: m = minuty čtení pro karty filtru /clanky/ (i/z/v jen u článků s hodnotou).
+  assert.deepEqual(Object.keys(polozkaIndexu).sort(), ['b', 'd', 'k', 'm', 'p', 's', 't']);
   assert.deepEqual(slugy(modal.search('tělo')), ['kontrakt']);
   modal.render(modal.search('tělo'), 'tělo');
   assert.match(modal.results.innerHTML, /href="\/clanky\/kontrakt\/"/);

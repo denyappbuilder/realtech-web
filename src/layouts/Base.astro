@@ -269,7 +269,10 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         <input type="email" name="email_address" placeholder="tvuj@email.cz" required aria-label="Tvůj e-mail" autocomplete="email" />
         <button type="submit">Odebírat</button>
       </form>
-      <p class="nl-note" data-nl-note>Potvrzení ti přijde e-mailem. Newsletter posíláme přes Kit. Odhlášení jedním klikem. <a href={YT_SUB}>Radši YouTube? →</a></p>
+      {/* Kolo 35: u formuláře, který sbírá e-mail, má stát i odkaz na to, co
+          se s ním děje — /gdpr/ (#431). Věty o Kitu, potvrzení a odhlášení
+          zůstávají doslova (test-newsletter-kit-disclosure.mjs). */}
+      <p class="nl-note" data-nl-note>Potvrzení ti přijde e-mailem. Newsletter posíláme přes Kit. Odhlášení jedním klikem. <a href="/gdpr/">Ochrana údajů</a> · <a href={YT_SUB}>Radši YouTube? →</a></p>
     </div>
   </div>
 </section>

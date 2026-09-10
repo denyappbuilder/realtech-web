@@ -47,3 +47,18 @@ test("newsletter u skutečného Kit formuláře viditelně uvádí Kit a možnos
     "u formuláře zůstalo nepravdivé tvrzení „e-mail nikomu nedáme“",
   );
 });
+
+test("kolo 35: poznámka u Kit formuláře odkazuje na /gdpr/ (Ochrana údajů)", () => {
+  // Formulář sbírá e-mail — hned u něj má být cesta k tomu, co se s ním
+  // děje (/gdpr/, #431), ne až v patičce. Odkaz stojí v .nl-note vedle vět
+  // o Kitu / potvrzení / odhlášení, které zůstávají doslova (test výš).
+  const poznamka = newsletter().match(
+    /<p\s+class="nl-note"\s+data-nl-note>([\s\S]*?)<\/p>/,
+  );
+  assert.ok(poznamka, "u Kit formuláře chybí viditelná informační poznámka");
+  assert.match(
+    poznamka[1],
+    /<a href="\/gdpr\/">Ochrana údajů<\/a>/,
+    "poznámka u newsletteru nevede na /gdpr/",
+  );
+});

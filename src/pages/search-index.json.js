@@ -1,8 +1,33 @@
 import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
+import { nahledKarty } from '../lib/karta-nahled.js';
+import { youtubeId } from '../lib/youtube.js';
+import { readingTime } from '../lib/reading-time.js';
 
-// Vyhledávací index pro ⌘K modal — malý (jen metadata + začátek textu),
-// načítá se až při prvním otevření vyhledávání.
+/**
+ * Náhled karty pro klientský filtr archivu — TÝŽ soubor, jaký dává
+ * ArticleCard do <img src> (WebP -640, když derivát leží v public/, jinak
+ * originál; YouTube maxresdefault jen u videa bez lokálního coveru).
+ * Bez něj byly karty doplněné z indexu na /clanky/ jen text: jiná výška
+ * než SSR karty (CLS při filtru) a nejednotná mřížka (živě 10. 9. 2026).
+ *
+ * @param {{ image?: string | null; video?: string | null }} data
+ * @returns {string | undefined}
+ */
+export function nahledProIndex(data) {
+  const nahled = nahledKarty(data.image);
+  const videoId = youtubeId(data.video);
+  // Stejná volba jako ArticleCard: lokální cover má přednost i u videa,
+  // YouTube je jen fallback, když soubor v public/ chybí.
+  if (videoId && !nahled.hasLocalThumb) return `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+  return nahled.lcpSrc ?? undefined;
+}
+
+// Vyhledávací index pro ⌘K modal a filtr /clanky/ — malý (metadata,
+// začátek textu, cesta k náhledu), načítá se až při prvním hledání / filtru.
+// Klíče (s, t, d, k, b, p, m, i, z, v) čtou SearchModal.astro i
+// ArticleArchivePage.astro; volitelné i/z/v se do JSON dostanou, jen když
+// článek hodnotu má (JSON.stringify undefined vynechá).
 export async function GET() {
   const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
     .sort(compareArticlesByDateDescThenId);
@@ -28,6 +53,12 @@ export async function GET() {
       .slice(0, 400)
       .trim(),
     p: c.data.date.toISOString().slice(0, 10),
+    // Kolo 35: doba čtení, náhled a štítky .lt karty (Zpráva, délka videa)
+    // — stejná karta jako SSR ArticleCard, ne holý text.
+    m: readingTime(c.body),
+    i: nahledProIndex(c.data),
+    z: c.data.zprava ? 1 : undefined,
+    v: c.data.videoLength || undefined,
   }));
 
   return new Response(JSON.stringify(items), {

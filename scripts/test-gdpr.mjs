@@ -45,6 +45,23 @@ test("gdpr: správce, IČO, sídlo a kontakt na stránce", () => {
   );
 });
 
+test("gdpr: kolo 35 — žádný e-mail mimo email_off (CF Email Obfuscation přepisuje i holý text na 404)", () => {
+  // Živě 10. 9. 2026: v „Když nám napíšeš“ stál holý text info@realtech.cz
+  // bez obalu a Cloudflare z něj udělal /cdn-cgi/l/email-protection#… (404
+  // bez JS, nečitelné pro crawlery). Obfuscation bere i prostý text, ne
+  // jen mailto — obalený musí být každý výskyt adresy v šabloně.
+  const sablona = gdpr.slice(gdpr.indexOf("---", 3) + 3);
+  const mimoObal = sablona.replace(/<!--email_off-->[\s\S]*?<!--\/email_off-->/g, "");
+  assert.doesNotMatch(mimoObal, /[\w.+-]+@realtech\.cz/, "e-mail mimo <!--email_off-->…<!--/email_off-->");
+  assert.match(
+    gdpr,
+    /Když pošleš e-mail na <!--email_off--><a href="mailto:info@realtech\.cz">info@realtech\.cz<\/a><!--\/email_off-->,/,
+    "„Když nám napíšeš“ má e-mail jako mailto v email_off, stejně jako ostatní výskyty",
+  );
+  const onasMimoObal = onas.slice(onas.indexOf("---", 3) + 3).replace(/<!--email_off-->[\s\S]*?<!--\/email_off-->/g, "");
+  assert.doesNotMatch(onasMimoObal, /[\w.+-]+@realtech\.cz/, "O nás: e-mail mimo email_off");
+});
+
 test("gdpr: newsletter — Kit jako zpracovatel, double opt-in, odhlášení, USA, odkaz na Kit privacy", () => {
   // Stránka popisuje formulář z Base.astro — ten musí pořád jít na Kit.
   assert.match(base, /action="https:\/\/app\.kit\.com\/forms\/\d+\/subscriptions"/);
