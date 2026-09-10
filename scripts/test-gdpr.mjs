@@ -1,8 +1,9 @@
 // /gdpr/ — ochrana osobních údajů. Stránka smí tvrdit jen to, co web
 // opravdu dělá: newsletter přes Kit s potvrzením a odhlášením jedním
-// klikem, hosting Cloudflare Pages, Cloudflare Web Analytics bez cookies,
-// žádná cookie lišta. Když se Base.astro změní (jiný newsletter, nová
-// analytika), musí padnout tenhle test, ne až čtenář.
+// klikem, kit zdarma přes Resend (Atlas sekce B), hosting Cloudflare
+// Pages, Cloudflare Web Analytics bez cookies, žádná cookie lišta.
+// Když se Base.astro změní (jiný newsletter, nová analytika), musí
+// padnout tenhle test, ne až čtenář.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -74,6 +75,28 @@ test("gdpr: newsletter — Kit jako zpracovatel, double opt-in, odhlášení, US
   assert.match(gdpr, /americká firma/, "Kit sídlí v USA — předání mimo EU se musí říct");
   assert.match(gdpr, /const KIT_PRIVACY = 'https:\/\/kit\.com\/privacy'/);
   assert.match(gdpr, /href=\{KIT_PRIVACY\}/);
+});
+
+test("gdpr: kit zdarma — Atlas sekce B (Resend, 30 dní, novinky jen po zaškrtnutí)", () => {
+  // kit-souhlas-gdpr.md sekce B (Atlas 10. 9. 2026). Formulář A/C/D sem nepatří.
+  assert.match(gdpr, /<h2 id="kit-zdarma">Kit zdarma a novinky<\/h2>/);
+  assert.match(gdpr, /REALTECH kit zdarma/);
+  assert.match(gdpr, /Resend, Inc/);
+  assert.match(gdpr, /30 dní/);
+  assert.match(gdpr, /3 roky od poslední aktivity/);
+  assert.match(gdpr, /jen pokud jsi to zaškrtl\/a/);
+  assert.match(gdpr, /Herohero/);
+  assert.match(gdpr, /přenositelnost/);
+  assert.match(gdpr, /Poskytnutí e-mailu je dobrovolné/);
+  assert.match(gdpr, /const RESEND_DPA = 'https:\/\/resend\.com\/legal\/dpa'/);
+  assert.match(gdpr, /href=\{RESEND_DPA\}/);
+  const kitSekce = gdpr.slice(gdpr.indexOf('id="kit-zdarma"'), gdpr.indexOf('id="e-mail"'));
+  assert.match(
+    kitSekce,
+    /<!--email_off--><a href="mailto:info@realtech\.cz">info@realtech\.cz<\/a><!--\/email_off-->/,
+    "sekce B má mailto v email_off",
+  );
+  assert.doesNotMatch(gdpr, /<form[\s\S]*kit/i, "formulář kitu (A/C/D) sem nepatří");
 });
 
 test("gdpr: web — Cloudflare Pages, Web Analytics bez cookies, embedy jen ty, co v repu jsou", () => {
