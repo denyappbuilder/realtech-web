@@ -2,6 +2,7 @@ import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 import { nahledKarty } from '../lib/karta-nahled.js';
 import { youtubeId } from '../lib/youtube.js';
+import { readingTime } from '../lib/reading-time.js';
 
 /**
  * Náhled karty pro klientský filtr archivu — TÝŽ soubor, jaký dává
@@ -24,8 +25,8 @@ export function nahledProIndex(data) {
 
 // Vyhledávací index pro ⌘K modal a filtr /clanky/ — malý (metadata,
 // začátek textu, cesta k náhledu), načítá se až při prvním hledání / filtru.
-// Klíče (s, t, d, k, b, p, i, z, v) čtou SearchModal.astro i
-// ArticleArchivePage.astro; volitelné z/v se do JSON dostanou, jen když
+// Klíče (s, t, d, k, b, p, m, i, z, v) čtou SearchModal.astro i
+// ArticleArchivePage.astro; volitelné i/z/v se do JSON dostanou, jen když
 // článek hodnotu má (JSON.stringify undefined vynechá).
 export async function GET() {
   const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
@@ -52,8 +53,9 @@ export async function GET() {
       .slice(0, 400)
       .trim(),
     p: c.data.date.toISOString().slice(0, 10),
-    // Kolo 35: náhled + štítky .lt karty (Zpráva, délka videa) — stejná
-    // karta jako SSR ArticleCard, ne holý text.
+    // Kolo 35: doba čtení, náhled a štítky .lt karty (Zpráva, délka videa)
+    // — stejná karta jako SSR ArticleCard, ne holý text.
+    m: readingTime(c.body),
     i: nahledProIndex(c.data),
     z: c.data.zprava ? 1 : undefined,
     v: c.data.videoLength || undefined,

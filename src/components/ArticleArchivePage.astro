@@ -168,9 +168,10 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const search = document.getElementById('art-search') as HTMLInputElement | null;
       const LOADING_TEXT = 'Načítám index článků…';
       const DEBOUNCE_MS = 300;
-      // Tvar položky drží search-index.json.js: i = náhled karty (jako <img src>
-      // SSR karty), z = 1 u krátké zprávy, v = délka videa. i/z/v jsou volitelné.
-      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; i?: string; z?: 1; v?: string };
+      // Tvar položky drží search-index.json.js: m = minuty čtení, i = náhled
+      // karty (jako <img src> SSR karty), z = 1 u krátké zprávy, v = délka
+      // videa. i/z/v jsou volitelné.
+      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; m?: number; i?: string; z?: 1; v?: string };
       let index: PolozkaIndexu[] | null = null;
       let loadingIndex: Promise<typeof index> | null = null;
       let debounceTimer = 0;
@@ -271,6 +272,11 @@ const vypisOg = ogObrazekClanku(articles[0]);
         cas.setAttribute('datetime', it.p);
         cas.textContent = it.p.split('-').reverse().join('. ');
         meta.append(cas);
+        if (it.m) {
+          const cteni = document.createElement('span');
+          cteni.textContent = `ČTENÍ ${it.m} MIN`;
+          meta.append(cteni);
+        }
         body.append(nadpis, perex, meta);
         article.append(nahledZIndexu(it), body);
         return article;

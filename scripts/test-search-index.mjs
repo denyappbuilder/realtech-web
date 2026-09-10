@@ -91,7 +91,8 @@ test("GET vrátí přesný minifikovaný JSON kontrakt a Content-Type", async ()
   assert.equal(response.headers.get("Content-Type"), "application/json; charset=utf-8");
   assert.equal(
     await response.text(),
-    '[{"s":"presny-kontrakt","t":"Přesný titulek","d":"Přesný popis","k":"Hardware","b":"Obsah článku","p":"2025-04-05"}]',
+    // Kolo 35: m = minuty čtení (readingTime, min. 1) pro karty filtru /clanky/.
+    '[{"s":"presny-kontrakt","t":"Přesný titulek","d":"Přesný popis","k":"Hardware","b":"Obsah článku","p":"2025-04-05","m":1}]',
   );
 });
 
@@ -148,7 +149,7 @@ test("kolo 35: nahledProIndex volí soubor jako ArticleCard — WebP -640 z publ
   assert.equal(nahledProIndex({ video: "https://example.com/ne-youtube" }), undefined);
 });
 
-test("kolo 35: GET dává i/z/v jen tam, kde článek hodnotu má; kontrakt s/t/d/k/b/p zůstává", async () => {
+test("kolo 35: GET dává m vždy a i/z/v jen tam, kde článek hodnotu má; kontrakt s/t/d/k/b/p zůstává", async () => {
   setCollection([
     article({
       id: "zprava-s-videem",
@@ -156,6 +157,8 @@ test("kolo 35: GET dává i/z/v jen tam, kde článek hodnotu má; kontrakt s/t/
       description: "Popis",
       category: "Vesmír",
       date: new Date("2026-09-01T00:00:00.000Z"),
+      // 900 slov / 180 = 5 min; do `b` jde jen prvních 400 znaků.
+      body: "slovo ".repeat(900),
       video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       videoLength: "12:34",
       zprava: true,
@@ -179,13 +182,15 @@ test("kolo 35: GET dává i/z/v jen tam, kde článek hodnotu má; kontrakt s/t/
     t: "Zpráva",
     d: "Popis",
     k: "Vesmír",
-    b: "",
+    b: "slovo ".repeat(900).slice(0, 400).trim(),
     p: "2026-09-01",
+    m: 5,
     i: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
     z: 1,
     v: "12:34",
   });
-  assert.deepEqual(Object.keys(holy), ["s", "t", "d", "k", "b", "p"], "bez coveru, videa a zprávy žádný i/z/v");
+  assert.deepEqual(Object.keys(holy), ["s", "t", "d", "k", "b", "p", "m"], "bez coveru, videa a zprávy žádný i/z/v; m je vždy");
+  assert.equal(holy.m, 1, "readingTime dává minimálně 1 minutu");
   assert.doesNotMatch(text, /"z":false|"v":""|"i":null|undefined/, "prázdné hodnoty se do JSON nedostanou");
 });
 

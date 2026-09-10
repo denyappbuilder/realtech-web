@@ -198,7 +198,7 @@ function spustArchiv({ index, karty }) {
 
 const INDEX = [
   { s: "na-strane-1", t: "Na straně 1", d: "Popis", k: "AI Report", b: "", p: "2026-09-01", i: "/images/clanky/na-strane-1-640.webp" },
-  { s: "zprava-video", t: "Starship Flight 14 letí", d: "Popis zprávy", k: "Vesmír", b: "", p: "2026-08-10", i: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg", z: 1, v: "12:34" },
+  { s: "zprava-video", t: "Starship Flight 14 letí", d: "Popis zprávy", k: "Vesmír", b: "", p: "2026-08-10", m: 4, i: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg", z: 1, v: "12:34" },
   { s: "bez-nahledu", t: "Bez coveru", d: "Popis", k: "AI Agenti", b: "", p: "2026-06-01" },
 ];
 
@@ -230,6 +230,10 @@ test("kolo 35: karta z indexu nese .card-thumb th-* s <picture><img lazy alt=tit
     [["k", "Vesmír"], ["z", "Zpráva"], ["t", "12:34"]],
     "kategorie → Zpráva → délka videa, stejné třídy jako ArticleCard (.k, .z, .t)",
   );
+  // .card-meta: datum + „ČTENÍ N MIN“ jako SSR karta (živě 10. 9. 2026 měly karty z indexu jen datum).
+  const meta = video.najdi("div", "card-meta")[0];
+  assert.deepEqual(meta.children.map((p) => [p.tagName, p.textContent]), [["TIME", "10. 08. 2026"], ["SPAN", "ČTENÍ 4 MIN"]]);
+  assert.deepEqual(bez.najdi("div", "card-meta")[0].children.map((p) => p.tagName), ["TIME"], "bez `m` jen datum, žádné „ČTENÍ undefined MIN“");
 
   // Bez `i` zůstává barevný .th-* blok se štítkem — výška karty sedí i tak.
   assert.equal(bez.children[0].className, "card-thumb th-ai-agenti");
