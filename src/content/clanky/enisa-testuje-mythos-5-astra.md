@@ -2,7 +2,7 @@
 title: "ENISA testuje Mythos 5. Dostala i GPT-6 Astru"
 description: "Komise 10. 9.: unijní kyberagentura má přístup k Anthropic Mythos 5 a OpenAI Astra a už je testuje. Mythos 5.1 prý ne. Po měsících jednání a pod AI Act."
 category: "AI Report"
-date: "2026-09-11T08:30:00+02:00"
+date: "2026-09-10T14:25:58+02:00"
 zprava: true
 image: "/images/clanky/enisa-testuje-mythos-5-astra.jpg"
 audio:
