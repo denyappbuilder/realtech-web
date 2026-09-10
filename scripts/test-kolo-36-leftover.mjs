@@ -8,6 +8,8 @@
 //     elementy vyhodil a čtečka četla „Délka17:42“.
 // P2: <audio preload="metadata"> — nativní ovládání ukáže délku bez stažení
 //     celého souboru (none ji nechávalo prázdnou do kliknutí).
+// P2: #art-search na straně 1 stojí v GET formuláři jako na strana/2+ —
+//     Enter/odeslání funguje i bez JS a URL /clanky/?q=… je sdílitelná.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -25,6 +27,7 @@ const koren = join(dirname(fileURLToPath(import.meta.url)), "..");
 const cti = (rel) => readFileSync(join(koren, rel), "utf8");
 const css = cti("src/styles/global.css");
 const audio = cti("src/components/AudioPrehled.astro");
+const archiv = cti("src/components/ArticleArchivePage.astro");
 
 const SITE = new URL("https://realtech.cz");
 
@@ -95,4 +98,32 @@ test("kolo 36: přehrávač načte jen metadata — délku ukáže bez stažení
   assert.match(audio, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="metadata"[^>]*\bsrc=\{pohled\.src\}[^>]*>/);
   assert.doesNotMatch(audio, /preload="(?:none|auto)"/, "none nechává délku prázdnou, auto tahá celý MP3");
   assert.doesNotMatch(audio, /autoplay/i);
+});
+
+// ── P2: hledání na /clanky/ (strana 1) je GET formulář ────────────────────
+
+test("kolo 36: #art-search na straně 1 stojí ve stejném GET formuláři jako strana/2+", () => {
+  const strana1 = (archiv.match(/\{page === 1 \? \(([\s\S]*?)\) : \(/)?.[1] ?? "")
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
+  assert.ok(strana1, "archiv ztratil větev strany 1");
+  assert.match(
+    strana1,
+    /<form class="search-form" action="\/clanky\/" method="get" role="search" aria-label="[^"]+">\s*<input type="search" name="q" class="search-input" id="art-search"/,
+    "vstup musí mít name=q, jinak GET nic nepošle",
+  );
+  const strana2 = (archiv.match(/<div class="filter-bar" data-filter-odkaz>([\s\S]*?)<\/div>\s*\)\}/)?.[1] ?? "")
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, "");
+  assert.ok(strana2, "archiv ztratil větev strany 2+");
+  assert.match(strana2, /<form class="search-form" action="\/clanky\/" method="get" role="search"/, "vzor ze strany 2+ zůstává");
+  assert.match(css, /\.filter-bar \.search-form \{ display: contents; \}/, "formulář nesmí rozbít rozložení .filter-bar");
+});
+
+test("kolo 36: odeslání formuláře s JS filtruje hned, bez reloadu", () => {
+  const skript = archiv.match(/<script>([\s\S]*?)<\/script>/)?.[1] ?? "";
+  assert.match(skript, /const searchForm = document\.querySelector<HTMLFormElement>\('\.filter-bar \.search-form'\);/);
+  assert.match(
+    skript,
+    /searchForm\?\.addEventListener\('submit', \(event\) => \{\s*event\.preventDefault\(\);[\s\S]*?window\.clearTimeout\(debounceTimer\);\s*void apply\(\);/,
+    "Enter má přeskočit debounce a spustit filtr, ne znovu načíst stránku",
+  );
 });
