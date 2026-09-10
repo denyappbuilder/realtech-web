@@ -150,7 +150,10 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const search = document.getElementById('art-search') as HTMLInputElement | null;
       const LOADING_TEXT = 'Načítám index článků…';
       const DEBOUNCE_MS = 300;
-      let index: { s: string; t: string; d: string; k: string; b: string; p: string }[] | null = null;
+      // Tvar položky drží search-index.json.js: i = náhled karty (jako <img src>
+      // SSR karty), z = 1 u krátké zprávy, v = délka videa. i/z/v jsou volitelné.
+      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; i?: string; z?: 1; v?: string };
+      let index: PolozkaIndexu[] | null = null;
       let loadingIndex: Promise<typeof index> | null = null;
       let debounceTimer = 0;
       let debounceGen = 0;
@@ -180,7 +183,56 @@ const vypisOg = ogObrazekClanku(articles[0]);
         ?? card.querySelector('a[href^="/clanky/"]')?.getAttribute('href')?.match(/\/clanky\/([^/]+)/)?.[1]
         ?? '';
 
-      const kartaZIndexu = (it: { s: string; t: string; d: string; k: string; p: string }) => {
+      // Třída .th-* jako v ArticleCard (barva štítku + poměr stran náhledu).
+      const slugKategorie = (s: string) =>
+        s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-');
+
+      // Kolo 35: karta z indexu měla jen .card-body — bez náhledu byla nižší
+      // než SSR karty (CLS při každém filtru) a mřížka nejednotná (živě
+      // 10. 9. 2026). Teď nese TÝŽ .card-thumb jako ArticleCard: <picture>
+      // s náhledem z indexu (lazy — vzniká až po interakci, LCP to není),
+      // alt = titulek (#310) a štítky .lt (kategorie, Zpráva, délka videa).
+      // Bez `i` zůstane aspoň barevný .th-* blok se štítkem — výška sedí.
+      const nahledZIndexu = (it: PolozkaIndexu) => {
+        const thumb = document.createElement('div');
+        thumb.className = `card-thumb th-${slugKategorie(it.k)}`;
+        if (it.i) {
+          const picture = document.createElement('picture');
+          const img = document.createElement('img');
+          img.setAttribute('src', it.i);
+          img.setAttribute('alt', it.t);
+          // -640 derivát = 640×360, jinak plný 1280×720 (jako nahledKarty na serveru).
+          const maly = /-640\.(?:webp|jpg)$/.test(it.i);
+          img.setAttribute('width', maly ? '640' : '1280');
+          img.setAttribute('height', maly ? '360' : '720');
+          img.setAttribute('loading', 'lazy');
+          img.setAttribute('decoding', 'async');
+          picture.append(img);
+          thumb.append(picture);
+        }
+        const lt = document.createElement('div');
+        lt.className = 'lt';
+        const kategorie = document.createElement('span');
+        kategorie.className = 'k';
+        kategorie.textContent = it.k;
+        lt.append(kategorie);
+        if (it.z) {
+          const zprava = document.createElement('span');
+          zprava.className = 'z';
+          zprava.textContent = 'Zpráva';
+          lt.append(zprava);
+        }
+        if (it.v) {
+          const delka = document.createElement('span');
+          delka.className = 't';
+          delka.textContent = it.v;
+          lt.append(delka);
+        }
+        thumb.append(lt);
+        return thumb;
+      };
+
+      const kartaZIndexu = (it: PolozkaIndexu) => {
         const article = document.createElement('article');
         article.className = 'card';
         article.setAttribute('data-category', it.k);
@@ -202,7 +254,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
         cas.textContent = it.p.split('-').reverse().join('. ');
         meta.append(cas);
         body.append(nadpis, perex, meta);
-        article.append(body);
+        article.append(nahledZIndexu(it), body);
         return article;
       };
 
