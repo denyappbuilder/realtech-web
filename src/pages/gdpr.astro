@@ -9,6 +9,9 @@ import Base from '../layouts/Base.astro';
  * odpovídat tomu, co web opravdu dělá — zdroj pravdy je repo:
  *   - newsletter: Kit formulář v Base.astro (app.kit.com) — double opt-in,
  *     odhlášení jedním klikem (hlídá test-gdpr.mjs),
+ *   - kit zdarma: zásady #kit-zdarma z Atlas kit-souhlas-gdpr.md sekce B
+ *     (10. 9. 2026); zpracovatel Resend. Formulář a e-maily (sekce A/C/D)
+ *     sem nepatří — staví je Email Správce,
  *   - hosting a analytics: Cloudflare Pages + Cloudflare Web Analytics
  *     beacon v Base.astro (bez cookies),
  *   - embedy: YouTube přes youtube-nocookie.com až po kliknutí (fasáda),
@@ -20,13 +23,14 @@ import Base from '../layouts/Base.astro';
  * musí se změnit i tahle stránka.
  */
 const KIT_PRIVACY = 'https://kit.com/privacy';
+const RESEND_DPA = 'https://resend.com/legal/dpa';
 const CF_PRIVACY = 'https://www.cloudflare.com/privacypolicy/';
 const UOOU = 'https://uoou.gov.cz/';
 const AKTUALIZACE = 'září 2026';
 
 const orgId = `${Astro.site?.href}#org`;
 const gdprUrl = new URL('/gdpr/', Astro.site).href;
-const popis = 'Co se děje s tvým e-mailem v newsletteru, co o tobě ví web realtech.cz a jak se odhlásit. Srozumitelně, bez právnické omáčky.';
+const popis = 'Co se děje s tvým e-mailem v newsletteru a u kitu zdarma, co o tobě ví web realtech.cz a jak se odhlásit. Srozumitelně, bez právnické omáčky.';
 const pageLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
@@ -58,8 +62,8 @@ const breadcrumbLd = {
     <p>
       Tohle je stránka o osobních údajích na realtech.cz. Krátká verze: web sám o tobě
       skoro nic neví, žádné cookies nenastavuje a nic neprodává. Jediné, co od tebe
-      opravdu chceme, je e-mail — když se přihlásíš k newsletteru nebo nám napíšeš.
-      Tady je, co se s ním děje a jak se kdykoli odhlásíš.
+      opravdu chceme, je e-mail — když se přihlásíš k newsletteru, požádáš o kit
+      zdarma, nebo nám napíšeš. Tady je, co se s ním děje a jak se kdykoli odhlásíš.
     </p>
 
     <div class="about-layout">
@@ -113,6 +117,48 @@ const breadcrumbLd = {
             soukromí Kit</a>.
           </li>
         </ul>
+
+        <h2 id="kit-zdarma">Kit zdarma a novinky</h2>
+        {/*
+          Atlas 10. 9. 2026 — kit-souhlas-gdpr.md sekce B. Formulář a e-maily
+          (A/C/D) staví Email Správce; tady jen zásady. mailto v email_off
+          (kolo 35, Cloudflare Email Obfuscation).
+        */}
+        <ol>
+          <li>
+            Když vyplníš formulář „REALTECH kit zdarma“, zpracováváme tvou
+            e-mailovou adresu, datum a čas odeslání a informaci, zda jsi
+            zaškrtl/a odběr novinek.
+          </li>
+          <li>
+            <strong>Účel.</strong> (a) doručení odkazu ke stažení kitu – nezbytné
+            pro splnění toho, oč jsi požádal/a; (b) zasílání novinek REALTECHU
+            (nový kit, videa, zákulisí) – jen pokud jsi to zaškrtl/a; souhlas
+            můžeš kdykoli odvolat odkazem v e-mailu nebo na
+            <!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off-->.
+          </li>
+          <li>
+            <strong>Doba.</strong> E-mail pro doručení kitu uchováme 30 dní od
+            odeslání; při souhlasu s novinkami do odvolání souhlasu, nejdéle
+            3 roky od poslední aktivity.
+          </li>
+          <li>
+            <strong>Zpracovatel.</strong> E-maily odesílá a adresy ukládá služba
+            Resend, Inc., USA; předání mimo EU je kryto standardními smluvními
+            doložkami EU (<a href={RESEND_DPA}>DPA Resend</a>). Jiným subjektům
+            údaje nepředáváme, nespojujeme je s YouTube, Herohero ani s údaji
+            z jiných služeb.
+          </li>
+          <li>
+            <strong>Tvá práva.</strong> Přístup, oprava, výmaz, omezení,
+            přenositelnost, námitka, odvolání souhlasu a stížnost u
+            <a href={UOOU}>Úřadu pro ochranu osobních údajů</a> (uoou.gov.cz).
+            Piš na <!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off-->.
+          </li>
+          <li>
+            Poskytnutí e-mailu je dobrovolné; bez něj kit doručit nemůžeme.
+          </li>
+        </ol>
 
         <h2 id="e-mail">Když nám napíšeš</h2>
         {/*
@@ -178,7 +224,7 @@ const breadcrumbLd = {
           Podle GDPR máš právo vědět, co o tobě máme (<strong>přístup</strong>), nechat to
           <strong>opravit</strong> nebo <strong>vymazat</strong>, <strong>omezit</strong>
           zpracování, vznést <strong>námitku</strong> proti zpracování z oprávněného zájmu
-          a u newsletteru kdykoli <strong>odvolat souhlas</strong>. Stačí napsat na
+          a u newsletteru i u novinek z kitu kdykoli <strong>odvolat souhlas</strong>. Stačí napsat na
           <!--email_off--><a href="mailto:info@realtech.cz">info@realtech.cz</a><!--/email_off-->
           — odpovíme do měsíce, obvykle výrazně dřív. Když si budeš myslet, že s tvými
           údaji nakládáme špatně, můžeš se obrátit na
@@ -209,9 +255,16 @@ const breadcrumbLd = {
           <li>Potvrzení e-mailem</li>
           <li>Odhlášení jedním klikem</li>
         </ul>
+        <p class="mono">Kit zdarma ve zkratce</p>
+        <ul class="about-aside-meta">
+          <li>Rozesílá Resend (zpracovatel)</li>
+          <li>Kit 30 dní, novinky do odvolání</li>
+          <li>Novinky jen po zaškrtnutí</li>
+        </ul>
         <p class="mono">Kam dál</p>
         <ul class="about-aside-meta">
           <li><a href={KIT_PRIVACY}>Zásady soukromí Kit</a></li>
+          <li><a href={RESEND_DPA}>DPA Resend</a></li>
           <li><a href={CF_PRIVACY}>Zásady soukromí Cloudflare</a></li>
           <li><a href={UOOU}>ÚOOÚ</a></li>
           <li><a href="/o-nas/">O nás</a></li>
