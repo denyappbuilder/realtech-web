@@ -10,6 +10,8 @@
 //     celého souboru (none ji nechávalo prázdnou do kliknutí).
 // P2: #art-search na straně 1 stojí v GET formuláři jako na strana/2+ —
 //     Enter/odeslání funguje i bez JS a URL /clanky/?q=… je sdílitelná.
+// P2: .hero h1 má na ≤ 580px line-height 1.14 — 1.02 ze základního pravidla
+//     mačkalo diakritiku dvouřádkových titulků.
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -126,4 +128,18 @@ test("kolo 36: odeslání formuláře s JS filtruje hned, bez reloadu", () => {
     /searchForm\?\.addEventListener\('submit', \(event\) => \{\s*event\.preventDefault\(\);[\s\S]*?window\.clearTimeout\(debounceTimer\);\s*void apply\(\);/,
     "Enter má přeskočit debounce a spustit filtr, ne znovu načíst stránku",
   );
+});
+
+// ── P2: .hero h1 na mobilu nemačká diakritiku ─────────────────────────────
+
+test("kolo 36: .hero h1 má na ≤ 580px line-height 1.12–1.15", () => {
+  const blok = css.match(/@media \(max-width: 580px\) \{([\s\S]*?)\n\}/)?.[1] ?? "";
+  assert.ok(blok, "chybí blok @media (max-width: 580px)");
+  const h1 = blok.match(/\.hero h1 \{([^}]+)\}/)?.[1] ?? "";
+  assert.ok(h1, "mobilní .hero h1 v bloku 580px chybí");
+  const lh = Number(h1.match(/line-height:\s*([\d.]+)/)?.[1]);
+  assert.ok(lh >= 1.12 && lh <= 1.15, `line-height ${lh} mimo 1.12–1.15`);
+  assert.match(h1, /font-size: 1\.95rem/, "velikost z kola 27 zůstává");
+  // Základní pravidlo drží těsných 1.02 pro desktop — mění se jen mobil.
+  assert.match(css, /\.hero h1 \{[^}]*line-height: 1\.02/);
 });

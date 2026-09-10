@@ -1030,7 +1030,10 @@ footer.site ul a:hover { color: var(--ink); }
   .hero { padding: 24px 0; }
   .hero-grid { gap: 18px; }
   .lower-third { margin-bottom: 12px; }
-  .hero h1 { font-size: 1.95rem; margin-bottom: 12px; }
+  /* Kolo 36: základních 1.02 je pro desktopový jednořádkový titulek; na
+     390px se dvou- až třířádkový titulek s háčky a čárkami (Images 2.5 živě
+     10. 9. 2026) mačkal — diakritika horního řádku sahala k dolnímu. */
+  .hero h1 { font-size: 1.95rem; line-height: 1.14; margin-bottom: 12px; }
   .hero p.lead { margin-bottom: 16px; }
   .grid { grid-template-columns: 1fr; }
   /* Pole hledání v archivu končilo na 210px uprostřed řádku; pod čipy jde přes celou šířku. */
