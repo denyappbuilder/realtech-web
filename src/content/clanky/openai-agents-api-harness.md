@@ -2,7 +2,7 @@
 title: "OpenAI Agents API: kdy koupit harness a kdy si ho nechat doma"
 description: "Public beta 10. 9.: managed Codex harness bez zvlášť poplatku. Ciridae 0,71→0,85 a SafetyKit −60 % nákladů jsou jejich čísla. US residency, žádné ZDR, i se self-host sandboxem."
 category: "AI Agenti"
-date: ""2026-09-11T07:41:27+02:00""
+date: "2026-09-11T07:41:27+02:00"
 zprava: true
 image: "/images/clanky/openai-agents-api-harness.jpg"
 audio:
