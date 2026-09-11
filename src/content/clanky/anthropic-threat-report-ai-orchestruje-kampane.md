@@ -2,9 +2,12 @@
 title: "Anthropic: AI už kampaně nepomáhá, orchestruje je. Co to znamená pro obranu"
 description: "154stránkový Threat Intelligence Report (prosinec 2025–srpen 2026): sedm oblastí škod, Midnight Blizzard vůči UA/EU, ShinyHunters, 5 bio a 6 zbraňových případů. AI jako orchestrátor. Decision rules pro obránce."
 category: "AI Report"
-date: "2026-09-12T08:30:00+02:00"
+date: "2026-09-11T14:31:36+02:00"
 zprava: true
 image: "/images/clanky/anthropic-threat-report-ai-orchestruje-kampane.jpg"
+audio:
+  url: "https://audio.realtech.cz/anthropic-threat-report-ai-orchestruje-kampane-nlm.mp3?v=7e3dae48a892"
+  duration: 1314
 ---
 
 Anthropic 10. září vydal čtvrtý Threat Intelligence Report. 154 stran. Osm měsíců, od prosince 2025 do srpna 2026. Sedm oblastí škod. Předchozí tři vyšly v březnu, srpnu a listopadu 2025. Hlavní zjištění: AI přestala útočníkům pomáhat a začala jejich kampaně řídit.
