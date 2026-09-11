@@ -1,6 +1,6 @@
 ---
-title: "Anthropic: AI už kampaně nepomáhá, orchestruje je. Co to znamená pro obranu"
-description: "154stránkový Threat Intelligence Report (prosinec 2025–srpen 2026): sedm oblastí škod, Midnight Blizzard vůči UA/EU, ShinyHunters, 5 bio a 6 zbraňových případů. AI jako orchestrátor. Decision rules pro obránce."
+title: "Anthropic: AI začala útočníkům řídit kampaně. Co z toho plyne pro obranu"
+description: "154 stran, osm měsíců, sedm oblastí škod. Midnight Blizzard míří na Ukrajinu a EU, ShinyHunters bere přihlášení za hodiny. Osm pravidel pro obranu."
 category: "AI Report"
 date: "2026-09-11T14:31:36+02:00"
 zprava: true
