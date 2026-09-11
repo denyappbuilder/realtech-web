@@ -2,9 +2,12 @@
 title: "OpenAI Agents API: kdy koupit harness a kdy si ho nechat doma"
 description: "Public beta 10. 9.: managed Codex harness bez zvlášť poplatku. Ciridae 0,71→0,85 a SafetyKit −60 % nákladů jsou jejich čísla. US residency, žádné ZDR, i se self-host sandboxem."
 category: "AI Agenti"
-date: "2026-09-11T08:30:00+02:00"
+date: ""2026-09-11T07:41:27+02:00""
 zprava: true
 image: "/images/clanky/openai-agents-api-harness.jpg"
+audio:
+  url: "https://audio.realtech.cz/openai-agents-api-harness-nlm.mp3?v=c2908531216d"
+  duration: 1059
 ---
 
 OpenAI 10. září otevřela veřejnou betu **Agents API**. Harness, na kterém běží Codex, si teď pronajmeš jako službu. OpenAI drží sessiony, orchestraci, zhušťování kontextu a obnovu po pádu. Ty dodáš nástroje a vybereš, kde agent poběží. Za samotný harness se neplatí nic navíc.
