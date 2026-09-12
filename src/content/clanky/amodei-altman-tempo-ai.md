@@ -8,6 +8,9 @@ image: "/images/clanky/amodei-altman-tempo-ai.jpg"
 xPosts:
   - "https://twitter.com/DarioAmodei/status/2098773920774074715"
   - "https://twitter.com/sama/status/2098811563415150910"
+audio:
+  url: "https://audio.realtech.cz/amodei-altman-tempo-ai-nlm.mp3?v=fa8768d1ee66"
+  duration: 1625
 ---
 
 Dario Amodei dnes zveřejnil esej [We Must Pace the Frontier](https://darioamodei.com/post/we-must-pace-the-frontier). Píše v ní, že musíme zpomalit tempo, jakým rostou schopnosti AI modelů. Sam Altman mu o pár hodin později [odpověděl na X](https://x.com/sama/status/2098811563415150910): „Souhlasím s Dariem, že musíme krotit tempo na špici.“ Šéfové Anthropicu a OpenAI se shodli, že brzdit budou sami. Ještě před zákonem a před regulátorem.
