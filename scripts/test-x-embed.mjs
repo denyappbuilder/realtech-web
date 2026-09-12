@@ -242,13 +242,14 @@ test('embed vkládá rehype plugin v buildu — šablona ho už nenese a .articl
   // dítě .article-body: uvnitř je jen <Content /> s článkem.
   assert.doesNotMatch(PAGE, /xEmbedy\.map|data-x-facade|x-facade-loading-note|x-embed-fallback/,
     'fasádu vkládá rehype plugin do markdownu, ne šablona');
-  const body = PAGE.indexOf('<div class="article-body">');
+  const bodyTag = PAGE.match(/<div class="article-body"[^>]*>/)?.[0] ?? '';
+  const body = PAGE.indexOf(bodyTag);
   const content = PAGE.indexOf('<Content />', body);
   const konecTela = PAGE.indexOf('</div>', body);
   assert.notEqual(body, -1);
   assert.ok(content > body && content < konecTela,
     '.article-body nese <Content /> — článek začíná textem, ne widgetem');
-  const predContentem = PAGE.slice(body + '<div class="article-body">'.length, content);
+  const predContentem = PAGE.slice(body + bodyTag.length, content);
   assert.doesNotMatch(predContentem, /<\w|class=/,
     'před <Content /> nesmí v .article-body stát žádný element — jen komentář');
 

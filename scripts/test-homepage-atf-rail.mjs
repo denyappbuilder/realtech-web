@@ -76,8 +76,8 @@ test("desktopový ATF rail bere tři nejnovější další články, ne featured
   );
   assert.doesNotMatch(
     index.slice(index.indexOf("hero-rail"), index.indexOf("</aside>")),
-    /article\.data\.description|ArticleCard|card-thumb|<img/,
-    "rail nesmí kreslit perex ani velké obrázky",
+    /article\.data\.description|ArticleCard|card-thumb/,
+    "rail drží kompaktní reporty bez perexu a plných ArticleCard",
   );
 });
 

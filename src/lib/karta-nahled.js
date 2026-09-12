@@ -11,6 +11,9 @@ import fs from 'node:fs';
  */
 export const KARTA_SIZES = '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw';
 
+// Archive uses a 96px mobile thumbnail, then the existing 2/3-column grid.
+export const KARTA_SIZES_ARCHIVE = '(max-width: 580px) 96px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
+
 /**
  * Featured první karta na /temata/{slug}/ (.featured-lead > .card:first-child):
  * od 581px přes celou šířku mřížky, náhled 1.2fr z 2.2fr ≈ 55 % karty,

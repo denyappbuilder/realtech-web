@@ -124,10 +124,10 @@ test("kolo 30: play fasády YouTube při reduce neskaluje a reset stojí ZA hove
 // ── Chipy témat jako <nav> ────────────────────────────────────────────────
 
 test("kolo 30: chipy témat na úvodce jsou <nav aria-label=\"Témata\">", () => {
-  assert.match(uvodka, /<nav class="topics" aria-label="Témata">/);
+  assert.match(uvodka, /<nav class="topic-navigation" aria-label="Témata">/);
   assert.doesNotMatch(uvodka, /<div class="topics">/);
-  const blok = uvodka.match(/<nav class="topics"[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? "";
-  assert.match(blok, /<a class="chip" href=\{`\/temata\/\$\{slugify\(cat\)\}\/`\}>/, "odkazy na témata zůstávají chipy");
+  const blok = uvodka.match(/<nav class="topic-navigation"[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? "";
+  assert.match(blok, /<a href=\{`\/temata\/\$\{slugify\(cat\)\}\/`\}>/, "odkazy na témata zůstávají nativní navigací");
 });
 
 test("kolo 30: „Další témata“ na stránce tématu jsou <nav aria-label=\"Další témata\">", () => {

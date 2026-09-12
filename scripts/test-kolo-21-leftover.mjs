@@ -92,7 +92,7 @@ test('kolo 21: preload první karty nese imagesrcset/imagesizes ze srcsetu karty
 test('kolo 21: archiv, téma, hub i vitej posílají thumbWebpSrcset + sizes do preloadu a <link> má imagesrcset/imagesizes', () => {
   const link = /imagesrcset=\{kartaPreload\.imagesrcset\}\s+imagesizes=\{kartaPreload\.imagesizes\}/;
   for (const [nazev, zdroj, sizes] of [
-    ['archiv', archiv, 'KARTA_SIZES'],
+    ['archiv', archiv, 'KARTA_SIZES_ARCHIVE'],
     ['vitej', vitej, 'KARTA_SIZES'],
     ['téma', tema, 'KARTA_SIZES_FEATURED'],
   ]) {

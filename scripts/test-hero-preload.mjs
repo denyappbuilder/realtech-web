@@ -130,7 +130,7 @@ test('homepage dává do <head> právě jeden preload hero obrázku', () => {
 // konstanta sizes), jinak na DPR>1 preloaduje -640.webp a <picture> si
 // vybere plný .webp (živě 5. 9. 2026 na /clanky/, /temata/, /temata/{slug}/).
 const VYBER_PRELOADU_KARTY =
-  /preloadHeroObrazku\(prvniVideoId && !prvniNahled\.hasLocalThumb\s*\?\s*\{ src: `https:\/\/i\.ytimg\.com\/vi\/\$\{prvniVideoId\}\/maxresdefault\.jpg` \}\s*:\s*\{ src: prvniNahled\.localThumb, webp: prvniNahled\.hasWebp \? prvniNahled\.thumbWebp : undefined, webpSrcset: prvniNahled\.thumbWebpSrcset \?\? undefined, sizes: KARTA_SIZES(?:_FEATURED)? \}\)/;
+  /preloadHeroObrazku\(prvniVideoId && !prvniNahled\.hasLocalThumb\s*\?\s*\{ src: `https:\/\/i\.ytimg\.com\/vi\/\$\{prvniVideoId\}\/maxresdefault\.jpg` \}\s*:\s*\{ src: prvniNahled\.localThumb, webp: prvniNahled\.hasWebp \? prvniNahled\.thumbWebp : undefined, webpSrcset: prvniNahled\.thumbWebpSrcset \?\? undefined, sizes: KARTA_SIZES(?:_FEATURED|_ARCHIVE)? \}\)/;
 const LINK_PRELOADU_KARTY =
   /\{kartaPreload && \(\s*<link\s+rel="preload"\s+as="image"\s+href=\{kartaPreload\.href\}\s+imagesrcset=\{kartaPreload\.imagesrcset\}\s+imagesizes=\{kartaPreload\.imagesizes\}\s+type=\{kartaPreload\.type\}\s+fetchpriority="high"\s+slot="head"\s+\/>\s*\)\}/;
 

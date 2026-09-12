@@ -66,7 +66,7 @@ test("gdpr: kolo 35 — žádný e-mail mimo email_off (CF Email Obfuscation př
 test("gdpr: newsletter — Kit jako zpracovatel, double opt-in, odhlášení, USA, odkaz na Kit privacy", () => {
   // Stránka popisuje formulář z Base.astro — ten musí pořád jít na Kit.
   assert.match(base, /action="https:\/\/app\.kit\.com\/forms\/\d+\/subscriptions"/);
-  assert.match(gdpr, /<h2 id="newsletter">Newsletter<\/h2>/);
+  assert.match(gdpr, /<h2 id="newsletter-udaje">Newsletter<\/h2>/);
   assert.match(gdpr, /<strong>Kit<\/strong>/);
   assert.match(gdpr, /zpracovatel/i);
   assert.match(gdpr, /double opt-in/i);

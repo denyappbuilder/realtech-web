@@ -188,8 +188,8 @@ test("kolo 29: /security.txt → /.well-known/security.txt 301", () => {
 
 // ── P2: filtr archivu hlásí počet ────────────────────────────────────────
 
-test("kolo 29: archiv má .filter-count jako role=status jen pro čtečku", () => {
-  assert.match(archiv, /<p class="filter-loading" role="status" hidden>Načítám index článků…<\/p>\s*(?:\{\/\*[\s\S]*?\*\/\})?\s*<p class="filter-count sr-only" role="status" data-filter-count><\/p>/);
+test("archiv má viditelný .filter-count a zachovává role=status", () => {
+  assert.match(archiv, /<p class="filter-count" role="status" data-filter-count>Zobrazeno/);
   assert.equal((archiv.match(/data-filter-count/g) ?? []).length, 2, "markup + querySelector ve skriptu");
 });
 
@@ -332,7 +332,7 @@ test("kolo 29: 5+ článků → „článků“, a stejný počet po sobě se oh
   // Skript nejdřív text vymaže a teprve odloženě zapíše — bez toho by
   // čtečka druhé „5 článků“ nepřečetla (žádná změna DOM).
   const skript = archiv.match(/<script>([\s\S]*?)<\/script>/)?.[1] ?? "";
-  assert.match(skript, /count\.textContent = '';\s*if \(pocet > 0\) window\.setTimeout\(\(\) => \{ count\.textContent = textPoctuClanku\(pocet\); \}, 50\);/);
+  assert.match(skript, /count\.textContent = '';\s*if \(pocet > 0\) countTimer = window\.setTimeout\(\(\) => \{ count\.textContent = textPoctuClanku\(pocet\); \}, 50\);/);
 });
 
 // ── Beze změny ───────────────────────────────────────────────────────────
