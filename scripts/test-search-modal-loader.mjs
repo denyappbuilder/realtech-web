@@ -67,6 +67,10 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
     dokument.activeElement = this;
   };
   const input = prvek({ value: '', fokusovan: 0, focus });
+  // Kolo 37: hlava dialogu je GET <form> na /clanky/?q= — skript na něm
+  // poslouchá submit přes input.form.
+  const form = prvek();
+  input.form = form;
   const odkaz = prvek({ fokusovan: 0, focus });
   const prvkyModalu = [input, odkaz];
   const overlay = prvek({
@@ -135,5 +139,5 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
 
   const modal = sandbox.__modal;
   if (hledatelne !== null) modal.nastavIndex(hledatelne);
-  return { ...modal, overlay, input, odkaz, results, hint, spoustec, dokument, sandbox };
+  return { ...modal, overlay, input, form, odkaz, results, hint, spoustec, dokument, sandbox };
 }

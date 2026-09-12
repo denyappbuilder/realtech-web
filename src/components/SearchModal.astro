@@ -4,7 +4,17 @@
 ---
 <div class="search-overlay" id="search-overlay" hidden>
   <div class="search-box" role="dialog" aria-modal="true" aria-label="Vyhledávání v článcích">
-    <div class="search-head">
+    {/*
+      Kolo 37: hlava dialogu je GET formulář na archiv — stejný cíl a
+      parametr jako .search-form na /clanky/ (kolo 36). Pole tak není
+      jen klientský combobox: Enter bez aktivního výsledku (nic
+      nenalezeno, index se nenačetl) pošle dotaz na /clanky/?q=…, kde
+      filtr běží nad seznamem v HTML a URL je sdílitelná. Enter s
+      výsledkem dál otvírá aktivní článek (handler keydown níž), submit
+      to jen nezdvojí. Tlačítko ESC je type=button — implicitní odeslání
+      spouští jen Enter v jediném textovém poli.
+    */}
+    <form class="search-head" action="/clanky/" method="get">
       <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon"><path d="M10 3a7 7 0 1 0 4.2 12.6l4.1 4.1 1.4-1.4-4.1-4.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
       {/*
         Combobox pattern (WAI-ARIA APG): výsledky jsou listbox s option,
@@ -15,6 +25,7 @@
       <input
         type="search"
         id="search-q"
+        name="q"
         placeholder="Hledat v článcích…"
         autocomplete="off"
         role="combobox"
@@ -36,7 +47,7 @@
         <kbd class="search-esc-kbd" aria-hidden="true">ESC</kbd>
         <svg class="search-esc-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6L19 6.4 17.6 5 12 10.6z"/></svg>
       </button>
-    </div>
+    </form>
     {/*
       Kolo 28: nápověda a „Nic nenalezeno“ stály UVNITŘ listboxu jako <p>
       (axe aria-required-children, critical — listbox smí mít jen option)
@@ -287,6 +298,19 @@
     if (e.key === 'Enter' && e.target === input && current[active]) {
       location.href = `/clanky/${current[active].s}/`;
     }
+  });
+
+  // Kolo 37: hlava dialogu je GET formulář na /clanky/?q=. Enter s aktivním
+  // výsledkem už navigoval handler keydown výš — tady se jen zastaví
+  // implicitní odeslání, aby ho nepředběhl archiv. Bez výsledku (nic
+  // nenalezeno, index nedorazil) jde dotaz do archivu, kde filtr běží nad
+  // seznamem v HTML; prázdné pole nikam neposílá.
+  const formular = input?.form ?? null;
+  formular?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (current[active]) return;
+    const dotaz = input?.value.trim() ?? '';
+    if (dotaz) location.href = `/clanky/?q=${encodeURIComponent(dotaz)}`;
   });
 
   input?.addEventListener('input', () => {

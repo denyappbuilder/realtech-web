@@ -186,6 +186,9 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="alternate" type="application/rss+xml" title="REALTECH CZ" href="/rss.xml" />
+  {/* Kolo 37: bez JS ustoupí tlačítko ⌘K odkazu na GET hledání v archivu
+      (viz <noscript> v hlavičce). <style> smí v <noscript> stát jen v <head>. */}
+  <noscript><style>.search-trigger[data-search-open]{display:none}</style></noscript>
   <slot name="head" />
   {/*
     Cloudflare Web Analytics — JEDEN beacon, tenhle. Kolo 22 ruční <script>
@@ -223,6 +226,21 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 1 0 4.2 12.6l4.1 4.1 1.4-1.4-4.1-4.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
         <kbd class="st-kbd">⌘K</kbd>
       </button>
+      {/*
+        Kolo 37: bez JS bylo tlačítko mrtvé — dialog ⌘K je `hidden` a otvírá
+        ho jen skript, takže z úvodky (i každé jiné stránky) nevedla k hledání
+        žádná cesta. Archiv má GET formulář (/clanky/?q=, kolo 36) hned pod
+        nadpisem; bez skriptu se tlačítko skryje (<noscript><style> v <head>)
+        a na jeho místě stojí odkaz na archiv. Bez fragmentu — #art-search by
+        pod sticky hlavičkou potřeboval scroll-margin-top (kolo 31) a formulář
+        je nahoře i tak. Se skriptem <noscript> nic nevykreslí a tlačítko
+        zůstává tlačítkem (Space, role button, dialog).
+      */}
+      <noscript>
+        <a class="search-trigger" href="/clanky/" aria-label="Hledat v článcích" title="Hledat v článcích">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 1 0 4.2 12.6l4.1 4.1 1.4-1.4-4.1-4.1A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
+        </a>
+      </noscript>
       {/*
         Kolo 29: přepínač je toggle button (WAI-ARIA), ale čtečce říkal jen
         „Přepnout světlý/tmavý režim“ — bez stavu. Kdo nevidí ikonu, nevěděl,
