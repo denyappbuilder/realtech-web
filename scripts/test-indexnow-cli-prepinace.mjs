@@ -11,7 +11,8 @@ const FETCH_CAPTURE = "__INDEXNOW_FETCH_CALLED__";
 const SITEMAP_MARKER = "__INDEXNOW_SITEMAP_READ__";
 
 function createFixture(t, { sitemap = null } = {}) {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), "realtech-indexnow-cli-test-"));
+  // macOS resolves /var to /private/var when importing the copied script.
+  const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "realtech-indexnow-cli-test-")));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
 
   fs.mkdirSync(path.join(root, "scripts"));

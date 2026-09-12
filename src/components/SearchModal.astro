@@ -96,7 +96,14 @@
           indexSelhal = true;
           return [];
         }
-        index = await res.json();
+        const data = await res.json();
+        // Chybnou odpověď neukládat: jinak další dotaz padá až do reloadu.
+        if (!Array.isArray(data) || !data.every((it) => it &&
+          ['s', 't', 'd', 'k', 'b', 'p'].every((key) => typeof it[key] === 'string'))) {
+          indexSelhal = true;
+          return [];
+        }
+        index = data;
         indexSelhal = false;
         return index as any[];
       } catch {
@@ -218,6 +225,7 @@
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
     input.value = '';
+    current = [];
     active = 0;
     render([], '');
     input.focus();
@@ -243,7 +251,9 @@
     if (overlay?.hidden) return;
     if (e.key === 'Escape') { close(); return; }
     if (e.key === 'Tab') {
-      const focusable = Array.from(overlay.querySelectorAll<HTMLElement>(focusableSelector));
+      // a[href] zahrne i option s tabindex=-1, které nejsou v pořadí Tab.
+      const focusable = Array.from(overlay.querySelectorAll<HTMLElement>(focusableSelector))
+        .filter((el) => el.tabIndex >= 0);
       if (!focusable.length) {
         e.preventDefault();
         return;
