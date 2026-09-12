@@ -74,7 +74,8 @@ const heroOgSoubor = hero ? `public/images/og/${hero.id}.jpg` : null;
 const heroOg = heroOgSoubor && fs.existsSync(heroOgSoubor)
   ? `/images/og/${hero.id}.jpg`
   : hero?.data.image;
-const HERO_SIZES = '(max-width: 900px) 100vw, 40vw';
+// .wrap has 24px padding on each side; 100vw needlessly selects 1280w on mobile.
+const HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), 40vw';
 // LCP hero je až v <body> — jediný preload v <head> ho pustí ke stažení hned.
 // Míří na tentýž soubor jako <img src> (WebP, když derivát existuje).
 const heroPreload = preloadHeroObrazku({
