@@ -2,11 +2,14 @@
 title: "Claude Code od 14. 9.: o 17 % méně týdně. Tři kroky, než to naběhne"
 description: "Dočasný limit +50 % končí 13. 9. Od 14. 9. trvalých +25 % proti starému základu, proti dnešku to je minus 17 %. Checklist: fronta do neděle, /effort medium, druhý poskytovatel."
 category: "AI Report"
-date: "2026-09-12T08:30:00+02:00"
+date: "2026-09-12T07:39:29+02:00"
 zprava: true
 image: "/images/clanky/claude-code-tydenni-limit-zari.jpg"
 xPosts:
   - "https://twitter.com/ClaudeDevs/status/2093742322525810912"
+audio:
+  url: "https://audio.realtech.cz/claude-code-tydenni-limit-zari-nlm.mp3?v=e7b1715b6bc2"
+  duration: 1512
 ---
 
 Do neděle 13. 9. večer jede Claude Code ještě na dočasných +50 % týdenního limitu. Od pondělí 14. 9. platí trvalých +25 % proti starému základu. Anthropic to na X oznámil jako navýšení. Proti tomu, co máš v účtu dnes, je to o 17 % méně. Obě čísla jsou pravdivá. Záleží, odkud měříš.
