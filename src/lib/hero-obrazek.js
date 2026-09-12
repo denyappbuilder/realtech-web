@@ -21,7 +21,7 @@ import fs from 'node:fs';
  * je na retině přes 1280 px a šablona už na maxres spoléhá u og:image i VideoObject.
  * Lokální cover má přednost, YouTube thumb je jen fallback.
  */
-export const CLANEK_HERO_SIZES = '(max-width: 808px) 100vw, 760px';
+export const CLANEK_HERO_SIZES = '(max-width: 808px) calc(100vw - 48px), 760px';
 
 /**
  * @param {string | null | undefined} image

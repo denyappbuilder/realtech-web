@@ -92,11 +92,11 @@ test('kolo 22: .article-hero a fasáda videa drží 760px sloupec jako .article-
 });
 
 test('kolo 22: sizes/preload hero článku míří na 760px, ne 1120px', () => {
-  assert.equal(CLANEK_HERO_SIZES, '(max-width: 808px) 100vw, 760px');
+  assert.equal(CLANEK_HERO_SIZES, '(max-width: 808px) calc(100vw - 48px), 760px');
   const out = heroObrazekClanku('/images/clanky/x.jpg', undefined, (c) =>
     ['public/images/clanky/x.jpg', 'public/images/clanky/x.webp', 'public/images/clanky/x-640.webp'].includes(c));
   const preload = preloadHeroObrazku({ src: out.lcpSrc, webp: out.webp, webpSrcset: out.webpSrcset, sizes: out.sizes });
-  assert.equal(preload.imagesizes, '(max-width: 808px) 100vw, 760px');
+  assert.equal(preload.imagesizes, CLANEK_HERO_SIZES);
   assert.match(clanek, /sizes=\{heroSizes\}/);
   assert.doesNotMatch(clanek, /1120px/);
 });
