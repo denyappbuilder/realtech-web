@@ -11,7 +11,7 @@ xPosts:
 
 Do neděle 13. 9. večer jede Claude Code ještě na dočasných +50 % týdenního limitu. Od pondělí 14. 9. platí trvalých +25 % proti starému základu. Anthropic to na X oznámil jako navýšení. Proti tomu, co máš v účtu dnes, je to o 17 % méně. Obě čísla jsou pravdivá. Záleží, odkud měříš.
 
-Oznámení přišlo 29. srpna z účtu @ClaudeDevs. První příspěvek vedl s +25 %. V navazujícím Anthropic dodal, že proti dnešku jde o 17 % snížení týdenních limitů v Claude Code. A slíbil změny pro lepší přehled a kontrolu nad spotřebou. Dole najdeš tři kroky, které OSVČ zvládne udělat ještě tento víkend.
+Oznámení přišlo 29. srpna z účtu @ClaudeDevs. První vlákno vedlo s +25 %. Anthropic ho smazal a poslal objasnění, které říká rovnou: proti dnešku jde o 17 % snížení týdenních limitů v Claude Code. Zároveň slíbil změny pro lepší přehled a kontrolu nad spotřebou. Sled událostí popsaly BleepingComputer a Everyday AI. Dole najdeš tři kroky, které OSVČ zvládne udělat ještě tento víkend.
 
 ## Počty: 100, 150, 125
 
@@ -61,16 +61,17 @@ Praktické minimum: instrukce k projektu (`CLAUDE.md`, `AGENTS.md`) drž v repoz
 
 ## Co sledovat dál
 
-- **Přehled a kontrola spotřeby.** Anthropic v navazujícím příspěvku slíbil změny. Zatím bez data a bez detailu.
+- **Přehled a kontrola spotřeby.** Anthropic je v objasnění slíbil. Zatím bez data a bez detailu.
 - **Článek podpory.** Zda se v něm objeví trvalých +25 %, nebo zůstane u „standardní úrovně“.
 - **5hodinové okno po 14. 9.** Oficiálně se nemění. Ověř si to v pondělí na vlastním `/usage`.
 - **Team a Enterprise.** Změna platí pro sedadla. Jestli Anthropic upraví i účtování podle spotřeby, zatím neřekl.
 
 ## Zdroje
 
-- [@ClaudeDevs na X: oznámení a navazující příspěvek o 17 % (29. 8. 2026)](https://twitter.com/ClaudeDevs/status/2093742322525810912)
+- [@ClaudeDevs na X: objasnění o 17 % proti dnešku (29. 8. 2026)](https://twitter.com/ClaudeDevs/status/2093742322525810912)
 - [Using Claude: Claude Code Weekly Limits, Permanent 25% Increase Starting Sept 14, FAQ (7. 9. 2026)](https://usingclaude.com/en/pricing/plans/claude-code-weekly-limits-permanent-25-percent-faq)
 - [Hacker News: diskuze k oznámení, 52 komentářů](https://news.ycombinator.com/item?id=49506519)
 - [Anthropic: Higher usage limits and a SpaceX compute deal (6. 5. 2026, kontext 5hodinových limitů)](https://www.anthropic.com/news/higher-limits-spacex)
 - [Claude blog: Choosing a Claude model and effort level in Claude Code (7. 7. 2026)](https://claude.com/blog/claude-model-and-effort-level-in-claude-code)
 - [Everyday AI: Claude Code Usage Limits Are Dropping 17%](https://everydayaiblog.com/claude-code-usage-limits-17-percent-cut/)
+- [BleepingComputer: Anthropic is cutting Claude Code's current weekly limits by 17%](https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-is-cutting-claude-codes-current-weekly-limits-by-17-percent/)
