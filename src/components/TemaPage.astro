@@ -97,7 +97,7 @@ const ogTitle = page === 1
   : `${category} – strana ${page} | REALTECH CZ`;
 const vypisOg = ogObrazekClanku(articles[0]);
 ---
-<Base title={title} ogTitle={ogTitle} description={popis} image={vypisOg.image} imageAlt={vypisOg.imageAlt}>
+<Base title={title} ogTitle={ogTitle} description={page > 1 ? `${popis} Strana ${page}.` : popis} image={vypisOg.image} imageAlt={vypisOg.imageAlt}>
   {kartaPreload && (
     <link
       rel="preload"

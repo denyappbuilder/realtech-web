@@ -78,7 +78,7 @@ const title = page === 1
   : `Všechny články – strana ${page} — REALTECH CZ`;
 const vypisOg = ogObrazekClanku(articles[0]);
 ---
-<Base title={title} description="Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí." image={vypisOg.image} imageAlt={vypisOg.imageAlt}>
+<Base title={title} description={'Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí.' + (page > 1 ? ` Strana ${page}.` : '')} image={vypisOg.image} imageAlt={vypisOg.imageAlt}>
   {kartaPreload && (
     <link
       rel="preload"
