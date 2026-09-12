@@ -18,6 +18,15 @@
 /** Delší dotaz nemá smysl a nepatří ani do URL, ani do <input value>. */
 export const MAX_DELKA_DOTAZU = 200;
 
+/**
+ * Kolo 38: „Zrušit filtr“ pro čtenáře bez skriptu — odkaz na čistý archiv,
+ * který edge vloží za tlačítko .filter-reset jen na vyfiltrované straně
+ * (bez filtru není co rušit). Tlačítko samo bez JS schová <noscript><style>
+ * v <head> archivu; s JS <noscript> nic nevykreslí a tlačítko zůstává.
+ */
+export const ODKAZ_ZRUSIT_FILTR =
+  '<noscript><a class="btn-ghost filter-reset" href="/clanky/">Zrušit filtr</a></noscript>';
+
 /** @param {string} s */
 export const normalizuj = (s) =>
   s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
