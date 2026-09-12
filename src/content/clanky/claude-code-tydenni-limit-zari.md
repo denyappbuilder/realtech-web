@@ -33,23 +33,23 @@ Dočasný bonus začal 13. května. Anthropic ho několikrát prodloužil a 31. 
 - **API.** Platíš za tokeny. Týdenní limit tam neexistuje.
 - **5hodinové okno.** Oznámení ho nezmiňuje. Podpora u dočasných +50 % uváděla, že se 5hodinové limity nemění. Nic dalšího oficiálně potvrzeno nemáme.
 
-Jedna poznámka k pramenům. Článek podpory Anthropic (stav k 6. 9.) říká jen to, že se týdenní limity po 13. 9. „vrátí na standardní úroveň“. Trvalých +25 % zatím potvrdil pouze účet @ClaudeDevs na X. Pokud se v pondělí ukáže něco jiného, tady to doplníme.
+Článek podpory Anthropic (stav k 6. 9.) říká jen to, že se týdenní limity po 13. 9. „vrátí na standardní úroveň“. Trvalých +25 % zatím potvrdil pouze účet @ClaudeDevs na X. Pokud se v pondělí ukáže něco jiného, tady to doplníme.
 
-Pro kontext: 6. května Anthropic oznámil dohodu se SpaceX o výpočetní kapacitě. Zároveň zdvojnásobil 5hodinové limity Claude Code a zrušil snížení ve špičce. Týdenních +50 % přišlo o týden později. Teď se z toho balíku ubírá jen týdenní část.
+Celé to začalo 6. května. Anthropic oznámil dohodu se SpaceX o výpočetní kapacitě, zdvojnásobil 5hodinové limity Claude Code a zrušil snížení ve špičce. Týdenních +50 % přišlo o týden později. Teď se z toho balíku ubírá jen týdenní část.
 
 ## Princip hodnoty: 3 kroky pro OSVČ
 
 ### 1. Do neděle 13. 9.: dojeď těžkou frontu
 
-Zbývajících +50 % má dnes větší cenu než v pondělí. Vytáhni z backlogu úlohy, které žerou nejvíc: refaktory přes víc souborů, review velkých PR, migrace, úlohy pro Opus nebo Fable. Pusť je teď. V pondělí by stály stejné tokeny z menšího balíku.
+Zbývajících +50 % má dnes větší cenu než v pondělí. Vytáhni z fronty úlohy, které žerou nejvíc: refaktory přes víc souborů, kontroly velkých PR, migrace, úlohy pro Opus nebo Fable. Pusť je teď. V pondělí by stály stejné tokeny z menšího balíku.
 
-Konkrétně: sepiš 3 až 5 největších úloh. Seřaď je podle rizika, že je v novém týdnu nedoděláš. Začni odshora. Před startem a před koncem si dej `/usage`, ať víš, kolik ti zbývá.
+Sepiš 3 až 5 největších úloh. Seřaď je podle rizika, že je v novém týdnu nedoděláš. Začni odshora. Před startem a před koncem si dej `/usage`, ať víš, kolik ti zbývá.
 
 ### 2. Od pondělí 14. 9.: /effort medium na rutinu
 
-Effort řídí, kolik práce Claude na zadání udělá. Kolik souborů přečte, kolik nástrojů zavolá, kolik kroků udělá, než se ti ozve. Týdenní kvótu tím neměníš. Effort formuje spotřebu tokenů, ale nelimituje ji.
+Effort řídí, kolik práce Claude na zadání udělá. Kolik souborů přečte, kolik nástrojů zavolá, kolik kroků udělá, než se ti ozve. Ovlivňuje tím, kolik tokenů úloha spotřebuje. Týdenní kvótu tím nezvětšíš.
 
-Anthropic doporučuje nechat výchozí úroveň a ladit ji podle typu práce, ne úloha od úlohy. Pro rutinu (přejmenování, drobné úpravy, dotazy na kód, který už je v kontextu) je `/effort medium` způsob, jak utratit méně. Když Claude přeskočí soubor nebo nespustí testy, vrať effort výš. Když mu chybí znalost, ne snaha, změň model, ne effort.
+Anthropic doporučuje nechat výchozí úroveň a ladit ji podle typu práce, ne po jednotlivých úlohách. Pro rutinu (přejmenování, drobné úpravy, dotazy na kód, který už je v kontextu) je `/effort medium` způsob, jak utratit méně. Když Claude přeskočí soubor nebo nespustí testy, vrať effort výš. Když mu chybí znalost problému, pomůže větší model. Effort s tím nic neudělá.
 
 Opus a Fable jen tam, kde menší model prokazatelně selhává. Rutinu dej Sonnetu. A `/usage` spouštěj pravidelně: na začátku dne a před každou velkou úlohou. Bez čísla plánuješ naslepo.
 
@@ -57,7 +57,7 @@ Opus a Fable jen tam, kde menší model prokazatelně selhává. Rutinu dej Sonn
 
 Týdenní okno se zavře uprostřed práce. Zákazník na to nečeká. Měj druhého kódovacího agenta nainstalovaného, přihlášeného a vyzkoušeného na malé úloze ještě tento víkend. Cursor, Codex, Grok Bot. Ne až ve chvíli, kdy `/usage` ukáže nulu.
 
-Praktické minimum: instrukce k projektu (`CLAUDE.md`, `AGENTS.md`) drž v repozitáři, ať ho druhý agent přečte bez přepisování. Vyzkoušej si na něm jednu hotovou úlohu z tohoto týdne a porovnej výstup. U nás v redakci běží jako záloha Grok Bot na vlastním serveru.
+Instrukce k projektu (`CLAUDE.md`, `AGENTS.md`) drž v repozitáři, ať je druhý agent přečte bez přepisování. Vyzkoušej si na něm jednu hotovou úlohu z tohoto týdne a porovnej výstup. U nás v redakci běží jako záloha Grok Bot na vlastním serveru.
 
 ## Co sledovat dál
 
