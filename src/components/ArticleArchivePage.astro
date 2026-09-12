@@ -95,6 +95,10 @@ const vypisOg = ogObrazekClanku(articles[0]);
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   {/* Kolo 37: bez JS ustoupí tlačítka čipů odkazům z <noscript> ve filter-bar. */}
   {page === 1 && <noscript slot="head"><style is:inline>.filter-bar .cat-filter[role="group"]{display:none}</style></noscript>}
+  {/* Kolo 38: tlačítko „Zrušit filtr“ je bez JS mrtvé — na vyfiltrované straně
+      ho edge odkryje a vedle něj vloží <noscript> odkaz a.filter-reset na
+      /clanky/ (ODKAZ_ZRUSIT_FILTR); bez skriptu se tlačítko schová. */}
+  {page === 1 && <noscript slot="head"><style is:inline>button.filter-reset{display:none}</style></noscript>}
   {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
   {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
   <section class="articles hub" data-archive data-total-pages={totalPages}>
@@ -157,6 +161,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       <div class="archive-results-bar">
         {/* data-vychozi: text bez filtru i pro stránku, kterou edge už vyfiltroval (kolo 37). */}
         <p class="filter-count" role="status" data-filter-count data-vychozi={`Zobrazeno ${start + 1}–${start + articles.length} z ${all.length} článků`}>Zobrazeno {start + 1}–{start + articles.length} z {all.length} článků</p>
+        {/* Kolo 38: na /clanky/?q= a ?kat= odkryje tlačítko už edge (functions/clanky/index.js). */}
         <button type="button" class="btn-ghost filter-reset" hidden>Zrušit filtr</button>
       </div>
       <div class="grid" id="articles-grid" aria-busy="false" data-sizes={KARTA_SIZES_ARCHIVE}>
@@ -501,7 +506,16 @@ const vypisOg = ogObrazekClanku(articles[0]);
         const target = chips.find((chip) => chip.getAttribute('data-cat') === initialCategory);
         if (target) activate(target);
       }
-      if (initialCategory || initialQuery) void apply();
+      // Kolo 38: /clanky/?q=… a ?kat=… přichází z edge už vyfiltrované
+      // (data-filtr-edge na mřížce: karty, počet, čip, pole, Zrušit filtr,
+      // skryté stránkování — stejný index, stejná shoda). Znovu filtrovat
+      // při startu by znamenalo hned stáhnout search-index.json (108 kB,
+      // 38 kB gzip) a vyměnit karty z edge za tytéž z klienta. Index se
+      // stáhne až s první interakcí — loadIndex() je v apply() líný odjakživa.
+      // Bez značky (edge neběžel: preview, chyba indexu) filtruje klient hned.
+      if (!grid?.hasAttribute('data-filtr-edge')) {
+        if (initialCategory || initialQuery) void apply();
+      }
     </script>
   )}
 </Base>

@@ -1,4 +1,5 @@
 import {
+  ODKAZ_ZRUSIT_FILTR,
   aktivniCipVOdkazech,
   filtrujIndex,
   parametryFiltru,
@@ -70,6 +71,10 @@ export function handleryFiltru({ vybrane, prvniSlug, kat, q }) {
     ['#articles-grid', {
       element(el) {
         const sizes = el.getAttribute('data-sizes') ?? '';
+        // Kolo 38: značka „tuhle stranu už vyfiltroval edge“ — skript strany 1
+        // pak při startu index (108 kB, 38 kB gzip) nestahuje a filtruje až
+        // po první interakci (čip, pole, Zrušit filtr).
+        el.setAttribute('data-filtr-edge', '');
         // Karty mimo stranu 1 až za poslední SSR kartou — handler .card
         // (výš) do té doby posbíral, co na straně už je.
         el.onEndTag((konec) => {
@@ -94,6 +99,19 @@ export function handleryFiltru({ vybrane, prvniSlug, kat, q }) {
     ['.archive-pagination', {
       element(el) {
         el.setAttribute('hidden', '');
+      },
+    }],
+    // Kolo 38: „Zrušit filtr“ stálo na vyfiltrované straně `hidden`, dokud ho
+    // neodkryl skript (živě 12. 9. 2026) — bez JS nikdy. Tlačítko odkrýt
+    // (skript ho pak řídí dál: čistý filtr ho zase schová) a pro čtenáře bez
+    // skriptu vedle něj odkaz na čistý archiv; tlačítko samo bez JS schová
+    // <noscript><style> v <head> archivu (ArticleArchivePage.astro).
+    // HTMLRewriter vložený obsah znovu neparsuje — handler `noscript` níž
+    // ho nedostane.
+    ['.filter-reset', {
+      element(el) {
+        el.removeAttribute('hidden');
+        el.after(ODKAZ_ZRUSIT_FILTR, { html: true });
       },
     }],
     ['#art-search', {
