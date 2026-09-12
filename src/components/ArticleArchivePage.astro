@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 import { ARTICLES_PER_PAGE } from '../lib/pagination.js';
-import { KARTA_SIZES, nahledKarty } from '../lib/karta-nahled.js';
+import { KARTA_SIZES_ARCHIVE, nahledKarty } from '../lib/karta-nahled.js';
 import { youtubeId } from '../lib/youtube.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import Base from '../layouts/Base.astro';
@@ -40,7 +40,7 @@ const prvniNahled = nahledKarty(prvni?.data.image);
 const kartaPreload = prvni
   ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
       ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
-      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, sizes: KARTA_SIZES })
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, sizes: KARTA_SIZES_ARCHIVE })
   : null;
 
 const collectionLd = {
@@ -97,8 +97,9 @@ const vypisOg = ogObrazekClanku(articles[0]);
   {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
   <section class="articles hub" data-archive data-total-pages={totalPages}>
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head archive-heading">
         <h1>Všechny články</h1>
+        <p>Novinky, analýzy a průvodci. Najdi téma, které tě zajímá.</p>
       </div>
       {page === 1 ? (
         <div class="filter-bar">
@@ -115,6 +116,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
           */}
           <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
             <input type="search" name="q" class="search-input" id="art-search" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
+            <button type="submit" class="btn-primary">Hledat</button>
           </form>
         </div>
       ) : (
@@ -133,30 +135,29 @@ const vypisOg = ogObrazekClanku(articles[0]);
           </nav>
           <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
             <input type="search" name="q" class="search-input" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
+            <button type="submit" class="btn-primary">Hledat</button>
           </form>
         </div>
       )}
+      <div class="archive-results-bar">
+        <p class="filter-count" role="status" data-filter-count>Zobrazeno {start + 1}–{start + articles.length} z {all.length} článků</p>
+        <button type="button" class="btn-ghost filter-reset" hidden>Zrušit filtr</button>
+      </div>
       <div class="grid" id="articles-grid" aria-busy="false">
         {articles.map((article, index) => (
           <ArticleCard
             article={article}
             titleTag="h2"
             priority={index === 0}
+            sizes={KARTA_SIZES_ARCHIVE}
           />
         ))}
       </div>
       {/* Kolo 18: role=status jako u .filter-loading — bez něj čtečka po
           filtru bez shody slyšela jen mizející karty, ne „Nic nenalezeno“. */}
       <p class="filter-empty" role="status" hidden>Nic nenalezeno. Zkus jinou kategorii nebo jiné hledání.</p>
-      {/* Kolo 33: prázdný filtr (kategorie + dotaz bez shody) končil jen
-          větou — čtenář musel sám najít čip Vše a smazat pole. Tlačítko
-          vrátí Vše + prázdné hledání, tedy karty, stránkování i čistou URL. */}
-      <button type="button" class="btn-ghost filter-reset" hidden>Zrušit filtr</button>
       <p class="filter-loading" role="status" hidden>Načítám index článků…</p>
-      {/* Kolo 29: se shodou čtečka slyšela jen ticho — hlásilo se jen
-          „Nic nenalezeno“ a načítání. Počet nalezených jde jen pro čtečku
-          (.sr-only), stejně jako „3 výsledky“ v ⌘K hledání (kolo 28). */}
-      <p class="filter-count sr-only" role="status" data-filter-count></p>
+      <button type="button" class="btn-ghost filter-retry" hidden>Zkusit znovu</button>
       <nav class="archive-pagination" aria-label="Stránkování článků">
         {page > 1 && <a class="btn-ghost" href={pagePath(page - 1)} rel="prev">← Novější</a>}
         <span>Strana {page} z {totalPages}</span>
@@ -174,6 +175,8 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const count = document.querySelector('[data-filter-count]');
       const pagination = document.querySelector('.archive-pagination');
       const reset = document.querySelector('.filter-reset');
+      const retry = document.querySelector('.filter-retry');
+      const defaultCount = count?.textContent ?? '';
       const search = document.getElementById('art-search') as HTMLInputElement | null;
       const searchForm = document.querySelector<HTMLFormElement>('.filter-bar .search-form');
       const LOADING_TEXT = 'Načítám index článků…';
@@ -186,6 +189,8 @@ const vypisOg = ogObrazekClanku(articles[0]);
       let loadingIndex: Promise<typeof index> | null = null;
       let debounceTimer = 0;
       let debounceGen = 0;
+      let applyVersion = 0;
+      let countTimer = 0;
 
       const cards = () => [...document.querySelectorAll('#articles-grid .card')];
 
@@ -203,8 +208,10 @@ const vypisOg = ogObrazekClanku(articles[0]);
       // „12 článků“ (jiná kategorie, stejný počet) nepřečte (žádná změna DOM).
       const ohlasPocet = (pocet: number) => {
         if (!count) return;
+        window.clearTimeout(countTimer);
         count.textContent = '';
-        if (pocet > 0) window.setTimeout(() => { count.textContent = textPoctuClanku(pocet); }, 50);
+        if (pocet > 0) countTimer = window.setTimeout(() => { count.textContent = textPoctuClanku(pocet); }, 50);
+
       };
 
       const slugKarty = (card: Element) =>
@@ -294,16 +301,25 @@ const vypisOg = ogObrazekClanku(articles[0]);
 
       const loadIndex = () => {
         if (index) return Promise.resolve(index);
-        if (loadingIndex) return loadingIndex;
         grid?.setAttribute('aria-busy', 'true');
         if (loading) {
           loading.textContent = LOADING_TEXT;
           loading.removeAttribute('hidden');
         }
+        if (loadingIndex) return loadingIndex;
         loadingIndex = (async () => {
           const response = await fetch('/search-index.json');
           if (!response.ok) throw new Error('Archiv: search-index.json se nenačetl.');
-          index = await response.json();
+          const candidate = await response.json();
+          if (!Array.isArray(candidate) || !candidate.every((item) =>
+            item && typeof item === 'object'
+            && ['s', 't', 'd', 'k', 'b', 'p'].every((key) => typeof item[key] === 'string')
+            && (item.m === undefined || (Number.isFinite(item.m) && item.m > 0))
+            && (item.i === undefined || typeof item.i === 'string')
+            && (item.z === undefined || item.z === 1)
+            && (item.v === undefined || typeof item.v === 'string')
+          )) throw new Error('Archiv: neplatný index článků.');
+          index = candidate;
           return index;
         })().catch((err) => {
           loadingIndex = null;
@@ -316,9 +332,12 @@ const vypisOg = ogObrazekClanku(articles[0]);
       };
 
       const apply = async () => {
+        const version = ++applyVersion;
         const category = document.querySelector('.chip.active')?.getAttribute('data-cat') ?? '';
         const query = (search?.value ?? '').trim();
         const nq = norm(query);
+        retry?.toggleAttribute('hidden', true);
+        loading?.toggleAttribute('hidden', true);
         cards().forEach((card) => {
           if (card.hasAttribute('data-from-index')) card.remove();
         });
@@ -328,19 +347,25 @@ const vypisOg = ogObrazekClanku(articles[0]);
           reset?.toggleAttribute('hidden', true);
           pagination?.toggleAttribute('hidden', false);
           ohlasPocet(0);
+          if (count) count.textContent = defaultCount;
           history.replaceState(null, '', location.pathname);
           return;
         }
 
+        reset?.toggleAttribute('hidden', false);
         try {
           await loadIndex();
         } catch {
+          if (version !== applyVersion) return;
           if (loading) {
             loading.textContent = 'Index článků se nepodařilo načíst. Zkus hledání znovu.';
             loading.removeAttribute('hidden');
           }
+          retry?.toggleAttribute('hidden', false);
           return;
         }
+        // A cleared or changed filter wins over an older in-flight request.
+        if (version !== applyVersion) return;
 
         const slugs = new Set(
           (index ?? [])
@@ -368,9 +393,10 @@ const vypisOg = ogObrazekClanku(articles[0]);
           shown++;
         }
         empty?.toggleAttribute('hidden', shown > 0);
-        reset?.toggleAttribute('hidden', shown > 0);
+        reset?.toggleAttribute('hidden', false);
         pagination?.toggleAttribute('hidden', true);
         ohlasPocet(shown);
+
 
         const params = new URLSearchParams();
         if (category) params.set('kat', category);
@@ -379,6 +405,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
         history.replaceState(null, '', queryString ? `?${queryString}` : location.pathname);
       };
 
+      retry?.addEventListener('click', () => { search?.focus(); void apply(); });
       const activate = (chip: Element) => {
         chips.forEach((item) => {
           item.classList.remove('active');
@@ -409,6 +436,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
         (vse as HTMLElement | undefined)?.focus?.();
       });
       search?.addEventListener('input', () => {
+        applyVersion++;
         const gen = ++debounceGen;
         if (debounceTimer) window.clearTimeout(debounceTimer);
         debounceTimer = window.setTimeout(() => {

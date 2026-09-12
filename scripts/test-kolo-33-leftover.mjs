@@ -73,11 +73,11 @@ test("kolo 33: HERO_DLOUHY_TITULEK = 75 a 76znakový Muse třídu dostane", () =
 
 // ── P2: Zrušit filtr v prázdném archivu ──────────────────────────────────
 
-test("kolo 33: archiv nese tlačítko Zrušit filtr hned za „Nic nenalezeno“, skryté dokud filtr něco najde", () => {
+test("archiv nese Zrušit filtr v liště výsledků, výchozí stav je skrytý", () => {
   assert.match(
     archiv,
-    /<p class="filter-empty" role="status" hidden>Nic nenalezeno\. Zkus jinou kategorii nebo jiné hledání\.<\/p>\s*\{\/\*[\s\S]*?\*\/\}\s*<button type="button" class="btn-ghost filter-reset" hidden>Zrušit filtr<\/button>/,
-    "tlačítko stojí hned za větou, type=button (žádný form), .btn-ghost = 44 px zásah",
+    /<div class="archive-results-bar">[\s\S]*?<button type="button" class="btn-ghost filter-reset" hidden>Zrušit filtr<\/button>/,
+    "reset patří k počtu výsledků a je dostupný i s nalezenými články",
   );
   assert.match(css, /\.filter-reset \{ margin-bottom: 12px; \}/);
   assert.match(css, /\[hidden\] \{ display: none !important; \}/, "bez toho by inline-flex .btn-ghost přebil hidden");
@@ -181,15 +181,15 @@ const INDEX = [
   { s: "m1", t: "Pixel 11", d: "Popis", k: "Mobily", b: "", p: "2026-06-01" },
 ];
 
-test("kolo 33: Zrušit filtr se ukáže jen bez shody a klik vrátí Vše, prázdné pole, karty, stránkování i čistou URL", async () => {
+test("Zrušit filtr se ukáže u každého filtru a klik vrátí Vše, prázdné pole, karty, stránkování i čistou URL", async () => {
   const dom = spustArchiv({ index: INDEX, karty: ["a1", "s1"] });
   const chip = (kat) => dom.chipy.find((c) => c.getAttribute("data-cat") === kat);
 
-  // Filtr se shodou: tlačítko zůstává skryté.
+  // Filtr se shodou lze nyní zrušit přímo v liště výsledků.
   chip("Vesmír").dispatch("click");
   await dom.dobehni();
   assert.equal(dom.empty.hasAttribute("hidden"), true);
-  assert.equal(dom.reset.hasAttribute("hidden"), true, "se shodou není co rušit tlačítkem pod prázdnou hláškou");
+  assert.equal(dom.reset.hasAttribute("hidden"), false, "i úspěšný filtr musí jít zrušit");
 
   // Kategorie + dotaz bez shody (živě /clanky/?kat=Vesmír&q=…): věta i tlačítko.
   dom.search.value = "nic-takoveho";

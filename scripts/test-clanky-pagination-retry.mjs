@@ -303,3 +303,52 @@ test('vyčištění dotazu smaže karty z indexu a vrátí stránkování', asyn
   assert.equal(archive.pagination.hasAttribute('hidden'), false);
   assert.equal(archive.empty.hasAttribute('hidden'), true);
 });
+
+
+test('late successful response cannot restore a cleared query', async () => {
+  const archive = createArchive();
+  startFilteredLoad(archive);
+  const req = await archive.fetchController.next('/search-index.json');
+  archive.search.value = '';
+  archive.search.dispatch('input');
+  req.succeed(INDEX);
+  for (let i = 0; i < 20; i++) await Promise.resolve();
+  assert.deepEqual(slugs(archive), ['first-page']);
+  assert.equal(archive.pagination.hasAttribute('hidden'), false);
+  assert.equal(archive.loading.hasAttribute('hidden'), true);
+});
+
+test('late failed response cannot display an error after clearing the query', async () => {
+  const archive = createArchive();
+  startFilteredLoad(archive);
+  const req = await archive.fetchController.next('/search-index.json');
+  archive.search.value = '';
+  archive.search.dispatch('input');
+  req.fail();
+  for (let i = 0; i < 20; i++) await Promise.resolve();
+  assert.equal(archive.loading.hasAttribute('hidden'), true);
+  assert.deepEqual(slugs(archive), ['first-page']);
+});
+
+for (const invalid of [{bad:'index'}, [null], [{...INDEX[0],t:42}]]) {
+  test(`invalid index is rejected before caching: ${JSON.stringify(invalid)}`, async () => {
+    const archive = createArchive();
+    startFilteredLoad(archive);
+    (await archive.fetchController.next('/search-index.json')).succeed(invalid);
+    await waitFor(() => archive.loading.textContent.includes('nepodařilo načíst'), 'invalid data should show a recoverable error');
+    startFilteredLoad(archive);
+    (await archive.fetchController.next('/search-index.json')).succeed(INDEX);
+    await waitFor(() => slugs(archive).includes('page-2'), 'retry should use valid data');
+    assert.equal(archive.fetchController.urls.length, 2);
+  });
+}
+
+test('valid empty index remains cached', async () => {
+  const archive = createArchive();
+  startFilteredLoad(archive);
+  (await archive.fetchController.next('/search-index.json')).succeed([]);
+  await waitFor(() => !archive.empty.hasAttribute('hidden'), 'empty index should show no results');
+  startFilteredLoad(archive);
+  for (let i = 0; i < 20; i++) await Promise.resolve();
+  assert.equal(archive.fetchController.urls.length, 1);
+});

@@ -19,6 +19,7 @@ import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
 import { preloadHeroObrazku } from '../../lib/hero-preload.js';
 import { KARTA_SIZES_RELATED } from '../../lib/karta-nahled.js';
 import { autoriClanku } from '../../lib/autori.js';
+import { articleOutline } from '../../lib/article-outline.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -29,7 +30,8 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content } = await render(article);
+const { Content, headings } = await render(article);
+const outline = articleOutline(headings);
 const { title, seoTitle, description, category, date, video, videoLength, zprava, image, updated, audio, xPosts } = article.data;
 const readMinutes = readingTime(article.body);
 const dateStr = formatCalendarDateCs(date);
@@ -211,6 +213,23 @@ const breadcrumbLd = {
         </div>
         <h1>{title}</h1>
         <p class="lead">{description}</p>
+        <div class="reading-entry">
+          <a href="#article-text">Přejít rovnou na text <span aria-hidden="true">↓</span></a>
+          {outline.length > 0 && (
+            <details class="article-contents-mobile">
+              <summary>Obsah článku</summary>
+              <nav aria-label="Obsah článku">
+                <ol>
+                  {outline.map((heading) => (
+                    <li class:list={[{ 'contents-subsection': heading.depth === 3 }]}>
+                      <a href={`#${heading.id}`} data-section-link>{heading.text}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            </details>
+          )}
+        </div>
       </div>
 
       {/*
@@ -273,7 +292,7 @@ const breadcrumbLd = {
       <AudioPrehled audio={audio} />
 
       <div class="article-layout">
-        <div class="article-body">
+        <div class="article-body" id="article-text" tabindex="-1">
           {/*
             Oficiální embed X — v textu článku, ne přes cover (cover jako
             fasáda z PR #360 Maky živě vrátil) a NE jako první uzel těla:
@@ -292,6 +311,18 @@ const breadcrumbLd = {
           <Content />
         </div>
         <aside class="article-aside">
+          {outline.length > 0 && (
+            <nav class="article-contents" aria-label="Obsah článku">
+              <h2>Obsah článku</h2>
+              <ol>
+                {outline.map((heading) => (
+                  <li class:list={[{ 'contents-subsection': heading.depth === 3 }]}>
+                    <a href={`#${heading.id}`} data-section-link>{heading.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )}
           <p class="mono">V článku</p>
           <ul class="article-aside-meta">
             <li><a href={`/temata/${slugify(category)}/`}>{category}</a></li>
@@ -424,6 +455,7 @@ const breadcrumbLd = {
     import { inicializujYoutubeFacades } from '../../lib/youtube-facade.js';
     import { inicializujXFacades } from '../../lib/x-embed.js';
     import { zkopirujText } from '../../lib/kopirovat-odkaz.js';
+    import { currentSection } from '../../lib/reading-navigation.js';
 
     // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů).
     // Stejný helper jako rehype plugin, včetně dedupu (Z1207) — jinak by tlačítko
@@ -468,8 +500,34 @@ const breadcrumbLd = {
       h.appendChild(a);
     });
 
+    const sectionLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-section-link]')];
+    const sectionHeadings = [...document.querySelectorAll<HTMLElement>('.article-body h2, .article-body h3')];
+    sectionLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        // Keep native new-tab and modified-click behavior.
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+        if (!target) return;
+        event.preventDefault();
+        const disclosure = link.closest('details');
+        if (disclosure) disclosure.open = false;
+        history.pushState(null, '', link.hash);
+        target.tabIndex = -1;
+        target.focus({ preventScroll: true });
+        target.scrollIntoView({ block: 'start', behavior: 'instant' });
+      });
+    });
+
     const bar = document.querySelector('.read-progress span') as HTMLElement | null;
     const onScroll = () => {
+      if (sectionLinks.length) {
+        const edge = (document.querySelector('header.site')?.getBoundingClientRect().height ?? 64) + 32;
+        const current = currentSection(sectionHeadings.map((h) => ({ id: h.id, top: h.getBoundingClientRect().top })), edge);
+        sectionLinks.forEach((link) => {
+          if (decodeURIComponent(link.hash.slice(1)) === current) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      }
       if (!bar) return;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       bar.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : '0%';
