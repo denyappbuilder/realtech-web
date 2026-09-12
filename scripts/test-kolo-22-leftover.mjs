@@ -136,9 +136,9 @@ test('kolo 22: og:image:alt úvodky nese titulek hero článku, Base má imageAl
   assert.match(uvodka, /image=\{heroOg\} imageAlt=\{heroOgAlt\}/);
 });
 
-test('kolo 22: logo v hlavičce i patičce nese jméno značky „REALTECH CZ — domů“', () => {
+test('kolo 22: logo v hlavičce i patičce nese jméno značky „REAL TECH CZ — domů“', () => {
   const loga = base.match(/<a href="\/" class="logo" aria-label="([^"]+)">/g) ?? [];
   assert.equal(loga.length, 2);
-  for (const tag of loga) assert.match(tag, /aria-label="REALTECH CZ — domů"/);
+  for (const tag of loga) assert.match(tag, /aria-label="REAL TECH CZ — domů"/);
   assert.doesNotMatch(base, /REALTECHCZ/, 'slitý název čtečka četla jako jedno slovo');
 });

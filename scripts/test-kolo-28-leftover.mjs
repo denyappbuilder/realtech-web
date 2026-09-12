@@ -271,10 +271,8 @@ test("kolo 28: newsletter <section> má aria-labelledby na svůj h2", () => {
 
 // ── Logo a cache beze změny ──────────────────────────────────────────────
 
-test("kolo 28: logo drží aria-label z kola 22 — Lighthouse label-content-name-mismatch je tu vědomě", () => {
-  // Bez aria-label čte Chrome flex položky s mezerami: „REAL TECH CZ — domů“.
-  // Lighthouse audit je bez váhy; mluvené jméno „REALTECH CZ“ je lepší.
-  const loga = base.match(/<a href="\/" class="logo" aria-label="REALTECH CZ — domů">/g) ?? [];
+test("logo má stejné mezery ve viditelném i přístupném názvu", () => {
+  const loga = base.match(/<a href="\/" class="logo" aria-label="REAL TECH CZ — domů">/g) ?? [];
   assert.equal(loga.length, 2);
 });
 
