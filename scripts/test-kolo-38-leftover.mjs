@@ -72,8 +72,16 @@ test("kolo 38: Base importuje fonts-plex.css místo subsetových entrypointů fo
 });
 
 test("kolo 38: fonts-plex.css = přesně latin-ext + latin z fontsource {400,500,600}.css, včetně unicode-range a pořadí", () => {
+  // Komentář v hlavičce nesmí předčasně skončit (`*/` uvnitř textu, třeba
+  // ve vzoru cesty „ibm-plex-*/400.css“) — zbytek by se stal neplatným
+  // selektorem a spolkl první @font-face (Sans 400 latin-ext → české
+  // glyfy těla z Arialu). Po odstranění komentářů musí zbýt jen @font-face.
+  const bezKomentaru = fontyPlex.replace(/\/\*[\s\S]*?\*\//g, "").trim();
+  assert.match(bezKomentaru, /^@font-face/, "před prvním @font-face zůstal text mimo komentář");
+  assert.equal((bezKomentaru.match(/\*\//g) ?? []).length, 0, "osamocené */ mimo komentář");
   const nase = fontFaces(fontyPlex);
   assert.equal(nase.length, 10, "Sans 400/500/600 + Mono 400/500, každý latin-ext + latin");
+  assert.equal((bezKomentaru.match(/@font-face/g) ?? []).length, 10);
   let i = 0;
   for (const [balicek, rodina, vahy] of PLEX) {
     for (const vaha of vahy) {

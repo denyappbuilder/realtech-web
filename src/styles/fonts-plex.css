@@ -16,8 +16,8 @@
  *
  * Pořadí latin-ext → latin drží prioritu překrývajících se unicode-range
  * (U+0304, U+0308, U+0329) jako ve fontsource i v kole 37. Při zvednutí
- * verze balíčku srovnat s node_modules/@fontsource/ibm-plex-*/400.css
- * (test-kolo-38-leftover.mjs to hlídá).
+ * verze balíčku srovnat s node_modules/@fontsource/ibm-plex-sans/400.css
+ * a ibm-plex-mono/400.css (test-kolo-38-leftover.mjs to hlídá).
  */
 
 /* ibm-plex-sans-latin-ext-400-normal */
