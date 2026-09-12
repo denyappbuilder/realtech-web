@@ -35,6 +35,7 @@ function prvek(extra = {}) {
   const atributy = new Map();
   return {
     posluchaci,
+    tabIndex: 0,
     addEventListener(typ, fn) {
       posluchaci.set(typ, [...(posluchaci.get(typ) ?? []), fn]);
     },
