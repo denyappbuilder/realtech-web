@@ -6,11 +6,11 @@ date: "2026-09-12T21:40:00+02:00"
 zprava: true
 image: "/images/clanky/amodei-altman-tempo-ai.jpg"
 xPosts:
-  - "https://x.com/DarioAmodei/status/2098773920774074715"
-  - "https://x.com/sama/status/2098811563415150910"
+  - "https://twitter.com/DarioAmodei/status/2098773920774074715"
+  - "https://twitter.com/sama/status/2098811563415150910"
 ---
 
-Dario Amodei dnes zveřejnil esej [We Must Pace the Frontier](https://darioamodei.com/post/we-must-pace-the-frontier). Píše v ní, že musíme zpomalit tempo, jakým rostou schopnosti AI modelů. Sam Altman mu o pár hodin později [odpověděl na X](https://x.com/sama/status/2098811563415150910): „Souhlasím s Dariem, že musíme držet tempo na hranici vývoje." Šéfové Anthropicu a OpenAI se tedy shodli, že brzdit budou sami. Ještě před zákonem a před regulátorem.
+Dario Amodei dnes zveřejnil esej [We Must Pace the Frontier](https://darioamodei.com/post/we-must-pace-the-frontier). Píše v ní, že musíme zpomalit tempo, jakým rostou schopnosti AI modelů. Sam Altman mu o pár hodin později [odpověděl na X](https://x.com/sama/status/2098811563415150910): „Souhlasím s Dariem, že musíme krotit tempo na špici.“ Šéfové Anthropicu a OpenAI se shodli, že brzdit budou sami. Ještě před zákonem a před regulátorem.
 
 Pro tebe to má dva přímé důsledky. Týdenní kvóta v nástrojích, které používáš v práci, poroste pomaleji, nebo se zmenší. A příští model může přijít později, než firmy původně naznačovaly. Obě věci už jsou vidět na účtu, ne jen v esejích. Dole máš tři kroky, které zvládneš ještě dnes.
 
@@ -28,7 +28,7 @@ Jeho hlavní argument je čas. Když zpomalení koupí rok nebo dva navíc, než
 
 **1. Vnější hodnotitelé uvnitř firmy.** K tomuto kroku se Anthropic zavazuje jednostranně a hned. Tým nezávislých kontrolorů, Amodei jmenuje jako příklad organizaci METR, dostane přístup jako zaměstnanci: stůl v kanceláři, vstupní kartu, firemní notebook a pracovní nástroje. A smlouvu, podle které mohou zveřejnit klíčová zjištění bez redakčního schválení Anthropicu. Firma smí začernit jen úzký okruh věcí, třeba bezpečnostně citlivé nebo právně chráněné informace. Nepříznivá zjištění začernit nesmí.
 
-Altman na to reagoval [stejný den](https://www.bbc.com/news/articles/c14dpgm0rg4o): nezávislí hodnotitelé jsou „skvělý nápad" a OpenAI „udělá to samé". Detaily slíbil brzy. V rozhovoru pro Fortune dodal, že standardy „nejsou na úrovni", která by dovolila tlačit schopnosti výrazně dál.
+Altman na to reagoval [stejný den](https://twitter.com/sama/status/2098811563415150910): nezávislí hodnotitelé jsou „skvělý nápad“ a OpenAI „udělá to samé“. Detaily slíbil brzy. V rozhovoru pro Fortune dodal, že standardy „nejsou na úrovni“, která by dovolila tlačit schopnosti výrazně dál.
 
 **2. Koordinace mezi firmami v demokratických zemích.** Společné bezpečnostní standardy a limity tempa. Amodei navrhuje kontrolní body: když model umí X, musí mít doložené vlastnosti Y a Z. Zvažuje i limity na trénovací výpočetní výkon a na použití AI k vývoji AI. Protože jde o dohodu konkurentů, chce od vlády výjimku z antimonopolních pravidel.
 
@@ -38,9 +38,9 @@ Do kontextu patří ještě jedna věta z Washingtonu: Reuters 11. 9. popsal ná
 
 ## OpenAI brzdí už od středy
 
-Tři dny před Amodeiho esejí zveřejnil Chris Lehane z OpenAI text [The AI policy window is open](https://openai.com/index/ai-policy-window/). OpenAI v něm chce mezinárodní standardy pro to, kdy a jak má vývoj zpomalit nebo se zastavit, „i kdyby to znamenalo zpomalení schopností modelů". Když by pokračování znamenalo nepřijatelné bezpečnostní riziko, OpenAI vývoj zpomalí nebo zastaví. Podle Preparedness Frameworku to už udělal.
+Tři dny před Amodeiho esejí zveřejnil Chris Lehane z OpenAI text [The AI policy window is open](https://openai.com/index/ai-policy-window/). OpenAI v něm chce mezinárodní standardy pro to, kdy a jak má vývoj zpomalit nebo se zastavit, „i kdyby to znamenalo zpomalení schopností modelů“. Když by pokračování znamenalo nepřijatelné bezpečnostní riziko, OpenAI vývoj zpomalí nebo zastaví. Podle Preparedness Frameworku to už udělal.
 
-U modelu Astra zavedl OpenAI sledování celých trajektorií včetně řetězce uvažování a povinnou bránu: vyhodnocení sladění před širším interním nasazením. Hlavní vědec Jakub Pachocki píše, že rekurzivní sebezlepšování vyžaduje „extrémní opatrnost". Plně autonomní verze podle OpenAI dnes neběží a firma ji nemá sledovat, dokud to nepůjde bezpečně. OpenAI zároveň podpořil čtyři kalifornské zákony: SB 813, AB 1405, SB 1119 a AB 1864.
+U modelu Astra zavedl OpenAI sledování celých trajektorií včetně řetězce uvažování a povinnou bránu: vyhodnocení sladění před širším interním nasazením. Hlavní vědec Jakub Pachocki píše, že rekurzivní sebezlepšování vyžaduje „extrémní opatrnost“. Plně autonomní verze podle OpenAI dnes neběží a firma ji nemá sledovat, dokud to nepůjde bezpečně. OpenAI zároveň podpořil čtyři kalifornské zákony: SB 813, AB 1405, SB 1119 a AB 1864.
 
 ## Už to vidíš na účtu
 
@@ -58,12 +58,12 @@ Zjisti, kolik ti zbývá, dřív než to zjistíš uprostřed práce. V Claude C
 
 ### 2. Měj druhý model nebo nástroj, než kvóta dojde
 
-Kvóta se zavře uprostřed úlohy a zákazník ani kolega na to nečeká. Druhý nástroj měj nainstalovaný, přihlášený a vyzkoušený na malé úloze ještě dnes. Ne až ve chvíli, kdy `/usage` ukáže nulu. Instrukce k projektu drž v souborech jako `CLAUDE.md` nebo `AGENTS.md`, aby druhý nástroj dostal stejný kontext bez přepisování. Jednu hotovou úlohu z tohoto týdne si na něm zopakuj a porovnej výstup.
+Kvóta se zavře uprostřed úlohy a kolega na to nečeká. Druhý nástroj měj nainstalovaný, přihlášený a vyzkoušený na malé úloze ještě dnes. Ne až ve chvíli, kdy `/usage` ukáže nulu. Instrukce k projektu drž v souborech jako `CLAUDE.md` nebo `AGENTS.md`, aby druhý nástroj dostal stejný kontext bez přepisování. Jednu hotovou úlohu z tohoto týdne si na něm zopakuj a porovnej výstup.
 
 ### 3. Neslibuj termín na modelu, který ještě nevyšel
 
-Amodei mluví o roku nebo dvou navíc. OpenAI drží největší trénink pozastavený a Astra má před sebou povinnou bránu. Anthropic má rámec, který může vydání odložit. Termín zákazníkovi nebo šéfovi proto postav na modelu, který běží dnes. Zamkni pracovní postup: konkrétní model, jeho limity, tvoje záloha. Novou verzi zkoušej vedle na testovací úloze, ne na živém projektu s termínem.
+Amodei mluví o roku nebo dvou navíc. OpenAI drží největší trénink pozastavený a Astra má před sebou povinnou bránu. Anthropic má rámec, který může vydání odložit. Termín proto postav na modelu, který běží dnes. Zamkni pracovní postup: konkrétní model, jeho limity, tvoje záloha. Novou verzi zkoušej vedle na testovací úloze, ne na živém projektu s termínem.
 
 ## Co bude dál
 
-Anthropic má vnější hodnotitele pozvat „v blízké budoucnosti", OpenAI slíbil detaily „brzy". Ani jedna firma zatím nedala datum. Dokud ho nedají, platí, co máš v účtu dnes: od pondělí menší týdenní limit v Claude Code, tvrdý strop v Codexu a Soře a nejistý příchod dalších modelů. Tři kroky výš s tím počítají.
+Anthropic má vnější hodnotitele pozvat „v blízké budoucnosti“, OpenAI slíbil detaily „brzy“. Ani jedna firma zatím nedala datum. Dokud ho nedají, platí, co máš v účtu dnes: od pondělí menší týdenní limit v Claude Code, tvrdý strop v Codexu a Soře a nejistý příchod dalších modelů. Tři kroky výš s tím počítají.
