@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-12T12:54:57.237708+00:00",
+  "title": "Design System: REALTECH CZ",
+  "extensions": {
+    "shadows": [
+      { "name": "incumbent-card-hover", "value": "0 14px 32px -18px color-mix(in srgb, var(--ink) 42%, transparent)", "purpose": "Base cards only; editorial archive cards explicitly disable this shadow and lift." }
+    ],
+    "motion": [
+      { "name": "control-transition", "value": "0.15s", "purpose": "Navigation and button state transitions." },
+      { "name": "card-transform", "value": "0.22s cubic-bezier(0.2, 0.7, 0.3, 1)", "purpose": "Base card hover transform, not editorial archive cards." },
+      { "name": "ticker", "value": "45s linear infinite", "purpose": "Existing ticker; pause on hover/focus-within. Reduced motion disables all animations/transitions and smooth scrolling." }
+    ],
+    "breakpoints": [
+      { "name": "editorial-mobile-max", "value": "580px" },
+      { "name": "editorial-tablet-max", "value": "900px" },
+      { "name": "editorial-desktop-min", "value": "901px" },
+      { "name": "sticky-aside-min-height", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Archive search field",
+      "kind": "input",
+      "description": "Labeled search input; archive overrides the incumbent pill shape with the standard radius.",
+      "html": "<input class=\"ds-search\" type=\"search\" name=\"q\" aria-label=\"Hledat v článcích\" placeholder=\"Hledat článek…\" />",
+      "css": ".ds-search{font-family:'IBM Plex Sans',Arial,sans-serif;font-size:1rem;padding:8px 16px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);color:var(--ink);min-width:0;min-height:44px;width:100%;caret-color:var(--signal)}.ds-search::placeholder{color:var(--ink-faint)}.ds-search:focus{outline:2px solid var(--signal);outline-offset:1px}"
+    },
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Global ink-filled CTA; separate from the archive red submit.",
+      "html": "<button class=\"ds-primary\">Číst článek</button>",
+      "css": ".ds-primary{background:var(--ink);color:var(--bg);padding:12px 24px;border:0;border-radius:var(--radius);font-family:'IBM Plex Sans',Arial,sans-serif;font-size:.92rem;font-weight:600;min-height:44px;transition:background .15s;cursor:pointer}.ds-primary:hover{background:color-mix(in srgb,#000 22%,var(--ink))}.ds-primary:focus-visible{outline:2px solid var(--signal);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Archive submit",
+      "kind": "button",
+      "refersTo": "archive-submit",
+      "description": "Red archive search action; white text stays white on hover in both themes.",
+      "html": "<button class=\"ds-submit\" type=\"submit\">Hledat</button>",
+      "css": ".ds-submit{background:var(--signal-fill);color:#fff;padding:12px 24px;border:0;border-radius:var(--radius);font-family:'IBM Plex Sans',Arial,sans-serif;font-size:1rem;font-weight:600;min-height:44px;transition:background .15s;cursor:pointer}.ds-submit:hover{background:var(--signal-fill-hover);color:#fff}.ds-submit:focus-visible{outline:2px solid var(--signal);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-submit{transition:none}}"
+    },
+    {
+      "name": "Ghost button",
+      "kind": "button",
+      "description": "Surface-filled secondary control used for pagination and retry.",
+      "html": "<button class=\"ds-ghost\">Zkusit znovu</button>",
+      "css": ".ds-ghost{padding:12px 24px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);font-family:'IBM Plex Sans',Arial,sans-serif;font-weight:600;font-size:.92rem;min-height:44px;transition:border-color .15s,color .15s;cursor:pointer}.ds-ghost:hover{border-color:var(--ink);color:var(--ink)}.ds-ghost:focus-visible{outline:2px solid var(--signal);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-ghost{transition:none}}"
+    },
+    {
+      "name": "Archive category",
+      "kind": "chip",
+      "description": "Sentence-case category control; pressed state inverts ink/background. Preview uses the existing all-category label.",
+      "html": "<button class=\"ds-chip\" aria-pressed=\"true\">Vše</button>",
+      "css": ".ds-chip{border:1px solid transparent;border-radius:4px;background:transparent;color:var(--ink-soft);font-family:'IBM Plex Sans',Arial,sans-serif;font-size:.9rem;letter-spacing:0;text-transform:none;padding:8px 12px;cursor:pointer}.ds-chip[aria-pressed=true]{background:var(--ink);color:var(--bg)}.ds-chip:hover:not([aria-pressed=true]){background:var(--surface);border-color:var(--line)}.ds-chip:focus-visible{outline:2px solid var(--signal);outline-offset:3px}"
+    },
+    {
+      "name": "Main navigation link",
+      "kind": "nav",
+      "description": "Ink hover/current state with red underline; compact header wraps navigation below actions on tablet/mobile.",
+      "html": "<nav aria-label=\"Hlavní navigace\"><a class=\"ds-nav-link\" href=\"/clanky/\" aria-current=\"page\">Články</a></nav>",
+      "css": ".ds-nav-link{font-family:'IBM Plex Sans',Arial,sans-serif;font-size:.88rem;font-weight:500;color:var(--ink-soft);padding:6px 0;border-bottom:2px solid transparent;text-decoration:none;transition:color .15s,border-color .15s}.ds-nav-link:hover,.ds-nav-link[aria-current]{color:var(--ink);border-color:var(--signal)}.ds-nav-link:focus-visible{outline:2px solid var(--signal);outline-offset:3px}@media(max-width:900px){.ds-nav-link{display:inline-flex;align-items:center;font-size:.95rem;padding:6px 0 8px;min-height:44px}}@media(prefers-reduced-motion:reduce){.ds-nav-link{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "overview": "A Czech technology and AI publication attached to the REALTECH CZ YouTube channel. Product context comes from the implemented `/o-nas/`, not an assumed audience profile or a new product brief. The established identity is red accents, expanded Archivo headlines, Plex reading text and mono editorial metadata; photography and the articles remain the substance.",
+    "keyCharacteristics": [
+      "Strong headline hierarchy with restrained interface decoration.",
+      "Light and dark semantic surfaces, with separate red text and white-on-red fill roles.",
+      "Responsive article discovery and a quieter, navigable reading column."
+    ],
+    "rules": [],
+    "dos": [
+      "Do treat global.css plus later editorial.css and the route/component markup as implementation authority.",
+      "Do preserve Czech authorial headlines, prose, metadata, links and existing image provenance.",
+      "Do retain dark, keyboard, reduced-motion, loading, empty and retry behavior when maintaining these surfaces."
+    ],
+    "donts": [
+      "Don't replace Archivo/Plex or collapse red text and red fill into a single theme-dependent role.",
+      "Don't generalize scoped archive/reading changes to older topic cards, embeds or unrelated pages.",
+      "Don't add fabricated product claims, a publishing cadence, new image credits, new services or invented design tokens."
+    ]
+  }
+}
