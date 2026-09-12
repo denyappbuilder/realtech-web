@@ -162,7 +162,9 @@ test("kolo 29: .hero-visual je pro čtečku a tabulátor dekorace, pro myš dál
   assert.match(odkaz, /tabindex="-1"/);
   assert.match(odkaz, /aria-hidden="true"/);
   const visual = uvodka.match(/class="hero-visual"[^>]*>([\s\S]*?)<\/a>/)?.[1];
-  assert.match(visual, /<img [^>]*alt=""/);
+  // Kolo 37: alt nese titulek (viz test-kolo-37-leftover.mjs) — pro čtečku
+  // ho dál schovává aria-hidden na odkazu, takže se titulek třikrát nečte.
+  assert.match(visual, /<img [^>]*alt=\{hero\.data\.title\}/);
   assert.match(visual, /fetchpriority="high"/, "LCP zůstává eager + high — dekorace pro čtečku, ne pro prohlížeč");
   assert.doesNotMatch(visual, /aria-hidden="true">(?:<span class="live-dot">)?(?:REALTECH|TC)/, "štítky nepotřebují vlastní aria-hidden, skrytý je celý odkaz");
   // Jméno a cíl nesou h1 a CTA — musí zůstat.
@@ -189,7 +191,8 @@ test("kolo 29: /security.txt → /.well-known/security.txt 301", () => {
 // ── P2: filtr archivu hlásí počet ────────────────────────────────────────
 
 test("archiv má viditelný .filter-count a zachovává role=status", () => {
-  assert.match(archiv, /<p class="filter-count" role="status" data-filter-count>Zobrazeno/);
+  // Kolo 37: data-vychozi nese výchozí text i pro stránku vyfiltrovanou na edgi.
+  assert.match(archiv, /<p class="filter-count" role="status" data-filter-count data-vychozi=\{`Zobrazeno [^`]+`\}>Zobrazeno/);
   assert.equal((archiv.match(/data-filter-count/g) ?? []).length, 2, "markup + querySelector ve skriptu");
 });
 

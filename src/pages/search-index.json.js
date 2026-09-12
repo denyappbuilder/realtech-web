@@ -23,11 +23,30 @@ export function nahledProIndex(data) {
   return nahled.lcpSrc ?? undefined;
 }
 
+/**
+ * Kolo 37: srcset WebP náhledu (640w + 1280w) pro <source> karty z indexu —
+ * karta skládaná po filtru měla živě 12. 9. 2026 jen <img src=-640.webp>
+ * bez srcset/sizes, tedy horší než SSR karta vedle ní (retina desktop
+ * dostal měkkých 640 px). Jen u lokálního coveru se dvěma WebP deriváty;
+ * YouTube náhled ani jediný WebP srcset nemají (SSR karta tam dává
+ * <source srcset={thumbWebp}> bez sizes — klient i edge to odvodí z `i`).
+ *
+ * @param {{ image?: string | null; video?: string | null }} data
+ * @returns {string | undefined}
+ */
+export function srcsetProIndex(data) {
+  const nahled = nahledKarty(data.image);
+  const videoId = youtubeId(data.video);
+  if (videoId && !nahled.hasLocalThumb) return undefined;
+  return nahled.thumbWebpSrcset ?? undefined;
+}
+
 // Vyhledávací index pro ⌘K modal a filtr /clanky/ — malý (metadata,
 // začátek textu, cesta k náhledu), načítá se až při prvním hledání / filtru.
-// Klíče (s, t, d, k, b, p, m, i, z, v) čtou SearchModal.astro i
-// ArticleArchivePage.astro; volitelné i/z/v se do JSON dostanou, jen když
-// článek hodnotu má (JSON.stringify undefined vynechá).
+// Klíče (s, t, d, k, b, p, m, i, is, z, v) čtou SearchModal.astro,
+// ArticleArchivePage.astro i functions/clanky/index.js (filtr bez JS);
+// volitelné i/is/z/v se do JSON dostanou, jen když článek hodnotu má
+// (JSON.stringify undefined vynechá).
 export async function GET() {
   const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
     .sort(compareArticlesByDateDescThenId);
@@ -57,6 +76,7 @@ export async function GET() {
     // — stejná karta jako SSR ArticleCard, ne holý text.
     m: readingTime(c.body),
     i: nahledProIndex(c.data),
+    is: srcsetProIndex(c.data),
     z: c.data.zprava ? 1 : undefined,
     v: c.data.videoLength || undefined,
   }));

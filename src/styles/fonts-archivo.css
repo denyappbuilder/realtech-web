@@ -1,0 +1,39 @@
+/*
+ * Archivo Variable (osa wdth) jen latin + latin-ext — deklarace 1:1 podle
+ * @fontsource-variable/archivo/wdth.css, jen bez vietnamského subsetu.
+ *
+ * Kolo 37: fontsource pro variabilní Archivo subsetové entrypointy nemá,
+ * takže wdth.css nesl i vietnamese (živě 12. 9. 2026: 16 @font-face
+ * v kritickém CSS, 34 464 B woff2 v dist/_astro). Díky unicode-range se
+ * soubor českému čtenáři nikdy nestahoval, ale @font-face zůstávalo
+ * v CSS a woff2 v nasazení. Tady jdou woff2 přímo z balíčku (Vite je
+ * zkopíruje s hashem do _astro/ jako dřív) — stejné soubory, stejné
+ * unicode-range, stejné font-display, jiný není ani jeden glyf.
+ *
+ * Pořadí latin-ext → latin drží prioritu překrývajících se unicode-range
+ * (U+0304, U+0308, U+0329) z původního souboru. Při zvednutí verze balíčku
+ * srovnat s node_modules/@fontsource-variable/archivo/wdth.css
+ * (test-kolo-37-leftover.mjs to hlídá).
+ */
+
+/* archivo-latin-ext-wdth-normal */
+@font-face {
+  font-family: 'Archivo Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url('@fontsource-variable/archivo/files/archivo-latin-ext-wdth-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* archivo-latin-wdth-normal */
+@font-face {
+  font-family: 'Archivo Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url('@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
