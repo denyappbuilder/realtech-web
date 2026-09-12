@@ -61,15 +61,19 @@ test('poster video fasády (LCP hero video článku) nesmí mít alt=""', () => 
 // Kolo 29: hero-visual na úvodce už NENÍ pojmenovaný odkaz. Na stejný cíl
 // vedou hned vedle h1 a „Přečíst analýzu“ (s videem „Video · 12:34“) —
 // třetí odkaz s alt = h1 četl titulek třikrát a přidával zastávku tabulátoru.
-// Cover je dekorace: aria-hidden + tabindex=-1 (myš kliká dál) a alt="".
-// alt="" tu smí být JEN s aria-hidden na odkazu — sám o sobě by odkaz
-// zůstal v tabulátoru beze jména (původní nález). Hlídá to test-kolo-29.
-test('hero-visual na úvodce je dekorace: alt="" jen s aria-hidden a tabindex=-1 na odkazu', () => {
+// Cover je pro čtečku dekorace: aria-hidden + tabindex=-1 (myš kliká dál).
+// Kolo 37: <img> přesto nese alt s titulkem — aria-hidden ho před čtečkou
+// schová (titulek se třikrát nečte), ale vyhledávače obrázků a čtenář bez
+// obrázků (spadlé CDN, vypnuté obrázky) LCP cover úvodky popsaný mají.
+// Alt s titulkem tu je bezpečný JEN s aria-hidden na odkazu — bez něj by
+// odkaz četl titulek potřetí (původní nález kola 29). Hlídá to test-kolo-29.
+test('hero-visual na úvodce: aria-hidden + tabindex=-1 na odkazu, alt s titulkem na <img>', () => {
   const odkaz = uvodka.match(/<a [^>]*class="hero-visual"[^>]*>/)?.[0];
   assert.ok(odkaz, 'odkaz .hero-visual na úvodce chybí');
-  assert.match(odkaz, /aria-hidden="true"/, 'bez aria-hidden by odkaz s alt="" byl beze jména');
+  assert.match(odkaz, /aria-hidden="true"/, 'bez aria-hidden by odkaz s alt = h1 četl titulek třikrát');
   assert.match(odkaz, /tabindex="-1"/, 'aria-hidden na fokusovatelném prvku = axe aria-hidden-focus');
   const visual = uvodka.match(/class="hero-visual"[^>]*>([\s\S]*?)<\/a>/)?.[1];
   assert.ok(visual, 'blok .hero-visual na úvodce chybí');
-  assert.match(visual, /<img [^>]*alt=""/, 'cover v aria-hidden odkazu je dekorace — alt musí být prázdný');
+  assert.doesNotMatch(visual, /<img [^>]*alt=""/, 'LCP cover úvodky nesmí jít ven s alt="" (živě 12. 9. 2026)');
+  assert.match(visual, /<img [^>]*alt=\{hero\.data\.title\}/, 'cover úvodky nese titulek hero článku jako alt');
 });

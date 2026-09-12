@@ -216,15 +216,23 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
             Čtečka slyšela titulek třikrát (alt coveru = h1) a klávesnice
             procházela tři zastávky. Cover zůstává odkaz pro myš, ale pro
             čtečku i tabulátor je dekorace: aria-hidden + tabindex=-1
-            (axe aria-hidden-focus s tabindex=-1 prochází) a alt="".
+            (axe aria-hidden-focus s tabindex=-1 prochází).
             Jméno i cíl nese h1 a CTA, video tlačítko .btn-ghost.
+
+            Kolo 37: alt coveru je titulek článku, ne "" (živě 12. 9. 2026
+            byl LCP obrázek úvodky jediný cover na webu bez altu — karty
+            i hlava článku titulek nesou). Pro čtečku se nic nemění:
+            aria-hidden na odkazu výš schová i alt, takže titulek se
+            třikrát nečte. Alt slouží tomu, co aria-hidden neovlivní —
+            vyhledávačům obrázků, čtenáři s vypnutými obrázky nebo
+            spadlým CDN, kteří jinak vidí prázdný rám 1280×720.
           */}
           <a href={hero.data.video ?? `/clanky/${hero.id}/`} class="hero-visual" tabindex="-1" aria-hidden="true">
             {heroThumb && (
               <picture>
                 {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={HERO_SIZES} type="image/webp" />}
                 {!heroWebpSrcset && heroHasWebp && <source srcset={heroWebp} type="image/webp" />}
-                <img src={heroLcpSrc} srcset={heroHasWebp ? undefined : heroSrcset} sizes={(!heroHasWebp && heroSrcset) ? HERO_SIZES : undefined} alt="" width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
+                <img src={heroLcpSrc} srcset={heroHasWebp ? undefined : heroSrcset} sizes={(!heroHasWebp && heroSrcset) ? HERO_SIZES : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
               </picture>
             )}
             <span class="rec"><span class="live-dot"></span>REALTECH</span>
