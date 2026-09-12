@@ -93,6 +93,8 @@ const vypisOg = ogObrazekClanku(articles[0]);
   )}
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
+  {/* Kolo 37: bez JS ustoupí tlačítka čipů odkazům z <noscript> ve filter-bar. */}
+  {page === 1 && <noscript slot="head"><style is:inline>.filter-bar .cat-filter[role="group"]{display:none}</style></noscript>}
   {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
   {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
   <section class="articles hub" data-archive data-total-pages={totalPages}>
@@ -107,6 +109,19 @@ const vypisOg = ogObrazekClanku(articles[0]);
             <button class="chip active" data-cat="" aria-pressed="true">Vše</button>
             {categories.map((category) => <button class="chip" data-cat={category} aria-pressed="false">{category}</button>)}
           </div>
+          {/*
+            Kolo 37: čipy strany 1 jsou tlačítka jen pro skript — bez JS byly
+            mrtvé, zatímco strana/2+ má odkazy (kolo 35). Bez skriptu se
+            tlačítka schovají (<noscript><style> v <head> níž) a na jejich
+            místě stojí stejné odkazy: /clanky/?kat=… teď filtruje edge
+            (functions/clanky/index.js), který zároveň označí aktivní čip.
+          */}
+          <noscript>
+            <nav class="cat-filter" aria-label="Filtr podle kategorie">
+              <a class="chip active" href="/clanky/">Vše</a>
+              {categories.map((category) => <a class="chip" href={`/clanky/?kat=${encodeURIComponent(category)}`}>{category}</a>)}
+            </nav>
+          </noscript>
           {/*
             Kolo 36: holý <input> na straně 1 bez JS nedělal nic — Enter
             nikam nevedl (živě 10. 9. 2026). Stejný GET formulář jako na
@@ -140,10 +155,11 @@ const vypisOg = ogObrazekClanku(articles[0]);
         </div>
       )}
       <div class="archive-results-bar">
-        <p class="filter-count" role="status" data-filter-count>Zobrazeno {start + 1}–{start + articles.length} z {all.length} článků</p>
+        {/* data-vychozi: text bez filtru i pro stránku, kterou edge už vyfiltroval (kolo 37). */}
+        <p class="filter-count" role="status" data-filter-count data-vychozi={`Zobrazeno ${start + 1}–${start + articles.length} z ${all.length} článků`}>Zobrazeno {start + 1}–{start + articles.length} z {all.length} článků</p>
         <button type="button" class="btn-ghost filter-reset" hidden>Zrušit filtr</button>
       </div>
-      <div class="grid" id="articles-grid" aria-busy="false">
+      <div class="grid" id="articles-grid" aria-busy="false" data-sizes={KARTA_SIZES_ARCHIVE}>
         {articles.map((article, index) => (
           <ArticleCard
             article={article}
@@ -176,15 +192,19 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const pagination = document.querySelector('.archive-pagination');
       const reset = document.querySelector('.filter-reset');
       const retry = document.querySelector('.filter-retry');
-      const defaultCount = count?.textContent ?? '';
+      const defaultCount = count?.getAttribute('data-vychozi') ?? count?.textContent ?? '';
       const search = document.getElementById('art-search') as HTMLInputElement | null;
       const searchForm = document.querySelector<HTMLFormElement>('.filter-bar .search-form');
       const LOADING_TEXT = 'Načítám index článků…';
       const DEBOUNCE_MS = 300;
       // Tvar položky drží search-index.json.js: m = minuty čtení, i = náhled
-      // karty (jako <img src> SSR karty), z = 1 u krátké zprávy, v = délka
-      // videa. i/z/v jsou volitelné.
-      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; m?: number; i?: string; z?: 1; v?: string };
+      // karty (jako <img src> SSR karty), is = srcset WebP 640w+1280w pro
+      // <source> (kolo 37), z = 1 u krátké zprávy, v = délka videa.
+      // i/is/z/v jsou volitelné.
+      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; m?: number; i?: string; is?: string; z?: 1; v?: string };
+      // sizes <source> SSR karet (KARTA_SIZES_ARCHIVE) — server ho dává na
+      // mřížku, aby karta z indexu vybírala derivát stejně jako karta vedle.
+      const sizesKaret = grid?.getAttribute('data-sizes') ?? '';
       let index: PolozkaIndexu[] | null = null;
       let loadingIndex: Promise<typeof index> | null = null;
       let debounceTimer = 0;
@@ -229,11 +249,24 @@ const vypisOg = ogObrazekClanku(articles[0]);
       // s náhledem z indexu (lazy — vzniká až po interakci, LCP to není),
       // alt = titulek (#310) a štítky .lt (kategorie, Zpráva, délka videa).
       // Bez `i` zůstane aspoň barevný .th-* blok se štítkem — výška sedí.
+      // Kolo 37: <source type=image/webp> jako SSR karta — se srcset
+      // 640w+1280w a sizes archivu, když index nese `is`; jediný WebP bez
+      // sizes (ArticleCard dělá totéž). Živě 12. 9. 2026 měla karta z indexu
+      // jen <img src=-640.webp>: retina desktop dostal měkký náhled, který
+      // SSR karta vedle ní neměla. Stejný tvar staví kartaHtml
+      // (src/lib/archiv-filtr.js) pro filtr bez JS — test hlídá shodu.
       const nahledZIndexu = (it: PolozkaIndexu) => {
         const thumb = document.createElement('div');
         thumb.className = `card-thumb th-${slugKategorie(it.k)}`;
         if (it.i) {
           const picture = document.createElement('picture');
+          if (/\.webp$/.test(it.i)) {
+            const source = document.createElement('source');
+            source.setAttribute('srcset', it.is ?? it.i);
+            if (it.is) source.setAttribute('sizes', sizesKaret);
+            source.setAttribute('type', 'image/webp');
+            picture.append(source);
+          }
           const img = document.createElement('img');
           img.setAttribute('src', it.i);
           img.setAttribute('alt', it.t);
@@ -316,6 +349,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
             && ['s', 't', 'd', 'k', 'b', 'p'].every((key) => typeof item[key] === 'string')
             && (item.m === undefined || (Number.isFinite(item.m) && item.m > 0))
             && (item.i === undefined || typeof item.i === 'string')
+            && (item.is === undefined || typeof item.is === 'string')
             && (item.z === undefined || item.z === 1)
             && (item.v === undefined || typeof item.v === 'string')
           )) throw new Error('Archiv: neplatný index článků.');
@@ -338,10 +372,15 @@ const vypisOg = ogObrazekClanku(articles[0]);
         const nq = norm(query);
         retry?.toggleAttribute('hidden', true);
         loading?.toggleAttribute('hidden', true);
-        cards().forEach((card) => {
+        // Kolo 37: karty z indexu se mažou až s novým výsledkem, ne hned.
+        // /clanky/?q=… přichází už vyfiltrované z edge (functions/clanky/
+        // index.js) včetně karet mimo stranu 1 — kdyby zmizely při startu
+        // skriptu, čtenář by na první stažení indexu koukal do díry.
+        const odstranKartyZIndexu = () => cards().forEach((card) => {
           if (card.hasAttribute('data-from-index')) card.remove();
         });
         if (!category && !nq) {
+          odstranKartyZIndexu();
           cards().forEach((card) => card.toggleAttribute('hidden', false));
           empty?.toggleAttribute('hidden', true);
           reset?.toggleAttribute('hidden', true);
@@ -366,6 +405,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
         }
         // A cleared or changed filter wins over an older in-flight request.
         if (version !== applyVersion) return;
+        odstranKartyZIndexu();
 
         const slugs = new Set(
           (index ?? [])

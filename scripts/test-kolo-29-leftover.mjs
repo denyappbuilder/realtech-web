@@ -191,7 +191,8 @@ test("kolo 29: /security.txt → /.well-known/security.txt 301", () => {
 // ── P2: filtr archivu hlásí počet ────────────────────────────────────────
 
 test("archiv má viditelný .filter-count a zachovává role=status", () => {
-  assert.match(archiv, /<p class="filter-count" role="status" data-filter-count>Zobrazeno/);
+  // Kolo 37: data-vychozi nese výchozí text i pro stránku vyfiltrovanou na edgi.
+  assert.match(archiv, /<p class="filter-count" role="status" data-filter-count data-vychozi=\{`Zobrazeno [^`]+`\}>Zobrazeno/);
   assert.equal((archiv.match(/data-filter-count/g) ?? []).length, 2, "markup + querySelector ve skriptu");
 });
 
