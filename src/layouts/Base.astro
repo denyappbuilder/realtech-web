@@ -4,13 +4,15 @@
  * entrypointy (`400.css`) deklarovaly i cyrilici, řečtinu a vietnamštinu:
  * 31 @font-face v produkčním CSS. Díky unicode-range se sice nestahovaly,
  * ale zbytečně nafukovaly kritické CSS. Archivo subsetové entrypointy nemá,
- * `wdth.css` = latin + latin-ext + vietnamese (ta se nikdy nestáhne).
+ * `wdth.css` = latin + latin-ext + vietnamese (ta se nikdy nestáhne) —
+ * kolo 37 ji proto deklaruje samo ve fonts-archivo.css (woff2 z balíčku,
+ * jen latin + latin-ext).
  * Latin-ext před latin: zachovává pořadí (a tím prioritu překrývajících se
  * unicode-range) z původních kombinovaných souborů.
  * Sans 600 zůstává — global.css ho používá na tlačítkách a CTA
  * (.yt-btn, .hero-cta, .nl-form button, .share-btn…), ne jen v nadpisech.
  */
-import '@fontsource-variable/archivo/wdth.css';
+import '../styles/fonts-archivo.css';
 import '@fontsource/ibm-plex-sans/latin-ext-400.css';
 import '@fontsource/ibm-plex-sans/latin-400.css';
 import '@fontsource/ibm-plex-sans/latin-ext-500.css';
