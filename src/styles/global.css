@@ -78,6 +78,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; text-decoration: none; }
+/* Kolo 37: Plex Sans se načítá jen ve 400/500/600 (Base.astro). UA dává
+   <strong>/<b> `bolder` = 700 a .article-body strong mělo 700 natvrdo —
+   prohlížeč tučné jen syntetizoval (rozmazaný faux bold, jiná šířka než
+   skutečný řez). 600 je řez, který už web má (CTA, tlačítka, .skip-link);
+   žádný nový woff2. Archivo nadpisy strong nepoužívají (obsah ověřen),
+   .stat strong má vlastní 800 v Archivu. */
+strong, b { font-weight: 600; }
 ::selection { background: var(--signal); color: #fff; }
 /* summary: <details> přepisu audia je jediný další ovládací prvek s fokusem
    z klávesnice — bez něj měl UA modrý rámeček místo signální. */
@@ -1226,7 +1233,8 @@ footer.site ul a:hover { color: var(--ink); }
   font-size: 1.12rem;
   color: var(--ink-soft);
 }
-.article-body strong { font-weight: 700; }
+/* 600 = skutečný řez Plex Sans (kolo 37), 700 byl syntetický. */
+.article-body strong { font-weight: 600; }
 
 /* ── Category filter chips ───────────── */
 [hidden] { display: none !important; }
