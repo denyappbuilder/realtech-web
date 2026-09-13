@@ -5,6 +5,9 @@ category: "Mobily"
 date: "2026-09-13T08:25:00+02:00"
 zprava: true
 image: "/images/clanky/iphone-18-pro-a20-ai.jpg"
+audio:
+  url: "https://audio.realtech.cz/iphone-18-pro-a20-ai-nlm.mp3?v=7d65895ca751"
+  duration: 963
 ---
 
 iPhone 18 Pro jde v Česku [do prodeje 18. září](https://www.apple.com/cz/iphone-18-pro/), předobjednávky běží od soboty. Apple do něj dal čip A20 Pro na 2nm procesu, dvojitý 16jádrový Neural Engine a evaporační komoru s trojnásobnou plochou. Je to hardware stavěný na umělou inteligenci, která má běžet v telefonu, ne v cloudu. Háček je v softwaru: [Siri AI](https://www.apple.com/newsroom/2026/06/due-to-dma-siri-ai-delayed-in-eu-for-ios-27-and-ipados-27/) v Evropské unii včetně Česka při startu nebude a čeština v seznamu jazyků Apple Intelligence pořád chybí.
