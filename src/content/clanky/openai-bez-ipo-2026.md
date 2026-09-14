@@ -6,7 +6,7 @@ date: "2026-09-14T11:30:00+02:00"
 zprava: true
 image: "/images/clanky/openai-bez-ipo-2026.jpg"
 audio:
-  url: "https://audio.realtech.cz/openai-bez-ipo-2026-nlm-b5f7087ab537.mp3"
+  url: "https://audio.realtech.cz/openai-bez-ipo-2026-nlm.mp3?v=b5f7087ab537"
   duration: 1592
 ---
 
