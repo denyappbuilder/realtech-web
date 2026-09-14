@@ -1,6 +1,6 @@
 ---
 title: "Gemini 3.8 Flash má pracovat víc. Cyber zůstává jen pro důvěryhodné obránce"
-description: "Google vypustil Gemini 3.8 Flash a specializovanou variantu Cyber. Flash má podle Googlu dohnat dražší špičkové modely za úvodní cenu 3.7, Cyber zůstává jen pro důvěryhodné obránce v programu Fairwind."
+description: "Google vypustil Gemini 3.8 Flash a variantu Cyber. Flash má podle Googlu dohnat dražší modely za úvodní cenu 3.7, Cyber zůstává jen pro důvěryhodné obránce v programu Fairwind."
 category: "AI Report"
 date: "2026-09-02T18:15:00+02:00"
 zprava: true

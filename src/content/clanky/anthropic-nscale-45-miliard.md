@@ -1,6 +1,6 @@
 ---
-title: "Anthropic má podle Bloombergu pronajmout výpočet za 45 miliard dolarů. Firma to nepotvrdila"
-description: "Bloomberg cituje lidi obeznámené s dohodou: 45 miliard na šest let u Nscale v západní Virginii, cca 460 MW, čipy Vera Rubin až konec příštího roku. Anthropic ani Nscale to veřejně nepotvrdily."
+title: "Anthropic má podle Bloombergu pronajmout výpočet za 45 miliard. Nepotvrzeno"
+description: "Bloomberg cituje lidi obeznámené s dohodou: 45 miliard na šest let u Nscale v Západní Virginii, cca 460 MW, čipy Vera Rubin až koncem příštího roku. Firmy mlčí."
 category: "AI Report"
 date: "2026-08-27"
 zprava: true

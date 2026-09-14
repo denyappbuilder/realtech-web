@@ -1,6 +1,6 @@
 ---
-title: "GPT-6 Astra je venku. Dnes ji má hrstka firem, Plus a Pro čekají několik dní"
-description: "OpenAI 3. září vydal GPT-6 Astra. Přístup zatím dostala omezená skupina organizací, ChatGPT Plus, Pro, Business, Enterprise, API a AWS mají přijít v následujících dnech. API stojí 10 a 50 dolarů za milion tokenů."
+title: "GPT-6 Astra je venku. Dnes hrstka firem, Plus a Pro čekají několik dní"
+description: "OpenAI 3. září vydal GPT-6 Astra. Přístup zatím dostala omezená skupina organizací, ChatGPT Plus, Pro, Business, API a AWS přijdou v dalších dnech. API 10 a 50 dolarů za milion."
 category: "AI Report"
 date: "2026-09-04T06:30:00+02:00"
 zprava: true

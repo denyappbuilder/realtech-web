@@ -1,6 +1,6 @@
 ---
 title: "DJI vs. Insta360: válka dvou firem z jednoho města, kterou vyhraje zákazník"
-description: "Insta360 vstoupilo kapesní kamerou Luna přímo na území DJI — a gigant místo lepšího produktu sáhl po právnících. Rozebrali jsme patentovou válku, roli USA i to, co z ní plyne pro zákazníky."
+description: "Insta360 vstoupilo kamerou Luna přímo na území DJI a gigant místo lepšího produktu sáhl po právnících. Patentová válka, role USA a co z toho plyne pro zákazníky."
 category: "Hardware"
 date: "2026-07-02"
 video: "https://youtu.be/biYMveTpRWc"

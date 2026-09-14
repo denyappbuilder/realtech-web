@@ -1,6 +1,6 @@
 ---
 title: "Muse Spark 1.3: kdy dát Meta místo Fable nebo Astry"
-description: "Meta Muse Spark 1.3 (xhigh) stojí 1,25 / 4,25 dolarů za milion tokenů a AA ji počítá na ~0,55 dolaru za úlohu. Astra je 10 / 50. Pravidlo: levný model na většinu kroků, frontier jen na hard gate."
+description: "Meta Muse Spark 1.3 (xhigh) stojí 1,25 / 4,25 dolaru za milion tokenů, AA ji počítá na ~0,55 dolaru za úlohu. Astra je 10 / 50. Levný model na většinu kroků."
 category: "AI Report"
 date: "2026-09-04T11:15:00+02:00"
 zprava: true

@@ -1,6 +1,6 @@
 ---
 title: "Claude ráno padal. Anthropic hlásí chyby u Mythos 5, Fable 5 i Opus 5"
-description: "24. srpna od 7:06 ráno PT má Claude elevated errors. Oficiálně Mythos 5, Fable 5, Opus 5 a další. claude.ai, API, Code i Cowork jsou v partial outage. Vývojáři hlásí HTTP 529 Overloaded."
+description: "24. srpna od 7:06 PT má Claude elevated errors. Oficiálně Mythos 5, Fable 5, Opus 5 a další. claude.ai, API, Code i Cowork jsou v partial outage. Vývojáři hlásí HTTP 529."
 category: "AI Report"
 date: "2026-08-24"
 zprava: true

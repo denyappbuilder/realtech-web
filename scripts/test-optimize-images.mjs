@@ -8,7 +8,7 @@ import sharp from 'sharp';
 
 import { optimizeImages } from './optimize-images.mjs';
 
-const derivativeNames = ['cover-640.jpg', 'cover.webp', 'cover-640.webp'];
+const derivativeNames = ['cover-640.jpg', 'cover.webp', 'cover-640.webp', 'cover-960.webp'];
 
 function snapshots(dir) {
   return derivativeNames.map((file) => {
@@ -51,11 +51,11 @@ test('změna zdrojového JPG obnoví všechny deriváty a další běh je idempo
   const source = path.join(dir, 'cover.jpg');
 
   await writeSource(source, '#d71920');
-  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 3 });
+  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 4 });
   const initial = snapshots(dir);
 
   await writeSource(source, '#0057b8');
-  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 3 });
+  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 4 });
   const refreshed = snapshots(dir);
 
   for (const [index, derivative] of derivativeNames.entries()) {
@@ -75,12 +75,13 @@ test('deriváty dodrží rozměrový a formátový kontrakt pro nestandardní po
   t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
 
   await writeSource(path.join(dir, 'cover.jpg'), '#6f42c1', { width: 731, height: 509 });
-  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 3 });
+  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 4 });
 
   assert.deepEqual(await derivativeMetadata(dir), {
     'cover-640.jpg': { width: 640, height: 360, format: 'jpeg' },
     'cover.webp': { width: 731, height: 509, format: 'webp' },
     'cover-640.webp': { width: 640, height: 360, format: 'webp' },
+    'cover-960.webp': { width: 960, height: 540, format: 'webp' },
   });
 });
 
@@ -92,7 +93,7 @@ test('částečně zastaralý stav obnoví pouze chybějící a obsahově chybn�
   const wrong = path.join(dir, 'cover.webp');
 
   await writeSource(source, '#198754', { width: 913, height: 527 });
-  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 3 });
+  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 4 });
 
   const outputs = Object.fromEntries(derivativeNames.map((name) => [name, path.join(dir, name)]));
   const expectedContents = Object.fromEntries(
@@ -111,7 +112,7 @@ test('částečně zastaralý stav obnoví pouze chybějící a obsahově chybn�
   for (const name of derivativeNames) {
     assert.deepEqual(fs.readFileSync(outputs[name]), expectedContents[name], `${name} má správný obsah`);
   }
-  for (const name of ['cover.webp', 'cover-640.webp']) {
+  for (const name of ['cover.webp', 'cover-640.webp', 'cover-960.webp']) {
     assert.deepEqual(
       fileState(outputs[name]),
       beforeMissing[name],
@@ -139,7 +140,7 @@ test('částečně zastaralý stav obnoví pouze chybějící a obsahově chybn�
   for (const name of derivativeNames) {
     assert.deepEqual(fs.readFileSync(outputs[name]), expectedContents[name], `${name} má správný obsah`);
   }
-  for (const name of ['cover-640.jpg', 'cover-640.webp']) {
+  for (const name of ['cover-640.jpg', 'cover-640.webp', 'cover-960.webp']) {
     assert.deepEqual(
       fileState(outputs[name]),
       beforeWrong[name],
@@ -154,7 +155,7 @@ test('poškozený zdrojový JPG propaguje chybu a zachová existující derivát
   const source = path.join(dir, 'cover.jpg');
 
   await writeSource(source, '#fd7e14');
-  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 3 });
+  assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 4 });
 
   const derivativesBeforeFailure = Object.fromEntries(
     derivativeNames.map((name) => [name, fileState(path.join(dir, name))]),

@@ -1,6 +1,6 @@
 ---
-title: "Rodiče teď můžou dětem v ChatGPT natvrdo zapnout Studijní režim. Konec opisování odpovědí"
-description: "OpenAI přidalo do rodičovské kontroly ChatGPT novou páku: rodič může propojenému teenagerskému účtu zapnout Study Mode, který se pak sám aktivuje v každém novém chatu. Místo hotových odpovědí vede dítě k řešení krok za krokem."
+title: "Rodiče můžou dětem v ChatGPT natvrdo zapnout Studijní režim"
+description: "OpenAI přidalo do rodičovské kontroly novou páku: rodič zapne teenagerskému účtu Study Mode, který se aktivuje v každém novém chatu. Místo hotových odpovědí vede krok za krokem."
 category: "AI Report"
 date: "2026-07-17"
 zprava: true

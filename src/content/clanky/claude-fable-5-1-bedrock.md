@@ -1,5 +1,5 @@
 ---
-title: "Anthropic vypustil Claude Fable 5.1. Stejná cena, levnější čtení z mezipaměti"
+title: "Anthropic vypustil Claude Fable 5.1. Stejná cena, levnější mezipaměť"
 description: "Fable 5.1 a Mythos 5.1 jsou venku. Vstup a výstup stojí stejně jako u Fable 5, čtení z mezipaměti je o tři čtvrtiny levnější. Na Macu už model běží."
 category: "AI Report"
 date: "2026-09-01T20:10:00+02:00"

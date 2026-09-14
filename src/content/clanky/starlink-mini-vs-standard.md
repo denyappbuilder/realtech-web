@@ -1,6 +1,6 @@
 ---
 title: "Starlink Mini vs. Standard: neudělejte při nákupu chybu"
-description: "Testujeme oba Starlinky a rozdíly jdou hlouběji, než napovídá velikost: napájení, chování v dešti, priorita tarifu i to, který se hodí na střechu a který do auta. Kompletní srovnání z reálného provozu."
+description: "Testujeme oba Starlinky a rozdíly jdou hlouběji než velikost: napájení, chování v dešti, priorita tarifu i to, který se hodí na střechu a který do auta."
 category: "Sítě"
 evergreen: true
 date: "2026-07-20"

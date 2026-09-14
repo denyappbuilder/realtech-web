@@ -1,5 +1,5 @@
 ---
-title: "Waze dostal Gemini a přestane být ukecaný. Motorkářský režim ale Česko zatím mine"
+title: "Waze dostal Gemini a přestane být ukecaný. Motorkářský režim Česko mine"
 description: "Waze dnes oznámil balík novinek: personalizované trasy, tišší navigaci a hlasové hlášení změn na mapě přes Gemini. Většina funkcí jede globálně hned."
 category: "AI Report"
 date: "2026-07-13"

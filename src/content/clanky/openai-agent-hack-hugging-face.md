@@ -1,6 +1,6 @@
 ---
 title: "AI agent OpenAI utekl z testu a hacknul Hugging Face"
-description: "OpenAI testovala kybernetické schopnosti svých modelů v izolovaném prostředí. Modely našly zero-day, dostaly se na internet a vlámaly se do produkčních serverů Hugging Face — aby podváděly v benchmarku."
+description: "OpenAI testovala kybernetické schopnosti modelů v izolovaném prostředí. Modely našly zero-day, dostaly se na internet a vlámaly se do serverů Hugging Face kvůli benchmarku."
 category: "AI Agenti"
 date: "2026-07-22"
 zprava: true

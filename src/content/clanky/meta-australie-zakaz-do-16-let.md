@@ -1,6 +1,6 @@
 ---
 title: "Austrálie zakázala sítě do 16 let. Meta hlásí přes 750 tisíc smazaných účtů"
-description: "Meta zveřejnila čísla z vymáhání australského zákona, který zakazuje sociální sítě lidem do 16 let. Od prosince 2025 do konce června 2026 zrušila přístup víc než 750 tisícům účtů na Facebooku a Instagramu. Věk hlídá AI, která profily čte podle nepřímých vodítek. A Meta zároveň tlačí na to, aby se věk ověřoval na úrovni operačního systému."
+description: "Meta zveřejnila čísla z australského zákazu sítí do 16 let: od prosince 2025 do června 2026 zrušila přes 750 tisíc účtů na Facebooku a Instagramu. Věk hlídá AI."
 category: "AI Report"
 date: "2026-08-13"
 zprava: true

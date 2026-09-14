@@ -1,5 +1,5 @@
 ---
-title: "Apple iPhone Duo: první skládačka od 54 990 Kč. Řada 18 Pro jde do prodeje dřív"
+title: "Apple iPhone Duo: první skládačka od 54 990 Kč. Řada 18 Pro v prodeji dřív"
 description: "První keynote Johna Ternuse 9. 9.: Duo s displeji 7,6″ a 5,4″, čip A20 Pro, v USA od 1999 $. iPhone 18 Pro od 34 990 Kč, předobjednávky 12. 9. Základní iPhone 18 až na jaře 2027."
 category: "Mobily"
 date: "2026-09-10T08:30:00+02:00"

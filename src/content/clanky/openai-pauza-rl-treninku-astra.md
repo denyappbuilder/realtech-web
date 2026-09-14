@@ -1,6 +1,6 @@
 ---
-title: "OpenAI přiznal dvoutýdenní pauzu v trénování. A největší plánovaný běh drží zastavený dodnes"
-description: "Po hacku Hugging Face a zjištění, že model Astra může být kyberkriticky nebezpečný, OpenAI zastavil RL trénink svých nejnovějších modelů. Monitoring ho teď stojí pětinu výpočetního výkonu."
+title: "OpenAI přiznal dvoutýdenní pauzu v trénování. Největší běh stojí dodnes"
+description: "Po hacku Hugging Face a zjištění, že model Astra může být kyberkriticky nebezpečný, OpenAI zastavil RL trénink nejnovějších modelů. Monitoring stojí pětinu výpočtu."
 category: "AI Report"
 date: "2026-08-19"
 image: "/images/clanky/openai-pauza-rl-treninku-astra.jpg"

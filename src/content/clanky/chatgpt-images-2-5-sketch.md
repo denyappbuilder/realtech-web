@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT Images 2.5: ostřejší detaily, poloviční čekání a kreslení náčrtku přímo v chatu"
+title: "ChatGPT Images 2.5: ostřejší detaily, poloviční čekání a náčrtek v chatu"
 description: "OpenAI 8. září vydala nový obrazový model Images 2.5. Slibuje přesnější úpravy, o polovinu kratší generování a novou funkci Sketch. Do API míří dvě varianty, Flare a Sunburst."
 category: "AI Report"
 date: "2026-09-10T16:27:02+02:00"

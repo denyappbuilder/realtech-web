@@ -1,6 +1,6 @@
 ---
-title: "OpenAI zveřejnilo první čísla Jalapeña. Násobky na watt jsou firemní, čip jsme neměli"
-description: "Na Hot Chips OpenAI ukázalo první InferenceX výsledky vlastního inference čipu. 1,5 až 1,9× práce na watt a nižší latenci bereme jako firemní nárok. Nasazení uvnitř firmy do konce roku."
+title: "OpenAI zveřejnilo první čísla Jalapeña. Násobky na watt jsou firemní"
+description: "Na Hot Chips OpenAI ukázalo první InferenceX výsledky vlastního inference čipu. 1,5 až 1,9× práce na watt a nižší latenci bereme jako firemní nárok. Nasazení do konce roku."
 category: "Hardware"
 date: "2026-08-25"
 zprava: true

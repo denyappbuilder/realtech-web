@@ -1,6 +1,6 @@
 ---
-title: "Starlink míří na 1 Gb/s. Co chystá SpaceX v roce 2026 — satelity V3, volání z nebe a internet v letadlech"
-description: "Přes 9 milionů uživatelů, 9 500 satelitů a medián rychlosti 200 Mb/s. Letos přicházejí satelity V3 s 10× vyšší kapacitou, gigabitové tarify a Direct to Cell — připojení běžného telefonu přímo na satelit. Rozebíráme, co z toho uvidíme v Česku."
+title: "Starlink míří na 1 Gb/s. Co chystá SpaceX v roce 2026: V3, volání, letadla"
+description: "Přes 9 milionů uživatelů, 9 500 satelitů a medián 200 Mb/s. Letos přicházejí satelity V3 s 10× vyšší kapacitou, gigabitové tarify a Direct to Cell. Co z toho uvidíme v Česku."
 category: "Vesmír"
 date: "2026-07-21"
 video: "https://youtu.be/BvVMyDzjY7o"

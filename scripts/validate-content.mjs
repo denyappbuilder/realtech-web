@@ -136,6 +136,25 @@ for (const f of files) {
     }
   }
 
+  // Kolo 39: délka titulku a popisku. Titulek nad 75 znaků (práh .h1-dlouhy
+  // z kola 33) Google i karty řežou, popisek nad 180 znaků se v SERP a na
+  // OG kartě uřízne v půlce věty. Audit 14. 9. 2026: 57 z 110 titulků a 60
+  // popisků nad limitem — starý obsah jen varuje, nový (date ≥ 2026-09-15)
+  // build shodí, ať se dluh nezvětšuje.
+  const TITULEK_MAX = 75;
+  const POPISEK_MAX = 180;
+  const KOLO39_OD = '2026-09-15';
+  const descriptionRaw = fm.match(/^description:\s*["']?(.+?)["']?\s*$/m)?.[1];
+  const dateProLimit = fm.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+  const limitJeChyba = Boolean(dateProLimit && dateProLimit >= KOLO39_OD);
+  const hlasLimit = (zprava) => (limitJeChyba ? errors : warnings).push(zprava);
+  if (title && [...title].length > TITULEK_MAX) {
+    hlasLimit(`${slug}: titulek má ${[...title].length} znaků (max ${TITULEK_MAX})`);
+  }
+  if (descriptionRaw && [...descriptionRaw].length > POPISEK_MAX) {
+    hlasLimit(`${slug}: description má ${[...descriptionRaw].length} znaků (max ${POPISEK_MAX})`);
+  }
+
   // 3. duplicitní titulek
   if (title) {
     if (titles.has(title)) warnings.push(`Duplicitní titulek: "${title}" (${slug} + ${titles.get(title)})`);

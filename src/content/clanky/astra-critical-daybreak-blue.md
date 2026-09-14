@@ -1,6 +1,6 @@
 ---
-title: "Astra na prahu Critical: co z nejvýkonnějšího modelu uvidíš ty a co zůstane za Daybreak Blue"
-description: "OpenAI poprvé označil model za Critical v kyberbezpečnosti. Obecné vydání má přijít brzy, pokročilé kyber schopnosti zůstávají za testovací skupinou a programem Daybreak Blue. Čísla jsou jejich tvrzení."
+title: "Astra na prahu Critical: co uvidíš ty a co zůstane za Daybreak Blue"
+description: "OpenAI poprvé označil model za Critical v kyberbezpečnosti. Obecné vydání má přijít brzy, pokročilé kyber schopnosti zůstávají za testovací skupinou a programem Daybreak Blue."
 category: "AI Report"
 date: "2026-09-03T08:29:01+02:00"
 zprava: true

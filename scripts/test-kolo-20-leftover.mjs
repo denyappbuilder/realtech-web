@@ -26,7 +26,9 @@ function kontrast(fg, bg) {
 
 test('kolo 20: nahledKarty umí thumbWebpSrcset 640w+1280w', () => {
   assert.match(nahled, /thumbWebpSrcset/);
-  assert.match(nahled, /640w, \$\{fullWebp\} 1280w/);
+  // Kolo 39: sadu skládá webpSrcsetZDerivatu (640w, volitelně 960w, 1280w).
+  assert.match(nahled, /webpSrcsetZDerivatu\(fullWebp, exists\)/);
+  assert.match(nahled, /\$\{fullWebp\} 1280w/);
 });
 
 test('kolo 20: ArticleCard má eager + titleTag a srcset sizes', () => {

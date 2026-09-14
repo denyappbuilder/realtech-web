@@ -1,6 +1,6 @@
 ---
-title: "Čína zvažuje, že zamkne vlastní AI modely. Zdarma ke stažení by nemusely být navždy"
-description: "MOFCOM podle Financial Times jedná s Alibabou, ByteDance a Zhipu o exportních kontrolách na váhy modelů, trénovací data a čipové designy. Zatím je to jen konzultace — ale kdo staví na čínských open modelech, měl by to sledovat."
+title: "Čína zvažuje, že zamkne vlastní AI modely. Zdarma nemusí být navždy"
+description: "MOFCOM podle Financial Times jedná s Alibabou, ByteDance a Zhipu o exportních kontrolách na váhy modelů, trénovací data a čipové designy. Zatím jen konzultace, ale sleduj to."
 category: "AI Report"
 date: "2026-07-28"
 zprava: true

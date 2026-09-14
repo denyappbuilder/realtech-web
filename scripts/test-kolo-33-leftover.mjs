@@ -61,13 +61,15 @@ test("kolo 33: skript nastaví title podle stavu — Přepnout na světlý / tma
 
 // ── P2: práh dlouhého titulku 75 ─────────────────────────────────────────
 
-test("kolo 33: HERO_DLOUHY_TITULEK = 75 a 76znakový Muse třídu dostane", () => {
+test("kolo 33: HERO_DLOUHY_TITULEK = 75; Muse po kole 39 zkrácen pod práh", () => {
   assert.match(uvodka, /const HERO_DLOUHY_TITULEK = 75;/, "živě: od ~75 znaků 6–7 řádků na 1024px při 3.1rem");
   assert.match(uvodka, /const heroTitulekDlouhy = Boolean\(hero && hero\.data\.title\.length >= HERO_DLOUHY_TITULEK\);/);
   const titulek = muse.match(/^title:\s*"(.*)"\s*$/m)?.[1];
   assert.ok(titulek, "Muse nemá title ve frontmatteru");
-  assert.equal(titulek.length, 76, "audit 9. 9. 2026: Muse ~76 znaků");
-  assert.ok(titulek.length >= 75, "Muse musí spadnout do .h1-dlouhy");
+  // Kolo 39: všech 57 titulků nad 75 znaků zkráceno (Muse 76 → 71),
+  // validate-content od 15. 9. 2026 delší titulek u nového článku odmítne.
+  // Práh .h1-dlouhy v index.astro zůstává pro případ výjimky.
+  assert.ok(titulek.length <= 75, `kolo 39: Muse má ${titulek.length} znaků, limit 75`);
   assert.match(css, /práh od kola 33\s+75 znaků/, "komentář v CSS drží stejný práh jako index.astro");
 });
 

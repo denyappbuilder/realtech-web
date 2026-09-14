@@ -1,6 +1,6 @@
 ---
 title: "Google překreslil všech 3 977 emoji do 3D — a modely rozdává zadarmo"
-description: "Ke Světovému dni emoji Google ukázal Noto Emoji 3D: kompletní redesign všech 3 977 emoji do trojrozměrné podoby. Poprvé jde o skutečné 3D modely a celý balík je open source — surové .OBJ soubory si může stáhnout kdokoli."
+description: "Ke Světovému dni emoji Google ukázal Noto Emoji 3D: všech 3 977 emoji překreslených do trojrozměrné podoby. Skutečné 3D modely, open source, .OBJ soubory stáhne kdokoli."
 category: "Mobily"
 date: "2026-07-18"
 zprava: true

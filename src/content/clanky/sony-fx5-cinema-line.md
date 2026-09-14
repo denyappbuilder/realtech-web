@@ -1,6 +1,6 @@
 ---
-title: "Sony FX5 je venku: 5K open gate a interní RAW z kamer za miliony — v těle za 115 tisíc"
-description: "Sony vyplnila díru mezi FX3 a FX6. Nová FX5 má poprvé v kompaktním těle 5K open gate a interní 16bit X-OCN RAW z rodiny VENICE, tři základní ISO, 4K až 240 fps a 32bit float zvuk. Předobjednávky běží, prodej od poloviny srpna."
+title: "Sony FX5: 5K open gate a interní RAW z kamer za miliony v těle za 115 tisíc"
+description: "Sony vyplnila díru mezi FX3 a FX6. FX5 má poprvé v kompaktním těle 5K open gate a interní 16bit X-OCN RAW z rodiny VENICE, tři základní ISO a 4K až 240 fps."
 category: "Hardware"
 date: "2026-07-22"
 zprava: true

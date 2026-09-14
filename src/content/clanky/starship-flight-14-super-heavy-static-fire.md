@@ -1,5 +1,5 @@
 ---
-title: "SpaceX vypálil Super Heavy na všech 33 motorů. Booster 21 se chystá na Flight 14"
+title: "SpaceX vypálil Super Heavy na všech 33 motorů. Booster 21 chystá Flight 14"
 description: "V noci na sobotu SpaceX na Starbase odpalil Super Heavy na plnou dobu se všemi 33 motory. Booster 21 je na rampě kvůli čtrnáctému letu. Termín startu firma nedala."
 category: "Vesmír"
 date: "2026-08-30T06:55:00+02:00"

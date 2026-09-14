@@ -11,6 +11,27 @@ import fs from 'node:fs';
  */
 export const KARTA_SIZES = '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw';
 
+/**
+ * WebP srcset z derivátů, které v public/ opravdu leží: `-640.webp 640w`,
+ * volitelně `-960.webp 960w` (kolo 39, viz scripts/optimize-images.mjs)
+ * a plný `.webp 1280w`. Chybějící 960 (starší cover bez přegenerování)
+ * srcset nerozbije — sada se jen vrátí k 640w+1280w.
+ *
+ * @param {string} fullWebp — cesta k plnému .webp (/images/clanky/x.webp)
+ * @param {(cesta: string) => boolean} exists
+ * @returns {string | null} srcset, nebo null když chybí 640 nebo 1280
+ */
+export function webpSrcsetZDerivatu(fullWebp, exists = (cesta) => fs.existsSync(cesta)) {
+  if (!fullWebp || !fullWebp.endsWith('.webp')) return null;
+  const small = fullWebp.replace(/\.webp$/, '-640.webp');
+  const mid = fullWebp.replace(/\.webp$/, '-960.webp');
+  if (!exists(`public${small}`) || !exists(`public${fullWebp}`)) return null;
+  const parts = [`${small} 640w`];
+  if (exists(`public${mid}`)) parts.push(`${mid} 960w`);
+  parts.push(`${fullWebp} 1280w`);
+  return parts.join(', ');
+}
+
 // Archive uses a 96px mobile thumbnail, then the existing 2/3-column grid.
 export const KARTA_SIZES_ARCHIVE = '(max-width: 580px) 96px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
 
@@ -70,7 +91,7 @@ export function nahledKarty(image, exists = (cesta) => fs.existsSync(cesta)) {
   // 640w+1280w (stejný vzor jako hero). Jinak single URL beze změny.
   const fullWebp = jeJpg ? image.replace(/\.jpg$/, '.webp') : null;
   const hasFullWebp = Boolean(fullWebp && pouzilSmall && hasWebp && exists(`public${fullWebp}`));
-  const thumbWebpSrcset = hasFullWebp ? `${thumbWebp} 640w, ${fullWebp} 1280w` : null;
+  const thumbWebpSrcset = hasFullWebp ? webpSrcsetZDerivatu(fullWebp, exists) : null;
   return {
     localThumb,
     thumbW: pouzilSmall ? 640 : 1280,

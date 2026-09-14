@@ -1,5 +1,5 @@
 ---
-title: "Kus Falconu 9 narazil do Měsíce. Dalekohled v Chile v oblaku prachu našel sodík a lithium"
+title: "Kus Falconu 9 narazil do Měsíce. Dalekohled v Chile našel v prachu sodík"
 description: "Horní stupeň Falconu 9 z lunární mise ze zimy 2025 dopadl 5. srpna na Měsíc rychlostí 8 690 km/h. Samotný náraz nikdo neviděl, ale VLT zachytil spektrum oblaku."
 category: "Vesmír"
 date: "2026-08-06"
@@ -42,3 +42,5 @@ SpaceX zdůrazňuje, že o řízený dopad nešlo. Je to odvrácená strana temp
 Amatérský astronom **Bill Gray**, který dopad předpověděl už loni v září svým softwarem Project Pluto, to říká narovinu: nebezpečí to pro nikoho nepředstavuje, ale „poukazuje to na jistou nedbalost v tom, jak se zbytkový vesmírný hardware likviduje".
 
 A to je pointa. Tohle je teprve **druhý známý neplánovaný dopad lidského odpadu na Měsíc** — po čínském stupni v březnu 2022. Zatímco nízkou oběžnou dráhu vojenské radary hlídají do detailu, ve vzdálenosti Měsíce je sledování odpadu prakticky na jednom člověku s dalekohledem a vlastním softwarem. NASA přitom chce v příštích letech na Měsíci stavět základnu.
+
+**Zdroj informací:** [Reuters přes Emirates 24/7](https://emirates247.com/world/defunct-spacex-falcon-9-rocket-stage-crashes-into-the-moon-kicking-up-dust-and-revealing-sodium-and-lithium/4301) (výroky ESO, Carla Schmidta a Billa Graye), [Economic Times](https://economictimes.indiatimes.com/news/international/global-trends/spacex-rocket-crashes-into-moon-plume-erupts-leaving-a-hole-on-lunar-surface-elon-musk-shares-impact-video-watch/printarticle/132981129.cms) (parametry dopadu), [Bill Gray, Project Pluto](https://www.projectpluto.com/)

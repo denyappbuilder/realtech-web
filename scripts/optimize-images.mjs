@@ -1,4 +1,7 @@
-// Před buildem synchronizuje varianty coverů: SLUG-640.jpg, SLUG.webp, SLUG-640.webp.
+// Před buildem synchronizuje varianty coverů: SLUG-640.jpg, SLUG.webp, SLUG-640.webp, SLUG-960.webp.
+// Kolo 39: 960w WebP — karta 340–360 px na DPR 2 potřebuje ~700 px; se sadou
+// 640w+1280w si prohlížeč bral plných 1280 (Lighthouse 14. 9. 2026: 327–397 KB
+// navíc na úvodce). 960 sedí i pro hero úvodky na mobilu (342 px × 2 = 684).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -39,6 +42,7 @@ export async function optimizeImages(dir = DIR) {
       [path.join(dir, `${base}-640.jpg`), await oriented().resize(640, 360).jpeg({ quality: 80 }).toBuffer()],
       [path.join(dir, `${base}.webp`), await oriented().webp({ quality: 80 }).toBuffer()],
       [path.join(dir, `${base}-640.webp`), await oriented().resize(640, 360).webp({ quality: 78 }).toBuffer()],
+      [path.join(dir, `${base}-960.webp`), await oriented().resize(960, 540).webp({ quality: 78 }).toBuffer()],
     ];
 
     for (const [output, contents] of derivatives) {

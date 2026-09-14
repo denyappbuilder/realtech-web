@@ -1,6 +1,6 @@
 ---
-title: "Apple k soudu: ex-inženýr v OpenAI prý tahal schéma obvodu a učil na něm agenta"
-description: "Doplňující briefing z 31. srpna: forenzní MacBook podle Apple ukazuje, že Chang Liu po odchodu stáhl schéma napájecího obvodu, simuloval ho v LTspice a psal, že agent se naučil spouštět výpočty. OpenAI žalobu označilo za bezpředmětnou. Soud zatím nic nerozhodl."
+title: "Apple k soudu: ex-inženýr prý v OpenAI tahal schéma obvodu a učil agenta"
+description: "Briefing z 31. srpna: forenzní MacBook podle Apple ukazuje, že Chang Liu po odchodu stáhl schéma napájecího obvodu a simuloval ho v LTspice. OpenAI žalobu odmítá, soud nerozhodl."
 category: "AI Report"
 date: "2026-09-01T08:45:00+02:00"
 zprava: true
