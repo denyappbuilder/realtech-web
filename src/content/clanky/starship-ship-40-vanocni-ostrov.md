@@ -1,6 +1,6 @@
 ---
-title: "Starship po 24 dnech na moři doplul k Vánočnímu ostrovu. Poprvé se SpaceX vrací celý horní stupeň"
-description: "Ship 40 přistál v Indickém oceánu 24. července a nepotopil se. Po téměř měsíci vlečení ho dvě lodě dotáhly k australskému Vánočnímu ostrovu — a místní se sjíždějí na pobřeží kouknout."
+title: "Starship po 24 dnech na moři doplul k Vánočnímu ostrovu. Vrací se celý"
+description: "Ship 40 přistál v Indickém oceánu 24. července a nepotopil se. Po téměř měsíci vlečení ho dvě lodě dotáhly k australskému Vánočnímu ostrovu a místní se sjíždějí kouknout."
 category: "Vesmír"
 date: "2026-08-18"
 image: "/images/clanky/starship-ship-40-vanocni-ostrov.jpg"

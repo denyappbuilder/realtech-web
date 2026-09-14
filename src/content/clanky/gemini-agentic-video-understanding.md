@@ -1,6 +1,6 @@
 ---
 title: "Gemini u videa přestává žrát každý snímek. Sám si hledá, co potřebuje"
-description: "Google pouští u Gemini Flash modelů režim, kdy se model u videa nekouká napevno jeden snímek za sekundu, ale sám si hledá relevantní okamžiky. Podle Googlu to ušetří až 88 % tokenů."
+description: "Google pouští u modelů Gemini Flash režim, kdy se model u videa nekouká napevno jeden snímek za sekundu, ale sám si hledá relevantní okamžiky. Podle Googlu ušetří až 88 % tokenů."
 category: "AI Report"
 date: "2026-09-02T09:15:00+02:00"
 zprava: true

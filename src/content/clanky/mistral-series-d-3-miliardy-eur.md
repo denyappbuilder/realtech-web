@@ -1,5 +1,5 @@
 ---
-title: "Mistral má Series D za 3 miliardy eur. Valuace přes 21 miliard, lead Samsung"
+title: "Mistral: Series D za 3 miliardy eur, valuace přes 21 miliard, vede Samsung"
 description: "Francouzský lab oznámil největší kapitálové kolo evropské tech firmy. Lead Samsung, co-lead EQT Scaleup Europe Fund a PSG Equity. Peníze na infrastrukturu, produkt a nasazení."
 category: "AI Report"
 date: "2026-09-08T10:15:00+02:00"

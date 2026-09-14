@@ -1,6 +1,6 @@
 ---
-title: "OpenAI prý skoupil desítky tisíc Mac mini a Studio. Trénuje na nich agenty u počítače"
-description: "The Information: OpenAI v posledních měsících nakoupil desítky tisíc Mac mini a Mac Studio na reinforcement learning a computer-use agenty. Anthropic si podobné stroje prý pronajímá přes AWS. Ani jedna firma to veřejně nepotvrdila."
+title: "OpenAI prý skoupil desítky tisíc Mac mini a Studio. Trénuje na nich agenty"
+description: "The Information: OpenAI v posledních měsících nakoupil desítky tisíc Mac mini a Mac Studio na reinforcement learning a computer-use agenty. Anthropic prý pronajímá přes AWS."
 category: "AI Report"
 date: "2026-08-31T09:35:00+02:00"
 zprava: true

@@ -1,5 +1,5 @@
 ---
-title: "Apple představil Mac Studio s M5 Ultra a Mac mini s M6. Výkon zatím jen z firemních testů"
+title: "Mac Studio s M5 Ultra a Mac mini s M6. Výkon zatím jen z testů Applu"
 description: "Studio dostalo M5 Max a nový M5 Ultra, mini M6 a M5 Pro. Předobjednávky od 25. srpna, první kusy 22. září. Všechna násobení výkonu jsou firemní čísla z července 2026."
 category: "Hardware"
 date: "2026-08-25"

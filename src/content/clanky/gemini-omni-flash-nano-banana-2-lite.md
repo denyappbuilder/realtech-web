@@ -1,6 +1,6 @@
 ---
 title: "Gemini teď stříhá video přes chat. A obrázky generuje za 4 sekundy"
-description: "Google pustil do světa dva nové modely: Nano Banana 2 Lite na bleskové generování obrázků a Gemini Omni Flash na tvorbu i úpravy videa přirozeným jazykem. Oba už jedou v aplikaci Gemini."
+description: "Google pustil dva nové modely: Nano Banana 2 Lite na bleskové generování obrázků a Gemini Omni Flash na tvorbu i úpravy videa přirozeným jazykem. Oba už jedou v aplikaci Gemini."
 category: "AI Report"
 date: "2026-07-03"
 zprava: true

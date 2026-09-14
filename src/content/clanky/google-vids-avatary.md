@@ -1,7 +1,7 @@
 ---
-title: "Nahrajete selfie a hlas — a ve videu za vás mluví váš avatar. Google Vids dostal Gemini Omni"
+title: "Nahraješ selfie a hlas a ve videu mluví tvůj avatar. Google Vids má Omni"
 seoTitle: "Google Vids dostal selfie avatary a Gemini Omni"
-description: "Google přidal do nástroje Vids dvě novinky: model Gemini Omni, který generuje a upravuje video podle textového zadání, a osobní avatary — digitální dvojče vytvořené z jedné selfie a krátké hlasové nahrávky."
+description: "Google přidal do Vids dvě novinky: model Gemini Omni, který generuje a upravuje video podle textu, a osobní avatary, digitální dvojče z jedné selfie a krátké hlasové nahrávky."
 category: "AI Report"
 date: "2026-07-17"
 zprava: true

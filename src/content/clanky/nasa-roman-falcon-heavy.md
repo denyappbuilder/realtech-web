@@ -1,5 +1,5 @@
 ---
-title: "NASA a SpaceX cílí na neděli 30. 8. 7:26 EDT z 39A. Roman na Falcon Heavy je NET, ne potvrzený start"
+title: "NASA a SpaceX cílí na neděli 30. 8. 7:26 EDT. Roman na Falcon Heavy je NET"
 description: "NASA i SpaceX píší no earlier than neděli 30. srpna v 7:26 EDT z LC-39A. Teleskop je v krytu v hangáru. Start ještě neproběhl."
 category: "Vesmír"
 zprava: true

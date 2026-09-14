@@ -1,6 +1,6 @@
 ---
-title: "Samsung otočil skládačku na šířku. Tři nové Galaxy Z a dvoje hodinky — české ceny startují na 10 tisících"
-description: "Galaxy Unpacked v Londýně: Fold 8 Ultra s 8\" displejem a 200MP foťákem, překvapivý Fold 8 s displejem na šířku, tenčí Flip 8 a hodinky Watch 9 a Ultra 2 s AI zdravotním asistentem. Všechny české ceny, termíny a předobjednávkové bonusy."
+title: "Samsung otočil skládačku na šířku. Tři Galaxy Z, dvoje hodinky, od 10 tisíc"
+description: "Unpacked v Londýně: Fold 8 Ultra s 8\" displejem a 200MP foťákem, Fold 8 na šířku, tenčí Flip 8 a hodinky Watch 9 a Ultra 2 s AI asistentem. České ceny, termíny a bonusy."
 category: "Mobily"
 date: "2026-07-22"
 zprava: true

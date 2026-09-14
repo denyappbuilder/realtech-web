@@ -1,6 +1,6 @@
 ---
-title: "ChatGPT zdarma dostane neomezené chaty a tlačítko Think. Placení mají nový posuvník"
-description: "OpenAI mění výchozí model pro free účty na GPT-5.6 Luna, od příštího týdne k tomu přidává neomezené textové chaty. Plus a Pro dostávají posuvník, kterým si nastavíš, jak moc má model přemýšlet."
+title: "ChatGPT zdarma dostane neomezené chaty a tlačítko Think. Placení posuvník"
+description: "OpenAI mění výchozí model pro free účty na GPT-5.6 Luna a od příštího týdne přidává neomezené textové chaty. Plus a Pro dostávají posuvník, jak moc má model přemýšlet."
 category: "AI Report"
 date: "2026-08-07"
 zprava: true

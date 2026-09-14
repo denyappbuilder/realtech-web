@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { webpSrcsetZDerivatu } from './karta-nahled.js';
 
 /**
  * Hero obrázek článku bez videa.
@@ -52,7 +53,7 @@ export function heroObrazekClanku(image, videoId, exists = (cesta) => fs.existsS
   const hasWebp = Boolean(webp && exists(`public${webp}`));
   const hasWebpSmall = Boolean(webpSmall && exists(`public${webpSmall}`));
   const webpSrcset = hasWebp && hasWebpSmall
-    ? `${webpSmall} 640w, ${webp} 1280w`
+    ? webpSrcsetZDerivatu(webp, exists)
     : undefined;
 
   return {

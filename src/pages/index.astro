@@ -7,7 +7,7 @@ import { slugify } from '../lib/slugify.js';
 import { textNaHeroObrazku } from '../lib/hero-overlay.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
-import { nahledKarty } from '../lib/karta-nahled.js';
+import { nahledKarty, webpSrcsetZDerivatu } from '../lib/karta-nahled.js';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -65,8 +65,10 @@ const heroSrcset = heroSmall && fs.existsSync(`public${heroSmall}`)
 const heroWebp = heroMaLokalniCover ? hero.data.image.replace(/\.jpg$/, '.webp') : null;
 const heroWebpSmall = heroWebp?.replace(/\.webp$/, '-640.webp');
 const heroHasWebp = Boolean(heroWebp && fs.existsSync(`public${heroWebp}`));
+// Kolo 39: 960w mezi 640 a 1280 (viz karta-nahled.js) — hero na mobilu
+// DPR 2 (342 px) a v desktop slotu 550 px bral plných 1280.
 const heroWebpSrcset = heroHasWebp && heroWebpSmall && fs.existsSync(`public${heroWebpSmall}`)
-  ? `${heroWebpSmall} 640w, ${heroWebp} 1280w`
+  ? webpSrcsetZDerivatu(heroWebp, (cesta) => fs.existsSync(cesta))
   : undefined;
 // fetchpriority=high na <img> spekulativně stáhne src dřív než <source>.
 // Když WebP existuje, src musí být WebP — jinak LCP zůstane .jpg.

@@ -1,5 +1,5 @@
 ---
-title: "Meta vypustil Muse: osobní AI agent má posílat maily a platit. Zatím jen USA"
+title: "Meta vypustil Muse: osobní AI agent posílá maily a platí. Zatím jen USA"
 description: "Agent běží ve vlastní cloudové VM, napojí se na e-mail, kalendář i platby. Základ zdarma, Power 20 dolarů měsíčně, Maximum 100. Reuters: interní testy i chyby kolem citlivých dat."
 category: "AI Agenti"
 date: "2026-09-09T10:20:00+02:00"

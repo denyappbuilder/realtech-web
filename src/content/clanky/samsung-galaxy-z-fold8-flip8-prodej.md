@@ -1,6 +1,6 @@
 ---
 title: "Samsung pouští Fold8 a Flip8 do prodeje. Nejzajímavější je AirDrop"
-description: "Galaxy Z Fold8 Ultra, Fold8, Flip8 a nové hodinky jdou od 7. srpna do prodeje ve 106 zemích. Vedle 201gramového Foldu má Samsung tichý trumf: Quick Share si konečně rozumí s AirDropem."
+description: "Galaxy Z Fold8 Ultra, Fold8, Flip8 a nové hodinky jdou od 7. srpna do prodeje ve 106 zemích. Vedle 201gramového Foldu má Samsung tichý trumf: Quick Share si rozumí s AirDropem."
 category: "Mobily"
 date: "2026-08-06"
 zprava: true

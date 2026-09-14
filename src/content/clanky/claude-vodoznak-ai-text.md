@@ -1,6 +1,6 @@
 ---
-title: "Claude začíná neviditelně značkovat text: vodoznak přímo v modelu, C2PA na obrázcích"
-description: "Anthropic potvrdil, že modely Claude vydané 2. srpna a později vplétají do generovaného textu neviditelný vodoznak a k souborům připojují podepsaná metadata C2PA. Platí to celosvětově napříč všemi produkty i cloudy. Detekci pro třetí strany firma slibuje, technickou dokumentaci zatím nevydala."
+title: "Claude neviditelně značkuje text: vodoznak v modelu, C2PA na obrázcích"
+description: "Anthropic potvrdil, že modely Claude od 2. srpna vplétají do textu neviditelný vodoznak a k souborům připojují podepsaná metadata C2PA. Detekci pro třetí strany slibuje."
 category: "AI Report"
 date: "2026-08-13"
 zprava: true

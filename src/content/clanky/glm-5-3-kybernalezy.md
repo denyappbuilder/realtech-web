@@ -1,5 +1,5 @@
 ---
-title: "Čínský model našel 2 436 reálných děr v softwaru. Váhy vyjdou až za dva týdny, prý kvůli bezpečnosti"
+title: "Čínský model našel 2 436 reálných děr v softwaru. Váhy vyjdou za dva týdny"
 description: "Z.ai vydala GLM-5.3. Kromě skoku v programování jí při tréninku vyrostla schopnost, kterou nečekali — hledání a zneužívání zranitelností. Nejstarší nalezená chyba je z roku 1981."
 category: "AI Report"
 date: "2026-08-14"

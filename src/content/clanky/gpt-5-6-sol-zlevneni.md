@@ -1,5 +1,5 @@
 ---
-title: "OpenAI srazilo cenu GPT-5.6 Sol o víc než 20 %. Háček: platí to do 21. listopadu"
+title: "OpenAI srazilo cenu GPT-5.6 Sol o víc než 20 %. Platí do 21. listopadu"
 description: "API a kredity v Codexu i ChatGPT Work jdou na 4 a 20 dolarů za milion tokenů. Předplatné Pro, Plus a Business se nemění. Dlouhý kontext má vlastní tabulku."
 category: "AI Report"
 date: "2026-08-21"

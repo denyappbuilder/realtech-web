@@ -1,6 +1,6 @@
 ---
 title: "iPhone 18 Pro: A20 Pro a variabilní clona. Siri AI v Česku při startu ne"
-description: "A20 Pro na 2 nm, 32 jader Neural Engine, třikrát větší evaporační komora. Clona f/1,48 až f/4,0. Siri AI v EU včetně Česka při startu ne, čeština v Apple Intelligence chybí. Pro od 34 990 Kč, v prodeji od 18. 9."
+description: "A20 Pro na 2 nm, 32 jader Neural Engine, třikrát větší evaporační komora, clona f/1,48 až f/4,0. Siri AI v EU včetně Česka při startu ne. Pro od 34 990 Kč, v prodeji od 18. 9."
 category: "Mobily"
 date: "2026-09-13T08:25:00+02:00"
 zprava: true

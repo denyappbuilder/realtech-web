@@ -1,6 +1,6 @@
 ---
-title: "Samsung týden před Unpacked odhalil Flex Titanium. Nové skládačky mají mít menší rýhu a tenčí tělo"
-description: "Samsung ukázal novou konstrukci ohebného displeje s titanem: 20× tužší fólie pod OLED panelem, méně viditelná rýha a nižší spotřeba. Debut v příštích Galaxy skládačkách 22. července."
+title: "Samsung před Unpacked odhalil Flex Titanium. Menší rýha, tenčí skládačky"
+description: "Samsung ukázal novou konstrukci ohebného displeje s titanem: 20× tužší fólie pod OLED panelem, méně viditelná rýha a nižší spotřeba. Debut v Galaxy skládačkách 22. července."
 category: "Mobily"
 date: "2026-07-15"
 zprava: true

@@ -1,6 +1,6 @@
 ---
 title: "iOS 26.6 je venku. Nudná aktualizace, která zalepuje 87 bezpečnostních děr"
-description: "Apple vydal iOS 26.6 a iPadOS 26.6. Nové funkce prakticky žádné, zato 87 opravených zranitelností — od jádra systému po WebKit, Wi-Fi a zpracování obrázků. Tohle je update, který se neodkládá."
+description: "Apple vydal iOS 26.6 a iPadOS 26.6. Nové funkce prakticky žádné, zato 87 opravených zranitelností od jádra systému po WebKit a Wi-Fi. Update, který se neodkládá."
 category: "Mobily"
 date: "2026-07-28"
 zprava: true

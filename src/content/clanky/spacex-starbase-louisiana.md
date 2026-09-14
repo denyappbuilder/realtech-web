@@ -1,6 +1,6 @@
 ---
-title: "SpaceX oznámilo Starbase Louisiana za 100 miliard dolarů. Rozpis výdajů chybí, u míst se čísla rozcházejí"
-description: "Čtvrtá a největší základna SpaceX má stát na Pecan Island. LED slibuje 3 000 přímých míst a 100 miliard dolarů, období výdajů ale nikdo neurčil a Musk v videu mluví o víc než 10 000 místech."
+title: "SpaceX oznámilo Starbase Louisiana za 100 miliard. Rozpis výdajů chybí"
+description: "Čtvrtá a největší základna SpaceX má stát na Pecan Island. LED slibuje 3 000 přímých míst a 100 miliard dolarů, období výdajů nikdo neurčil a Musk mluví o víc než 10 000 místech."
 category: "Vesmír"
 date: "2026-08-26"
 zprava: true

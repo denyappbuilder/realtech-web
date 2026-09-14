@@ -1,6 +1,6 @@
 ---
-title: "Kimi K3 je tak populární, že ho nejde zaplatit. Moonshot stopnul nová předplatná"
-description: "Čínský model Kimi K3 během 48 hodin od startu zahltil servery Moonshot AI tak, že firma pozastavila nová předplatná. Stávající platící uživatelé jedou dál, nové registrace se budou pouštět po dávkách. A předplatné se rozdělí na dva plány."
+title: "Kimi K3 je tak populární, že ho nejde zaplatit. Moonshot stopnul předplatná"
+description: "Kimi K3 během 48 hodin od startu zahltil servery Moonshot AI tak, že firma pozastavila nová předplatná. Stávající platící jedou dál, nové registrace půjdou po dávkách."
 category: "AI Report"
 date: "2026-07-20"
 zprava: true

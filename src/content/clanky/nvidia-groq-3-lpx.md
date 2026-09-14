@@ -1,6 +1,6 @@
 ---
-title: "Nvidia má Groq 3 LPX v plné výrobě. Rychlost tokenů zatím jen z firemních a třetích testů"
-description: "Na Hot Chips Nvidia oznámila, že akcelerátor Groq 3 LPX pro inferenci agentů je v plné výrobě. Rekord Artificial Analysis i čtyřnásobek odezvy bereme jako číslo třetí strany, respektive firemní nárok."
+title: "Nvidia má Groq 3 LPX v plné výrobě. Rychlost tokenů jen z cizích testů"
+description: "Na Hot Chips Nvidia oznámila, že akcelerátor Groq 3 LPX pro inferenci agentů je v plné výrobě. Rekord Artificial Analysis i čtyřnásobek odezvy bereme jako cizí a firemní čísla."
 category: "Hardware"
 date: "2026-08-24"
 zprava: true

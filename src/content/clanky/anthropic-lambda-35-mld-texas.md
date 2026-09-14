@@ -1,5 +1,5 @@
 ---
-title: "Anthropic prý za 35 miliard dolarů najímá u Lambdy výpočetní kapacitu v Texasu"
+title: "Anthropic prý najímá u Lambdy výpočet v Texasu za 35 miliard dolarů"
 description: "Reuters a Bloomberg z anonymních zdrojů: cloud za 35 miliard s Lambdou v Texasu, zhruba 350 MW, developer Hut 8. Firmy to nekomentovaly. Text WSJ nemáme."
 category: "AI Report"
 date: "2026-09-01T10:00:00+02:00"

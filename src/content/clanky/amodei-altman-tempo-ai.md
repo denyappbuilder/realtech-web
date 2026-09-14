@@ -1,6 +1,6 @@
 ---
 title: "Altman i Amodei chtějí zpomalit tempo AI. Tři kroky pro tvůj účet"
-description: "Šéfové Anthropicu a OpenAI se 12. 9. shodli, že tempo AI zpomalí sami: vnější hodnotitelé s přístupem jako zaměstnanci, Claude Code od 14. 9. o 17 % méně týdně, OpenAI s pozastaveným největším tréninkem a tři kroky, které zvládneš u svého účtu ještě dnes."
+description: "Šéfové Anthropicu a OpenAI se 12. 9. shodli, že tempo AI zpomalí sami. Claude Code od 14. 9. o 17 % méně týdně, OpenAI drží největší trénink pozastavený. Tři kroky pro tvůj účet."
 category: "AI Report"
 date: "2026-09-12T21:40:00+02:00"
 zprava: true

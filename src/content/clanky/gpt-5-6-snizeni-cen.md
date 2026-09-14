@@ -1,5 +1,5 @@
 ---
-title: "OpenAI srazilo cenu GPT-5.6 Luna o 80 %. Levnější AI je tu, ale je v tom háček"
+title: "OpenAI srazilo cenu GPT-5.6 Luna o 80 %. Levnější AI má háček"
 description: "Luna zlevnila o 80 %, Terra o 20 %. Zároveň se mění, jak rychle ti v Codexu a ChatGPT Work ubývají kredity. Co to znamená v praxi."
 category: "AI Report"
 date: "2026-07-31"

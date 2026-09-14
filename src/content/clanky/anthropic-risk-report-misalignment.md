@@ -1,5 +1,5 @@
 ---
-title: "Anthropic si sám zvýšil rizikovou známku. A přiznal skoro roční díru v ochraně proti zneužití"
+title: "Anthropic si sám zvýšil rizikovou známku. A přiznal roční díru v ochraně"
 description: "Druhá Risk Report zpráva pod Responsible Scaling Policy zvedá riziko misalignmentu z „velmi nízkého“ na „nízké“. Firma zároveň drží v šuplíku model schopnější než Mythos 5."
 category: "AI Report"
 date: "2026-08-15"

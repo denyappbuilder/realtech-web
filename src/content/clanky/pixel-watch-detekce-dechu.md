@@ -1,6 +1,6 @@
 ---
-title: "Pixel Watch umí zavolat záchranku, když přestanete dýchat. V Česku ale zatím ne"
-description: "Google spustil detekci dechové zástavy na Pixel Watch 4 a 5. Hodinky poznají kritický pokles kyslíku, a když nereagujete, samy vytočí tísňovou linku a pošlou polohu. Jede to v deseti evropských zemích — Česko a Slovensko mezi nimi nejsou."
+title: "Pixel Watch zavolá záchranku, když přestaneš dýchat. V Česku zatím ne"
+description: "Google spustil detekci dechové zástavy na Pixel Watch 4 a 5. Hodinky poznají kritický pokles kyslíku, a když nereaguješ, vytočí tísňovou linku a pošlou polohu. Česko chybí."
 category: "Hardware"
 date: "2026-08-13"
 zprava: true

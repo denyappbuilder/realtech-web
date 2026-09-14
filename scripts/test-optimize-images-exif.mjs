@@ -52,7 +52,7 @@ for (const orientation of [6, 8]) {
     const source = path.join(dir, "cover.jpg");
     await writeOrientedSource(source, orientation);
 
-    assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 3 });
+    assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 4 });
 
     for (const [name, apply] of derivatives) {
       const actual = path.join(dir, name);

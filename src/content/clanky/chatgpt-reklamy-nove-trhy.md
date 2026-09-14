@@ -1,6 +1,6 @@
 ---
 title: "Reklamy v ChatGPT se rozjely do dalších pěti zemí. Evropa je na řadě"
-description: "OpenAI potvrdilo, že reklamy v ChatGPT běží nově i ve Velké Británii, Mexiku, Brazílii, Japonsku a Jižní Koreji. Placené tarify je nemají, ve Free jdou vypnout — za cenu méně zpráv denně."
+description: "OpenAI potvrdilo reklamy v ChatGPT nově i ve Velké Británii, Mexiku, Brazílii, Japonsku a Jižní Koreji. Placené tarify je nemají, ve Free jdou vypnout za cenu méně zpráv denně."
 category: "AI Report"
 date: "2026-08-12"
 zprava: true
