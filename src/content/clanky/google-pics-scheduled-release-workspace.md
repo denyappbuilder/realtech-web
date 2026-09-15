@@ -1,5 +1,5 @@
 ---
-title: "Google Pics: od 15. 9. nabíhá i Scheduled Release. Checklist pro CZ Workspace"
+title: "Google Pics: od 15. 9. nabíhá i Scheduled Release. Checklist pro Workspace"
 description: "AI generování a úpravy obrázků v Docs/Slides. Rapid už od 1. 9., Scheduled od 15. 9. Business Standard+ ano, Starter ne. Limity vyšší aspoň do 28. 2. 2027."
 category: "AI Report"
 date: "2026-09-15T23:05:00+02:00"
