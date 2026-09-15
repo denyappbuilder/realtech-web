@@ -1,5 +1,5 @@
 ---
-title: "Gemini Notebook: 4 nové úrovně sdílení ven. Checklist admina pro CZ Workspace"
+title: "Gemini Notebook: 4 nové úrovně sdílení ven. Checklist admina pro Workspace"
 description: "Od 10. 9. 2026 Admin console: Off / Trusted Domains / On / On s veřejným odkazem. Default Off. Doména, OU nebo skupina. Neplést s NotebookLM."
 category: "AI Report"
 date: "2026-09-15T23:06:00+02:00"
