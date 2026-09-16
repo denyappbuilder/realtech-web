@@ -78,8 +78,6 @@ Předobjednávky běží od 12. září, prodej v Česku i v USA startuje 18. z�
 
 Lokální AI na stole je jiná třída. NVIDIA RTX Spark, superčip pro notebooky a malé desktopy s až 128 GB sdílené paměti, má první stroje na podzim. Do takové paměti se vejdou modely, které se do telefonu nedostanou. Apple velikost RAM v iPhonu neuvádí, MacRumors píše 12 GB, stejně jako u 17 Pro. iPhone řeší jinou otázku: co z AI máš pořád u sebe, hned, bez čekání na síť. Čísla Sparku tady neměříme, jde o měřítko.
 
-<!-- TODO: sem interní odkaz na náš RTX Spark / Nvidia článek nebo video -->
-
 ## Tři věci, které z toho použiješ hned
 
 **1. Nečekej na Siri AI v češtině.** 18. září ti ji iPhone 18 Pro v Česku nedá a Apple pro EU nemá termín. Chceš aspoň Apple Intelligence? Přepni Siri i systém do angličtiny. Chceš asistenta česky? Počítej s aplikací mimo Apple.

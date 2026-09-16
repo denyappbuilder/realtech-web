@@ -7,6 +7,7 @@
 //     updated před date nebo updated v budoucnosti → build FAIL (Z10065)
 //  5. interní odkaz na /clanky/SLUG/, který neexistuje → build FAIL
 //     (Starlink průvodce takhle chvíli odkazoval na 404, než se dopublikoval druhý díl)
+//  6. HTML komentář v těle článku → build FAIL (kolo 41: redakční TODO šlo živě do HTML i RSS)
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -180,9 +181,19 @@ for (const f of files) {
 }
 
 // 5. interní odkazy mezi články (až po načtení všech slugů)
+// 6. HTML komentář v těle článku → build FAIL (kolo 41). Markdown ho pustí
+//    doslova do HTML stránky i do RSS — živě 16. 9. 2026 nesl iPhone 18 Pro
+//    redakční poznámku „<!-- TODO: sem interní odkaz … -->“ v zdrojáku
+//    stránky i ve feedu. Poznámky pro redakci patří mimo publikovaný text.
 const slugs = new Set(files.map((f) => f.replace(/\.md$/, '')));
 for (const f of files) {
   const body = fs.readFileSync(path.join(DIR, f), 'utf8');
+  const telo = body.split(/^---\s*$/m).slice(2).join('---');
+  const komentar = telo.match(/<!--[\s\S]*?(?:-->|$)/);
+  if (komentar) {
+    const ukazka = komentar[0].replace(/\s+/g, ' ').slice(0, 60);
+    errors.push(`${f.replace(/\.md$/, '')}: HTML komentář v těle článku jde doslova do HTML i RSS: „${ukazka}“`);
+  }
   // CommonMark dovoluje cíl v úhlových závorkách `](</clanky/x/>)` — dřív
   // regex takový odkaz vůbec neviděl a 404 prošla tiše (CONTENT-LINK-001).
   for (const m of body.matchAll(/\]\(<?\/clanky\/([^/)#?>]+)/g)) {
