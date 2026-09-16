@@ -12,7 +12,7 @@ audio:
 
 OpenAI 1. září napsal, že Astra poprvé překročila práh **Critical** v kyberbezpečnosti podle jejich rámce připravenosti (Preparedness Framework). V praxi: s nástroji a přístupem umí hledat dřív neznámé chyby a skládat řetězce zneužití napříč dobře chráněnými systémy **bez vedení člověka po každém kroku**. To není naše měření. To je jejich označení.
 
-Pro OSVČ a malou firmu z toho plyne hlavně jedno: až Astra přijde do ChatGPT nebo přes API, neuvidíš automaticky všechno, co OpenAI ukazovalo ve srovnávacích testech. Jdou dvě koleje.
+Pro tebe z toho plyne hlavně jedno: až Astra přijde do ChatGPT nebo přes API, neuvidíš automaticky všechno, co OpenAI ukazovalo ve srovnávacích testech. Jdou dvě koleje.
 
 ## Critical = bez vedení člověka
 

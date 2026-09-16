@@ -12,7 +12,7 @@ audio:
 
 Meta vypustila **Muse Spark 1.3**. Režim **xhigh** běží ode dneška v Muse Code a v Meta Model API. Silnější režim **max** zůstává v uzavřeném náhledu pro partnery a čeká na dokončení bezpečnostních testů. Ceník xhigh se nemění: **1,25 dolaru** za milion vstupních tokenů a **4,25 dolaru** za výstupní, čtení z cache **0,15 dolaru**.
 
-Pro OSVČ a malou firmu je ale hlavní číslo jinde než v žebříčku. Artificial Analysis počítá Muse Spark 1.3 (xhigh) na **asi 0,55 dolaru za úlohu** ve svém Intelligence Indexu, což z ní dělá nejlevnější model se skóre nad 59. GPT-6 Astra stojí v API **10 a 50 dolarů** za milion tokenů. Claude Fable 5.1 sedí na podobné tokenové úrovni jako Astra, základní karta je taky **10 a 50 dolarů**.
+Když za AI platíš sám, je ale hlavní číslo jinde než v žebříčku. Artificial Analysis počítá Muse Spark 1.3 (xhigh) na **asi 0,55 dolaru za úlohu** ve svém Intelligence Indexu, což z ní dělá nejlevnější model se skóre nad 59. GPT-6 Astra stojí v API **10 a 50 dolarů** za milion tokenů. Claude Fable 5.1 sedí na podobné tokenové úrovni jako Astra, základní karta je taky **10 a 50 dolarů**.
 
 My jsme nic z toho neměřili. Čísla Artificial Analysis i Mety ber jako jejich vlastní tvrzení a spočítej si své vlastní prompty.
 
