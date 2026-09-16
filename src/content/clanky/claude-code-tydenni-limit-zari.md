@@ -14,7 +14,7 @@ audio:
 
 Do neděle 13. 9. večer jede Claude Code ještě na dočasných +50 % týdenního limitu. Od pondělí 14. 9. platí trvalých +25 % proti starému základu. Anthropic to na X oznámil jako navýšení. Proti tomu, co máš v účtu dnes, je to o 17 % méně. Obě čísla jsou pravdivá. Záleží, odkud měříš.
 
-Oznámení přišlo 29. srpna z účtu @ClaudeDevs. První vlákno vedlo s +25 %. Anthropic ho smazal a poslal objasnění, které říká rovnou: proti dnešku jde o 17 % snížení týdenních limitů v Claude Code. Zároveň slíbil změny pro lepší přehled a kontrolu nad spotřebou. Sled událostí popsaly BleepingComputer a Everyday AI. Dole najdeš tři kroky, které OSVČ zvládne udělat ještě tento víkend.
+Oznámení přišlo 29. srpna z účtu @ClaudeDevs. První vlákno vedlo s +25 %. Anthropic ho smazal a poslal objasnění, které říká rovnou: proti dnešku jde o 17 % snížení týdenních limitů v Claude Code. Zároveň slíbil změny pro lepší přehled a kontrolu nad spotřebou. Sled událostí popsaly BleepingComputer a Everyday AI. Dole najdeš tři kroky, které zvládneš udělat ještě tento víkend, ať Claude Code platíš sám, nebo ti ho platí práce.
 
 ## Počty: 100, 150, 125
 
@@ -40,7 +40,7 @@ Dočasný bonus začal 13. května. Anthropic ho několikrát prodloužil a 31. 
 
 Celé to začalo 6. května. Anthropic oznámil dohodu se SpaceX o výpočetní kapacitě, zdvojnásobil 5hodinové limity Claude Code a zrušil snížení ve špičce. Týdenních +50 % přišlo o týden později. Teď se z toho balíku ubírá jen týdenní část.
 
-## Princip hodnoty: 3 kroky pro OSVČ
+## Princip hodnoty: 3 kroky na tento víkend
 
 ### 1. Do neděle 13. 9.: dojeď těžkou frontu
 

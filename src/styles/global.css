@@ -967,7 +967,11 @@ footer.site ul a:hover { color: var(--ink); }
      200px níž v .article-share a tři „Další reporty“ jsou hned pod tím
      karty .related (stejné pole `related`). Živě 4. 9. 2026 na 390px
      ~330px duplicit mezi koncem článku a výzvou na kanál; čtečka slyšela
-     šest tlačítek sdílení. */
+     šest tlačítek sdílení.
+     Kolo 40: aside teď vypisuje „Nejnovější reporty“ mimo `related`
+     (na desktopu se tři odkazy opakovaly i tam) — pod 901px zůstává
+     skrytý, meta a sdílení by se dál opakovaly a mobil má chronologii
+     v .article-nav. */
   .article-aside { display: none; }
   header.site .wrap {
     flex-wrap: wrap; height: auto;

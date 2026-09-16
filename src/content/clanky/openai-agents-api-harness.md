@@ -12,7 +12,7 @@ audio:
 
 OpenAI 10. září otevřela veřejnou betu **Agents API**. Harness, na kterém běží Codex, si teď pronajmeš jako službu. OpenAI drží sessiony, orchestraci, zhušťování kontextu a obnovu po pádu. Ty dodáš nástroje a vybereš, kde agent poběží. Za samotný harness se neplatí nic navíc.
 
-Pokud stavíš nebo provozuješ AI agenty pro živnost, malou firmu nebo vlastní tvorbu, řešíš jednu otázku: vzít managed harness od OpenAI, nebo si smyčku dál provozovat sám přes OpenClaw, Grok Bot nebo vlastní kód. Dole je pravidlo, podle kterého se rozhodnout. Napřed fakta.
+Pokud si stavíš nebo provozuješ AI agenty, ať pro sebe, pro vlastní projekt nebo v práci, řešíš jednu otázku: vzít managed harness od OpenAI, nebo si smyčku dál provozovat sám přes OpenClaw, Grok Bot nebo vlastní kód. Dole je pravidlo, podle kterého se rozhodnout. Napřed fakta.
 
 ## Co Agents API dělá
 
