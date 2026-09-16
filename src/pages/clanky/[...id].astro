@@ -289,6 +289,13 @@ const breadcrumbLd = {
               <svg viewBox="0 0 68 48"><path d="M66.5 7.5a8 8 0 0 0-5.6-5.7C56 0 34 0 34 0S12 0 7.1 1.8a8 8 0 0 0-5.6 5.7C0 12.5 0 24 0 24s0 11.5 1.5 16.5a8 8 0 0 0 5.6 5.7C12 48 34 48 34 48s22 0 26.9-1.8a8 8 0 0 0 5.6-5.7C68 35.5 68 24 68 24s0-11.5-1.5-16.5z"/><path class="youtube-facade-play-triangle" d="m27 34 18-10-18-10z"/></svg>
             </span>
           </button>
+          {/* Kolo 41: iframe vkládá až skript (youtube-facade.js) — bez JS bylo
+              play tlačítko 760×430 mrtvé (živě 16. 9. 2026). Odkaz přes celou
+              fasádu vede rovnou na YouTube; se skriptem se <noscript> nevykreslí
+              a tlačítko zůstává tlačítkem (Enter, mezerník, iframe na místě). */}
+          <noscript>
+            <a class="youtube-facade-nojs" href={video} aria-label={`Přehrát video na YouTube: ${title}`}></a>
+          </noscript>
         </div>
       )}
 
