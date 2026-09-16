@@ -14,7 +14,7 @@ Anthropic 10. září vydal čtvrtý Threat Intelligence Report. 154 stran. Osm 
 
 Loňské reporty popisovaly Claude jako asistenta. Napsal kus kódu, přeložil phishing, poradil s konfigurací. Letošní popisuje orchestrátora. Operátor zadá cíl. Agenti si rozdělí práci, projdou infrastrukturu, vyrobí nástroje a poskládají výsledek. Člověk zůstává na začátku a na konci. Vybírá cíle a zpeněžuje výsledek.
 
-Pro obránce se tím mění tři veličiny. Rychlost: průnik za 2 až 3 hodiny. Škála: přes 2 100 sad tokenů z více než 40 tenantů za zhruba 34 hodin. Hloubka: jeden člověk zvládne to, na co dřív potřeboval tým. Dole najdeš, co z toho plyne pro firmu s pěti lidmi a bez SOC.
+Pro obránce se tím mění tři veličiny. Rychlost: průnik za 2 až 3 hodiny. Škála: přes 2 100 sad tokenů z více než 40 tenantů za zhruba 34 hodin. Hloubka: jeden člověk zvládne to, na co dřív potřeboval tým. Dole najdeš, co z toho plyne pro tebe a pro malý tým bez bezpečnostního oddělení.
 
 ## Co v reportu je
 
@@ -42,7 +42,7 @@ Postupy útoků report nepopisuje. Tenhle článek také ne. Řešíme, co z toh
 
 ## Princip hodnoty: 8 pravidel pro obránce
 
-Report je psaný pro velké bezpečnostní týmy. Pravidla níže jsou přepis pro živnost, agenturu a firmu do 50 lidí.
+Report je psaný pro velké bezpečnostní týmy. Pravidla níže jsou přepis pro tebe: pro člověka, který má vlastní účty a API klíče k AI, malý tým nebo firmu do 50 lidí bez bezpečnostního oddělení.
 
 1. **Sofistikovanost neříká nic o útočníkovi.** Kampaň, která vypadá jako práce státní skupiny, může vést jeden člověk s agentem. Případ GTG-50029 to ukazuje přesně. Nehádej útočníka podle úrovně. Řeš dopad.
 2. **Statické detekce stárnou rychleji.** Zablokuješ indikátor nebo signaturu a AI útočníkovi přestaví nástroj za hodiny. Sleduj chování: nový token z neznámé země, hromadné stahování, přihlášení mimo pracovní dobu. Seznam hashů tě ochrání kratší dobu než dřív.
