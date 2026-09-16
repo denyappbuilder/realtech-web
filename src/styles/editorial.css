@@ -58,8 +58,18 @@
 .article-layout .article-body { background: transparent; border: 0; border-radius: 0; padding: 0; }
 #article-text { scroll-margin-top: 112px; }
 #article-text:focus-visible { outline: 2px solid var(--signal); outline-offset: 8px; }
+/* Kolo 41: vnitřní rolování aside jen tam, kde je aside sticky (stejný dotaz
+   jako v global.css, kolo 19 / 34). Na 1280×600 aside sticky není, ale #447
+   ho i tak řezal na 488 px s vlastním posuvníkem uprostřed běžného toku.
+   Bez overscroll-behavior: contain — s ním se kolečko nad aside (pravá
+   třetina článku) zastavilo na konci aside a stránka dál nejela (živě
+   16. 9. 2026 na 1366×768 i 1280×800: aside 767 px do 654 px okna, 12 kroků
+   kolečka = scrollY beze změny). Řetězení scrollu má pokračovat na stránku;
+   contain patří dialogům, ne postrannímu sloupci. */
+@media (min-width: 901px) and (min-height: 640px) {
+  .article-aside { max-height: calc(100dvh - 112px); overflow-y: auto; scrollbar-color: var(--ink-faint) var(--surface); scrollbar-width: thin; }
+}
 @media (min-width: 901px) {
-  .article-aside { max-height: calc(100dvh - 112px); overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--ink-faint) var(--surface); scrollbar-width: thin; }
   .article-page .article-head { max-width: 920px; margin-left: 0; }
   .article-head h1 { text-wrap: balance; }
 }

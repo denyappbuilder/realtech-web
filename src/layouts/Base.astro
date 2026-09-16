@@ -184,8 +184,19 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="alternate" type="application/rss+xml" title="REALTECH CZ" href="/rss.xml" />
   {/* Kolo 37: bez JS ustoupí tlačítko ⌘K odkazu na GET hledání v archivu
-      (viz <noscript> v hlavičce). <style> smí v <noscript> stát jen v <head>. */}
+      (viz <noscript> v hlavičce). <style> smí v <noscript> stát jen v <head>.
+
+      Kolo 41: přepínač tématu je bez skriptu mrtvé tlačítko 44×44 (živě
+      16. 9. 2026 s vypnutým JS) — téma bez JS řídí prefers-color-scheme,
+      tlačítko nemá co dělat, tak se schová jako ⌘K. Přes set:html a HNED
+      za prvním <noscript>: kompilátor Astra (@astrojs/compiler 2.13) po
+      </noscript> v <head> nesnese ani druhý <noscript> (zahodí ho), ani
+      výraz {…} včetně tohoto komentáře — </head> pak uzavře hned za prvním
+      <noscript> a slot head, preload LCP i beacon skončí v <body> (ověřeno
+      kompilací; test-kolo-41-leftover to hlídá). Vložený řetězec parser
+      nevidí, HTML je stejné jako u <noscript>. Sem mezi ně nic nepřidávat. */}
   <noscript><style>.search-trigger[data-search-open]{display:none}</style></noscript>
+  <Fragment set:html={'<noscript><style>.theme-toggle{display:none}</style></noscript>'} />
   <slot name="head" />
   {/*
     Cloudflare Web Analytics — JEDEN beacon, tenhle. Kolo 22 ruční <script>

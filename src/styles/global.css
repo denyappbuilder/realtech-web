@@ -1880,7 +1880,20 @@ a.chip { display: inline-flex; align-items: center; }
 
 /* ── YouTube click-to-load ───────────── */
 .youtube-facade {
+  position: relative;
   background: var(--panel);
+}
+/* Kolo 41: bez JS leží přes celou fasádu odkaz na YouTube (<noscript> v
+   článku) — play ikona i poster zůstávají z tlačítka pod ním, klik ale
+   vede ven. Se skriptem se <noscript> nevykreslí, pravidlo nic nedělá. */
+.youtube-facade-nojs {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+.youtube-facade-nojs:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: -3px;
 }
 .youtube-facade-button {
   position: relative;
