@@ -76,6 +76,14 @@ const related = [
   ...others.filter((c) => c.data.category === category),
   ...others.filter((c) => c.data.category !== category),
 ].slice(0, 3);
+// Kolo 40: aside vedle textu (≥ 901px) vypisoval totéž pole `related`
+// jako mřížka „Další reporty“ pod textem — živě 16. 9. 2026 na 1280px
+// tytéž tři odkazy dvakrát na jedné stránce (pod 901px aside nekreslíme,
+// kolo 19). Aside teď nese tři nejnovější články MIMO related: vedle
+// textu „co je nového“, pod textem výběr podle tématu. Při málo článcích
+// může být prázdný — blok se pak nevykreslí.
+const relatedIds = new Set(related.map((c) => c.id));
+const asideNejnovejsi = others.filter((c) => !relatedIds.has(c.id)).slice(0, 3);
 
 // Chronologická navigace (novější/starší)
 const chrono = (await getCollection('clanky', ({ data }) => !data.draft))
@@ -346,11 +354,11 @@ const breadcrumbLd = {
               <noscript><a class="share-btn" href={articleUrl}>Odkaz na článek</a></noscript>
             </div>
           </div>
-          {related.length > 0 && (
+          {asideNejnovejsi.length > 0 && (
             <>
-              <p class="mono">Další reporty</p>
+              <p class="mono">Nejnovější reporty</p>
               <ul class="article-aside-related">
-                {related.map((c) => (
+                {asideNejnovejsi.map((c) => (
                   <li><a href={`/clanky/${c.id}/`}>{c.data.title}</a></li>
                 ))}
               </ul>
