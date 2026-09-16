@@ -46,6 +46,8 @@ Z 15. 9. a 3. 9. dohromady:
 | **Workspace business** (pracovní a školní účty) | hlasové funkce z 3. 9. stále **coming soon**; Extended Thinking pro Workspace business také **coming soon** |
 | **Gemini Enterprise / Customer Experience** | soukromá ukázka, **coming soon** |
 
+Mimo Docs, Gmail a Keep Google v tomtéž postu píše, že 3.8 Live Extended Thinking dostává „pro všechny“ i **Gemini Live**, tedy hlasový režim aplikace Gemini, a samotný 3.8 Live běží v **Search Live**. Nový hlasový model si tak vyzkoušíš i v aplikaci Gemini, ne jen v dokumentech a schránce.
+
 Na mobilu (Android i iOS) popisuje 9to5Google Gmail Live a Docs Live jako dostupné v angličtině u spotřebitelských plánů Google AI. **Kvalitu češtiny Google v obou postech nijak nečísluje**, mluví jen o přepínání mezi 97 jazyky. Než na to přejdeš naostro, nadiktuj si dvě tři věty a podívej se, co z nich vyleze.
 
 ## Kdy diktovat a kdy ne

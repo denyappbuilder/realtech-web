@@ -42,7 +42,7 @@ Co z toho plyne pro tebe:
 - **Business Starter v seznamu není.** Když máš pracovní účet na nejlevnějším balíčku, Pics v něm nečekej, dokud ho Google výslovně nepřidá.
 - **Správce ho může vypnout.** Pics je ve výchozím stavu zapnutý, ale správce ho může zakázat pro celou doménu, organizační jednotku (OU) nebo skupinu. Zvenku to vypadá stejně, jako byste balíček neměli.
 
-## Rapid vs Scheduled: proč právě 15. 9.
+## Rapid nebo Scheduled Release: proč právě 15. 9.
 
 Týká se jen pracovních a školních účtů. Google novinky do Workspace pouští ve dvou vlnách:
 
