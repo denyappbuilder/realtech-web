@@ -1,6 +1,6 @@
 ---
 title: "Gemini 3.8 Live: Docs, Gmail a Keep. Kdy hlas ušetří OSVČ čas a kdy ne"
-description: "Od 15. 9. 2026 Gemini 3.8 Live Extended Thinking v Docs Live (Pro/Ultra), Gmail a Keep Live (Google AI). Checklist kdy diktovat. Workspace business a Enterprise CX ještě coming soon."
+description: "Od 15. 9. 2026 Gemini 3.8 Live Extended Thinking v Docs Live (Pro/Ultra), Gmail a Keep Live (Google AI). Checklist kdy diktovat. Workspace business a Enterprise CX coming soon."
 category: "AI Report"
 date: "2026-09-16T13:05:04+02:00"
 zprava: true
