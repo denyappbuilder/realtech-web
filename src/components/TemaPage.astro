@@ -173,7 +173,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       {/* Kolo 30: stejně jako .topics na úvodce — <nav> se jménem. */}
       {ostatni.length > 0 && (
         <nav class="topics" aria-label="Další témata">
-          <span class="mono">// Další témata</span>
+          <span class="mono">Další témata</span>
           <div class="cat-filter">
             {ostatni.map((cat) => (
               <a class="chip" href={`/temata/${slugify(cat)}/`}>{cat}</a>
