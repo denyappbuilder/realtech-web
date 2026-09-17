@@ -260,6 +260,10 @@ footer.site .live-dot { display: none; }
 @media (max-width: 580px) {
   header.site .logo { align-items: center; }
   header.site .yt-btn { padding-inline: 10px; }
+  /* Kolo 43: dvě řady (logo | akce / navigace) měly jen vnější border-bottom
+     headeru; mezi řadami nic. 1px --line nad navigací + 2px odstup — header
+     zůstává pod 96px (4 + 44 + 2 + 1 + 44). Žádný hamburger. */
+  header.site nav.main { border-top: 1px solid var(--line); margin-top: 2px; }
   .edition-heading { padding-block: 24px 8px; }
   .edition-heading p { font-size: 1.05rem; }
   .edition-heading a { display: none; }
@@ -283,6 +287,7 @@ footer.site .live-dot { display: none; }
   [data-archive] .search-form { gap: 8px; }
   [data-archive] .search-input { min-height: 52px; padding-inline: 14px; }
   [data-archive] .chip { padding-inline: 12px; }
+  [data-archive] .filter-empty { padding: 32px 18px; }
   [data-archive] .card { border-bottom: 1px solid var(--line); border-radius: 0; padding: 24px 0; }
   [data-archive] .card-body { padding: 0; gap: 12px; }
   [data-archive] .card-body h2 { font-size: 1.03rem; line-height: 1.35; }
