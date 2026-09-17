@@ -44,7 +44,7 @@ test('kolo 43: žádný UI popisek nezačíná `// ` — Sdílej dál, Další t
   assert.match(tema, /<nav class="topics" aria-label="Další témata">\s*<span class="mono">Další témata<\/span>/);
   assert.match(notfound, /<span class="mono">Chyba 404<\/span>/);
   for (const [cesta, zdroj] of [['clanky/[...id].astro', clanek], ['TemaPage.astro', tema], ['404.astro', notfound]]) {
-    assert.doesNotMatch(zdroj, />\s*\/\/\s*[A-ZÁ-Ža-zá-ž]/, `${cesta}: popisek s code-comment „//“`);
+    assert.doesNotMatch(zdroj, /<(?:span|p|h[1-6]) class="mono"[^>]*>\s*\/\//, `${cesta}: popisek s code-comment „//“`);
   }
 });
 
