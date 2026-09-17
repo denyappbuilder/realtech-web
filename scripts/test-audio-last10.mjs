@@ -4,7 +4,7 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { load } from 'js-yaml';
-import { AUDIO_PENDING } from './audio-pending.mjs';
+import { AUDIO_PENDING, AUDIO_R2_KLIC } from './audio-pending.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const articleDir = path.join(root, 'src/content/clanky');
@@ -25,8 +25,11 @@ function frontmatter(slug) {
 
 const VERZE_HASH = String.raw`\?v=[0-9a-f]{12}`;
 
+// Kolo 42: přejmenovaný slug drží audio na původním klíči R2 (AUDIO_R2_KLIC),
+// dokud se soubor nepřejmenuje i tam — jinak by přehrávač šel na 404.
 function audioUrl(slug, vydani) {
-  return new RegExp(`^https://audio\\.realtech\\.cz/${slug}-${vydani}\\.mp3${VERZE_HASH}$`);
+  const klic = AUDIO_R2_KLIC.get(slug) ?? slug;
+  return new RegExp(`^https://audio\\.realtech\\.cz/${klic}-${vydani}\\.mp3${VERZE_HASH}$`);
 }
 
 test('každý článek má publikovatelný audio přehled v R2', () => {

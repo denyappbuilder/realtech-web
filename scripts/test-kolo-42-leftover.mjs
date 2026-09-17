@@ -127,6 +127,65 @@ test('kolo 42: validate-content pustí Astro komentář, <!--email_off--> i chyb
   assert.equal(vysledek.status, 0, vysledek.stderr);
 });
 
+// ── P1: slug bez -admin, audio na starém klíči, 301 ze staré URL ──────────
+
+const STARY_SLUG = 'gemini-notebook-external-sharing-admin';
+const NOVY_SLUG = 'gemini-notebook-external-sharing';
+
+function pravidlaRedirectu() {
+  const rules = new Map();
+  for (const radek of cti('public/_redirects').split(/\r?\n/)) {
+    const line = radek.trim();
+    if (!line || line.startsWith('#')) continue;
+    const [source, destination, status] = line.split(/\s+/);
+    rules.set(source, { destination, status });
+  }
+  return rules;
+}
+
+test('kolo 42: článek o sdílení Gemini Notebooku žije na slugu bez -admin; cover, deriváty i OG jdou s ním', () => {
+  assert.ok(existsSync(join(koren, `src/content/clanky/${NOVY_SLUG}.md`)), 'nový content file chybí');
+  assert.ok(!existsSync(join(koren, `src/content/clanky/${STARY_SLUG}.md`)), 'starý content file má být pryč (dva články = duplicitní obsah)');
+  const fm = cti(`src/content/clanky/${NOVY_SLUG}.md`).split(/^---\s*$/m)[1] ?? '';
+  assert.match(fm, /^title: "Gemini Notebook: 4 úrovně sdílení ven\. Co to znamená pro tvůj účet"$/m, 'titulek se nemění');
+  assert.match(fm, new RegExp(`^image: "/images/clanky/${NOVY_SLUG}\\.jpg"$`, 'm'), 'cover míří na přejmenovaný soubor');
+  for (const pripona of ['.jpg', '.webp', '-640.jpg', '-640.webp', '-960.webp']) {
+    assert.ok(existsSync(join(koren, `public/images/clanky/${NOVY_SLUG}${pripona}`)), `chybí derivát ${NOVY_SLUG}${pripona}`);
+    assert.ok(!existsSync(join(koren, `public/images/clanky/${STARY_SLUG}${pripona}`)), `starý derivát ${STARY_SLUG}${pripona} zůstal`);
+  }
+  assert.ok(existsSync(join(koren, `public/images/og/${NOVY_SLUG}.jpg`)), 'OG obrázek chybí');
+  assert.ok(existsSync(join(koren, `public/images/og/${NOVY_SLUG}.jpg.sha256`)), 'otisk OG chybí — generate-og by ho přegeneroval');
+  assert.ok(!existsSync(join(koren, `public/images/og/${STARY_SLUG}.jpg`)), 'starý OG zůstal');
+});
+
+test('kolo 42: audio zůstává na původním klíči R2 (přehrávač 200 bez přejmenování v R2), AUDIO_R2_KLIC to eviduje', async () => {
+  const fm = cti(`src/content/clanky/${NOVY_SLUG}.md`).split(/^---\s*$/m)[1] ?? '';
+  assert.match(fm, new RegExp(`^  url: "https://audio\\.realtech\\.cz/${STARY_SLUG}-nlm\\.mp3\\?v=6bc339e18708"$`, 'm'), 'audio.url se nemění — soubor v R2 leží pod starým klíčem');
+  assert.match(fm, /^  duration: 991$/m);
+  const { AUDIO_R2_KLIC } = await import('./audio-pending.mjs');
+  assert.equal(AUDIO_R2_KLIC.get(NOVY_SLUG), STARY_SLUG, 'test-audio-last10 potřebuje výjimku z konvence <slug>-nlm.mp3');
+});
+
+test('kolo 42: stará URL /clanky/…-admin/ jde 301 na nový slug; nikde v src/ ani scripts/ nezůstal odkaz na starý slug', () => {
+  const rules = pravidlaRedirectu();
+  for (const source of [`/clanky/${STARY_SLUG}`, `/clanky/${STARY_SLUG}/`]) {
+    const rule = rules.get(source);
+    assert.ok(rule, `public/_redirects: chybí pravidlo pro ${source}`);
+    assert.equal(rule.destination, `/clanky/${NOVY_SLUG}/`);
+    assert.equal(rule.status, '301');
+  }
+  const zdroje = [
+    ...readdirSync(join(koren, 'src'), { recursive: true }).filter((f) => /\.(astro|md|mdx|js|ts|json)$/.test(f)).map((f) => `src/${f}`),
+    ...readdirSync(join(koren, 'scripts'), { recursive: true }).filter((f) => /\.mjs$/.test(f) && !/^test-kolo-4[02]-leftover\.mjs$|^audio-pending\.mjs$/.test(f)).map((f) => `scripts/${f}`),
+  ];
+  for (const f of zdroje) {
+    const text = cti(f);
+    // Jediná povolená stopa starého slugu je klíč MP3 v R2 (audio.url).
+    const bezAudia = text.replace(new RegExp(`https://audio\\.realtech\\.cz/${STARY_SLUG}-nlm\\.mp3[^"\\s]*`, 'g'), '');
+    assert.doesNotMatch(bezAudia, new RegExp(STARY_SLUG), `${f}: odkaz na starý slug`);
+  }
+});
+
 // ── Built HTML (jen když dist/ existuje — `npm run build` před testem) ─────
 
 test('kolo 42: build v dist/ nenese žádný HTML komentář mimo <!--email_off-->', { skip: !existsSync(join(koren, 'dist/index.html')) && 'dist/ chybí (spusť npm run build)' }, () => {

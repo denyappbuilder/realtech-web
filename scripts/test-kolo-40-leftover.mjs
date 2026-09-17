@@ -28,9 +28,11 @@ const clanek = cti('src/pages/clanky/[...id].astro');
 
 // ── Obsah: tři Google články pro běžného čtenáře ─────────────────────────
 
+// Kolo 42: slug notebooku přišel o `-admin` (URL říkala admin, titulek
+// „tvůj účet“); audio zůstává na starém klíči R2 (viz AUDIO_R2_KLIC).
 const GOOGLE_CLANKY = [
   'gemini-3-8-live-docs-gmail-keep',
-  'gemini-notebook-external-sharing-admin',
+  'gemini-notebook-external-sharing',
   'google-pics-scheduled-release-workspace',
 ];
 /** Rámec, který kolo 40 z těch tří článků odstranilo. */
@@ -62,13 +64,13 @@ test('kolo 40: přepsané články drží limity kola 39 (titulek ≤ 75, popise
 test('kolo 40: fakta, která řídí úvodku a přehrávač, zůstala (date, audio.url ve tvaru CI, duration, cover)', () => {
   const ocekavane = {
     'gemini-3-8-live-docs-gmail-keep': { date: '2026-09-16T13:05:04+02:00', v: '6d76534aa9fd', duration: '1086' },
-    'gemini-notebook-external-sharing-admin': { date: '2026-09-15T23:06:00+02:00', v: '6bc339e18708', duration: '991' },
+    'gemini-notebook-external-sharing': { date: '2026-09-15T23:06:00+02:00', v: '6bc339e18708', duration: '991', klic: 'gemini-notebook-external-sharing-admin' },
     'google-pics-scheduled-release-workspace': { date: '2026-09-15T23:05:00+02:00', v: 'c50e546a9578', duration: '1369' },
   };
   for (const [slug, o] of Object.entries(ocekavane)) {
     const { fm, pole } = frontmatter(slug);
     assert.equal(pole('date'), o.date, `${slug}: date řídí pořadí úvodky — neměnit`);
-    assert.match(fm, new RegExp(`url: "https://audio\\.realtech\\.cz/${slug}-nlm\\.mp3\\?v=${o.v}"`), `${slug}: audio.url`);
+    assert.match(fm, new RegExp(`url: "https://audio\\.realtech\\.cz/${o.klic ?? slug}-nlm\\.mp3\\?v=${o.v}"`), `${slug}: audio.url`);
     assert.match(fm, new RegExp(`duration: ${o.duration}\\b`), `${slug}: audio.duration`);
     assert.equal(pole('image'), `/images/clanky/${slug}.jpg`, `${slug}: cover`);
   }
@@ -79,7 +81,7 @@ test('kolo 40: přepis drží klíčová fakta z oficiálních postů Google', (
   for (const fakt of [/15\. (září|9\.) 2026/, /Pro\*\* a \*\*Ultra\*\*/, /Plus, Pro i Ultra/, /coming soon/, /SynthID/, /82,6/, /68,6 %/, /35,1 %/, /97,7 %/, /97 jazyk/]) {
     assert.match(live, fakt, `gemini-3-8-live: chybí ${fakt}`);
   }
-  const notebook = frontmatter('gemini-notebook-external-sharing-admin').telo;
+  const notebook = frontmatter('gemini-notebook-external-sharing').telo;
   for (const fakt of [/10\. (září|9\.) 2026/, /\*\*Off\*\*/, /Trusted Domains/, /public notebook sharing/, /NotebookLM/, /až 15 dní/]) {
     assert.match(notebook, fakt, `gemini-notebook: chybí ${fakt}`);
   }
