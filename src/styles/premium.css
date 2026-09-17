@@ -9,8 +9,17 @@
      archivní hledání) — DESIGN.md `rounded.field`. Globální --radius 8px
      zůstává starším prvkům, tady se nepřepisuje plošně. */
   --radius-field: 12px;
+  /* Kolo 43: --line (#E2E6EB na #F6F7F9) je pro dělicí linku sekce a rámeček
+     panelu ve čtecím sloupci moc tichá — vizuální audit ji četl jako „hairline
+     bez kontrastu“. O krok tmavší varianta JEN pro oddělovače sekcí
+     (audio/videobar, tema-souvisi, related); pole, karty a header drží --line. */
+  --line-strong: #CBD2DA;
   --editorial-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --line-strong: #343C48; }
+}
+:root[data-theme="dark"] { --line-strong: #343C48; }
 /* Normal-width 650–700 editorial roles, separate from the unchanged logo.
    Ratio is measured against Arial Bold; old expanded-role fallbacks stay intact. */
 @font-face {
@@ -143,7 +152,7 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
    Kolo 43: stejný rytmus jako .archive-pagination — oddělovač --line nad
    blokem, padding-top 32px, mezera v seznamu 14px. Nadpis bez natvrdo
    1.15rem: drží škálu .section-head h2 jako ostatní sekce webu. */
-.tema-souvisi { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line); max-width: 760px; }
+.tema-souvisi { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line-strong); max-width: 760px; }
 .tema-souvisi .section-head { margin-bottom: 20px; }
 .tema-souvisi-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .tema-souvisi-list a { display: block; padding: 6px 0; min-height: 44px; }
@@ -192,10 +201,12 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .share-btn { border-radius: var(--radius-field); }
 /* Kolo 43: --surface je od --bg jen o schod (dark #171B21 na #0F1216) — bez
    1px --line bloky plavaly jako nedokončené panely. Rámeček z global.css zpět. */
-.audio-prehled, .article-videobar { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-field); padding: 24px; }
+.audio-prehled, .article-videobar { border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--radius-field); padding: 24px; }
 /* Článek bez videa: stejný rámeček, ale tišší — menší padding, výzva na kanál zůstává. */
 .article-videobar-bez-videa { padding: 16px 20px; }
 .audio-prehled h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
+/* Kolo 43: „Další reporty“ = stejný oddělovač sekce jako .tema-souvisi na hubu. */
+.related { padding-top: 32px; border-top: 1px solid var(--line-strong); }
 .article-nav { margin-top: 48px; }
 
 /* About, legal and end matter: the same publication, not a second UI kit. */
@@ -294,7 +305,8 @@ footer.site .live-dot { display: none; }
   [data-archive] .card-meta { font-size: 0.72rem; }
   [data-archive] .card-thumb { border-radius: 10px; }
   [data-archive] .card-thumb .lt .k { font-size: 0.65rem; padding: 3px 6px; }
-  .tema-souvisi { margin-top: 36px; padding-top: 24px; }
+  .tema-souvisi { margin-top: 36px; }
+  .tema-souvisi, .related { padding-top: 24px; }
   .featured-lead > .card:first-child .card-body { padding: 22px; }
   .featured-lead > .card:first-child .card-body h2 { font-size: 1.25rem; }
   .article-page { padding-top: 32px; padding-bottom: 52px; }

@@ -6,8 +6,10 @@
 //    comment chrome vedle reading-led premium vrstvy. Bez lomítek; jen UI
 //    stringy, těla článků netknuta.
 // P1 premium.css nulovala border na .audio-prehled / .article-videobar —
-//    --surface je od --bg jen o schod, bloky plavaly. 1px --line zpět,
-//    radius přes token --radius-field (12px).
+//    --surface je od --bg jen o schod, bloky plavaly. 1px rámeček zpět,
+//    radius přes token --radius-field (12px). Vizuální audit: --line je na
+//    oddělovačích sekcí hairline bez kontrastu → --line-strong (o krok
+//    tmavší) JEN pro audio/videobar, tema-souvisi a related. Ne token redesign.
 // P1 .tema-souvisi (kolo 42) přilepený pod mřížkou: border-top, padding-top,
 //    gap 14px, nadpis bez natvrdo 1.15rem.
 // P2 .share-btn na globálním --radius 8px vedle 24px chipů a 12px polí →
@@ -50,11 +52,11 @@ test('kolo 43: žádný UI popisek nezačíná `// ` — Sdílej dál, Další t
 
 // ── P1: rámeček na audio přehledu a videobaru ───────────────────────────────
 
-test('kolo 43: premium vrací 1px --line na .audio-prehled / .article-videobar, radius přes --radius-field', () => {
+test('kolo 43: premium vrací 1px rámeček na .audio-prehled / .article-videobar, radius přes --radius-field', () => {
   assert.match(pravidlo(premium, ':root'), /--radius-field:\s*12px/, 'token pole 12px (DESIGN.md rounded.field)');
   const blok = pravidlo(premium, '.audio-prehled, .article-videobar');
   assert.ok(blok, 'společné pravidlo .audio-prehled, .article-videobar chybí');
-  assert.match(blok, /border:\s*1px solid var\(--line\)/, 'rámeček zpět — bez něj plovoucí panel');
+  assert.match(blok, /border:\s*1px solid var\(--line-strong\)/, 'rámeček zpět — bez něj plovoucí panel');
   assert.doesNotMatch(blok, /border:\s*0/);
   assert.match(blok, /border-radius:\s*var\(--radius-field\)/);
   assert.match(blok, /padding:\s*24px/);
@@ -72,12 +74,24 @@ test('kolo 43: článek bez videa má tišší videobar — stejný rámeček, m
 
 test('kolo 43: .tema-souvisi má oddělovač a rytmus jako .archive-pagination, bez natvrdo 1.15rem', () => {
   const blok = pravidlo(premium, '.tema-souvisi');
-  assert.match(blok, /border-top:\s*1px solid var\(--line\)/);
+  assert.match(blok, /border-top:\s*1px solid var\(--line-strong\)/);
   assert.match(blok, /padding-top:\s*(28|30|32)px/);
+  assert.match(pravidlo(premium, '.related'), /border-top:\s*1px solid var\(--line-strong\)/, '„Další reporty“ stejný oddělovač');
   assert.doesNotMatch(premium, /\.tema-souvisi \.section-head h2\s*\{[^}]*font-size/, 'nadpis drží škálu .section-head h2');
   const gap = pravidlo(premium, '.tema-souvisi-list').match(/gap:\s*(\d+)px/)?.[1];
   assert.ok(gap && Number(gap) >= 12 && Number(gap) <= 16, `gap seznamu 12–16px, je ${gap}`);
-  assert.match(mobil, /\.tema-souvisi \{[^}]*padding-top:\s*24px/);
+  assert.match(mobil, /\.tema-souvisi, \.related \{[^}]*padding-top:\s*24px/);
+});
+
+test('kolo 43: --line-strong je o krok tmavší jen pro oddělovače sekcí — pole, karty a header drží --line', () => {
+  assert.match(pravidlo(premium, ':root'), /--line-strong:\s*#CBD2DA/);
+  assert.match(premium, /:root\[data-theme="dark"\] \{ --line-strong: #343C48; \}/);
+  assert.match(premium, /@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{ --line-strong: #343C48; \}/);
+  const pouziti = premium.match(/^[^@\n][^{\n]*\{[^}]*var\(--line-strong\)/gm) ?? [];
+  const selektory = pouziti.map((p) => p.split('{')[0].trim());
+  assert.deepEqual(selektory.sort(), ['.audio-prehled, .article-videobar', '.related', '.tema-souvisi'].sort(), `--line-strong jen na oddělovačích sekcí, je: ${selektory}`);
+  assert.match(pravidlo(premium, '[data-archive] .filter-empty'), /var\(--line\)/, 'pole archivu drží --line');
+  assert.match(mobil, /header\.site nav\.main \{[^}]*var\(--line\)/, 'header drží --line');
 });
 
 // ── P2: share radius + jedna škála popisků ──────────────────────────────────
