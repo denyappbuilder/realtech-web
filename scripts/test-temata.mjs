@@ -211,6 +211,39 @@ test('stránka kategorie řadí shodné datum stabilně podle ID bez ohledu na p
   assert.deepEqual(outputs[1], outputs[0]);
 });
 
+// Kolo 42: RTX Spark PC (AI Report) se v mřížce Hardware neobjeví, ale hub
+// Hardware na něj odkazuje z kurátorovaného bloku „Souvisí s tématem“ —
+// jen strana 1, jen když článek existuje a není draft, mřížka beze změny.
+test('hub Hardware dostane cross-link na RTX Spark (AI Report) jen na straně 1; mřížka i další huby beze změny', async () => {
+  const rtx = article({
+    id: 'rtx-spark-windows-pc-rijen-2026-lokalni-ai-na-co-koukat',
+    category: 'AI Report',
+    date: new Date('2026-09-17T06:15:00.000Z'),
+    title: 'RTX Spark PC s Windows v říjnu',
+  });
+  const hardware = Array.from({ length: 16 }, (_, i) => article({
+    id: `hw-${String(i + 1).padStart(2, '0')}`,
+    category: 'Hardware',
+    date: new Date(Date.UTC(2026, 0, 16 - i)),
+  }));
+  setCollection([...hardware, rtx]);
+
+  const page1 = await evaluatePage('Hardware');
+  assert.deepEqual(page1.souvisi.map(({ id }) => id), [rtx.id]);
+  assert.ok(!page1.articles.some(({ id }) => id === rtx.id), 'mřížka Hardware drží jen články kategorie Hardware');
+  assert.equal(page1.collectionLd.mainEntity.numberOfItems, 16, 'JSON-LD počítá jen články tématu');
+
+  const page2 = await evaluatePage('Hardware', 2);
+  assert.deepEqual(page2.souvisi, [], 'strana 2 je pokračování mřížky, blok tam nepatří');
+
+  const aiReport = await evaluatePage('AI Report');
+  assert.deepEqual(aiReport.souvisi, [], 'AI Report článek už ve svém tématu je');
+
+  setCollection([...hardware, { ...rtx, data: { ...rtx.data, draft: true } }]);
+  const bezDraftu = await evaluatePage('Hardware');
+  assert.deepEqual(bezDraftu.souvisi, [], 'draft se do bloku nedostane (getCollection ho odfiltruje)');
+});
+
 test('hub /temata/ kreslí náhled nejnovějšího článku, ne zeď prázdných karet', () => {
   const hub = readFileSync(new URL('../src/pages/temata/index.astro', import.meta.url), 'utf8');
   assert.match(hub, /from '\.\.\/\.\.\/lib\/karta-nahled\.js'/);

@@ -241,6 +241,54 @@ test('kolo 42: nahledRailu — lokální cover s WebP srcset, YouTube fallback, 
   assert.equal(nahledRailu({ image: '/images/clanky/x.jpg', video: 'https://youtu.be/dQw4w9WgXcQ' }, exists).src, '/images/clanky/x-640.webp');
 });
 
+// ── P2: RTX Spark zůstává AI Report, hub Hardware dostal cross-link ────────
+
+const RTX_SLUG = 'rtx-spark-windows-pc-rijen-2026-lokalni-ai-na-co-koukat';
+
+test('kolo 42: RTX Spark zůstává category AI Report (pravidlo jedné kategorie) a je v kurátorovaném seznamu hubu Hardware', async () => {
+  const fm = cti(`src/content/clanky/${RTX_SLUG}.md`).split(/^---\s*$/m)[1] ?? '';
+  assert.match(fm, /^category: "AI Report"$/m, 'kategorii neměnit — cross-link řeší tema-souvisi.js');
+  const { SOUVISI_S_TEMATEM } = await import('../src/lib/tema-souvisi.js');
+  assert.deepEqual(SOUVISI_S_TEMATEM.Hardware, [RTX_SLUG]);
+  // Každý kurátorovaný slug musí existovat, nebýt draft a být z JINÉ kategorie než hub.
+  for (const [tema, slugy] of Object.entries(SOUVISI_S_TEMATEM)) {
+    for (const slug of slugy) {
+      const cesta = `src/content/clanky/${slug}.md`;
+      assert.ok(existsSync(join(koren, cesta)), `${tema}: ${slug} v obsahu není — odkaz by šel na 404`);
+      const fmSlug = cti(cesta).split(/^---\s*$/m)[1] ?? '';
+      assert.doesNotMatch(fmSlug, /^draft:\s*true/m, `${tema}: ${slug} je draft`);
+      assert.notEqual(fmSlug.match(/^category:\s*["']?([^\n"']+)/m)?.[1]?.trim(), tema, `${tema}: ${slug} už v tématu je — byl by v mřížce dvakrát`);
+    }
+  }
+});
+
+test('kolo 42: souvisejiciClanky drží pořadí seznamu, vynechá chybějící slug i článek ze stejné kategorie', async () => {
+  const { souvisejiciClanky } = await import('../src/lib/tema-souvisi.js');
+  const a = { id: RTX_SLUG, data: { category: 'AI Report' } };
+  const b = { id: 'neco-hardware', data: { category: 'Hardware' } };
+  assert.deepEqual(souvisejiciClanky('Hardware', [b, a]), [a]);
+  assert.deepEqual(souvisejiciClanky('Hardware', [b]), [], 'chybějící slug (draft/smazaný) se tiše vynechá');
+  assert.deepEqual(souvisejiciClanky('Hardware', [{ id: RTX_SLUG, data: { category: 'Hardware' } }]), [], 'přeřazený článek už v mřížce je');
+  assert.deepEqual(souvisejiciClanky('Drony', [a, b]), [], 'téma bez seznamu = nic');
+});
+
+test('kolo 42: TemaPage kreslí „Souvisí s tématem“ jen na straně 1, pod mřížkou a před „Další témata“; CSS v premium.css', () => {
+  const tema = bezKomentaru(cti('src/components/TemaPage.astro'));
+  assert.match(tema, /import \{ souvisejiciClanky \} from '\.\.\/lib\/tema-souvisi\.js'/);
+  assert.match(tema, /const souvisi = page === 1 \? souvisejiciClanky\(category, all\) : \[\];/, 'strana 2+ je pokračování mřížky, blok patří jen na hub');
+  const blok = tema.match(/\{souvisi\.length > 0 && \(\s*<section class="tema-souvisi" aria-labelledby="tema-souvisi-nadpis">([\s\S]*?)<\/section>\s*\)\}/)?.[1];
+  assert.ok(blok, '<section class="tema-souvisi"> s aria-labelledby chybí');
+  assert.match(blok, /<h2 id="tema-souvisi-nadpis">Souvisí s tématem<\/h2>/);
+  assert.match(blok, /<a href=\{`\/clanky\/\$\{c\.id\}\/`\}>/);
+  assert.match(blok, /<span class="tema-souvisi-title">\{c\.data\.title\}<\/span>/);
+  assert.match(blok, /\{c\.data\.category\} · <time datetime=/, 'meta říká, z jakého tématu článek je');
+  assert.ok(tema.indexOf('class="grid featured-lead"') < tema.indexOf('class="tema-souvisi"'), 'blok patří pod mřížku');
+  assert.ok(tema.indexOf('class="tema-souvisi"') < tema.indexOf('aria-label="Další témata"'), 'blok patří před chipy dalších témat');
+  const premium = cti('src/styles/premium.css');
+  assert.match(premium, /\.tema-souvisi-list a \{[^}]*min-height:\s*44px/, '44px dotykový cíl');
+  assert.match(premium, /\.tema-souvisi-title \{[^}]*font-family:\s*var\(--editorial-face\)/);
+});
+
 // ── Built HTML (jen když dist/ existuje — `npm run build` před testem) ─────
 
 test('kolo 42: build v dist/ nenese žádný HTML komentář mimo <!--email_off-->', { skip: !existsSync(join(koren, 'dist/index.html')) && 'dist/ chybí (spusť npm run build)' }, () => {
