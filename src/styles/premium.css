@@ -130,10 +130,13 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 
 /* Kolo 42: „Souvisí s tématem“ na hubu — kurátorovaný odkaz na článek z jiné
    kategorie (tema-souvisi.js). Tichý seznam pod mřížkou, ne další karty:
-   titulek v editorial řezu, pod ním kategorie a datum. 44px dotykový cíl. */
-.tema-souvisi { margin-top: 48px; max-width: 760px; }
-.tema-souvisi .section-head h2 { font-size: 1.15rem; }
-.tema-souvisi-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+   titulek v editorial řezu, pod ním kategorie a datum. 44px dotykový cíl.
+   Kolo 43: stejný rytmus jako .archive-pagination — oddělovač --line nad
+   blokem, padding-top 32px, mezera v seznamu 14px. Nadpis bez natvrdo
+   1.15rem: drží škálu .section-head h2 jako ostatní sekce webu. */
+.tema-souvisi { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line); max-width: 760px; }
+.tema-souvisi .section-head { margin-bottom: 20px; }
+.tema-souvisi-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .tema-souvisi-list a { display: block; padding: 6px 0; min-height: 44px; }
 .tema-souvisi-title { display: block; font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.1rem; line-height: 1.35; letter-spacing: -0.015em; }
 .tema-souvisi-list a:hover .tema-souvisi-title { color: var(--signal-dark); text-decoration: underline; text-underline-offset: 4px; }
@@ -269,6 +272,7 @@ footer.site .live-dot { display: none; }
   [data-archive] .card-meta { font-size: 0.72rem; }
   [data-archive] .card-thumb { border-radius: 10px; }
   [data-archive] .card-thumb .lt .k { font-size: 0.65rem; padding: 3px 6px; }
+  .tema-souvisi { margin-top: 36px; padding-top: 24px; }
   .featured-lead > .card:first-child .card-body { padding: 22px; }
   .featured-lead > .card:first-child .card-body h2 { font-size: 1.25rem; }
   .article-page { padding-top: 32px; padding-bottom: 52px; }
