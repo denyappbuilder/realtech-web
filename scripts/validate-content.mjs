@@ -8,6 +8,8 @@
 //  5. interní odkaz na /clanky/SLUG/, který neexistuje → build FAIL
 //     (Starlink průvodce takhle chvíli odkazoval na 404, než se dopublikoval druhý díl)
 //  6. HTML komentář v těle článku → build FAIL (kolo 41: redakční TODO šlo živě do HTML i RSS)
+//  7. HTML komentář `<!--` v src/layouts/** a src/components/** → build FAIL
+//     (kolo 42: design brief THESIS z Base.astro šel jako HTML komentář do každé stránky)
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -199,6 +201,38 @@ for (const f of files) {
   for (const m of body.matchAll(/\]\(<?\/clanky\/([^/)#?>]+)/g)) {
     if (!slugs.has(m[1])) errors.push(`${f.replace(/\.md$/, '')}: odkaz na neexistující článek /clanky/${m[1]}/`);
   }
+}
+
+// 7. HTML komentář v layoutu / komponentě → build FAIL (kolo 42). Kolo 41
+//    zakázalo `<!--` v tělech článků, ale Base.astro pak (#462) poslal design
+//    brief „<!-- THESIS: … -->“ do HTML každé stránky. Poznámky do kódu patří
+//    jako Astro komentář `{/* … */}` — ten se do HTML nekompiluje. Jediná
+//    výjimka jsou direktivy Cloudflare `<!--email_off-->…<!--/email_off-->`
+//    (kolo 26), které v HTML stát MUSÍ.
+for (const dir of ['src/layouts', 'src/components']) {
+  if (!fs.existsSync(dir)) continue;
+  const astroSoubory = fs.readdirSync(dir, { recursive: true }).filter((f) => f.endsWith('.astro'));
+  for (const f of astroSoubory) {
+    const komentar = rawHtmlKomentar(fs.readFileSync(path.join(dir, f), 'utf8'));
+    if (komentar) {
+      errors.push(`${dir}/${f}: HTML komentář jde doslova do HTML každé stránky — použij Astro {/* … */}: „${komentar}“`);
+    }
+  }
+}
+
+/**
+ * První raw `<!--` v šabloně .astro souboru (zkrácená ukázka), nebo null.
+ * Frontmatter (JS mezi `---`) a Astro komentáře `{/* … *\/}` se přeskočí —
+ * ty do HTML nejdou. `<!--email_off-->` / `<!--/email_off-->` jsou povolené.
+ * @param {string} zdroj
+ */
+function rawHtmlKomentar(zdroj) {
+  const sablona = zdroj
+    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '')
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
+    .replace(/<!--\/?email_off-->/g, '');
+  const komentar = sablona.match(/<!--[\s\S]*?(?:-->|$)/);
+  return komentar ? komentar[0].replace(/\s+/g, ' ').slice(0, 60) : null;
 }
 
 for (const w of warnings) console.warn(`[validate-content] ⚠️  ${w}`);
