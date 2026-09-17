@@ -96,7 +96,8 @@ test("kolo 34: aside má sdílení v obalu .article-aside-share, .article-share 
     "popisek i tlačítka v jednom obalu — CSS skrývá celek, ne jen tlačítka",
   );
   assert.equal((clanek.match(/class="share-btns"/g) ?? []).length, 2, "markup nese obě místa — vybírá CSS (kolo 29)");
-  assert.match(clanek, /<div class="article-share">\s*<span class="mono">\/\/ Sdílej dál<\/span>/);
+  // Kolo 43: popisek bez „//“ — stejný text jako v aside, ne code-comment chrome.
+  assert.match(clanek, /<div class="article-share">\s*<span class="mono">Sdílej dál<\/span>/);
   // První .mono v aside je „V článku“ přímo v aside; „Sdílej dál“ je první
   // v obalu a nesmí přijít o odstup — proto přímý potomek.
   assert.match(css, /\.article-aside > \.mono:first-child \{ margin-top: 0; \}/);

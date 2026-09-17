@@ -5,8 +5,21 @@
   --editorial-face: 'Archivo Variable', 'Archivo Editorial Fallback', Arial, sans-serif;
   --reading-face: 'IBM Plex Sans', Arial, Roboto, 'Liberation Sans', sans-serif;
   --media-radius: 16px;
+  /* Kolo 43: pole/plošky uvnitř čtecího sloupce (audio, videobar, share,
+     archivní hledání) — DESIGN.md `rounded.field`. Globální --radius 8px
+     zůstává starším prvkům, tady se nepřepisuje plošně. */
+  --radius-field: 12px;
+  /* Kolo 43: --line (#E2E6EB na #F6F7F9) je pro dělicí linku sekce a rámeček
+     panelu ve čtecím sloupci moc tichá — vizuální audit ji četl jako „hairline
+     bez kontrastu“. O krok tmavší varianta JEN pro oddělovače sekcí
+     (audio/videobar, tema-souvisi, related); pole, karty a header drží --line. */
+  --line-strong: #CBD2DA;
   --editorial-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --line-strong: #343C48; }
+}
+:root[data-theme="dark"] { --line-strong: #343C48; }
 /* Normal-width 650–700 editorial roles, separate from the unchanged logo.
    Ratio is measured against Arial Bold; old expanded-role fallbacks stay intact. */
 @font-face {
@@ -118,6 +131,15 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 [data-archive] .filter-bar { gap: 24px; margin-bottom: 24px; }
 [data-archive] .chip, .topics .chip { border-radius: 24px; padding-inline: 16px; font-family: var(--reading-face); text-transform: none; letter-spacing: 0; }
 .archive-results-bar { margin-bottom: 28px; }
+/* Kolo 43: „Nic nenalezeno“ bylo pod filtrem holý odstavec 0.9rem, zatímco
+   všechny karty zmizely. Tichá ploška ve stejném kitu jako pole hledání:
+   --surface + --line, 12px radius, padding-block 40px, text na střed.
+   `hidden` řídí dál skript / edge (display: none z UA se nesahá). */
+[data-archive] .filter-empty {
+  margin-top: 8px; padding: 40px 24px; text-align: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-field);
+  font-size: 1rem; line-height: 1.6; color: var(--ink-soft);
+}
 [data-archive] .card { background: transparent; border: 0; }
 [data-archive] .card-body { padding: 20px 0 12px; }
 [data-archive] .card-body h2 { font-size: 1.25rem; line-height: 1.3; }
@@ -126,10 +148,13 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 
 /* Kolo 42: „Souvisí s tématem“ na hubu — kurátorovaný odkaz na článek z jiné
    kategorie (tema-souvisi.js). Tichý seznam pod mřížkou, ne další karty:
-   titulek v editorial řezu, pod ním kategorie a datum. 44px dotykový cíl. */
-.tema-souvisi { margin-top: 48px; max-width: 760px; }
-.tema-souvisi .section-head h2 { font-size: 1.15rem; }
-.tema-souvisi-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+   titulek v editorial řezu, pod ním kategorie a datum. 44px dotykový cíl.
+   Kolo 43: stejný rytmus jako .archive-pagination — oddělovač --line nad
+   blokem, padding-top 32px, mezera v seznamu 14px. Nadpis bez natvrdo
+   1.15rem: drží škálu .section-head h2 jako ostatní sekce webu. */
+.tema-souvisi { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--line-strong); max-width: 760px; }
+.tema-souvisi .section-head { margin-bottom: 20px; }
+.tema-souvisi-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
 .tema-souvisi-list a { display: block; padding: 6px 0; min-height: 44px; }
 .tema-souvisi-title { display: block; font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.1rem; line-height: 1.35; letter-spacing: -0.015em; }
 .tema-souvisi-list a:hover .tema-souvisi-title { color: var(--signal-dark); text-decoration: underline; text-underline-offset: 4px; }
@@ -162,12 +187,26 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .article-body blockquote { background: transparent; border-left: 1px solid var(--line); padding: 4px 0 4px 24px; color: var(--ink-soft); }
 .article-body a { text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .article-aside { background: transparent; border: 0; border-radius: 0; padding: 0 0 0 24px; border-left: 1px solid var(--line); }
-.article-contents h2 { font-family: var(--reading-face); font-weight: 600; font-size: 0.95rem; }
 .article-contents a { border-radius: 6px; font-size: 0.88rem; }
 .article-contents a[aria-current] { background: var(--surface); }
-.article-aside .mono { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
-.audio-prehled, .article-videobar { border: 0; background: var(--surface); border-radius: 12px; padding: 24px; }
+/* Kolo 43: jedna škála popisků chrome — nadpis obsahu, „V článku“, „Sdílej dál“
+   (aside i pod textem), „Nejnovější reporty“ a „Další témata“ na hubu tématu.
+   Reading-face 0.85rem / 600 / --ink; global dával spodnímu sdílení a chipům
+   0.75rem --ink-faint s prostrkáním, aside 0.85rem — dvě váhy vedle sebe. */
+.article-contents h2, .article-aside .mono, .article-share .mono, .topics .mono {
+  font-family: var(--reading-face); font-size: 0.85rem; font-weight: 600; color: var(--ink); letter-spacing: 0;
+}
+/* Sdílení na 12px jako ostatní pole ve čtecím sloupci (audio, hledání), ne
+   globální --radius 8px; chipy témat zůstávají 24px controls. */
+.share-btn { border-radius: var(--radius-field); }
+/* Kolo 43: --surface je od --bg jen o schod (dark #171B21 na #0F1216) — bez
+   1px --line bloky plavaly jako nedokončené panely. Rámeček z global.css zpět. */
+.audio-prehled, .article-videobar { border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--radius-field); padding: 24px; }
+/* Článek bez videa: stejný rámeček, ale tišší — menší padding, výzva na kanál zůstává. */
+.article-videobar-bez-videa { padding: 16px 20px; }
 .audio-prehled h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
+/* Kolo 43: „Další reporty“ = stejný oddělovač sekce jako .tema-souvisi na hubu. */
+.related { padding-top: 32px; border-top: 1px solid var(--line-strong); }
 .article-nav { margin-top: 48px; }
 
 /* About, legal and end matter: the same publication, not a second UI kit. */
@@ -232,6 +271,10 @@ footer.site .live-dot { display: none; }
 @media (max-width: 580px) {
   header.site .logo { align-items: center; }
   header.site .yt-btn { padding-inline: 10px; }
+  /* Kolo 43: dvě řady (logo | akce / navigace) měly jen vnější border-bottom
+     headeru; mezi řadami nic. 1px --line nad navigací + 2px odstup — header
+     zůstává pod 96px (4 + 44 + 2 + 1 + 44). Žádný hamburger. */
+  header.site nav.main { border-top: 1px solid var(--line); margin-top: 2px; }
   .edition-heading { padding-block: 24px 8px; }
   .edition-heading p { font-size: 1.05rem; }
   .edition-heading a { display: none; }
@@ -255,12 +298,15 @@ footer.site .live-dot { display: none; }
   [data-archive] .search-form { gap: 8px; }
   [data-archive] .search-input { min-height: 52px; padding-inline: 14px; }
   [data-archive] .chip { padding-inline: 12px; }
+  [data-archive] .filter-empty { padding: 32px 18px; }
   [data-archive] .card { border-bottom: 1px solid var(--line); border-radius: 0; padding: 24px 0; }
   [data-archive] .card-body { padding: 0; gap: 12px; }
   [data-archive] .card-body h2 { font-size: 1.03rem; line-height: 1.35; }
   [data-archive] .card-meta { font-size: 0.72rem; }
   [data-archive] .card-thumb { border-radius: 10px; }
   [data-archive] .card-thumb .lt .k { font-size: 0.65rem; padding: 3px 6px; }
+  .tema-souvisi { margin-top: 36px; }
+  .tema-souvisi, .related { padding-top: 24px; }
   .featured-lead > .card:first-child .card-body { padding: 22px; }
   .featured-lead > .card:first-child .card-body h2 { font-size: 1.25rem; }
   .article-page { padding-top: 32px; padding-bottom: 52px; }
@@ -272,6 +318,7 @@ footer.site .live-dot { display: none; }
   .article-body h2 { font-size: 1.5rem; }
   .article-body h3 { font-size: 1.2rem; }
   .audio-prehled, .article-videobar { padding: 18px; }
+  .article-videobar-bez-videa { padding: 14px 16px; }
   .about.about-wide { padding-top: 36px; padding-bottom: 52px; }
   .about h1 { font-size: 2.5rem; }
   .about > p { font-size: 1.1rem; }

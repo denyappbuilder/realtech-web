@@ -393,7 +393,7 @@ const breadcrumbLd = {
         není" by lhal, proto se výzva u xPosts neukazuje.
       */}
       {!video && xEmbedy.length === 0 && (
-        <div class="article-videobar">
+        <div class="article-videobar article-videobar-bez-videa">
           <span class="mono">K tomuhle článku video není. Na kanálu máme další videa o technice a AI</span>
           <a href="https://www.youtube.com/@realtech-cz?sub_confirmation=1" class="yt-btn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
@@ -403,7 +403,7 @@ const breadcrumbLd = {
       )}
 
       <div class="article-share">
-        <span class="mono">// Sdílej dál</span>
+        <span class="mono">Sdílej dál</span>
         <div class="share-btns">
           <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
           <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na Facebooku">Facebook</a>
