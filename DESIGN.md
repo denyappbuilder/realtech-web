@@ -106,7 +106,7 @@ Opaque header, flat cards, no hover lift or card shadows. Modal retains its exis
 
 ## Shapes
 
-16px main media/card corners; 12px archive fields/audio surfaces; 10px compact fields and mobile archive thumbnails; 8px rail thumbnails; 4px small category badges. Pills are reserved for controls/category filters. Reading prose and desktop aside have no card enclosure.
+16px main media/card corners; 12px archive fields, audio/video surfaces, share buttons and the archive empty state (`--radius-field` in `premium.css`); 10px compact fields and mobile archive thumbnails; 8px rail thumbnails; 4px small category badges. Pills are reserved for controls/category filters. Reading prose and desktop aside have no card enclosure; audio and video surfaces keep a 1px `--line` border so they read as panels, not floating islands.
 
 ## Components
 
