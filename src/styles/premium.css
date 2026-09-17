@@ -169,10 +169,18 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .article-body blockquote { background: transparent; border-left: 1px solid var(--line); padding: 4px 0 4px 24px; color: var(--ink-soft); }
 .article-body a { text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .article-aside { background: transparent; border: 0; border-radius: 0; padding: 0 0 0 24px; border-left: 1px solid var(--line); }
-.article-contents h2 { font-family: var(--reading-face); font-weight: 600; font-size: 0.95rem; }
 .article-contents a { border-radius: 6px; font-size: 0.88rem; }
 .article-contents a[aria-current] { background: var(--surface); }
-.article-aside .mono { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+/* Kolo 43: jedna škála popisků chrome — nadpis obsahu, „V článku“, „Sdílej dál“
+   (aside i pod textem), „Nejnovější reporty“ a „Další témata“ na hubu tématu.
+   Reading-face 0.85rem / 600 / --ink; global dával spodnímu sdílení a chipům
+   0.75rem --ink-faint s prostrkáním, aside 0.85rem — dvě váhy vedle sebe. */
+.article-contents h2, .article-aside .mono, .article-share .mono, .topics .mono {
+  font-family: var(--reading-face); font-size: 0.85rem; font-weight: 600; color: var(--ink); letter-spacing: 0;
+}
+/* Sdílení na 12px jako ostatní pole ve čtecím sloupci (audio, hledání), ne
+   globální --radius 8px; chipy témat zůstávají 24px controls. */
+.share-btn { border-radius: var(--radius-field); }
 /* Kolo 43: --surface je od --bg jen o schod (dark #171B21 na #0F1216) — bez
    1px --line bloky plavaly jako nedokončené panely. Rámeček z global.css zpět. */
 .audio-prehled, .article-videobar { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-field); padding: 24px; }
