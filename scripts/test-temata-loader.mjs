@@ -64,7 +64,7 @@ export async function load(url, context, nextLoad) {
     throw new Error('Kompilovaný modul témat nemá očekávanou strukturu.');
   }
 
-  const testReturn = '\nreturn { clanky, articles, ostatni, collectionLd, start, totalPages, page };';
+  const testReturn = '\nreturn { clanky, articles, ostatni, souvisi, collectionLd, start, totalPages, page };';
   const instrumented = `${outputText.slice(0, templateReturn)}${testReturn}${outputText.slice(templateReturn)}`;
 
   return {

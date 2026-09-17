@@ -212,12 +212,20 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c2d8811d709646ad986cb0e671b8ffd6"}'></script>
 </head>
 <body>
-<!-- THESIS: A reading-led technology journal, not a broadcast dashboard.
-OWN-WORLD: REALTECH red, cool neutrals, quiet surfaces, normal-width editorial type, 16px media corners.
-STORY: Open the lead story, scan reports, browse topics, read with section wayfinding.
-FIRST VIEWPORT: Quiet navigation; image-first desktop feature, 54% photo and 46% headline/deck/action. Mobile: copy then uncropped photo. Three supporting reports below. No ticker or photo labels.
-FORM: user-pinned restrained editorial canon; realtech-premium-read-r3; code-led.
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance -->
+{/*
+  Kolo 42: design brief je poznámka pro redakci a kód, ne pro čtenáře.
+  Jako HTML komentář (#462) šel doslova do každé stránky — home, archiv,
+  články — a četl ho každý crawler i „Zobrazit zdroj“. Astro komentář se
+  do HTML nekompiluje (test-kolo-42-leftover to hlídá pro layouts/**
+  i components/**; validate-content shodí build).
+
+  THESIS: A reading-led technology journal, not a broadcast dashboard.
+  OWN-WORLD: REALTECH red, cool neutrals, quiet surfaces, normal-width editorial type, 16px media corners.
+  STORY: Open the lead story, scan reports, browse topics, read with section wayfinding.
+  FIRST VIEWPORT: Quiet navigation; image-first desktop feature, 54% photo and 46% headline/deck/action. Mobile: copy then uncropped photo. Three supporting reports below. No ticker or photo labels.
+  FORM: user-pinned restrained editorial canon; realtech-premium-read-r3; code-led.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+*/}
 
 <a class="skip-link" href="#obsah">Přeskočit na obsah</a>
 <SearchModal />

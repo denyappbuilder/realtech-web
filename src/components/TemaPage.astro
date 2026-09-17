@@ -12,6 +12,8 @@ import { slugify } from '../lib/slugify.js';
 import { popisTematu } from '../lib/tema-popis.js';
 import { ogObrazekClanku } from '../lib/og-vypis.js';
 import { textPoctuClanku } from '../lib/pocet-clanku.js';
+import { souvisejiciClanky } from '../lib/tema-souvisi.js';
+import { formatCalendarDateCs } from '../lib/calendarDate.js';
 
 interface Props {
   category: string;
@@ -34,6 +36,11 @@ const articles = clanky.slice(start, start + ARTICLES_PER_PAGE);
 
 const all = await getCollection('clanky', ({ data }) => !data.draft);
 const ostatni = [...new Set(all.map((c) => c.data.category))].filter((c) => c !== category);
+// Kolo 42: kurátorovaný cross-link na článek z jiné kategorie, který k tématu
+// věcně patří (RTX Spark PC = AI Report, čtenář ho hledá pod Hardware).
+// Kategorie článku se nemění (pravidlo jedné kategorie) — jen hub strany 1
+// dostane odkaz; strana 2+ je pokračování mřížky.
+const souvisi = page === 1 ? souvisejiciClanky(category, all) : [];
 
 // LCP na /temata/{slug}/ je náhled první (featured) karty (eager +
 // fetchpriority=high, viz ArticleCard prop `priority`); ostatní karty jsou
@@ -145,6 +152,23 @@ const vypisOg = ogObrazekClanku(articles[0]);
           <span>Strana {page} z {totalPages}</span>
           {page < totalPages && <a class="btn-ghost" href={pagePath(page + 1)} rel="next">Starší →</a>}
         </nav>
+      )}
+      {souvisi.length > 0 && (
+        <section class="tema-souvisi" aria-labelledby="tema-souvisi-nadpis">
+          <div class="section-head">
+            <h2 id="tema-souvisi-nadpis">Souvisí s tématem</h2>
+          </div>
+          <ul class="tema-souvisi-list">
+            {souvisi.map((c) => (
+              <li>
+                <a href={`/clanky/${c.id}/`}>
+                  <span class="tema-souvisi-title">{c.data.title}</span>
+                  <span class="tema-souvisi-meta">{c.data.category} · <time datetime={c.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(c.data.date)}</time></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
       {/* Kolo 30: stejně jako .topics na úvodce — <nav> se jménem. */}
       {ostatni.length > 0 && (

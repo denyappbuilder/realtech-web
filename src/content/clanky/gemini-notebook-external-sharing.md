@@ -4,7 +4,7 @@ description: "Od 10. 9. 2026 může správce Workspace nastavit sdílení Gemini
 category: "AI Report"
 date: "2026-09-15T23:06:00+02:00"
 zprava: true
-image: "/images/clanky/gemini-notebook-external-sharing-admin.jpg"
+image: "/images/clanky/gemini-notebook-external-sharing.jpg"
 audio:
   url: "https://audio.realtech.cz/gemini-notebook-external-sharing-admin-nlm.mp3?v=6bc339e18708"
   duration: 991
