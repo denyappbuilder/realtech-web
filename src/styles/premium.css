@@ -5,6 +5,10 @@
   --editorial-face: 'Archivo Variable', 'Archivo Editorial Fallback', Arial, sans-serif;
   --reading-face: 'IBM Plex Sans', Arial, Roboto, 'Liberation Sans', sans-serif;
   --media-radius: 16px;
+  /* Kolo 43: pole/plošky uvnitř čtecího sloupce (audio, videobar, share,
+     archivní hledání) — DESIGN.md `rounded.field`. Globální --radius 8px
+     zůstává starším prvkům, tady se nepřepisuje plošně. */
+  --radius-field: 12px;
   --editorial-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 /* Normal-width 650–700 editorial roles, separate from the unchanged logo.
@@ -166,7 +170,11 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .article-contents a { border-radius: 6px; font-size: 0.88rem; }
 .article-contents a[aria-current] { background: var(--surface); }
 .article-aside .mono { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
-.audio-prehled, .article-videobar { border: 0; background: var(--surface); border-radius: 12px; padding: 24px; }
+/* Kolo 43: --surface je od --bg jen o schod (dark #171B21 na #0F1216) — bez
+   1px --line bloky plavaly jako nedokončené panely. Rámeček z global.css zpět. */
+.audio-prehled, .article-videobar { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-field); padding: 24px; }
+/* Článek bez videa: stejný rámeček, ale tišší — menší padding, výzva na kanál zůstává. */
+.article-videobar-bez-videa { padding: 16px 20px; }
 .audio-prehled h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
 .article-nav { margin-top: 48px; }
 
@@ -272,6 +280,7 @@ footer.site .live-dot { display: none; }
   .article-body h2 { font-size: 1.5rem; }
   .article-body h3 { font-size: 1.2rem; }
   .audio-prehled, .article-videobar { padding: 18px; }
+  .article-videobar-bez-videa { padding: 14px 16px; }
   .about.about-wide { padding-top: 36px; padding-bottom: 52px; }
   .about h1 { font-size: 2.5rem; }
   .about > p { font-size: 1.1rem; }
