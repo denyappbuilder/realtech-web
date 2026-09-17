@@ -186,6 +186,61 @@ test('kolo 42: stará URL /clanky/…-admin/ jde 301 na nový slug; nikde v src/
   }
 });
 
+// ── P2: hero rail s <picture> + sizes jako karty ───────────────────────────
+
+test('kolo 42: hero rail úvodky kreslí <picture> s WebP srcset a sizes=HERO_RAIL_SIZES, ne holý <img src=lcpSrc>', () => {
+  const index = cti('src/pages/index.astro');
+  const rail = bezKomentaru(index.slice(index.indexOf('class="hero-rail"'), index.indexOf('</aside>')));
+  assert.ok(rail, 'hero-rail v index.astro chybí');
+  assert.doesNotMatch(rail, /<img src=\{nahledKarty\(/, 'holý <img> bez srcset (kolo 42)');
+  assert.match(rail, /<picture>/);
+  assert.match(rail, /<source srcset=\{nahled\.webpSrcset\} sizes=\{HERO_RAIL_SIZES\} type="image\/webp" \/>/, 'WebP <source> se srcset a sizes railu');
+  assert.match(rail, /<img src=\{nahled\.src\} alt="" width=\{nahled\.width\} height=\{nahled\.height\} loading="lazy" decoding="async" \/>/, 'img s pravdivými rozměry, lazy, alt="" (jméno nese .hero-rail-title)');
+  assert.doesNotMatch(rail, /alt=\{article\.data\.title\}/, 'alt s titulkem by zdvojil jméno odkazu (viditelný .hero-rail-title)');
+  assert.match(rail, /class="hero-rail-title"/);
+  assert.match(index, /import \{[^}]*\bnahledRailu\b[^}]*\bHERO_RAIL_SIZES\b[^}]*\} from '\.\.\/lib\/karta-nahled\.js'/, 'rail bere helper i sizes z karta-nahled.js');
+});
+
+test('kolo 42: HERO_RAIL_SIZES odpovídá slotu .hero-rail-item img v premium.css (100px)', async () => {
+  const { HERO_RAIL_SIZES } = await import('../src/lib/karta-nahled.js');
+  const premium = cti('src/styles/premium.css');
+  const slot = premium.match(/\.hero-rail-item img\s*\{([^}]*)\}/)?.[1] ?? '';
+  const sirka = slot.match(/width:\s*(\d+px)/)?.[1];
+  assert.ok(sirka, 'premium.css: .hero-rail-item img bez width');
+  assert.equal(HERO_RAIL_SIZES, sirka, 'sizes railu musí sedět na šířku slotu v CSS');
+  // premium.css se načítá až po editorial.css (Base.astro) — jeho 100px vyhrává nad 80px.
+  const importy = cti('src/layouts/Base.astro');
+  assert.ok(importy.indexOf("import '../styles/editorial.css'") < importy.indexOf("import '../styles/premium.css'"), 'premium.css musí stát za editorial.css');
+});
+
+test('kolo 42: nahledRailu — lokální cover s WebP srcset, YouTube fallback, null bez obojího', async () => {
+  const { nahledRailu, HERO_RAIL_SIZES } = await import('../src/lib/karta-nahled.js');
+  assert.equal(HERO_RAIL_SIZES, '100px');
+  const soubory = new Set([
+    'public/images/clanky/x-640.jpg', 'public/images/clanky/x-640.webp', 'public/images/clanky/x-960.webp', 'public/images/clanky/x.webp', 'public/images/clanky/x.jpg',
+  ]);
+  const exists = (c) => soubory.has(c);
+  assert.deepEqual(nahledRailu({ image: '/images/clanky/x.jpg' }, exists), {
+    src: '/images/clanky/x-640.webp',
+    width: 640,
+    height: 360,
+    webp: '/images/clanky/x-640.webp',
+    webpSrcset: '/images/clanky/x-640.webp 640w, /images/clanky/x-960.webp 960w, /images/clanky/x.webp 1280w',
+  });
+  // Cover v repu chybí, video je → YouTube maxresdefault (jako ArticleCard), ne 404 na neexistující cover.
+  assert.deepEqual(nahledRailu({ image: '/images/clanky/neni.jpg', video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }, exists), {
+    src: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+    width: 1280,
+    height: 720,
+    webp: null,
+    webpSrcset: null,
+  });
+  assert.equal(nahledRailu({ image: '/images/clanky/neni.jpg' }, exists), null);
+  assert.equal(nahledRailu({}, exists), null);
+  // Lokální cover má přednost i u video článku (stejně jako karta a hero).
+  assert.equal(nahledRailu({ image: '/images/clanky/x.jpg', video: 'https://youtu.be/dQw4w9WgXcQ' }, exists).src, '/images/clanky/x-640.webp');
+});
+
 // ── Built HTML (jen když dist/ existuje — `npm run build` před testem) ─────
 
 test('kolo 42: build v dist/ nenese žádný HTML komentář mimo <!--email_off-->', { skip: !existsSync(join(koren, 'dist/index.html')) && 'dist/ chybí (spusť npm run build)' }, () => {

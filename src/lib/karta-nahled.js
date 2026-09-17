@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { youtubeId } from './youtube.js';
 
 /**
  * `sizes` pro srcset 640w+1280w karty. Jedna konstanta pro <source> karty
@@ -55,6 +56,49 @@ export const KARTA_SIZES_FEATURED = '(max-width: 580px) 100vw, (max-width: 1168p
  * DPR 2: 3× 43–91 KB místo 3× ~20 KB).
  */
 export const KARTA_SIZES_RELATED = '(max-width: 700px) 100vw, (max-width: 808px) 30vw, 241px';
+
+/**
+ * Kolo 42: náhled v hero railu úvodky (.hero-rail-item img, premium.css:
+ * width 100px, aspect-ratio 16/9). Rail se kreslí jen od 901px (pod tím
+ * display: none a lazy <img> se nestáhne), takže jediná šířka slotu stačí.
+ * Dřív šel do slotu holý <img src=-640.webp> bez srcset/sizes — jediná
+ * karta na webu bez <picture>; s sizes si prohlížeč vybere podle DPR
+ * a přibude-li menší derivát, vezme ho sám.
+ */
+export const HERO_RAIL_SIZES = '100px';
+
+/**
+ * Náhled položky hero railu — stejná volba zdroje jako ArticleCard:
+ * lokální cover (WebP <source> se srcset 640/960/1280w) má přednost,
+ * YouTube maxresdefault je jen fallback pro video článek bez coveru
+ * (frontmatter `image` mířící na neexistující soubor nesmí poslat rail
+ * na 404). Bez coveru i videa → null, rail položku kreslí bez obrázku.
+ *
+ * @param {{ image?: string | null, video?: string | null }} data
+ * @param {(cesta: string) => boolean} [exists]
+ * @returns {{ src: string, width: number, height: number, webp: string | null, webpSrcset: string | null } | null}
+ */
+export function nahledRailu({ image, video }, exists = (cesta) => fs.existsSync(cesta)) {
+  const nahled = nahledKarty(image, exists);
+  if (nahled.hasLocalThumb) {
+    return {
+      src: nahled.lcpSrc,
+      width: nahled.thumbW,
+      height: nahled.thumbH,
+      webp: nahled.hasWebp ? nahled.thumbWebp : null,
+      webpSrcset: nahled.hasWebp ? nahled.thumbWebpSrcset : null,
+    };
+  }
+  const videoId = youtubeId(video);
+  if (!videoId) return null;
+  return {
+    src: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+    width: 1280,
+    height: 720,
+    webp: null,
+    webpSrcset: null,
+  };
+}
 
 /**
  * Náhled na kartě článku.

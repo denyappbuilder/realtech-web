@@ -6,7 +6,7 @@ import ArticleCard from '../components/ArticleCard.astro';
 import { slugify } from '../lib/slugify.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
-import { nahledKarty, webpSrcsetZDerivatu, HOMEPAGE_HERO_SIZES } from '../lib/karta-nahled.js';
+import { nahledRailu, webpSrcsetZDerivatu, HERO_RAIL_SIZES, HOMEPAGE_HERO_SIZES } from '../lib/karta-nahled.js';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -26,6 +26,9 @@ const rest = candidates.slice(3, 9);
 // karty s .card-rail-mobile, které CSS od 901px skryje — desktop zůstává
 // hero + rail + 6 karet, mobil hero + 9 karet, oboje chronologicky.
 const railCards = rail;
+// Kolo 42: rail dostává <picture> + sizes jako karty (nahledRailu), ne holý
+// <img src=-640.webp> — byl to jediný náhled na webu bez srcset.
+const railPolozky = rail.map((article) => ({ article, nahled: nahledRailu(article.data) }));
 const categories = [...new Set(all.map((c) => c.data.category))];
 
 const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
@@ -222,10 +225,21 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
           <aside class="hero-rail" aria-label="Další reporty">
             <p class="hero-rail-label mono">Další reporty</p>
             <ol class="hero-rail-list">
-              {rail.map((article) => (
+              {railPolozky.map(({ article, nahled }) => (
                 <li>
                   <a href={`/clanky/${article.id}/`} class="hero-rail-item">
-                    {article.data.image && <img src={nahledKarty(article.data.image).lcpSrc} alt="" width="640" height="360" loading="lazy" decoding="async" />}
+                    {/*
+                      alt="" zůstává: jméno odkazu nese viditelný
+                      .hero-rail-title hned vedle, alt={title} by ho zdvojil
+                      („Titulek Titulek“) — stejné pravidlo jako .vc-thumb níž.
+                    */}
+                    {nahled && (
+                      <picture>
+                        {nahled.webpSrcset && <source srcset={nahled.webpSrcset} sizes={HERO_RAIL_SIZES} type="image/webp" />}
+                        {!nahled.webpSrcset && nahled.webp && <source srcset={nahled.webp} type="image/webp" />}
+                        <img src={nahled.src} alt="" width={nahled.width} height={nahled.height} loading="lazy" decoding="async" />
+                      </picture>
+                    )}
                     <span class="hero-rail-copy">
                       <span class="hero-rail-category">{article.data.category}</span>
                       <span class="hero-rail-title">{article.data.title}</span>
