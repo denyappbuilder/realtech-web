@@ -11,6 +11,11 @@ import fs from 'node:fs';
  */
 export const KARTA_SIZES = '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw';
 
+// Desktop hero crops a 16:9 photo to the full copy height: its 579px slot
+// needs more source pixels than its width alone implies. Use the available
+// 1280w original; mobile stays uncropped with the 640/960w derivatives.
+export const HOMEPAGE_HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), 1280px';
+
 /**
  * WebP srcset z derivátů, které v public/ opravdu leží: `-640.webp 640w`,
  * volitelně `-960.webp 960w` (kolo 39, viz scripts/optimize-images.mjs)

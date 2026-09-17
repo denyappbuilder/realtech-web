@@ -39,9 +39,13 @@ export function popisProVyhledavace(popis, limit = LIMIT_POPISU) {
   const fragmenty = text.split(/(?<=[.!?])\s+/);
   const vety = [];
   let veta = '';
-  for (const fragment of fragmenty) {
+  for (const [index, fragment] of fragmenty.entries()) {
     veta = veta ? `${veta} ${fragment}` : fragment;
-    if (/(?:\b(?:vs|např|tj|tzv|resp|př|č|str|cca|Ing|Mgr|Dr)|\d)\.$/iu.test(veta)) continue;
+    const zkratka = /(?<![\p{L}\p{N}_])(?:vs|např|tj|tzv|resp|př|č|str|cca|Ing|Mgr|Dr)\.$/iu.test(veta);
+    // Číslo před tečkou může být i rok/verze na konci věty. Spojuj jen datum.
+    const datum = /(?<![\p{L}\p{N}_.])\d{1,2}\.$/u.test(veta)
+      && /^(?:\d{1,2}\.|\d{4}\b|(?:ledna|února|března|dubna|května|června|července|srpna|září|října|listopadu|prosince)(?!\p{L}))/iu.test(fragmenty[index + 1] ?? '');
+    if (zkratka || datum) continue;
     vety.push(veta);
     veta = '';
   }
