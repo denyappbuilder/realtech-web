@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import fs from 'node:fs';
 import { slugify } from './src/lib/slugify.js';
@@ -66,12 +67,14 @@ function rehypeAsciiHeadingIds() {
 
 export default defineConfig({
   site: 'https://realtech.cz',
+  // Preserve pre-Astro 7 HTML-aware whitespace instead of JSX trimming.
+  compressHTML: true,
   // rehypeXEmbedy: fasáda embedu X se vkládá do HTML článku už v buildu —
   // za první odstavec (Maky: napřed text, pak widget; klientský přesun by
   // kartu nechal bliknout nahoře). Viz src/lib/rehype-x-embed.js.
   // rehypeTabulky: markdown tabulky dostanou rolovací obal .table-wrap
   // (Kolo 17), viz src/lib/rehype-tabulky.js.
-  markdown: { rehypePlugins: [rehypeAsciiHeadingIds, rehypeXEmbedy, rehypeTabulky] },
+  markdown: { processor: unified({ rehypePlugins: [rehypeAsciiHeadingIds, rehypeXEmbedy, rehypeTabulky] }) },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({

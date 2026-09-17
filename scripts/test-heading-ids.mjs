@@ -7,7 +7,7 @@ const { setArticles } = await import('./test-sitemap-mocks/state.mjs');
 
 setArticles([]);
 const config = (await import('../astro.config.mjs?heading-id-test')).default;
-const rehypeAsciiHeadingIds = config.markdown.rehypePlugins[0];
+const rehypeAsciiHeadingIds = config.markdown.processor.options.rehypePlugins[0];
 
 const text = (value) => ({ type: 'text', value });
 const element = (tagName, children, properties) => ({
