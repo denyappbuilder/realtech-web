@@ -97,6 +97,28 @@ test("/about i /blog se trvale přesměrují na české stránky", () => {
   }
 });
 
+// Kolo 42 (živě 17. 9. 2026): nav „Videa“ míří na YouTube, ale hádané
+// /videa/ vracelo 404 — videa žijí jen na kanálu. Stejný dluh jako /blog.
+test("/videa i varianta s lomítkem se trvale přesměrují na YouTube kanál", () => {
+  for (const source of ["/videa", "/videa/"]) {
+    const rule = rules.get(source);
+    assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
+    assert.equal(rule.destination, "https://www.youtube.com/@realtech-cz");
+    assert.equal(rule.status, "301");
+  }
+});
+
+// Kolo 42: hub AI je /temata/ai-report/ (slug kategorie „AI Report“),
+// kratší hádané /temata/ai/ vracelo živě 17. 9. 2026 404.
+test("/temata/ai i varianta s lomítkem se trvale přesměrují na /temata/ai-report/", () => {
+  for (const source of ["/temata/ai", "/temata/ai/"]) {
+    const rule = rules.get(source);
+    assert.ok(rule, `public/_redirects musí obsahovat pravidlo pro ${source}`);
+    assert.equal(rule.destination, "/temata/ai-report/");
+    assert.equal(rule.status, "301");
+  }
+});
+
 function kategorieZeSchematu() {
   const zdroj = fs.readFileSync(path.join(ROOT, "src/content.config.ts"), "utf8");
   const blok = zdroj.match(/category:\s*z\.enum\(\[([\s\S]*?)\]\)/)?.[1];

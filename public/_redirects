@@ -37,6 +37,17 @@
 /blog /clanky/ 301
 /blog/ /clanky/ 301
 
+# Položka navigace se jmenuje „Videa“, ale míří rovnou na YouTube — vlastní
+# stránka /videa/ neexistuje a hádaná URL živě 17. 9. 2026 vracela 404
+# (stejný dluh jako /kontakt, /blog). Videa žijí na kanálu.
+/videa https://www.youtube.com/@realtech-cz 301
+/videa/ https://www.youtube.com/@realtech-cz 301
+
+# Hub tématu AI je /temata/ai-report/ (slug kategorie „AI Report“); hádané
+# kratší /temata/ai/ vracelo živě 17. 9. 2026 404.
+/temata/ai /temata/ai-report/ 301
+/temata/ai/ /temata/ai-report/ 301
+
 # Témata žijí pod /temata/{slug}/. Starší tvar /{slug}/ (ai-report,
 # hardware, vesmir, …) i /{slug}/strana/2/ živě 28. 8. 2026 vracel 404.
 # Jen slugy ze schématu kategorií — /:slug by sekl i /rss.xml.
