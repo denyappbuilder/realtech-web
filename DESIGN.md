@@ -1,6 +1,6 @@
 ---
 name: REALTECH CZ
-description: Incumbent Czech technology editorial visual system, documented after editorial experience round 2.
+description: Reading-led premium editorial candidate; restrained REALTECH identity, normal-width headlines and image-first discovery.
 colors:
   bg: "#F6F7F9"
   surface: "#FFFFFF"
@@ -12,8 +12,6 @@ colors:
   signal-dark: "#B7211D"
   signal-fill: "#D42622"
   signal-fill-hover: "#B7211D"
-  panel: "#14171C"
-  line-panel: "#E2E6EB"
   dark-bg: "#0F1216"
   dark-surface: "#171B21"
   dark-ink: "#E8ECF1"
@@ -22,41 +20,49 @@ colors:
   dark-line: "#262C35"
   dark-signal: "#E5322D"
   dark-signal-dark: "#F0554F"
-  dark-panel: "#1D232C"
-  dark-line-panel: "#3A4350"
 typography:
+  headline:
+    fontFamily: "Archivo Variable, Archivo Editorial Fallback, Arial, sans-serif"
+    fontWeight: 650
+    fontSize: "clamp(2.1rem, 4.5vw, 3.5rem)"
+    lineHeight: 1.1
+    letterSpacing: "-0.035em"
+  title:
+    fontFamily: "Archivo Variable, Archivo Editorial Fallback, Arial, sans-serif"
+    fontWeight: 650
+    fontSize: "1.2rem"
+    lineHeight: 1.3
+    letterSpacing: "-0.02em"
   body:
-    fontFamily: "IBM Plex Sans, Arial, Roboto, Liberation Sans, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, Arial, Roboto, Liberation Sans, sans-serif"
+    fontSize: "1rem"
     lineHeight: 1.6
-  article-body:
-    fontFamily: "IBM Plex Sans, Arial, Roboto, Liberation Sans, system-ui, sans-serif"
-    fontSize: "1.05rem"
-    lineHeight: 1.7
-  display-desktop:
-    fontFamily: "Archivo Variable, Archivo Hero Fallback, Archivo, sans-serif"
-    fontSize: "2.7rem"
-    fontWeight: 870
-    lineHeight: 1.08
-    letterSpacing: "-0.025em"
+  reading:
+    fontFamily: "IBM Plex Sans, Arial, Roboto, Liberation Sans, sans-serif"
+    fontSize: "1.2rem"
+    lineHeight: 1.8
   label:
-    fontFamily: "IBM Plex Mono, monospace"
-    fontSize: "0.78rem"
-    letterSpacing: "0.05em"
+    fontFamily: "IBM Plex Sans, Arial, Roboto, Liberation Sans, sans-serif"
+    fontSize: "0.8rem"
 rounded:
-  radius: "8px"
-  editorial-small: "4px"
-  aside: "14px"
+  badge: "4px"
+  outline: "6px"
+  thumbnail: "8px"
+  compact-control: "10px"
+  field: "12px"
+  media: "16px"
+  control: "24px"
+spacing:
+  small: "12px"
+  content: "24px"
+  group: "28px"
+  section: "48px"
+  major: "64px"
 components:
-  button-primary:
+  archive-submit:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.bg}"
-    rounded: "{rounded.radius}"
-    padding: "12px 24px"
-  archive-submit:
-    backgroundColor: "{colors.signal-fill}"
-    textColor: "#FFFFFF"
-    rounded: "{rounded.radius}"
-    padding: "12px 24px"
+    rounded: "{rounded.field}"
   archive-submit-hover:
     backgroundColor: "{colors.signal-fill-hover}"
     textColor: "#FFFFFF"
@@ -66,64 +72,56 @@ components:
 
 ## Overview
 
-A Czech technology and AI publication attached to the REALTECH CZ YouTube channel. Product context comes from the implemented `/o-nas/`, not an assumed audience profile or a new product brief. The established identity is red accents, expanded Archivo headlines, Plex reading text and mono editorial metadata; photography and the articles remain the substance.
+A reading-led technology journal. The owner's September brief explicitly replaces the expanded broadcast-style presentation with Apple-level restraint, not Apple branding. The recognizable Archivo REALTECH wordmark and red accent are unchanged. Editorial facts, headlines, image associations and existing functions remain authoritative.
 
-**Key Characteristics:**
-- Strong headline hierarchy with restrained interface decoration.
-- Light and dark semantic surfaces, with separate red text and white-on-red fill roles.
-- Responsive article discovery and a quieter, navigable reading column.
+**Candidate, not production approval:** this records the built round-three source after its bounded visual correction batch. Parent independent review has two open hover-contrast findings and a reduced-motion image-transform finding; those are defects, not system rules. Parent owns the next fix context, final review and any later deployment. No claim of whole-surface approval is made here.
 
-Maintainer Grokbot: this is an as-built record at source commit `b7035ccca88f256d667094a5a84fba1f500e8011` on `feat/editorial-experience-round2`, for PR #447. `src/layouts/Base.astro` loads `src/styles/global.css` then `src/styles/editorial.css`; scoped editorial overrides win. This round refines homepage composition/topic navigation, archive search/results/mobile rows, and article entry/outline/reading presentation. It is not a rebrand or a new layout proposal. This documentation pass performs no browser audit or tests; parent review owns the rendered evidence and final verification.
+Implementation order: `fonts-archivo.css`, `fonts-plex.css`, `global.css`, `editorial.css`, then `premium.css`. The last layer is the new visual authority; earlier layers still own progressive behavior and unmodified utility/media states.
 
 ## Colors
 
-The frontmatter records actual root light values and explicit dark counterparts; `dark-*` names document overrides, not additional CSS variable names. Primary red marks identity, categories and interaction; cool neutral backgrounds and thin separators carry structure. `panel` and `line-panel` belong to media containers.
-
-System preference applies unless explicitly overridden by `data-theme`; stored light/dark selection is applied before first paint. Native `color-scheme` and browser theme-color follow the theme. Keep `signal-fill` and `signal-fill-hover` unchanged between themes: white text needs the deeper fill, not the lighter dark-mode red intended for text. The archive submit hover explicitly keeps white text over the fill-hover token in both themes.
+Restrained cool-neutral light/dark surfaces with REALTECH red. Existing semantic colors are retained so early theme initialization and browser theme-color stay synchronized. Red text and white-on-red fills remain separate roles. The newsletter is now a theme-aware surface rather than a permanently dark band. Cards use surface contrast rather than rainbow category borders.
 
 ## Typography
 
-Archivo Variable carries display/headline roles with real width-axis settings (homepage headline 110%, logo 115%, card headlines 105%). Desktop homepage headline uses the frontmatter role; long headlines use 2.4rem. Archive h1 uses `clamp(2rem, 4vw, 3.5rem)` and 1.1 leading, becoming 2rem at 580px and below. Archive card titles are 1.2rem/1.25 on larger screens and 1rem/1.32 in compact rows.
+Headlines use the existing local Archivo variable at normal width, weight 650, rather than expanded 850–870. The logo retains 900/115%. No font package or dependency was added. Display tracking is -0.035em, section -0.03em, card -0.02em. Real Czech titles wrap without line clamps or content edits.
 
-Plex Sans supplies prose and controls; Plex Mono supplies dates, reading metadata and uppercase labels. Article paragraphs, list items and blockquotes are capped at 68ch. Preserve Czech `lang="cs"`, headline balancing, hyphenation and overflow wrapping rather than editing titles to fit.
+Article headings reach 56px; archive/topic/about page headings reach 60px. Homepage headline reaches 44.8px, with a 40px long-headline role. Mobile homepage is 32.8px; article title 33.6px; archive/topic/about title 40px. Article prose is 19.2px/1.8 on desktop and 17.28px/1.8 on mobile. Plex supplies controls, prose and editorial metadata; monospace remains for code and incumbent specialist utilities, not the main metadata rhythm.
 
-Fonts are locally bundled through Fontsource. Plex imports are latin/latin-ext subsets; Archivo uses its width entrypoint. Preserve measured Archivo Hero/Clanek/Karta fallback families and their size adjustments (117.6%, 114.6%, 105.9%) and the Plex fallback order: these are layout-shift controls, not interchangeable stylistic choices.
+`Archivo Editorial Fallback` uses a measured 96.67% size adjustment: median canvas width ratio of the 115 real article titles at Archivo 650/100px to Arial Bold. Old expanded-role fallbacks are retained for unchanged components. Latin and Latin-ext unicode ranges and display-swap declarations remain intact.
 
 ## Layout
 
-- Shared wrapper: 1120px maximum with 24px horizontal padding. Desktop header has a 64px inner row and an opaque sticky surface.
-- Homepage desktop hero: `minmax(0, 1fr) minmax(0, 1.15fr)`, 40px gap. Editorial override removes the old dotted backdrop, uses a surface fill, and sets 44px/28px vertical padding. Three supporting stories form a rail with 80×96px cropped thumbnails and unclamped titles. At 900px and below the hero becomes one column and rail stories return as cards.
-- Base card grid: three columns, 24px gaps; two columns at 900px and below, one at 580px and below. Topic featured-card behavior remains separate from the archive.
-- Archive: full-width search-first stack (form capped at 680px), category controls, then a visible result/reset bar. At 580px and below cards become divider-separated rows with a 96px square thumbnail, 16px gap and no description; title, category and date/reading metadata remain.
-- Article: `minmax(0, 1.7fr) minmax(220px, 0.8fr)` with a 28px gap. Editorial body removes the old panel, border and padding. At 900px and below it becomes a single column and hides the desktop aside. Above 900px, the aside is scroll-bounded to `calc(100dvh - 112px)`; sticky positioning at 81px requires viewport height at least 640px.
-- Mobile outline uses native details/summary (48px minimum summary height) and a scrollable list capped at 55dvh. Reading entry scroll margins are 112px desktop and 128px at 900px and below.
+Shared wrapper remains 1120px including 24px side padding. About now explicitly uses that wrapper rather than the former full-viewport width. Desktop header is 76px; compact header retains its accessible two-row structure.
 
-Other incumbent component-specific breakpoints remain in global.css; these are the principal editorial transitions, not a replacement global breakpoint scale.
+Homepage: quiet edition heading, then a 54:46 image/copy feature. Image fills the desktop photo column with `object-fit: cover`; mobile returns full 16:9 media below the complete title/deck/actions. Hero source and preload share the exact responsive sizes string and retain the 640/960/1280 derivatives. No ticker, fake live indicator or image headline overlays. Three supporting reports have 100px 16:9 thumbnails and complete headlines. Below 901px they remain the first three cards, preserving chronology.
+
+Discovery: three-column grid, two below 901px, one below 581px. Grid row gaps are 44px desktop and 28px mobile. Home cards are tonal surfaces; archive cards stay flat and unboxed, with 96px compact mobile thumbnails. Guides have their own separated, unboxed section. Topic hub cards lead with the durable subject description, then explicitly identify the newest story before its associated image. Images still come from real incumbent articles; no category-specific documentary assets were invented.
+
+Reading: 880px introductory measure, 700px text column plus 64px gap and outside outline. The early brand/contact route and jump-to-text sit immediately below the title, before the deck. This is a publication credit, not an invented story-level human byline. Native mobile outline, existing section tracking and focus transfer remain intact. Sticky aside is at 101px with viewport-bounded scrolling only above 900px and 640px height; scroll chaining is retained.
 
 ## Elevation & Depth
 
-The header is opaque, not blurred glass. Editorial archive cards are flat with bottom dividers and explicitly disable hover lift/shadow; reading prose has no enclosing card. Other incumbent cards retain a 4px hover lift and `0 14px 32px -18px color-mix(in srgb, var(--ink) 42%, transparent)` shadow. Do not promote the archive exception into a site-wide removal of card behavior.
-
-State transitions are generally 0.15s; base card motion is 0.22s. The existing ticker animates over 45s and pauses on hover/focus-within. Reduced motion disables animations and transitions globally and turns smooth scrolling off; preserve the reduced-motion check in article navigation too.
+Opaque header, flat cards, no hover lift or card shadows. Modal retains its existing protective overlay and soft offset shadow, with no duplicate border. Motion is feedback: navigation underline, small CTA arrow movement, restrained 1.025 media scale. Nothing enters from an invisible state or requires JS to become readable. Global reduced-motion disables transitions and animation; the review's remaining hover-transform reset must be resolved before approval.
 
 ## Shapes
 
-Controls and media primarily use the 8px radius token. Editorial chips and outline links use 4px corners; the desktop aside retains 14px. Archive outer cards are square, with rounded thumbnails. Maintain the existing 16:9 media presentation except the explicit editorial rail and mobile archive thumbnail crops; do not impose fixed-height strips on hero photography.
+16px main media/card corners; 12px archive fields/audio surfaces; 10px compact fields and mobile archive thumbnails; 8px rail thumbnails; 4px small category badges. Pills are reserved for controls/category filters. Reading prose and desktop aside have no card enclosure.
 
 ## Components
 
-- **Buttons:** the global primary is ink on background-colored text, not universally red. Archive submit and subscription fills use the separate red fill tokens. Ghost controls use surface fill and line border, changing to ink border/text on hover. Typical buttons have a 44px minimum height.
-- **Archive controls and states:** page one has category buttons with `aria-pressed`; later pages have category links back to page one. Search is a labeled GET form, enhanced with a 300ms debounce and a fetched static `/search-index.json`. Preserve default paginated range, filtered count, reset, loading, empty, error/retry and `aria-busy` states. Status messages use live status roles. The GET form is a navigation fallback, not a claim of server-side search without JavaScript.
-- **Reading navigation:** outline derives from rendered article headings; no outline is shown when empty. Desktop and mobile links point to existing section IDs, with `aria-current="location"` for the current section. Reading entry and outline navigation transfer focus to the target without double scrolling. Keep heading nesting and the quiet lede state rather than selecting a section before reaching it.
-- **Navigation/accessibility:** preserve semantic labeled navigation, current-page indication, skip link, named search controls and theme toggle state. Logo accessible name includes its visibly separated REAL TECH CZ words. Links/buttons/summary use a 2px signal focus outline with 3px offset; search and reading target have their own offsets. Avoid nested duplicate card links: the heading link supplies the stretched card target.
-- **Editorial imagery:** retain existing real-photo assets and their article associations unchanged. This round adds no raster images and makes no new photographer, license or ownership claims. Existing article content/source attribution remains authoritative; a retained repository asset is not proof of a particular license. Current card image alt derives from the editorial title. Local covers take precedence; YouTube maxres thumbnails are fallback when local cover is absent.
-- **Image delivery:** preserve explicit dimensions, async decoding, existing WebP/JPEG derivatives and responsive sizes. Prioritize the actual LCP hero/first archive card, not every above-fold image. The helper in `src/lib/hero-preload.js` permits one image preload matching the rendered picture's source/srcset/sizes/type. Archive preload is only on page one; first card is eager/high on each page. Other cards remain lazy. Keep preconnects conditional on actual media/comments usage; add no services.
+- Header preserves accessible logo words, current-page navigation, search focus trap/return, theme pressed state and no-JS fallbacks.
+- Search keeps async response validation, pending-query replay, loading/error/retry, empty states and archive navigation fallback. Visual changes do not alter its script.
+- Archive keeps the real Cloudflare edge/no-JS GET filtering, `data-filtr-edge` hydration optimization, reset/count/pagination and shared SSR/client/edge card rendering. No edge code was changed.
+- Article keeps generated heading IDs, desktop/mobile outlines, native details, reduced-motion-aware focus navigation, audio transcript, YouTube/X fallback paths and copy-link handling.
+- Newsletter retains the existing Kit action, consent/disclosure, error fallback and status focus. No form was submitted for design testing.
+- SEO preserves metadata/schema/image semantics and fixes the observed `vs.` sentence-boundary truncation without changing authorial decks. Additional abbreviation/date edge cases noted by review remain pending.
 
 ## Do's and Don'ts
 
-- Do treat global.css plus later editorial.css and the route/component markup as implementation authority.
-- Do preserve Czech authorial headlines, prose, metadata, links and existing image provenance.
-- Do retain dark, keyboard, reduced-motion, loading, empty and retry behavior when maintaining these surfaces.
-- Don't replace Archivo/Plex or collapse red text and red fill into a single theme-dependent role.
-- Don't generalize scoped archive/reading changes to older topic cards, embeds or unrelated pages.
-- Don't add fabricated product claims, a publishing cadence, new image credits, new services or invented design tokens.
+- Preserve the REALTECH logo, Czech content, real links, image associations and source attribution.
+- Use the new restrained type/spacing system across surfaces rather than restoring broadcast slabs or category-color borders.
+- Keep content visible without JS and retain all edge archive semantics.
+- Do not truncate headlines to make cards fit, invent human coauthorship, add unsupported claims, replace imagery with fake product renders, or introduce new services.
+- Existing generic imagery is a documented editorial limitation. No new raster was created, copied or relicensed in this round; existing asset origin records remain authoritative.
+- Do not canonize the two reported hover-contrast defects, the reduced-motion hover jump or remaining metadata abbreviation edge cases. Parent's fix/review stage owns their resolution and must update this record afterward.

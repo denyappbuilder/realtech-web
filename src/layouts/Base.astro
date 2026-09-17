@@ -20,6 +20,7 @@ import '../styles/fonts-archivo.css';
 import '../styles/fonts-plex.css';
 import '../styles/global.css';
 import '../styles/editorial.css';
+import '../styles/premium.css';
 
 import { getCollection } from 'astro:content';
 import { slugify } from '../lib/slugify.js';
@@ -211,6 +212,12 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "c2d8811d709646ad986cb0e671b8ffd6"}'></script>
 </head>
 <body>
+<!-- THESIS: A reading-led technology journal, not a broadcast dashboard.
+OWN-WORLD: REALTECH red, cool neutrals, quiet surfaces, normal-width editorial type, 16px media corners.
+STORY: Open the lead story, scan reports, browse topics, read with section wayfinding.
+FIRST VIEWPORT: Quiet navigation; image-first desktop feature, 54% photo and 46% headline/deck/action. Mobile: copy then uncropped photo. Three supporting reports below. No ticker or photo labels.
+FORM: user-pinned restrained editorial canon; realtech-premium-read-r3; code-led.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance -->
 
 <a class="skip-link" href="#obsah">Přeskočit na obsah</a>
 <SearchModal />
@@ -285,7 +292,6 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
 <section class="newsletter" id="newsletter" aria-labelledby="newsletter-nadpis">
   <div class="wrap">
     <div>
-      <span class="mono">// Newsletter</span>
       <h2 id="newsletter-nadpis">Tech bez marketingových řečí.<br />Přímo do mailu.</h2>
       <p>Nejdůležitější novinky a analýzy z AI a techu — česky, stručně a jen když je co říct. Žádný spam.</p>
     </div>

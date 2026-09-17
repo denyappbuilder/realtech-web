@@ -98,6 +98,15 @@ const collectionLd = {
       <div class="grid temata-hub">
         {temata.map((t, i) => (
           <article class="card" data-category={t.category}>
+            <div class="card-body">
+              <h2><a href={`/temata/${t.slug}/`}>{t.category}</a></h2>
+              <p>{popisTematu(t.category)}</p>
+              <p class="topic-latest"><span>Nejnovější v tématu</span>{t.nejnovejsi.data.title}</p>
+              <div class="card-meta">
+                <time datetime={t.nejnovejsi.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(t.nejnovejsi.data.date)}</time>
+                <span>{textPoctuClanku(t.pocet).toUpperCase()}</span>
+              </div>
+            </div>
             {t.nahled.localThumb && (
               <div class={`card-thumb th-${t.slug}`}>
                 <picture>
@@ -111,14 +120,6 @@ const collectionLd = {
                 </picture>
               </div>
             )}
-            <div class="card-body">
-              <h2><a href={`/temata/${t.slug}/`}>{t.category}</a></h2>
-              <p>{popisTematu(t.category)}</p>
-              <div class="card-meta">
-                <time datetime={t.nejnovejsi.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(t.nejnovejsi.data.date)}</time>
-                <span>{textPoctuClanku(t.pocet).toUpperCase()}</span>
-              </div>
-            </div>
           </article>
         ))}
       </div>

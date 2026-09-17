@@ -4,7 +4,6 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { slugify } from '../lib/slugify.js';
-import { textNaHeroObrazku } from '../lib/hero-overlay.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
 import { nahledKarty, webpSrcsetZDerivatu } from '../lib/karta-nahled.js';
@@ -30,7 +29,6 @@ const railCards = rail;
 const categories = [...new Set(all.map((c) => c.data.category))];
 
 const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
-const heroOverlay = hero ? textNaHeroObrazku(hero.data) : '';
 // Kolo 27: od 90 znaků dostal h1 menší desktopový stupeň (.h1-dlouhy v CSS).
 // 102znakový titulek měl živě 9–10 řádků při 3.1rem a cover plaval uprostřed
 // dvakrát vyššího sloupce.
@@ -78,7 +76,7 @@ const heroOg = heroOgSoubor && fs.existsSync(heroOgSoubor)
   ? `/images/og/${hero.id}.jpg`
   : hero?.data.image;
 // .wrap has 24px padding on each side; 100vw needlessly selects 1280w on mobile.
-const HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), 40vw';
+const HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), (max-width: 1120px) calc((100vw - 48px) * 0.54), 579px';
 // LCP hero je až v <body> — jediný preload v <head> ho pustí ke stažení hned.
 // Míří na tentýž soubor jako <img src> (WebP, když derivát existuje).
 const heroPreload = preloadHeroObrazku({
@@ -165,28 +163,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
   )}
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" is:inline />
 
-  {/*
-    Kolo 18: aria-label na <div> bez role je zakázaný (ARIA „generic“,
-    axe aria-prohibited-attr) — čtečky ho ignorovaly. Pruh je seznam
-    odkazů na články, takže <nav> landmark s tím jménem.
-  */}
-  <nav class="ticker" aria-label="Nejnovější články">
-    <span class="ticker-label"><span class="live-dot"></span>ŽIVĚ</span>
-    <div class="ticker-viewport">
-      <div class="ticker-track">
-        {all.slice(0, 6).map((c) => (
-          <a href={`/clanky/${c.id}/`}>{c.data.title}</a>
-        ))}
-        {/* Druhá sada je JEN pro plynulou smyčku — animace posouvá o -50 %,
-            takže bez zdvojení by pruh na konci cyklu poskočil. Pro čtečky
-            i klávesnici je skrytá, aby se odkazy nečetly a neprocházely
-            dvakrát (to byla oprávněná výtka Z10032, která pohyb zrušila). */}
-        {all.slice(0, 6).map((c) => (
-          <a href={`/clanky/${c.id}/`} aria-hidden="true" tabindex="-1">{c.data.title}</a>
-        ))}
-      </div>
-    </div>
-  </nav>
+  <div class="edition-heading wrap"><p>Technologie v souvislostech.</p><a href="/clanky/">Prohlédnout archiv <span aria-hidden="true">→</span></a></div>
 
   {hero && (
     <section class="hero">
@@ -237,9 +214,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
                 <img src={heroLcpSrc} srcset={heroHasWebp ? undefined : heroSrcset} sizes={(!heroHasWebp && heroSrcset) ? HERO_SIZES : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
               </picture>
             )}
-            <span class="rec"><span class="live-dot"></span>REALTECH</span>
-            {heroOverlay && <span class="headline-mark">{heroOverlay}</span>}
-            {hero.data.videoLength && <span class="tc">TC {hero.data.videoLength}</span>}
+
             {hero.data.video && <span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>}
           </a>
         </div>
@@ -284,7 +259,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
       </div>
 
       {pruvodci.length > 0 && (
-        <div class="video-strip">
+        <div class="video-strip guides-section">
           <div class="section-head">
             <h2>Průvodci a srovnání</h2>
             <a href="/temata/">Všechna témata →</a>
@@ -296,7 +271,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
       )}
 
       {videos.length > 0 && (
-        <div class="video-strip">
+        <div class="video-strip films-section">
           <div class="section-head">
             <h2>Nejnovější videa</h2>
             <a href="https://www.youtube.com/@realtech-cz">Celý kanál →</a>

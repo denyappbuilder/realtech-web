@@ -16,25 +16,10 @@ function overlayVyrazVIndexu() {
   return match?.[1]?.trim() ?? null;
 }
 
-test("overlay na hero obrázku nesmí opakovat titulek článku", () => {
+test("premium round 3: photo has no duplicated headline or broadcast overlay", () => {
   const src = readFileSync(path.join(REPOSITORY_ROOT, "src/pages/index.astro"), "utf8");
-  const vyraz = overlayVyrazVIndexu();
-  assert.ok(vyraz, "homepage musí mít .headline-mark s dynamickým textem");
-  assert.notEqual(
-    vyraz,
-    "hero.data.title",
-    "Z1005: stejný titulek v <h1> i na obrázku",
-  );
-  assert.match(
-    src,
-    /textNaHeroObrazku\(hero\.data\)/,
-    "overlay musí jít z textNaHeroObrazku, ne z titulku",
-  );
-  assert.doesNotMatch(
-    src,
-    /class="headline-mark">\{hero\.data\.title\}/,
-    "Z1005: stejný titulek v <h1> i na obrázku",
-  );
+  assert.doesNotMatch(src, /class="(?:headline-mark|rec|tc)"/);
+  assert.match(src, /<h1[\s\S]*?hero\.data\.title/);
 });
 
 test("overlay nesmí opakovat primární CTA tlačítka", () => {

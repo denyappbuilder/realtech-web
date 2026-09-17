@@ -225,9 +225,12 @@ const breadcrumbLd = {
           <span class="time">ČTENÍ {readMinutes} MIN</span>
         </div>
         <h1>{title}</h1>
+        <div class="article-credit">
+          <a href="/o-nas/">REALTECH CZ · O redakci</a>
+          <a class="article-read-link" href="#article-text">Přejít rovnou na text <span aria-hidden="true">↓</span></a>
+        </div>
         <p class="lead">{description}</p>
         <div class="reading-entry">
-          <a href="#article-text">Přejít rovnou na text <span aria-hidden="true">↓</span></a>
           {outline.length > 0 && (
             <details class="article-contents-mobile">
               <summary>Obsah článku</summary>

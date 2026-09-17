@@ -36,13 +36,10 @@ function blokMedia(dotaz) {
 
 // ── A11y: aria-label smí jen na prvek s rolí (axe aria-prohibited-attr) ──
 
-test("kolo 18: ticker na úvodce je <nav> s aria-label, ne pojmenovaný <div>", () => {
-  assert.match(index, /<nav class="ticker" aria-label="Nejnovější články">/);
-  assert.doesNotMatch(index, /<div class="ticker"/, "aria-label na <div> bez role čtečky ignorují");
-  const nav = index.slice(index.indexOf('<nav class="ticker"'));
-  const konec = nav.indexOf("</nav>");
-  assert.ok(konec > -1, "ticker musí <nav> i zavřít");
-  assert.ok(konec < nav.indexOf("<section class=\"hero\">"), "</nav> tickeru musí skončit před herem");
+test("premium round 3: article discovery retains a labeled semantic landmark", () => {
+  assert.match(index, /<aside class="hero-rail" aria-label="Další reporty">/);
+  assert.doesNotMatch(index, /<div class="ticker"/);
+  assert.match(index, /<nav class="topic-navigation" aria-label="Témata">/);
 });
 
 test("kolo 18: statistiky na O nás jsou seznam <ul role=list>, ne pojmenovaný <div>", () => {

@@ -62,7 +62,8 @@ test("kolo 38: Base importuje fonts-plex.css místo subsetových entrypointů fo
     "../styles/fonts-plex.css",
     "../styles/global.css",
     "../styles/editorial.css",
-  ], "fonty před global.css jako dřív");
+    "../styles/premium.css",
+  ], "fonty před global.css; poslední vrstva je schválený premium redesign");
   for (const [balicek, , vahy] of PLEX) {
     for (const vaha of vahy) {
       const subset = cti(`node_modules/@fontsource/${balicek}/latin-${vaha}.css`);
