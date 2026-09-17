@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-17T00:45:57.571856+00:00",
+  "generatedAt": "2026-09-17T01:09:52.215789+00:00",
   "title": "Design System: REALTECH CZ",
   "extensions": {
     "shadows": [
@@ -19,7 +19,7 @@
       {
         "name": "image-hover",
         "value": "600ms cubic-bezier(0.16,1,0.3,1)",
-        "purpose": "1.025 media scale; parent review requests reduced-motion transform reset."
+        "purpose": "1.025 media scale; decorative transforms disabled under reduced motion."
       }
     ],
     "breakpoints": [
@@ -84,7 +84,7 @@
     ],
     "donts": [
       "Do not truncate headlines to make cards fit or invent human coauthorship.",
-      "Do not canonize the open hover-contrast and reduced-motion defects."
+      "Do not regress verified theme-aware hover contrast or reduced-motion resets."
     ]
   }
 }

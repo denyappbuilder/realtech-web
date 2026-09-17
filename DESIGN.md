@@ -74,7 +74,7 @@ components:
 
 A reading-led technology journal. The owner's September brief explicitly replaces the expanded broadcast-style presentation with Apple-level restraint, not Apple branding. The recognizable Archivo REALTECH wordmark and red accent are unchanged. Editorial facts, headlines, image associations and existing functions remain authoritative.
 
-**Candidate, not production approval:** this records the built round-three source after its bounded visual correction batch. Parent independent review has two open hover-contrast findings and a reduced-motion image-transform finding; those are defects, not system rules. Parent owns the next fix context, final review and any later deployment. No claim of whole-surface approval is made here.
+**Candidate, not production approval:** this records the built round-three source after independent review corrections. Parent execution passed all 30 targeted browser cases covering hover contrasts, reduced motion, navigation feedback and cover-image delivery. The final combined Pages preview and CI remain separate gates; production requires Daniel’s explicit approval.
 
 Implementation order: `fonts-archivo.css`, `fonts-plex.css`, `global.css`, `editorial.css`, then `premium.css`. The last layer is the new visual authority; earlier layers still own progressive behavior and unmodified utility/media states.
 
@@ -94,7 +94,7 @@ Article headings reach 56px; archive/topic/about page headings reach 60px. Homep
 
 Shared wrapper remains 1120px including 24px side padding. About now explicitly uses that wrapper rather than the former full-viewport width. Desktop header is 76px; compact header retains its accessible two-row structure.
 
-Homepage: quiet edition heading, then a 54:46 image/copy feature. Image fills the desktop photo column with `object-fit: cover`; mobile returns full 16:9 media below the complete title/deck/actions. Hero source and preload share the exact responsive sizes string and retain the 640/960/1280 derivatives. No ticker, fake live indicator or image headline overlays. Three supporting reports have 100px 16:9 thumbnails and complete headlines. Below 901px they remain the first three cards, preserving chronology.
+Homepage: quiet edition heading, then a 54:46 image/copy feature. Image fills the desktop photo column with `object-fit: cover`; mobile returns full 16:9 media below the complete title/deck/actions. Hero source and preload share the exact cover-specific responsive sizes string: desktop uses the existing 1280w asset to cover the taller crop without sub-1x delivery, while mobile retains the 640/960 choices. The original 1280w image limits full 2x density in the desktop crop; it is not artificially upscaled. No ticker, fake live indicator or image headline overlays. Three supporting reports have 100px 16:9 thumbnails and complete headlines. Below 901px they remain the first three cards, preserving chronology.
 
 Discovery: three-column grid, two below 901px, one below 581px. Grid row gaps are 44px desktop and 28px mobile. Home cards are tonal surfaces; archive cards stay flat and unboxed, with 96px compact mobile thumbnails. Guides have their own separated, unboxed section. Topic hub cards lead with the durable subject description, then explicitly identify the newest story before its associated image. Images still come from real incumbent articles; no category-specific documentary assets were invented.
 
@@ -102,7 +102,7 @@ Reading: 880px introductory measure, 700px text column plus 64px gap and outside
 
 ## Elevation & Depth
 
-Opaque header, flat cards, no hover lift or card shadows. Modal retains its existing protective overlay and soft offset shadow, with no duplicate border. Motion is feedback: navigation underline, small CTA arrow movement, restrained 1.025 media scale. Nothing enters from an invisible state or requires JS to become readable. Global reduced-motion disables transitions and animation; the review's remaining hover-transform reset must be resolved before approval.
+Opaque header, flat cards, no hover lift or card shadows. Modal retains its existing protective overlay and soft offset shadow, with no duplicate border. Motion is feedback: navigation underline, small CTA arrow movement, restrained 1.025 media scale. Nothing enters from an invisible state or requires JS to become readable. Reduced motion disables transitions, animation and decorative image/arrow transforms while preserving the immediate navigation underline.
 
 ## Shapes
 
@@ -124,4 +124,4 @@ Opaque header, flat cards, no hover lift or card shadows. Modal retains its exis
 - Keep content visible without JS and retain all edge archive semantics.
 - Do not truncate headlines to make cards fit, invent human coauthorship, add unsupported claims, replace imagery with fake product renders, or introduce new services.
 - Existing generic imagery is a documented editorial limitation. No new raster was created, copied or relicensed in this round; existing asset origin records remain authoritative.
-- Do not canonize the two reported hover-contrast defects, the reduced-motion hover jump or remaining metadata abbreviation edge cases. Parent's fix/review stage owns their resolution and must update this record afterward.
+- Keep the verified theme-aware hover pairs, reduced-motion resets, shared cover/preload contract and Czech abbreviation/year metadata regressions. Regression scripts record these guarantees; a screenshot alone does not certify them.
