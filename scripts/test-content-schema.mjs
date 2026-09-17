@@ -117,12 +117,18 @@ test('schema odmita nezname pole a doplni vsechny boolean defaulty', () => {
     feature: true,
   });
   assert.equal(withUnknownField.success, false);
-  assert.deepEqual(withUnknownField.error.issues[0], {
+  assert.equal(withUnknownField.error.issues.length, 1);
+  const { code, keys, path: issuePath, message } = withUnknownField.error.issues[0];
+  assert.deepEqual({ code, keys, path: issuePath }, {
     code: 'unrecognized_keys',
     keys: ['feature'],
     path: [],
-    message: "Unrecognized key(s) in object: 'feature'",
   });
+  // Zod 3 and 4 differ only in wording; keep the strict semantic contract.
+  assert.ok([
+    "Unrecognized key(s) in object: 'feature'",
+    'Unrecognized key: "feature"',
+  ].includes(message), `Unexpected unrecognized-key message: ${message}`);
 });
 
 test('quoted YYYY-MM-DD ma striktni meze a pro date i updated vraci UTC Date', () => {

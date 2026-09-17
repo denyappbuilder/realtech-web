@@ -11,16 +11,17 @@
     "test": "node --test --import ./scripts/test-rss-register.mjs scripts/test-*.mjs"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "7.3.1",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource-variable/archivo": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/ibm-plex-sans": "^5.2.8",
-    "astro": "^5.7.0"
+    "astro": "7.3.3"
   },
   "devDependencies": {
     "@astrojs/compiler": "^2.13.1",
-    "js-yaml": "4.3.0",
+    "js-yaml": "4.3.2",
     "marked": "^18.0.6",
     "sharp": "^0.35.3",
     "typescript": "5.9.3"

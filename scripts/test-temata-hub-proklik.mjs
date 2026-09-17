@@ -31,6 +31,6 @@ test("karta tématu bere <picture> z nahledKarty(nejnovejsi), ne prázdné card-
   assert.match(karta, /<picture>/, "hub karta musí mít <picture> jako ArticleCard");
   assert.match(karta, /class=\{`card-thumb th-\$\{t\.slug\}`\}/, "náhled musí sedět do stejného card-thumb jako ArticleCard");
   assert.match(karta, /alt=\{t\.nejnovejsi\.data\.title\}/, "alt náhledu je titulek nejnovějšího článku");
-  assert.doesNotMatch(karta, /<a href=\{`\/temata\/\$\{t\.slug\}\/`\}>[\s\S]*<picture>/, "náhled nesmí být uvnitř odkazu");
+  assert.doesNotMatch(karta, /<a href=\{`\/temata\/\$\{t\.slug\}\/`\}>(?:(?!<\/a>)[\s\S])*<picture>/, "náhled nesmí být uvnitř odkazu; uzavřený titulek může předcházet fotce");
   assert.match(karta, /<div class=\{`card-thumb th-\$\{t\.slug\}`\}>[\s\S]*<picture>/, "náhled je <div>, ne druhý <a>");
 });

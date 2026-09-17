@@ -34,10 +34,22 @@ export function popisProVyhledavace(popis, limit = LIMIT_POPISU) {
   const text = (popis ?? '').trim();
   if (text.length <= limit) return text;
 
-  // Rozdělit na věty. Lookbehind na tečku/!/? a mezeru — čísla jako „9 500"
-  // se tím nerozdělí, protože po tečce v „200 Mb/s." následuje mezera a velké
-  // písmeno, zatímco v desetinných číslech mezera není.
-  const vety = text.split(/(?<=[.!?])\s+/);
+  // Tečka ve „vs. VRAM“, české zkratce nebo datu není konec věty.
+  // Spojuj takové fragmenty před výběrem; původní text i interpunkce zůstávají.
+  const fragmenty = text.split(/(?<=[.!?])\s+/);
+  const vety = [];
+  let veta = '';
+  for (const [index, fragment] of fragmenty.entries()) {
+    veta = veta ? `${veta} ${fragment}` : fragment;
+    const zkratka = /(?<![\p{L}\p{N}_])(?:vs|např|tj|tzv|resp|př|č|str|cca|Ing|Mgr|Dr)\.$/iu.test(veta);
+    // Číslo před tečkou může být i rok/verze na konci věty. Spojuj jen datum.
+    const datum = /(?<![\p{L}\p{N}_.])\d{1,2}\.$/u.test(veta)
+      && /^(?:\d{1,2}\.|\d{4}\b|(?:ledna|února|března|dubna|května|června|července|srpna|září|října|listopadu|prosince)(?!\p{L}))/iu.test(fragmenty[index + 1] ?? '');
+    if (zkratka || datum) continue;
+    vety.push(veta);
+    veta = '';
+  }
+  if (veta) vety.push(veta);
 
   let vysledek = '';
   for (const veta of vety) {

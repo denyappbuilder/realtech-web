@@ -23,7 +23,7 @@ const { setArticles } = await import('./test-sitemap-mocks/state.mjs');
 setArticles([]);
 const { default: config } = await import('../astro.config.mjs?rehype-heading-test=1');
 
-const plugins = config.markdown.rehypePlugins;
+const plugins = config.markdown.processor.options.rehypePlugins;
 assert.equal(plugins.length, 3,
   'astro.config.mjs má mít tři rehype pluginy: ASCII id nadpisů, embed X (rehype-x-embed) a obal tabulek (rehype-tabulky)');
 const headingPlugin = plugins.find((plugin) => plugin.name === 'rehypeAsciiHeadingIds');

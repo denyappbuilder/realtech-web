@@ -17,11 +17,8 @@ test("Z1000: dekorativní topbar nesmí přidávat třetí pruh nad navigaci", (
   );
 });
 
-test("Z1000: ticker zůstává na desktopu, na úzkém viewportu mizí", () => {
-  assert.match(index, /class="ticker"/, "úvodka ztratila ticker úplně");
-  assert.match(
-    css,
-    /@media\s*\(max-width:\s*900px\)[\s\S]*?\.ticker\s*\{[^}]*display:\s*none/,
-    "ticker se na tabletu a mobilu pořád kreslí jako třetí pruh",
-  );
+test("premium round 3: no duplicated live strip above the lead story", () => {
+  assert.doesNotMatch(index, /class="ticker"/);
+  assert.match(index, /class="edition-heading wrap"/);
+  assert.match(index, /class="hero-rail" aria-label="Další reporty"/);
 });
