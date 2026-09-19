@@ -17,7 +17,7 @@ const prev = 'b'.repeat(40);
 const origin = 'https://abcd1234.realtech-web.pages.dev';
 const URLS = ['https://realtech.cz/', 'https://realtech.cz/clanky/', 'https://realtech.cz/clanky/dji-ban-usa/', 'https://realtech.cz/clanky/starlink-1gbs-2026/', 'https://realtech.cz/temata/drony/', 'https://realtech.cz/o-nas/', 'https://realtech.cz/gdpr/'];
 
-function fixture({ changed = [], previousRuns = [{ head_branch: 'main', conclusion: 'success', head_sha: prev }], ancestor = true } = {}) {
+function fixture({ changed = [], previousRuns = [{ head_branch: 'main', status: 'completed', conclusion: 'success', event: 'workflow_run', path: '.github/workflows/indexnow-after-deploy.yml', head_sha: prev }], ancestor = true } = {}) {
   const xml = `<urlset>${URLS.map(u => `<url><loc>${u}</loc></url>`).join('')}</urlset>`;
   const run = { id: 123, name: 'npm test', path: '.github/workflows/npm-test.yml', workflow_id: 337523728, event: 'push', status: 'completed', conclusion: 'success', head_branch: 'main', head_sha: sha, repository: { full_name: repo }, head_repository: { full_name: repo } };
   const check = { id: 456, url: `${api}/check-runs/456`, head_sha: sha, app: { id: 85455 }, status: 'completed', conclusion: 'success', check_suite: { id: 789 }, details_url: 'https://dash.cloudflare.com/?to=/c521101b68ea535f22125c6a9a94d0a3/pages/view/realtech-web/11111111-2222-4333-8444-555555555555', output: { summary: `<a href='${origin}'>${origin}</a>` } };
@@ -66,6 +66,22 @@ test('mapování: článek → detail + / + /clanky/ + téma; videos.json → /;
   assert.deepEqual(cestyZeSouboru(['src/pages/clanky/[...id].astro', 'src/styles/global.css', 'src/components/Giscus.astro', 'docs/audit/RULES.md', '.github/workflows/indexnow-after-deploy.yml', 'scripts/indexnow-changed.mjs', 'public/images/clanky/x.webp'], kat), []);
 });
 
+test('nematchující soubor pod src/content/clanky/ → STOP (ne tiché vypuštění)', () => {
+  assert.throws(() => cestyZeSouboru(['src/content/clanky/Velke_Pismeno.md'], () => null), /Unmapped article source/);
+  assert.throws(() => cestyZeSouboru(['src/content/clanky/pod/adresar.md'], () => null), /Unmapped article source/);
+  assert.throws(() => cestyZeSouboru(['src/content/clanky/x.mdx'], () => null), /Unmapped article source/);
+});
+
+test('baseline bere jen completed/success/workflow_run se správnou cestou workflow', async () => {
+  const runs = [
+    { head_branch: 'main', status: 'in_progress', conclusion: null, event: 'workflow_run', path: '.github/workflows/indexnow-after-deploy.yml', head_sha: 'c'.repeat(40) },
+    { head_branch: 'main', status: 'completed', conclusion: 'success', event: 'workflow_dispatch', path: '.github/workflows/indexnow-after-deploy.yml', head_sha: 'd'.repeat(40) },
+    { head_branch: 'main', status: 'completed', conclusion: 'success', event: 'workflow_run', path: '.github/workflows/evil.yml', head_sha: 'e'.repeat(40) },
+    { head_branch: 'main', status: 'completed', conclusion: 'success', event: 'workflow_run', path: '.github/workflows/indexnow-after-deploy.yml', head_sha: prev },
+  ];
+  assert.equal(await predchoziProdukcniSha(async () => ({ workflow_runs: runs }), sha), prev);
+});
+
 test('kategorie z frontmatteru skutečného článku; neexistující slug → null', () => {
   assert.equal(kategorieClanku(ROOT, 'dji-ban-usa'), 'Drony');
   assert.equal(kategorieClanku(ROOT, 'neexistuje-' + Date.now()), null);
@@ -77,7 +93,8 @@ test('průnik se sitemapou: URL mimo produkci se nikdy nepošle, pořadí podle 
 });
 
 test('baseline: poslední úspěšný běh na main jiný než aktuální SHA; žádný → null', async () => {
-  const runs = [{ head_branch: 'main', conclusion: 'success', head_sha: sha }, { head_branch: 'main', conclusion: 'success', head_sha: prev }];
+  const ok = { head_branch: 'main', status: 'completed', conclusion: 'success', event: 'workflow_run', path: '.github/workflows/indexnow-after-deploy.yml' };
+  const runs = [{ ...ok, head_sha: sha }, { ...ok, head_sha: prev }];
   assert.equal(await predchoziProdukcniSha(async () => ({ workflow_runs: runs }), sha), prev);
   assert.equal(await predchoziProdukcniSha(async () => ({ workflow_runs: [] }), sha), null);
   await assert.rejects(predchoziProdukcniSha(async () => ({}), sha));

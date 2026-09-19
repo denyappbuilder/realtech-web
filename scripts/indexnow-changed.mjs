@@ -41,7 +41,7 @@ const SABLONY = new Set(['src/pages/clanky/[...id].astro', 'src/pages/clanky/str
 export async function predchoziProdukcniSha(api, sha, workflowFile = 'indexnow-after-deploy.yml') {
   const data = await api(`/actions/workflows/${workflowFile}/runs?branch=main&status=success&event=workflow_run&per_page=10`);
   ensure(Array.isArray(data?.workflow_runs), 'Invalid workflow runs');
-  const kandidat = data.workflow_runs.find(r => r?.head_branch === 'main' && r?.conclusion === 'success' && SHA.test(r?.head_sha ?? '') && r.head_sha !== sha);
+  const kandidat = data.workflow_runs.find(r => r?.head_branch === 'main' && r?.status === 'completed' && r?.conclusion === 'success' && r?.event === 'workflow_run' && r?.path === `.github/workflows/${workflowFile}` && SHA.test(r?.head_sha ?? '') && r.head_sha !== sha);
   return kandidat?.head_sha ?? null;
 }
 
@@ -90,6 +90,9 @@ export function cestyZeSouboru(soubory, kategorie) {
   const cesty = new Set();
   for (const soubor of soubory) {
     const clanek = soubor.match(CLANEK);
+    // Review: soubor pod src/content/clanky/, který regex nepobere (velké
+    // písmeno, podtržítko, .mdx, podadresář), nesmí potichu vypadnout — STOP.
+    ensure(!soubor.startsWith('src/content/clanky/') || clanek, `Unmapped article source: ${soubor}`);
     if (clanek) {
       const slug = clanek[1];
       ensure(SLUG.test(slug), 'Invalid article slug');
