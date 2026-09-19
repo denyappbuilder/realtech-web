@@ -123,9 +123,7 @@ test("ze sitemapy zachová Unicode, query parametr a percent-encoding beze změn
   ]);
 });
 
-test("[NÁLEZ INDEXNOW-XML-01] dekóduje XML entity v URL ze sitemapy", {
-  todo: "NÁLEZ INDEXNOW-XML-01: obsah <loc> se čte regulárním výrazem bez dekódování XML entit",
-}, (t) => {
+test("[NÁLEZ INDEXNOW-XML-01] dekóduje XML entity v URL ze sitemapy", (t) => {
   const root = createFixture(t, {
     sitemap: "<urlset><url><loc>https://realtech.cz/hledat/?q=čaj&amp;strana=2</loc></url></urlset>",
   });
@@ -138,9 +136,7 @@ test("[NÁLEZ INDEXNOW-XML-01] dekóduje XML entity v URL ze sitemapy", {
   ]);
 });
 
-test("[NÁLEZ INDEXNOW-XML-02] ořízne XML whitespace kolem hodnoty <loc>", {
-  todo: "NÁLEZ INDEXNOW-XML-02: whitespace z formátovaného <loc> se tiše stává součástí odeslané URL",
-}, (t) => {
+test("[NÁLEZ INDEXNOW-XML-02] ořízne XML whitespace kolem hodnoty <loc>", (t) => {
   const root = createFixture(t, {
     sitemap: `<urlset><url><loc>
       https://realtech.cz/clanky/formatovana-url/
@@ -186,9 +182,7 @@ test("v explicitních cestách zachová Unicode a query parametry", (t) => {
   ]);
 });
 
-test("[NÁLEZ INDEXNOW-URL-01] nezkomolí explicitní absolutní URL stejného hostu", {
-  todo: "NÁLEZ INDEXNOW-URL-01: absolutní URL dostane navíc prefix hostu a odešle se jako neexistující cesta",
-}, (t) => {
+test("[NÁLEZ INDEXNOW-URL-01] nezkomolí explicitní absolutní URL stejného hostu", (t) => {
   const root = createFixture(t, { sitemap: null });
   const input = "https://realtech.cz/clanky/absolutni/?varianta=česká";
 
@@ -244,9 +238,7 @@ test("přijme název IndexNow klíče na horní hranici 128 znaků", (t) => {
 });
 
 for (const key of ["abc12345", "ABCD-1234"]) {
-  test(`[NÁLEZ INDEXNOW-KEY-01] přijme protokolem povolený klíč ${key}`, {
-    todo: "NÁLEZ INDEXNOW-KEY-01: validace názvu odmítá platné klíče délky 8–15 a znaky povolené protokolem",
-  }, (t) => {
+  test(`[NÁLEZ INDEXNOW-KEY-01] přijme protokolem povolený klíč ${key}`, (t) => {
     const root = createFixture(t, { keyFile: `${key}.txt`, sitemap: null });
 
     const result = runIndexNow(root, ["clanky/platny-klic/"]);
@@ -293,7 +285,7 @@ for (const status of [200, 202]) {
   });
 }
 
-test("chybnou HTTP odpověď ukončí chybou a omezí tělo na 200 znaků", (t) => {
+test("chybnou HTTP odpověď ukončí chybou a nevypíše vzdálené tělo", (t) => {
   const root = createFixture(t, { sitemap: null });
   const visibleBody = "x".repeat(200);
   const hiddenBody = "TOTO_UZ_SE_NESMI_VYPSAT";
@@ -305,6 +297,6 @@ test("chybnou HTTP odpověď ukončí chybou a omezí tělo na 200 znaků", (t) 
 
   assertExit(result, 1);
   assert.match(result.stderr, /❌ HTTP 429:/);
-  assert.ok(result.stderr.includes(visibleBody));
+  assert.ok(!result.stderr.includes(visibleBody));
   assert.ok(!result.stderr.includes(hiddenBody));
 });
