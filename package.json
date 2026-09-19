@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "check": "astro check",
     "prebuild": "node scripts/validate-content.mjs && node scripts/optimize-images.mjs && node scripts/generate-og.mjs",
     "build": "astro build",
     "preview": "astro preview",
@@ -20,6 +21,7 @@
     "astro": "7.3.3"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.10",
     "@astrojs/compiler": "^2.13.1",
     "js-yaml": "4.3.2",
     "marked": "^18.0.6",

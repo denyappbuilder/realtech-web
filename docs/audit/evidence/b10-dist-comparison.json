@@ -1,0 +1,739 @@
+{
+  "before_files": 1012,
+  "after_files": 1012,
+  "html_files": 144,
+  "html_byte_identical": 1,
+  "html_changed": 143,
+  "added": [
+    "_astro/SearchModal.astro_astro_type_script_index_0_lang.BMsKkYrw.js"
+  ],
+  "removed": [
+    "_astro/SearchModal.astro_astro_type_script_index_0_lang.DlpD_zYR.js"
+  ],
+  "changed": [
+    {
+      "path": "404.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/aa-index-v43-astra-fable/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/amodei-altman-tempo-ai/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-claude-opus-5/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-fable-mythos/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-insights-250-tisic/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-ipo-dva-biliony-investori/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-lambda-35-mld-texas/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-nscale-45-miliard/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-risk-report-misalignment/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-threat-report-ai-orchestruje-kampane/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/anthropic-uver-15-miliard-pred-ipo/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/apple-mac-studio-mini-2026/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/apple-openai-schema-agent/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/ask-maps-agent-objednavani-jidla/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/astra-critical-daybreak-blue/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/chatgpt-health/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/chatgpt-images-2-5-sketch/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/chatgpt-pro-teenagery/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/chatgpt-reklamy-nove-trhy/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/chatgpt-studijni-rezim-rodice/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/chatgpt-ve-wordu-zdarma-checklist-osvc/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/chatgpt-zdarma-neomezene-chaty/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/cina-exportni-kontroly-ai-modely/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/cisa-cinske-ai-destilace-us-modelu/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/claude-anthropic-pentagon/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/claude-code-tydenni-limit-zari/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/claude-cowork-docs-slides-checklist/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/claude-cowork-sandbox-utek/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/claude-fable-5-1-bedrock/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/claude-vodoznak-ai-text/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/claude-voice-mode-opus-sonnet/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/claude-vybadek-24-srpna/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/deepmind-weathernext-cyklony/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/deepseek-unik-nahravky-pozastavene-kolo/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/dji-ban-usa/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/dji-vs-insta360/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/enisa-testuje-mythos-5-astra/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/eu-android-ai-asistenti/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/fable-5-je-zpatky/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/falcon-9-narazil-do-mesice/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/fcc-starlink-vyjimka-dji-zakaz/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-3-8-live-docs-gmail-keep/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-36-flash-gemini-4/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-38-flash/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-agentic-video-understanding/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-mac-hlasove-ovladani/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-notebook-external-sharing/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-omni-flash-nano-banana-2-lite/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-plus-rok-zdarma-studenti/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gemini-spark-chrome-mimo-eu/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/glm-5-3-kybernalezy/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/google-deepmind-hassabis-koray/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/google-earth-nano-banana/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/google-emoji-3d/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/google-pics-scheduled-release-workspace/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/google-vids-avatary/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gpt-5-6-snizeni-cen/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gpt-5-6-sol-zlevneni/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gpt-6-astra-vysla/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/gpt-live-chatgpt-voice/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/grok-imagine-image-2-zdarma/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/hotelova-wifi-captivecrunch/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/ios-26-6-87-bezpecnostnich-der/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/iphone-18-pro-a20-ai/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/iphone-duo-prvni-skladacka/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/jak-delame-videa-s-ai/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/kimi-k3-stop-predplatne/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/meta-australie-zakaz-do-16-let/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/meta-muse-agent-usa/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/meta-muse-instagram-fotky/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/mistral-series-d-3-miliardy-eur/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/muse-spark-13-misto-fable-astra/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/nasa-roman-falcon-heavy/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/notebooklm-gemini-notebook/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/nvidia-groq-3-lpx/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/nvidia-hugging-face-12-9-miliard/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/nvidia-n1x-notebooky/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-agent-hack-hugging-face/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-agenti-dsewiki/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-agents-api-harness/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-astra-critical-kyberbezpecnost/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-bez-ipo-2026/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-jalapeno-hot-chips/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-konci-cursor-spacex/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-mac-mini-studio-agenti/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-misalignment-reports-pet-pravidel-agenti/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-pauza-rl-treninku-astra/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/openai-research-intern-zari-2026/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/pixel-11-tensor-g6/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/pixel-watch-detekce-dechu/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/poco-m8-vs-m8-pro/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/proc-je-spacex-tak-napred/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/rtx-spark-windows-pc-rijen-2026-lokalni-ai-na-co-koukat/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/samsung-flex-titanium-skladacky/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/samsung-galaxy-card/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/samsung-galaxy-unpacked-cervenec/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/samsung-galaxy-z-fold8-flip8-prodej/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/samsung-unpacked-fold8-watch9/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/sony-fx5-cinema-line/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/spacex-nvidia-starmind-ai1/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/spacex-starbase-louisiana/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/spacex-starfall-raketova-doprava/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starlink-1gbs-2026/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starlink-grok-voice-hovory/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starlink-konkurenti/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starlink-mini-test/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starlink-mini-vs-standard/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starlink-v-cesku-pruvodce/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starship-flight-13-starlink-v3/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starship-flight-14-prvni-orbita/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starship-flight-14-super-heavy-static-fire/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/starship-ship-40-vanocni-ostrov/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/strana/2/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/strana/3/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/strana/4/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/strana/5/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/strana/6/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/strana/7/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/strana/8/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/waze-gemini-novinky/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/whatsapp-skupiny-all-ankety/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/whatsapp-web-volani/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/windows-arm-vs-macbook/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/xiaomi-kdo-ma-kontrolu/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "clanky/youtube-shorts-vlastni-nahledy/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "gdpr/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "o-nas/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "rss.xml",
+      "explanation": "Build timestamp lastBuildDate: Sat, 19 Sep 2026 07:49:59 GMT -> Sat, 19 Sep 2026 07:59:52 GMT",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/ai-agenti/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/ai-report/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/ai-report/strana/2/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/ai-report/strana/3/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/ai-report/strana/4/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/ai-report/strana/5/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/drony/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/hardware/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/mobily/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/site/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "temata/vesmir/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    },
+    {
+      "path": "vitej/index.html",
+      "explanation": "Only exact SearchModal content-hash script URL changed",
+      "fully_explained": true
+    }
+  ],
+  "modal_js_only_change": "if(!e?.hidden) -> if(e&&!e.hidden)",
+  "modal_js_fully_explained": true,
+  "all_differences_explained": true,
+  "raw_html_parity_pass": false
+}

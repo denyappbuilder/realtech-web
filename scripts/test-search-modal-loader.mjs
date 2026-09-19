@@ -58,9 +58,9 @@ function prvek(extra = {}) {
 /**
  * Spustí klientský skript modalu nad falešným DOM a vrátí jeho vnitřek.
  *
- * @param {{ hledatelne?: unknown[], fetch?: typeof globalThis.fetch }} [nastaveni]
+ * @param {{ hledatelne?: unknown[], fetch?: typeof globalThis.fetch, chybiOverlay?: boolean }} [nastaveni]
  */
-export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
+export function nactiModal({ hledatelne = null, fetch: fetchImpl, chybiOverlay = false } = {}) {
   let dokument;
   const focus = function () {
     this.fokusovan++;
@@ -102,7 +102,7 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
     body: { style: {} },
     activeElement: spoustec,
     getElementById: (id) =>
-      ({ 'search-overlay': overlay, 'search-q': input, 'search-results': results, 'search-hint': hint, 'search-all-results': allResults })[id] ?? null,
+      ({ 'search-overlay': chybiOverlay ? null : overlay, 'search-q': input, 'search-results': results, 'search-hint': hint, 'search-all-results': allResults })[id] ?? null,
     querySelectorAll: (selector) => selector === '[data-search-open]' ? [spoustec] : [],
   });
 

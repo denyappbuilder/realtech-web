@@ -1,8 +1,25 @@
 # Backlog realtech.cz — čeká na schválení
 
-Výchozí audit: [AUDIT.md](AUDIT.md), commit `061540c3f4ac7de31dcdca90a5894a48044bde8a`, 19. 9. 2026. **Žádná položka nebyla implementována.**
+Výchozí audit: [AUDIT.md](AUDIT.md), commit `061540c3f4ac7de31dcdca90a5894a48044bde8a`, 19. 9. 2026. **Stav při auditu: žádná položka nebyla implementována. Aktuální stav B10 je v dodatku níže.**
 
 Dopad1–5 a pracnost1–5 jsou expertní pořadové odhady, ne naměřený růst návštěvnosti ani kalendářní dny. Pořadí je programově seřazeno sestupně podle dopad/pracnost; při shodě stabilní ID. Riziko a závislosti mohou změnit schválenou sekvenci. **B10 je technický prerequisite prvního implementačního PR**, i když poměrem není první.
+
+## Dodatek B10 — 19. 9. 2026
+
+Původní tabulka a stav výše jsou snapshot dokončeného auditu. B10 je nyní lokálně opravené a ověřené, dosud bez commit/PR; přesná evidence a popsaná výjimka raw HTML parity kvůli schválenému null guardu jsou v [CHANGELOG.md](CHANGELOG.md). Původní auditní manifest neověřuje tuto pozdější aktualizaci backlogu. Ostatní implementace zůstávají nezahájené.
+
+### B06 — doplněné reprodukované okrajové vady (NEOPRAVENO)
+
+- Truthy `image` ukazující na neexistující soubor: detail nepoužije YouTube fallback ani s videem; homepage a karta bez videa rovněž předají chybějící cestu. Není to chyba `image === undefined`; absence image má bezpečné guardy. Budoucí AC: explicitně ověřit neexistující cestu s/bez videa a zvolit schválenou fallback politiku.
+- Existující PNG na homepage: jpg-only `.replace()` ponechá `.png`; jeho existence se vyhodnotí jako WebP a source/preload dostane `image/webp`. Budoucí AC: ověřit PNG/JPG a MIME zdroje bez změn master obrázků.
+- Nezávislá kontrola původního SHA: 8 boundary skupin PASS; baseline deklarované obrázky jsou existující JPG. Vady jsou reprodukované pro okrajová data, nikoli doložené aktuální publikované selhání. B10 pouze zachovává chování a opravuje typový kontrakt null srcset; B06 vyžaduje nové samostatné zadání.
+
+### B17 — posoudit 35 existujících astro check hintů (nový návrh)
+
+- **Stav:** Nezahájeno, čeká na schválení; není součást B10 oprav ani původního seřazeného scoringu.
+- **Inventář:** 25 deprecation hintů Zod/schema, 5 nepoužitých deklarací (4 testy + vitej), 2 chybějící runtime typy `HTMLRewriter`, 2 deprecated `execCommand` a 1 deprecated `navigator.platform`.
+- **Ověření B10:** Stejných 35 identit soubor/kód/zpráva před a po, bez potlačení. Souhrn CLI je 0 warnings / 35 hints, i když diagnostické řádky říkají warning.
+- **Budoucí AC:** Nejprve rozlišit deklarace typu pro Cloudflare runtime, bezpečný úklid nepoužitých jmen a případné behaviorální změny deprecated API. Nenahrazovat clipboard/platform fallbacky ani schema migraci bez vlastních regression testů a samostatného souhlasu; žádné hromadné potlačení hintů.
 
 ## Pořadí
 
@@ -217,7 +234,7 @@ Dopad1–5 a pracnost1–5 jsou expertní pořadové odhady, ne naměřený růs
 - Jedna oblast = `improve/<oblast>` = jeden PR. Malé atomické commity. Nikdy přímý commit do main, žádný merge.
 - Před každým PR skutečný build a astro check, bez **nových** warnings; existující warning je výše transparentně uveden a řeší jej B02. Test suite nesmí regredovat; žádné nové TODO/skip místo oprav.
 - PR: co/proč, stejné metriky před/po, immutable Cloudflare Pages preview pro přesný SHA a návod ručního ověření. Není-li preview dostupné, není release gate splněn.
-- Po dokončení každé schválené větve přidat záznam do `docs/audit/CHANGELOG.md`. Zatím neexistuje implementační záznam, protože fáze3 nezačala.
+- Po dokončení každé schválené větve přidat záznam do `docs/audit/CHANGELOG.md`. První záznam B10 je v CHANGELOG.md; další položky čekají na nové OK.
 - Žádné změny tvrzení/smyslu článků, existujících URL nebo mazání obsahu. Větší vizuální nápad jen návrh. Žádné DNS/CF account/env/secrets zásahy, placené služby ani trackery.
 - Čísla „po“ až ze skutečného opakovaného měření. Odhady Lighthouse nelze vydat za dosažené úspory; změnu traffic/CTR vyhodnotit až za srovnatelné období s limity kauzality.
 
