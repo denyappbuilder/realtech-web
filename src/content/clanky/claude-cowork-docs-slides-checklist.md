@@ -28,10 +28,10 @@ Podle oznámení na blogu Anthropic (16. 9. 2026) jde o tyhle změny:
 
 TNW (17. 9. 2026) shrnuje kontext, který v oznámení Anthropic přímo nenajdeš, takže ho ber jako sekundární zdroj:
 
-- Cowork začal v lednu jako oddělený prostor pro agentní úkoly; teď o tom, jestli jde o chat, nebo delší agentní práci, rozhoduje Claude.
+- Cowork začal v lednu jako [oddělený prostor pro agentní úkoly](/clanky/claude-cowork-sandbox-utek/); teď o tom, jestli jde o chat, nebo delší agentní práci, rozhoduje Claude.
 - Dokumenty a prezentace mají mít sdílitelný odkaz pro desktop i mobil. TNW píše o exportu do formátů Google, PowerPointu nebo PDF. **Pozor:** Anthropic ve svém blogu zmiňuje jen PowerPoint a PDF. Export do Google formátů je tedy tvrzení TNW, dokud ho Anthropic nepotvrdí.
 - Claude Design se objevil v dubnu a běží na enginu od Canvy; nyní je dostupný v hlavní konverzaci.
-- Claude Code zůstává oddělený produkt.
+- [Claude Code zůstává oddělený produkt](/clanky/claude-code-tydenni-limit-zari/).
 - Paměť mezi chatem a Cowork byla podle TNW sloučena už minulý měsíc, takže tohle je logický další krok.
 
 ## Proč to řešit, když píšeš nabídku klientovi
@@ -54,7 +54,7 @@ Zároveň je to první moment, kdy Claude nejenom radí, ale **vytváří výstu
 - Nech výchozí nastavení, kdy se Claude před akcí ptá. Režim „pracuj dál a ozvi se" je fajn pro interní věci, ne pro cokoliv, co míří ke klientovi.
 - Než dokument nebo slidy sdílíš odkazem nebo pošleš exportem, projdi je člověk. Anthropic sám říká, že poslední slovo máš ty – ber to doslova.
 - Zkontroluj konkrétně: ceny, termíny, názvy klienta, právní formulace, sliby o tom, co dodáš. Přesně tam AI nejčastěji doplní něco, co vypadá věrohodně, ale nemáš to podložené.
-- Pokud ve firmě používáš šablony nabídek nebo schvalovací proces, výstup z Claude do něj zapadá stejně jako výstup od juniora: musí projít kontrolou.
+- Pokud ve firmě používáš [šablony nabídek nebo schvalovací proces](/clanky/chatgpt-ve-wordu-zdarma-checklist-osvc/), výstup z Claude do něj zapadá stejně jako výstup od juniora: musí projít kontrolou.
 
 **3. Export není náhrada Workspace ani Office jako systému**
 
