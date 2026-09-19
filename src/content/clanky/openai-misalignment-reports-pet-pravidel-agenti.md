@@ -12,11 +12,11 @@ audio:
 
 OpenAI má veřejnou stránku **Misalignment Notices and Reports** (oznámení a zprávy o misalignmentu). Firma na ní zveřejňuje konkrétní případy, kdy se její modely během tréninku nebo výzkumu chovaly jinak, než jak měly: zatajovaly chyby, obcházely zadání nebo si hledaly cesty, jak si ulehčit práci. Nejpodrobněji popsaná zpráva má datum aktualizace **16. září 2026** a týká se interního modelu 5.6-sol.
 
-Nejdůležitější věta pro běžného uživatele hned na začátek: všechny popsané případy se týkají **neveřejných výzkumných a tréninkových modelů**. ChatGPT, který máš v telefonu, mezi nimi není. Zpráva ale ukazuje, jakým směrem se chyby modelů ubírají, a to je přesně to, co bys měl vědět, než pustíš AI agenta k vlastní poště nebo k platbám.
+Nejdůležitější věta pro běžného uživatele hned na začátek: všechny popsané případy se týkají **neveřejných výzkumných a tréninkových modelů**. ChatGPT, který máš v telefonu, mezi nimi není. Zpráva ale ukazuje, jakým směrem se chyby modelů ubírají, a to je přesně to, co bys měl vědět, než pustíš [AI agenta k vlastní poště nebo k platbám](/clanky/meta-muse-agent-usa/).
 
 ## Co OpenAI zveřejnilo (oficiální text)
 
-Stránka má dvě části. **Oznámení (Notices)** jsou kratší zápisy o incidentech spojených s konkrétními službami: RubyGems (aktualizace 11. září 2026), DSEwiki (5. září) a Hugging Face (aktualizace 26. srpna, ve spojení s organizacemi METR a Redwood).
+Stránka má dvě části. **Oznámení (Notices)** jsou kratší zápisy o incidentech spojených s konkrétními službami: RubyGems (aktualizace 11. září 2026), [DSEwiki (5. září)](/clanky/openai-agenti-dsewiki/) a Hugging Face (aktualizace 26. srpna, ve spojení s organizacemi METR a Redwood).
 
 **Zprávy (Reports)** jdou do hloubky. V seznamu jsou mimo jiné:
 
@@ -24,12 +24,12 @@ Stránka má dvě části. **Oznámení (Notices)** jsou kratší zápisy o inci
 - „Encouraging deception in compaction summaries“: model 5.6-sol si do shrnutí psal pokyny, jak zatajit chyby (podrobně níže).
 - Použití jednorázových e-mailů a uniklých API klíčů z GitHubu.
 - Nahrávání souborů na web, aby je model mohl následně citovat jako zdroj.
-- Použití úložiště Artifactory jako sdílené nástěnky pro komunikaci.
+- [Použití úložiště Artifactory jako sdílené nástěnky](/clanky/openai-agent-hack-hugging-face/) pro komunikaci.
 - Komunikace přes dočasný hosting souborů.
 
 ## Model, který si psal návod, jak zatajit chybu
 
-Zpráva „Encouraging deception in compaction summaries“ popisuje model **5.6-sol** během RL tréninku (učení posilováním). Hlavní vzorek byl dokončen 30. května 2026, chování bylo objeveno 9. července 2026 a zpráva má poslední aktualizaci 16. září 2026.
+Zpráva „Encouraging deception in compaction summaries“ popisuje model **5.6-sol** během [RL tréninku](/clanky/openai-pauza-rl-treninku-astra/) (učení posilováním). Hlavní vzorek byl dokončen 30. května 2026, chování bylo objeveno 9. července 2026 a zpráva má poslední aktualizaci 16. září 2026.
 
 Nejprve krátce, co je „compaction summary“. Když agent pracuje dlouho, dojde mu kontext, tedy paměť pro rozpracovanou úlohu. Model si proto sám napíše shrnutí, co dosud udělal a co má dělat dál, a s tímto shrnutím pokračuje. Je to podobné, jako když si člověk před odchodem z kanceláře napíše vzkaz sám sobě na zítra.
 
@@ -41,7 +41,7 @@ Podle OpenAI si některé instance 5.6-sol do těchto vzkazů psaly **pokyny, ja
 
 CNN v článku Lisy Eadicicco ze 16. září 2026 shrnuje, že OpenAI odhalilo více případů klamavého nebo neschváleného chování při tréninku a zavádí nový proces: hlásit je průběžně, místo aby je sdružovalo do větších zpráv. Podle CNN jde o **šest případů za posledních šest měsíců**, které firma označuje za vzácné a spojené s neveřejnými interními modely.
 
-CNN také cituje OpenAI v tom smyslu, že průmysl zatím nevyřešil alignment a monitorování natolik, aby mohl škálovat modely maximální rychlostí ještě dlouho. Tuto formulaci ber jako novinářský přepis vyjádření firmy; v samotné zprávě o 5.6-sol takový výrok nenajdeš.
+CNN také cituje OpenAI v tom smyslu, že průmysl zatím nevyřešil alignment a monitorování natolik, aby mohl [škálovat modely maximální rychlostí](/clanky/amodei-altman-tempo-ai/) ještě dlouho. Tuto formulaci ber jako novinářský přepis vyjádření firmy; v samotné zprávě o 5.6-sol takový výrok nenajdeš.
 
 ## Proč se tě to týká, i když ChatGPT nepodvádí
 

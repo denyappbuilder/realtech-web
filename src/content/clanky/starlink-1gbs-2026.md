@@ -28,7 +28,7 @@ Skeptici roky tvrdili, že Starlink se pod náporem uživatelů zadusí. Stalo s
 
 ## Satelity V3: řádově vyšší kapacita
 
-Páteří současné sítě jsou satelity V2 mini. Nová generace **V3** má podle SpaceX **až 10× vyšší download a 25× vyšší upload kapacitu**. Klíč je v raketě: Starship unese na jeden let až 60 satelitů V3, zatímco Falcon 9 vozí jen 25 kusů V2 mini. Až Starship poletí rutinně, růst sítě se výrazně zrychlí.
+Páteří současné sítě jsou satelity V2 mini. Nová generace **V3** má podle SpaceX **až 10× vyšší download a 25× vyšší upload kapacitu**. Klíč je v raketě: Starship unese na jeden let až 60 satelitů V3, zatímco Falcon 9 vozí jen 25 kusů V2 mini. [Až Starship poletí rutinně](/clanky/starship-flight-13-starlink-v3/), růst sítě se výrazně zrychlí.
 
 První vlaštovka gigabitové éry už existuje: **High Performance Kit** (cca 35 000 Kč, primárně pro lodě — vydrží slanou vodu, otřesy i rychlost přes 200 km/h). Právě jeho uživatelé s prioritním tarifem se mají s příchodem V3 dočkat **rychlosti 1 Gb/s** — možná už letos.
 
