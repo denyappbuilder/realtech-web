@@ -28,7 +28,7 @@ Starlink už v Česku není exotika — je to reálná alternativa pevné linky 
 
 ## Co Starlink je — za 30 sekund
 
-Satelitní internet od [SpaceX](/clanky/proc-je-spacex-tak-napred/). Anténa na vaší střeše komunikuje s tisíci družic ~500 km nad zemí, které letí rychlostí kolem 30 000 km/h. V anténě Standard je na to zhruba 1 500 malých vysílačů. Výsledek: použitelný internet prakticky kdekoli pod otevřeným nebem — bez kabelu, bez vyjednávání s operátorem.
+Satelitní internet od [SpaceX](/clanky/proc-je-spacex-tak-napred/). Anténa na vaší střeše komunikuje s [tisíci družic](/clanky/starship-flight-13-starlink-v3/) ~500 km nad zemí, které letí rychlostí kolem 30 000 km/h. V anténě Standard je na to zhruba 1 500 malých vysílačů. Výsledek: použitelný internet prakticky kdekoli pod otevřeným nebem — bez kabelu, bez vyjednávání s operátorem.
 
 ## Aktuální ceny v Česku (ověřeno na starlink.com)
 
@@ -59,14 +59,14 @@ Déšť a hustá mlha rychlost srazí, ale připojení drží — Standard díky
 
 ## Pro koho Starlink dává smysl
 
-✅ **Jednoznačně ano:** samoty, vesnice a chaty bez optiky/kabelu, kde je alternativou pomalé rádio nebo LTE s výpadky. Karavany, lodě, dlouhodobé cestování (Mini).
+✅ **Jednoznačně ano:** samoty, vesnice a chaty bez optiky/kabelu, kde je alternativou pomalé rádio nebo LTE s výpadky. [Karavany, lodě, dlouhodobé cestování](/clanky/starlink-mini-test/) (Mini).
 ❌ **Spíš ne:** město s dostupnou optikou — kabel bude levnější, rychlejší a bez spotřeby navíc.
 
 Zvažujete alternativy? Sepsali jsme [velké srovnání pěti konkurentů Starlinku](/clanky/starlink-konkurenti/) — spoiler: reálně použitelnou alternativu v ČR zatím nenajdete, ale to se v příštích letech změní.
 
 ## Co chystá SpaceX dál
 
-SpaceX postupně nasazuje satelity nové generace a mluví o rychlostech **až 1 Gb/s** — natočili jsme k tomu [samostatné video](https://youtu.be/BvVMyDzjY7o). Až se plány potvrdí v ČR, doplníme je sem.
+SpaceX postupně nasazuje [satelity nové generace](/clanky/starlink-1gbs-2026/) a mluví o rychlostech **až 1 Gb/s** — natočili jsme k tomu [samostatné video](https://youtu.be/BvVMyDzjY7o). Až se plány potvrdí v ČR, doplníme je sem.
 
 ## Zdroj
 

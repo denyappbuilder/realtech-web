@@ -60,7 +60,7 @@ Zároveň je to první moment, kdy Claude nejenom radí, ale **vytváří výstu
 
 - To, že si stáhneš PowerPoint nebo PDF, ještě neznamená, že máš verzování, sdílená práva, historii změn a napojení na CRM nebo úložiště firmy.
 - Kde bude „zdrojová pravda" dokumentu? V Claude, nebo v Google Workspace / Microsoft 365? Rozhodni to dřív, než vzniknou dvě rozjeté verze.
-- Sdílitelný odkaz (zmiňuje TNW) je praktický, ale u nabídek s cenami si ověř, kdo přesně k odkazu má přístup a jak ho případně zneplatníš.
+- [Sdílitelný odkaz](/clanky/gemini-notebook-external-sharing/) (zmiňuje TNW) je praktický, ale u nabídek s cenami si ověř, kdo přesně k odkazu má přístup a jak ho případně zneplatníš.
 - Beta znamená beta. Pro klíčovou nabídku měj záložní cestu, jak ji dokončit klasicky.
 
 **4. Co vůbec Claudovi posíláš**

@@ -28,7 +28,7 @@ Skeptici roky tvrdili, že Starlink se pod náporem uživatelů zadusí. Stalo s
 
 ## Satelity V3: řádově vyšší kapacita
 
-Páteří současné sítě jsou satelity V2 mini. Nová generace **V3** má podle SpaceX **až 10× vyšší download a 25× vyšší upload kapacitu**. Klíč je v raketě: Starship unese na jeden let až 60 satelitů V3, zatímco Falcon 9 vozí jen 25 kusů V2 mini. Až Starship poletí rutinně, růst sítě se výrazně zrychlí.
+Páteří současné sítě jsou satelity V2 mini. Nová generace **V3** má podle SpaceX **až 10× vyšší download a 25× vyšší upload kapacitu**. [Klíč je v raketě](/clanky/starship-flight-14-prvni-orbita/): Starship unese na jeden let až 60 satelitů V3, zatímco Falcon 9 vozí jen 25 kusů V2 mini. [Až Starship poletí rutinně](/clanky/starship-flight-13-starlink-v3/), růst sítě se výrazně zrychlí.
 
 První vlaštovka gigabitové éry už existuje: **High Performance Kit** (cca 35 000 Kč, primárně pro lodě — vydrží slanou vodu, otřesy i rychlost přes 200 km/h). Právě jeho uživatelé s prioritním tarifem se mají s příchodem V3 dočkat **rychlosti 1 Gb/s** — možná už letos.
 
@@ -45,8 +45,8 @@ Zní to paradoxně, ale na dálkových trasách má Starlink fyziku na své stra
 - **Letadla:** Starlink Wi-Fi už používá přes 500 letadel (reálně 100–200 Mb/s za letu), letos se chystá dalších 1 500.
 - **Výroba:** 15 000 antén denně, do konce roku plán zdvojnásobit. Ceny hardwaru SpaceX zvyšovat neplánuje — na anténách podle vlastních slov prakticky nevydělává.
 - **Peníze:** armádní zakázka na 480 satelitů za 2 miliardy dolarů a medializované plány na vstup na burzu (po spojení s xAI se valuace odhaduje přes bilion dolarů) dávají SpaceX rozpočet na exponenciální růst.
-- **Sci-fi na obzoru:** SpaceX a xAI mluví o testech **datacenter na oběžné dráze** — napájených sluncem a chlazených vesmírem. Letos jen experimenty, ale směr je jasný.
+- **Sci-fi na obzoru:** SpaceX a xAI mluví o testech **[datacenter na oběžné dráze](/clanky/spacex-nvidia-starmind-ai1/)** — napájených sluncem a chlazených vesmírem. Letos jen experimenty, ale směr je jasný.
 
 ## Co to znamená pro Česko
 
-Krátkodobě: stabilnější síť a postupně vyšší rychlosti i pro běžné antény, jak V3 přebírají provoz. Střednědobě: gigabitové tarify a Direct to Cell, které po Španělsku dorazí i do dalších zemí EU. Jestli Starlink zvažujete už teď, začněte naším [kompletním průvodcem s aktuálními českými cenami](/clanky/starlink-v-cesku-pruvodce/).
+Krátkodobě: stabilnější síť a postupně [vyšší rychlosti i pro běžné antény](/clanky/starlink-mini-vs-standard/), jak V3 přebírají provoz. Střednědobě: gigabitové tarify a Direct to Cell, které po Španělsku dorazí i do dalších zemí EU. Jestli Starlink zvažujete už teď, začněte naším [kompletním průvodcem s aktuálními českými cenami](/clanky/starlink-v-cesku-pruvodce/).
