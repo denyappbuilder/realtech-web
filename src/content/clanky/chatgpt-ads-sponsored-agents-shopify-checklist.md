@@ -10,7 +10,7 @@ audio:
   duration: 1458
 ---
 
-OpenAI 16. září oznámilo další krok u reklam v ChatGPT. Testuje **Sponsored Agents**, tedy sponzorované agenty, se kterými si můžeš po kliknutí na reklamu popovídat. Zároveň napojilo Ads Manager na **Shopify** a **HubSpot**, aby reklamu zvládl nastavit i menší prodejce bez agentury. Pro český e-shop nebo OSVČ je to zatím spíš věc k sledování než k okamžitému utrácení. Část novinek je jen americký test, část má dorazit do dalších trhů od 23. září. Tady je, co se skutečně změnilo a jak si to přeložit do praxe.
+OpenAI 16. září oznámilo [další krok u reklam v ChatGPT](/clanky/chatgpt-reklamy-nove-trhy/). Testuje **Sponsored Agents**, tedy [sponzorované agenty](/clanky/openai-agents-api-harness/), se kterými si můžeš po kliknutí na reklamu popovídat. Zároveň napojilo Ads Manager na **Shopify** a **HubSpot**, aby reklamu zvládl nastavit i menší prodejce bez agentury. Pro český e-shop nebo OSVČ je to zatím spíš věc k sledování než k okamžitému utrácení. Část novinek je jen americký test, část má dorazit do dalších trhů od 23. září. Tady je, co se skutečně změnilo a jak si to přeložit do praxe.
 
 ## Co se změnilo
 
@@ -27,7 +27,7 @@ Přihlášení inzerentů běží přes ads.openai.com, případně přes aplika
 
 Tohle je pro čtenáře nejdůležitější rozdíl. Když v ChatGPT klikneš na reklamu, můžeš **dobrovolně** zahájit konverzaci s agentem, kterého sponzoruje daná firma. OpenAI zdůrazňuje, že konverzace je **jasně označená**, oddělená od normálních odpovědí ChatGPT i od tvého původního chatu. Můžeš se doptávat a pak přejít odkazem na web firmy.
 
-Prakticky: agent placený obchodníkem není nezávislý poradce. Je to prodejní rozhovor v novém kabátě. Neptej se ho, jestli je konkurence lepší. Ptej se ho na to, co ví: dostupnost, parametry, podmínky. A pamatuj, že OpenAI to zatím testuje pouze s **vybranými inzerenty v USA**. Nic z toho dnes v Česku neuvidíš a OpenAI ani neslíbilo, kdy a zda se test rozšíří.
+Prakticky: [agent placený obchodníkem není nezávislý poradce](/clanky/meta-muse-agent-usa/). Je to prodejní rozhovor v novém kabátě. Neptej se ho, jestli je konkurence lepší. Ptej se ho na to, co ví: dostupnost, parametry, podmínky. A pamatuj, že OpenAI to zatím testuje pouze s **vybranými inzerenty v USA**. Nic z toho dnes v Česku neuvidíš a OpenAI ani neslíbilo, kdy a zda se test rozšíří.
 
 ## Shopify a HubSpot pro malé prodejce
 

@@ -12,7 +12,7 @@ audio:
 
 OpenAI spustil oficiální doplněk ChatGPT for Word, který píše, upravuje a formátuje text přímo v otevřeném dokumentu. Funguje celosvětově a na všech tarifech včetně toho zdarma, jen s limity. Pro živnostníky je to lákavá zkratka k nabídkám a průvodním dopisům. Projdeme, jak se liší od Copilotu, kam tečou tvoje data a co zkontrolovat, než dokument odejde klientovi.
 
-Do Wordu ti od tohoto týdne může přímo psát ChatGPT. Ne přes kopírování z prohlížeče, ale jako doplněk, který sedí vedle dokumentu a upravuje text tam, kde ho máš otevřený. A hlavně: **funguje i na účtu zdarma**, jen s limity. Pro živnostníka, který každý týden posílá klientům nabídky, faktury s průvodním dopisem nebo smlouvy, je to lákavé. Před tím, než AI pustíš k dokumentu, který za pár hodin odejde klientovi, se ale vyplatí projít pár věcí.
+Do Wordu ti od tohoto týdne může přímo psát ChatGPT. Ne přes kopírování z prohlížeče, ale jako doplněk, který sedí vedle dokumentu a upravuje text tam, kde ho máš otevřený. A hlavně: **[funguje i na účtu zdarma](/clanky/chatgpt-zdarma-neomezene-chaty/)**, jen s limity. Pro živnostníka, který každý týden posílá klientům nabídky, faktury s průvodním dopisem nebo smlouvy, je to lákavé. Před tím, než AI pustíš k dokumentu, který za pár hodin odejde klientovi, se ale vyplatí projít pár věcí.
 
 ## Co to je a co to není
 
@@ -53,7 +53,7 @@ Praktické pravidlo: **smlouvu s citlivými údaji klienta, rodná čísla nebo 
 Zajímavé je, že OpenAI má přímo na stránce produktu poměrně otevřený seznam omezení. Stojí za to ho číst jako návod, ne jako drobné písmo:
 
 - Doplněk **může dělat chyby a nechtěné úpravy** v dokumentu. OpenAI doporučuje výsledek vždy zkontrolovat.
-- **Fakta a čísla si ověř.** AI si klidně vymyslí částku, datum nebo paragraf zákona.
+- **[Fakta a čísla si ověř](/clanky/openai-misalignment-reports-pet-pravidel-agenti/).** AI si klidně vymyslí částku, datum nebo paragraf zákona.
 - **Ukládej si kopie** dokumentu před většími úpravami.
 - **Složité formátování, tabulky a grafy** často potřebují ruční doladění.
 - Neumí sám sáhnout do jiných souborů na disku. Když chceš, aby vycházel z tvé loňské nabídky, musíš mu ji otevřít nebo vložit.
@@ -64,7 +64,7 @@ Na stránce OpenAI zmiňuje i takzvané skills, něco jako uložené pokyny pro 
 
 Dobré využití:
 
-- **První verze nabídky nebo průvodního dopisu.** Nadiktuješ body, AI z nich udělá slušný text, ty ho dotáhneš.
+- **[První verze nabídky nebo průvodního dopisu](/clanky/claude-cowork-docs-slides-checklist/).** Nadiktuješ body, AI z nich udělá slušný text, ty ho dotáhneš.
 - **Přepis tvého textu do formálnějšího tónu** pro nového klienta nebo úřad.
 - **Zkrácení dlouhého dokumentu** na shrnutí pro e-mail.
 - **Kontrola srozumitelnosti**: nech si vysvětlit, jak by tvému textu rozuměl někdo, kdo nezná tvůj obor.
@@ -90,6 +90,6 @@ Jednoduchý postup, který zabere pět minut a ušetří ti trapnou omluvu:
 
 Server RuntimeWire, který o spuštění psal 17. září 2026, rámuje novinku jako **přímý útok na Microsoft 365 Copilot**: stejná funkce, stejný Word, ale bez potřeby Microsoft předplatného. To je novinářský pohled, ne oficiální tvrzení OpenAI, a my ho tady jen přenášíme.
 
-RuntimeWire dál uvádí, že se doplněk má od 1. října automaticky zapnout ve firemních pracovních prostorech a že firemní tarify Business a Enterprise mají mezi 17. a 30. zářím ve Wordu bezplatný náhled modelu GPT-5.6 Sol, který se nepočítá do limitů. **Tyto detaily jsme na oficiální stránce OpenAI nenašli**, RuntimeWire se odvolává na příspěvek OpenAI na síti X. Ber je jako informaci z druhé ruky, dokud ji OpenAI nepotvrdí ve své dokumentaci.
+RuntimeWire dál uvádí, že se doplněk má od 1. října automaticky zapnout ve firemních pracovních prostorech a že firemní tarify Business a Enterprise mají mezi 17. a 30. zářím ve Wordu [bezplatný náhled modelu GPT-5.6 Sol](/clanky/gpt-5-6-sol-zlevneni/), který se nepočítá do limitů. **Tyto detaily jsme na oficiální stránce OpenAI nenašli**, RuntimeWire se odvolává na příspěvek OpenAI na síti X. Ber je jako informaci z druhé ruky, dokud ji OpenAI nepotvrdí ve své dokumentaci.
 
 Pro tebe jako běžného uživatele to ale moc nemění. Podstatné je, že **ChatGPT ve Wordu funguje už teď, i zadarmo, a že za výsledek pořád ručíš ty.**
