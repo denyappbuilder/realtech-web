@@ -8,7 +8,11 @@ Dopad1–5 a pracnost1–5 jsou expertní pořadové odhady, ne naměřený růs
 
 Původní tabulka a stav výše jsou snapshot dokončeného auditu. B10 je nyní lokálně opravené a ověřené, dosud bez commit/PR; přesná evidence a popsaná výjimka raw HTML parity kvůli schválenému null guardu jsou v [CHANGELOG.md](CHANGELOG.md). Původní auditní manifest neověřuje tuto pozdější aktualizaci backlogu. Ostatní implementace zůstávají nezahájené.
 
-### B06 — doplněné reprodukované okrajové vady (NEOPRAVENO)
+### B06 — částečný draft PNG + malé varianty (19. 9. 2026)
+
+Lokálně implementována oprava PNG source/preload + JPG srcset derivace a přidány WebP 192/384w; před nezávislým review/commit/PR. Evidence v [CHANGELOG.md](CHANGELOG.md). **B06 není celé hotové: politika chybějící truthy image zůstává beze změny, odložena; dle závěrečného pokynu se validátor ani prebuild nemění a fallback se nepřidává.** Níže uvedená reprodukce chybějící cesty stále platí; PNG reprodukci nyní pokrývá regression test.
+
+### B06 — původní reprodukované okrajové vady
 
 - Truthy `image` ukazující na neexistující soubor: detail nepoužije YouTube fallback ani s videem; homepage a karta bez videa rovněž předají chybějící cestu. Není to chyba `image === undefined`; absence image má bezpečné guardy. Budoucí AC: explicitně ověřit neexistující cestu s/bez videa a zvolit schválenou fallback politiku.
 - Existující PNG na homepage: jpg-only `.replace()` ponechá `.png`; jeho existence se vyhodnotí jako WebP a source/preload dostane `image/webp`. Budoucí AC: ověřit PNG/JPG a MIME zdroje bez změn master obrázků.

@@ -17,6 +17,8 @@ const derivativeNames = (base) => [
   `${base}.webp`,
   `${base}-640.webp`,
   `${base}-960.webp`,
+  `${base}-192.webp`,
+  `${base}-384.webp`,
 ];
 
 test('symlinkovaný JPG mířící mimo vstup se nezpracuje', async (t) => {
@@ -46,9 +48,9 @@ test('symlinkovaný JPG mířící mimo vstup se nezpracuje', async (t) => {
       fs.existsSync(path.join(inputDir, name))
     )),
   }, {
-    result: { covers: 1, updated: 4 },
-    sharpSources: [regularSource, regularSource, regularSource, regularSource],
-    regularDerivatives: [true, true, true, true],
-    symlinkDerivatives: [false, false, false, false],
+    result: { covers: 1, updated: 6 },
+    sharpSources: Array(6).fill(regularSource),
+    regularDerivatives: Array(6).fill(true),
+    symlinkDerivatives: Array(6).fill(false),
   });
 });

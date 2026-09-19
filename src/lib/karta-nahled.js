@@ -24,6 +24,7 @@ export const HOMEPAGE_HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), 1280p
  * volitelně `-960.webp 960w` (kolo 39, viz scripts/optimize-images.mjs)
  * a plný `.webp 1280w`. Chybějící 960 (starší cover bez přegenerování)
  * srcset nerozbije — sada se jen vrátí k 640w+1280w.
+ * Volitelné 192/384w slouží malým kartám; původní 640/full guard zůstává.
  *
  * @param {string} fullWebp — cesta k plnému .webp (/images/clanky/x.webp)
  * @param {(cesta: string) => boolean} exists
@@ -34,14 +35,20 @@ export function webpSrcsetZDerivatu(fullWebp, exists = (cesta) => fs.existsSync(
   const small = fullWebp.replace(/\.webp$/, '-640.webp');
   const mid = fullWebp.replace(/\.webp$/, '-960.webp');
   if (!exists(`public${small}`) || !exists(`public${fullWebp}`)) return null;
-  const parts = [`${small} 640w`];
+  const parts = [];
+  for (const width of [192, 384]) {
+    const candidate = fullWebp.replace(/\.webp$/, `-${width}.webp`);
+    if (exists(`public${candidate}`)) parts.push(`${candidate} ${width}w`);
+  }
+  parts.push(`${small} 640w`);
   if (exists(`public${mid}`)) parts.push(`${mid} 960w`);
   parts.push(`${fullWebp} 1280w`);
   return parts.join(', ');
 }
 
-// Archive uses a 96px mobile thumbnail, then the existing 2/3-column grid.
-export const KARTA_SIZES_ARCHIVE = '(max-width: 580px) 96px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
+// Mobile boxes are 72/96px square: object-fit: cover needs 16/9 times
+// their width from the landscape source (128/171px), before DPR scaling.
+export const KARTA_SIZES_ARCHIVE = '(max-width: 360px) 128px, (max-width: 580px) 171px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
 
 /**
  * Featured první karta na /temata/{slug}/ (.featured-lead > .card:first-child):

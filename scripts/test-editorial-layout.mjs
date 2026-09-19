@@ -7,7 +7,7 @@ test('archive image and preload share compact-mobile slot sizes without changing
  assert.ok(source.includes('KARTA_SIZES_ARCHIVE'), 'archive uses layout-specific sizes');
  assert.match(source,/sizes: KARTA_SIZES_ARCHIVE/);
  assert.match(source,/sizes=\{KARTA_SIZES_ARCHIVE\}/);
- assert.match(read('src/lib/karta-nahled.js'),/export const KARTA_SIZES_ARCHIVE = '\(max-width: 580px\) 96px,/);
+ assert.match(read('src/lib/karta-nahled.js'),/export const KARTA_SIZES_ARCHIVE = '\(max-width: 360px\) 128px, \(max-width: 580px\) 171px,/);
 });
 test('privacy newsletter heading does not collide with the site-wide signup landmark', () => {
  const source=read('src/pages/gdpr.astro');

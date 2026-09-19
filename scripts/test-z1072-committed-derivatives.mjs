@@ -31,11 +31,13 @@ function trackedImages() {
   return new Set(out.split('\n').filter(Boolean));
 }
 
+// Permit staged derivatives during pre-commit verification; reject every
+// untracked or unstaged image change produced by prebuild.
 function porcelainImages() {
   return execFileSync('git', ['status', '--porcelain', '--', 'public/images'], {
     cwd: root,
     encoding: 'utf8',
-  });
+  }).split('\n').filter((line) => line && line[1] !== ' ').join('\n');
 }
 
 test('Z1072: jedenáct derivátů je v gitu a prebuild nenechá public/images špinavé', () => {

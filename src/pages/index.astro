@@ -61,11 +61,11 @@ const heroThumb = heroVideoId && !heroMaLokalniCover
   ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg`
   : hero?.data.image;
 // Na mobilu stačí 640px varianta — LCP
-const heroSmall = heroMaLokalniCover ? heroImage.replace(/\.jpg$/, '-640.jpg') : null;
+const heroSmall = heroMaLokalniCover && heroImage.endsWith('.jpg') ? heroImage.replace(/\.jpg$/, '-640.jpg') : null;
 const heroSrcset = heroSmall && fs.existsSync(`public${heroSmall}`)
   ? `${heroSmall} 640w, ${heroThumb} 1280w`
   : undefined;
-const heroWebp = heroMaLokalniCover ? heroImage.replace(/\.jpg$/, '.webp') : null;
+const heroWebp = heroMaLokalniCover && heroImage.endsWith('.jpg') ? heroImage.replace(/\.jpg$/, '.webp') : null;
 const heroWebpSmall = heroWebp?.replace(/\.webp$/, '-640.webp');
 const heroHasWebp = !!heroWebp && fs.existsSync(`public${heroWebp}`);
 // Kolo 39: 960w mezi 640 a 1280 (viz karta-nahled.js) — hero na mobilu
