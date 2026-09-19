@@ -231,8 +231,16 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .about-main p { font-size: 1.1rem; line-height: 1.8; }
 .about h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.65rem; letter-spacing: -0.025em; margin-top: 48px; }
 .about h2::before { content: none; }
+/* Kolo 44: /gdpr/ začíná v .about-main rovnou nadpisem — 48px margin sloupce
+   + 48px margin h2 dávalo ~100px díru pod perexem (živě 19. 9. 2026, 390px).
+   O nás začíná .stats, tam se to neprojevilo. */
+.about-main > h2:first-child { margin-top: 0; }
 .about-aside { border: 0; border-left: 1px solid var(--line); border-radius: 0; background: transparent; padding: 0 0 0 28px; }
 .stats { gap: 20px; padding: 28px 0; border-block: 1px solid var(--line); }
+/* Kolo 44: `.about-main ul` (odrážky /gdpr/) dává 1.4em levý okraj i seznamu
+   čísel — blok „80+ / 260 000+ / 118“ seděl 19 px vpravo od odstavců
+   (živě 19. 9. 2026, 1280 i 390px). Vyšší specificita, okraj jen svislý. */
+.about-main .stats { margin-inline: 0; }
 .stat { background: transparent; border: 0; padding: 0; }
 .stat strong { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
 .newsletter { background: var(--surface); color: var(--ink); border-top: 1px solid var(--line); padding: 72px 0; }

@@ -165,3 +165,12 @@ test('kolo 44: tisk článku schová „Přejít rovnou na text“, témata úvo
     assert.ok(skryte.includes(selektor), `${selektor} se tiskne`);
   }
 });
+
+// ── P1: přepínač tématu bez JS ───────────────────────────────────────────────
+
+test('kolo 44: noscript schová přepínač tématu přes ID — .theme-toggle prohrávalo s pozdějším display: grid', () => {
+  assert.match(base, /<Fragment set:html=\{'<noscript><style>#theme-toggle\{display:none\}<\/style><\/noscript>'\} \/>/);
+  assert.doesNotMatch(base, /<style>\.theme-toggle\{display:none\}/, 'stejná specificita jako .theme-toggle { display: grid } v global.css — pořadí rozhodne pro stylesheet');
+  assert.match(pravidlo(global, '.theme-toggle'), /display:\s*grid/, 'důvod, proč třída nestačí');
+  assert.match(base, /<button id="theme-toggle" class="theme-toggle"/);
+});

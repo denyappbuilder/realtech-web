@@ -208,9 +208,16 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
       výraz {…} včetně tohoto komentáře — </head> pak uzavře hned za prvním
       <noscript> a slot head, preload LCP i beacon skončí v <body> (ověřeno
       kompilací; test-kolo-41-leftover to hlídá). Vložený řetězec parser
-      nevidí, HTML je stejné jako u <noscript>. Sem mezi ně nic nepřidávat. */}
+      nevidí, HTML je stejné jako u <noscript>. Sem mezi ně nic nepřidávat.
+
+      Kolo 44: `.theme-toggle{display:none}` živě nefungovalo — stylesheet
+      Astro vkládá až na konec <head>, za <noscript>, a `.theme-toggle
+      { display: grid }` v global.css má stejnou specificitu (0,1,0), takže
+      pozdější pravidlo vyhrálo a měsíček bez JS svítil dál (ověřeno 19. 9.
+      2026 v preview s vypnutým skriptem). ID selektor (1,0,0) vyhrává bez
+      ohledu na pořadí; ⌘K má `[data-search-open]` (0,2,0), tomu to stačilo. */}
   <noscript><style>.search-trigger[data-search-open]{display:none}</style></noscript>
-  <Fragment set:html={'<noscript><style>.theme-toggle{display:none}</style></noscript>'} />
+  <Fragment set:html={'<noscript><style>#theme-toggle{display:none}</style></noscript>'} />
   <slot name="head" />
   {/* Až za slotem: preload LCP obrázku ze stránky má být v HTML první.
       `crossorigin` je u fontů povinný i na vlastní doméně (CSS je tahá

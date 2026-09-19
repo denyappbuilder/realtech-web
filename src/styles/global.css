@@ -99,6 +99,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   border-radius: 0 0 var(--radius) 0;
 }
 .skip-link:focus { left: 0; }
+/* Kolo 44: slovo se spojovníkem („e-mailem“ v h1 /gdpr/), které se nemá lámat. */
+.nowrap { white-space: nowrap; }
 /* Jen pro čtečky (živé oblasti stavu) — display: none by aria-live umlčelo. */
 .sr-only {
   position: absolute; width: 1px; height: 1px; margin: -1px;

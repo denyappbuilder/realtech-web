@@ -84,7 +84,7 @@ test('kolo 41: <noscript><style> v <head> schová přepínač tématu (bez JS je
   // (ověřeno kompilací Base.astro v kole 41, viz test níž).
   assert.match(
     head,
-    /<noscript><style>\.search-trigger\[data-search-open\]\{display:none\}<\/style><\/noscript>\s*<Fragment set:html=\{'<noscript><style>\.theme-toggle\{display:none\}<\/style><\/noscript>'\} \/>\s*<slot name="head" \/>/,
+    /<noscript><style>\.search-trigger\[data-search-open\]\{display:none\}<\/style><\/noscript>\s*<Fragment set:html=\{'<noscript><style>#theme-toggle\{display:none\}<\/style><\/noscript>'\} \/>\s*<slot name="head" \/>/,
     'kolo 37 noscript → Fragment set:html → slot head, bez ničeho mezi',
   );
   assert.equal((head.match(/(?<!')<noscript>/g) ?? []).length, 1, 'v <head> Base smí být jen jeden literální <noscript> (kompilátor)');
@@ -103,7 +103,7 @@ test('kolo 41: kompilátor uzavře </head> Base až za slotem head a beaconem (d
   assert.ok(konecHlavy > 0, 'kompilát bez </head>');
   const slotHead = code.indexOf('$$slots["head"]');
   const beacon = code.indexOf('static.cloudflareinsights.com/beacon.min.js');
-  const noscriptTema = code.indexOf('.theme-toggle{display:none}');
+  const noscriptTema = code.indexOf('#theme-toggle{display:none}');
   assert.ok(slotHead > 0 && slotHead < konecHlavy, 'slot head musí zůstat v <head> (preload LCP, JSON-LD, noscript článku)');
   assert.ok(beacon > 0 && beacon < konecHlavy, 'beacon Cloudflare musí zůstat v <head>');
   assert.ok(noscriptTema > 0 && noscriptTema < konecHlavy, 'noscript přepínače tématu musí zůstat v <head>');
