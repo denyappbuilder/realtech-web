@@ -103,10 +103,8 @@ test('kolo 22: sizes/preload hero článku míří na 760px, ne 1120px', () => {
 
 // ── NICE ───────────────────────────────────────────────────────────────────
 
-test('kolo 22: tisk kreslí štítek REALTECH na hero jako text s rámečkem', () => {
-  const tisk = blok(/@media print\s*\{/);
-  assert.match(tisk, /\.hero-visual \.rec\s*\{[^}]*background:\s*none;[^}]*color:\s*#000;[^}]*border:\s*1px solid #000/);
-});
+// Kolo 22 hlídalo tisk štítku REALTECH na hero (.hero-visual .rec); overlay
+// je od premium round 3 pryč z markupu a od kola 44 i z CSS.
 
 test('kolo 22: tisk doplňuje href jen k absolutním http(s) odkazům', () => {
   const tisk = blok(/@media print\s*\{/);
@@ -115,7 +113,8 @@ test('kolo 22: tisk doplňuje href jen k absolutním http(s) odkazům', () => {
 });
 
 test('kolo 22: tlačítko sdílení „X“ má aria-label, kopírování hlásí výsledek živou oblastí', () => {
-  const x = clanek.match(/<a class="share-btn" href=\{`https:\/\/twitter\.com\/intent\/tweet[^>]*>X<\/a>/g) ?? [];
+  // Kolo 44: intent míří rovnou na x.com/intent/post (twitter.com/intent/tweet jen přesměrovával).
+  const x = clanek.match(/<a class="share-btn" href=\{`https:\/\/x\.com\/intent\/post[^>]*>X<\/a>/g) ?? [];
   assert.equal(x.length, 2, 'aside i patička článku mají tlačítko X');
   for (const tag of x) assert.match(tag, /aria-label="Sdílet na X"/);
 

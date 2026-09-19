@@ -233,12 +233,14 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
                       alt="" zůstává: jméno odkazu nese viditelný
                       .hero-rail-title hned vedle, alt={title} by ho zdvojil
                       („Titulek Titulek“) — stejné pravidlo jako .vc-thumb níž.
+                      Kolo 44: i aria-hidden jako .vc-thumb — prázdný alt bez
+                      něj některé čtečky hlásí jako „obrázek“ bez jména.
                     */}
                     {nahled && (
                       <picture>
                         {nahled.webpSrcset && <source srcset={nahled.webpSrcset} sizes={HERO_RAIL_SIZES} type="image/webp" />}
                         {!nahled.webpSrcset && nahled.webp && <source srcset={nahled.webp} type="image/webp" />}
-                        <img src={nahled.src} alt="" width={nahled.width} height={nahled.height} loading="lazy" decoding="async" />
+                        <img src={nahled.src} alt="" aria-hidden="true" width={nahled.width} height={nahled.height} loading="lazy" decoding="async" />
                       </picture>
                     )}
                     <span class="hero-rail-copy">

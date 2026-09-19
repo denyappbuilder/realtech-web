@@ -55,7 +55,8 @@ const PLEX = [
 
 test("kolo 38: Base importuje fonts-plex.css místo subsetových entrypointů fontsource bez unicode-range", () => {
   assert.match(base, /import '\.\.\/styles\/fonts-plex\.css';/);
-  assert.doesNotMatch(base, /@fontsource\/ibm-plex-(?:sans|mono)\//, "latin-400.css & spol. unicode-range nenesou");
+  // Kolo 44: `files/*.woff2?url` (preload) je v pořádku — zakázané jsou jen CSS entrypointy bez unicode-range.
+  assert.doesNotMatch(base, /@fontsource\/ibm-plex-(?:sans|mono)\/[^'"]*\.css/, "latin-400.css & spol. unicode-range nenesou");
   const importy = [...base.matchAll(/^import '([^']+\.css)';/gm)].map((m) => m[1]);
   assert.deepEqual(importy, [
     "../styles/fonts-archivo.css",

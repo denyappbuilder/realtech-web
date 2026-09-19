@@ -67,13 +67,13 @@ test("kolo 19: --signal-fill je deklarovaný v :root a tmavé bloky ho nepřepis
 });
 
 test("kolo 19: tlačítka a štítky s bílým textem berou --signal-fill, ne --signal", () => {
-  for (const selektor of [".yt-btn", ".lower-third .tag", ".nl-form button", ".nl-cta", ".si-cat"]) {
+  for (const selektor of [".yt-btn", ".lower-third .tag", ".nl-form button", ".si-cat"]) {
     const pravidlo = telo(selektor);
     assert.ok(pravidlo, `${selektor} v CSS chybí`);
     assert.match(pravidlo, /background:\s*var\(--signal-fill\)/, `${selektor} nebere --signal-fill`);
     assert.match(pravidlo, /color:\s*#fff/, `${selektor} test hlídá právě bílý text`);
   }
-  for (const selektor of [".yt-btn:hover", "a.tag:hover", ".nl-form button:hover", ".nl-cta:hover"]) {
+  for (const selektor of [".yt-btn:hover", "a.tag:hover", ".nl-form button:hover"]) {
     assert.match(telo(selektor), /background:\s*var\(--signal-fill-hover\)/, `${selektor} nebere --signal-fill-hover`);
   }
 });

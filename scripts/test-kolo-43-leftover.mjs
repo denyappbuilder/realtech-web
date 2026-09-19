@@ -62,11 +62,13 @@ test('kolo 43: premium vrací 1px rámeček na .audio-prehled / .article-videoba
   assert.match(blok, /padding:\s*24px/);
 });
 
-test('kolo 43: článek bez videa má tišší videobar — stejný rámeček, menší padding, výzva zůstává', () => {
+// Kolo 44: varianta bez videa je ještě tišší — bez karty, jen hairline nad
+// řadou a obrysové tlačítko (test-kolo-44-leftover.mjs). Výzva zůstává.
+test('kolo 43: článek bez videa má vlastní modifikátor, varianta s videem beze změny, výzva zůstává', () => {
   assert.match(clanek, /\{!video && xEmbedy\.length === 0 && \(\s*<div class="article-videobar article-videobar-bez-videa">/);
   assert.match(clanek, /\{video && \(\s*<div class="article-videobar">/, 'varianta s videem beze změny');
-  assert.match(pravidlo(premium, '.article-videobar-bez-videa'), /padding:\s*16px 20px/);
-  assert.doesNotMatch(pravidlo(premium, '.article-videobar-bez-videa'), /display:\s*none|border/);
+  assert.ok(pravidlo(premium, '.article-videobar-bez-videa'), 'modifikátor v premium.css chybí');
+  assert.doesNotMatch(pravidlo(premium, '.article-videobar-bez-videa'), /display:\s*none/);
   assert.match(clanek, /K tomuhle článku video není[\s\S]*?Odebírat kanál/, 'YT výzva u článku bez videa zůstává');
 });
 
@@ -89,7 +91,8 @@ test('kolo 43: --line-strong je o krok tmavší jen pro oddělovače sekcí — 
   assert.match(premium, /@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{ --line-strong: #343C48; \}/);
   const pouziti = premium.match(/^[^@\n][^{\n]*\{[^}]*var\(--line-strong\)/gm) ?? [];
   const selektory = pouziti.map((p) => p.split('{')[0].trim());
-  assert.deepEqual(selektory.sort(), ['.audio-prehled, .article-videobar', '.related', '.tema-souvisi'].sort(), `--line-strong jen na oddělovačích sekcí, je: ${selektory}`);
+  // Kolo 44: tichý videobar bez videa je taky oddělovač sekce (hairline nad řadou).
+  assert.deepEqual(selektory.sort(), ['.audio-prehled, .article-videobar', '.article-videobar-bez-videa', '.related', '.tema-souvisi'].sort(), `--line-strong jen na oddělovačích sekcí, je: ${selektory}`);
   assert.match(pravidlo(premium, '[data-archive] .filter-empty'), /var\(--line\)/, 'pole archivu drží --line');
   assert.match(mobil, /header\.site nav\.main \{[^}]*var\(--line\)/, 'header drží --line');
 });

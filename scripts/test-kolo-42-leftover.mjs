@@ -195,7 +195,7 @@ test('kolo 42: hero rail úvodky kreslí <picture> s WebP srcset a sizes=HERO_RA
   assert.doesNotMatch(rail, /<img src=\{nahledKarty\(/, 'holý <img> bez srcset (kolo 42)');
   assert.match(rail, /<picture>/);
   assert.match(rail, /<source srcset=\{nahled\.webpSrcset\} sizes=\{HERO_RAIL_SIZES\} type="image\/webp" \/>/, 'WebP <source> se srcset a sizes railu');
-  assert.match(rail, /<img src=\{nahled\.src\} alt="" width=\{nahled\.width\} height=\{nahled\.height\} loading="lazy" decoding="async" \/>/, 'img s pravdivými rozměry, lazy, alt="" (jméno nese .hero-rail-title)');
+  assert.match(rail, /<img src=\{nahled\.src\} alt="" aria-hidden="true" width=\{nahled\.width\} height=\{nahled\.height\} loading="lazy" decoding="async" \/>/, 'img s pravdivými rozměry, lazy, alt="" (jméno nese .hero-rail-title)');
   assert.doesNotMatch(rail, /alt=\{article\.data\.title\}/, 'alt s titulkem by zdvojil jméno odkazu (viditelný .hero-rail-title)');
   assert.match(rail, /class="hero-rail-title"/);
   assert.match(index, /import \{[^}]*\bnahledRailu\b[^}]*\bHERO_RAIL_SIZES\b[^}]*\} from '\.\.\/lib\/karta-nahled\.js'/, 'rail bere helper i sizes z karta-nahled.js');

@@ -223,7 +223,9 @@ const breadcrumbLd = {
           <a class="tag" href={`/temata/${slugify(category)}/`}>{category}</a>
           {zprava && <span class="tag tag-zprava">Zpráva</span>}
           <time class="time" datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
-          {updatedStr && <span class="time">AKTUALIZOVÁNO {updatedStr}</span>}
+          {/* Kolo 44: datum aktualizace je <time> s datetime jako datum vydání —
+              čtečka i vyhledávač ho čtou strojově, ne jako holý text. */}
+          {updated && updatedStr && <time class="time" datetime={updated.toISOString().slice(0, 10)}>AKTUALIZOVÁNO {updatedStr}</time>}
           <span class="time">ČTENÍ {readMinutes} MIN</span>
         </div>
         <h1>{title}</h1>
@@ -357,10 +359,13 @@ const breadcrumbLd = {
           {/* Kolo 34: obal jen pro CSS — na desktopu nižším než 640px aside
               sticky není a sdílení tu odjede s hlavou článku; tam zůstává
               jediná cesta .article-share pod textem (global.css). */}
+          {/* Kolo 44: sdílení na X vede na x.com/intent/post — twitter.com/
+              intent/tweet fungoval jen přes přesměrování (dva skoky, a
+              tlačítko říká „X“). Stejně i .article-share pod textem. */}
           <div class="article-aside-share">
             <p class="mono">Sdílej dál</p>
             <div class="share-btns">
-              <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
+              <a class="share-btn" href={`https://x.com/intent/post?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
               <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na Facebooku">Facebook</a>
               <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href} aria-label="Kopírovat odkaz na článek">Kopírovat odkaz</button>
               <noscript><a class="share-btn" href={articleUrl}>Odkaz na článek</a></noscript>
@@ -396,7 +401,7 @@ const breadcrumbLd = {
       */}
       {!video && xEmbedy.length === 0 && (
         <div class="article-videobar article-videobar-bez-videa">
-          <span class="mono">K tomuhle článku video není. Na kanálu máme další videa o technice a AI</span>
+          <span class="mono">K tomuhle článku video není. Na kanálu máme další videa o technice a AI.</span>
           <a href="https://www.youtube.com/@realtech-cz?sub_confirmation=1" class="yt-btn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
             Odebírat kanál
@@ -407,7 +412,7 @@ const breadcrumbLd = {
       <div class="article-share">
         <span class="mono">Sdílej dál</span>
         <div class="share-btns">
-          <a class="share-btn" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
+          <a class="share-btn" href={`https://x.com/intent/post?text=${encodeURIComponent(title)}&url=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na X">X</a>
           <a class="share-btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(new URL(Astro.url.pathname, Astro.site).href)}`} target="_blank" rel="noopener" aria-label="Sdílet na Facebooku">Facebook</a>
           <button class="share-btn copy-link" data-url={new URL(Astro.url.pathname, Astro.site).href} aria-label="Kopírovat odkaz na článek">Kopírovat odkaz</button>
           <noscript><a class="share-btn" href={articleUrl}>Odkaz na článek</a></noscript>
