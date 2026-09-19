@@ -248,3 +248,14 @@ B02 je lokálně ověřené, před nezávislým review / commit / PR; přesné v
 - Čísla „po“ až ze skutečného opakovaného měření. Odhady Lighthouse nelze vydat za dosažené úspory; změnu traffic/CTR vyhodnotit až za srovnatelné období s limity kauzality.
 
 **STOP: pokračování pouze na Danielovo schválení konkrétního scope.**
+
+## Dodatek B18 — IndexNow: jen změněné URL (19. 9. 2026)
+
+- **Stav: NÁVRH — NEIMPLEMENTOVÁNO (PROPOSAL NOT IMPLEMENTED).** Schválen je pouze zápis do backlogu; implementace vyžaduje samostatný souhlas. Původní historická tabulka, pořadí a scoring zůstávají beze změny.
+- **Cíl:** Po úspěšném produkčním deployi oznamovat pouze nové a změněné obsahové URL, nikoli celý web při každém nasazení. Zachovat stávající kontroly main/produkce/exact SHA; preview nesmí odeslat ping.
+- **Preferovaný návrh:** `git diff` mezi předchozím a novým skutečně nasazeným **PRODUKČNÍM commitem** vybere nové a změněné obsahové zdrojové soubory. Ty se namapují podle existujících pravidel webu na jejich publikované canonical routes; žádné nové URL ani změna routingu. Nezaměňovat předchozí produkční commit za libovolného rodiče commitu nebo poslední push.
+- **Otevřená technická validace:** Teprve ověřit, odkud lze v existující infrastruktuře spolehlivě a read-only identifikovat předchozí úspěšně nasazený produkční commit. Zdroj zde není doložen; nevymýšlet ani nezavádět perzistentní stav. Pokud dvojici produkčních SHA nelze ověřit, STOP a navrhnout jednodušší variantu, nikoli hádat baseline nebo poslat celý web.
+- **Výslovné hranice:** Změny pouze v šablonách/komponentách ⇒ **ŽÁDNÝ ping**; prázdný výběr obsahových URL ⇒ žádný POST. Žádné úložiště stavu, nové secrets, služby ani změny konfigurace účtů. Mazání/přejmenování a nepublikované zdroje nejprve vymezit při validaci; bez automatického rozšíření scope.
+- **Budoucí ověření:** Offline testy pro nový obsah, změněný obsah, nezměněný obsah, pouze šablony/komponenty, prázdný výběr a neověřenou produkční baseline; ověřit existující canonical mapování a zachování preview/exact-SHA ochran. Žádný živý POST v rámci návrhu ani offline ověřování.
+- **Odhad a STOP:** 30–45 minut pro případnou schválenou minimální implementaci včetně technické validace a cílených testů, nejvýše 45 minut. Jakmile řešení vyžaduje více než 45 minut, **STOP a předložit jednodušší variantu ke schválení**; nepřidávat stav ani secrets jako obchvat.
+- **Tento PR:** Pouze dodatek v `docs/audit/BACKLOG.md` na větvi `improve/indexnow-backlog`; žádné změny skriptů, runtime ani workflows. Samostatný dokumentační PR bez merge, oddělený od B06/B07; zápis nemění současné chování IndexNow.
