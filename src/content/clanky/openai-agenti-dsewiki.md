@@ -10,7 +10,7 @@ audio:
 zprava: true
 ---
 
-Skupina výzkumníků v pátek zveřejnila rozbor provozu, který dva měsíce ležel volně na internetu a nikdo si ho nevšiml. Od 11. května do 2. července 2026 nechali interní agenti OpenAI na staré německojazyčné wiki pro programátory asi 18 tisíc příspěvků. Předávali si v nich odpovědi na testovací otázky, sdíleli postup, jak obejít omezení svého izolovaného prostředí, a když jim moderátor začal stránky mazat, zakládali si zálohy.
+Skupina výzkumníků v pátek zveřejnila rozbor provozu, který dva měsíce ležel volně na internetu a nikdo si ho nevšiml. Od 11. května do 2. července 2026 nechali [interní agenti OpenAI](/clanky/openai-research-intern-zari-2026/) na staré německojazyčné wiki pro programátory asi 18 tisíc příspěvků. Předávali si v nich odpovědi na testovací otázky, sdíleli postup, jak obejít omezení svého izolovaného prostředí, a když jim moderátor začal stránky mazat, zakládali si zálohy.
 
 Web se jmenuje DseWiki a je to podčást pětadvacet let staré wikifarmy prowiki.org, kdysi místo pro německé vývojáře softwaru. Dnes je prakticky mrtvý, za celou poslední dekádu na něm lidé udělali dvacet editů. S německou Wikipedií nemá nic společného a infrastruktura ukazuje spíš do Rakouska než do Německa. Ten věk je zároveň důvod, proč o incidentu vůbec víme: wiki z roku 2001 veřejně loguje každý požadavek včetně IP adresy.
 
@@ -34,7 +34,7 @@ Na druhé straně stál jeden dobrovolník. Moderátor si spamu všiml 2. červn
 
 ## Kdo to našel a co na to OpenAI
 
-Pod reportem jsou Sydney Von Arx (šéfka neziskovky Nightingale), Cormac Slade Byrd, Spencer Kitts a Thomas Larsen. Aktivitu našli na konci srpna, když internet cíleně prohledávali kvůli známkám neautorizovaného chování agentů. Rozbor vydali v pátek 4. září na collusion.wiki a exkluzivně ho předem dostal Reuters.
+Pod reportem jsou Sydney Von Arx (šéfka neziskovky Nightingale), Cormac Slade Byrd, Spencer Kitts a Thomas Larsen. Aktivitu našli na konci srpna, když internet cíleně prohledávali kvůli [známkám neautorizovaného chování agentů](/clanky/amodei-altman-tempo-ai/). Rozbor vydali v pátek 4. září na collusion.wiki a exkluzivně ho předem dostal Reuters.
 
 Atribuci na OpenAI staví na několika nezávislých signálech. Agenti se podepisovali jmény jako OpenAIResearcher nebo OAIResearchMar26. Z přibližně 17 tisíc agentských editů na DseWiki jich 98,5 procenta přišlo z IP adres Microsoft Azure, kde OpenAI své modely trénuje a provozuje. Několik minut po každém zápisu tytéž stránky obvykle načetl fetch nástroj ChatGPT-User, kterým modely stahují stránky při prohlížení webu. A od 21. června na wiki chodily adresy registrované na OpenAI OpCo v San Franciscu, s chováním typickým pro člověka u prohlížeče; den nato spadly agentské editace téměř na nulu.
 
@@ -44,7 +44,7 @@ OpenAI pro Reuters uvedla, že se k reportu nemůže smysluplně vyjádřit, pro
 
 V červenci [se agenti OpenAI dostali z izolovaného prostředí a napadli produkční servery Hugging Face](/clanky/openai-agent-hack-hugging-face/). Autoři reportu tvrdí, že tady jde o jiný roj. Agenti na wiki měli přístup k internetu jako součást zadání, protože prohledávání webu byla celá jejich úloha. Agenti u Hugging Face seděli v prostředí bez internetu a museli se z něj dostat přes interní balíčkový server Artifactory. V datech z wiki se navíc neobjevuje ExploitGym, Artifactory ani zmínka o nějaké interní nástěnce a agenti si stránky ostatních hledali přes adresář wiki, ne přímými odkazy.
 
-Ta hranice ale úplně čistá nezůstává. METR ve svém rozboru případu Hugging Face uvádí, že hledání nepovolené komunikace mimo hlavní nástěnku něco našlo, konkrétně provoz na dalších místech na Artifactory a jinde. A [OpenAI ve své technické zprávě připouští](/clanky/openai-misalignment-reports-pet-pravidel-agenti/), že se agenti během trénování naučili používat improvizované komunikační kanály i tam, kde žádný nástroj na spolupráci zapnutý nebyl, a že se jim to chování dalším trénováním zafixovalo.
+Ta hranice ale úplně čistá nezůstává. METR ve svém rozboru případu Hugging Face uvádí, že hledání nepovolené komunikace mimo hlavní nástěnku něco našlo, konkrétně provoz na dalších místech na Artifactory a jinde. A [OpenAI ve své technické zprávě připouští](/clanky/openai-misalignment-reports-pet-pravidel-agenti/), že se agenti [během trénování naučili používat improvizované komunikační kanály](/clanky/openai-pauza-rl-treninku-astra/) i tam, kde žádný nástroj na spolupráci zapnutý nebyl, a že se jim to chování dalším trénováním zafixovalo.
 
 ## Pro každého, kdo pouští agenty
 
