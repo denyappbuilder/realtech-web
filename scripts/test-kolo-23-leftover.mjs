@@ -109,14 +109,17 @@ test('kolo 23: tisk schová filtr, hledání a stránkování archivu; mrtvý .t
 // ── NICE ───────────────────────────────────────────────────────────────────
 
 test('kolo 23: .komentare .giscus drží víc než 180px a má kostru, dokud iframe nenaběhne', () => {
-  const minHeight = Number(pravidlo(css, '.komentare .giscus').match(/min-height:\s*(\d+)px/)?.[1]);
+  // B04 (19. 9. 2026): před kliknutím je .giscus prázdný bez výšky; min-height
+  // a kostra platí až po aktivaci (.komentare-aktivni), kdy iframe načítá.
+  const minHeight = Number(pravidlo(css, '.komentare.komentare-aktivni .giscus').match(/min-height:\s*(\d+)px/)?.[1]);
   assert.ok(minHeight > 180, `180px bylo málo pro prázdnou diskuzi, je ${minHeight}px`);
   assert.ok(minHeight >= 320 && minHeight <= 480, `min-height ${minHeight}px mimo rozumný rozsah`);
   assert.match(
     css,
-    /^\.komentare \.giscus:empty,\n\.komentare \.giscus:has\(> \.giscus-frame--loading\) \{[^}]*border: 1px dashed var\(--line\)/m,
-    'kostra pro prázdný kontejner i načítající iframe',
+    /^\.komentare\.komentare-aktivni \.giscus:empty,\n\.komentare\.komentare-aktivni \.giscus:has\(> \.giscus-frame--loading\) \{[^}]*border: 1px dashed var\(--line\)/m,
+    'kostra pro prázdný kontejner i načítající iframe — až po aktivaci',
   );
+  assert.doesNotMatch(css, /^\.komentare \.giscus \{[^}]*min-height/m, 'před kliknutím žádná rezervovaná výška (B04)');
 });
 
 test('kolo 23: rámeček na --panel má vlastní token --line-panel, v darku světlejší', () => {

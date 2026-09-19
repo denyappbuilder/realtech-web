@@ -13,7 +13,6 @@ import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import AudioPrehled from '../../components/AudioPrehled.astro';
 import Giscus from '../../components/Giscus.astro';
-import { giscusKonfigurace } from '../../lib/giscus.js';
 import { jsonLdText, pripojAudioKClanku, vytvorAudioObject } from '../../lib/audio-prehled.js';
 import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
 import { preloadHeroObrazku } from '../../lib/hero-preload.js';
@@ -144,7 +143,10 @@ const jsonLd = pripojAudioKClanku({
 // je jediný běžný konzument; JSON-LD/og:image ytimg nestahují.
 const preconnectYtimg = typeof heroLcpSrc === 'string' && heroLcpSrc.includes('i.ytimg.com');
 const preconnectAudio = Boolean(audioLd);
-const preconnectGiscus = Boolean(giscusKonfigurace(import.meta.env));
+// B04 (19. 9. 2026): komentáře (giscus) se načítají až po kliknutí čtenáře
+// → před ním na giscus.app nejde ani preconnect. Prop v Base zůstává (typ,
+// 404 testy), článek ho už nezapíná — konstanta, ať je záměr vidět.
+const preconnectGiscus = false; // B04: giscus až po kliknutí, žádný preconnect
 const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',

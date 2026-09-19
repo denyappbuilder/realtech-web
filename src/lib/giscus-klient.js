@@ -63,6 +63,35 @@ export function poslatTemaGiscus(doc, tema) {
 }
 
 /**
+ * B04: připraví tlačítko „Zobrazit komentáře“. client.js (a s ním první
+ * požadavek na giscus.app) se vloží až po kliknutí; placeholder se skryje
+ * a fokus přejde na kontejner, aby čtenář s klávesnicí nezůstal na
+ * zmizelém tlačítku. Bez tlačítka v DOM (starý markup) se chová jako dřív.
+ *
+ * @param {Document} doc
+ * @returns {HTMLButtonElement | null} tlačítko, na které se navázalo
+ */
+export function pripravGiscus(doc = document) {
+  const tlacitko = doc.querySelector('[data-komentare-nacist]');
+  if (!tlacitko) { inicializujGiscus(doc); return null; }
+  if (tlacitko.dataset.giscusPripraveno) return tlacitko;
+  tlacitko.dataset.giscusPripraveno = '1';
+  tlacitko.addEventListener('click', () => {
+    const skript = inicializujGiscus(doc);
+    if (!skript) return;
+    doc.querySelector('[data-komentare-placeholder]')?.setAttribute('hidden', '');
+    doc.querySelector('.komentare')?.classList.add('komentare-aktivni');
+    const kontejner = doc.querySelector('.giscus[data-giscus]');
+    if (kontejner) {
+      kontejner.setAttribute('tabindex', '-1');
+      kontejner.setAttribute('aria-busy', 'true');
+      kontejner.focus?.();
+    }
+  });
+  return tlacitko;
+}
+
+/**
  * Vloží client.js do kontejneru `.giscus[data-giscus]` a drží téma
  * v souladu s webem.
  *

@@ -1396,9 +1396,28 @@ footer.site ul a:hover { color: var(--ink); }
    Kostra: dokud je kontejner prázdný nebo iframe teprve načítá
    (giscus-frame--loading od client.js, opacity 0), vidí čtenář rámeček
    místo díry. */
-.komentare .giscus { min-height: 340px; }
-.komentare .giscus:empty,
-.komentare .giscus:has(> .giscus-frame--loading) {
+/* B04: před kliknutím je .giscus prázdný a bez výšky (žádná prázdná plocha
+   pod nadpisem); min-height a kostra platí až po aktivaci. */
+.komentare-placeholder {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface);
+}
+.komentare-placeholder a { color: var(--ink-soft); text-decoration: underline; font-size: 0.9rem; }
+.komentare-placeholder a:hover { color: var(--ink); }
+.komentare-nacist {
+  min-height: 44px; padding: 9px 18px;
+  border: 1px solid var(--ink); border-radius: var(--radius);
+  background: var(--ink); color: var(--bg);
+  font: inherit; font-weight: 600; font-size: 0.9rem; cursor: pointer;
+}
+.komentare-nacist:hover { background: var(--ink-soft); border-color: var(--ink-soft); }
+.komentare-nacist:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.komentare .giscus:focus { outline: none; }
+.komentare.komentare-aktivni .giscus { min-height: 340px; }
+.komentare.komentare-aktivni .giscus:empty,
+.komentare.komentare-aktivni .giscus:has(> .giscus-frame--loading) {
   border: 1px dashed var(--line);
   border-radius: var(--radius);
   background: var(--surface);
