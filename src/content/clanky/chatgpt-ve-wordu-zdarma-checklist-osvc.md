@@ -14,7 +14,7 @@ OpenAI spustil oficiální doplněk ChatGPT for Word, který píše, upravuje a 
 
 Do Wordu ti od tohoto týdne může přímo psát ChatGPT. Ne přes kopírování z prohlížeče, ale jako doplněk, který sedí vedle dokumentu a upravuje text tam, kde ho máš otevřený. A hlavně: **funguje i na účtu zdarma**, jen s limity. Pro živnostníka, který každý týden posílá klientům nabídky, faktury s průvodním dopisem nebo smlouvy, je to lákavé. Před tím, než AI pustíš k dokumentu, který za pár hodin odejde klientovi, se ale vyplatí projít pár věcí.
 
-### Co to je a co to není
+## Co to je a co to není
 
 OpenAI tomu říká **ChatGPT for Word**. Podle oficiální stránky ti umožní v dokumentu **psát návrhy textu, upravovat ho a formátovat** přímo pomocí aktuálních modelů ChatGPT. Jde o jeden doplněk pro Microsoft Office, který kromě Wordu pokrývá i Excel a PowerPoint.
 
@@ -22,7 +22,7 @@ Dostupnost je podle OpenAI **celosvětová a pro všechny tarify**: Free, Go, Pl
 
 Důležité je vědět, co to není. Není to Copilot od Microsoftu, i když sedí ve stejném okně. A není to ani tvoje běžné ChatGPT: **chaty z doplňku se neukládají do historie konverzací v ChatGPT a paměť (memory) se do Wordu nepřenáší.** Takže když máš v ChatGPT naučené, jak píšeš a co děláš, ve Wordu začínáš od nuly.
 
-### Jak to dostaneš do Wordu
+## Jak to dostaneš do Wordu
 
 Postup podle OpenAI je jednoduchý:
 
@@ -32,7 +32,7 @@ Postup podle OpenAI je jednoduchý:
 
 Jedna věc navíc pro ty, kdo mají Office přes firmu nebo účetní kancelář: **správce Microsoft účtu musí doplněk případně povolit.** Pokud jsi OSVČ s vlastním Microsoft 365, jsi správce sám a řešit to nemusíš.
 
-### Doplněk ChatGPT, nebo Copilot? Rychlé porovnání
+## Doplněk ChatGPT, nebo Copilot? Rychlé porovnání
 
 Obě věci dělají na první pohled totéž: píšou a upravují text ve Wordu. Liší se v tom, čí účet za tím stojí a kde běží tvoje data. Tady je, co si projít:
 
@@ -42,13 +42,13 @@ Obě věci dělají na první pohled totéž: píšou a upravují text ve Wordu.
 - **Kdo zodpovídá za výsledek.** V obou případech ty. Ani jeden z nástrojů nepřebírá odpovědnost za to, co odešleš klientovi.
 - **Co už platíš.** Pokud už máš Microsoft 365 s Copilotem, nemá moc smysl přidávat druhý nástroj jen kvůli psaní. Pokud máš jen holý Office a účet ChatGPT, doplněk ti dá AI ve Wordu bez dalšího předplatného.
 
-### Kam tečou tvoje data
+## Kam tečou tvoje data
 
 Tohle je pro OSVČ často důležitější než to, jak hezky AI píše. Podle OpenAI platí, že **u tarifů Business, Enterprise, Edu a Teachers se data ve výchozím nastavení nepoužívají k trénování modelů**. U Free, Go, Plus a Pro tuto větu na stránce doplňku nenajdeš, takže platí obecné nastavení tvého účtu ChatGPT. Pokud si na účtu zdarma chceš být jistý, podívej se do nastavení ChatGPT na ovládání dat a trénování.
 
 Praktické pravidlo: **smlouvu s citlivými údaji klienta, rodná čísla nebo interní čísla z jeho firmy do doplňku na Free účtu radši nevkládej.** Nech AI pracovat s obecnou strukturou textu a konkrétní údaje doplň ručně. Není to paranoia, je to jen rozumný postup, který si u klienta obhájíš.
 
-### Co OpenAI sám přiznává, že nefunguje ideálně
+## Co OpenAI sám přiznává, že nefunguje ideálně
 
 Zajímavé je, že OpenAI má přímo na stránce produktu poměrně otevřený seznam omezení. Stojí za to ho číst jako návod, ne jako drobné písmo:
 
@@ -60,7 +60,7 @@ Zajímavé je, že OpenAI má přímo na stránce produktu poměrně otevřený 
 
 Na stránce OpenAI zmiňuje i takzvané skills, něco jako uložené pokyny pro opakující se standardy (třeba jak má vypadat tvoje nabídka). Podrobnosti k tomu, jak to funguje v Free tarifu, ale stránka neuvádí.
 
-### Kdy to jako OSVČ dává smysl
+## Kdy to jako OSVČ dává smysl
 
 Dobré využití:
 
@@ -75,7 +75,7 @@ Horší využití:
 - **Výpočty v textu**: ceny, DPH, termíny. Tohle si spočítej sám nebo v Excelu.
 - **Dokumenty s citlivými údaji** na Free účtu, viz výše.
 
-### Než dokument odejde klientovi: kontrola člověkem
+## Než dokument odejde klientovi: kontrola člověkem
 
 Jednoduchý postup, který zabere pět minut a ušetří ti trapnou omluvu:
 
@@ -86,7 +86,7 @@ Jednoduchý postup, který zabere pět minut a ušetří ti trapnou omluvu:
 5. **Ulož finální verzi pod novým názvem** a původní kopii si nech.
 6. **Zeptej se sám sebe: podepsal bych se pod to i bez AI?** Pokud ne, ještě to není hotové.
 
-### Co k tomu píše RuntimeWire (a co je jen z druhé ruky)
+## Co k tomu píše RuntimeWire (a co je jen z druhé ruky)
 
 Server RuntimeWire, který o spuštění psal 17. září 2026, rámuje novinku jako **přímý útok na Microsoft 365 Copilot**: stejná funkce, stejný Word, ale bez potřeby Microsoft předplatného. To je novinářský pohled, ne oficiální tvrzení OpenAI, a my ho tady jen přenášíme.
 
