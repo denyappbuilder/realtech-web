@@ -201,6 +201,14 @@ for (const f of files) {
   for (const m of body.matchAll(/\]\(<?\/clanky\/([^/)#?>]+)/g)) {
     if (!slugs.has(m[1])) errors.push(`${f.replace(/\.md$/, '')}: odkaz na neexistující článek /clanky/${m[1]}/`);
   }
+  // 8. Kolo 44: sekce článku jsou `##` (h1 nese titulek). Článek psaný jen
+  //    v `###` přeskočí úroveň (h1 → h3): osnova ho zvládne (article-outline
+  //    počítá hloubku relativně), ale nadpisy v textu jsou menší než u
+  //    ostatních článků a čtečka hlásí přeskočenou úroveň. Jen varování —
+  //    živý článek nemá spadnout, redakce má vědět.
+  if (/^### /m.test(telo) && !/^## /m.test(telo)) {
+    warnings.push(`${f.replace(/\.md$/, '')}: sekce jsou jen ### bez ## — nadpisy sekcí článku mají být ##`);
+  }
 }
 
 // 7. HTML komentář v layoutu / komponentě → build FAIL (kolo 42). Kolo 41

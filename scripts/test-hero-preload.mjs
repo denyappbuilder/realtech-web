@@ -270,9 +270,11 @@ test('ostatní šablony nic nepreloadují — LCP preload má homepage, článek
     'src/pages/temata/[slug]/strana/[page].astro',
     'src/layouts/Base.astro',
   ]) {
+    // Kolo 44: Base preloaduje dva woff2 Plex Sans (as="font") na každé
+    // stránce — to není náhled výpisu; hlídá se jen preload obrázků.
     assert.doesNotMatch(
       zdroj(rel),
-      /rel="preload"/,
+      /rel="preload"[^>]*as="image"/,
       `${rel} nesmí preloadovat náhledy výpisů`,
     );
   }

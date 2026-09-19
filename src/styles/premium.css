@@ -214,6 +214,16 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .article-nav { margin-top: 48px; }
 
 /* About, legal and end matter: the same publication, not a second UI kit. */
+/* Kolo 44: 404 zůstala jediná stránka v broadcast řezu (Archivo 850/108 %) a
+   v 640px sloupci vystředěném uvnitř wrapu — nadpis seděl 190 px vpravo od
+   levé hrany mřížky „Zatím mrkni na tohle“ pod ním (živě 19. 9. 2026, 1280px).
+   Stejná hlava jako archiv / O nás: editorial 650, levá hrana wrapu, měřítko
+   textu přes max-width, ne přes užší wrap. */
+.notfound { max-width: 1120px; padding-block: 64px 0; }
+.notfound .mono { color: var(--ink-soft); font-size: 0.85rem; font-weight: 600; }
+.notfound h1 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 1.1; letter-spacing: -0.035em; max-width: 24ch; margin: 12px 0 20px; }
+.notfound .lead { font-size: 1.25rem; line-height: 1.65; max-width: 54ch; }
+.notfound-more { margin-top: 64px; }
 .about.about-wide { max-width: 1120px; padding-top: 64px; padding-bottom: 88px; }
 .about h1 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 1.1; letter-spacing: -0.035em; max-width: 17ch; margin-bottom: 28px; }
 .about > p { max-width: 64ch; font-size: 1.25rem; line-height: 1.65; }
@@ -252,7 +262,14 @@ footer.site .live-dot { display: none; }
 .search-hint:not(.sr-only) { padding: 12px 24px; }
 .search-head { padding: 20px 24px; }
 .search-item { padding: 18px 24px; }
-.search-item-title { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
+/* Kolo 44: round 3 cílil na `.search-item-title`, ale položka výsledku se
+   jmenuje `.si-title` (SearchModal.astro) — pravidlo nikdy nesedlo a titulky
+   ve hledání zůstaly v broadcast řezu 700. Stejný kit jako karty: 650, normal
+   width, -0.02em. Štítek kategorie a datum jdou na reading-face bez verzálek
+   a prostrkání jako `.lt .k` / `.card-meta`; červená výplň štítku zůstává. */
+.si-title { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; letter-spacing: -0.02em; line-height: 1.3; }
+.si-cat { font-family: var(--reading-face); font-size: 0.72rem; letter-spacing: 0; text-transform: none; padding: 4px 8px; border-radius: 4px; }
+.si-date { font-size: 0.75rem; }
 .search-foot { padding: 16px 24px; }
 
 /* Motion is feedback, never an entrance gate. No content requires JavaScript. */
@@ -353,6 +370,10 @@ footer.site .live-dot { display: none; }
   .audio-prehled, .article-videobar { padding: 18px; }
   .article-videobar-bez-videa { padding: 14px 16px; }
   .about.about-wide { padding-top: 36px; padding-bottom: 52px; }
+  .notfound { padding-top: 36px; }
+  .notfound h1 { font-size: 2.5rem; }
+  .notfound .lead { font-size: 1.1rem; }
+  .notfound-more { margin-top: 44px; }
   .about h1 { font-size: 2.5rem; }
   .about > p { font-size: 1.1rem; }
   .about-main p { font-size: 1.05rem; }
@@ -376,7 +397,10 @@ footer.site .live-dot { display: none; }
   .hero-actions .btn-primary:hover::after { transform: none; }
 }
 @media print {
-  header.site, .edition-heading, .newsletter, footer.site, .reading-entry { display: none; }
+  /* Kolo 44: „Přejít rovnou na text ↓“ a navigace úvodky (témata, rail) na
+     papíře nikam nevedou — stejně jako chipy filtru z kola 23. */
+  header.site, .edition-heading, .newsletter, footer.site, .reading-entry,
+  .article-credit .article-read-link, .topic-navigation, .hero-rail, .search-overlay { display: none; }
   .article-layout { display: block; }
   .article-aside { display: none; }
   .article-page { padding: 0; }

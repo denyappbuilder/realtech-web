@@ -111,12 +111,6 @@ test("kolo 10: hero sedí jako karta, ne jako neonový 3D panel", () => {
   );
 });
 
-test("kolo 10: značka REALTECH je plný chip, ne text na černé cloně", () => {
-  const rec = pravidlo(".hero-visual .rec");
-  assert.ok(rec, ".hero-visual .rec v CSS chybí");
-  assert.match(
-    rec,
-    /background:\s*var\(--panel\)/,
-    ".rec musí mít plné pozadí --panel, ať nepotřebuje černý závoj",
-  );
-});
+// Kolo 10 hlídalo chip REALTECH (.hero-visual .rec) na coveru; premium
+// round 3 overlay z markupu vyřadilo (test-hero-overlay.mjs) a kolo 44
+// smazalo i jeho CSS (test-kolo-44-leftover.mjs).

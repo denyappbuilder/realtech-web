@@ -47,7 +47,7 @@ test("webu zbývá účinný prefers-reduced-motion blok", () => {
   assert.match(
     reduce,
     /animation\s*:\s*none/,
-    "reduced-motion nevypíná animation — ticker a pulse se pořád točí",
+    "reduced-motion nevypíná animation — pulse a spinner se pořád točí",
   );
   assert.match(
     reduce,
@@ -61,12 +61,9 @@ test("webu zbývá účinný prefers-reduced-motion blok", () => {
   );
 });
 
-test("ticker a hover transformy se při reduce zastaví, centrování play zůstane", () => {
-  assert.match(
-    reduce,
-    /\.ticker-track[\s\S]{0,160}animation\s*:\s*none/,
-    "ticker-track se při reduce pořád hýbe",
-  );
+// Kolo 44: ticker je z webu pryč i s CSS (test-kolo-44-leftover.mjs) —
+// hlídají se hover transformy prvků, které na webu opravdu jsou.
+test("hover transformy se při reduce zastaví, centrování play zůstane", () => {
   assert.match(
     reduce,
     /\.card:hover[\s\S]{0,80}transform\s*:\s*none/,
@@ -105,11 +102,6 @@ test("ticker a hover transformy se při reduce zastaví, centrování play zůst
 });
 
 test("mimo reduce pohyb zůstává a stavový hover se nemaže", () => {
-  assert.match(
-    bezReduce,
-    /\.ticker-track[\s\S]{0,220}animation\s*:/,
-    "výchozí ticker přišel o animation — pruh stojí i bez reduce",
-  );
   assert.match(
     bezReduce,
     /\.card:hover[\s\S]{0,80}transform\s*:\s*translateY/,

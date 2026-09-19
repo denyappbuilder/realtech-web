@@ -21,6 +21,19 @@ import '../styles/fonts-plex.css';
 import '../styles/global.css';
 import '../styles/editorial.css';
 import '../styles/premium.css';
+/*
+ * Kolo 44: preload dvou woff2 Plex Sans 400 (latin + latin-ext), kterými je
+ * vysázený všechen běžný text (perex, karty, tělo článku, navigace).
+ * Prohlížeč je jinak objeví až z CSS (druhé kolo po stažení stylu) a text
+ * mezitím kreslí v Arialu — size-adjust fallbacky drží layout, ale swap je
+ * vidět. Latin-ext je pro češtinu vždy: každá stránka má ě/š/č/ř/ž/ů.
+ * Archivo (2× ~88 kB, jen nadpisy) se schválně nepreloaduje — soupeřilo by
+ * s LCP obrázkem. Tytéž soubory jako v fonts-plex.css (`?url` dá hashovanou
+ * cestu z _astro/, Vite asset dedupuje podle obsahu — test-kolo-44 hlídá,
+ * že href sedí s url() v CSS, jinak by se font stáhl dvakrát).
+ */
+import plexSansLatin from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2?url';
+import plexSansLatinExt from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-ext-400-normal.woff2?url';
 
 import { getCollection } from 'astro:content';
 import { slugify } from '../lib/slugify.js';
@@ -199,6 +212,11 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <noscript><style>.search-trigger[data-search-open]{display:none}</style></noscript>
   <Fragment set:html={'<noscript><style>.theme-toggle{display:none}</style></noscript>'} />
   <slot name="head" />
+  {/* Až za slotem: preload LCP obrázku ze stránky má být v HTML první.
+      `crossorigin` je u fontů povinný i na vlastní doméně (CSS je tahá
+      anonymním CORS requestem) — bez něj by preload nesedl a stáhl se navíc. */}
+  <link rel="preload" as="font" type="font/woff2" href={plexSansLatinExt} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={plexSansLatin} crossorigin />
   {/*
     Cloudflare Web Analytics — JEDEN beacon, tenhle. Kolo 22 ruční <script>
     odstranilo s tím, že druhý beacon (token db6b4d88…) vkládá Pages sám

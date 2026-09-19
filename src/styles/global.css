@@ -114,7 +114,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
 /* ── Top bar ─────────────────────────── */
-/* Z1000: dekorativní pruh nad navigací je pryč. .live-dot zůstává pro ticker a patičku. */
+/* Z1000: dekorativní pruh nad navigací je pryč. .live-dot zůstává pro videobar článku (patička ho schovává v premium.css). */
 .live-dot {
   display: inline-block; width: 7px; height: 7px; border-radius: 50%;
   background: var(--signal); margin-right: 7px;
@@ -184,85 +184,6 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
 }
 .yt-btn:hover { background: var(--signal-fill-hover); }
 .yt-btn svg { width: 16px; height: 16px; fill: currentColor; }
-
-/* ── News ticker ─────────────────────── */
-/* Z10032: statický pruh, ne marquee z počátku 2000s. */
-.ticker {
-  display: flex; align-items: center;
-  border-bottom: 1px solid var(--line);
-  background: var(--surface);
-  min-height: 48px;
-  overflow: hidden;
-}
-.ticker-label {
-  display: inline-flex;
-  align-items: center;
-  align-self: stretch;
-  /* Procentní výška u rodiče s min-height padá (computed procento, used auto)
-     a stretch se proto neuplatní — štítek zůstane 17 px nahoře. */
-  min-height: 48px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
-  line-height: 1;
-  color: var(--signal-dark);
-  font-weight: 600;
-  padding: 0 16px 0 24px;
-  border-right: 1px solid var(--line);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.ticker-label .live-dot {
-  display: block;
-  flex-shrink: 0;
-}
-.ticker-viewport {
-  overflow: hidden;
-  flex: 1;
-  /* Z1007: text nesmí vjíždět pod neprůhledný štítek ŽIVĚ. */
-  padding-left: 16px;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 16px, #000);
-  mask-image: linear-gradient(to right, transparent, #000 16px, #000);
-}
-.ticker-track {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 28px;
-  min-height: 48px;
-  margin-left: 8px;
-  /* Obsah je v šabloně zdvojený, proto -50 % = přesně jedna sada. */
-  width: max-content;
-  animation: ticker-scroll 45s linear infinite;
-}
-/* Zastav, když si to chce někdo přečíst nebo na odkaz kliknout —
-   myší i klávesnicí. Bez `focus-within` by tabulátor honil pohyblivý cíl. */
-.ticker:hover .ticker-track,
-.ticker:focus-within .ticker-track { animation-play-state: paused; }
-
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* 🔴 Kdo si vypnul animace v systému, tomu se hýbat nesmí nic.
-   Z10032 (19. 8.) pohyb zrušilo úplně, protože animovaná verze měla celý
-   ticker `aria-hidden` a odkazy mimo dosah klávesnice. Deny ho 22. 8. chtěl
-   zpátky — takže je vrácený, ale s přístupností: skrytá je jen ta druhá,
-   duplicitní sada, a pohyb respektuje systémové nastavení. */
-@media (prefers-reduced-motion: reduce) {
-  .ticker-track { animation: none; transform: none; }
-}
-.ticker-track a {
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;
-  letter-spacing: 0.02em; color: var(--ink-soft);
-  white-space: nowrap;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
-.ticker-track a:hover { color: var(--signal-dark); }
-.ticker-track a::before { content: "▪ "; color: var(--signal); }
 
 /* ── Hero / featured report ──────────── */
 .hero {
@@ -460,26 +381,6 @@ a.tag:hover { background: var(--signal-fill-hover); }
   border: 1px solid var(--line-panel);
   box-shadow: none;
   display: block;
-}
-.hero-visual .rec {
-  position: absolute; top: 16px; left: 16px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
-  color: #fff; letter-spacing: 0.1em;
-  display: flex; align-items: center;
-  background: var(--panel);
-  padding: 5px 9px;
-  border-radius: var(--radius);
-}
-.hero-visual .tc {
-  position: absolute; bottom: 16px; right: 16px;
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
-  color: rgba(255,255,255,0.75); letter-spacing: 0.08em;
-}
-.hero-visual .headline-mark {
-  position: absolute; bottom: 40px; left: 24px; right: 24px;
-  color: #fff;
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
-  font-size: 1.35rem; line-height: 1.15; letter-spacing: -0.01em;
 }
 .hero-visual .play {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%);
@@ -909,14 +810,6 @@ a.tag:hover { background: var(--signal-fill-hover); }
 /* Newsletter sedí na --panel v obou tématech, proto tmavé tokeny natvrdo:
    #A9B2BF = dark --ink-soft, #828B98 = dark --ink-faint (dřív #848D9B mimo paletu). */
 .nl-note { font-size: 0.75rem; color: #828B98; margin-top: 10px; }
-.nl-cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--signal-fill); color: #fff; text-decoration: none;
-  padding: 14px 26px; border-radius: var(--radius);
-  font-weight: 600; font-size: 0.95rem;
-  transition: background 0.15s;
-}
-.nl-cta:hover { background: var(--signal-fill-hover); }
 
 /* ── Footer ──────────────────────────── */
 footer.site {
@@ -1000,8 +893,6 @@ footer.site ul a:hover { color: var(--ink); }
     display: flex;
     align-items: center;
   }
-  /* Z1000: na tabletu a mobilu ticker dělá třetí pruh nad herem. */
-  .ticker { display: none; }
 }
 @media (max-width: 580px) {
   /* Dvě předvídatelné řady: značka + akce a pod nimi rolovatelná navigace.
@@ -1236,9 +1127,6 @@ footer.site ul a:hover { color: var(--ink); }
   width: 100%; height: 100%;
   object-fit: cover;
 }
-.hero-visual .rec,
-.hero-visual .tc,
-.hero-visual .headline-mark,
 .hero-visual .play { z-index: 1; }
 
 /* ── Article typography polish ───────── */
@@ -1776,7 +1664,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   /* Kolo 23: /clanky/ tiskl chipy filtru, pole hledání i „Strana 1 z 7“
      s tlačítky — na papíře nic z toho nefunguje. Mrtvý selektor staré
      horní lišty (v markupu už není) ze seznamu pryč. */
-  header.site, .ticker, .newsletter, footer.site,
+  header.site, .newsletter, footer.site,
   .article-share, .related, .author-box, .article-nav, .article-back,
   .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed, .komentare,
   .filter-bar, #art-search, .archive-pagination,
@@ -1829,9 +1717,6 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   /* .tag.tag-zprava: pravidlo `.lower-third .tag-zprava` (--ink/--bg) stojí
      v souboru až za tiskem a se stejnou specificitou by vyhrálo. */
   .lower-third .tag.tag-zprava { background: none; color: #000; }
-  /* Kolo 22: štítek REALTECH na hero úvodky je bílý text na --panel, který
-     tisk přepíše na #fff — bílé na bílém. Stejná léčba jako .tag výš. */
-  .hero-visual .rec { background: none; color: #000; border: 1px solid #000; }
   .article-body pre { background: none; color: #000; border: 1px solid #bbb; }
   .article-body { border: none; padding: 0; font-size: 11pt; }
   .article-page { padding: 0; }
