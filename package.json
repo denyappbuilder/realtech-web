@@ -23,7 +23,6 @@
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@astrojs/compiler": "^2.13.1",
-    "beasties": "0.5.4",
     "js-yaml": "4.3.2",
     "marked": "^18.0.6",
     "sharp": "^0.35.3",
