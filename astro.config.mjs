@@ -6,6 +6,7 @@ import { slugify } from './src/lib/slugify.js';
 import { parsePublishDate } from './src/lib/calendarDate.js';
 import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
 import { rehypeXEmbedy } from './src/lib/rehype-x-embed.js';
+import { rehypeCtaInline } from './src/lib/rehype-cta-inline.js';
 import { rehypeTabulky } from './src/lib/rehype-tabulky.js';
 
 // slug → lastmod (updated ?? date) z frontmatteru článků — pro sitemap <lastmod>
@@ -74,7 +75,7 @@ export default defineConfig({
   // kartu nechal bliknout nahoře). Viz src/lib/rehype-x-embed.js.
   // rehypeTabulky: markdown tabulky dostanou rolovací obal .table-wrap
   // (Kolo 17), viz src/lib/rehype-tabulky.js.
-  markdown: { processor: unified({ rehypePlugins: [rehypeAsciiHeadingIds, rehypeXEmbedy, rehypeTabulky] }) },
+  markdown: { processor: unified({ rehypePlugins: [rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky] }) },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({

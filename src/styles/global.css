@@ -638,6 +638,20 @@ a.tag:hover { background: var(--signal-fill-hover); }
   gap: 16px; flex-wrap: wrap;
 }
 .article-videobar .mono { color: var(--ink-soft); }
+/* B19: kompaktní výzva na YouTube za úvodním odstavcem (rehype-cta-inline.js).
+   Stejný povrch, rámeček a tlačítko jako .article-videobar, jen nižší a
+   v rytmu odstavců (Z1003: žádný tmavý panel uprostřed světlého článku). */
+.article-cta-inline {
+  margin: 0 0 1.4em;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+}
+.article-cta-inline .mono { color: var(--ink-soft); font-size: 0.85rem; }
+.article-body .article-cta-inline .yt-btn { padding: 7px 14px; min-height: 40px; color: #fff; text-decoration: none; }
 /* Z10069: pod 1120px herem nesmí zůstat 760px tělo a bílá díra vpravo. */
 .article-layout {
   display: grid;
@@ -1684,7 +1698,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
      horní lišty (v markupu už není) ze seznamu pryč. */
   header.site, .newsletter, footer.site,
   .article-share, .related, .author-box, .article-nav, .article-back,
-  .article-videobar, .audio-prehled, .read-progress, .video-embed, .x-embed, .komentare,
+  .article-videobar, .article-cta-inline, .audio-prehled, .read-progress, .video-embed, .x-embed, .komentare,
   .filter-bar, #art-search, .archive-pagination,
   .article-aside, .topics,
   .skip-link, .heading-anchor { display: none !important; }

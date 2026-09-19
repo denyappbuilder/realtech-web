@@ -24,8 +24,8 @@ setArticles([]);
 const { default: config } = await import('../astro.config.mjs?rehype-heading-test=1');
 
 const plugins = config.markdown.processor.options.rehypePlugins;
-assert.equal(plugins.length, 3,
-  'astro.config.mjs má mít tři rehype pluginy: ASCII id nadpisů, embed X (rehype-x-embed) a obal tabulek (rehype-tabulky)');
+assert.equal(plugins.length, 4,
+  'astro.config.mjs má mít čtyři rehype pluginy: ASCII id nadpisů, YouTube výzva (rehype-cta-inline, B19), embed X (rehype-x-embed) a obal tabulek (rehype-tabulky)');
 const headingPlugin = plugins.find((plugin) => plugin.name === 'rehypeAsciiHeadingIds');
 assert.ok(headingPlugin, 'astro.config.mjs ztratil plugin rehypeAsciiHeadingIds');
 
