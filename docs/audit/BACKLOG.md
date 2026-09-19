@@ -229,6 +229,15 @@ Původní tabulka a stav výše jsou snapshot dokončeného auditu. B10 je nyní
 5. **Video fakta:** ověřená data14 videí/délka1 videa, pravidlo obousměrné vazby a konkrétní materiál, který má divák najít jen na webu (B12). Změny YouTube popisků/metadata dělá Daniel/Sam, nikoli tento agent.
 6. **Závislosti:** souhlas s nutnou devDependency @astrojs/check v B10. Žádný blanket souhlas s osmi outdated aktualizacemi, jinou analytikou nebo font redesignem.
 
+## Dodatek B02 — implementační překryvy, 19. 9. 2026
+
+B02 je lokálně ověřené, před nezávislým review / commit / PR; přesné výsledky v [CHANGELOG.md](CHANGELOG.md). Tento dodatek aktualizuje pouze B02, historický auditní snapshot výše zůstává zachován.
+
+- Vlastnictví: pouze tři články z B02, nový cílený test a tato implementační dokumentace. Validátor není třeba měnit: původní Word warning mizí opravou heading prefixů. Text, fakta, pořadí a anchor ID zůstávají.
+- B01 nemá s B02 source překryv; společný je CHANGELOG. B02 stojí samostatně na main, ne na otevřeném B01 headu. B05/B06/B07 nemají s těmito třemi Markdown opravami source překryv; společné dokumentační hunks je nutné při integraci zachovat, ne přepsat.
+- Pořadí případných samostatně schválených mergů: **B01 → B02 → B05 → B06 → B07**. Schválení implementace ani toto pořadí neopravňuje k merge/deploy; každý merge vyžaduje výslovné číslo PR.
+- Po integraci novějšího main zopakovat exact-source review a gates; nepřenášet hotové dist důkazy na jiné SHA. Další backlog položky se tímto dodatkem neimplementují.
+
 ## Implementační kontrakt po schválení
 
 - Jedna oblast = `improve/<oblast>` = jeden PR. Malé atomické commity. Nikdy přímý commit do main, žádný merge.

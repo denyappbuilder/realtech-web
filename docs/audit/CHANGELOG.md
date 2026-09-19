@@ -1,5 +1,29 @@
 # Audit — implementační evidence
 
+## B02 — lokálně ověřeno 19. 9. 2026, před nezávislým review / commit / PR
+
+Baseline čerstvě fetchnutého `origin/main`: `e271a9979b2e587b2191287a00f9c7b93e7ed9bd`, izolovaná větev `improve/heading-structure`. B01 (`a50d28ebab17b7f28ebdbb530fff1dc91afa4029`) není součástí této větve.
+
+- Pouze 19 prefixů `###` → `##`: Word 8, Claude Cowork 5, OpenAI misalignment 6. Existující `## Zdroje` zůstávají. Veškeré ostatní bytes článků včetně frontmatter, textu, faktů a pořadí jsou shodné.
+- `scripts/test-b02-heading-structure.mjs`: skutečný RED 3 selhání na původních H3, GREEN 3 PASS. Ověřuje skutečné Markdown heading tokeny a výslednou osnovu všech tří článků.
+- `npm run check` i `npm run build` před/po exit 0; 0 errors, 0 warnings, stejných 35 hintů (identity soubor/kód/zpráva). `npm test`: 1036 → 1039 PASS, 0 FAIL, původních 6 TODO. Žádná oprava ani potlačení hintů. Existující Node test-runner warning je zachován.
+- Word prebuild warning zmizel opravou obsahu, nikoli změnou či oslabením `scripts/validate-content.mjs`; validátor zůstává byte-identický.
+
+### Úplné dist srovnání a důsledky osnovy
+
+Oba skutečné snapshoty mají 1012 souborů, z toho 144 HTML; 1008 souborů byte-identických. Přesný allowlist transformací vysvětluje všechny 4 změněné soubory, žádná obecná normalizace HTML:
+
+- Word HTML: pouze 8 párů H3 → H2. Osnova beze změny díky existující relativní hloubce.
+- Claude HTML: 5 párů H3 → H2 a odstranění 10 `contents-subsection` tříd (5 v mobilní + 5 v desktop osnově).
+- OpenAI HTML: 6 párů H3 → H2 a odstranění 12 stejných tříd (6 + 6). Jde o záměrné odstranění falešného odsazení podsekcí; nezměněné `Zdroje` už nejsou jedinou vrcholovou položkou.
+- RSS: stejných 19 párů escapovaných heading tagů ve třech odpovídajících položkách a pouze `lastBuildDate` 08:40:52 → 08:42:51 GMT. Ostatní bytes feedu shodné.
+
+Všechna ID a href v dotčených HTML jsou v původním pořadí byte-identická; každý cíl osnovy existuje právě jednou. Počet i text odkazů a sekcí zůstávají. Stávající navigace, kopírování kotev a reading progress vybírají společně `.article-body h2, .article-body h3`, tedy stejnou množinu v témže pořadí. JS/CSS, URL i navigační logika jsou byte-identické. Nadpisy nyní přirozeně používají existující H2 typografii; tím se mohou změnit výšky a scroll pozice, nikoli cíle či pravidla navigace. Toto není tvrzení o pixelové paritě ani nové browser QA.
+
+Evidence mimo repo: `/Users/realtech/.hermes/state/realtech-batch2-20260919/B02/` — úplné before/after dist, manifesty, check/build/test logy, `red.log`, `green.log`, reprodukovatelný `compare.py`, `dist-comparison.json`, `hint-parity.json` a zmrazené ready artefakty. Nezávislé review zadává parent; žádný commit/push/PR/merge touto implementací.
+
+Překryvy a pořadí: viz dodatek B02 v BACKLOG.md; **B01 → B02 → B05 → B06 → B07**. Každá větev samostatně z main, žádné přebírání B01 patche.
+
 ## B10 — lokálně ověřeno 19. 9. 2026, před commit/PR
 
 Baseline `061540c3f4ac7de31dcdca90a5894a48044bde8a`, větev `improve/typecheck`.
