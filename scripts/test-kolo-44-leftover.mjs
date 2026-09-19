@@ -174,3 +174,44 @@ test('kolo 44: noscript schová přepínač tématu přes ID — .theme-toggle p
   assert.match(pravidlo(global, '.theme-toggle'), /display:\s*grid/, 'důvod, proč třída nestačí');
   assert.match(base, /<button id="theme-toggle" class="theme-toggle"/);
 });
+
+// ── Živý audit kola 44 (druhé kolo) ─────────────────────────────────────────
+
+test('kolo 44: náhledy railu na úvodce jsou dekorace — alt="" i aria-hidden jako .vc-thumb', () => {
+  const index = cti('src/pages/index.astro');
+  const rail = bezKomentaru(index.slice(index.indexOf('class="hero-rail"'), index.indexOf('</aside>')));
+  assert.match(rail, /<img src=\{nahled\.src\} alt="" aria-hidden="true"/);
+  assert.match(rail, /class="hero-rail-title"/, 'jméno odkazu nese viditelný titulek');
+});
+
+test('kolo 44: patička bez broadcast štítku „● NOVINKY Z AI A TECHU“', () => {
+  const paticka = baseSablona.match(/<footer class="site">([\s\S]*?)<\/footer>/)?.[1] ?? '';
+  assert.ok(paticka, 'patička chybí');
+  assert.doesNotMatch(paticka, /live-dot|NOVINKY Z AI A TECHU/);
+  assert.match(paticka, /<div class="wrap f-bottom">\s*<span class="mono">© \{new Date\(\)\.getFullYear\(\)\} REALTECH CZ — Daniel &amp; Sam<\/span>\s*<\/div>/);
+  assert.doesNotMatch(bezCssKomentaru(premium), /footer\.site \.live-dot/, 'pravidlo pro neexistující tečku');
+  assert.match(clanek, /<span class="live-dot"><\/span>K tomuto článku existuje video/, '.live-dot zůstává jen u videobaru s videem');
+});
+
+test('kolo 44: audio přehled má viditelné stažení MP3 a říká, že přehrávač jen streamuje', () => {
+  const audio = bezKomentaru(cti('src/components/AudioPrehled.astro'));
+  assert.match(audio, /<\/audio>\s*<p class="audio-prehled-akce">\s*<a class="audio-prehled-stahnout" href=\{pohled\.src\} download target="_blank" rel="noopener">Stáhnout MP3 <span aria-hidden="true">↓<\/span><\/a>/);
+  assert.match(audio, /<span class="audio-prehled-akce-note">\{pohled\.delkaText\} na poslech offline\. Přehrávač jen streamuje/);
+  assert.doesNotMatch(audio, /\d+\s*MB|kratš/i, 'žádná smyšlená velikost ani kratší verze (kolo 36)');
+  assert.match(audio, /<a href=\{pohled\.src\}>Stáhnout audio přehled<\/a>\s*<\/audio>/, 'fallback uvnitř <audio> zůstává');
+  const odkaz = pravidlo(global, '.audio-prehled-stahnout');
+  assert.match(odkaz, /padding-block:\s*10px; margin-block:\s*-10px/, '44px zásah bez zvednutí karty');
+  assert.match(odkaz, /color:\s*var\(--signal-dark\)/);
+  assert.match(pravidlo(global, '.audio-prehled-akce'), /color:\s*var\(--ink-soft\)/);
+});
+
+test('kolo 44: videobar u článku bez videa je tichá řada — bez karty, hairline, obrysové tlačítko', () => {
+  const tichy = pravidlo(premium, '.article-videobar-bez-videa');
+  assert.match(tichy, /background:\s*transparent/);
+  assert.match(tichy, /border:\s*0; border-top:\s*1px solid var\(--line-strong\); border-radius:\s*0/);
+  const tlacitko = pravidlo(premium, '.article-videobar-bez-videa .yt-btn');
+  assert.match(tlacitko, /background:\s*transparent/, 'žádná plná červená výplň pod textem článku');
+  assert.match(tlacitko, /border:\s*1px solid var\(--line\)/);
+  // Varianta s videem drží kartu z kola 43.
+  assert.match(pravidlo(premium, '.audio-prehled, .article-videobar'), /border:\s*1px solid var\(--line-strong\)/);
+});

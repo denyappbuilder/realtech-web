@@ -35,6 +35,17 @@ const pohled = audioPrehledPohled(Astro.props.audio, Astro.site);
     <audio controls preload="metadata" src={pohled.src} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">
       <a href={pohled.src}>Stáhnout audio přehled</a>
     </audio>
+    {/* Kolo 44: Deep Dive má ~25 minut a ~24 MB — odkaz ke stažení byl jen
+        fallback uvnitř <audio>, který moderní prohlížeč nikdy nevykreslí.
+        Viditelná řada pod přehrávačem: stáhnout MP3 (na cestu, offline)
+        a věta, že přehrávač jen streamuje. Soubor je na audio.realtech.cz
+        (jiný origin), `download` tam prohlížeč nemusí ctít — odkaz se proto
+        otvírá na nové kartě, ať čtenář nepřijde o článek. Žádná kratší
+        verze se nevymýšlí (kolo 36). */}
+    <p class="audio-prehled-akce">
+      <a class="audio-prehled-stahnout" href={pohled.src} download target="_blank" rel="noopener">Stáhnout MP3 <span aria-hidden="true">↓</span></a>
+      <span class="audio-prehled-akce-note">{pohled.delkaText} na poslech offline. Přehrávač jen streamuje, celý soubor stáhne až tenhle odkaz.</span>
+    </p>
     {pohled.prepis && (
       <details class="audio-prehled-prepis">
         <summary>Přepis</summary>

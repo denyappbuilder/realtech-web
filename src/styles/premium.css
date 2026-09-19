@@ -206,8 +206,18 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 /* Kolo 43: --surface je od --bg jen o schod (dark #171B21 na #0F1216) — bez
    1px --line bloky plavaly jako nedokončené panely. Rámeček z global.css zpět. */
 .audio-prehled, .article-videobar { border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--radius-field); padding: 24px; }
-/* Článek bez videa: stejný rámeček, ale tišší — menší padding, výzva na kanál zůstává. */
-.article-videobar-bez-videa { padding: 16px 20px; }
+/* Článek bez videa: kolo 43 nechalo kartu s rámečkem a plným červeným
+   tlačítkem — pod textem četlo jako vložená reklama (živý audit kola 44).
+   Kolo 44: žádná karta, jen hairline nad řadou (stejný oddělovač jako
+   .related), text --ink-soft a obrysové tlačítko jako v hlavičce webu.
+   Výzva na kanál zůstává (test-z1003-promo-blok), jen netlačí. */
+.article-videobar-bez-videa {
+  padding: 24px 0 0; margin-top: 40px;
+  background: transparent; border: 0; border-top: 1px solid var(--line-strong); border-radius: 0;
+}
+.article-videobar-bez-videa .mono { font-size: 0.9rem; }
+.article-videobar-bez-videa .yt-btn { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 24px; }
+.article-videobar-bez-videa .yt-btn:hover { background: transparent; border-color: var(--ink-soft); }
 .audio-prehled h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
 /* Kolo 43: „Další reporty“ = stejný oddělovač sekce jako .tema-souvisi na hubu. */
 .related { padding-top: 32px; border-top: 1px solid var(--line-strong); }
@@ -261,7 +271,6 @@ footer.site .f-top { padding-bottom: 40px; margin-bottom: 24px; gap: 64px; }
 .f-nav { gap: 72px; }
 .f-nav-head { font-weight: 600; color: var(--ink); font-size: 0.85rem; }
 footer.site .f-bottom .mono { font-size: 0.75rem; }
-footer.site .live-dot { display: none; }
 
 .search-overlay { padding-top: clamp(12px, 8vh, 80px); }
 .search-box { display: flex; flex-direction: column; max-height: calc(100dvh - clamp(12px, 8vh, 80px) - 20px); border: 0; border-radius: var(--media-radius); }
@@ -376,7 +385,7 @@ footer.site .live-dot { display: none; }
   .article-body h2 { font-size: 1.5rem; }
   .article-body h3 { font-size: 1.2rem; }
   .audio-prehled, .article-videobar { padding: 18px; }
-  .article-videobar-bez-videa { padding: 14px 16px; }
+  .article-videobar-bez-videa { padding: 20px 0 0; margin-top: 32px; }
   .about.about-wide { padding-top: 36px; padding-bottom: 52px; }
   .notfound { padding-top: 36px; }
   .notfound h1 { font-size: 2.5rem; }

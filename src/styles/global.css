@@ -597,6 +597,22 @@ a.tag:hover { background: var(--signal-fill-hover); }
   line-height: 1.5;
 }
 .audio-prehled audio { width: 100%; display: block; }
+/* Kolo 44: řada pod přehrávačem — stáhnout MP3 + poznámka o streamování.
+   Odkaz má 44px zásah přes padding se záporným marginem (jako .section-head a),
+   ať řada nezvedá kartu o celý řádek navíc. */
+.audio-prehled-akce {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px;
+  margin: 10px 0 0;
+  color: var(--ink-soft); font-size: 0.85rem; line-height: 1.5;
+}
+.audio-prehled-stahnout {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding-block: 10px; margin-block: -10px;
+  color: var(--signal-dark); font-weight: 600;
+  text-decoration: underline; text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.audio-prehled-stahnout:hover { color: var(--ink); }
 .audio-prehled-prepis { margin-top: 3px; }
 .audio-prehled-prepis summary {
   cursor: pointer;
