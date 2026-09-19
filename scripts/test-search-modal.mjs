@@ -67,6 +67,15 @@ function kliknuti(currentTarget) {
 // Co má vyhledávání držet
 // ---------------------------------------------------------------------------
 
+test('Tab bez overlay nevyhodí výjimku ani nezachytí klávesu', () => {
+  const modal = nactiModal({ chybiOverlay: true });
+  for (const shiftKey of [false, true]) {
+    const event = klavesa('Tab', { shiftKey });
+    assert.doesNotThrow(() => modal.dokument.dispatch('keydown', event));
+    assert.equal(event.defaultPrevented, false);
+  }
+});
+
 test('dokud se index nenačte, hledání nevrací nic (ne výjimku)', () => {
   const modal = nactiModal();
 

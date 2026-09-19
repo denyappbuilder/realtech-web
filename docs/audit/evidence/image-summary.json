@@ -1,0 +1,83 @@
+{
+  "html_files": 144,
+  "img_occurrences": 740,
+  "unique_src": 239,
+  "missing_alt": 0,
+  "empty_alt": 6,
+  "missing_dimensions": 0,
+  "loading": {
+    "eager": 141,
+    "lazy": 599
+  },
+  "formats_by_src_suffix": {
+    ".webp": 737,
+    ".jpg": 3
+  },
+  "has_srcset": 0,
+  "missing_alt_examples": [],
+  "empty_alt_examples": [
+    {
+      "page": "index.html",
+      "src": "/images/clanky/claude-cowork-docs-slides-checklist-640.webp",
+      "alt": "",
+      "aria-hidden": "true",
+      "width": "640",
+      "height": "360",
+      "loading": "lazy",
+      "decoding": "async"
+    },
+    {
+      "page": "index.html",
+      "src": "/images/clanky/openai-misalignment-reports-pet-pravidel-agenti-640.webp",
+      "alt": "",
+      "aria-hidden": "true",
+      "width": "640",
+      "height": "360",
+      "loading": "lazy",
+      "decoding": "async"
+    },
+    {
+      "page": "index.html",
+      "src": "/images/clanky/rtx-spark-windows-pc-rijen-2026-lokalni-ai-na-co-koukat-640.webp",
+      "alt": "",
+      "aria-hidden": "true",
+      "width": "640",
+      "height": "360",
+      "loading": "lazy",
+      "decoding": "async"
+    },
+    {
+      "page": "index.html",
+      "src": "https://i.ytimg.com/vi/dyU7RAa5l0Y/sddefault.jpg",
+      "alt": "",
+      "aria-hidden": "true",
+      "width": "640",
+      "height": "480",
+      "loading": "lazy",
+      "decoding": "async"
+    },
+    {
+      "page": "index.html",
+      "src": "https://i.ytimg.com/vi/biYMveTpRWc/sddefault.jpg",
+      "alt": "",
+      "aria-hidden": "true",
+      "width": "640",
+      "height": "480",
+      "loading": "lazy",
+      "decoding": "async"
+    },
+    {
+      "page": "index.html",
+      "src": "https://i.ytimg.com/vi/nKjjpEOIeC0/sddefault.jpg",
+      "alt": "",
+      "aria-hidden": "true",
+      "width": "640",
+      "height": "480",
+      "loading": "lazy",
+      "decoding": "async"
+    }
+  ],
+  "missing_dimension_examples": [],
+  "picture_sources_with_srcset": 737,
+  "responsive_note": "srcset je na picture/source, ne na img; has_srcset=0 u img není absence responsivních obrázků."
+}

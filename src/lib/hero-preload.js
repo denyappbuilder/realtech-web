@@ -20,7 +20,7 @@
  *   src?: string | null,
  *   srcset?: string,
  *   webp?: string | null,
- *   webpSrcset?: string,
+ *   webpSrcset?: string | null,
  *   sizes?: string,
  * }} hero — přesně to, co dostane <picture> (viz hero-obrazek.js / homepage).
  * @returns {{ href: string, imagesrcset?: string, imagesizes?: string, type?: string } | null}

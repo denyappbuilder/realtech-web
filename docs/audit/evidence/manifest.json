@@ -1,0 +1,124 @@
+{
+  "baseline_sha": "061540c3f4ac7de31dcdca90a5894a48044bde8a",
+  "evidence_root": "/Users/realtech/.hermes/state/realtech-audit-20260919",
+  "production_deployment": "01da21f3-11f4-4336-b120-d75b833404e0",
+  "source_changed": false,
+  "implementation_started": false,
+  "files": [
+    {
+      "file": "AUDIT.md",
+      "bytes": 18029,
+      "sha256": "03a3639e3b70915da2ba6cacc32c97577b1eeed7639970847408dc7ac6d123f3"
+    },
+    {
+      "file": "BACKLOG.md",
+      "bytes": 23420,
+      "sha256": "d9d163e9e5daaa7ff5a0267490d255fd50a34104d90cbb1b0f256c57c86370d9"
+    },
+    {
+      "file": "evidence/INFRA.md",
+      "bytes": 6251,
+      "sha256": "0cba77a4139008d8188214f6627706600322194829c4ce5f598bf9842826f425"
+    },
+    {
+      "file": "evidence/PERFORMANCE.md",
+      "bytes": 32708,
+      "sha256": "2a80584e5989d0c5e3af4a38494179ba05db2110eea61541b0fcacf338b9e5f9"
+    },
+    {
+      "file": "evidence/SEO.md",
+      "bytes": 14550,
+      "sha256": "01f4ad252c2a4313c5268b7b614373190df6215eead5a440559b6e18c9184925"
+    },
+    {
+      "file": "evidence/UX.md",
+      "bytes": 9329,
+      "sha256": "2b6572bfc740752fcf697dbaf5c1fb490593eb3d2c33491fcb7dd9239e6fa15b"
+    },
+    {
+      "file": "evidence/backlog-ranked.json",
+      "bytes": 17816,
+      "sha256": "96cbb3245ab05905f1d0a44401be036f279e382d1481e1d96d0018a8b0e639c4"
+    },
+    {
+      "file": "evidence/build-test-gates.json",
+      "bytes": 356,
+      "sha256": "4f62b1d1be6db10d345ca4bfb01b10ac7b1408f18cfe0afbada30b64b52849d7"
+    },
+    {
+      "file": "evidence/headers.json",
+      "bytes": 7474,
+      "sha256": "a545d7401c88bc5c20ace68f5372f4603dce7f07929d117d55fe751887a315f4"
+    },
+    {
+      "file": "evidence/image-summary.json",
+      "bytes": 2084,
+      "sha256": "f30830b8a20f0a408ce84b1cb17da1802db4aa82ca89849aa31d869eca6f6d13"
+    },
+    {
+      "file": "evidence/indexnow-deployments.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "file": "evidence/indexnow-runs.json",
+      "bytes": 36,
+      "sha256": "608540d98b06a68c1dfdd3eb6402c07de44825a791a6ce515130e826990837d2"
+    },
+    {
+      "file": "evidence/lighthouse-summary.json",
+      "bytes": 21183,
+      "sha256": "16446c5a14f1296eea114f482195ffeea4dc30ef3259c1a70a3c2d0fb68f40c8"
+    },
+    {
+      "file": "evidence/lighthouse-verification.json",
+      "bytes": 176,
+      "sha256": "1442569a5d8a0f9312fb17412939040c4b68eabb2177315fce64be30e7541f69"
+    },
+    {
+      "file": "evidence/metadata-all.csv",
+      "bytes": 63962,
+      "sha256": "c750b029bbbeb03fd0e4291ecfaeacf66a15267b239a419056985781f5fa3657"
+    },
+    {
+      "file": "evidence/outdated.json",
+      "bytes": 1933,
+      "sha256": "9ce5a421fa371b81090e96e4732517da79d170dac843f6de828515e3f3c60b40"
+    },
+    {
+      "file": "evidence/review.json",
+      "bytes": 2179,
+      "sha256": "d7d65b7910ba54fee9989d6ce8c93e23cb469274f3d5f83774c585874cdf7268"
+    },
+    {
+      "file": "evidence/seo-additional.json",
+      "bytes": 4256,
+      "sha256": "b507d1a0150ac73f7d6dfb1153adfa17be26516f0f5d02212f4fac9e1b2e0ede"
+    },
+    {
+      "file": "evidence/seo-summary.json",
+      "bytes": 18673,
+      "sha256": "85b9f5b01524c37779721d0270e12efc2bea36458e98d43d52a20ae08aa2c3f7"
+    },
+    {
+      "file": "evidence/source-inventory.json",
+      "bytes": 1178,
+      "sha256": "4539e57ae7895d516d9a32059900f817d9f5553cee82d42e2a81ec19551efa88"
+    },
+    {
+      "file": "evidence/static-links.json",
+      "bytes": 59,
+      "sha256": "f893d5ac40e6b3d45a2edf72886a2f5bfd0301d81090b427d9f647c53ac8d24c"
+    },
+    {
+      "file": "evidence/ux-summary.json",
+      "bytes": 2350,
+      "sha256": "f3f9eed0f3ef241cf7ebb37db1042269cdc27b304fc8771904da04798f147f84"
+    },
+    {
+      "file": "evidence/video-contenturl-checks.json",
+      "bytes": 3012,
+      "sha256": "6a1aca6575f776642e87a79255dd91422993e644b21f65944be7853b0595fbcb"
+    }
+  ]
+}

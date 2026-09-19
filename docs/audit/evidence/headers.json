@@ -1,0 +1,100 @@
+[
+  {
+    "url": "https://realtech.cz/",
+    "status": 200,
+    "hash": "b413e4e9449e55182ebb2db1dd8502b9583db3f2f9965e71566f255833c16946",
+    "headers": {
+      "cache-control": "public, max-age=0, must-revalidate",
+      "cf-cache-status": "DYNAMIC",
+      "content-encoding": "br",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://platform.twitter.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; img-src 'self' https://i.ytimg.com data:; font-src 'self'; media-src 'self' https://audio.realtech.cz; frame-src https://www.youtube-nocookie.com https://platform.twitter.com https://giscus.app; connect-src 'self' https://cloudflareinsights.com https://app.kit.com https://giscus.app; form-action 'self' https://app.kit.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "content-type": "text/html; charset=utf-8",
+      "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY"
+    }
+  },
+  {
+    "url": "https://01da21f3.realtech-web.pages.dev/",
+    "status": 200,
+    "hash": "b413e4e9449e55182ebb2db1dd8502b9583db3f2f9965e71566f255833c16946",
+    "headers": {
+      "cache-control": "public, max-age=0, must-revalidate",
+      "content-encoding": "br",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://platform.twitter.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; img-src 'self' https://i.ytimg.com data:; font-src 'self'; media-src 'self' https://audio.realtech.cz; frame-src https://www.youtube-nocookie.com https://platform.twitter.com https://giscus.app; connect-src 'self' https://cloudflareinsights.com https://app.kit.com https://giscus.app; form-action 'self' https://app.kit.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "content-type": "text/html; charset=utf-8",
+      "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY",
+      "x-robots-tag": "noindex"
+    }
+  },
+  {
+    "url": "https://realtech.cz/clanky/?q=Starlink",
+    "status": 200,
+    "hash": "f80880b3c981376a71a6a8dcc82460d17ddabd696e2bad99d10f942f24c05fbc",
+    "headers": {
+      "cache-control": "public, max-age=0, must-revalidate",
+      "cf-cache-status": "DYNAMIC",
+      "content-encoding": "br",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://platform.twitter.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; img-src 'self' https://i.ytimg.com data:; font-src 'self'; media-src 'self' https://audio.realtech.cz; frame-src https://www.youtube-nocookie.com https://platform.twitter.com https://giscus.app; connect-src 'self' https://cloudflareinsights.com https://app.kit.com https://giscus.app; form-action 'self' https://app.kit.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "content-type": "text/html; charset=utf-8",
+      "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY"
+    }
+  },
+  {
+    "url": "https://realtech.cz/_astro/Base.DddzJay0.css",
+    "status": 200,
+    "hash": "f2dddb7c7a4ec01a03157237c9f0dc95ef732034cc7435803a8d29bd43c2e974",
+    "headers": {
+      "cache-control": "public, max-age=31536000, immutable",
+      "cf-cache-status": "HIT",
+      "content-encoding": "br",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://platform.twitter.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; img-src 'self' https://i.ytimg.com data:; font-src 'self'; media-src 'self' https://audio.realtech.cz; frame-src https://www.youtube-nocookie.com https://platform.twitter.com https://giscus.app; connect-src 'self' https://cloudflareinsights.com https://app.kit.com https://giscus.app; form-action 'self' https://app.kit.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "content-type": "text/css; charset=utf-8",
+      "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY"
+    }
+  },
+  {
+    "url": "https://realtech.cz/images/clanky/chatgpt-ve-wordu-zdarma-checklist-osvc.webp",
+    "status": 200,
+    "hash": "d2c8251a13dde008d77dccad9dee0a53808de072ea392b4ff55d2dccb926182c",
+    "headers": {
+      "cache-control": "public, max-age=14400, must-revalidate",
+      "cf-cache-status": "REVALIDATED",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://platform.twitter.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; img-src 'self' https://i.ytimg.com data:; font-src 'self'; media-src 'self' https://audio.realtech.cz; frame-src https://www.youtube-nocookie.com https://platform.twitter.com https://giscus.app; connect-src 'self' https://cloudflareinsights.com https://app.kit.com https://giscus.app; form-action 'self' https://app.kit.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "content-type": "image/webp",
+      "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY"
+    }
+  },
+  {
+    "url": "https://realtech.cz/_astro/page.CMFgH77u.js",
+    "status": 200,
+    "hash": "ac7efac5537306a54aaa0fe168258f00a0fa1361649ab43da4435e6d84041a5f",
+    "headers": {
+      "cache-control": "public, max-age=31536000, immutable",
+      "cf-cache-status": "HIT",
+      "content-encoding": "br",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://platform.twitter.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; img-src 'self' https://i.ytimg.com data:; font-src 'self'; media-src 'self' https://audio.realtech.cz; frame-src https://www.youtube-nocookie.com https://platform.twitter.com https://giscus.app; connect-src 'self' https://cloudflareinsights.com https://app.kit.com https://giscus.app; form-action 'self' https://app.kit.com; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+      "content-type": "application/javascript",
+      "permissions-policy": "camera=(), microphone=(), geolocation=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "DENY"
+    }
+  }
+]

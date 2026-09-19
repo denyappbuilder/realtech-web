@@ -1,4 +1,5 @@
 import { transform } from '@astrojs/compiler';
+import ts from 'typescript';
 
 const homepageUrl = new URL('../src/pages/index.astro', import.meta.url);
 const homepagePathname = homepageUrl.pathname;
@@ -60,5 +61,10 @@ export async function load(url, context, nextLoad) {
     throw new Error('Homepage test loader nenasel renderovaci navrat compileru.');
   }
 
-  return { format: 'module', source: instrumented, shortCircuit: true };
+  // Astro emits TypeScript frontmatter; mirror the build's type erasure.
+  const { outputText } = ts.transpileModule(instrumented, {
+    compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+    fileName: 'homepage.ts',
+  });
+  return { format: 'module', source: outputText, shortCircuit: true };
 }

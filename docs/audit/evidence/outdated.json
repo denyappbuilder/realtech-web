@@ -1,0 +1,58 @@
+{
+  "@astrojs/compiler": {
+    "current": "2.13.1",
+    "wanted": "2.13.1",
+    "latest": "4.0.0",
+    "dependent": "realtech-web-audit-20260919",
+    "location": "/Users/realtech/realtech-web-audit-20260919/node_modules/@astrojs/compiler"
+  },
+  "@astrojs/sitemap": {
+    "current": "3.7.3",
+    "wanted": "3.7.4",
+    "latest": "3.7.4",
+    "dependent": "realtech-web-audit-20260919",
+    "location": "/Users/realtech/realtech-web-audit-20260919/node_modules/@astrojs/sitemap"
+  },
+  "@fontsource-variable/archivo": {
+    "current": "5.2.8",
+    "wanted": "5.3.0",
+    "latest": "5.3.0",
+    "dependent": "realtech-web-audit-20260919",
+    "location": "/Users/realtech/realtech-web-audit-20260919/node_modules/@fontsource-variable/archivo"
+  },
+  "@fontsource/ibm-plex-mono": {
+    "current": "5.2.7",
+    "wanted": "5.3.0",
+    "latest": "5.3.0",
+    "dependent": "realtech-web-audit-20260919",
+    "location": "/Users/realtech/realtech-web-audit-20260919/node_modules/@fontsource/ibm-plex-mono"
+  },
+  "@fontsource/ibm-plex-sans": {
+    "current": "5.2.8",
+    "wanted": "5.3.0",
+    "latest": "5.3.0",
+    "dependent": "realtech-web-audit-20260919",
+    "location": "/Users/realtech/realtech-web-audit-20260919/node_modules/@fontsource/ibm-plex-sans"
+  },
+  "js-yaml": {
+    "current": "4.3.2",
+    "wanted": "4.3.2",
+    "latest": "5.4.2",
+    "dependent": "realtech-web-audit-20260919",
+    "location": "/Users/realtech/realtech-web-audit-20260919/node_modules/js-yaml"
+  },
+  "marked": {
+    "current": "18.0.6",
+    "wanted": "18.0.13",
+    "latest": "18.0.13",
+    "dependent": "realtech-web-audit-20260919",
+    "location": "/Users/realtech/realtech-web-audit-20260919/node_modules/marked"
+  },
+  "typescript": {
+    "current": "5.9.3",
+    "wanted": "5.9.3",
+    "latest": "7.0.2",
+    "dependent": "realtech-web-audit-20260919",
+    "location": "/Users/realtech/realtech-web-audit-20260919/node_modules/typescript"
+  }
+}

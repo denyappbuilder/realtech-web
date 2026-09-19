@@ -1,0 +1,32 @@
+{
+  "verdict": "PASS_WITH_LIMITS",
+  "findings": [],
+  "scope": "Independent read-only documentary QA of docs/audit/AUDIT.md and BACKLOG.md against docs/audit/evidence and existing state artifacts; no browser, build or network reruns.",
+  "verified": {
+    "lighthouse_raw_runs": 30,
+    "lighthouse_combinations": 10,
+    "runs_per_combination": 3,
+    "all_reported_performance_accessibility_best_practices_seo_lcp_cls_medians_match_raw": true,
+    "all_30_accessibility_at_least_95_best_practices_100_seo_100": true,
+    "lighthouse_runtime_errors": 0,
+    "metadata_csv_rows_and_unique_urls": 141,
+    "articles_newsarticle": 118,
+    "videoobject": 14,
+    "http200_selfcanonical_h1_lang_csv_violations": 0,
+    "live_build_metadata_schema_parity_records": 141,
+    "live_build_parity_all_equal": true,
+    "static_link_evidence": {"pages": 144, "links_checked": 6914, "errors": 0},
+    "postbuild_tests": {"total": 1041, "pass": 1035, "fail": 0, "skip": 0, "todo": 6},
+    "backlog_items": 16,
+    "backlog_ratio_descending_and_id_tiebreak_correct": true,
+    "implementation_stop_and_nontechnical_approval_gates_explicit": true,
+    "distinctions_correct": ["Lighthouse lab TBT versus unverified field INP/p75", "JSON syntax/presence versus video contentUrl semantic correctness and unverified rich-results eligibility", "53 zero-contextual-incoming articles versus zero actual sitemap orphans", "prebuild skipped test versus successful postbuild rerun", "astro check blocked rather than false PASS"],
+    "git_status": "?? docs/audit/; no tracked source changes shown"
+  },
+  "limits": [
+    "Pending whole-site image alt/dimension/lazy summary and final manifest deliberately excluded from blockers as requested; this verdict does not verify their final integration.",
+    "Existing evidence was inspected rather than rerunning collection; private analytics, field CWV, rich-results validation, legal compliance and assistive technology checks remain unverified as explicitly disclosed in AUDIT.md.",
+    "Evidence directory is docs/audit/evidence, not docs/evidence.",
+    "No source or documentation edits made; only this requested review artifact was written."
+  ]
+}

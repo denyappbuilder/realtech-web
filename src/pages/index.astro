@@ -55,18 +55,19 @@ const heroVideoId = hero?.data.video?.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)
 // (~170 KB JPEG) je jen fallback, když cover v public/ opravdu není.
 // Stejná volba jako karta (nahledKarty.hasLocalThumb) a facade článku;
 // dřív video hero vždy táhlo YT JPEG a lokální -640.webp ležel ladem.
-const heroMaLokalniCover = Boolean(hero?.data.image && fs.existsSync(`public${hero.data.image}`));
+const heroImage = hero?.data.image;
+const heroMaLokalniCover = !!heroImage && fs.existsSync(`public${heroImage}`);
 const heroThumb = heroVideoId && !heroMaLokalniCover
   ? `https://i.ytimg.com/vi/${heroVideoId}/maxresdefault.jpg`
   : hero?.data.image;
 // Na mobilu stačí 640px varianta — LCP
-const heroSmall = heroMaLokalniCover ? hero.data.image.replace(/\.jpg$/, '-640.jpg') : null;
+const heroSmall = heroMaLokalniCover ? heroImage.replace(/\.jpg$/, '-640.jpg') : null;
 const heroSrcset = heroSmall && fs.existsSync(`public${heroSmall}`)
   ? `${heroSmall} 640w, ${heroThumb} 1280w`
   : undefined;
-const heroWebp = heroMaLokalniCover ? hero.data.image.replace(/\.jpg$/, '.webp') : null;
+const heroWebp = heroMaLokalniCover ? heroImage.replace(/\.jpg$/, '.webp') : null;
 const heroWebpSmall = heroWebp?.replace(/\.webp$/, '-640.webp');
-const heroHasWebp = Boolean(heroWebp && fs.existsSync(`public${heroWebp}`));
+const heroHasWebp = !!heroWebp && fs.existsSync(`public${heroWebp}`);
 // Kolo 39: 960w mezi 640 a 1280 (viz karta-nahled.js) — hero na mobilu
 // DPR 2 (342 px) a v desktop slotu 550 px bral plných 1280.
 const heroWebpSrcset = heroHasWebp && heroWebpSmall && fs.existsSync(`public${heroWebpSmall}`)
@@ -95,8 +96,8 @@ const heroPreload = preloadHeroObrazku({
 // v src/data/videos.json (YouTube RSS občas vrací 404 — snapshot aktualizuje Kepler
 // při publikacích / po vydání nového videa).
 import videosSnapshot from '../data/videos.json';
-const decode = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
-let videos = [];
+const decode = (s: string) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+let videos: typeof videosSnapshot = [];
 try {
   const res = await fetch('https://www.youtube.com/feeds/videos.xml?channel_id=UCwWvw3SkWgfDinhnAHpceeA', { signal: AbortSignal.timeout(8000) });
   if (res.ok) {
@@ -106,7 +107,7 @@ try {
         id: m[1].match(/<yt:videoId>([^<]+)/)?.[1],
         title: m[1].match(/<title>([^<]+)/)?.[1],
       }))
-      .filter((v) => v.id && v.title && !/#?shorts/i.test(v.title))
+      .filter((v): v is { id: string; title: string } => Boolean(v.id && v.title && !/#?shorts/i.test(v.title)))
       .slice(0, 3)
       .map((v) => ({ ...v, title: decode(v.title) }));
   }

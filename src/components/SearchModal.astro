@@ -275,7 +275,7 @@
       overlay?.hidden ? open(document.activeElement as HTMLElement | null) : close();
       return;
     }
-    if (overlay?.hidden) return;
+    if (!overlay || overlay.hidden) return;
     if (e.key === 'Escape') { close(); return; }
     if (e.key === 'Tab') {
       // a[href] zahrne i option s tabindex=-1, které nejsou v pořadí Tab.

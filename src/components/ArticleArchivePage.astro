@@ -208,7 +208,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       // mřížku, aby karta z indexu vybírala derivát stejně jako karta vedle.
       const sizesKaret = grid?.getAttribute('data-sizes') ?? '';
       let index: PolozkaIndexu[] | null = null;
-      let loadingIndex: Promise<typeof index> | null = null;
+      let loadingIndex: Promise<PolozkaIndexu[]> | null = null;
       let debounceTimer = 0;
       let debounceGen = 0;
       let applyVersion = 0;

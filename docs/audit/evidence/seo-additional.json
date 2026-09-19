@@ -1,0 +1,157 @@
+{
+  "sourceMarkdownCount": 118,
+  "sourceVideoArticles": 14,
+  "xPostAssociatedArticles": 11,
+  "youtubeOrXAssociatedArticles": 25,
+  "sourceYoutubeAndXOverlap": 0,
+  "authorBoxChannelCTA": 118,
+  "body3ArticleDestinations": 8,
+  "all3ArticleDestinations": 118,
+  "bodyIncomingZeroCount": 53,
+  "bodyOutgoingZeroCount": 21,
+  "below3BodyCount": 110,
+  "headingBodySkips": [
+    {
+      "url": "https://realtech.cz/clanky/chatgpt-ve-wordu-zdarma-checklist-osvc/",
+      "skips": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/claude-cowork-docs-slides-checklist/",
+      "skips": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/openai-misalignment-reports-pet-pravidel-agenti/",
+      "skips": [
+        [
+          1,
+          3
+        ]
+      ]
+    }
+  ],
+  "semanticErrors": [
+    {
+      "url": "https://realtech.cz/clanky/claude-anthropic-pentagon/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/dji-ban-usa/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/dji-vs-insta360/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/nvidia-n1x-notebooky/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/poco-m8-vs-m8-pro/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/proc-je-spacex-tak-napred/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/spacex-starfall-raketova-doprava/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/starlink-1gbs-2026/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/starlink-konkurenti/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/starlink-mini-test/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/starlink-mini-vs-standard/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/starlink-v-cesku-pruvodce/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/windows-arm-vs-macbook/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    },
+    {
+      "url": "https://realtech.cz/clanky/xiaomi-kdo-ma-kontrolu/",
+      "errors": [
+        "VideoObject contentUrl points to HTML watch page, not video bytes"
+      ]
+    }
+  ],
+  "articleDepthOver3": {
+    "https://realtech.cz/clanky/glm-5-3-kybernalezy/": 4,
+    "https://realtech.cz/clanky/meta-muse-instagram-fotky/": 4,
+    "https://realtech.cz/clanky/chatgpt-zdarma-neomezene-chaty/": 4,
+    "https://realtech.cz/clanky/gemini-mac-hlasove-ovladani/": 4,
+    "https://realtech.cz/clanky/google-earth-nano-banana/": 4,
+    "https://realtech.cz/clanky/claude-vodoznak-ai-text/": 4
+  },
+  "wordRange": [
+    303,
+    1574
+  ],
+  "schemaObjectCounts": {
+    "WebSite": 2,
+    "SearchAction": 1,
+    "EntryPoint": 1,
+    "Organization": 134,
+    "ImageObject": 120,
+    "BreadcrumbList": 140,
+    "ListItem": 652,
+    "CollectionPage": 20,
+    "ItemList": 20,
+    "NewsArticle": 118,
+    "Person": 240,
+    "AudioObject": 118,
+    "VideoObject": 14,
+    "WebPage": 1,
+    "AboutPage": 1
+  }
+}
