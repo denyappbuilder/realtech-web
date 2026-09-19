@@ -10,6 +10,6 @@ test('Astro migration preserves HTML-aware inline whitespace', () => {
 test('Astro migration explicitly preserves the unified Markdown plugin pipeline', () => {
   assert.ok(isUnifiedProcessor(config.markdown.processor));
   assert.deepEqual(config.markdown.processor.options.rehypePlugins.map((plugin) => plugin.name), [
-    'rehypeAsciiHeadingIds', 'rehypeXEmbedy', 'rehypeTabulky',
+    'rehypeAsciiHeadingIds', 'rehypeCtaInline', 'rehypeXEmbedy', 'rehypeTabulky',
   ]);
 });

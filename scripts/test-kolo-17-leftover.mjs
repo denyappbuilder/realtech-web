@@ -109,7 +109,7 @@ test("kolo 17: rehypeTabulky je zaregistrovaný v astro.config za X embedy", () 
   assert.match(config, /import \{ rehypeTabulky \} from '\.\/src\/lib\/rehype-tabulky\.js';/);
   assert.match(
     config,
-    /rehypePlugins:\s*\[rehypeAsciiHeadingIds,\s*rehypeXEmbedy,\s*rehypeTabulky\]/,
+    /rehypePlugins:\s*\[rehypeAsciiHeadingIds,\s*rehypeCtaInline,\s*rehypeXEmbedy,\s*rehypeTabulky\]/,
     "rehypeTabulky musí být poslední — X embed počítá indexy odstavců v tree.children",
   );
 });
