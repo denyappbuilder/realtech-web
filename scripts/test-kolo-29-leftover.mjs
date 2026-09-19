@@ -265,14 +265,14 @@ function spustArchiv({ index, karty }) {
   const casovace = [];
   vm.runInNewContext(js, {
     document,
-    window: {
+    window: { addEventListener() {},
       setTimeout(fn) { casovace.push(fn); return casovace.length; },
       clearTimeout() {},
     },
     fetch: async () => ({ ok: true, json: async () => index }),
     URLSearchParams,
     location: { pathname: "/clanky/", search: "" },
-    history: { replaceState: (...args) => historie.push(args) },
+    history: { pushState: (...args) => historie.push(args), replaceState: (...args) => historie.push(args) },
   }, { filename: "ArticleArchivePage.client.js" });
 
   // Debounce i odložené ohlášení jdou přes window.setTimeout — spustí se ručně.

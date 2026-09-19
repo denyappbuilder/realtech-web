@@ -72,7 +72,8 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
   const form = prvek();
   input.form = form;
   const odkaz = prvek({ fokusovan: 0, focus });
-  const prvkyModalu = [input, odkaz];
+  const allResults = prvek({ hidden: true, href: '', textContent: '', fokusovan: 0, focus });
+  const prvkyModalu = [input, odkaz, allResults];
   const overlay = prvek({
     hidden: true,
     contains: (el) => prvkyModalu.includes(el),
@@ -101,7 +102,7 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
     body: { style: {} },
     activeElement: spoustec,
     getElementById: (id) =>
-      ({ 'search-overlay': overlay, 'search-q': input, 'search-results': results, 'search-hint': hint })[id] ?? null,
+      ({ 'search-overlay': overlay, 'search-q': input, 'search-results': results, 'search-hint': hint, 'search-all-results': allResults })[id] ?? null,
     querySelectorAll: (selector) => selector === '[data-search-open]' ? [spoustec] : [],
   });
 
@@ -139,5 +140,5 @@ export function nactiModal({ hledatelne = null, fetch: fetchImpl } = {}) {
 
   const modal = sandbox.__modal;
   if (hledatelne !== null) modal.nastavIndex(hledatelne);
-  return { ...modal, overlay, input, form, odkaz, results, hint, spoustec, dokument, sandbox };
+  return { ...modal, overlay, input, form, odkaz, allResults, results, hint, spoustec, dokument, sandbox };
 }

@@ -110,7 +110,7 @@ test("kolo 36: #art-search na straně 1 stojí ve stejném GET formuláři jako 
   assert.ok(strana1, "archiv ztratil větev strany 1");
   assert.match(
     strana1,
-    /<form class="search-form" action="\/clanky\/" method="get" role="search" aria-label="[^"]+">\s*<input type="search" name="q" class="search-input" id="art-search"/,
+    /<form class="search-form" action="\/clanky\/" method="get" role="search" aria-label="[^"]+">\s*<label class="archive-search-label" for="art-search">Hledat v článcích<\/label>\s*<input type="search" name="q" class="search-input" id="art-search"/,
     "vstup musí mít name=q, jinak GET nic nepošle",
   );
   const strana2 = (archiv.match(/<div class="filter-bar" data-filter-odkaz>([\s\S]*?)<\/div>\s*\)\}/)?.[1] ?? "")
@@ -125,7 +125,7 @@ test("kolo 36: odeslání formuláře s JS filtruje hned, bez reloadu", () => {
   assert.match(skript, /const searchForm = document\.querySelector<HTMLFormElement>\('\.filter-bar \.search-form'\);/);
   assert.match(
     skript,
-    /searchForm\?\.addEventListener\('submit', \(event\) => \{\s*event\.preventDefault\(\);[\s\S]*?window\.clearTimeout\(debounceTimer\);\s*void apply\(\);/,
+    /searchForm\?\.addEventListener\('submit', \(event\) => \{\s*event\.preventDefault\(\);[\s\S]*?window\.clearTimeout\(debounceTimer\);\s*void apply\(searchDraft \? 'replace' : 'push'\);/,
     "Enter má přeskočit debounce a spustit filtr, ne znovu načíst stránku",
   );
 });

@@ -69,7 +69,7 @@ export function platnyIndex(candidate) {
 
 /**
  * Výběr z indexu — shoda 1:1 s klientským apply(): kategorie přesně,
- * dotaz jako podřetězec bez diakritiky v titulku, popisu, kategorii a
+ * všechna slova dotazu bez diakritiky v titulku, popisu, kategorii a
  * začátku textu. Pořadí indexu (nejnovější první) se drží.
  *
  * @param {PolozkaIndexu[]} index
@@ -81,7 +81,8 @@ export function filtrujIndex(index, { kat, q }) {
   return index.filter((it) => {
     if (kat && it.k !== kat) return false;
     if (!nq) return true;
-    return normalizuj(`${it.t} ${it.d} ${it.k} ${it.b}`).includes(nq);
+    const haystack = normalizuj(`${it.t} ${it.d} ${it.k} ${it.b}`);
+    return nq.split(/\s+/).every((term) => haystack.includes(term));
   });
 }
 

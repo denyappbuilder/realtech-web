@@ -137,6 +137,14 @@ function spustArchiv({ index, karty }) {
   const pagination = new Prvek("nav", { class: "archive-pagination" });
   const search = new Prvek("input", { id: "art-search" });
   const historie = [];
+  const historyModes = [];
+  const location = { pathname: '/clanky/', search: '' };
+  const events = new Map();
+  const writeHistory = (mode, ...args) => {
+    historie.push(args);
+    historyModes.push(mode);
+    location.search = new URL(args[2], 'https://realtech.cz').search;
+  };
 
   const document = {
     createElement: (tag) => new Prvek(tag),
@@ -158,14 +166,14 @@ function spustArchiv({ index, karty }) {
   const casovace = [];
   vm.runInNewContext(js, {
     document,
-    window: {
+    window: { addEventListener(type, listener) { events.set(type, listener); },
       setTimeout(fn) { casovace.push(fn); return casovace.length; },
       clearTimeout() {},
     },
     fetch: async () => ({ ok: true, json: async () => index }),
     URLSearchParams,
-    location: { pathname: "/clanky/", search: "" },
-    history: { replaceState: (...args) => historie.push(args) },
+    location,
+    history: { pushState: (...args) => writeHistory('push', ...args), replaceState: (...args) => writeHistory('replace', ...args) },
   }, { filename: "ArticleArchivePage.client.js" });
 
   const dobehni = async () => {
@@ -174,7 +182,7 @@ function spustArchiv({ index, karty }) {
       await new Promise((r) => setImmediate(r));
     }
   };
-  return { chipy, chipVse, grid, empty, reset, pagination, search, historie, dobehni };
+  return { chipy, chipVse, grid, empty, reset, pagination, search, historie, historyModes, location, events, dobehni };
 }
 
 const INDEX = [
@@ -182,6 +190,37 @@ const INDEX = [
   { s: "s1", t: "Starship Flight 14", d: "Popis", k: "Vesmír", b: "", p: "2026-08-10" },
   { s: "m1", t: "Pixel 11", d: "Popis", k: "Mobily", b: "", p: "2026-06-01" },
 ];
+
+test('round4: category/reset history and popstate restore controls and cards without recording replay', async () => {
+  const dom = spustArchiv({ index: INDEX, karty: ['a1', 's1'] });
+  dom.search.value = 'Flight';
+  dom.search.dispatch('input');
+  await dom.dobehni();
+  const category = dom.chipy.find((c) => c.getAttribute('data-cat') === 'Vesmír');
+  category.dispatch('click');
+  await dom.dobehni();
+  const saved = dom.location.search;
+  dom.reset.dispatch('click');
+  await dom.dobehni();
+  assert.deepEqual(dom.historyModes, ['push', 'replace', 'push', 'push']);
+  const writes = dom.historie.length;
+  dom.location.search = saved;
+  dom.events.get('popstate')();
+  await dom.dobehni();
+  assert.equal(dom.search.value, 'Flight');
+  assert.equal(category.getAttribute('aria-pressed'), 'true');
+  assert.deepEqual(dom.grid.children.filter(c => !c.hasAttribute('hidden')).map(c => c.getAttribute('data-slug')), ['s1']);
+  assert.equal(dom.historie.length, writes, 'popstate never writes a new history entry');
+  // Back while an input debounce is pending must defeat that stale draft.
+  dom.search.value = 'Claude';
+  dom.search.dispatch('input');
+  dom.location.search = '';
+  dom.events.get('popstate')();
+  await dom.dobehni();
+  assert.equal(dom.search.value, '');
+  assert.equal(dom.location.search, '');
+  assert.equal(dom.pagination.hasAttribute('hidden'), false);
+});
 
 test("Zrušit filtr se ukáže u každého filtru a klik vrátí Vše, prázdné pole, karty, stránkování i čistou URL", async () => {
   const dom = spustArchiv({ index: INDEX, karty: ["a1", "s1"] });

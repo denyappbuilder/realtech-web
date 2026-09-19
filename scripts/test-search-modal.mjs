@@ -354,7 +354,7 @@ test('šipka dolů posune aria-activedescendant na další položku', () => {
   modal.render(vysledky, 'q');
   assert.equal(modal.input.getAttribute('aria-activedescendant'), 'search-item-0');
 
-  modal.dokument.dispatch('keydown', klavesa('ArrowDown'));
+  modal.dokument.dispatch('keydown', klavesa('ArrowDown', { target: modal.input }));
 
   assert.equal(modal.input.getAttribute('aria-activedescendant'), 'search-item-1');
   assert.equal(modal.input.getAttribute('aria-expanded'), 'true');

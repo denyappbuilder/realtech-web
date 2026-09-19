@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { readingTime } from '../lib/reading-time.js';
+import { articleLead } from '../lib/article-lead.js';
 import { youtubeId } from '../lib/youtube.js';
 import { KARTA_SIZES, nahledKarty } from '../lib/karta-nahled.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
@@ -87,7 +88,7 @@ const fetchpriority = priority ? 'high' : undefined;
   </div>
   <div class="card-body">
     <TitleTag><a href={`/clanky/${article.id}/`}>{title}</a></TitleTag>
-    <p>{description}</p>
+    <p>{articleLead(description, article.body)}</p>
     <div class="card-meta">
       <time datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
       <span>ČTENÍ {readMinutes} MIN</span>

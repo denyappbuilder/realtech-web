@@ -228,11 +228,11 @@ function spustArchiv({ search, filtrEdge }) {
   const historie = [];
   vm.runInNewContext(js, {
     document,
-    window: { setTimeout(fn) { casovace.push(fn); return casovace.length; }, clearTimeout() {} },
+    window: { addEventListener() {}, setTimeout(fn) { casovace.push(fn); return casovace.length; }, clearTimeout() {} },
     fetch: async () => { fetchu += 1; return { ok: true, json: async () => INDEX }; },
     URLSearchParams,
     location: { pathname: "/clanky/", search },
-    history: { replaceState(_s, _t, url) { historie.push(url); } },
+    history: { pushState(_s, _t, url) { historie.push(url); }, replaceState(_s, _t, url) { historie.push(url); } },
   }, { filename: "ArticleArchivePage.client.js" });
 
   const dobehni = async () => {

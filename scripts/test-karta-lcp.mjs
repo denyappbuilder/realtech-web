@@ -129,7 +129,7 @@ test('úvodka nenechá kartu soupeřit s hero o fetchpriority', () => {
   assert.match(uvodka, /fetchpriority="high"/);
   assert.match(
     uvodka,
-    /\{rest\.map\(\(article\) => <ArticleCard article=\{article\} \/>\)\}/,
+    /\{rest\.map\(\(article\) => <ArticleCard article=\{article\} sizes=\{KARTA_SIZES_HOME_COMPACT\} \/>\)\}/,
   );
   assert.match(
     uvodka,

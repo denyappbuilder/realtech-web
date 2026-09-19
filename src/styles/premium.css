@@ -124,7 +124,8 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 [data-archive] .archive-heading { padding-bottom: 0; margin-bottom: 32px; }
 .archive-heading p, .cat-lead { font-size: 1.15rem; line-height: 1.6; max-width: 62ch; }
 .cat-lead { margin-bottom: 44px; }
-[data-archive] .search-form { max-width: 760px; gap: 12px; }
+[data-archive] .search-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; max-width: 760px; gap: 10px 12px; order: 0; }
+.archive-search-label { grid-column: 1 / -1; font-size: 0.85rem; font-weight: 600; color: var(--ink); }
 [data-archive] .search-input { min-height: 56px; padding-inline: 20px; border-radius: 12px; background: var(--surface); }
 [data-archive] .search-form button { border-radius: 12px; background: var(--ink); color: var(--bg); }
 [data-archive] .search-form .btn-primary:hover { background: var(--signal-fill-hover); color: #fff; }
@@ -171,12 +172,15 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .article-page .article-head { max-width: 880px; margin: 0 auto 44px; }
 .article-head h1 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(2.1rem, 4.5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.035em; text-wrap: balance; }
 .article-head p.lead { font-size: 1.25rem; line-height: 1.6; max-width: 65ch; margin-top: 24px; }
-.reading-entry { margin-top: 24px; }
+.reading-entry { display: none; }
 .article-credit { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; margin-top: 16px; font-size: 0.85rem; color: var(--ink-soft); }
 .article-credit a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
 .article-credit a:hover { color: var(--signal-dark); text-decoration: underline; text-underline-offset: 4px; }
 .article-credit .article-read-link { color: var(--signal-dark); }
 .reading-entry > a { font-size: 0.9rem; font-weight: 500; }
+.search-all-results { display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 20px; border-top: 1px solid var(--line); color: var(--signal-dark); font-weight: 600; text-underline-offset: 4px; }
+.search-all-results[hidden] { display: none; }
+.search-all-results:hover { background: var(--bg); text-decoration: underline; }
 .article-hero, .video-embed { border: 0; border-radius: var(--media-radius); overflow: hidden; }
 .article-layout { grid-template-columns: minmax(0, 700px) minmax(220px, 1fr); gap: 64px; margin-top: 56px; }
 .article-layout .article-body { font-size: 1.2rem; line-height: 1.8; }
@@ -241,7 +245,11 @@ footer.site .f-top { padding-bottom: 40px; margin-bottom: 24px; gap: 64px; }
 footer.site .f-bottom .mono { font-size: 0.75rem; }
 footer.site .live-dot { display: none; }
 
-.search-box { border: 0; border-radius: var(--media-radius); }
+.search-overlay { padding-top: clamp(12px, 8vh, 80px); }
+.search-box { display: flex; flex-direction: column; max-height: calc(100dvh - clamp(12px, 8vh, 80px) - 20px); border: 0; border-radius: var(--media-radius); }
+.search-box > :not(.search-results) { flex-shrink: 0; }
+.search-results { min-height: 0; }
+.search-hint:not(.sr-only) { padding: 12px 24px; }
 .search-head { padding: 20px 24px; }
 .search-item { padding: 18px 24px; }
 .search-item-title { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
@@ -253,6 +261,7 @@ footer.site .live-dot { display: none; }
 }
 @media (max-width: 900px) {
   header.site .wrap { height: auto; }
+  header.site .search-trigger { min-width: 44px; }
   .edition-heading { padding-block: 28px 20px; }
   .hero-grid { display: flex; flex-direction: column; background: transparent; overflow: visible; }
   .hero-copy { padding: 0 0 28px; align-self: auto; }
@@ -262,6 +271,17 @@ footer.site .live-dot { display: none; }
   .hero { padding-bottom: 32px; }
   .topic-navigation { margin-bottom: 40px; }
   .article-layout { grid-template-columns: minmax(0, 1fr); gap: 0; margin-top: 36px; }
+  /* The native outline travels with the text, not the cover. No modal or JS
+     required; short landscape viewports keep it in normal document flow. */
+  .reading-entry { display: block; align-self: start; margin: 0 0 24px; background: var(--bg); z-index: 20; }
+  .article-contents-mobile { margin-top: 0; }
+  .article-contents-mobile summary { padding-inline: 4px; }
+  .article-contents-mobile summary span { float: right; font-variant-numeric: tabular-nums; }
+  .article-contents-mobile nav { max-height: min(55dvh, calc(100dvh - var(--reading-header-height, 96px) - 80px)); }
+  @media (min-height: 481px) {
+    .reading-entry { position: sticky; top: var(--reading-header-height, 96px); }
+    #article-text, .article-body h2, .article-body h3 { scroll-margin-top: calc(var(--reading-header-height, 96px) + 80px); }
+  }
   .article-layout .article-body { max-width: 700px; margin-inline: auto; }
   .article-page .article-head { max-width: 760px; }
   .article-head .lower-third { flex-wrap: wrap; overflow: visible; }
@@ -285,6 +305,19 @@ footer.site .live-dot { display: none; }
   .section-head { align-items: start; gap: 12px; flex-wrap: wrap; }
   .section-head a { font-size: 0.85rem; }
   .grid { row-gap: 28px; }
+  /* Keep the first report image-led; supporting news becomes a readable
+     list, so guides and video are not nine full-size cards away. */
+  .latest-reports { row-gap: 0; }
+  .latest-reports > .card:first-child { margin-bottom: 24px; }
+  .latest-reports > .card:not(:first-child) { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; padding-block: 20px; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
+  .latest-reports > .card:not(:first-child) .card-thumb { border-radius: 8px; align-self: start; }
+  .latest-reports > .card:not(:first-child) .card-thumb .lt { margin: 4px; pointer-events: none; }
+  .latest-reports > .card:not(:first-child) .card-thumb .lt .k { font-size: 0.65rem; padding: 3px 5px; }
+  .latest-reports > .card:not(:first-child) .card-thumb .lt .t,
+  .latest-reports > .card:not(:first-child) .card-thumb .lt .z { display: none; }
+  .latest-reports > .card:not(:first-child) .card-body { padding: 0; gap: 12px; }
+  .latest-reports > .card:not(:first-child) .card-body h3 { font-size: 1.05rem; line-height: 1.35; }
+  .latest-reports > .card:not(:first-child) .card-body p { display: none; }
   .card-body { padding: 22px; }
   .card-body h2, .card-body h3 { font-size: 1.25rem; }
   .card-meta { font-size: 0.75rem; }
@@ -328,6 +361,14 @@ footer.site .live-dot { display: none; }
   .newsletter h2 { font-size: 1.8rem; }
   footer.site .f-top { gap: 32px; }
   .f-nav { gap: 48px; }
+}
+@media (max-width: 360px) {
+  header.site .wrap { grid-template-columns: max-content minmax(0, 1fr); column-gap: 12px; }
+  header.site .header-actions { justify-self: end; gap: 4px; }
+  header.site .yt-btn { width: 44px; padding: 0; justify-content: center; }
+  header.site .yt-label { display: none; }
+  [data-archive] .card,
+  .latest-reports > .card:not(:first-child) { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .card:hover .card-thumb img,

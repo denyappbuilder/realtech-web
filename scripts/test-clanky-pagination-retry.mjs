@@ -216,7 +216,7 @@ const createArchive = () => {
   const location = { pathname: '/clanky/', search: '' };
   vm.runInNewContext(clientScript, {
     document,
-    window: {
+    window: { addEventListener() {},
       setTimeout(fn) {
         fn();
         return 1;
@@ -226,7 +226,7 @@ const createArchive = () => {
     fetch: fetchController.fetch,
     URLSearchParams,
     location,
-    history: { replaceState() {} },
+    history: { pushState() {}, replaceState() {} },
   }, { filename: 'ArticleArchivePage.client.js' });
 
   return { fetchController, grid, loading, search, pagination, empty };

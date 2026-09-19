@@ -30,5 +30,6 @@ test('article ships native mobile and desktop section navigation before reading'
   assert.match(source, /<nav class="article-contents" aria-label="Obsah článku">/);
   assert.match(source, /href="#article-text"/);
   assert.match(source, /id="article-text" tabindex="-1"/);
-  assert.ok(source.indexOf('article-contents-mobile') < source.indexOf('<AudioPrehled'));
+  assert.ok(source.indexOf('<div class="article-layout">') < source.indexOf('article-contents-mobile'));
+  assert.ok(source.indexOf('article-contents-mobile') < source.indexOf('id="article-text"'));
 });

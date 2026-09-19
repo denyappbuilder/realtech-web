@@ -109,6 +109,13 @@ const vypisOg = ogObrazekClanku(articles[0]);
       </div>
       {page === 1 ? (
         <div class="filter-bar">
+          {/* Native GET search comes before category controls in both visual
+              and keyboard order; JavaScript progressively enhances submit. */}
+          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
+            <label class="archive-search-label" for="art-search">Hledat v článcích</label>
+            <input type="search" name="q" class="search-input" id="art-search" placeholder="Např. Starlink" aria-label="Hledat v článcích" />
+            <button type="submit" class="btn-primary">Hledat</button>
+          </form>
           <div class="cat-filter" role="group" aria-label="Filtr podle kategorie">
             <button class="chip active" data-cat="" aria-pressed="true">Vše</button>
             {categories.map((category) => <button class="chip" data-cat={category} aria-pressed="false">{category}</button>)}
@@ -126,20 +133,14 @@ const vypisOg = ogObrazekClanku(articles[0]);
               {categories.map((category) => <a class="chip" href={`/clanky/?kat=${encodeURIComponent(category)}`}>{category}</a>)}
             </nav>
           </noscript>
-          {/*
-            Kolo 36: holý <input> na straně 1 bez JS nedělal nic — Enter
-            nikam nevedl (živě 10. 9. 2026). Stejný GET formulář jako na
-            strana/2+ níž: bez JS odešle /clanky/?q=…, s JS ho skript zachytí
-            (preventDefault) a filtr spustí hned bez debounce. name=q drží
-            tvar URL, který skript čte při načtení (initialQuery).
-          */}
-          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
-            <input type="search" name="q" class="search-input" id="art-search" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
-            <button type="submit" class="btn-primary">Hledat</button>
-          </form>
         </div>
       ) : (
         <div class="filter-bar" data-filter-odkaz>
+          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
+            <label class="archive-search-label" for="archive-search-page">Hledat v článcích</label>
+            <input type="search" name="q" class="search-input" id="archive-search-page" placeholder="Např. Starlink" aria-label="Hledat v článcích" />
+            <button type="submit" class="btn-primary">Hledat</button>
+          </form>
           {/*
             Kolo 35: /clanky/strana/2+ byly slepé — filtr i hledání měla jen
             strana 1 (živě 10. 9. 2026). Stejný pruh tu je bez JS: čipy jsou
@@ -152,10 +153,6 @@ const vypisOg = ogObrazekClanku(articles[0]);
             <a class="chip active" href="/clanky/">Vše</a>
             {categories.map((category) => <a class="chip" href={`/clanky/?kat=${encodeURIComponent(category)}`}>{category}</a>)}
           </nav>
-          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
-            <input type="search" name="q" class="search-input" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
-            <button type="submit" class="btn-primary">Hledat</button>
-          </form>
         </div>
       )}
       <div class="archive-results-bar">
@@ -216,6 +213,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       let debounceGen = 0;
       let applyVersion = 0;
       let countTimer = 0;
+      let searchDraft = false;
 
       const cards = () => [...document.querySelectorAll('#articles-grid .card')];
 
@@ -370,11 +368,21 @@ const vypisOg = ogObrazekClanku(articles[0]);
         return loadingIndex;
       };
 
-      const apply = async () => {
+      const apply = async (historyMode: 'replace' | 'push' | 'none' = 'replace') => {
         const version = ++applyVersion;
         const category = document.querySelector('.chip.active')?.getAttribute('data-cat') ?? '';
         const query = (search?.value ?? '').trim();
         const nq = norm(query);
+        // Write the intent before awaiting the index. Back/Forward or a newer
+        // filter can invalidate this render without a stale URL write later.
+        const params = new URLSearchParams();
+        if (category) params.set('kat', category);
+        if (query) params.set('q', query);
+        const queryString = params.toString();
+        const nextUrl = queryString ? `?${queryString}` : location.pathname;
+        if (historyMode === 'push') {
+          if ((queryString ? `?${queryString}` : '') !== location.search) history.pushState(null, '', nextUrl);
+        } else if (historyMode === 'replace') history.replaceState(null, '', nextUrl);
         retry?.toggleAttribute('hidden', true);
         loading?.toggleAttribute('hidden', true);
         // Kolo 37: karty z indexu se mažou až s novým výsledkem, ne hned.
@@ -392,7 +400,6 @@ const vypisOg = ogObrazekClanku(articles[0]);
           pagination?.toggleAttribute('hidden', false);
           ohlasPocet(0);
           if (count) count.textContent = defaultCount;
-          history.replaceState(null, '', location.pathname);
           return;
         }
 
@@ -417,7 +424,8 @@ const vypisOg = ogObrazekClanku(articles[0]);
             .filter((it) => {
               if (category && it.k !== category) return false;
               if (!nq) return true;
-              return norm(`${it.t} ${it.d} ${it.k} ${it.b}`).includes(nq);
+              const haystack = norm(`${it.t} ${it.d} ${it.k} ${it.b}`);
+              return nq.split(/\s+/).every((term) => haystack.includes(term));
             })
             .map((it) => it.s),
         );
@@ -441,13 +449,6 @@ const vypisOg = ogObrazekClanku(articles[0]);
         reset?.toggleAttribute('hidden', false);
         pagination?.toggleAttribute('hidden', true);
         ohlasPocet(shown);
-
-
-        const params = new URLSearchParams();
-        if (category) params.set('kat', category);
-        if (query) params.set('q', query);
-        const queryString = params.toString();
-        history.replaceState(null, '', queryString ? `?${queryString}` : location.pathname);
       };
 
       retry?.addEventListener('click', () => { search?.focus(); void apply(); });
@@ -462,25 +463,33 @@ const vypisOg = ogObrazekClanku(articles[0]);
 
       chips.forEach((chip) => {
         chip.addEventListener('click', () => {
+          searchDraft = false;
           activate(chip);
           debounceGen++;
           if (debounceTimer) window.clearTimeout(debounceTimer);
-          void apply();
+          void apply('push');
         });
       });
       // Kolo 33: Zrušit filtr = čip Vše + prázdné pole + apply() (ten sám
       // odkryje karty, vrátí stránkování a zahodí ?kat/?q z URL). Tlačítko
       // se přitom schová, tak fokus jde na čip Vše — jinak by spadl na body.
       reset?.addEventListener('click', () => {
+        searchDraft = false;
         const vse = chips.find((chip) => chip.getAttribute('data-cat') === '');
         if (vse) activate(vse);
         if (search) search.value = '';
         debounceGen++;
         if (debounceTimer) window.clearTimeout(debounceTimer);
-        void apply();
+        void apply('push');
         (vse as HTMLElement | undefined)?.focus?.();
       });
       search?.addEventListener('input', () => {
+        // One entry per editing session, never per keystroke. Keep the last
+        // committed query intact while debounced previews replace this draft.
+        if (!searchDraft) {
+          history.pushState(null, '', `${location.pathname}${location.search}`);
+          searchDraft = true;
+        }
         applyVersion++;
         const gen = ++debounceGen;
         if (debounceTimer) window.clearTimeout(debounceTimer);
@@ -495,7 +504,20 @@ const vypisOg = ogObrazekClanku(articles[0]);
         event.preventDefault();
         debounceGen++;
         if (debounceTimer) window.clearTimeout(debounceTimer);
-        void apply();
+        void apply(searchDraft ? 'replace' : 'push');
+        searchDraft = false;
+      });
+
+      window.addEventListener('popstate', () => {
+        searchDraft = false;
+        debounceGen++;
+        if (debounceTimer) window.clearTimeout(debounceTimer);
+        const params = new URLSearchParams(location.search);
+        if (search) search.value = params.get('q') ?? '';
+        const category = params.get('kat') ?? '';
+        const target = chips.find((chip) => chip.getAttribute('data-cat') === category) ?? chips[0];
+        if (target) activate(target);
+        void apply('none');
       });
 
       const params = new URLSearchParams(location.search);

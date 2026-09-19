@@ -18,7 +18,7 @@ test('premium: newest report rail retains chronological source and native links'
 });
 test('premium: compact screens retain the same supporting reports', () => {
   assert.match(index, /const railCards = rail/);
-  assert.match(index, /railCards\.map\(\(article\) => <ArticleCard article=\{article\} class="card-rail-mobile"/);
+  assert.match(index, /railCards\.map\(\(article, index\) => <ArticleCard article=\{article\} class="card-rail-mobile"/);
 });
 test('premium: reduced motion remains a global guarantee', () => {
   assert.match(css, /prefers-reduced-motion:\s*reduce/);

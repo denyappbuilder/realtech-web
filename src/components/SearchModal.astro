@@ -28,6 +28,7 @@
         name="q"
         placeholder="Hledat v článcích…"
         autocomplete="off"
+        maxlength="200"
         role="combobox"
         aria-expanded="false"
         aria-autocomplete="list"
@@ -58,7 +59,8 @@
       (APG combobox: zavřený popup není v DOM vidět).
     */}
     <p class="search-hint" id="search-hint" role="status"></p>
-    <div class="search-results" id="search-results" role="listbox" aria-label="Výsledky" hidden></div>
+    <div class="search-results" id="search-results" role="listbox" aria-label="Výsledky" tabindex="-1" hidden></div>
+    <a class="search-all-results" id="search-all-results" href="/clanky/" hidden>Hledat v archivu</a>
     <div class="search-foot mono">
       <span><kbd>↑</kbd><kbd>↓</kbd> pohyb</span>
       <span><kbd>↵</kbd> otevřít</span>
@@ -72,6 +74,8 @@
   const input = document.getElementById('search-q') as HTMLInputElement | null;
   const results = document.getElementById('search-results');
   const hint = document.getElementById('search-hint');
+  const allResults = document.getElementById('search-all-results') as HTMLAnchorElement | null;
+  let totalResults = 0;
   let index: any[] | null = null;
   // Kolo 28: jeden fetch indexu najednou (open() i první stisk klávesy ho
   // chtějí zároveň) a flag, že poslední pokus selhal — ať render umí
@@ -110,7 +114,8 @@
         const data = await res.json();
         // Chybnou odpověď neukládat: jinak další dotaz padá až do reloadu.
         if (!Array.isArray(data) || !data.every((it) => it &&
-          ['s', 't', 'd', 'k', 'b', 'p'].every((key) => typeof it[key] === 'string'))) {
+          ['s', 't', 'd', 'k', 'b', 'p'].every((key) => typeof it[key] === 'string') &&
+          /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(it.s))) {
           indexSelhal = true;
           return [];
         }
@@ -136,7 +141,7 @@
     else input?.removeAttribute('aria-activedescendant');
   }
 
-  // Česká shoda: 1 výsledek, 2–4 výsledky, 5+ výsledků (výsledků je max 8).
+  // Česká shoda počtu všech shod, nikoli jen osmi náhledů.
   function textPoctuVysledku(pocet: number) {
     if (pocet === 1) return '1 výsledek';
     if (pocet >= 2 && pocet <= 4) return `${pocet} výsledky`;
@@ -154,6 +159,12 @@
 
   function render(items: any[], q: string) {
     if (!results) return;
+    q = q.trim();
+    if (allResults) {
+      allResults.hidden = !q;
+      allResults.href = q ? `/clanky/?q=${encodeURIComponent(q)}` : '/clanky/';
+      allResults.textContent = items.length ? `Všechny výsledky (${totalResults || items.length})` : 'Hledat v archivu';
+    }
     if (!q || !items.length) {
       results.innerHTML = '';
       results.hidden = true;
@@ -174,23 +185,27 @@
     }
     results.innerHTML = items
       .map((it, i) => `
-        <a class="search-item${i === active ? ' active' : ''}" href="/clanky/${it.s}/" role="option" id="search-item-${i}" aria-selected="${i === active}" tabindex="-1" data-i="${i}">
+        <a class="search-item${i === active ? ' active' : ''}" href="/clanky/${escapeHtml(it.s)}/" role="option" id="search-item-${i}" aria-selected="${i === active}" tabindex="-1" data-i="${i}">
           <span class="si-cat">${escapeHtml(it.k)}</span>
           <span class="si-title">${escapeHtml(it.t)}</span>
-          <span class="si-date mono">${it.p.split('-').reverse().join('. ')}</span>
+          <span class="si-date mono">${escapeHtml(it.p.split('-').reverse().join('. '))}</span>
         </a>`)
       .join('');
     results.hidden = false;
-    nastavStav(textPoctuVysledku(items.length), true);
+    const total = totalResults || items.length;
+    nastavStav(total > items.length
+      ? `${textPoctuVysledku(total)} · Zobrazeno prvních ${items.length}.`
+      : textPoctuVysledku(total), total <= items.length);
     syncCombobox(true);
   }
 
   function search(q: string) {
+    totalResults = 0;
     if (!index) return [];
     const nq = norm(q.trim());
     if (!nq) return [];
     const terms = nq.split(/\s+/);
-    return index
+    const matches = index
       .map((it) => {
         const hayTitle = norm(it.t);
         const hayRest = norm(`${it.d} ${it.k} ${it.b}`);
@@ -212,8 +227,9 @@
         const dateB = typeof b.it?.p === 'string' ? b.it.p : '';
         return dateB.localeCompare(dateA);
       })
-      .slice(0, 8)
       .map((r: any) => r.it);
+    totalResults = matches.length;
+    return matches.slice(0, 8);
   }
 
   let current: any[] = [];
@@ -264,7 +280,7 @@
     if (e.key === 'Tab') {
       // a[href] zahrne i option s tabindex=-1, které nejsou v pořadí Tab.
       const focusable = Array.from(overlay.querySelectorAll<HTMLElement>(focusableSelector))
-        .filter((el) => el.tabIndex >= 0);
+        .filter((el) => el.tabIndex >= 0 && !el.hidden);
       if (!focusable.length) {
         e.preventDefault();
         return;
@@ -281,7 +297,7 @@
       }
       return;
     }
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && e.target === input) {
       e.preventDefault();
       if (!current.length) return;
       active = e.key === 'ArrowDown'

@@ -279,9 +279,9 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
-      <a href={YT_SUB} class="yt-btn">
+      <a href={YT_SUB} class="yt-btn" aria-label="Odebírat na YouTube">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
-        Odebírat
+        <span class="yt-label">YouTube</span>
       </a>
     </div>
   </div>
@@ -308,7 +308,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         {/* Kolo 18: autocomplete=email — prohlížeč/správce hesel pole vyplní
             sám (WCAG 1.3.5 Identify Input Purpose); bez něj hádal. */}
         <input type="email" name="email_address" placeholder="tvuj@email.cz" required aria-label="Tvůj e-mail" autocomplete="email" />
-        <button type="submit">Odebírat</button>
+        <button type="submit">Odebírat e-mailem</button>
       </form>
       {/* Kolo 35: u formuláře, který sbírá e-mail, má stát i odkaz na to, co
           se s ním děje — /gdpr/ (#431). Věty o Kitu, potvrzení a odhlášení
