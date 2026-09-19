@@ -33,7 +33,7 @@ Všech 39 kotev prošlo automatickou kontrolou (Python: tělo bez frontmatteru a
 | # | Cíl | Kotva (doslovně) | Proč |
 |---|-----|------------------|------|
 | 1 | `chatgpt-reklamy-nove-trhy` | další krok u reklam v ChatGPT | Předchozí vlna expanze reklam v ChatGPT do pěti zemí vysvětluje, odkud se současný krok bere a proč Evropa zatím chybí. |
-| 2 | `chatgpt-reklamy-nove-trhy` | trhů, kde ChatGPT reklamy fungují | Čtenář hned vidí seznam zemí, kde reklamy v ChatGPT dnes běží, a může posoudit, zda se Česko blíží. |
+| 2 | `chatgpt-reklamy-nove-trhy` | trhů, kde ChatGPT reklamy fungují (řádek 52 — fráze je v článku 2×, ř. 22 a 52; ř. 22 je v odrážce Shopify, kde už není prostor) | Čtenář hned vidí seznam zemí, kde reklamy v ChatGPT dnes běží, a může posoudit, zda se Česko blíží. |
 | 3 | `openai-agents-api-harness` | sponzorované agenty | Vysvětluje, na jaké technické základně (Agents API, harness) firmy agenty v ChatGPT staví. |
 | 4 | `meta-muse-agent-usa` | agent placený obchodníkem není nezávislý poradce | Kontrast s osobním agentem Muse, který jedná za uživatele, pomáhá pochopit rozdíl mezi prodejním a osobním agentem. |
 
