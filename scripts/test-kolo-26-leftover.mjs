@@ -62,9 +62,10 @@ test('kolo 26: combobox má listbox popup a option na <a> s tabindex=-1', () => 
   assert.match(inputTag, /aria-haspopup="listbox"/);
   assert.match(inputTag, /aria-controls="search-results"/);
   assert.match(search, /<div class="search-results" id="search-results" role="listbox"/);
+  assert.match(search, /id="search-results"[^>]*tabindex="-1"/, 'scrollable listbox must not become a native Chrome Tab stop between close and all results');
   assert.match(
     search,
-    /href="\/clanky\/\$\{it\.s\}\/" role="option"[^>]*tabindex="-1"/,
+    /href="\/clanky\/\$\{escapeHtml\(it\.s\)\}\/" role="option"[^>]*tabindex="-1"/,
     'APG: option na <a> je v pořádku, ale nesmí být v Tab pořadí (activedescendant)',
   );
 });

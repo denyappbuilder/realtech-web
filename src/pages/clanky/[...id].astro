@@ -20,6 +20,7 @@ import { preloadHeroObrazku } from '../../lib/hero-preload.js';
 import { KARTA_SIZES_RELATED } from '../../lib/karta-nahled.js';
 import { autoriClanku } from '../../lib/autori.js';
 import { articleOutline } from '../../lib/article-outline.js';
+import { articleLead } from '../../lib/article-lead.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -208,6 +209,7 @@ const breadcrumbLd = {
       který si čtenář zkopíruje z kontextové nabídky. <style> v <noscript>
       smí stát jen v <head> (kolo 37). */}
   <noscript slot="head"><style is:inline>button.copy-link{display:none}</style></noscript>
+  <noscript slot="head"><style is:inline>.article-layout .reading-entry{position:static}</style></noscript>
   <div class="read-progress" aria-hidden="true"><span></span></div>
   <div class="article-page">
     <div class="wrap">
@@ -229,23 +231,7 @@ const breadcrumbLd = {
           <a href="/o-nas/">REALTECH CZ · O redakci</a>
           <a class="article-read-link" href="#article-text">Přejít rovnou na text <span aria-hidden="true">↓</span></a>
         </div>
-        <p class="lead">{description}</p>
-        <div class="reading-entry">
-          {outline.length > 0 && (
-            <details class="article-contents-mobile">
-              <summary>Obsah článku</summary>
-              <nav aria-label="Obsah článku">
-                <ol>
-                  {outline.map((heading) => (
-                    <li class:list={[{ 'contents-subsection': heading.depth === 3 }]}>
-                      <a href={`#${heading.id}`} data-section-link>{heading.text}</a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            </details>
-          )}
-        </div>
+        <p class="lead">{articleLead(description, article.body)}</p>
       </div>
 
       {/*
@@ -315,6 +301,22 @@ const breadcrumbLd = {
       <AudioPrehled audio={audio} />
 
       <div class="article-layout">
+        {outline.length > 0 && (
+          <div class="reading-entry">
+            <details class="article-contents-mobile">
+              <summary>Obsah článku <span data-reading-section aria-hidden="true"></span></summary>
+              <nav aria-label="Obsah článku">
+                <ol>
+                  {outline.map((heading) => (
+                    <li class:list={[{ 'contents-subsection': heading.depth === 3 }]}>
+                      <a href={`#${heading.id}`} data-section-link>{heading.text}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            </details>
+          </div>
+        )}
         <div class="article-body" id="article-text" tabindex="-1">
           {/*
             Oficiální embed X — v textu článku, ne přes cover (cover jako
@@ -480,7 +482,7 @@ const breadcrumbLd = {
     import { inicializujYoutubeFacades } from '../../lib/youtube-facade.js';
     import { inicializujXFacades } from '../../lib/x-embed.js';
     import { zkopirujText } from '../../lib/kopirovat-odkaz.js';
-    import { currentSection } from '../../lib/reading-navigation.js';
+    import { articleProgress, currentSection } from '../../lib/reading-navigation.js';
 
     // Kotvy u nadpisů — klik zkopíruje odkaz přímo na sekci (standard u velkých webů).
     // Stejný helper jako rehype plugin, včetně dedupu (Z1207) — jinak by tlačítko
@@ -544,18 +546,30 @@ const breadcrumbLd = {
     });
 
     const bar = document.querySelector('.read-progress span') as HTMLElement | null;
+    const articleText = document.getElementById('article-text');
+    const sectionCount = document.querySelector('[data-reading-section]');
+    const header = document.querySelector('header.site');
+    const readingSummary = document.querySelector('.article-contents-mobile summary');
+    const syncReadingHeader = () => {
+      document.documentElement.style.setProperty('--reading-header-height', `${header?.getBoundingClientRect().height ?? 96}px`);
+    };
+    syncReadingHeader();
+    if (header && 'ResizeObserver' in window) new ResizeObserver(syncReadingHeader).observe(header);
     const onScroll = () => {
+      const toolbarHeight = matchMedia('(max-width: 900px) and (min-height: 481px)').matches
+        ? readingSummary?.getBoundingClientRect().height ?? 0 : 0;
+      const edge = (header?.getBoundingClientRect().height ?? 64) + toolbarHeight + 32;
       if (sectionLinks.length) {
-        const edge = (document.querySelector('header.site')?.getBoundingClientRect().height ?? 64) + 32;
         const current = currentSection(sectionHeadings.map((h) => ({ id: h.id, top: h.getBoundingClientRect().top })), edge);
         sectionLinks.forEach((link) => {
           if (decodeURIComponent(link.hash.slice(1)) === current) link.setAttribute('aria-current', 'location');
           else link.removeAttribute('aria-current');
         });
+        if (sectionCount) sectionCount.textContent = current
+          ? `${sectionHeadings.findIndex((h) => h.id === current) + 1} / ${sectionHeadings.length}` : '';
       }
-      if (!bar) return;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : '0%';
+      if (!bar || !articleText) return;
+      bar.style.width = `${articleProgress(articleText.getBoundingClientRect(), window.innerHeight, edge)}%`;
     };
     document.addEventListener('scroll', onScroll, { passive: true });
     // Kolo 31: šířka se přepočítávala jen při scrollu. Otočení telefonu

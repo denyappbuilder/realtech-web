@@ -3,6 +3,7 @@ import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 import { nahledKarty } from '../lib/karta-nahled.js';
 import { youtubeId } from '../lib/youtube.js';
 import { readingTime } from '../lib/reading-time.js';
+import { articleLead } from '../lib/article-lead.js';
 
 /**
  * Náhled karty pro klientský filtr archivu — TÝŽ soubor, jaký dává
@@ -54,7 +55,7 @@ export async function GET() {
   const items = clanky.map((c) => ({
     s: c.id,
     t: c.data.title,
-    d: c.data.description,
+    d: articleLead(c.data.description, c.body),
     k: c.data.category,
     // prvních ~400 znaků čistého textu pro fulltext
     // trim AŽ PO řezu: 400. znak umí padnout doprostřed mezislovní mezery

@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { slugify } from '../lib/slugify.js';
+import { articleLead } from '../lib/article-lead.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
 import { nahledRailu, webpSrcsetZDerivatu, HERO_RAIL_SIZES, HOMEPAGE_HERO_SIZES } from '../lib/karta-nahled.js';
@@ -181,7 +182,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
               <time class="time" datetime={hero?.data.date.toISOString().slice(0, 10)}>{dateStr}</time>
             </div>
             <h1 class:list={[{ 'h1-dlouhy': heroTitulekDlouhy }]}><a href={`/clanky/${hero.id}/`}>{hero.data.title}</a></h1>
-            <p class="lead">{hero.data.description}</p>
+            <p class="lead">{articleLead(hero.data.description, hero.body)}</p>
             <div class="hero-actions">
               <a href={`/clanky/${hero.id}/`} class="btn-primary">{heroCta}</a>
               {hero.data.video && (

@@ -177,14 +177,14 @@ function spustArchiv({ index, karty }) {
   const casovace = [];
   vm.runInNewContext(js, {
     document,
-    window: {
+    window: { addEventListener() {},
       setTimeout(fn) { casovace.push(fn); return casovace.length; },
       clearTimeout() {},
     },
     fetch: async () => ({ ok: true, json: async () => index }),
     URLSearchParams,
     location: { pathname: "/clanky/", search: "" },
-    history: { replaceState() {} },
+    history: { pushState() {}, replaceState() {} },
   }, { filename: "ArticleArchivePage.client.js" });
 
   const dobehni = async () => {

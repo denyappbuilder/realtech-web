@@ -186,11 +186,11 @@ function spustArchiv({ index, karty, sizes }) {
   const casovace = [];
   vm.runInNewContext(js, {
     document,
-    window: { setTimeout(fn) { casovace.push(fn); return casovace.length; }, clearTimeout() {} },
+    window: { addEventListener() {}, setTimeout(fn) { casovace.push(fn); return casovace.length; }, clearTimeout() {} },
     fetch: async () => ({ ok: true, json: async () => index }),
     URLSearchParams,
     location: { pathname: "/clanky/", search: "" },
-    history: { replaceState() {} },
+    history: { pushState() {}, replaceState() {} },
   }, { filename: "ArticleArchivePage.client.js" });
 
   const dobehni = async () => {
@@ -220,7 +220,7 @@ test("kolo 37: karta z indexu na klientu = kartaHtml z edge, byte po bytu (srcse
 
 test("kolo 37: klient maže karty z indexu až po načtení indexu — karty z edge nezmizí do díry", () => {
   const skript = archiv.match(/<script>([\s\S]*?)<\/script>/)?.[1] ?? "";
-  const apply = skript.match(/const apply = async \(\) => \{([\s\S]*?)\n {6}\};/)?.[1] ?? "";
+  const apply = skript.match(/const apply = async \([^)]*\) => \{([\s\S]*?)\n {6}\};/)?.[1] ?? "";
   assert.ok(apply, "apply() v archivu chybí");
   const prvniMazani = apply.indexOf("odstranKartyZIndexu();");
   const nacteni = apply.indexOf("await loadIndex();");

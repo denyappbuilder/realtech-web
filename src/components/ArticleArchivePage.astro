@@ -216,6 +216,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       let debounceGen = 0;
       let applyVersion = 0;
       let countTimer = 0;
+      let searchDraft = false;
 
       const cards = () => [...document.querySelectorAll('#articles-grid .card')];
 
@@ -370,11 +371,21 @@ const vypisOg = ogObrazekClanku(articles[0]);
         return loadingIndex;
       };
 
-      const apply = async () => {
+      const apply = async (historyMode: 'replace' | 'push' | 'none' = 'replace') => {
         const version = ++applyVersion;
         const category = document.querySelector('.chip.active')?.getAttribute('data-cat') ?? '';
         const query = (search?.value ?? '').trim();
         const nq = norm(query);
+        // Write the intent before awaiting the index. Back/Forward or a newer
+        // filter can invalidate this render without a stale URL write later.
+        const params = new URLSearchParams();
+        if (category) params.set('kat', category);
+        if (query) params.set('q', query);
+        const queryString = params.toString();
+        const nextUrl = queryString ? `?${queryString}` : location.pathname;
+        if (historyMode === 'push') {
+          if ((queryString ? `?${queryString}` : '') !== location.search) history.pushState(null, '', nextUrl);
+        } else if (historyMode === 'replace') history.replaceState(null, '', nextUrl);
         retry?.toggleAttribute('hidden', true);
         loading?.toggleAttribute('hidden', true);
         // Kolo 37: karty z indexu se mažou až s novým výsledkem, ne hned.
@@ -392,7 +403,6 @@ const vypisOg = ogObrazekClanku(articles[0]);
           pagination?.toggleAttribute('hidden', false);
           ohlasPocet(0);
           if (count) count.textContent = defaultCount;
-          history.replaceState(null, '', location.pathname);
           return;
         }
 
@@ -417,7 +427,8 @@ const vypisOg = ogObrazekClanku(articles[0]);
             .filter((it) => {
               if (category && it.k !== category) return false;
               if (!nq) return true;
-              return norm(`${it.t} ${it.d} ${it.k} ${it.b}`).includes(nq);
+              const haystack = norm(`${it.t} ${it.d} ${it.k} ${it.b}`);
+              return nq.split(/\s+/).every((term) => haystack.includes(term));
             })
             .map((it) => it.s),
         );
@@ -441,13 +452,6 @@ const vypisOg = ogObrazekClanku(articles[0]);
         reset?.toggleAttribute('hidden', false);
         pagination?.toggleAttribute('hidden', true);
         ohlasPocet(shown);
-
-
-        const params = new URLSearchParams();
-        if (category) params.set('kat', category);
-        if (query) params.set('q', query);
-        const queryString = params.toString();
-        history.replaceState(null, '', queryString ? `?${queryString}` : location.pathname);
       };
 
       retry?.addEventListener('click', () => { search?.focus(); void apply(); });
@@ -462,25 +466,33 @@ const vypisOg = ogObrazekClanku(articles[0]);
 
       chips.forEach((chip) => {
         chip.addEventListener('click', () => {
+          searchDraft = false;
           activate(chip);
           debounceGen++;
           if (debounceTimer) window.clearTimeout(debounceTimer);
-          void apply();
+          void apply('push');
         });
       });
       // Kolo 33: Zrušit filtr = čip Vše + prázdné pole + apply() (ten sám
       // odkryje karty, vrátí stránkování a zahodí ?kat/?q z URL). Tlačítko
       // se přitom schová, tak fokus jde na čip Vše — jinak by spadl na body.
       reset?.addEventListener('click', () => {
+        searchDraft = false;
         const vse = chips.find((chip) => chip.getAttribute('data-cat') === '');
         if (vse) activate(vse);
         if (search) search.value = '';
         debounceGen++;
         if (debounceTimer) window.clearTimeout(debounceTimer);
-        void apply();
+        void apply('push');
         (vse as HTMLElement | undefined)?.focus?.();
       });
       search?.addEventListener('input', () => {
+        // One entry per editing session, never per keystroke. Keep the last
+        // committed query intact while debounced previews replace this draft.
+        if (!searchDraft) {
+          history.pushState(null, '', `${location.pathname}${location.search}`);
+          searchDraft = true;
+        }
         applyVersion++;
         const gen = ++debounceGen;
         if (debounceTimer) window.clearTimeout(debounceTimer);
@@ -495,7 +507,20 @@ const vypisOg = ogObrazekClanku(articles[0]);
         event.preventDefault();
         debounceGen++;
         if (debounceTimer) window.clearTimeout(debounceTimer);
-        void apply();
+        void apply(searchDraft ? 'replace' : 'push');
+        searchDraft = false;
+      });
+
+      window.addEventListener('popstate', () => {
+        searchDraft = false;
+        debounceGen++;
+        if (debounceTimer) window.clearTimeout(debounceTimer);
+        const params = new URLSearchParams(location.search);
+        if (search) search.value = params.get('q') ?? '';
+        const category = params.get('kat') ?? '';
+        const target = chips.find((chip) => chip.getAttribute('data-cat') === category) ?? chips[0];
+        if (target) activate(target);
+        void apply('none');
       });
 
       const params = new URLSearchParams(location.search);

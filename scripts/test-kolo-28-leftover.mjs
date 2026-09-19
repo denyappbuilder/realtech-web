@@ -228,7 +228,7 @@ test("kolo 28: zavřený modal se po doručení indexu nepřekresluje", async ()
 // ── P2: stav hledání pro čtečku, listbox jen s option ────────────────────
 
 test("kolo 28: #search-hint je role=status vedle listboxu, listbox startuje hidden", () => {
-  assert.match(search, /<p class="search-hint" id="search-hint" role="status"><\/p>\s*<div class="search-results" id="search-results" role="listbox" aria-label="Výsledky" hidden><\/div>/);
+  assert.match(search, /<p class="search-hint" id="search-hint" role="status"><\/p>\s*<div class="search-results" id="search-results" role="listbox" aria-label="Výsledky" tabindex="-1" hidden><\/div>/);
   assert.doesNotMatch(search, /innerHTML = `<p class="search-hint"/, "nápověda už nesmí jít do listboxu jako <p>");
   assert.match(search, /const hint = document\.getElementById\('search-hint'\);/);
 });

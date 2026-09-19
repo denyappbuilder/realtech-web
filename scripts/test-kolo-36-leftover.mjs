@@ -125,7 +125,7 @@ test("kolo 36: odeslání formuláře s JS filtruje hned, bez reloadu", () => {
   assert.match(skript, /const searchForm = document\.querySelector<HTMLFormElement>\('\.filter-bar \.search-form'\);/);
   assert.match(
     skript,
-    /searchForm\?\.addEventListener\('submit', \(event\) => \{\s*event\.preventDefault\(\);[\s\S]*?window\.clearTimeout\(debounceTimer\);\s*void apply\(\);/,
+    /searchForm\?\.addEventListener\('submit', \(event\) => \{\s*event\.preventDefault\(\);[\s\S]*?window\.clearTimeout\(debounceTimer\);\s*void apply\(searchDraft \? 'replace' : 'push'\);/,
     "Enter má přeskočit debounce a spustit filtr, ne znovu načíst stránku",
   );
 });
