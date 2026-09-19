@@ -86,7 +86,7 @@ test('komponenta: nativní button + odkaz na diskuzi v placeholderu, noscript ú
 });
 
 test('článek: žádný preconnect na giscus.app před kliknutím', () => {
-  assert.match(CLANEK, /const preconnectGiscus = false &&/);
+  assert.match(CLANEK, /const preconnectGiscus = false; \/\/ B04/);
 });
 
 test('CSS: placeholder nízký (bez min-height), tlačítko ≥ 44 px a focus-visible, výška kontejneru až po aktivaci', () => {

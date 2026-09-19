@@ -115,7 +115,7 @@ test('článek předpojuje ytimg jen když <img> sahá na i.ytimg.com, audio jen
   assert.match(CLANEK, /const preconnectAudio = Boolean\(audioLd\)/,
     'audio.realtech.cz jen když AudioPrehled opravdu nese mp3');
   // B04 (19. 9. 2026): komentáře až po kliknutí → článek preconnect na giscus.app nezapíná.
-  assert.match(CLANEK, /const preconnectGiscus = false && Boolean\(giscusKonfigurace\(import\.meta\.env\)\)/,
+  assert.match(CLANEK, /const preconnectGiscus = false; \/\/ B04/,
     'giscus.app jen když se sekce komentářů opravdu vykreslí');
   assert.match(tag, /preconnectYtimg=\{preconnectYtimg\}/);
   assert.match(tag, /preconnectAudio=\{preconnectAudio\}/);

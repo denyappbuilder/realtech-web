@@ -106,7 +106,7 @@ test('kolo 25: giscus.app se předpojuje jen když se komentáře vykreslí', ()
   assert.match(base, /preconnectGiscus = false/);
   assert.match(base, /\{preconnectGiscus && <link rel="preconnect" href="https:\/\/giscus\.app" \/>\}/);
   // B04 (19. 9. 2026): giscus až po kliknutí → článek preconnect nezapíná.
-  assert.match(clanek, /const preconnectGiscus = false && Boolean\(giscusKonfigurace\(import\.meta\.env\)\)/);
+  assert.match(clanek, /const preconnectGiscus = false; \/\/ B04/);
   assert.match(clanek, /preconnectGiscus=\{preconnectGiscus\}/);
   assert.doesNotMatch(cti('src/pages/index.astro'), /preconnectGiscus/);
 });
