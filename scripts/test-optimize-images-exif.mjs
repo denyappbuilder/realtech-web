@@ -11,6 +11,8 @@ const derivatives = [
   ["cover-640.jpg", (img) => img.resize(640, 360).jpeg({ quality: 80 })],
   ["cover.webp", (img) => img.webp({ quality: 80 })],
   ["cover-640.webp", (img) => img.resize(640, 360).webp({ quality: 78 })],
+  ["cover-192.webp", (img) => img.resize(192, 108).webp({ quality: 78 })],
+  ["cover-384.webp", (img) => img.resize(384, 216).webp({ quality: 78 })],
 ];
 
 async function writeOrientedSource(file, orientation) {
@@ -52,7 +54,7 @@ for (const orientation of [6, 8]) {
     const source = path.join(dir, "cover.jpg");
     await writeOrientedSource(source, orientation);
 
-    assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 4 });
+    assert.deepEqual(await optimizeImages(dir), { covers: 1, updated: 6 });
 
     for (const [name, apply] of derivatives) {
       const actual = path.join(dir, name);

@@ -1,5 +1,29 @@
 # Audit — implementační evidence
 
+## B06 — částečný draft PNG + malé WebP, 19. 9. 2026
+
+Čerstvě fetchnutý main `9e3835874ca683cd6311d3f65b3b9fd80f14f247`, izolovaná větev `improve/responsive-images`. Před nezávislým review/commit/PR; žádný commit, push, PR, merge, deploy, změna konfigurace/secrets ani network POST touto implementací. B18 nebylo převzato. **B06 částečné: PNG opraveno, chybějící truthy image NEOPRAVENO / odloženo: validátor i prebuild beze změny, fallback se dle závěrečného pokynu nepřidává.**
+
+- Sharp přidává pouze 192×108 a 384×216 WebP (quality 78, autoOrient, idempotentní zápis): 118 + 118 nových souborů, dohromady **2 272 974 B**. Všech 826 existujících souborů `public/images` včetně masterů a starých derivátů je byte-identických s main; žádná stará URL odstraněna.
+- Sdílený srcset přidává jen skutečně existující malé kandidáty; původní podmínka přítomnosti 640/full i fallback chování zůstávají. Žádné CSS, obsahové ani layout změny. Archive má fyzický 72/96px čtverec, proto `sizes` vyjadřuje 128/171px šířku krajinného zdroje (16/9 cover crop), nikoli změnu velikosti boxu. Browser na obou mobilech skutečně vybral 192w při DPR1, 384w při DPR2, na 390px/DPR3 původních 640w. Homepage kompaktní karty a desktop rail dostanou menší kandidáty přes existující sizes.
+- Homepage odvozuje JPEG srcset i WebP jen pro skutečnou `.jpg` příponu. PNG zůstává originál bez falešného `image/webp` source/preload a bez duplikovaných PNG 640/1280 descriptorů. Missing-file větev nezměněna.
+- TDD: doložené RED→GREEN pro PNG, generování/metadatový/idempotentní kontrakt a malé srcset + square DPR. Rozšířeny EXIF, symlink, pozdní conversion-failure testy a stávající archive/index parity. Test čistoty derivátů nyní dovoluje **staged** assety pro precommit, stále odmítá untracked/unstaged změny po prebuild; žádný skip testu. Baseline 1141 PASS + 1 skip (ještě bez dist); finální suite **1155 PASS, 0 FAIL/SKIP/TODO**. Check/build: **0 errors, 0 warnings, stejných 35 identit hintů**.
+- Úplný dist: **1012 → 1248 souborů**; +236 WebP, 0 odebraných, 869 byte-identických, 143 změněných. Všech 143 přesně vysvětluje přidání 192/384 kandidátů, crop-aware archive sizes a pouze RSS `lastBuildDate`. Žádný nevysvětlený rozdíl, JS/CSS bytes beze změny.
+- Browser: 28 shodných případů před/po, Chrome, 360/390px DPR1/2, 1280px DPR1/2, 390px DPR3; home, archive, klientsky filtrovaný archive, detail Word. Nové kontexty, CDP cache disabled, výška 900px a stejný home scroll. Žádný externí request ani POST povolen. Všechny načtené lokální image odpovědi 200, bez duplicit URL; vykreslené image boxy před/po shodné. Screenshots zachovávají crop/layout; kontrola archive DPR1/2 včetně nativního DPR2 detailu bez patrné ztráty ostrosti.
+- Skutečné CDP transferred bytes pouze pro article images: archive 360 i 390px **249 674 → 46 861 B (1x)** / **249 674 → 120 427 B (2x)**; home 390px **234 680 → 84 973 B (1x)** / **280 106 → 141 746 B (2x)**. Body bytes a jednotlivé requesty jsou odděleně v JSON. Přínos není jen odhad file sizes. Desktop archive DPR2 a mobile archive DPR3 zachovávají větší zdroje/bytes kvůli ostrosti.
+- Limity: jde o lokální preview, nikoli Cloudflare produkci. Jednorázové lokální LCP vzorky kolísají oběma směry; **neprokazují LCP zisk ani produkční non-regression**. Filtered archive vykazuje již v baseline klientský CLS přibližně 0,32–0,34 (lokální statický server nespouští Pages Function); neopravováno. Detail CLS časově kolísá, strukturální boxy jsou shodné. Edge parity ověřuje existující unit suite, ne tvrzení o živém edge preview. Missing-file policy a případný požadavek na statistický produkční LCP gate zůstávají mimo tento částečný draft.
+
+### Chybějící master — mimo závěrečný scope
+
+Závěrečný pokyn Daniela z 19. 9. ruší předchozí zadání fallbacku: **validátor ani prebuild neměnit, fallback nedělat**. Níže je pouze historické srovnání možností, nikoli otevřená implementační autorizace. B07 dnes nezahajovat. B06 publikovat k review, bez merge.
+
+**Doporučení: fail-build**, ale pouze po výslovném rozhodnutí uživatele; **neimplementováno ani nevybráno**. Výhoda: redakční překlep se odhalí před vydáním, konzistentní deterministický výsledek, nezakryje vadná data. Nevýhoda: jedna chybná cesta zastaví celé vydání; musí rozlišovat legitimně chybějící image a volitelné deriváty.
+
+Alternativa **fallback**: platný video thumbnail, jinak konzistentně bez obrázku. Výhoda: vydání pokračuje bez rozbitých obrázků. Nevýhoda: skryje chybu obsahu, změní hero/layout/metadata a může přidat závislost na vzdáleném obrázku; vyžaduje odsouhlasené chování bez videa a širší testy. Žádný placeholder ani fallback politika nebyly přidány. Neuvádět „obě vady opraveny“.
+
+Evidence: `/Users/realtech/.hermes/state/realtech-batch2-20260919/B06/` — RED/GREEN a finální logy, úplné before/after dist + manifesty, `dist-comparison.json`, `hint-parity.json`, `assets.json`, browser JSON/screenshoty, `ready.patch`, `ready-source/`, `ready.json`. Browser tooling využilo již instalovaný Chrome (bundled Playwright browser chyběl, nic se neinstalovalo). Během práce se objevil cizí duplicitní `test-b06-responsive-images.mjs` s 36. hintem; zachován mimo repo jako `unowned-test-b06-responsive-images.mjs`, není v kandidátním patchi. Nezávislé review a publikaci vlastní parent.
+
+
 ## B05 — lokálně ověřeno 19. 9. 2026, před nezávislým review / commit / PR
 
 Baseline `dd9ad4ecfc6d85bb902dfae9352f5ef0c9224316`, samostatná větev `improve/indexnow`. B02/#474 nebylo do tohoto stromu převzato. Žádný commit, push, PR, merge, deploy ani živý IndexNow POST touto prací.

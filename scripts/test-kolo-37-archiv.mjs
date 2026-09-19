@@ -250,7 +250,7 @@ test("kolo 37: search-index.json nese `is` = srcset WebP jen u lokálního cover
   assert.equal(nahledProIndex(lokalni), "/images/clanky/claude-code-tydenni-limit-zari-640.webp");
   assert.equal(
     srcsetProIndex(lokalni),
-    "/images/clanky/claude-code-tydenni-limit-zari-640.webp 640w, /images/clanky/claude-code-tydenni-limit-zari-960.webp 960w, /images/clanky/claude-code-tydenni-limit-zari.webp 1280w",
+    "/images/clanky/claude-code-tydenni-limit-zari-192.webp 192w, /images/clanky/claude-code-tydenni-limit-zari-384.webp 384w, /images/clanky/claude-code-tydenni-limit-zari-640.webp 640w, /images/clanky/claude-code-tydenni-limit-zari-960.webp 960w, /images/clanky/claude-code-tydenni-limit-zari.webp 1280w",
   );
   assert.equal(srcsetProIndex({ image: "/images/clanky/neexistuje.jpg", video: "https://youtu.be/dQw4w9WgXcQ" }), undefined, "YouTube náhled srcset nemá");
   assert.equal(srcsetProIndex({}), undefined);

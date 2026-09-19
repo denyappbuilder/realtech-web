@@ -14,14 +14,14 @@ import {
 register('./test-optimize-images-atomic-loader.mjs', import.meta.url);
 
 const { optimizeImages } = await import('./optimize-images.mjs?atomic-failure-test');
-const derivativeNames = ['cover-640.jpg', 'cover.webp', 'cover-640.webp'];
+const derivativeNames = ['cover-640.jpg', 'cover.webp', 'cover-640.webp', 'cover-960.webp', 'cover-192.webp', 'cover-384.webp'];
 
 function derivativePaths(dir) {
   return derivativeNames.map((name) => path.join(dir, name));
 }
 
 test('pozdní selhání WebP konverze zachová atomicky všechny výstupy', async (t) => {
-  for (const failAt of [2, 3]) {
+  for (const failAt of [2, 3, 4, 5, 6]) {
     await t.test(`selhání ${failAt}. derivace`, async (t) => {
       for (const initialState of ['missing', 'existing']) {
         await t.test(`výstupy ${initialState}`, async (t) => {
