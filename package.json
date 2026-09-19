@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "check": "astro check",
     "prebuild": "node scripts/validate-content.mjs && node scripts/optimize-images.mjs && node scripts/generate-og.mjs",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/indexnow-marker.mjs",
     "preview": "astro preview",
     "test": "node --test --import ./scripts/test-rss-register.mjs scripts/test-*.mjs"
   },
