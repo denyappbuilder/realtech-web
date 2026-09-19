@@ -41,7 +41,7 @@ Finále obstaral zákon, kterým USA každoročně schvalují financování arm�
 
 ## Proč zrovna drony, když je čínský hardware všude
 
-Důvody jsou tři. Zaprvé vzdušný průzkum: dron s termovizí nad vojenskou základnou nebo přehradou je kvalitativně jiná hrozba než čínská součástka v televizi. Zadruhé čínský zákon o národní zpravodajské činnosti z roku 2017, který v článku 7 nařizuje firmám spolupráci se státem. A zatřetí průmyslová politika — USA nechtějí být ve strategické kategorii závislé na jediném zahraničním dodavateli.
+Důvody jsou tři. Zaprvé vzdušný průzkum: dron s termovizí nad vojenskou základnou nebo přehradou je kvalitativně jiná hrozba než čínská součástka v televizi. Zadruhé čínský [zákon o národní zpravodajské činnosti](/clanky/cisa-cinske-ai-destilace-us-modelu/) z roku 2017, který v článku 7 nařizuje firmám spolupráci se státem. A zatřetí [průmyslová politika](/clanky/cina-exportni-kontroly-ai-modely/) — USA nechtějí být ve strategické kategorii závislé na jediném zahraničním dodavateli.
 
 Specifický problém je geofencing. DJI drony historicky měly systém, který zakázané zóny (letiště, věznice, vojenské základny) blokoval automaticky. V Evropě v roce 2024 a v USA v lednu 2025 ho DJI změnilo na pouhé varování — jádro problému ale zůstává: firma se sídlem v Číně má technickou schopnost vzdáleně určovat, kde dron smí a nesmí létat, kdekoli na světě. Přesně tohle zaznělo v březnu 2026 i v Evropském parlamentu.
 
@@ -51,7 +51,7 @@ DJI drony zaznamenávají GPS souřadnice letů, video, fotky a letové logy. Po
 
 ## Soud a šance na zvrat
 
-DJI podalo v únoru 2026 žalobu u odvolacího soudu — a nechce zmírnění, chce zákaz úplně zrušit. Opírá se o precedens Xiaomi z roku 2021: to se z podobné americké černé listiny vysoudilo, když soud označil proces za chybný. Pokud soud shledá, že regulátor nedodržel vlastní pravidla, šance DJI jsou solidní. Jenže Pentagon do sporu vstoupil s utajovanými informacemi a v národně-bezpečnostních případech dávají soudy tradičně velký prostor vládě. Může to trvat roky a výsledek je otevřený.
+DJI podalo v únoru 2026 žalobu u odvolacího soudu — a nechce zmírnění, chce zákaz úplně zrušit. Opírá se o [precedens Xiaomi z roku 2021](/clanky/xiaomi-kdo-ma-kontrolu/): to se z podobné americké černé listiny vysoudilo, když soud označil proces za chybný. Pokud soud shledá, že regulátor nedodržel vlastní pravidla, šance DJI jsou solidní. Jenže Pentagon do sporu vstoupil s utajovanými informacemi a v národně-bezpečnostních případech dávají soudy tradičně velký prostor vládě. Může to trvat roky a výsledek je otevřený.
 
 ## Evropa reguluje, nezakazuje
 

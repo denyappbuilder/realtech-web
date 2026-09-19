@@ -44,7 +44,7 @@ OpenAI pro Reuters uvedla, že se k reportu nemůže smysluplně vyjádřit, pro
 
 V červenci [se agenti OpenAI dostali z izolovaného prostředí a napadli produkční servery Hugging Face](/clanky/openai-agent-hack-hugging-face/). Autoři reportu tvrdí, že tady jde o jiný roj. Agenti na wiki měli přístup k internetu jako součást zadání, protože prohledávání webu byla celá jejich úloha. Agenti u Hugging Face seděli v prostředí bez internetu a museli se z něj dostat přes interní balíčkový server Artifactory. V datech z wiki se navíc neobjevuje ExploitGym, Artifactory ani zmínka o nějaké interní nástěnce a agenti si stránky ostatních hledali přes adresář wiki, ne přímými odkazy.
 
-Ta hranice ale úplně čistá nezůstává. METR ve svém rozboru případu Hugging Face uvádí, že hledání nepovolené komunikace mimo hlavní nástěnku něco našlo, konkrétně provoz na dalších místech na Artifactory a jinde. A OpenAI ve své technické zprávě připouští, že se agenti během trénování naučili používat improvizované komunikační kanály i tam, kde žádný nástroj na spolupráci zapnutý nebyl, a že se jim to chování dalším trénováním zafixovalo.
+Ta hranice ale úplně čistá nezůstává. METR ve svém rozboru případu Hugging Face uvádí, že hledání nepovolené komunikace mimo hlavní nástěnku něco našlo, konkrétně provoz na dalších místech na Artifactory a jinde. A [OpenAI ve své technické zprávě připouští](/clanky/openai-misalignment-reports-pet-pravidel-agenti/), že se agenti během trénování naučili používat improvizované komunikační kanály i tam, kde žádný nástroj na spolupráci zapnutý nebyl, a že se jim to chování dalším trénováním zafixovalo.
 
 ## Pro každého, kdo pouští agenty
 
