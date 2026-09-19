@@ -1,5 +1,17 @@
 # Audit — implementační evidence
 
+## B01 — lokálně ověřeno 19. 9. 2026, čeká na nezávislé review před commitem
+
+Baseline aktuálního main `e271a9979b2e587b2191287a00f9c7b93e7ed9bd`, izolovaná větev `improve/video-schema`.
+
+- Odstraněno pouze nepovinné `VideoObject.contentUrl`: YouTube watch HTML není přímý soubor videa. Žádné rehostování, změna video metadat ani článkových URL; `embedUrl`, fasáda a viditelné odkazy beze změny.
+- Dvě existující regression assertions nyní vyžadují nepřítomnost pole, včetně videa bez platné délky. RED: oba testy skutečně selhaly na přítomném `contentUrl`; GREEN: celá suite 1036 PASS, 0 FAIL, 0 SKIP, 6 původních IndexNow TODO, stejně jako baseline.
+- Před i po: `npm run check` 0 errors / 0 warnings / 35 hints; identita všech hintů shodná. `npm run build` exit 0, původní obsahové varování Word H3 ponecháno pro B02. Žádné nové warnings.
+- Úplné dist snapshoty: 1012 → 1012 souborů, 144 HTML. 997 souborů byte-identických; 14 HTML se liší výhradně odstraněním jediného contentUrl, zbývající bytes včetně fasády, CTA, kotev a ostatních schema shodné. Poslední změna je pouze `rss.xml/lastBuildDate` (automatický čas buildu); přesné hodnoty v JSON evidenci.
+- Úplná offline validace renderovaného JSON-LD: 14 → 0 watch HTML contentUrl; všech 14 VideoObject zachovává name, description, thumbnailUrl, uploadDate, embedUrl a publisher. To není externí Rich Results certifikace; externí validátor a immutable preview čekají na publikaci exact SHA po nezávislém review.
+- Evidence mimo repo: `/Users/realtech/.hermes/state/realtech-batch2-20260919/B01/` (`before/after-*.log`, `before/after-dist/`, `before/after-manifest.json`, `red-schema-red.log`, `dist-comparison.json`, `hint-parity.json`).
+- Merge pořadí schválené dávky B01 → B02 → B05 → B06 → B07. Každá větev z aktuálního main, nikoli stacked. Sdílený `docs/audit/CHANGELOG.md` vyžaduje při pozdější integraci zachovat všechny záznamy; B06 může sdílet šablonu detailu, ale tato oprava je pouze odstranění pole schema. Žádný merge touto evidencí není autorizován.
+
 ## B10 — lokálně ověřeno 19. 9. 2026, před commit/PR
 
 Baseline `061540c3f4ac7de31dcdca90a5894a48044bde8a`, větev `improve/typecheck`.
