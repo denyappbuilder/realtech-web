@@ -86,9 +86,35 @@ export function pripravGiscus(doc = document) {
       kontejner.setAttribute('tabindex', '-1');
       kontejner.setAttribute('aria-busy', 'true');
       kontejner.focus?.();
+      sundejAriaBusy(kontejner, doc);
     }
   });
   return tlacitko;
+}
+
+/**
+ * Review B04: aria-busy se po kliknutí nastavilo, ale nikdy nesundalo —
+ * čtečky hlásily trvale „zaneprázdněno“. client.js vloží iframe do téhož
+ * kontejneru; jakmile se objeví, načítání z pohledu čtenáře skončilo
+ * (výšku a obsah si iframe řeší sám). Bez MutationObserveru (staré
+ * prostředí) se atribut sundá hned — lepší než navždy.
+ *
+ * @param {HTMLElement} kontejner
+ * @param {Document} doc
+ */
+export function sundejAriaBusy(kontejner, doc) {
+  const okno = doc.defaultView;
+  if (!okno || typeof okno.MutationObserver !== 'function') {
+    kontejner.removeAttribute('aria-busy');
+    return null;
+  }
+  const pozorovatel = new okno.MutationObserver(() => {
+    if (!kontejner.querySelector('iframe')) return;
+    kontejner.removeAttribute('aria-busy');
+    pozorovatel.disconnect();
+  });
+  pozorovatel.observe(kontejner, { childList: true });
+  return pozorovatel;
 }
 
 /**

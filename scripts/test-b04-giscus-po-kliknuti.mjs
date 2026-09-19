@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { pripravGiscus } from '../src/lib/giscus-klient.js';
+import { pripravGiscus, sundejAriaBusy } from '../src/lib/giscus-klient.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cti = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -21,6 +21,8 @@ function prvek(tag, { dataset = {}, attrs = {} } = {}) {
     appendChild(d) { el.children.push(d); return d; },
     getAttribute: (n) => el._attrs[n] ?? null,
     setAttribute(n, v) { el._attrs[n] = String(v); },
+    removeAttribute(n) { delete el._attrs[n]; },
+    querySelector(sel) { return sel === 'iframe' ? (el.children.find((d) => d.tagName === 'IFRAME') ?? null) : null; },
     addEventListener(typ, cb) { (el._listeners[typ] ??= []).push(cb); },
     click() { for (const cb of el._listeners.click ?? []) cb(); },
     focus() { el.focused = true; },
@@ -40,7 +42,8 @@ function dokument({ tlacitko = prvek('button'), kontejner, placeholder = prvek('
       if (sel === 'iframe.giscus-frame') return null;
       throw new Error(`Neočekávaný selektor: ${sel}`);
     },
-    defaultView: { MutationObserver: class { observe() {} } },
+    _pozorovatele: [],
+    defaultView: { MutationObserver: class { constructor(cb) { this.cb = cb; this.disconnected = false; doc._pozorovatele.push(this); } observe(cil, volby) { this.cil = cil; this.volby = volby; } disconnect() { this.disconnected = true; } } },
   };
   return { doc, tlacitko, kontejner, placeholder, sekce };
 }
@@ -98,4 +101,23 @@ test('CSS: placeholder nízký (bez min-height), tlačítko ≥ 44 px a focus-vi
   assert.match(CSS, /^\.komentare\.komentare-aktivni \.giscus \{ min-height: 340px; \}/m);
   assert.doesNotMatch(CSS, /^\.komentare \.giscus \{[^}]*min-height/m);
   assert.doesNotMatch(ph, /#[0-9a-fA-F]{3,6}/, 'jen tokeny webu (dark mode)');
+});
+
+test('aria-busy se po objevení iframu sundá a pozorovatel se odpojí', () => {
+  const { doc, tlacitko, kontejner } = dokument({ kontejner: kontejnerOk() });
+  pripravGiscus(doc); tlacitko.click();
+  assert.equal(kontejner.getAttribute('aria-busy'), 'true', 'během načítání busy');
+  const poz = doc._pozorovatele.find((p) => p.cil === kontejner);
+  assert.ok(poz, 'pozorovatel na kontejneru'); assert.deepEqual(poz.volby, { childList: true });
+  poz.cb(); // client.js ještě nic nevložil
+  assert.equal(kontejner.getAttribute('aria-busy'), 'true');
+  kontejner.appendChild(prvek('iframe')); poz.cb();
+  assert.equal(kontejner.getAttribute('aria-busy'), null, 'iframe je tu → už není busy');
+  assert.equal(poz.disconnected, true);
+});
+
+test('bez MutationObserveru se aria-busy nenastaví natrvalo', () => {
+  const kontejner = kontejnerOk(); kontejner.setAttribute('aria-busy', 'true');
+  assert.equal(sundejAriaBusy(kontejner, { defaultView: {} }), null);
+  assert.equal(kontejner.getAttribute('aria-busy'), null);
 });
