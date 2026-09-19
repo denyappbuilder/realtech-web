@@ -43,10 +43,8 @@ function sameMarker(a, b) {
 function fresh(headers) {
   const age = headers.get('age');
   const date = Date.parse(headers.get('date') ?? '');
-  const cache = headers.get('cf-cache-status');
   ensure(age === null || /^0$/.test(age), 'Cached evidence Age');
   ensure(Number.isFinite(date) && Math.abs(Date.now() - date) < 60_000, 'Stale evidence Date');
-  ensure(['DYNAMIC', 'BYPASS', 'MISS', 'REVALIDATED'].includes(cache ?? ''), 'Ambiguous cached evidence');
   ensure(!headers.has('warning') && /(?:no-store|no-cache|max-age=0)(?:\s*[,;]|$)/i.test(headers.get('cache-control') ?? ''), 'Evidence not revalidated');
 }
 export async function boundedRead(url, { fetchImpl = fetch, token, limit = 1024 * 1024, evidence = false, timeoutMs = 10_000 } = {}) {

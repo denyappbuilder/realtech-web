@@ -55,7 +55,7 @@ test('rejected headers abort response body before any unbounded read', async () 
   let signal;
   await assert.rejects(boundedRead('https://fixture.invalid/', { evidence: true, fetchImpl: async (_, options) => {
     signal = options.signal;
-    return new Response('untrusted body', { headers: { 'CF-Cache-Status': 'HIT' } });
+    return new Response('untrusted body', { headers: { Age: '15' } });
   } }));
   assert.equal(signal.aborted, true);
 });

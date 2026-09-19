@@ -41,7 +41,8 @@ function fixture(count = 2) {
     assert.equal(options.headers.Authorization, undefined);
     assert.equal(options.headers['Cache-Control'], 'no-cache, no-store, max-age=0');
     assert.ok(u.searchParams.has('indexnow'));
-    const headers = { Date: new Date().toUTCString(), 'Cache-Control': 'public, max-age=0, must-revalidate', 'CF-Cache-Status': 'DYNAMIC' };
+    // Pages may omit CF-Cache-Status; identity/digest checks must still run.
+    const headers = { Date: new Date().toUTCString(), 'Cache-Control': 'public, max-age=0, must-revalidate' };
     return new Response(u.pathname === '/sitemap-0.xml' ? f.xml : JSON.stringify(f.marker), { headers });
   };
   return f;
@@ -98,14 +99,41 @@ for (const [name, xml] of [
     assert.ok(error, 'must reject malformed XML');
   });
 }
-for (const mode of ['cached', 'stale', 'missing freshness', 'redirect', '404', 'oversize', 'timeout', 'bad XML']) {
+for (const cacheStatus of [null, 'HIT']) {
+  test(`valid identity without a CF cache-status gate: ${cacheStatus ?? 'missing header'}`, async () => {
+    const f = fixture(); const original = f.fetch;
+    f.fetch = async (url, options) => {
+      const response = await original(url, options);
+      if (cacheStatus && !String(url).startsWith(api)) response.headers.set('CF-Cache-Status', cacheStatus);
+      return response;
+    };
+    const result = await notify(f);
+    assert.equal(result.sha, sha);
+    assert.equal(result.urls, 2);
+    assert.equal(f.posts.length, 1);
+    assert.deepEqual(result.statuses, [202]);
+  });
+}
+test('old production SHA without CF-Cache-Status still rejects with zero POSTs', async () => {
+  const f = fixture(); const original = f.fetch;
+  f.fetch = async (url, options) => {
+    const response = await original(url, options);
+    if (String(url).startsWith('https://realtech.cz/indexnow-deployment.json')) {
+      return new Response(JSON.stringify({ ...f.marker, sha: 'b'.repeat(40) }), { headers: response.headers });
+    }
+    return response;
+  };
+  await assert.rejects(notify(f), /Marker identity mismatch/);
+  assert.equal(f.posts.length, 0);
+});
+for (const mode of ['stale', 'missing freshness', 'redirect', '404', 'oversize', 'timeout', 'bad XML']) {
   test(`no POST: ${mode} public evidence`, async () => {
     const f = fixture();
     const original = f.fetch;
     f.fetch = async (url, options) => {
       const r = await original(url, options);
       if (!String(url).startsWith(origin)) return r;
-      if (mode === 'cached') r.headers.set('CF-Cache-Status', 'HIT');
+
       if (mode === 'stale') r.headers.set('Age', '15');
       if (mode === 'missing freshness') r.headers.delete('Date');
       if (mode === 'redirect') return new Response('', { status: 302, headers: { Location: origin } });
