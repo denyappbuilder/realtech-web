@@ -48,7 +48,7 @@ test("kolo 17: tři články z railu jdou pod 901px i do mřížky Poslední rep
   assert.ok(railKarty < restKarty, "railové karty musí být před rest — chronologie");
   assert.match(
     mrizka.slice(railKarty, restKarty),
-    /<ArticleCard article=\{article\} class="card-rail-mobile" \/>/,
+    /<ArticleCard article=\{article\} class="card-rail-mobile" sizes=\{index === 0 \? KARTA_SIZES : KARTA_SIZES_HOME_COMPACT\} \/>/,
     "railové karty musí nést .card-rail-mobile, aby je desktop skryl",
   );
   assert.doesNotMatch(

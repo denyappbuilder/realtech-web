@@ -109,6 +109,13 @@ const vypisOg = ogObrazekClanku(articles[0]);
       </div>
       {page === 1 ? (
         <div class="filter-bar">
+          {/* Native GET search comes before category controls in both visual
+              and keyboard order; JavaScript progressively enhances submit. */}
+          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
+            <label class="archive-search-label" for="art-search">Hledat v článcích</label>
+            <input type="search" name="q" class="search-input" id="art-search" placeholder="Např. Starlink" aria-label="Hledat v článcích" />
+            <button type="submit" class="btn-primary">Hledat</button>
+          </form>
           <div class="cat-filter" role="group" aria-label="Filtr podle kategorie">
             <button class="chip active" data-cat="" aria-pressed="true">Vše</button>
             {categories.map((category) => <button class="chip" data-cat={category} aria-pressed="false">{category}</button>)}
@@ -126,20 +133,14 @@ const vypisOg = ogObrazekClanku(articles[0]);
               {categories.map((category) => <a class="chip" href={`/clanky/?kat=${encodeURIComponent(category)}`}>{category}</a>)}
             </nav>
           </noscript>
-          {/*
-            Kolo 36: holý <input> na straně 1 bez JS nedělal nic — Enter
-            nikam nevedl (živě 10. 9. 2026). Stejný GET formulář jako na
-            strana/2+ níž: bez JS odešle /clanky/?q=…, s JS ho skript zachytí
-            (preventDefault) a filtr spustí hned bez debounce. name=q drží
-            tvar URL, který skript čte při načtení (initialQuery).
-          */}
-          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
-            <input type="search" name="q" class="search-input" id="art-search" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
-            <button type="submit" class="btn-primary">Hledat</button>
-          </form>
         </div>
       ) : (
         <div class="filter-bar" data-filter-odkaz>
+          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
+            <label class="archive-search-label" for="archive-search-page">Hledat v článcích</label>
+            <input type="search" name="q" class="search-input" id="archive-search-page" placeholder="Např. Starlink" aria-label="Hledat v článcích" />
+            <button type="submit" class="btn-primary">Hledat</button>
+          </form>
           {/*
             Kolo 35: /clanky/strana/2+ byly slepé — filtr i hledání měla jen
             strana 1 (živě 10. 9. 2026). Stejný pruh tu je bez JS: čipy jsou
@@ -152,10 +153,6 @@ const vypisOg = ogObrazekClanku(articles[0]);
             <a class="chip active" href="/clanky/">Vše</a>
             {categories.map((category) => <a class="chip" href={`/clanky/?kat=${encodeURIComponent(category)}`}>{category}</a>)}
           </nav>
-          <form class="search-form" action="/clanky/" method="get" role="search" aria-label="Hledání v archivu">
-            <input type="search" name="q" class="search-input" placeholder="Hledat článek…" aria-label="Hledat v článcích" />
-            <button type="submit" class="btn-primary">Hledat</button>
-          </form>
         </div>
       )}
       <div class="archive-results-bar">

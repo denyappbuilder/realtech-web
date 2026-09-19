@@ -11,6 +11,8 @@ import { youtubeId } from './youtube.js';
  * Mřížka .grid: 1 col ≤580, 2 col ≤900, 3 col desktop (~341px z 1072).
  */
 export const KARTA_SIZES = '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw';
+// Supporting homepage reports use compact rows only on phones.
+export const KARTA_SIZES_HOME_COMPACT = '(max-width: 360px) 72px, (max-width: 580px) 96px, (max-width: 900px) 50vw, 33vw';
 
 // Desktop hero crops a 16:9 photo to the full copy height: its 579px slot
 // needs more source pixels than its width alone implies. Use the available

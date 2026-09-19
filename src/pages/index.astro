@@ -7,7 +7,7 @@ import { slugify } from '../lib/slugify.js';
 import { articleLead } from '../lib/article-lead.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
-import { nahledRailu, webpSrcsetZDerivatu, HERO_RAIL_SIZES, HOMEPAGE_HERO_SIZES } from '../lib/karta-nahled.js';
+import { nahledRailu, webpSrcsetZDerivatu, HERO_RAIL_SIZES, HOMEPAGE_HERO_SIZES, KARTA_SIZES, KARTA_SIZES_HOME_COMPACT } from '../lib/karta-nahled.js';
 
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -268,9 +268,9 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
         <h2>Poslední reporty</h2>
         <a href="/clanky/">Všechny články →</a>
       </div>
-      <div class="grid">
-        {railCards.map((article) => <ArticleCard article={article} class="card-rail-mobile" />)}
-        {rest.map((article) => <ArticleCard article={article} />)}
+      <div class="grid latest-reports">
+        {railCards.map((article, index) => <ArticleCard article={article} class="card-rail-mobile" sizes={index === 0 ? KARTA_SIZES : KARTA_SIZES_HOME_COMPACT} />)}
+        {rest.map((article) => <ArticleCard article={article} sizes={KARTA_SIZES_HOME_COMPACT} />)}
       </div>
 
       {pruvodci.length > 0 && (

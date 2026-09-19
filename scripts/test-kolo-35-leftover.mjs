@@ -64,7 +64,7 @@ test("kolo 35: strana 2+ má filtr jako odkazy na /clanky/?kat=… a GET formul�
   assert.doesNotMatch(odkazy, /aria-pressed/, "aria-pressed patří jen tlačítkům strany 1, ne odkazům");
   assert.match(
     odkazy,
-    /<form class="search-form" action="\/clanky\/" method="get" role="search" aria-label="[^"]+">\s*<input type="search" name="q" class="search-input"/,
+    /<form class="search-form" action="\/clanky\/" method="get" role="search" aria-label="[^"]+">\s*<label class="archive-search-label" for="archive-search-page">Hledat v článcích<\/label>\s*<input type="search" name="q" class="search-input"/,
     "pole hledání je GET formulář na /clanky/ s name=q",
   );
   assert.doesNotMatch(odkazy, /id="art-search"/, "#art-search je jen na straně 1 — skript by ho na straně 2+ stejně neobsloužil");
