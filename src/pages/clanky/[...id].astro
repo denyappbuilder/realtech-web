@@ -144,7 +144,10 @@ const jsonLd = pripojAudioKClanku({
 // je jediný běžný konzument; JSON-LD/og:image ytimg nestahují.
 const preconnectYtimg = typeof heroLcpSrc === 'string' && heroLcpSrc.includes('i.ytimg.com');
 const preconnectAudio = Boolean(audioLd);
-const preconnectGiscus = Boolean(giscusKonfigurace(import.meta.env));
+// B04 (19. 9. 2026): komentáře se načítají až po kliknutí → před ním na
+// giscus.app nejde ani preconnect. Prop v Base zůstává (typ, 404, testy),
+// článek ho jen už nezapíná. giscusKonfigurace tu zůstává pro čitelnost záměru.
+const preconnectGiscus = false && Boolean(giscusKonfigurace(import.meta.env));
 const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',

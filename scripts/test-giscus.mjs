@@ -403,7 +403,8 @@ test('komponenta: sekce s id a aria-labelledby, skript uvnitř podmínky', () =>
   const skript = KOMPONENTA.indexOf('<script>');
   const konecPodminky = KOMPONENTA.lastIndexOf(')}');
   assert.ok(podminka < skript && skript < konecPodminky, 'skript je uvnitř podmínky — bez env se modul nestahuje');
-  assert.match(KOMPONENTA, /import \{ inicializujGiscus \} from '\.\.\/lib\/giscus-klient\.js'/);
+  // B04 (19. 9. 2026): modul připraví tlačítko, client.js až po kliknutí.
+  assert.match(KOMPONENTA, /import \{ pripravGiscus \} from '\.\.\/lib\/giscus-klient\.js'/);
 });
 
 test('CSS: sekce má vlastní styl ve stejném rytmu jako .related a v tisku mizí', () => {

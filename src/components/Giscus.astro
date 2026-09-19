@@ -25,6 +25,15 @@ if (!konfigurace && import.meta.env.DEV) varujGiscus(import.meta.env);
     <p class="komentare-note">
       Komentáře běží přes GitHub Discussions — k napsání stačí účet na GitHubu, čtení je bez přihlášení.
     </p>
+    {/* B04 (19. 9. 2026): client.js z giscus.app se nenačte, dokud čtenář
+        neklikne. Do té doby jen nízký placeholder — tlačítko (se skriptem)
+        a odkaz na diskuzi (bez skriptu i s ním). Kontejner .giscus je prázdný
+        a bez rezervované výšky; min-height + kostra platí až po aktivaci,
+        aby iframe při načítání nic neodsunul (Kolo 23). */}
+    <div class="komentare-placeholder" data-komentare-placeholder>
+      <button type="button" class="komentare-nacist" data-komentare-nacist>Zobrazit komentáře</button>
+      <a href={giscusDiskuzeUrl(konfigurace.repo)} rel="noopener">nebo otevřít diskuzi na GitHubu →</a>
+    </div>
     <div
       class="giscus"
       data-giscus
@@ -41,9 +50,9 @@ if (!konfigurace && import.meta.env.DEV) varujGiscus(import.meta.env);
     </noscript>
     {/* Uvnitř podmínky schválně: bez konfigurace se nemá stahovat ani modul. */}
     <script>
-      import { inicializujGiscus } from '../lib/giscus-klient.js';
+      import { pripravGiscus } from '../lib/giscus-klient.js';
 
-      inicializujGiscus(document);
+      pripravGiscus(document);
     </script>
   </section>
 )}
