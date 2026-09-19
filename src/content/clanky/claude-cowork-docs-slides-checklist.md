@@ -12,7 +12,7 @@ audio:
 
 Anthropic 16. září 2026 oznámil, že Cowork přestává být samostatný prostor a stává se součástí hlavního chatu Claude. Ty už nevybíráš, kam úkol pošleš – Claude sám rozhodne, jestli stačí krátká odpověď, nebo jde o delší práci, která poběží i po zavření notebooku. K tomu přibývají Claude Docs a Claude Slides (beta na placených plánech) a Claude Design se přesouvá přímo do konverzace. Zní to jako nástroj na nabídky a prezentace pro klienty. Než to ale pustíš do ostrého provozu, projdi si pár věcí.
 
-### Co se přesně změnilo (fakta od Anthropic)
+## Co se přesně změnilo (fakta od Anthropic)
 
 Podle oznámení na blogu Anthropic (16. 9. 2026) jde o tyhle změny:
 
@@ -24,7 +24,7 @@ Podle oznámení na blogu Anthropic (16. 9. 2026) jde o tyhle změny:
 - **Výchozí chování: Claude se před akcí zeptá.** Volitelně můžeš přepnout do režimu, kdy pracuje dál a ozve se, když něco potřebuje. Poslední slovo máš podle Anthropic vždy ty.
 - **Rollout:** nejdřív Pro a Max (web, desktop, mobil) v následujících týdnech, nic se nezapíná ručně. Team a Free přijdou brzy poté. Enterprise admini dostanou alespoň 30 dní předem upozornění.
 
-### Co k tomu dodává The Next Web (parafráze, ne fakta od Anthropic)
+## Co k tomu dodává The Next Web (parafráze, ne fakta od Anthropic)
 
 TNW (17. 9. 2026) shrnuje kontext, který v oznámení Anthropic přímo nenajdeš, takže ho ber jako sekundární zdroj:
 
@@ -34,13 +34,13 @@ TNW (17. 9. 2026) shrnuje kontext, který v oznámení Anthropic přímo nenajde
 - Claude Code zůstává oddělený produkt.
 - Paměť mezi chatem a Cowork byla podle TNW sloučena už minulý měsíc, takže tohle je logický další krok.
 
-### Proč to řešit, když píšeš nabídku klientovi
+## Proč to řešit, když píšeš nabídku klientovi
 
 Tady končí fakta a začíná redakční pohled. Typický český uživatel Claude není vývojář, který volá API. Je to člověk, co potřebuje ve středu odpoledne dát dohromady nabídku, cenový návrh nebo deck na čtvrteční schůzku. Přesně na to Docs a Slides míří: napíšeš, co chceš, Claude připraví strukturu, ty doplníš čísla a upravíš tón.
 
 Zároveň je to první moment, kdy Claude nejenom radí, ale **vytváří výstup, který může odejít ven z firmy**. A to si zaslouží víc opatrnosti než běžný chat.
 
-### Checklist, než to pustíš do nabídky (redakční)
+## Checklist, než to pustíš do nabídky (redakční)
 
 **1. Kdy ti to reálně ušetří čas**
 
@@ -74,7 +74,7 @@ Zároveň je to první moment, kdy Claude nejenom radí, ale **vytváří výstu
 - Vyzkoušej si prezentování přímo z Claude i export do PowerPointu, ať víš, co se ztratí nebo rozhodí.
 - Až pak to zkus na živém klientovi.
 
-### Shrnutí
+## Shrnutí
 
 Sloučení Cowork do chatu je hlavně zjednodušení: méně přemýšlení, kam co zadat. Docs a Slides jsou zatím beta a mají potenciál ušetřit hodně času při první verzi nabídky nebo decku. Ale hranice, kterou si drž, je jasná: AI připravuje, člověk schvaluje a firma dál drží svoje dokumenty tam, kde je má pod kontrolou. Export je pohodlí, ne systém.
 
