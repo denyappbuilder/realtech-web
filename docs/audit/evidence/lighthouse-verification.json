@@ -1,0 +1,9 @@
+{
+  "runs": 30,
+  "combinations": 10,
+  "each_three": true,
+  "source_git_status": "",
+  "all_final_urls_and_main_document_200": true,
+  "runtime_errors": 0,
+  "warnings": []
+}

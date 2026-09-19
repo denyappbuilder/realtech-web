@@ -1,0 +1,99 @@
+{
+  "pages": 5,
+  "states": 20,
+  "axe_violations": 0,
+  "overflow_states": 0,
+  "screenshots": 19,
+  "page_errors": 0,
+  "pages_detail": [
+    {
+      "route": "/",
+      "domains": {
+        "realtech.cz": 28,
+        "static.cloudflareinsights.com": 1,
+        "cloudflareinsights.com": 1,
+        "i.ytimg.com": 3
+      },
+      "cookies": [],
+      "incomplete_rules": [
+        "color-contrast"
+      ],
+      "rss_visible_links": 0
+    },
+    {
+      "route": "/clanky/",
+      "domains": {
+        "realtech.cz": 31,
+        "static.cloudflareinsights.com": 1,
+        "cloudflareinsights.com": 1
+      },
+      "cookies": [],
+      "incomplete_rules": [],
+      "rss_visible_links": 0
+    },
+    {
+      "route": "/clanky/dji-vs-insta360/",
+      "domains": {
+        "realtech.cz": 20,
+        "static.cloudflareinsights.com": 1,
+        "audio.realtech.cz": 1,
+        "giscus.app": 23,
+        "cloudflareinsights.com": 1,
+        "github.githubassets.com": 1
+      },
+      "cookies": [],
+      "incomplete_rules": [
+        "color-contrast"
+      ],
+      "rss_visible_links": 0
+    },
+    {
+      "route": "/clanky/gemini-agentic-video-understanding/",
+      "domains": {
+        "realtech.cz": 20,
+        "platform.twitter.com": 20,
+        "static.cloudflareinsights.com": 1,
+        "audio.realtech.cz": 1,
+        "giscus.app": 23,
+        "syndication.twitter.com": 1,
+        "cloudflareinsights.com": 1,
+        "cdn.syndication.twimg.com": 1,
+        "abs-0.twimg.com": 1,
+        "syndication.x.com": 4,
+        "pbs.twimg.com": 2,
+        "video.twimg.com": 27,
+        "github.githubassets.com": 1
+      },
+      "cookies": [
+        {
+          "name": "__cf_bm",
+          "domain": ".twitter.com"
+        },
+        {
+          "name": "__cf_bm",
+          "domain": ".x.com"
+        }
+      ],
+      "incomplete_rules": [
+        "color-contrast"
+      ],
+      "rss_visible_links": 0
+    },
+    {
+      "route": "/clanky/deepseek-unik-nahravky-pozastavene-kolo/",
+      "domains": {
+        "realtech.cz": 20,
+        "static.cloudflareinsights.com": 1,
+        "audio.realtech.cz": 1,
+        "giscus.app": 23,
+        "cloudflareinsights.com": 1,
+        "github.githubassets.com": 1
+      },
+      "cookies": [],
+      "incomplete_rules": [
+        "color-contrast"
+      ],
+      "rss_visible_links": 0
+    }
+  ]
+}

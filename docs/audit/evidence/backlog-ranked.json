@@ -1,0 +1,288 @@
+[
+  {
+    "id": "B01",
+    "title": "Opravit význam VideoObject.contentUrl",
+    "impact": 4,
+    "effort": 1,
+    "risk": "Nízké; regrese schema nebo odstranění správného embedUrl.",
+    "area": "video-schema",
+    "proof": "14/14 VideoObject obsahuje URL HTML watch stránky místo médiových bytes (AUDIT §2; SEO/video-contenturl-checks.json).",
+    "change": "Pokud nemáme legitimní stabilní přímý video soubor, vynechat optional contentUrl; zachovat embedUrl, viditelné odkazy i fasádu. Žádné rehostování nebo změna URL článků.",
+    "files": [
+      "src/pages/clanky/[...id].astro",
+      "scripts/test-*.mjs (nový cílený schema test)"
+    ],
+    "accept": "14/14 schema zachová potřebná pole/fasádu/CTA; žádné contentUrl na HTML stránku; validátor na reprezentativním videu a úplná kontrola buildu.",
+    "decision": "Technická oprava po schválení položky; žádné video metadata nevymýšlet."
+  },
+  {
+    "id": "B02",
+    "title": "Srovnat hierarchii nadpisů tří článků",
+    "impact": 3,
+    "effort": 1,
+    "risk": "Nízké; změna anchor ID musí být vyloučena.",
+    "area": "heading-structure",
+    "proof": "3/118 textů začínají H3 po H1,1 existující prebuild warning (AUDIT §3,7).",
+    "change": "Pouze opravit úrovně existujících nadpisů, beze změny znění, faktů, pořadí sekcí a fragmentových cílů.",
+    "files": [
+      "src/content/clanky/chatgpt-ve-wordu-zdarma-checklist-osvc.md",
+      "src/content/clanky/claude-cowork-docs-slides-checklist.md",
+      "src/content/clanky/openai-misalignment-reports-pet-pravidel-agenti.md",
+      "scripts/validate-content.mjs",
+      "scripts/test-*.mjs"
+    ],
+    "accept": "0 skoků H1→H3 v těchto3 tělech; odstranit existující warning, zachovat původní anchor odkazy i text.",
+    "decision": "Jde o povolenou formátovací oblast, ale provést až po schválení backlogu."
+  },
+  {
+    "id": "B03",
+    "title": "Doložit organickou a konverzní výchozí metriku",
+    "impact": 5,
+    "effort": 2,
+    "risk": "Nízké technicky; export může obsahovat citlivé dotazy, nepřenášet osobní identifikátory.",
+    "area": "measurement-baseline",
+    "proof": "Živý Cloudflare beacon funguje, ale audit nemá ani jedno ověřené číslo organic visits/CTR/YouTube funnelu; field INP blokuje PSI429 (AUDIT §1,6).",
+    "change": "Z existujících nástrojů dodat read-only export za28/90d: Google Search Console pages/queries/impressions/clicks/CTR/indexace/CWV; Cloudflare landing/referrer; existující Seznam/Bing data, pokud jsou. Zapsat definici návštěvy a konverze; neinstalovat další službu.",
+    "files": [
+      "docs/audit/MEASUREMENT.md (nový dokument)",
+      "docs/audit/evidence/ (redigované agregace)"
+    ],
+    "accept": "Reprodukovatelná baseline se zdrojem/obdobím a jasně odděleným Google,Seznam/Bing,AI referral a direct; chybějící data označena. Ověřený field INP jen pokud skutečně dostupný.",
+    "decision": "Daniel dodá exporty nebo povolí konkrétní read-only přístup; žádné secrets do chatu/repa. Nevyžaduje změnu webu."
+  },
+  {
+    "id": "B04",
+    "title": "Sjednotit načítání třetích stran s vysvětlením soukromí",
+    "impact": 5,
+    "effort": 2,
+    "risk": "Střední; změna chování komentářů/X, právní text musí být odsouhlasen.",
+    "area": "privacy-embeds",
+    "proof": "Bez media kliknutí:3 ytimg thumbnails na homepage; X článek načetl X domény a __cf_bm cookies; giscus se načetl na3/3 vzorkových článků. GDPR slibuje až po použití (AUDIT §6; UX-P01).",
+    "change": "Doporučení: explicitní click-to-load X a komentáře s odkazovým fallbackem, přesný disclosure thumbnailů/analytics; posoudit stávající vlastní lokální náhledy. Nepřidávat automaticky cookie lištu ani jiný tracker.",
+    "files": [
+      "src/pages/gdpr.astro",
+      "src/pages/clanky/[...id].astro",
+      "src/lib/rehype-x-embed.js",
+      "src/lib/x-embed.js",
+      "src/components/Giscus.astro",
+      "src/lib/giscus-klient.js",
+      "src/pages/index.astro"
+    ],
+    "accept": "Před souhlasnou aktivací žádné requesty/cookies od zvolených volitelných služeb; po aktivaci funkční obsah a klávesnice; text popisuje skutečný stav. Právní závěr dodá odpovědná osoba.",
+    "decision": "Schválit click-to-load X/giscus vs. jiné odůvodněné řešení a konečný privacy text. Nepotvrzuje se nezákonnost současných cookies."
+  },
+  {
+    "id": "B05",
+    "title": "Zprovoznit doložitelnou IndexNow návaznost na produkční deploy",
+    "impact": 4,
+    "effort": 2,
+    "risk": "Střední; nesmí oznamovat preview, cizí SHA nebo nepublikované URL.",
+    "area": "indexnow",
+    "proof": "Workflow active, ale API total_count0 běhů a0 GitHub deployments; úspěšný Pages check existuje.6 TODO parsování/validace (AUDIT §7).",
+    "change": "Použít skutečný signál úspěšného Pages nasazení se striktní kontrolou main/produkce/exact SHA. Doplnit XML entity/whitespace a URL validaci; nezměnit stávající klíč. Neoznamovat pouze na push před deployem.",
+    "files": [
+      ".github/workflows/indexnow-after-deploy.yml",
+      "scripts/indexnow.mjs",
+      "scripts/test-indexnow*.mjs"
+    ],
+    "accept": "Offline payload testy a6TODO převedených na skutečný PASS; preview/cizíSHA odmítnuty. Ostré oznámení teprve po samostatně schváleném nasazení, s doloženou HTTP odpovědí.",
+    "decision": "Schválit integraci. Nyní žádný POST; konečný produkční smoke vyžaduje pozdější deploy souhlas. Bez nových secrets/služeb."
+  },
+  {
+    "id": "B06",
+    "title": "Dodat malé obrazové varianty pro skutečné sloty karet",
+    "impact": 4,
+    "effort": 2,
+    "risk": "Nízké až střední; ostrost, crop a srcset kontrakty nesmějí utrpět.",
+    "area": "responsive-images",
+    "proof": "72/96px karty stahují nejméně640w. Homepage mobil image-delivery odhad317KiB, Amodei640w31 458B s29 290B odhadovanou úsporou (AUDIT §1).",
+    "change": "Doplnit odvozené menší WebP varianty podle skutečných slotů/DPR do existující Sharp pipeline; správné srcset, beze změny master obrázků, autorské ilustrace nebo designu. Neplést datovou úsporu s garantovaným LCP ziskem.",
+    "files": [
+      "scripts/optimize-images.mjs",
+      "src/lib/karta-nahled.js",
+      "src/components/ArticleCard.astro",
+      "src/pages/search-index.json.js",
+      "scripts/test-*.mjs"
+    ],
+    "accept": "Pokles skutečných transferred bytes na shodných stránkách/viewportech, čitelnost/ostrost 1x/2x ověřena, hero/preload i všechny existující asset URL zachovány; žádné LCP/CLS zhoršení.",
+    "decision": "Technická oblast po schválení; bez nové závislosti."
+  },
+  {
+    "id": "B07",
+    "title": "Zviditelnit existující RSS v patičce",
+    "impact": 2,
+    "effort": 1,
+    "risk": "Nízké; nezahlcovat navigaci.",
+    "area": "rss-discovery",
+    "proof": "RSS autodiscovery141/141 a50 validních feed položek; na5/5 browser vzorcích0 viditelných RSS odkazů (AUDIT §2,4).",
+    "change": "Jeden textový odkaz RSS do existující patičky/odběru; žádný nový blok/redesign.",
+    "files": [
+      "src/layouts/Base.astro",
+      "scripts/test-*.mjs"
+    ],
+    "accept": "Klávesnicí dostupný pojmenovaný link na správný feed, žádný overflow320px, žádné duplicity head RSS.",
+    "decision": "Schválit drobný distribuční kanál; žádná služba nebo tracking."
+  },
+  {
+    "id": "B08",
+    "title": "Definovat a ověřit web→YouTube funnel v existujícím stacku",
+    "impact": 4,
+    "effort": 2,
+    "risk": "Střední; nové eventy jsou měření, nutný souhlas a minimalizace dat.",
+    "area": "youtube-measurement",
+    "proof": "CTA118/118 a14/14 video fasád existují; ve zdroji/payloadu není doložen outbound/play/subscribe conversion event. RUM routing události vznikají i při filtru/kotvě (AUDIT §4,6).",
+    "change": "Po B03 definovat article_view,video_outbound,facade_start,channel_outbound bez osobních ID; nejprve prověřit možnosti současných nástrojů a jejich agregaci. Odebraný kanál nelze vyvozovat z outbound click. Zkontrolovat v Studio manuálně vazbu video→článek.",
+    "files": [
+      "docs/audit/MEASUREMENT.md",
+      "src/layouts/Base.astro (jen bude-li event řešení schváleno)",
+      "src/lib/youtube-facade.js",
+      "src/pages/clanky/[...id].astro"
+    ],
+    "accept": "Jedna kontrolovaná návštěva → očekávané počty událostí bez duplikace při filtrování; redigované agregace, žádné osobní ID. Oddělit skutečný odběr od kliknutí; přínos vyhodnotit až na datech.",
+    "decision": "Nejdřív rozhodnout, zda vůbec přidávat měření a jak. Žádný nový tracker/služba bez výslovného souhlasu; YouTube popisky upravuje Daniel/Sam, ne agent."
+  },
+  {
+    "id": "B09",
+    "title": "Změřit příčinu a snížit mobilní LCP článků",
+    "impact": 5,
+    "effort": 3,
+    "risk": "Střední; globální CSS/font/preload změna může rozbít typografii, CLS či dark mode.",
+    "area": "mobile-lcp",
+    "proof": "Video mediánP84/LCP3,824s; FalconP94/2,947s;0/5 mobilních mediánů LCP<2s. Rozptyl až4,8s,9 font requests/313,2KiB. Aktuální data neurčila jedinou příčinu (AUDIT §1).",
+    "change": "Nejprve izolovaný opakovatelný trace experiment bez souběžné zátěže: TTFB/discovery/render delay/font/CSS. Potom pouze potvrzená oprava bottlenecku, žádný nový design ani slepé odstranění CSS. Zachovat glyph/šířkové osy loga.",
+    "files": [
+      "src/layouts/Base.astro",
+      "src/styles/fonts-archivo.css",
+      "src/styles/fonts-plex.css",
+      "src/styles/premium.css",
+      "src/lib/hero-preload.js",
+      "src/pages/clanky/[...id].astro (výběr podle trace)"
+    ],
+    "accept": "Shodné5URL mobile/desktop po3bězích; cílitP≥95,LCP<2s,CLS<0,05 bez zhoršení ostatních metrik. Pokud žádná příčina není potvrzena, jen evidence, ne spekulativní patch.",
+    "decision": "Schválit diagnosticko-opravnou oblast; font/design změna nad rámec bezezměnové optimalizace vyžaduje další souhlas."
+  },
+  {
+    "id": "B10",
+    "title": "Zavést skutečný astro check před implementačními PR",
+    "impact": 5,
+    "effort": 3,
+    "risk": "Střední; nová devDependency a může odhalit větší existující TS dluh.",
+    "area": "typecheck",
+    "proof": "Chybí @astrojs/check i tsconfig; astro check vypíše ERROR přesto exit0, tsc exit1/help. CI pouze test+build (AUDIT §7).",
+    "change": "Doplnit nutnou @astrojs/check devDependency s odůvodněním, tsconfig a npm script/CI gate; nejprve inventář baseline chyb. Bez plošného přepisování kódu nebo potlačování typů, které by skrylo chyby.",
+    "files": [
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json (nový)",
+      ".github/workflows/npm-test.yml",
+      "pouze soubory s doloženými TS chybami"
+    ],
+    "accept": "Reálný astro check končí bez diagnostických errors, build bez nových warnings,1035 stávajících PASS zachováno; CLI exit není jediný signál. Všechny další PR mají check i build.",
+    "decision": "Nutný technický prerequisite před první implementační PR bez ohledu na poměr. Schválit právě tuto devDependency; při širokém baseline dluhu nejprve dodat rozsah místo velkého refactoru."
+  },
+  {
+    "id": "B11",
+    "title": "Redakčně posílit relevantní kontextové odkazy",
+    "impact": 4,
+    "effort": 3,
+    "risk": "Střední redakční; mechanické doplňování může měnit smysl nebo vytvářet nerelevantní vazby.",
+    "area": "internal-links",
+    "proof": "8/118 článků má≥3 odkazy v textu;21 bez odchozího,53 bez příchozího kontextového odkazu,110pod3. Celostránkově118/118 splňuje a skuteční sirotci0 (AUDIT §3).",
+    "change": "Po schválení redakčního seznamu začít relevantní dávkou článků, ne všech110 automaticky. Zachovat tvrzení a faktické znění; navrhnout přirozené anchor texty a propojení s průvodci.",
+    "files": [
+      "src/content/clanky/*.md (jen schválený explicitní seznam)",
+      "docs/audit/evidence/internal-links-plan.md (návrh)"
+    ],
+    "accept": "U schválené dávky skutečně relevantní interní odkazy a nový obousměrný body graph; žádné404/fragment regressions. Bez kvótového spamování.",
+    "decision": "Upřesnit, zda cíl≥3 znamená kontextové odkazy. Schválit redakční vazby, protože to není čistě technická volba."
+  },
+  {
+    "id": "B12",
+    "title": "Ověřit skutečná metadata čtrnácti videí",
+    "impact": 3,
+    "effort": 3,
+    "risk": "Střední faktické; nelze datum článku svévolně zaměnit za datum videa.",
+    "area": "video-metadata",
+    "proof": "14/14 uploadDate je z article.date; skutečné datum neověřeno;1/14 chybí doporučená duration (AUDIT §2).",
+    "change": "Vyžádat ověřený seznam datumů/délek existujících videí, rozšířit content schema jen při potřebě; nepřepisovat fakta z odhadu. Zároveň jen read-only ověřit viditelné video→article linky nebo převzít export od Daniela.",
+    "files": [
+      "src/content.config.ts",
+      "src/content/clanky/*.md (14video položek dle evidence)",
+      "src/pages/clanky/[...id].astro",
+      "scripts/validate-content.mjs"
+    ],
+    "accept": "14/14 datumů porovnáno s důvěryhodným zdrojem; doplnit1 délku jen skutečně ověřenou; žádná změna videa na YouTube.",
+    "decision": "Daniel/Sam potvrdí zdroj metadata a vlastnictví vazeb; absence duration není kritický rich-results blocker."
+  },
+  {
+    "id": "B13",
+    "title": "Zkrátit objevitelnost šesti hlubších článků",
+    "impact": 2,
+    "effort": 2,
+    "risk": "Nízké technicky, střední editorial relevance.",
+    "area": "topic-discovery",
+    "proof": "6/118 článků4 kliky od homepage, všechny však dosažitelné a žádný orphan;7 témat už existuje (AUDIT §3).",
+    "change": "Relevantní odkazy/hub selection bez nových URL, přestavby menu nebo vytváření tenkých SEO stránek. Koordinovat s B11, nevytvořit duplicitní PR za stejnou věc.",
+    "files": [
+      "src/components/TemaPage.astro",
+      "src/lib/tema-souvisi.js",
+      "src/content/clanky/*.md (jen bude-li schváleno)"
+    ],
+    "accept": "Dotčených6 článků v≤3 klikových cestách bez nepřirozeného globálního seznamu; současné cíle a canonical zachovány.",
+    "decision": "Schválit konkrétní tematické vazby, alternativně zahrnout do B11 a neduplikovat práci."
+  },
+  {
+    "id": "B14",
+    "title": "Ověřit cyklus aktualizace obrázků a cache",
+    "impact": 2,
+    "effort": 2,
+    "risk": "Střední; nevhodné TTL může držet staré covers nebo zvednout provoz.",
+    "area": "asset-cache",
+    "proof": "Live images max-age14400 vs source_headers max-age0, konkrétní Word cover; hashed assets již immutable správně (AUDIT §7).",
+    "change": "Read-only vysvětlit účinnou hlavičku; pro budoucí přepis obrázků zvážit verzovaný asset odkaz v kódu, ne změnu článkové URL. Žádné CF account/DNS změny.",
+    "files": [
+      "public/_headers",
+      "src/lib/karta-nahled.js",
+      "src/lib/hero-obrazek.js",
+      "scripts/optimize-images.mjs (až dle zjištěné příčiny)"
+    ],
+    "accept": "Opakované načtení aktualizované asset verze prokazatelně čerstvé, staré asset URL funkční; nezhoršit cache fingerprintovaných souborů.",
+    "decision": "Pokud příčina leží v CF účtu, pouze report Danielovi; mandát zásah do účtu nezahrnuje."
+  },
+  {
+    "id": "B15",
+    "title": "Cílená údržba závislostí, nikoli hromadný upgrade",
+    "impact": 2,
+    "effort": 3,
+    "risk": "Střední až vysoké u major/compiler/font změn.",
+    "area": "dependency-maintenance",
+    "proof": "npm audit0;8 npm outdated balíčků, aktuální Astro7.3.3. Není prokázaná bezpečnostní nutnost upgrade (AUDIT §7).",
+    "change": "Changelog/compatibility audit; pouze konkrétní potřebný bezpečný patch v samostatném PR. Major TypeScript/compiler/js-yaml a fonty oddělit a odůvodnit; žádný bump pro skóre.",
+    "files": [
+      "package.json",
+      "package-lock.json",
+      "scripts/test-*.mjs (případné regresní krytí)"
+    ],
+    "accept": "Konkrétní zdůvodněný přínos, test/build/check a vizuální parity při fontech, žádné nové warnings/vulnerabilities.",
+    "decision": "Odložit, dokud není jasný přínos; nové knihovny ani framework upgrade nejsou součástí schválení auditu."
+  },
+  {
+    "id": "B16",
+    "title": "Případné zpřísnění CSP bez unsafe-inline",
+    "impact": 2,
+    "effort": 4,
+    "risk": "Vysoké regresní; theme bootstrap, schema, search a embed integrace.",
+    "area": "csp-hardening",
+    "proof": "Živá CSP obsahuje script/style unsafe-inline, ale má object-src none/base-uri self/frame-ancestors none; audit neprokázal exploataci (AUDIT §7).",
+    "change": "Inventář inline skriptů a návrh hashované politiky; nejprve preview test všech interakcí. Neoznačovat to za SEO blocker a nevypínat funkce, aby test prošel.",
+    "files": [
+      "public/_headers",
+      "src/layouts/Base.astro",
+      "src/pages/clanky/[...id].astro",
+      "src/components/*.astro",
+      "build scripts podle navržené hash pipeline"
+    ],
+    "accept": "Bez CSP violation u všech schválených funkcí, zachovat ochrany, monitorovat jen existujícími prostředky; žádná účtová CF změna.",
+    "decision": "Samostatné schválení po prioritních oblastech; nejde o rychlou jednorázovou změnu řetězce."
+  }
+]

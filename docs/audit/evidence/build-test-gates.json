@@ -1,0 +1,25 @@
+[
+  {
+    "phase": "tests",
+    "exit": 0,
+    "summary": [
+      "# tests 1041",
+      "# pass 1035",
+      "# fail 0",
+      "# skipped 0",
+      "# todo 6"
+    ]
+  },
+  {
+    "phase": "audit",
+    "exit": 0,
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  }
+]

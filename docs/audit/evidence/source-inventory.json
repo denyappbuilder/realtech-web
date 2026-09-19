@@ -1,0 +1,39 @@
+{
+  "hydration_directives": [],
+  "astro_assets_imports": [],
+  "component_filename_references": {
+    "src/components/Giscus.astro": [
+      "src/lib/giscus-klient.js",
+      "src/pages/clanky/[...id].astro"
+    ],
+    "src/components/ArticleCard.astro": [
+      "src/components/ArticleArchivePage.astro",
+      "src/components/TemaPage.astro",
+      "src/pages/404.astro",
+      "src/pages/vitej.astro",
+      "src/pages/index.astro",
+      "src/pages/clanky/[...id].astro"
+    ],
+    "src/components/ArticleArchivePage.astro": [
+      "src/pages/search-index.json.js",
+      "src/pages/clanky/index.astro",
+      "src/pages/clanky/strana/[page].astro"
+    ],
+    "src/components/SearchModal.astro": [
+      "src/styles/premium.css",
+      "src/layouts/Base.astro",
+      "src/lib/klavesova-zkratka.js",
+      "src/pages/search-index.json.js"
+    ],
+    "src/components/AudioPrehled.astro": [
+      "src/pages/clanky/[...id].astro"
+    ],
+    "src/components/TemaPage.astro": [
+      "src/pages/temata/[slug].astro",
+      "src/pages/temata/[slug]/strana/[page].astro"
+    ]
+  },
+  "tsconfig_exists": false,
+  "byte_identical_source_groups": [],
+  "source_files_scanned": 62
+}
