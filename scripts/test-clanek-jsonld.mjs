@@ -231,7 +231,7 @@ test('drobečky mají tři pozice a poslední nese kanonickou URL článku', asy
 // VideoObject
 // ---------------------------------------------------------------------------
 
-test('VideoObject nese nocookie embed, watch URL a ISO trvání', async () => {
+test('VideoObject nese nocookie embed a ISO trvání bez contentUrl na HTML watch stránku', async () => {
   const { videoLd } = await nactiStranku({
     article: clanek({
       title: 'Titulek článku',
@@ -247,7 +247,7 @@ test('VideoObject nese nocookie embed, watch URL a ISO trvání', async () => {
   assert.equal(videoLd.description, 'Popis článku.');
   assert.equal(videoLd.uploadDate, '2025-04-05T00:00:00.000Z');
   assert.equal(videoLd.duration, 'PT1H2M3S');
-  assert.equal(videoLd.contentUrl, 'https://www.youtube.com/watch?v=abcdefghijk');
+  assert.equal(Object.hasOwn(videoLd, 'contentUrl'), false, 'HTML watch URL není přímý video soubor');
   assert.equal(videoLd.embedUrl, 'https://www.youtube-nocookie.com/embed/abcdefghijk');
   assert.deepEqual(videoLd.thumbnailUrl, [
     'https://i.ytimg.com/vi/abcdefghijk/maxresdefault.jpg',
@@ -287,7 +287,7 @@ test('neplatné videoLength nevyrobí rozbité trvání — klíč z JSON zmizí
     !('duration' in JSON.parse(JSON.stringify(videoLd))),
     'raději VideoObject bez trvání než s hodnotou, které Google nerozumí',
   );
-  assert.equal(videoLd.contentUrl, 'https://www.youtube.com/watch?v=abcdefghijk');
+  assert.equal(Object.hasOwn(videoLd, 'contentUrl'), false, 'HTML watch URL není přímý video soubor');
 });
 
 test('YouTube článek předpojí ytimg jen bez lokálního coveru, článek jen s xPosts/audiem ne', async () => {
