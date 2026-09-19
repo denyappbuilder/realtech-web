@@ -26,11 +26,11 @@ audio:
 
 Americká FCC má od letošního března na svém **Covered Listu** — seznamu techniky, která podle úřadu představuje nepřijatelné riziko pro národní bezpečnost — položku, která zní jako vtip: **„routery vyrobené v cizí zemi, bez ohledu na národnost výrobce"**. Přidáno **23. března 2026**. Protože routery se prakticky nikde jinde než v Asii nedělají, ocitli se v pasti skoro všichni.
 
-Ze seznamu existuje jediná cesta ven: **Conditional Approval** od ministerstva války (Department of War) nebo Homeland Security. A tuhle výjimku dostal v pondělí **27. července SpaceX pro routery Starlinku** — s platností **do 1. února 2028**.
+Ze seznamu existuje jediná cesta ven: **Conditional Approval** od ministerstva války (Department of War) nebo Homeland Security. A tuhle výjimku dostal v pondělí **27. července SpaceX pro [routery Starlinku](/clanky/starlink-mini-vs-standard/)** — s platností **do 1. února 2028**.
 
 ## Proč je to pikantní
 
-SpaceX má fabriku v Texasu a na některých routerech má vyloženě natištěno „Made in the USA". Jenže **část Starlink routerů se vyrábí ve Vietnamu**, jak už v dubnu upozornil PCMag. A definice FCC je nemilosrdná: „produkce" zahrnuje **jakoukoli hlavní fázi** — výrobu, montáž, design i vývoj. Podle vlastních pravidel úřadu je tedy „covered" i router navržený v USA a smontovaný venku.
+[SpaceX má fabriku v Texasu](/clanky/proc-je-spacex-tak-napred/) a na některých routerech má vyloženě natištěno „Made in the USA". Jenže **část Starlink routerů se vyrábí ve Vietnamu**, jak už v dubnu upozornil PCMag. A definice FCC je nemilosrdná: „produkce" zahrnuje **jakoukoli hlavní fázi** — výrobu, montáž, design i vývoj. Podle vlastních pravidel úřadu je tedy „covered" i router navržený v USA a smontovaný venku.
 
 Výjimky už dřív dostaly Netgear, Amazon nebo Gryphon. Rozdíl je v tom, kdo o nich rozhoduje: FCC podle zákona **nemůže seznam měnit sama**, jen provádí rozhodnutí bezpečnostních agentur. Kdo má politicky blízko, projde.
 
@@ -42,7 +42,7 @@ Den nato FCC navrhla zakázat dovoz a prodej produktů **devíti značek** — C
 
 ## Co to znamená u nás
 
-Nic. A to je potřeba říct rovnou, protože kolem těchhle zpráv se pravidelně dělá zmatek. **Covered List je nástroj FCC a řeší autorizaci zařízení pro americký trh** — dovoz, marketing a prodej v USA. V EU žádný ekvivalent neplatí, DJI se tu prodává dál a Starlink si tu koupíš stejně jako minulý měsíc.
+Nic. A to je potřeba říct rovnou, protože kolem těchhle zpráv se pravidelně dělá zmatek. **Covered List je nástroj FCC a řeší autorizaci zařízení pro americký trh** — dovoz, marketing a prodej v USA. V EU žádný ekvivalent neplatí, DJI se tu prodává dál a [Starlink si tu koupíš](/clanky/starlink-v-cesku-pruvodce/) stejně jako minulý měsíc.
 
 Zajímavé je i to, jak mírný je ten zákaz i v samotných Státech. Podle vlastního FAQ FCC se týká jen **nových modelů**: dříve autorizované routery se smí dál dovážet a prodávat a spotřebitelé mohou to, co si koupili, **používat bez omezení**. Žádné vzdálené vypnutí, žádné odebírání dronů z ruky.
 
