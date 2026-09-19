@@ -123,7 +123,7 @@ test("samotný přepínač dry-run stále čte sitemapu a nic neodešle", (t) =>
   assertNoFetch(result);
 });
 
-test.todo(
+test(
   "[codex-testy-web/INDEXNOW-XML-001] dekóduje XML entity v loc před odesláním",
   (t) => {
     const root = createFixture(
