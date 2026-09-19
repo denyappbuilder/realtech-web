@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
 import { ORIGIN, MAX_SITEMAP_BYTES, MAX_URLS_PER_REQUEST, parseSitemap, readKey, sendBatch } from './indexnow.mjs';
 import { MARKER_PATH, SHA, digest, deploymentOrigin } from './indexnow-marker.mjs';
+import { cestyZeSouboru, kategorieClanku, predchoziProdukcniSha, vyberUrl, zmeneneSoubory } from './indexnow-changed.mjs';
 
 const REPO = 'denyappbuilder/realtech-web';
 const API = `https://api.github.com/repos/${REPO}`;
@@ -76,7 +77,10 @@ export async function boundedRead(url, { fetchImpl = fetch, token, limit = 1024 
     clearTimeout(timer);
   }
 }
-export async function notifyDeployment({ event, token, key, fetchImpl = fetch, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)), attempts = 30, dryRun = false }) {
+// B18: `zmenene` = { root, git? } zapne výběr jen změněných URL proti
+// předchozímu ověřenému produkčnímu běhu. Bez něj (starší volání/testy) se
+// chová jako dřív — celá sitemapa.
+export async function notifyDeployment({ event, token, key, fetchImpl = fetch, sleep = ms => new Promise(resolve => setTimeout(resolve, ms)), attempts = 30, dryRun = false, zmenene = null }) {
   const { id, sha } = validateRun(event);
   ensure(typeof token === 'string' && token.length > 0 && /^[A-Za-z0-9-]{8,128}$/.test(key), 'Missing authorization/key');
   ensure(Number.isInteger(attempts) && attempts > 0 && attempts <= 30, 'Invalid poll bound');
@@ -134,7 +138,15 @@ export async function notifyDeployment({ event, token, key, fetchImpl = fetch, s
   const { identity, marker } = selected;
   const bytes = await publicRead(ORIGIN, '/sitemap-0.xml', MAX_SITEMAP_BYTES);
   ensure(digest(bytes) === marker.sitemapSha256, 'Production sitemap digest mismatch');
-  const urls = parseSitemap(bytes);
+  const vsechny = parseSitemap(bytes);
+  let urls = vsechny;
+  let baseline = null;
+  if (zmenene) {
+    baseline = await predchoziProdukcniSha(api, sha);
+    ensure(baseline, 'No verified previous production run for baseline');
+    const soubory = zmeneneSoubory(baseline, sha, zmenene.root, zmenene.git);
+    urls = vyberUrl(cestyZeSouboru(soubory, slug => kategorieClanku(zmenene.root, slug)), vsechny);
+  }
   const statuses = [];
   for (let offset = 0; offset < urls.length; offset += MAX_URLS_PER_REQUEST) {
     // Every POST gets its own final checks. These observations are NOT atomic.
@@ -147,14 +159,14 @@ export async function notifyDeployment({ event, token, key, fetchImpl = fetch, s
     checkDeadline();
     if (!dryRun) statuses.push(await sendBatch(urls.slice(offset, offset + MAX_URLS_PER_REQUEST), key, fetchImpl));
   }
-  return { dryRun, sha, checkId: identity.id, deploymentUrl: identity.deploymentUrl, sitemapSha256: marker.sitemapSha256, urls: urls.length, statuses };
+  return { dryRun, sha, baseline, checkId: identity.id, deploymentUrl: identity.deploymentUrl, sitemapSha256: marker.sitemapSha256, sitemapUrls: vsechny.length, urls: urls.length, statuses };
 }
 if (process.argv[1] && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
     const event = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
     ensure(process.argv.slice(2).every(arg => arg === '--dry-run'), 'Unknown argument');
-    const result = await notifyDeployment({ event, token: process.env.GITHUB_TOKEN, key: readKey(root), dryRun: process.argv.includes('--dry-run') });
+    const result = await notifyDeployment({ event, token: process.env.GITHUB_TOKEN, key: readKey(root), dryRun: process.argv.includes('--dry-run'), zmenene: { root } });
     console.log(JSON.stringify(result));
   } catch {
     // Do not expose API bodies, environment, reflected tokens, or arbitrary errors.
