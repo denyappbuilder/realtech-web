@@ -1725,8 +1725,12 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 .article-body h2,
 .article-body h3 { scroll-margin-top: var(--kotva-odstup); }
 .article-body h2, .article-body h3 { position: relative; }
+/* Kolo 46: „#“ měřilo 8×15px (h3 na mobilu) až 12×22px — pod 24×24 z WCAG
+   2.5.8 a prakticky netrefitelné. Odsazení od nadpisu drží padding místo
+   marginu (stejná poloha), svislý padding inline prvku řádek nezvedá; cíl
+   je 24×25px i u nejmenšího nadpisu. Kotva zůstává skrytá do hoveru/fokusu. */
 .heading-anchor {
-  opacity: 0; margin-left: 8px; color: var(--ink-faint);
+  opacity: 0; padding: 5px 8px; color: var(--ink-faint);
   font-size: 0.7em; text-decoration: none; transition: opacity 0.15s, color 0.15s;
 }
 .article-body h2:hover .heading-anchor,
