@@ -117,8 +117,8 @@ const vypisOg = ogObrazekClanku(articles[0]);
             <button type="submit" class="btn-primary">Hledat</button>
           </form>
           <div class="cat-filter" role="group" aria-label="Filtr podle kategorie">
-            <button class="chip active" data-cat="" aria-pressed="true">Vše</button>
-            {categories.map((category) => <button class="chip" data-cat={category} aria-pressed="false">{category}</button>)}
+            <button class="chip active" data-cat="" aria-pressed="true" type="button">Vše</button>
+            {categories.map((category) => <button class="chip" data-cat={category} aria-pressed="false" type="button">{category}</button>)}
           </div>
           {/*
             Kolo 37: čipy strany 1 jsou tlačítka jen pro skript — bez JS byly

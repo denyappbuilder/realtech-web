@@ -234,7 +234,8 @@ test("kolo 37: klient maže karty z indexu až po načtení indexu — karty z e
 
 test("kolo 37: strana 1 nese <noscript> odkazy čipů jako strana/2+ a skryje tlačítka bez JS", () => {
   const strana1 = archiv.match(/\{page === 1 \? \(([\s\S]*?)\) : \(/)?.[1] ?? "";
-  assert.match(strana1, /<button class="chip active" data-cat="" aria-pressed="true">Vše<\/button>/, "tlačítka pro skript zůstávají");
+  // Kolo 46: type="button" — výslovný typ, žádné implicitní submit (nezávislý audit).
+  assert.match(strana1, /<button class="chip active" data-cat="" aria-pressed="true" type="button">Vše<\/button>/, "tlačítka pro skript zůstávají");
   const noscript = strana1.match(/<noscript>([\s\S]*?)<\/noscript>/)?.[1] ?? "";
   assert.match(noscript, /<nav class="cat-filter" aria-label="Filtr podle kategorie">/);
   assert.match(noscript, /<a class="chip active" href="\/clanky\/">Vše<\/a>/);
