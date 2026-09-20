@@ -26,6 +26,24 @@
 // P2 Mrtvé CSS: `.reading-entry > a` (odkaz je od #462 v .article-credit),
 //    `.related .card-body h2` (related karty jsou h3), featured h3 (featured
 //    je h2), `.newsletter .mono` (žádný .mono v newsletteru).
+//
+// Doplnění z nezávislého live auditu (kolo-45-audit.md, 20. 9. 2026):
+// P1 Hub AI Agenti bez agentích kusů z 20. 9. (AGENTS.md, Custom GPT →
+//    pluginy vyšly jako AI Report) — kurátorovaný cross-link (tema-souvisi),
+//    kategorie článků se nemění.
+// P1 Audio váha: Deep Dive 21–31 MB a čtenář před klikem viděl jen délku.
+//    Skutečná velikost z Content-Length (HEAD při buildu), žádný odhad —
+//    bez změřené hodnoty se číslo nevykreslí (kolo 36/44: žádná smyšlená
+//    velikost). Historie se nepřekóduje.
+// P1 Stav filtru archivu: audit hlásil „data-vychozi zůstává vedle počtu“.
+//    Ověřeno: viditelný text i role=status nese edge filtrovaný počet,
+//    data-vychozi je datový atribut (čtečka ani no-JS ho nevidí) a klient
+//    z něj obnovuje výchozí text po „Zrušit filtr“ — zamčeno testem, ne
+//    měněno.
+// P2 Dark kontrast: `.stat strong` byl poslední text v --signal (dark
+//    4,31:1) — v darku --signal-dark jako logo (5,47:1).
+// P2 `.live-dot` u výzvy na kanál v textu článku (rehype-cta-inline) nic
+//    neoznačovala — pryč; zůstává jen u videobaru s videem (kolo 44).
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -34,6 +52,10 @@ import { fileURLToPath } from 'node:url';
 import { articleOutline } from '../src/lib/article-outline.js';
 import { compareArticlesByDateDescThenId } from '../src/lib/article-order.js';
 import { nahradCheckboxy, rehypeChecklist, TEXT_HOTOVO, TRIDA_BOXU, TRIDA_BOXU_HOTOVO } from '../src/lib/rehype-checklist.js';
+import { SOUVISI_S_TEMATEM, souvisejiciClanky } from '../src/lib/tema-souvisi.js';
+import { formatVelikost, velikostAudia } from '../src/lib/audio-velikost.js';
+import { ctaInlineHtml } from '../src/lib/rehype-cta-inline.js';
+import { handleryFiltru } from '../functions/clanky/index.js';
 
 const koren = join(dirname(fileURLToPath(import.meta.url)), '..');
 const cti = (rel) => readFileSync(join(koren, rel), 'utf8');
@@ -190,6 +212,87 @@ test('kolo 45: rehypeChecklist je v astro.config poslední a CSS kreslí box mí
   assert.match(boxCss, /background:\s*var\(--surface\)/);
   assert.match(pravidlo(global, '.article-body .task-box-checked'), /background:\s*var\(--signal-fill\)/);
   assert.doesNotMatch(global, /input\[type="?checkbox"?\]/, 'checkbox v článku se nestyluje — v HTML není');
+});
+
+// ── Doplnění z nezávislého auditu ────────────────────────────────────────────
+
+test('kolo 45: hub AI Agenti dostane agentí kusy z 20. 9. cross-linkem, kategorie článků zůstává AI Report', () => {
+  const slugy = ['claude-code-agents-md-jeden-soubor-pokynu', 'custom-gpt-konec-migrace-na-pluginy-checklist'];
+  assert.deepEqual(SOUVISI_S_TEMATEM['AI Agenti'], slugy);
+  for (const slug of slugy) {
+    assert.match(cti(`src/content/clanky/${slug}.md`), /^category: "AI Report"$/m, `${slug}: kategorie se nemění (pravidlo jedné kategorie)`);
+  }
+  const vsechny = slugy.map((id) => ({ id, data: { category: 'AI Report' } }));
+  assert.deepEqual(souvisejiciClanky('AI Agenti', vsechny).map((c) => c.id), slugy, 'hub AI Agenti oba články vypíše');
+  assert.deepEqual(souvisejiciClanky('AI Report', vsechny), [], 'na hubu AI Report (kde v mřížce jsou) se neopakují');
+  // Hardware seznam z kola 42 beze změny.
+  assert.deepEqual(SOUVISI_S_TEMATEM.Hardware, ['rtx-spark-windows-pc-rijen-2026-lokalni-ai-na-co-koukat']);
+});
+
+test('kolo 45: velikost MP3 se měří (HEAD, Content-Length), nikdy neodhaduje; bez odpovědi se neukáže', async () => {
+  const volani = [];
+  const fetchOk = async (url, init) => { volani.push({ url, init }); return { ok: true, headers: new Headers({ 'content-length': '31010825' }) }; };
+  assert.equal(await velikostAudia('https://audio.realtech.cz/x-nlm.mp3', { fetchFn: fetchOk }), 31010825);
+  assert.equal(volani[0].init.method, 'HEAD', 'jen hlavička, ne 31 MB při buildu');
+  assert.ok(volani[0].init.signal instanceof AbortSignal, 'timeout');
+  assert.equal(await velikostAudia('https://audio.realtech.cz/x.mp3', { fetchFn: async () => ({ ok: false, headers: new Headers() }) }), undefined, '404 → bez čísla');
+  assert.equal(await velikostAudia('https://audio.realtech.cz/x.mp3', { fetchFn: async () => ({ ok: true, headers: new Headers() }) }), undefined, 'bez Content-Length → bez čísla');
+  assert.equal(await velikostAudia('https://audio.realtech.cz/x.mp3', { fetchFn: async () => { throw new Error('offline'); } }), undefined, 'chyba sítě build neshodí');
+  assert.equal(await velikostAudia(undefined, { fetchFn: fetchOk }), undefined);
+  assert.equal(await velikostAudia('/lokalni.mp3', { fetchFn: fetchOk }), undefined, 'relativní cesta se nevolá');
+  assert.equal(volani.length, 1, 'neplatné vstupy síť nevolají');
+  assert.equal(formatVelikost(31010825), '31 MB');
+  assert.equal(formatVelikost(22296857), '22 MB');
+  assert.equal(formatVelikost(2_450_000), '2,5 MB');
+  assert.equal(formatVelikost(undefined), undefined);
+  assert.equal(formatVelikost(0), undefined);
+});
+
+test('kolo 45: AudioPrehled ukazuje změřenou velikost za „Stáhnout MP3“, řada z kola 44 zůstává', () => {
+  const audio = bezKomentaru(cti('src/components/AudioPrehled.astro'));
+  assert.match(audio, /import \{ formatVelikost, velikostAudia \} from '\.\.\/lib\/audio-velikost\.js';/);
+  assert.match(audio, /const velikostText = pohled \? formatVelikost\(await velikostAudia\(pohled\.src\)\) : undefined;/);
+  assert.match(audio, /Stáhnout MP3 <span aria-hidden="true">↓<\/span><\/a>\s*\{velikostText && <span class="audio-prehled-velikost">\{velikostText\}<\/span>\}\s*<span class="audio-prehled-akce-note">/);
+  assert.doesNotMatch(audio, /\d+\s*MB/i, 'žádná velikost natvrdo (kolo 36/44)');
+  assert.match(audio, /preload="metadata"/, 'přehrávač dál jen streamuje');
+  assert.match(pravidlo(global, '.audio-prehled-velikost'), /tabular-nums/);
+});
+
+test('kolo 45: stav filtru archivu — edge píše do počtu filtrovaný text, data-vychozi (datový atribut) zůstává pro „Zrušit filtr“', () => {
+  const prvek = (attrs, text = '') => ({
+    attrs: new Map(Object.entries(attrs)), text,
+    getAttribute(n) { return this.attrs.get(n) ?? null; },
+    setAttribute(n, v) { this.attrs.set(n, String(v)); },
+    removeAttribute(n) { this.attrs.delete(n); },
+    setInnerContent(t) { this.text = t; },
+    after() {}, remove() {}, onEndTag() {},
+  });
+  const h = new Map(handleryFiltru({ vybrane: [{ s: 'a' }, { s: 'b' }, { s: 'c' }], prvniSlug: 'a', kat: '', q: 'starlink' }));
+  const pocet = prvek({ 'data-filter-count': '', 'data-vychozi': 'Zobrazeno 1–15 z 121 článků' }, 'Zobrazeno 1–15 z 121 článků');
+  h.get('[data-filter-count]').element(pocet);
+  assert.equal(pocet.text, '3 články', 'viditelný text + role=status = filtrovaný počet');
+  assert.equal(pocet.getAttribute('data-vychozi'), 'Zobrazeno 1–15 z 121 článků', 'datový atribut není v accessibility tree ani viditelný; klient ho čte při resetu');
+  const archiv = bezKomentaru(cti('src/components/ArticleArchivePage.astro'));
+  assert.match(archiv, /const defaultCount = count\?\.getAttribute\('data-vychozi'\) \?\? count\?\.textContent \?\? '';/);
+  assert.match(archiv, /if \(count\) count\.textContent = defaultCount;/, 'reset vrací výchozí text z data-vychozi');
+});
+
+test('kolo 45: .stat strong v darku bere --signal-dark jako logo; --signal jako barva textu jinde nezůstává', () => {
+  assert.match(global, /:root:not\(\[data-theme="light"\]\) \.stat strong \{ color: var\(--signal-dark\); \}/);
+  assert.match(global, /:root\[data-theme="dark"\] \.stat strong \{ color: var\(--signal-dark\); \}/);
+  const textoveSignal = [...global.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+    .filter((m) => /(?<![-\w])color:\s*var\(--signal\)\s*;/.test(m[2]))
+    .map((m) => m[1].trim().split('\n').pop().trim());
+  assert.deepEqual(textoveSignal.sort(), ['.ab-logo .tech', '.logo .tech', '.stat strong'].sort(), 'každý text v --signal má dark override na --signal-dark');
+  for (const css of [premium, editorial]) assert.doesNotMatch(css, /(?<![-\w])color:\s*var\(--signal\)\s*[;}]/, 'premium/editorial nepřidávají text v --signal');
+});
+
+test('kolo 45: výzva na kanál v textu článku je bez .live-dot; videobar s videem tečku drží', () => {
+  assert.doesNotMatch(ctaInlineHtml({}), /live-dot/);
+  assert.doesNotMatch(ctaInlineHtml({ video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }), /live-dot/);
+  assert.match(ctaInlineHtml({}), /<span class="mono">Víc takových témat máme na YouTube\./);
+  assert.doesNotMatch(cti('src/lib/rehype-cta-inline.js').replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, ''), /live-dot/);
+  assert.match(bezKomentaru(cti('src/pages/clanky/[...id].astro')), /<span class="live-dot"><\/span>K tomuto článku existuje video/);
 });
 
 // ── P2: mrtvé CSS ─────────────────────────────────────────────────────────────
