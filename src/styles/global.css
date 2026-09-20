@@ -532,8 +532,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
     aspect-ratio: auto;
     min-height: 220px;
   }
-  .featured-lead > .card:first-child .card-body h2,
-  .featured-lead > .card:first-child .card-body h3 {
+  .featured-lead > .card:first-child .card-body h2 {
     font-size: 1.35rem;
   }
 }
@@ -814,7 +813,6 @@ a.tag:hover { background: var(--signal-fill-hover); }
   text-wrap: balance;
 }
 .newsletter p { color: #A9B2BF; font-size: 0.95rem; max-width: 46ch; }
-.newsletter .mono { color: #F0554F; }
 .nl-form { display: flex; gap: 10px; }
 .nl-form input {
   flex: 1; padding: 13px 16px; border-radius: var(--radius);
@@ -1371,7 +1369,6 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .related .section-head h2 { font-size: 1.15rem; }
 .related .grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.related .card-body h2,
 .related .card-body h3 { font-size: 0.95rem; }
 .related .card-body p { display: none; }
 @media (max-width: 700px) {

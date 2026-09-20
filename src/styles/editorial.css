@@ -45,8 +45,10 @@
 [data-archive] .card-body h2 { font-size: 1.2rem; line-height: 1.25; }
 
 /* Reading has an entry point, an outline, and a quieter text column. */
+/* Kolo 45: `.reading-entry > a` („Přejít rovnou na text“ z #447) pryč —
+   odkaz se v #462 přestěhoval do .article-credit a .reading-entry nese jen
+   <details> mobilní osnovy. Pravidlo bez markupu (premium.css mělo druhé). */
 .reading-entry { margin-top: 20px; }
-.reading-entry > a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: var(--signal-dark); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 .article-contents-mobile { display: none; }
 .article-contents h2 { font-family: 'Archivo Variable', 'Archivo', sans-serif; font-size: 1.05rem; margin-bottom: 12px; }
 .article-contents ol, .article-contents-mobile ol { list-style: none; padding: 0; margin: 0; }
