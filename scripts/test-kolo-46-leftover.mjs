@@ -20,8 +20,29 @@
 //    12px). Červené „Odebírat na YouTube“ zůstává.
 // P2 Kotva „#“ u nadpisů měřila 8×15px (h3, mobil) — pod 24×24 z WCAG
 //    2.5.8. Padding místo marginu: stejná poloha, cíl 24×25px.
+//
+// Doplnění z nezávislého live auditu (kolo-46-audit.md, 20. 9. 2026 13:26):
+// P1 Hub AI Agenti: „Souvisí s tématem“ (AGENTS.md, Custom GPT) hub vypisuje,
+//    ale ItemList CollectionPage je neznal. Teď jsou v ItemList za všemi
+//    články tématu; numberOfItems = téma + cross-linky. Kategorie se nemění.
+// P1 Stav filtru archivu („data-vychozi vedle počtu → drift“): živě ověřeno
+//    20. 9. 2026 — edge ?kat=AI Agenti: role=status „9 článků“, 9 karet;
+//    „Zrušit filtr“: „Zobrazeno 1–15 z 121 článků“, 15 karet, stránkování
+//    zpět; bez JS viditelně „9 článků“ a 9 karet. data-vychozi je datový
+//    atribut (není v accessibility tree ani viditelný). Nereprodukováno,
+//    formát ponechán — zamčeno kolo 29/33/35/37/45.
+// P1 Audio přepis: <details class="audio-prehled-prepis"> se vykresluje
+//    u všech 72 článků s `transcript` ve frontmatteru; 49 Deep Dive
+//    (-nlm.mp3) zdroj nemá — nic se nevymýšlí, a11y popis + velikost už jsou.
+// P2 ?kat= alias: sedí i slug tématu („ai-agenti“, „ai-report“, „site“);
+//    samotné „ai“ je nejednoznačné → „Vše“.
+// P2 type="button" na tlačítkách bez formuláře (⌘K, téma, čipy, Kopírovat
+//    odkaz) — výslovný typ, žádné implicitní submit.
+// P2 Faux checklist: .task-box je dekorace (aria-hidden), stav pro čtečku
+//    nese sr-only „Hotovo:“ (kolo 45) — role=checkbox by u neinteraktivního
+//    prvku lhala; ponecháno, zamčeno test-kolo-45-leftover.
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
@@ -59,7 +80,10 @@ test('kolo 46: kanonickaKategorie — velikost písmen a diakritika nerozhodují
   assert.equal(kanonickaKategorie('ai report', KATEGORIE), 'AI Report');
   assert.equal(kanonickaKategorie(' AI REPORT ', KATEGORIE), 'AI Report');
   assert.equal(kanonickaKategorie('site', KATEGORIE), 'Sítě', 'bez diakritiky');
+  assert.equal(kanonickaKategorie('ai-agenti', KATEGORIE), 'AI Agenti', 'slug tématu z /temata/ai-agenti/');
+  assert.equal(kanonickaKategorie('AI-REPORT', KATEGORIE), 'AI Report');
   assert.equal(kanonickaKategorie('AI', KATEGORIE), '', 'živě 20. 9. 2026: /clanky/?kat=AI → 0 článků a žádný stisknutý čip');
+  assert.equal(kanonickaKategorie('ai', KATEGORIE), '', '„ai“ sedí na AI Report i AI Agenti — nehádá se, „Vše“');
   assert.equal(kanonickaKategorie('Drony', KATEGORIE), '', 'kategorie bez článku v indexu = bez filtru, ne prázdný výpis');
   assert.equal(kanonickaKategorie('', KATEGORIE), '');
   assert.equal(kanonickaKategorie('   ', KATEGORIE), '');
@@ -130,7 +154,9 @@ test('kolo 46: edge kanonizuje ?kat= proti indexu; neznámá kategorie bez dotaz
 });
 
 test('kolo 46: klientský skript archivu hledá čip ke kategorii z URL stejně jako edge (bez diakritiky, neznámá = „Vše“)', () => {
-  assert.match(archiv, /const cipKategorie = \(kat: string\) => \{\s*const hledana = norm\(kat\.trim\(\)\);\s*const shoda = hledana \? chips\.find\(\(chip\) => norm\(chip\.getAttribute\('data-cat'\) \?\? ''\) === hledana\) : undefined;\s*return shoda \?\? chips\.find\(\(chip\) => chip\.getAttribute\('data-cat'\) === ''\);/);
+  assert.match(archiv, /const cipKategorie = \(kat: string\) => \{\s*const hledana = slugKategorie\(kat\.trim\(\)\);\s*const shoda = hledana \? chips\.find\(\(chip\) => slugKategorie\(chip\.getAttribute\('data-cat'\) \?\? ''\) === hledana\) : undefined;\s*return shoda \?\? chips\.find\(\(chip\) => chip\.getAttribute\('data-cat'\) === ''\);/);
+  // Klientský slugKategorie = tentýž výraz jako v archiv-filtr.js (kolo 37 hlídá shodu karet, tady shodu kategorie).
+  assert.match(archiv, /const slugKategorie = \(s: string\) =>\s*s\.toLowerCase\(\)\.normalize\('NFD'\)\.replace\(\/\[\\u0300-\\u036f\]\/g, ''\)\.replace\(\/\\s\+\/g, '-'\);/);
   assert.match(archiv, /if \(initialCategory\) \{\s*const target = cipKategorie\(initialCategory\);/, 'start stránky');
   assert.match(archiv, /const target = cipKategorie\(params\.get\('kat'\) \?\? ''\);\s*if \(target\) activate\(target\);\s*void apply\('none'\);/, 'popstate');
   assert.doesNotMatch(archiv, /chips\.find\(\(chip\) => chip\.getAttribute\('data-cat'\) === (initialCategory|category)\)/, 'žádná přesná shoda mimo cipKategorie');
@@ -179,6 +205,51 @@ test('kolo 46: .author-box sedí na --surface s --line-strong a 12px jako audio/
   assert.match(global, /:root\[data-theme="dark"\] \.logo \.tech,\n:root\[data-theme="dark"\] \.ab-logo \.tech \{\n\s*color: var\(--signal-dark\);/);
   const clanek = bezKomentaru(cti('src/pages/clanky/[...id].astro'));
   assert.match(clanek, /<div class="author-box">/, 'markup beze změny (test-b19, test-giscus, test-kolo-23)');
+});
+
+// ── Doplnění z nezávislého auditu ────────────────────────────────────────────
+
+test('kolo 46: ItemList hubu tématu nese i cross-linky „Souvisí s tématem“ — za všemi články tématu, počet za téma + cross-linky', () => {
+  const tema = bezKomentaru(cti('src/components/TemaPage.astro'));
+  assert.match(tema, /const souvisiVse = souvisejiciClanky\(category, all\);\s*const souvisi = page === 1 \? souvisiVse : \[\];/, 'cross-linky se počítají pro každou stranu, vypisují jen na první');
+  assert.match(tema, /numberOfItems: clanky\.length \+ souvisiVse\.length,/);
+  assert.match(tema, /\.\.\.souvisi\.map\(\(c, i\) => \(\{\s*'@type': 'ListItem',\s*position: clanky\.length \+ i \+ 1,/, 'pozice až za poslední článek tématu (i za stranou 2+)');
+  // Kategorie článků se nemění (kolo 42/45: jedna kategorie); do mřížky nejdou.
+  assert.match(tema, /const clanky = \(await getCollection\('clanky', \(\{ data \}\) => !data\.draft && data\.category === category\)\)/);
+  assert.match(tema, /\{articles\.map\(\(article, index\) => \(\s*<ArticleCard/, 'mřížka jen z articles');
+  for (const slug of ['claude-code-agents-md-jeden-soubor-pokynu', 'custom-gpt-konec-migrace-na-pluginy-checklist']) {
+    assert.match(cti(`src/content/clanky/${slug}.md`), /^category: "AI Report"$/m);
+  }
+});
+
+test('kolo 46: tlačítka mimo formulář mají výslovné type="button" (⌘K, téma, čipy archivu, Kopírovat odkaz)', () => {
+  const base = bezKomentaru(cti('src/layouts/Base.astro'));
+  assert.match(base, /<button class="search-trigger" data-search-open aria-label="Hledat v článcích \(⌘K\)" title="Hledat \(⌘K\)" type="button">/);
+  assert.match(base, /<button id="theme-toggle" class="theme-toggle" aria-label="Tmavý režim" aria-pressed="false" title="Přepnout na tmavý režim" type="button">/);
+  assert.match(archiv, /<button class="chip active" data-cat="" aria-pressed="true" type="button">Vše<\/button>/);
+  assert.match(archiv, /<button class="chip" data-cat=\{category\} aria-pressed="false" type="button">\{category\}<\/button>/);
+  const clanek = bezKomentaru(cti('src/pages/clanky/[...id].astro'));
+  assert.equal((clanek.match(/<button class="share-btn copy-link" data-url=\{[^}]+\} aria-label="Kopírovat odkaz na článek" type="button">Kopírovat odkaz<\/button>/g) ?? []).length, 2, 'aside i pod textem');
+  // Žádné <button> bez type v layoutu, komponentách ani stránkách.
+  for (const soubor of ['src/layouts/Base.astro', 'src/components/ArticleArchivePage.astro', 'src/components/SearchModal.astro', 'src/components/Giscus.astro', 'src/pages/clanky/[...id].astro']) {
+    const zdroj = bezKomentaru(cti(soubor));
+    for (const tag of zdroj.match(/<button\s[^>]*>/g) ?? []) {
+      if (/type="submit"/.test(tag)) continue;
+      assert.match(tag, /type="button"/, `${soubor}: ${tag}`);
+    }
+  }
+});
+
+test('kolo 46: přepis audia se vykresluje všude, kde je zdroj; Deep Dive bez transcriptu nic nevymýšlí', () => {
+  const audio = bezKomentaru(cti('src/components/AudioPrehled.astro'));
+  assert.match(audio, /\{pohled\.prepis && \(\s*<details class="audio-prehled-prepis">\s*<summary>Přepis<\/summary>/);
+  assert.match(audio, /aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis"/, 'a11y popis přehrávače');
+  assert.match(audio, /\{velikostText && <span class="audio-prehled-velikost">/, 'velikost z kola 45');
+  const clanky = readdirSync(join(koren, 'src/content/clanky')).filter((f) => f.endsWith('.md'));
+  const sPrepisem = clanky.filter((f) => /^ {2}transcript:/m.test(cti(`src/content/clanky/${f}`)));
+  assert.ok(sPrepisem.length >= 72, `články s transcriptem: ${sPrepisem.length}`);
+  assert.ok(sPrepisem.length < clanky.length, 'Deep Dive články transcript nemají — UI se u nich nevykreslí a žádný se nedopisuje');
+  assert.ok(pravidlo(global, '.audio-prehled-prepis summary'), 'CSS přepisu zůstává — markup má 72+ článků');
 });
 
 // ── P2: kotva nadpisu s dotykovým cílem ──────────────────────────────────────
