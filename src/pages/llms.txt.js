@@ -1,9 +1,11 @@
 import { getCollection } from 'astro:content';
+import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 
 export async function GET(context) {
   const site = context.site.href.replace(/\/$/, '');
+  // Kolo 45: stejné pořadí jako úvodka a archiv (id rozhoduje shodný čas vydání).
   const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    .sort(compareArticlesByDateDescThenId);
 
   const podleKategorie = new Map();
   for (const c of clanky) {

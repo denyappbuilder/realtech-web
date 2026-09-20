@@ -47,10 +47,12 @@ test('s videem vede tlačítko na video, bez videa na odběr kanálu', () => {
   assert.equal(KANAL_ODBER_URL, 'https://www.youtube.com/@realtech-cz?sub_confirmation=1');
 });
 
-test('výzva používá jen existující třídy (.mono, .live-dot, .yt-btn) a je aside s názvem', () => {
+test('výzva používá jen existující třídy (.mono, .yt-btn) a je aside s názvem', () => {
   const html = ctaInlineHtml({});
   assert.match(html, /^<aside class="article-cta-inline" aria-label="YouTube kanál REALTECH CZ"/);
-  assert.match(html, /<span class="mono"><span class="live-dot"><\/span>/);
+  // Kolo 45: bez .live-dot — tečka „live“ u výzvy na kanál nic neoznačovala.
+  assert.match(html, /<span class="mono">(?!<span class="live-dot")/);
+  assert.doesNotMatch(html, /live-dot/);
   assert.match(html, /class="yt-btn"/);
   assert.doesNotMatch(html, /style=/, 'žádné inline styly, žádný nový vizuální styl');
 });
@@ -77,7 +79,7 @@ test('článek bez odstavce výzvu nedostane', () => {
 });
 
 test('s xPosts: pořadí odstavec → karta X → výzva (výzva zapsaná v konfiguraci před X embedem)', () => {
-  assert.match(CONFIG, /rehypePlugins: \[rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky\]/);
+  assert.match(CONFIG, /rehypePlugins: \[rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky(?:, rehypeChecklist)?\]/);
   const tree = strom(p(LEDE), p('Druhý.'));
   const f = file({ xPosts: ['https://x.com/realtech/status/1234567890'] });
   rehypeCtaInline()(tree, f);

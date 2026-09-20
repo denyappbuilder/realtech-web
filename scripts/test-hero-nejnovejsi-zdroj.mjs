@@ -15,9 +15,11 @@ test('úvodka vybírá hero jako all[0]; featured nepinuje', () => {
     /const hero = all\[0\]/,
     'hero musí zůstat const hero = all[0] po newest-first řazení',
   );
+  // Kolo 45: řazení dělá sdílený komparátor (article-order.js) — čas vydání
+  // první, id jen při úplně stejném okamžiku (test-article-order.mjs).
   assert.match(
     index,
-    /b\.data\.date\.valueOf\(\) - a\.data\.date\.valueOf\(\)/,
+    /\.sort\(compareArticlesByDateDescThenId\)|b\.data\.date\.valueOf\(\) - a\.data\.date\.valueOf\(\)/,
     'řazení musí jít podle času vydání (date.valueOf), ne podle slugu',
   );
   assert.doesNotMatch(

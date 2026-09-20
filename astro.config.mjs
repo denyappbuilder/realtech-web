@@ -8,6 +8,7 @@ import { asciiHeadingId, nextUniqueHeadingId } from './src/lib/heading-id.js';
 import { rehypeXEmbedy } from './src/lib/rehype-x-embed.js';
 import { rehypeCtaInline } from './src/lib/rehype-cta-inline.js';
 import { rehypeTabulky } from './src/lib/rehype-tabulky.js';
+import { rehypeChecklist } from './src/lib/rehype-checklist.js';
 
 // slug → lastmod (updated ?? date) z frontmatteru článků — pro sitemap <lastmod>
 const lastmods = {};
@@ -75,7 +76,9 @@ export default defineConfig({
   // kartu nechal bliknout nahoře). Viz src/lib/rehype-x-embed.js.
   // rehypeTabulky: markdown tabulky dostanou rolovací obal .table-wrap
   // (Kolo 17), viz src/lib/rehype-tabulky.js.
-  markdown: { processor: unified({ rehypePlugins: [rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky] }) },
+  // rehypeChecklist: GFM `- [ ]` bez formulářového <input> (kolo 45), mění
+  // jen děti <li> — pořadí odstavců pro X embed nechává; viz src/lib/rehype-checklist.js.
+  markdown: { processor: unified({ rehypePlugins: [rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky, rehypeChecklist] }) },
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
   integrations: [
     sitemap({

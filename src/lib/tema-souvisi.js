@@ -7,10 +7,19 @@
  * nemění; hub druhého tématu dostane odkaz odsud. Redakční seznam, ne
  * heuristika: slugy článků z JINÉ kategorie v pořadí, v jakém se mají ukázat.
  *
+ * Kolo 45: agentí kusy z 20. 9. 2026 (AGENTS.md pro kódovací agenty,
+ * migrace vlastních GPT na pluginy) vyšly jako AI Report — hub /temata/
+ * ai-agenti/ je bez nich zastaralý (nezávislý audit). Kategorie zůstává,
+ * hub AI Agenti je dostane sem.
+ *
  * @type {Record<string, string[]>}
  */
 export const SOUVISI_S_TEMATEM = {
   Hardware: ['rtx-spark-windows-pc-rijen-2026-lokalni-ai-na-co-koukat'],
+  'AI Agenti': [
+    'claude-code-agents-md-jeden-soubor-pokynu',
+    'custom-gpt-konec-migrace-na-pluginy-checklist',
+  ],
 };
 
 /**

@@ -8,6 +8,13 @@ import { asciiHeadingId, nextUniqueHeadingId } from './heading-id.js';
  * 8× h3, žádné h2) měl v obsahu všech osm položek odsazených jako podsekce
  * bez rodiče. Sekce článku jsou to, co je nejvýš; podsekce jen to pod tím.
  * ID nadpisů zůstávají stejná (kotvy v textu se nemění).
+ *
+ * Kolo 45: „nejmělčí nadpis v osnově“ nestačí — články psané v `###`
+ * s jediným `## Zdroje` na konci (živě 20. 9. 2026 AGENTS.md i Custom
+ * GPT) měly zase všech 8 sekcí odsazených jako podsekce a jako jedinou
+ * sekci „Zdroje“. Podsekce je jen nadpis, před kterým už stojí mělčí
+ * nadpis (má rodiče); hloubka se proto počítá proti minimu DOSUD viděných
+ * úrovní, ne celého pole.
  */
 export function articleOutline(headings = []) {
   const seen = new Map();
@@ -16,6 +23,10 @@ export function articleOutline(headings = []) {
     const id = nextUniqueHeadingId(asciiHeadingId(text), seen) || slug;
     return depth <= 3 && id ? [{ depth, text, id }] : [];
   });
-  const top = Math.min(...items.map((item) => item.depth));
-  return items.map((item) => ({ ...item, depth: item.depth === top ? 2 : 3 }));
+  let top = Infinity;
+  return items.map((item) => {
+    const podsekce = item.depth > top;
+    top = Math.min(top, item.depth);
+    return { ...item, depth: podsekce ? 3 : 2 };
+  });
 }

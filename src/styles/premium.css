@@ -177,13 +177,17 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .article-credit a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
 .article-credit a:hover { color: var(--signal-dark); text-decoration: underline; text-underline-offset: 4px; }
 .article-credit .article-read-link { color: var(--signal-dark); }
-.reading-entry > a { font-size: 0.9rem; font-weight: 500; }
 .search-all-results { display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 20px; border-top: 1px solid var(--line); color: var(--signal-dark); font-weight: 600; text-underline-offset: 4px; }
 .search-all-results[hidden] { display: none; }
 .search-all-results:hover { background: var(--bg); text-decoration: underline; }
 .article-hero, .video-embed { border: 0; border-radius: var(--media-radius); overflow: hidden; }
 .article-layout { grid-template-columns: minmax(0, 700px) minmax(220px, 1fr); gap: 64px; margin-top: 56px; }
 .article-layout .article-body { font-size: 1.2rem; line-height: 1.8; }
+/* Kolo 45: dlouhá URL ve „Zdrojích“ (help.openai.com/en/articles/2000…) nebo
+   `code` bez mezer se nemá kam zlomit — na 390px přetékaly za okraj sloupce
+   (a přes min-content i za okraj displeje, viz .article-body níž v @media).
+   `anywhere` zlomí jen slovo, které se na řádek nevejde; běžná próza se nemění. */
+.article-body { overflow-wrap: anywhere; }
 .article-body > p:first-child { font-size: inherit; color: var(--ink); }
 .article-body h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.85rem; line-height: 1.25; letter-spacing: -0.025em; margin-top: 2.2em; padding-top: 0; border: 0; }
 .article-body h3 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.35rem; line-height: 1.35; }
@@ -316,7 +320,13 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
     .reading-entry { position: sticky; top: var(--reading-header-height, 96px); }
     #article-text, .article-body h2, .article-body h3 { scroll-margin-top: calc(var(--reading-header-height, 96px) + 80px); }
   }
-  .article-layout .article-body { max-width: 700px; margin-inline: auto; }
+  /* Kolo 45: `margin-inline: auto` dělá z položky mřížky shrink-to-fit box —
+     její šířka je pak min-content obsahu, ne šířka sloupce. Tabulka
+     (min-width buněk) nebo dlouhá URL ve Zdrojích ho živě 20. 9. 2026
+     roztáhly na 448px v 342px sloupci a celý text článku odjel za pravý
+     okraj displeje (390px: scrollWidth 492). width: 100% = šířka sloupce,
+     max-width dál stropuje na 700px a auto okraje centrují jen do 900px. */
+  .article-layout .article-body { width: 100%; max-width: 700px; margin-inline: auto; }
   .article-page .article-head { max-width: 760px; }
   .article-head .lower-third { flex-wrap: wrap; overflow: visible; }
   .newsletter .wrap { gap: 32px; }
@@ -382,6 +392,12 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
   .article-head p.lead { font-size: 1.1rem; line-height: 1.65; margin-top: 20px; }
   .article-head .lower-third .tag, .article-head .lower-third .time { padding: 0; }
   .article-layout .article-body { font-size: 1.08rem; line-height: 1.8; }
+  /* Kolo 45: global.css (kolo 17) táhne obal tabulky o -20px k okrajům karty
+     článku — jenže karta s paddingem 20px od editorial vrstvy neexistuje
+     (padding 0). Tabulka pak trčela 20px před text na obě strany, 4px od
+     hrany displeje, bez bočních linek. Zpátky do sloupce s rámečkem jako
+     na desktopu; obal roluje sám. */
+  .article-layout .article-body .table-wrap { margin-inline: 0; border-inline: 1px solid var(--line); border-radius: 8px; }
   .article-body h2 { font-size: 1.5rem; }
   .article-body h3 { font-size: 1.2rem; }
   .audio-prehled, .article-videobar { padding: 18px; }

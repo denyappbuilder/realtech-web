@@ -532,8 +532,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
     aspect-ratio: auto;
     min-height: 220px;
   }
-  .featured-lead > .card:first-child .card-body h2,
-  .featured-lead > .card:first-child .card-body h3 {
+  .featured-lead > .card:first-child .card-body h2 {
     font-size: 1.35rem;
   }
 }
@@ -613,6 +612,8 @@ a.tag:hover { background: var(--signal-fill-hover); }
   white-space: nowrap;
 }
 .audio-prehled-stahnout:hover { color: var(--ink); }
+/* Kolo 45: změřená velikost MP3 hned za odkazem — tabulární číslice, bez zalomení. */
+.audio-prehled-velikost { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); font-weight: 600; margin-left: -6px; }
 .audio-prehled-prepis { margin-top: 3px; }
 .audio-prehled-prepis summary {
   cursor: pointer;
@@ -729,6 +730,25 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .article-body p { margin: 0 0 1.1em; }
 .article-body ul, .article-body ol { margin: 0 0 1.1em 1.4em; }
 .article-body li { margin-bottom: 0.4em; }
+/* Kolo 45: GFM checklist (`- [ ]`). remark-gfm dává <input type=checkbox
+   disabled> — rehype-checklist.js ho mění na dekorativní .task-box (bez
+   popisku formulářový prvek v textu, axe „label“; čtečka četla „políčko,
+   neaktivní“ u každé odrážky). Box místo odrážky, ve stejném kitu jako
+   pole: --line-strong rámeček, 4px poloměr, --surface. */
+.article-body .contains-task-list { list-style: none; margin-left: 0; }
+.article-body .task-list-item { position: relative; padding-left: 1.9em; }
+.article-body .task-box {
+  position: absolute; left: 0; top: 0.32em;
+  width: 1.05em; height: 1.05em;
+  border: 1.5px solid var(--line-strong, var(--ink-soft)); border-radius: 4px;
+  background: var(--surface);
+}
+.article-body .task-box-checked { background: var(--signal-fill); border-color: var(--signal-fill); }
+.article-body .task-box-checked::after {
+  content: ''; position: absolute; left: 0.3em; top: 0.1em;
+  width: 0.28em; height: 0.55em;
+  border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
 .article-body a { color: var(--signal-dark); text-decoration: underline; text-underline-offset: 2px; }
 .article-body blockquote {
   border-left: 3px solid var(--signal);
@@ -814,7 +834,6 @@ a.tag:hover { background: var(--signal-fill-hover); }
   text-wrap: balance;
 }
 .newsletter p { color: #A9B2BF; font-size: 0.95rem; max-width: 46ch; }
-.newsletter .mono { color: #F0554F; }
 .nl-form { display: flex; gap: 10px; }
 .nl-form input {
   flex: 1; padding: 13px 16px; border-radius: var(--radius);
@@ -1084,6 +1103,12 @@ footer.site ul a:hover { color: var(--ink); }
   color: var(--signal);
   letter-spacing: -0.01em;
 }
+/* Kolo 45: poslední text v --signal — dark #E5322D na #0F1216 je 4,31:1;
+   v darku --signal-dark (5,47:1) jako .logo .tech (kolo 22). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .stat strong { color: var(--signal-dark); }
+}
+:root[data-theme="dark"] .stat strong { color: var(--signal-dark); }
 .stat span {
   font-size: 0.85rem;
   color: var(--ink-soft);
@@ -1371,7 +1396,6 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .related .section-head h2 { font-size: 1.15rem; }
 .related .grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.related .card-body h2,
 .related .card-body h3 { font-size: 0.95rem; }
 .related .card-body p { display: none; }
 @media (max-width: 700px) {

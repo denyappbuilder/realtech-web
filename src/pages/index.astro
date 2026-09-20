@@ -8,9 +8,17 @@ import { articleLead } from '../lib/article-lead.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
 import { nahledRailu, webpSrcsetZDerivatu, HERO_RAIL_SIZES, HOMEPAGE_HERO_SIZES, KARTA_SIZES, KARTA_SIZES_HOME_COMPACT } from '../lib/karta-nahled.js';
+import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
 
+// Kolo 45: stejný komparátor jako archiv, RSS, témata a chrono navigace
+// článku (b.date - a.date, při shodě id). Dva články se stejným časem
+// vydání (živě 20. 9. 2026: AGENTS.md i Custom GPT, oba 10:04) dřív řadil
+// jen podle data — kdo bude hero, rozhodovalo pořadí, v jakém content layer
+// soubory načetl (paralelně, ne abecedně). Archiv i „Novější →“ přitom
+// ukazovaly pořadí podle id: úvodka mohla mít jiný hero než první karta
+// archivu. Řazení dál vede čas vydání; id je jen poslední rozřešení.
 const all = (await getCollection('clanky', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort(compareArticlesByDateDescThenId);
 
 const pruvodci = all.filter((c) => c.data.evergreen).slice(0, 3);
 

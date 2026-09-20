@@ -91,6 +91,26 @@ function prepareFrontmatter() {
     );
   }
 
+  // Kolo 45: frontmatter řadí sdíleným komparátorem z ../lib/article-order.js.
+  // Pojmenované importy z relativních .js modulů se do sandboxu dosadí ze
+  // skutečného modulu (žádný mock) — loader dál spouští produkční kód.
+  const libImports = [];
+  for (const statement of imports) {
+    const specifier = statement.moduleSpecifier.text;
+    if (!specifier.startsWith('.') || !specifier.endsWith('.js')) continue;
+    const named = statement.importClause?.namedBindings;
+    if (!named || !ts.isNamedImports(named)) {
+      throw new Error(`404.astro: import ${specifier} musí být pojmenovaný ({ … }).`);
+    }
+    for (const element of named.elements) {
+      libImports.push({
+        specifier,
+        exported: (element.propertyName ?? element.name).text,
+        local: element.name.text,
+      });
+    }
+  }
+
   let executable = '';
   let cursor = 0;
   for (const statement of imports) {
@@ -99,14 +119,23 @@ function prepareFrontmatter() {
   }
   executable += frontmatter.slice(cursor);
 
-  return { executable, getCollectionName };
+  return { executable, getCollectionName, libImports };
 }
 
 /** Spustí skutečný frontmatter 404.astro s řízenou kolekcí článků. */
 export async function loadLatest(entries) {
-  const { executable, getCollectionName } = prepareFrontmatter();
+  const { executable, getCollectionName, libImports } = prepareFrontmatter();
   let collectionCalls = 0;
   let predicateCalls = 0;
+
+  const libBindings = [];
+  for (const { specifier, exported, local } of libImports) {
+    const modul = await import(new URL(specifier, `file://${PAGE}`).href);
+    if (!(exported in modul)) {
+      throw new Error(`404.astro importuje ${exported} z ${specifier}, modul ho neexportuje.`);
+    }
+    libBindings.push({ local, value: modul[exported] });
+  }
 
   const getCollection = async (collection, predicate) => {
     collectionCalls += 1;
@@ -124,11 +153,13 @@ export async function loadLatest(entries) {
 
   const sandbox = {
     __getCollection: getCollection,
+    __lib: Object.fromEntries(libBindings.map(({ local, value }) => [local, value])),
   };
   sandbox.globalThis = sandbox;
   const program = `
     (async () => {
       const ${getCollectionName} = globalThis.__getCollection;
+      ${libBindings.map(({ local }) => `const ${local} = globalThis.__lib[${JSON.stringify(local)}];`).join('\n      ')}
       ${executable}
       globalThis.__latest = latest;
     })()
