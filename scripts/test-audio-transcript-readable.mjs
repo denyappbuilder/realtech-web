@@ -28,7 +28,8 @@ test('všechny články oddělují čitelný transcript od TTS skriptu', () => {
   for (const slug of SLUGS) {
     if (AUDIO_PENDING.has(slug)) continue;
     const { data } = article(slug);
-    if (/-nlm\.mp3(?:\?|$)/.test(data.audio?.url ?? '')) continue;
+    // NotebookLM Deep Dive: `-nlm.mp3?v=…` i verzovaný klíč `-nlm-<12 hex>.mp3`.
+    if (/-nlm(?:-[0-9a-f]{12})?\.mp3(?:\?|$)/.test(data.audio?.url ?? '')) continue;
     assert.ok(data.audio?.transcript?.length > 500, `${slug}: chybí veřejný transcript`);
     assert.ok(data.audio?.ttsScript?.length > 500, `${slug}: chybí zdroj pro regeneraci TTS`);
     assert.doesNotMatch(
