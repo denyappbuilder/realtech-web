@@ -275,7 +275,8 @@ test('kolo 42: souvisejiciClanky drží pořadí seznamu, vynechá chybějící 
 test('kolo 42: TemaPage kreslí „Souvisí s tématem“ jen na straně 1, pod mřížkou a před „Další témata“; CSS v premium.css', () => {
   const tema = bezKomentaru(cti('src/components/TemaPage.astro'));
   assert.match(tema, /import \{ souvisejiciClanky \} from '\.\.\/lib\/tema-souvisi\.js'/);
-  assert.match(tema, /const souvisi = page === 1 \? souvisejiciClanky\(category, all\) : \[\];/, 'strana 2+ je pokračování mřížky, blok patří jen na hub');
+  // Kolo 46: cross-linky se počítají pro ItemList každé strany (souvisiVse), blok dál jen na straně 1.
+  assert.match(tema, /const souvisiVse = souvisejiciClanky\(category, all\);\s*const souvisi = page === 1 \? souvisiVse : \[\];/, 'strana 2+ je pokračování mřížky, blok patří jen na hub');
   const blok = tema.match(/\{souvisi\.length > 0 && \(\s*<section class="tema-souvisi" aria-labelledby="tema-souvisi-nadpis">([\s\S]*?)<\/section>\s*\)\}/)?.[1];
   assert.ok(blok, '<section class="tema-souvisi"> s aria-labelledby chybí');
   assert.match(blok, /<h2 id="tema-souvisi-nadpis">Souvisí s tématem<\/h2>/);

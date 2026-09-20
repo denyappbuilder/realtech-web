@@ -2,6 +2,7 @@ import {
   ODKAZ_ZRUSIT_FILTR,
   aktivniCipVOdkazech,
   filtrujIndex,
+  kanonickaKategorie,
   parametryFiltru,
   platnyIndex,
   kartaHtml,
@@ -167,12 +168,18 @@ export async function onRequestGet(context) {
   }
   if (!platnyIndex(index)) return context.next();
 
+  // Kolo 46: ?kat= proti kategoriím z indexu — „ai report“ je „AI Report“,
+  // neznámá kategorie je „Vše“ (jako klientský skript). Bez dotazu pak není
+  // co filtrovat: statický archiv beze změny, skript strany 1 URL uklidí.
+  const kat = kanonickaKategorie(filtr.kat, new Set(index.map((it) => it.k)));
+  if (!kat && !filtr.q) return context.next();
+
   const stranka = await context.next();
   if (!stranka.ok || !(stranka.headers.get('content-type') ?? '').includes('text/html')) return stranka;
 
-  const vybrane = filtrujIndex(index, filtr);
+  const vybrane = filtrujIndex(index, { kat, q: filtr.q });
   const rewriter = new HTMLRewriter();
-  for (const [selektor, handler] of handleryFiltru({ vybrane, prvniSlug: index[0]?.s, ...filtr })) {
+  for (const [selektor, handler] of handleryFiltru({ vybrane, prvniSlug: index[0]?.s, kat, q: filtr.q })) {
     rewriter.on(selektor, handler);
   }
   const prepsana = rewriter.transform(stranka);

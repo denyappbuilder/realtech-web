@@ -92,7 +92,8 @@ test('kolo 43: --line-strong je o krok tmavší jen pro oddělovače sekcí — 
   const pouziti = premium.match(/^[^@\n][^{\n]*\{[^}]*var\(--line-strong\)/gm) ?? [];
   const selektory = pouziti.map((p) => p.split('{')[0].trim());
   // Kolo 44: tichý videobar bez videa je taky oddělovač sekce (hairline nad řadou).
-  assert.deepEqual(selektory.sort(), ['.audio-prehled, .article-videobar', '.article-videobar-bez-videa', '.related', '.tema-souvisi'].sort(), `--line-strong jen na oddělovačích sekcí, je: ${selektory}`);
+  // Kolo 46: autorský box je panel ve čtecím sloupci jako audio/videobar — stejný rámeček.
+  assert.deepEqual(selektory.sort(), ['.audio-prehled, .article-videobar', '.article-videobar-bez-videa', '.author-box', '.related', '.tema-souvisi'].sort(), `--line-strong jen na oddělovačích sekcí a panelech čtecího sloupce, je: ${selektory}`);
   assert.match(pravidlo(premium, '[data-archive] .filter-empty'), /var\(--line\)/, 'pole archivu drží --line');
   assert.match(mobil, /header\.site nav\.main \{[^}]*var\(--line\)/, 'header drží --line');
 });

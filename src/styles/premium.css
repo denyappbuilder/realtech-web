@@ -226,6 +226,33 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 /* Kolo 43: „Další reporty“ = stejný oddělovač sekce jako .tema-souvisi na hubu. */
 .related { padding-top: 32px; border-top: 1px solid var(--line-strong); }
 .article-nav { margin-top: 48px; }
+/* Kolo 46: autorský box byl poslední --panel blok v článku — černá karta
+   s pruhovaným závojem z doby broadcast kitu, zatímco newsletter (kolo 43),
+   audio, videobar i výzva bez videa (kolo 44) už sedí na tichých plochách.
+   Stejný kit jako .audio-prehled: --surface, --line-strong, 12px. Červené
+   „Odebírat na YouTube“ zůstává — je to hlavní výzva článku, ne chrome
+   hlavičky. Logo TECH bere v darku --signal-dark už z global.css. */
+.author-box { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); border-radius: var(--radius-field); }
+.author-box::before { display: none; }
+.ab-logo .real { color: var(--ink); }
+.ab-body p { color: var(--ink-soft); }
+.ab-body p strong { color: var(--ink); }
+.author-box .btn-ghost { border-color: var(--line); color: var(--ink-soft); }
+.author-box .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+/* Kolo 46: na desktopu měl článek tři levé hrany — hlava (880px, auto
+   okraje) začínala 96px vpravo od textu, cover a audio karta (760px, auto
+   okraje) o dalších 60px dál; první odstavec pak proti perexu nad sebou
+   uskočil o 96px zpět k okraji wrapu (živě 20. 9. 2026, 1280px: text 104,
+   hlava 200, cover 260). editorial.css to řešilo (`margin-left: 0`), ale
+   round 3 níž v kaskádě vrátil `margin: 0 auto`. Stejná hrana jako archiv,
+   O nás a 404 (kolo 44): všechno ve čtecím sloupci od levé hrany wrapu,
+   šířky se nemění (760px sloupec z kola 22 zůstává, sizes/preload sedí).
+   Pod 901px je sloupec jeden a centrovaný — tam se nic nemění. */
+@media (min-width: 901px) {
+  .article-page .article-head,
+  .article-hero, .video-embed, .audio-prehled, .article-videobar,
+  .article-share, .author-box, .related, .article-nav, .komentare, .article-back { margin-left: 0; }
+}
 
 /* About, legal and end matter: the same publication, not a second UI kit. */
 /* Kolo 44: 404 zůstala jediná stránka v broadcast řezu (Archivo 850/108 %) a

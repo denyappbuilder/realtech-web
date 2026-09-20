@@ -231,7 +231,13 @@ test('hub Hardware dostane cross-link na RTX Spark (AI Report) jen na straně 1;
   const page1 = await evaluatePage('Hardware');
   assert.deepEqual(page1.souvisi.map(({ id }) => id), [rtx.id]);
   assert.ok(!page1.articles.some(({ id }) => id === rtx.id), 'mřížka Hardware drží jen články kategorie Hardware');
-  assert.equal(page1.collectionLd.mainEntity.numberOfItems, 16, 'JSON-LD počítá jen články tématu');
+  // Kolo 46: cross-link je na straně 1 opravdu vypsaný, tak patří i do ItemList —
+  // za všechny články tématu (pozice 17 až za stranou 2), počet za téma + cross-linky.
+  assert.equal(page1.collectionLd.mainEntity.numberOfItems, 17, 'JSON-LD počítá články tématu + cross-linky');
+  assert.deepEqual(page1.collectionLd.mainEntity.itemListElement.at(-1), {
+    '@type': 'ListItem', position: 17, url: `https://realtech.cz/clanky/${rtx.id}/`, name: rtx.data.title,
+  });
+  assert.equal(page1.collectionLd.mainEntity.itemListElement.length, 16, '15 karet strany 1 + 1 cross-link');
 
   const page2 = await evaluatePage('Hardware', 2);
   assert.deepEqual(page2.souvisi, [], 'strana 2 je pokračování mřížky, blok tam nepatří');
