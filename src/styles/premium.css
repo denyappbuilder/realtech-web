@@ -9,6 +9,16 @@
      archivní hledání) — DESIGN.md `rounded.field`. Globální --radius 8px
      zůstává starším prvkům, tady se nepřepisuje plošně. */
   --radius-field: 12px;
+  /* Kolo 47: celá škála poloměrů jako tokeny (DESIGN.md `rounded`) — dřív
+     v premium.css natvrdo 4/8/10/12/16/24/999px. Pět stupňů podle role:
+     badge (štítek na náhledu, kbd), thumb (náhled v řádku/railu), field
+     (pole a panely čtecího sloupce), media (cover, karta, modal), control
+     (pilulka tlačítek a čipů; u 44px prvku = plný oblouk, takže i kruh
+     přepínače a ⌘K bez zvláštního 50 % / 999px). 10px „compact“ stupeň
+     padl: newsletter jde na field, mobilní náhled archivu na thumb. */
+  --radius-badge: 4px;
+  --radius-thumb: 8px;
+  --radius-control: 24px;
   /* Kolo 43: --line (#E2E6EB na #F6F7F9) je pro dělicí linku sekce a rámeček
      panelu ve čtecím sloupci moc tichá — vizuální audit ji četl jako „hairline
      bez kontrastu“. O krok tmavší varianta JEN pro oddělovače sekcí
@@ -44,7 +54,7 @@ nav.main ul { gap: 26px; }
 nav.main a { display: inline-flex; align-items: center; min-height: 44px; border: 0; position: relative; }
 nav.main a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 3px; height: 2px; background: var(--signal); transform: scaleX(0); transform-origin: left; transition: transform 240ms var(--editorial-ease); }
 nav.main a:hover::after, nav.main a[aria-current]::after { transform: scaleX(1); }
-header.site .yt-btn { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 24px; }
+header.site .yt-btn { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-control); }
 header.site .yt-btn:hover { border-color: var(--ink-soft); }
 /* Kolo 47: totéž červené tlačítko mělo dva tvary — v hlavičce a pod „video
    není“ (kolo 44) pilulka 24px, ve videobaru, výzvě za prvním odstavcem
@@ -52,18 +62,19 @@ header.site .yt-btn:hover { border-color: var(--ink-soft); }
    „Odebírat na YouTube“ hned vedle pilulky „Víc o nás“ (živě 20. 9. 2026).
    DESIGN.md `rounded.control` = 24px pro ovládací prvky; jedna hodnota pro
    celou třídu, header si drží vlastní obrysovou variantu výš. */
-.yt-btn { border-radius: 24px; padding-inline: 20px; }
+.yt-btn { border-radius: var(--radius-control); padding-inline: 20px; }
 /* Kolo 47: `border-radius: 50%` dělá kruh jen ze čtverce — ⌘K tlačítko je
    101×44 (ikona + kbd), takže mělo elipsovité konce vedle pilulky YouTube.
-   999px = pilulka v jakémkoli poměru, u 44×44 přepínače pořád kruh. */
-.search-trigger, .theme-toggle { border-radius: 999px; }
-.btn-primary, .btn-ghost { border-radius: 24px; padding-inline: 22px; }
+   Stejný control token jako všechna tlačítka: 24px na 44px vysokém prvku
+   je plný oblouk, tedy pilulka u ⌘K a kruh u 44×44 přepínače. */
+.search-trigger, .theme-toggle { border-radius: var(--radius-control); }
+.btn-primary, .btn-ghost { border-radius: var(--radius-control); padding-inline: 22px; }
 .btn-primary { font-weight: 500; }
 .btn-ghost { background: transparent; }
 
 /* One confident opening. No ticker, live label or broadcast overlay. */
 .edition-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 44px 28px; }
-.edition-heading p { font-family: var(--editorial-face); font-size: clamp(1.25rem, 2vw, 1.65rem); font-weight: 650; letter-spacing: -0.025em; }
+.edition-heading p { font-family: var(--editorial-face); font-size: clamp(1.25rem, 2vw, 1.65rem); font-weight: 650; font-stretch: 100%; letter-spacing: -0.025em; }
 .edition-heading a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; font-size: 0.9rem; color: var(--ink-soft); }
 .edition-heading a:hover { color: var(--signal-dark); }
 .hero { padding: 0 0 48px; background: transparent; border: 0; }
@@ -91,7 +102,7 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .hero-rail-label { margin-bottom: 20px; color: var(--ink-soft); font-size: 0.88rem; }
 .hero-rail-list { gap: 28px; }
 .hero-rail-item { grid-template-columns: 100px minmax(0, 1fr); gap: 16px; border: 0; }
-.hero-rail-item img { width: 100px; height: auto; aspect-ratio: 16 / 9; border-radius: 8px; }
+.hero-rail-item img { width: 100px; height: auto; aspect-ratio: 16 / 9; border-radius: var(--radius-thumb); }
 .hero-rail-category { font-size: 0.75rem; margin-bottom: 6px; }
 .hero-rail-title { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1rem; line-height: 1.35; letter-spacing: -0.015em; }
 .hero-rail-item time { font-size: 0.75rem; margin-top: 10px; }
@@ -101,8 +112,10 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .topic-navigation { padding: 18px 0; margin-bottom: 64px; border-block: 1px solid var(--line); gap: 32px; }
 .topic-navigation > div { gap: 0 22px; }
 .topic-navigation-all { font-weight: 500; }
-.section-head { border: 0; padding-bottom: 0; margin-bottom: 28px; gap: 20px; }
-.section-head::after { display: none; }
+/* Kolo 47: 2px linka pod nadpisem a červený 96×3px akcent (.section-head::after,
+   Z10021) jsou z global.css pryč — round 3 je jen schovával (`display: none`),
+   mrtvá vrstva ve dvou souborech. Nadpis sekce nese jen typografie. */
+.section-head { margin-bottom: 28px; gap: 20px; }
 .section-head h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(1.55rem, 2.4vw, 2rem); letter-spacing: -0.03em; line-height: 1.2; }
 .section-head a { font-weight: 500; font-size: 0.9rem; }
 .grid { row-gap: 44px; }
@@ -112,7 +125,7 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .card-thumb::after { display: none; }
 .card-thumb .lt { gap: 4px; margin: 12px; }
 .card-thumb .lt .k, .card-thumb .lt .t, .card-thumb .lt .z {
-  font-family: var(--reading-face); font-size: 0.72rem; letter-spacing: 0; text-transform: none; padding: 4px 8px; border-radius: 4px; color: #fff; background: #14171C;
+  font-family: var(--reading-face); font-size: 0.72rem; letter-spacing: 0; text-transform: none; padding: 4px 8px; border-radius: var(--radius-badge); color: #fff; background: #14171C;
 }
 .card-body { padding: 24px; gap: 14px; }
 .card-body h2, .card-body h3 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.2rem; line-height: 1.3; letter-spacing: -0.02em; text-wrap: pretty; }
@@ -136,11 +149,14 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .cat-lead { margin-bottom: 44px; }
 [data-archive] .search-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; max-width: 760px; gap: 10px 12px; order: 0; }
 .archive-search-label { grid-column: 1 / -1; font-size: 0.85rem; font-weight: 600; color: var(--ink); }
-[data-archive] .search-input { min-height: 56px; padding-inline: 20px; border-radius: 12px; background: var(--surface); }
-[data-archive] .search-form button { border-radius: 12px; background: var(--ink); color: var(--bg); }
+[data-archive] .search-input { min-height: 56px; padding-inline: 20px; border-radius: var(--radius-field); background: var(--surface); }
+[data-archive] .search-form button { border-radius: var(--radius-field); background: var(--ink); color: var(--bg); }
 [data-archive] .search-form .btn-primary:hover { background: var(--signal-fill-hover); color: #fff; }
 [data-archive] .filter-bar { gap: 24px; margin-bottom: 24px; }
-[data-archive] .chip, .topics .chip { border-radius: 24px; padding-inline: 16px; font-family: var(--reading-face); text-transform: none; letter-spacing: 0; }
+/* Kolo 47: jeden čip pro filtr archivu i „Další témata“ (vrstva editorial.css
+   s průhledným rámečkem padla) — obrysová pilulka z global .chip, reading-face
+   0.85rem (mono základ 0.76rem je pro Plex Sans malý, archiv měl 0.9rem). */
+[data-archive] .chip, .topics .chip { border-radius: var(--radius-control); padding-inline: 16px; font-family: var(--reading-face); font-size: 0.85rem; text-transform: none; letter-spacing: 0; }
 .archive-results-bar { margin-bottom: 28px; }
 /* Kolo 43: „Nic nenalezeno“ bylo pod filtrem holý odstavec 0.9rem, zatímco
    všechny karty zmizely. Tichá ploška ve stejném kitu jako pole hledání:
@@ -160,7 +176,10 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 [data-archive] .card-body { padding: 20px 0 12px; }
 [data-archive] .card-body h2 { font-size: 1.25rem; line-height: 1.3; }
 [data-archive] .card-thumb { border-radius: var(--media-radius); }
+/* Kolo 47: featured karta hubu má obě pravidla u sebe (padding i h2) — dřív
+   je dělil blok .tema-souvisi z kola 42. Hodnoty beze změny. */
 .featured-lead > .card:first-child .card-body { padding: 36px; justify-content: center; }
+.featured-lead > .card:first-child .card-body h2 { font-size: clamp(1.5rem, 2.5vw, 2.2rem); line-height: 1.2; }
 /* Kolo 47: na stránce tématu nese každý náhled štítek téže kategorie
    („AI Report“ 15× pod nadpisem AI Report, živě 20. 9. 2026) — informace
    je v h1 i v .lower-third nad ním. Štítek zůstává v markupu (archiv,
@@ -181,7 +200,6 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .tema-souvisi-title { display: block; font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.1rem; line-height: 1.35; letter-spacing: -0.015em; }
 .tema-souvisi-list a:hover .tema-souvisi-title { color: var(--signal-dark); text-decoration: underline; text-underline-offset: 4px; }
 .tema-souvisi-meta { display: block; margin-top: 4px; font-size: 0.8rem; color: var(--ink-soft); }
-.featured-lead > .card:first-child .card-body h2 { font-size: clamp(1.5rem, 2.5vw, 2.2rem); line-height: 1.2; }
 .temata-hub .card-body h2 { font-size: 1.7rem; }
 .temata-hub .card-body { padding-bottom: 28px; }
 .temata-hub .topic-latest { font-size: 0.85rem; color: var(--ink-soft); padding-top: 16px; border-top: 1px solid var(--line); }
@@ -242,7 +260,7 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
    12px / --line-strong. Stejný kit, ať v článku nestojí dva druhy panelů. */
 .article-cta-inline { border-color: var(--line-strong); border-radius: var(--radius-field); padding: 12px 16px; }
 .article-aside { background: transparent; border: 0; border-radius: 0; padding: 0 0 0 24px; border-left: 1px solid var(--line); }
-.article-contents a { border-radius: 6px; font-size: 0.88rem; }
+.article-contents a { font-size: 0.88rem; }
 .article-contents a[aria-current] { background: var(--surface); }
 /* Kolo 43: jedna škála popisků chrome — nadpis obsahu, „V článku“, „Sdílej dál“
    (aside i pod textem), „Nejnovější reporty“ a „Další témata“ na hubu tématu.
@@ -267,7 +285,7 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
   background: transparent; border: 0; border-top: 1px solid var(--line-strong); border-radius: 0;
 }
 .article-videobar-bez-videa .mono { font-size: 0.9rem; }
-.article-videobar-bez-videa .yt-btn { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 24px; }
+.article-videobar-bez-videa .yt-btn { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-control); }
 .article-videobar-bez-videa .yt-btn:hover { background: transparent; border-color: var(--ink-soft); }
 .audio-prehled h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
 /* Kolo 43: „Další reporty“ = stejný oddělovač sekce jako .tema-souvisi na hubu. */
@@ -278,9 +296,11 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
    audio, videobar i výzva bez videa (kolo 44) už sedí na tichých plochách.
    Stejný kit jako .audio-prehled: --surface, --line-strong, 12px. Červené
    „Odebírat na YouTube“ zůstává — je to hlavní výzva článku, ne chrome
-   hlavičky. Logo TECH bere v darku --signal-dark už z global.css. */
+   hlavičky. Logo TECH bere v darku --signal-dark už z global.css.
+   Kolo 47: tmavá vrstva (--panel, #fff, #A9B2BF, pruhovaný ::before, tmavé
+   obrysové tlačítko) je z global.css pryč — tam zbyl jen layout; tohle je
+   jediné finále barev boxu. */
 .author-box { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); border-radius: var(--radius-field); }
-.author-box::before { display: none; }
 .ab-logo .real { color: var(--ink); }
 .ab-body p { color: var(--ink-soft); }
 .ab-body p strong { color: var(--ink); }
@@ -299,7 +319,7 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
    (.btn-primary/.btn-ghost, kolo 43) a panely 12px. Kostra načítání iframe
    stejný poloměr. Chování (min-height až po aktivaci) z global.css zůstává. */
 .komentare-placeholder { border-color: var(--line-strong); border-radius: var(--radius-field); padding: 16px 20px; }
-.komentare-nacist { border-radius: 24px; padding-inline: 22px; }
+.komentare-nacist { border-radius: var(--radius-control); padding-inline: 22px; }
 .komentare.komentare-aktivni .giscus:empty,
 .komentare.komentare-aktivni .giscus:has(> .giscus-frame--loading) { border-radius: var(--radius-field); }
 /* Kolo 47: <details> (mobilní osnova, přepis audia) kreslil trojúhelník
@@ -363,17 +383,18 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .about-main .stats { margin-inline: 0; }
 .stat { background: transparent; border: 0; padding: 0; }
 .stat strong { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
-.newsletter { background: var(--surface); color: var(--ink); border-top: 1px solid var(--line); padding: 72px 0; }
-.newsletter::before { display: none; }
+/* Kolo 47: newsletter je od kola 43 tematická plocha; tmavá vrstva z doby
+   --panel (pruhovaný ::before, #A9B2BF, #828B98, #fff, color-mix pole) je
+   z global.css pryč a plocha, pole i placeholder tam berou tokeny. Tady
+   zůstává jen rytmus a typografie. */
+.newsletter { padding: 72px 0; }
 .newsletter .wrap { gap: 64px; align-items: center; }
 .newsletter h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(1.7rem, 2.8vw, 2.4rem); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 20px; }
 .newsletter p { color: var(--ink-soft); font-size: 1rem; }
 .nl-form { gap: 10px; }
-.nl-form input { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; color: var(--ink); min-height: 52px; }
-.nl-form input::placeholder { color: var(--ink-faint); }
-.nl-form button { border-radius: 10px; min-height: 52px; }
+.nl-form input { border-radius: var(--radius-field); min-height: 52px; }
+.nl-form button { border-radius: var(--radius-field); min-height: 52px; }
 .newsletter .nl-note { font-size: 0.8rem; line-height: 1.7; margin-top: 16px; }
-.nl-note a, .nl-note a:hover { color: var(--signal-dark); }
 footer.site { padding: 56px 0 28px; background: var(--bg); }
 footer.site .f-top { padding-bottom: 40px; margin-bottom: 24px; gap: 64px; }
 .f-brand { max-width: 300px; }
@@ -395,7 +416,7 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
    width, -0.02em. Štítek kategorie a datum jdou na reading-face bez verzálek
    a prostrkání jako `.lt .k` / `.card-meta`; červená výplň štítku zůstává. */
 .si-title { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; letter-spacing: -0.02em; line-height: 1.3; }
-.si-cat { font-family: var(--reading-face); font-size: 0.72rem; letter-spacing: 0; text-transform: none; padding: 4px 8px; border-radius: 4px; }
+.si-cat { font-family: var(--reading-face); font-size: 0.72rem; letter-spacing: 0; text-transform: none; padding: 4px 8px; border-radius: var(--radius-badge); }
 .si-date { font-size: 0.75rem; }
 .search-foot { padding: 16px 24px; }
 
@@ -461,7 +482,7 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
   .latest-reports { row-gap: 0; }
   .latest-reports > .card:first-child { margin-bottom: 24px; }
   .latest-reports > .card:not(:first-child) { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; padding-block: 20px; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
-  .latest-reports > .card:not(:first-child) .card-thumb { border-radius: 8px; align-self: start; }
+  .latest-reports > .card:not(:first-child) .card-thumb { border-radius: var(--radius-thumb); align-self: start; }
   .latest-reports > .card:not(:first-child) .card-thumb .lt { margin: 4px; pointer-events: none; }
   .latest-reports > .card:not(:first-child) .card-thumb .lt .k { font-size: 0.65rem; padding: 3px 5px; }
   .latest-reports > .card:not(:first-child) .card-thumb .lt .t,
@@ -488,7 +509,7 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
   [data-archive] .card-body { padding: 0; gap: 12px; }
   [data-archive] .card-body h2 { font-size: 1.03rem; line-height: 1.35; }
   [data-archive] .card-meta { font-size: 0.72rem; }
-  [data-archive] .card-thumb { border-radius: 10px; }
+  [data-archive] .card-thumb { border-radius: var(--radius-thumb); }
   [data-archive] .card-thumb .lt .k { font-size: 0.65rem; padding: 3px 6px; }
   .tema-souvisi { margin-top: 36px; }
   .tema-souvisi, .related { padding-top: 24px; }

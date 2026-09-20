@@ -161,7 +161,7 @@ export const datumKarty = (p) => p.split('-').reverse().join('. ');
  * HTML karty z indexu — TÝŽ tvar jako SSR ArticleCard a klientský
  * kartaZIndexu: <picture> se <source type=image/webp> (srcset 640w+1280w
  * + sizes archivu, když index nese `is`), <img lazy alt=titulek>, štítky
- * .lt, h2 s odkazem, perex, datum a „ČTENÍ N MIN“.
+ * .lt, h2 s odkazem, perex, datum a „Čtení N min“ (kolo 47: věta, ne verzálky).
  *
  * @param {PolozkaIndexu} it
  * @param {string} sizes  KARTA_SIZES_ARCHIVE — stejné jako <source> SSR karet
@@ -197,7 +197,7 @@ export function kartaHtml(it, sizes) {
     `<p>${escapeHtml(it.d)}</p>`,
     `<div class="card-meta"><time datetime="${escapeHtml(it.p)}">${escapeHtml(datumKarty(it.p))}</time>`,
   );
-  if (it.m) casti.push(`<span>ČTENÍ ${it.m} MIN</span>`);
+  if (it.m) casti.push(`<span>Čtení ${it.m} min</span>`);
   casti.push('</div></div></article>');
   return casti.join('');
 }

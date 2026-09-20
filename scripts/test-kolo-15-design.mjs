@@ -97,7 +97,9 @@ test("kolo 15: čísla na O nás drží Archivo jako ostatní titulky", () => {
 test("kolo 15: fokus ring pokrývá i summary, dead token --steel je pryč", () => {
   assert.match(css, /a:focus-visible,\s*button:focus-visible,\s*summary:focus-visible\s*\{/);
   assert.doesNotMatch(css, /--steel/, "--steel nikdo nečte");
-  assert.match(telo(".nl-note"), /color:\s*#828B98/i, ".nl-note má brát dark --ink-faint, ne šedou mimo paletu");
+  // Kolo 47: newsletter je tematická plocha (kolo 43) — poznámka bere token, ne dark #828B98 natvrdo.
+  assert.match(telo(".nl-note"), /color:\s*var\(--ink-soft\)/, ".nl-note bere token tématu, ne šedou natvrdo");
+  assert.doesNotMatch(telo(".nl-note"), /#[0-9A-Fa-f]{6}/);
 });
 
 test("kolo 15: mobilní patička a archiv", () => {

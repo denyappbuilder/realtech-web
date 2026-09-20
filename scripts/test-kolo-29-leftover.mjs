@@ -94,7 +94,10 @@ test("kolo 29: úspěch newsletteru je role=status s fokusem, ne innerHTML", () 
 
 test("kolo 29: .nl-done:focus bez rámečku — není to ovládací prvek", () => {
   assert.match(pravidlo(css, ".nl-done:focus"), /outline:\s*none\s*;/);
-  assert.match(pravidlo(css, ".nl-done"), /color:\s*#fff;\s*font-weight:\s*600/, "vzhled zprávy beze změny");
+  // Kolo 47: newsletter na --surface (kolo 43) — zpráva v --ink, ne #fff z --panel éry;
+  // s rodičem .newsletter, protože `.newsletter p` (--ink-soft) má vyšší specificitu.
+  assert.match(pravidlo(css, ".newsletter .nl-done"), /color:\s*var\(--ink\);\s*font-weight:\s*600/, "zpráva je zřetelná proti --ink-soft odstavcům");
+  assert.doesNotMatch(css, /\.nl-done \{[^}]*#fff/, "žádný bílý text z doby tmavého newsletteru");
 });
 
 // ── P2: sdílení na Facebook má popisek ───────────────────────────────────

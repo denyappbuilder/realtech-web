@@ -43,10 +43,12 @@ test("kolo 32: textPoctuClanku skloňuje 1 článek / 2–4 články / 0 a 5+ č
 
 test("kolo 32: stránka tématu i hub berou počet ze sdíleného helperu, ne natvrdo „článků“", () => {
   assert.match(tema, /import \{ textPoctuClanku \} from '\.\.\/lib\/pocet-clanku\.js'/);
-  assert.match(tema, /<span class="time">\{textPoctuClanku\(clanky\.length\)\.toUpperCase\(\)\}<\/span>/);
+  // Kolo 47: bez .toUpperCase() — kit nemá text-transform, „70 článků“ jako „Čtení 7 min“.
+  assert.match(tema, /<span class="time">\{textPoctuClanku\(clanky\.length\)\}<\/span>/);
   assert.doesNotMatch(tema, /\{clanky\.length\} článků/, "„2 článků“ z /temata/drony/ (živě 8. 9. 2026)");
   assert.match(hub, /import \{ textPoctuClanku \} from '\.\.\/\.\.\/lib\/pocet-clanku\.js'/);
-  assert.match(hub, /\{textPoctuClanku\(t\.pocet\)\.toUpperCase\(\)\}/);
+  assert.match(hub, /\{textPoctuClanku\(t\.pocet\)\}<\/span>/);
+  assert.doesNotMatch(tema + hub, /toUpperCase\(\)/, "kolo 47: verzálky meta pryč");
   assert.doesNotMatch(hub, /const pocetClankuText/, "lokální kopie helperu v hubu má být pryč");
 });
 

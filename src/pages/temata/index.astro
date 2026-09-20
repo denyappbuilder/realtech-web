@@ -104,7 +104,7 @@ const collectionLd = {
               <p class="topic-latest"><span>Nejnovější v tématu</span>{t.nejnovejsi.data.title}</p>
               <div class="card-meta">
                 <time datetime={t.nejnovejsi.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(t.nejnovejsi.data.date)}</time>
-                <span>{textPoctuClanku(t.pocet).toUpperCase()}</span>
+                <span>{textPoctuClanku(t.pocet)}</span>
               </div>
             </div>
             {t.nahled.localThumb && (

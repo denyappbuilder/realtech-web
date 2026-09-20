@@ -140,9 +140,10 @@ const vypisOg = ogObrazekClanku(articles[0]);
         <span class="tag">{category}</span>
         {/* Kolo 32: natvrdo „{n} článků“ dávalo živě 8. 9. 2026 na
             /temata/drony/ „2 článků“. Skloňuje stejný helper jako hub
-            /temata/; verzálky jako ostatní texty v .time („ČTENÍ 4 MIN“,
-            „AKTUALIZOVÁNO“) a jako počet v patičce karty hubu. */}
-        <span class="time">{textPoctuClanku(clanky.length).toUpperCase()}</span>
+            /temata/. Kolo 47: bez verzálek — kit od kola 43 nemá
+            text-transform, počet článků jde větou jako „Čtení 4 min“
+            a „Aktualizováno“ v .time. */}
+        <span class="time">{textPoctuClanku(clanky.length)}</span>
       </div>
       <div class="section-head with-tag">
         <h1>{category}</h1>

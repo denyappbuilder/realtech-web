@@ -75,13 +75,13 @@ test("kolo 37: kartaHtml escapuje titulek, perex i atributy a staví <source> je
   assert.match(html, /<h2><a href="\/clanky\/bez-nahledu\/">Bez coveru &lt;a&gt; &amp; &quot;uvozovky&quot;<\/a><\/h2>/);
   assert.doesNotMatch(html, /<picture>/, "bez `i` žádný <img src=undefined>");
   assert.match(html, /<div class="card-thumb th-drony"><div class="lt"><span class="k">Drony<\/span><\/div><\/div>/);
-  assert.doesNotMatch(html, /ČTENÍ/, "bez `m` žádné „ČTENÍ undefined MIN“");
+  assert.doesNotMatch(html, /Čtení|ČTENÍ/, "bez `m` žádné „Čtení undefined min“");
 
   const youtube = kartaHtml(INDEX[2], KARTA_SIZES_ARCHIVE);
   assert.doesNotMatch(youtube, /<source/, "YouTube JPEG nemá WebP <source>");
   assert.match(youtube, /<img src="https:\/\/i\.ytimg\.com\/vi\/dQw4w9WgXcQ\/maxresdefault\.jpg" alt="Starship Flight 14 letí" width="1280" height="720" loading="lazy" decoding="async">/);
   assert.match(youtube, /<span class="z">Zpráva<\/span><span class="t">12:34<\/span>/);
-  assert.match(youtube, /<time datetime="2026-08-10">10\. 08\. 2026<\/time><span>ČTENÍ 4 MIN<\/span>/);
+  assert.match(youtube, /<time datetime="2026-08-10">10\. 08\. 2026<\/time><span>Čtení 4 min<\/span>/, "kolo 47: věta jako ArticleCard");
 
   const jenWebp = kartaHtml(INDEX[1], KARTA_SIZES_ARCHIVE);
   assert.match(jenWebp, /<source srcset="\/images\/clanky\/jen-webp\.webp" type="image\/webp">/, "jediný WebP bez sizes jako ArticleCard");

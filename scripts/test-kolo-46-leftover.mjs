@@ -194,7 +194,8 @@ test('kolo 46: .author-box sedí na --surface s --line-strong a 12px jako audio/
   assert.match(box, /color:\s*var\(--ink\)/);
   assert.match(box, /border:\s*1px solid var\(--line-strong\)/);
   assert.match(box, /border-radius:\s*var\(--radius-field\)/);
-  assert.match(pravidlo(premium, '.author-box::before'), /display:\s*none/, 'pruhovaný závoj z --panel doby pryč');
+  // Kolo 47: pruhovaný ::before je z global.css smazaný — premium ho už nemusí schovávat.
+  assert.doesNotMatch(premium + global, /\.author-box::before/, 'pruhovaný závoj z --panel doby pryč z obou vrstev');
   assert.match(pravidlo(premium, '.ab-logo .real'), /color:\s*var\(--ink\)/);
   assert.match(pravidlo(premium, '.ab-body p'), /color:\s*var\(--ink-soft\)/);
   assert.match(pravidlo(premium, '.ab-body p strong'), /color:\s*var\(--ink\)/);

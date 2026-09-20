@@ -395,18 +395,13 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .hero-visual .play svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
 
 /* ── Section headers ─────────────────── */
+/* Kolo 47: 2px linka pod nadpisem a červený akcent ::after (Z10021) byly od
+   round 3 jen schované v premium.css — broadcast slab, který kit opustil.
+   Nadpis sekce nese typografie; žádná dekorace ve dvou vrstvách. */
 .section-head {
   display: flex; align-items: baseline; justify-content: space-between;
   gap: 16px;
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 10px; margin-bottom: 28px;
-  position: relative;
-}
-.section-head::after {
-  content: "";
-  position: absolute; left: 0; bottom: -3px;
-  width: 96px; height: 3px;
-  background: var(--signal);
+  margin-bottom: 28px;
 }
 .section-head h1,
 .section-head h2 {
@@ -814,15 +809,14 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .article-back { max-width: 760px; margin: 28px auto 0; }
 
 /* ── Newsletter ──────────────────────── */
+/* Kolo 47: newsletter je od kola 43 tematická plocha (--surface / --ink), ne
+   trvale tmavý pruh. Tmavá vrstva (--panel, #fff, #A9B2BF, #828B98, pruhovaný
+   ::before, color-mix pole) tu ležela mrtvá pod premium.css — pryč, tokeny
+   jsou jediná definice. Kontrast placeholderu drží --ink-faint na --bg
+   (light 4,9:1, dark 5,5:1 — test-kolo-30). */
 .newsletter {
-  background: var(--panel); color: #fff; padding: 48px 0;
-  position: relative; overflow: hidden;
-}
-.newsletter::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,0.022) 3px 4px);
-  pointer-events: none;
+  background: var(--surface); color: var(--ink); padding: 48px 0;
+  border-top: 1px solid var(--line);
 }
 .newsletter .wrap {
   display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
@@ -833,21 +827,17 @@ a.tag:hover { background: var(--signal-fill-hover); }
   margin: 10px 0 12px;
   text-wrap: balance;
 }
-.newsletter p { color: #A9B2BF; font-size: 0.95rem; max-width: 46ch; }
+.newsletter p { color: var(--ink-soft); font-size: 0.95rem; max-width: 46ch; }
 .nl-form { display: flex; gap: 10px; }
 .nl-form input {
   flex: 1; padding: 13px 16px; border-radius: var(--radius);
-  /* Hardcoded #1D232C = dark --panel: v forced dark pole splynulo s blokem. */
-  border: 1px solid color-mix(in srgb, #fff 16%, var(--panel));
-  background: color-mix(in srgb, #000 28%, var(--panel));
-  color: #fff;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
   font-family: inherit; font-size: 0.9rem;
   min-height: 44px;
 }
-/* Kolo 30: 42 % bílé na poli (72 % --panel) dávalo 4,31:1 light / 4,40:1
-   dark — pod AA 4,5 (placeholder je jediný text v poli, dokud se nepíše).
-   52 % = 5,9:1 v obou tématech a pořád zřetelně tlumenější než psaný #fff. */
-.nl-form input::placeholder { color: color-mix(in srgb, #fff 52%, var(--panel)); }
+.nl-form input::placeholder { color: var(--ink-faint); }
 .nl-form input:focus { outline: 2px solid var(--signal); outline-offset: 1px; }
 .nl-form button {
   background: var(--signal-fill); color: #fff; border: none; cursor: pointer;
@@ -858,9 +848,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   transition: background 0.15s;
 }
 .nl-form button:hover { background: var(--signal-fill-hover); }
-/* Newsletter sedí na --panel v obou tématech, proto tmavé tokeny natvrdo:
-   #A9B2BF = dark --ink-soft, #828B98 = dark --ink-faint (dřív #848D9B mimo paletu). */
-.nl-note { font-size: 0.75rem; color: #828B98; margin-top: 10px; }
+.nl-note { font-size: 0.75rem; color: var(--ink-soft); margin-top: 10px; }
 
 /* ── Footer ──────────────────────────── */
 footer.site {
@@ -1483,40 +1471,30 @@ footer.site ul a:hover { color: var(--ink); }
 }
 
 /* ── Autorský box pod článkem ────────── */
+/* Kolo 47: jen layout. Plochu a barvy (--surface, --line-strong, --ink) dává
+   premium.css od kola 46; tmavá vrstva (--panel, #fff, #A9B2BF, pruhovaný
+   ::before, tmavé obrysové tlačítko) tu ležela mrtvá pod ní. */
 .author-box {
   max-width: 760px; margin: 36px auto 0;
-  background: var(--panel); color: #fff; border-radius: 10px;
   padding: 24px 28px;
   display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
-  position: relative; overflow: hidden;
-}
-.author-box::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,0.022) 3px 4px);
-  pointer-events: none;
 }
 .ab-logo {
   font-family: 'Archivo Variable', 'Archivo', sans-serif;
   font-weight: 900; font-stretch: 115%; font-size: 1.3rem;
   white-space: nowrap;
 }
-.ab-logo .real { color: #fff; }
 .ab-logo .tech { color: var(--signal); }
 .ab-body { flex: 1; min-width: 260px; }
-.ab-body p { color: #A9B2BF; font-size: 0.92rem; margin-bottom: 14px; }
-.ab-body p strong { color: #fff; }
+.ab-body p { font-size: 0.92rem; margin-bottom: 14px; }
 .ab-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .author-box .btn-ghost {
   background: transparent;
-  border-color: color-mix(in srgb, #fff 16%, var(--panel));
-  color: #A9B2BF;
   padding: 9px 18px; font-size: 0.85rem;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
 }
-.author-box .btn-ghost:hover { border-color: #fff; color: #fff; }
 
 /* ── Nejnovější videa ────────────────── */
 .video-strip { margin-top: 40px; }
@@ -1819,12 +1797,15 @@ a.chip { display: inline-flex; align-items: center; }
 .lower-third .tag-zprava { background: var(--ink); color: var(--bg); }
 
 /* Newsletter stavy */
-.nl-done { color: #fff; font-weight: 600; font-size: 1rem; margin: 0; }
+/* Potvrzení po odeslání: --ink proti --ink-soft okolních odstavců (.newsletter p
+   má vyšší specificitu, proto s rodičem). */
+.newsletter .nl-done { color: var(--ink); font-weight: 600; font-size: 1rem; margin: 0; }
 /* Kolo 29: zpráva dostává fokus programově (tabindex=-1), není to ovládací
    prvek — rámeček UA kolem textu by jen mátl. */
 .nl-done:focus { outline: none; }
-.nl-note a { color: #A9B2BF; text-decoration: underline; }
-.nl-note a:hover { color: #fff; }
+/* Odkazy v poznámce (Ochrana údajů, Radši YouTube?) stejnou afordancí jako
+   odkazy v textu; hover drží kontrast (premium-review-browser). */
+.nl-note a, .nl-note a:hover { color: var(--signal-dark); text-decoration: underline; }
 
 /* Neesenciální pohyb při prefers-reduced-motion.
    Globální kill-switch nahoře vypne animation/transition, ale hover

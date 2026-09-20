@@ -226,8 +226,8 @@ const breadcrumbLd = {
           <time class="time" datetime={date.toISOString().slice(0, 10)}>{dateStr}</time>
           {/* Kolo 44: datum aktualizace je <time> s datetime jako datum vydání —
               čtečka i vyhledávač ho čtou strojově, ne jako holý text. */}
-          {updated && updatedStr && <time class="time" datetime={updated.toISOString().slice(0, 10)}>AKTUALIZOVÁNO {updatedStr}</time>}
-          <span class="time">ČTENÍ {readMinutes} MIN</span>
+          {updated && updatedStr && <time class="time" datetime={updated.toISOString().slice(0, 10)}>Aktualizováno {updatedStr}</time>}
+          <span class="time">Čtení {readMinutes} min</span>
         </div>
         <h1>{title}</h1>
         <div class="article-credit">

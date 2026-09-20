@@ -52,23 +52,26 @@ const kontrast = (a, b) => {
   return (l1 + 0.05) / (l2 + 0.05);
 };
 
+// Kolo 47: newsletter už nesedí na --panel (kolo 43 → --surface) a pole nebere
+// color-mix s --panel — placeholder je --ink-faint na --bg. Záměr testu (AA
+// 4,5:1 v obou tématech, a přitom tlumenější než psaný text --ink) zůstává,
+// jen se počítá z tokenů obou témat.
 test("kolo 30: placeholder newsletteru má AA 4,5:1 v obou tématech", () => {
   const placeholder = pravidlo(css, ".nl-form input::placeholder");
   const pole = pravidlo(css, ".nl-form input");
-  const bila = placeholder.match(/color:\s*color-mix\(in srgb, #fff (\d+)%, var\(--panel\)\)/);
-  assert.ok(bila, "placeholder má být color-mix bílé s --panel (stejný vzor jako rámeček pole)");
-  const cerna = pole.match(/background:\s*color-mix\(in srgb, #000 (\d+)%, var\(--panel\)\)/);
-  assert.ok(cerna, "pozadí pole má být color-mix černé s --panel");
-  const podilBile = Number(bila[1]) / 100;
-  const podilCerne = Number(cerna[1]) / 100;
-  const panely = {
-    light: css.match(/:root\s*\{[^}]*--panel:\s*(#[0-9A-Fa-f]{6})/)[1],
-    dark: css.match(/:root\[data-theme="dark"\]\s*\{[^}]*--panel:\s*(#[0-9A-Fa-f]{6})/)[1],
-  };
-  for (const [nazev, panel] of Object.entries(panely)) {
-    const pomer = kontrast(mix([255, 255, 255], podilBile, hex(panel)), mix([0, 0, 0], podilCerne, hex(panel)));
-    assert.ok(pomer >= 4.5, `${nazev}: placeholder ${pomer.toFixed(2)}:1 < 4,5 (42 % dávalo 4,31 / 4,40)`);
-    assert.ok(pomer < 8, `${nazev}: placeholder ${pomer.toFixed(2)}:1 už splývá s psaným textem (#fff)`);
+  assert.match(placeholder, /color:\s*var\(--ink-faint\)/, "placeholder bere token, ne color-mix s --panel");
+  assert.match(pole, /background:\s*var\(--bg\)/, "pozadí pole je --bg");
+  const token = (blok, jmeno) => blok.match(new RegExp(`${jmeno}:\\s*(#[0-9A-Fa-f]{6})`))?.[1];
+  const light = css.match(/:root\s*\{([^}]*)\}/)[1];
+  const dark = css.match(/:root\[data-theme="dark"\]\s*\{([^}]*)\}/)[1];
+  for (const [nazev, blok] of [["light", light], ["dark", dark]]) {
+    const faint = token(blok, "--ink-faint");
+    const bg = token(blok, "--bg");
+    const ink = token(blok, "--ink");
+    assert.ok(faint && bg && ink, `${nazev}: chybí token`);
+    const pomer = kontrast(hex(faint), hex(bg));
+    assert.ok(pomer >= 4.5, `${nazev}: placeholder ${pomer.toFixed(2)}:1 < 4,5`);
+    assert.ok(pomer < kontrast(hex(ink), hex(bg)), `${nazev}: placeholder nesmí být kontrastnější než psaný text`);
   }
 });
 
