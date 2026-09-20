@@ -151,8 +151,9 @@ test('kolo 44: Base preloaduje právě ty dva woff2 Plex Sans 400, které deklar
 // ── P3: chrome článku ────────────────────────────────────────────────────────
 
 test('kolo 44: AKTUALIZOVÁNO je <time datetime>, sdílení na X jde na x.com/intent/post', () => {
-  assert.match(clanek, /\{updated && updatedStr && <time class="time" datetime=\{updated\.toISOString\(\)\.slice\(0, 10\)\}>AKTUALIZOVÁNO \{updatedStr\}<\/time>\}/);
-  assert.doesNotMatch(clanek, /<span class="time">AKTUALIZOVÁNO/);
+  // Kolo 47: „Aktualizováno“ větou — kit od kola 43 nemá text-transform, verzálky byly natvrdo v markupu.
+  assert.match(clanek, /\{updated && updatedStr && <time class="time" datetime=\{updated\.toISOString\(\)\.slice\(0, 10\)\}>Aktualizováno \{updatedStr\}<\/time>\}/);
+  assert.doesNotMatch(clanek, /<span class="time">(AKTUALIZOVÁNO|Aktualizováno)/);
   assert.equal((clanek.match(/https:\/\/x\.com\/intent\/post\?text=/g) ?? []).length, 2, 'aside i patička článku');
   assert.doesNotMatch(clanek, /twitter\.com\/intent/);
 });

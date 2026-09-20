@@ -48,7 +48,6 @@ rounded:
   badge: "4px"
   outline: "6px"
   thumbnail: "8px"
-  compact-control: "10px"
   field: "12px"
   media: "16px"
   control: "24px"
@@ -106,7 +105,7 @@ Opaque header, flat cards, no hover lift or card shadows. Modal retains its exis
 
 ## Shapes
 
-16px main media/card corners; 12px archive fields, audio/video surfaces, share buttons and the archive empty state (`--radius-field` in `premium.css`); 10px compact fields and mobile archive thumbnails; 8px rail thumbnails; 4px small category badges. Pills are reserved for controls/category filters. Reading prose and desktop aside have no card enclosure; audio and video surfaces keep a 1px `--line` border so they read as panels, not floating islands.
+Five radius tokens in `premium.css`, one per role: `--radius-badge` 4px (thumbnail labels, kbd), `--radius-thumb` 8px (rail and compact-row thumbnails, mobile archive rows), `--radius-field` 12px (archive fields, newsletter field/submit, audio/video surfaces, share buttons, archive empty/loading states and every reading-column panel — inline YouTube prompt, author box, older/newer navigation, comments placeholder), `--media-radius` 16px (covers, cards, modal) and `--radius-control` 24px (pills: category filters, `.btn-primary`/`.btn-ghost`, every `.yt-btn`, the comments button, and the ⌘K/theme controls — on a 44px element 24px is a full arc, so the same token yields the keyboard-hint pill and the circle). The former 10px compact stop is gone. Reading prose and desktop aside have no card enclosure; reading-column panels and in-text separators (blockquote rule, table header rule) use `--line-strong`, fields and cards keep `--line`. Native `<details>` markers are replaced by a currentColor chevron.
 
 ## Components
 

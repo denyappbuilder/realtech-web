@@ -43,20 +43,17 @@ test("kolo 14: hero play bere --signal, ne leftover rgba(229,50,45)", () => {
   );
 });
 
-test("kolo 14: newsletter input nesplývá s --panel v darku", () => {
+// Kolo 47: newsletter už nesedí na --panel (kolo 43 → --surface), takže pole
+// nebere color-mix s --panel, ale tokeny --bg / --line / --ink — v darku
+// zůstává o schod tmavší než --surface plocha, ve světlém o schod světlejší.
+test("kolo 14: newsletter input nesplývá s plochou newsletteru v žádném tématu", () => {
   const input = telo(".nl-form input");
   assert.ok(input, ".nl-form input v CSS chybí");
-  assert.doesNotMatch(
-    input,
-    /background:\s*#1D232C/,
-    "input pořád hardcoduje #1D232C = dark --panel",
-  );
-  assert.match(
-    input,
-    /background:\s*color-mix\(in srgb,\s*#000/,
-    "input musí být tmavší mix --panel, ať v darku zůstane pole",
-  );
-  assert.match(input, /var\(--panel\)/);
+  assert.doesNotMatch(input, /#1D232C|var\(--panel\)|color-mix/, "pole bere tokeny tématu, ne zbytky --panel éry");
+  assert.match(input, /background:\s*var\(--bg\)/);
+  assert.match(input, /border:\s*1px solid var\(--line\)/);
+  assert.match(input, /color:\s*var\(--ink\)/);
+  assert.match(telo(".newsletter"), /background:\s*var\(--surface\)/, "plocha newsletteru je --surface, pole --bg");
 });
 
 test("kolo 14: .btn-primary hover není leftover #000", () => {

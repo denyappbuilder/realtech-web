@@ -232,7 +232,7 @@ test("kolo 35: karta z indexu nese .card-thumb th-* s <picture><img lazy alt=tit
   );
   // .card-meta: datum + „ČTENÍ N MIN“ jako SSR karta (živě 10. 9. 2026 měly karty z indexu jen datum).
   const meta = video.najdi("div", "card-meta")[0];
-  assert.deepEqual(meta.children.map((p) => [p.tagName, p.textContent]), [["TIME", "10. 08. 2026"], ["SPAN", "ČTENÍ 4 MIN"]]);
+  assert.deepEqual(meta.children.map((p) => [p.tagName, p.textContent]), [["TIME", "10. 08. 2026"], ["SPAN", "Čtení 4 min"]], "kolo 47: věta jako SSR karta");
   assert.deepEqual(bez.najdi("div", "card-meta")[0].children.map((p) => p.tagName), ["TIME"], "bez `m` jen datum, žádné „ČTENÍ undefined MIN“");
 
   // Bez `i` zůstává barevný .th-* blok se štítkem — výška karty sedí i tak.
