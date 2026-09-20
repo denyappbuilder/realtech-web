@@ -40,7 +40,12 @@ const ostatni = [...new Set(all.map((c) => c.data.category))].filter((c) => c !=
 // věcně patří (RTX Spark PC = AI Report, čtenář ho hledá pod Hardware).
 // Kategorie článku se nemění (pravidlo jedné kategorie) — jen hub strany 1
 // dostane odkaz; strana 2+ je pokračování mřížky.
-const souvisi = page === 1 ? souvisejiciClanky(category, all) : [];
+// Kolo 46: cross-linky patří i do ItemList CollectionPage — hub je na
+// straně 1 opravdu vypisuje (nezávislý audit: AGENTS.md a Custom GPT na
+// /temata/ai-agenti/ v „Souvisí“, ale ne v JSON-LD). Pozice navazují až za
+// všemi články tématu (i za stranou 2+), počet je za celé téma + cross-linky.
+const souvisiVse = souvisejiciClanky(category, all);
+const souvisi = page === 1 ? souvisiVse : [];
 
 // LCP na /temata/{slug}/ je náhled první (featured) karty (eager +
 // fetchpriority=high, viz ArticleCard prop `priority`); ostatní karty jsou
@@ -86,13 +91,21 @@ const collectionLd = {
     '@type': 'ItemList',
     // Počet za celé téma; itemListElement jen za aktuální stranu
     // s navazujícími pozicemi — stejně jako archiv.
-    numberOfItems: clanky.length,
-    itemListElement: articles.map((c, i) => ({
-      '@type': 'ListItem',
-      position: start + i + 1,
-      url: new URL(`/clanky/${c.id}/`, Astro.site).href,
-      name: c.data.title,
-    })),
+    numberOfItems: clanky.length + souvisiVse.length,
+    itemListElement: [
+      ...articles.map((c, i) => ({
+        '@type': 'ListItem',
+        position: start + i + 1,
+        url: new URL(`/clanky/${c.id}/`, Astro.site).href,
+        name: c.data.title,
+      })),
+      ...souvisi.map((c, i) => ({
+        '@type': 'ListItem',
+        position: clanky.length + i + 1,
+        url: new URL(`/clanky/${c.id}/`, Astro.site).href,
+        name: c.data.title,
+      })),
+    ],
   },
 };
 
