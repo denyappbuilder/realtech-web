@@ -44,6 +44,29 @@ export function parametryFiltru(url) {
 }
 
 /**
+ * Kolo 46: kategorie z URL proti kategoriím v indexu. Živě 20. 9. 2026
+ * dávalo /clanky/?kat=AI (kategorie, která neexistuje — překlep, starý odkaz,
+ * jiná velikost písmen) „0 článků“, „Nic nenalezeno“ a role=group čipů BEZ
+ * jediného stisknutého — edge porovnával přesně (`it.k !== kat`), zatímco
+ * klientský skript neznámou kategorii ignoruje (žádný čip → apply() bere
+ * „Vše“). Dvě různá chování na téže URL. Teď obě strany dělají totéž:
+ * shoda bez diakritiky a velikosti písmen vrátí kanonický název z indexu
+ * („ai report“ → „AI Report“), neznámá kategorie = bez filtru kategorie.
+ *
+ * @param {string} kat          hodnota ?kat= z URL (oříznutá)
+ * @param {Iterable<string>} kategorie  názvy kategorií (z indexu nebo čipů)
+ * @returns {string}            kanonický název, nebo '' (Vše)
+ */
+export function kanonickaKategorie(kat, kategorie) {
+  const hledana = normalizuj(kat.trim());
+  if (!hledana) return '';
+  for (const k of kategorie) {
+    if (normalizuj(k) === hledana) return k;
+  }
+  return '';
+}
+
+/**
  * Položka search-index.json (tvar drží search-index.json.js).
  * @typedef {{ s: string, t: string, d: string, k: string, b: string, p: string,
  *   m?: number, i?: string, is?: string, z?: 1, v?: string }} PolozkaIndexu

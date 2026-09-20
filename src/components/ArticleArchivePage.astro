@@ -220,6 +220,14 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const norm = (s: string) =>
         s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
+      // Kolo 46: čip ke kategorii z URL — bez diakritiky a velikosti písmen
+      // jako edge (kanonickaKategorie v archiv-filtr.js), neznámá = „Vše“.
+      const cipKategorie = (kat: string) => {
+        const hledana = norm(kat.trim());
+        const shoda = hledana ? chips.find((chip) => norm(chip.getAttribute('data-cat') ?? '') === hledana) : undefined;
+        return shoda ?? chips.find((chip) => chip.getAttribute('data-cat') === '');
+      };
+
       // Česká shoda: 1 článek, 2–4 články, 5+ článků.
       const textPoctuClanku = (pocet: number) => {
         if (pocet === 1) return '1 článek';
@@ -514,8 +522,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
         if (debounceTimer) window.clearTimeout(debounceTimer);
         const params = new URLSearchParams(location.search);
         if (search) search.value = params.get('q') ?? '';
-        const category = params.get('kat') ?? '';
-        const target = chips.find((chip) => chip.getAttribute('data-cat') === category) ?? chips[0];
+        const target = cipKategorie(params.get('kat') ?? '');
         if (target) activate(target);
         void apply('none');
       });
@@ -525,7 +532,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const initialQuery = params.get('q');
       if (initialQuery && search) search.value = initialQuery;
       if (initialCategory) {
-        const target = chips.find((chip) => chip.getAttribute('data-cat') === initialCategory);
+        const target = cipKategorie(initialCategory);
         if (target) activate(target);
       }
       // Kolo 38: /clanky/?q=… a ?kat=… přichází z edge už vyfiltrované
