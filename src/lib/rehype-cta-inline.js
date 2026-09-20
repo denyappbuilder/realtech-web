@@ -14,7 +14,9 @@ import { indexProEmbed } from './rehype-x-embed.js';
  * pozdější splice na stejný index skončí PŘED dřívějším uzlem, takže výsledné
  * pořadí u článku s xPosts je odstavec → karta X → výzva (viz test).
  *
- * Jeden řádek + tlačítko z existujících tříd (.mono, .live-dot, .yt-btn),
+ * Jeden řádek + tlačítko z existujících tříd (.mono, .yt-btn; kolo 45: bez
+ * .live-dot — pulzující „live“ tečka je broadcast štítek, u výzvy na kanál
+ * nic neoznačuje; zůstává jen u videobaru „K tomuto článku existuje video“),
  * žádný nový vizuální styl. S videem vede tlačítko na samotné video, bez
  * videa na odběr kanálu. Spodní výzvy (videobar, author-box) zůstávají.
  */
@@ -50,7 +52,7 @@ export function ctaInlineHtml(frontmatter = {}) {
   const tlacitko = video ? 'Přehrát video' : 'Odebírat kanál';
   return [
     `<aside class="article-cta-inline" aria-label="YouTube kanál REALTECH CZ" data-cta-inline="${video ? 'video' : 'kanal'}">`,
-    `<span class="mono"><span class="live-dot"></span>${text}</span>`,
+    `<span class="mono">${text}</span>`,
     `<a href="${escapeAttr(href)}" class="yt-btn">${YT_IKONA}${tlacitko}</a>`,
     '</aside>',
   ].join('');
