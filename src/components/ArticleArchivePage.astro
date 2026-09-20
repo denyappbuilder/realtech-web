@@ -220,11 +220,13 @@ const vypisOg = ogObrazekClanku(articles[0]);
       const norm = (s: string) =>
         s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-      // Kolo 46: čip ke kategorii z URL — bez diakritiky a velikosti písmen
-      // jako edge (kanonickaKategorie v archiv-filtr.js), neznámá = „Vše“.
+      // Kolo 46: čip ke kategorii z URL — bez diakritiky a velikosti písmen,
+      // sedí i slug tématu („ai-agenti“), jako edge (kanonickaKategorie
+      // v archiv-filtr.js); neznámá = „Vše“. slugKategorie je const níž —
+      // volá se až po načtení skriptu, kdy už existuje.
       const cipKategorie = (kat: string) => {
-        const hledana = norm(kat.trim());
-        const shoda = hledana ? chips.find((chip) => norm(chip.getAttribute('data-cat') ?? '') === hledana) : undefined;
+        const hledana = slugKategorie(kat.trim());
+        const shoda = hledana ? chips.find((chip) => slugKategorie(chip.getAttribute('data-cat') ?? '') === hledana) : undefined;
         return shoda ?? chips.find((chip) => chip.getAttribute('data-cat') === '');
       };
 

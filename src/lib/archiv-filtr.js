@@ -52,16 +52,19 @@ export function parametryFiltru(url) {
  * „Vše“). Dvě různá chování na téže URL. Teď obě strany dělají totéž:
  * shoda bez diakritiky a velikosti písmen vrátí kanonický název z indexu
  * („ai report“ → „AI Report“), neznámá kategorie = bez filtru kategorie.
+ * Sedí i slug tématu z /temata/{slug}/ („ai-agenti“ → „AI Agenti“, „site“ →
+ * „Sítě“) — stejné slugify jako .th-* a URL hubu. Samotné „ai“ je
+ * nejednoznačné (AI Report i AI Agenti) a zůstává „Vše“; žádná hádaná mapa.
  *
  * @param {string} kat          hodnota ?kat= z URL (oříznutá)
  * @param {Iterable<string>} kategorie  názvy kategorií (z indexu nebo čipů)
  * @returns {string}            kanonický název, nebo '' (Vše)
  */
 export function kanonickaKategorie(kat, kategorie) {
-  const hledana = normalizuj(kat.trim());
+  const hledana = slugKategorie(kat.trim());
   if (!hledana) return '';
   for (const k of kategorie) {
-    if (normalizuj(k) === hledana) return k;
+    if (slugKategorie(k) === hledana) return k;
   }
   return '';
 }
