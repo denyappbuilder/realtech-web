@@ -40,6 +40,8 @@ test("kolo 36: -nlm.mp3 je NotebookLM Deep Dive, -v3.mp3 krátký přehled", () 
   assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/anthropic-fable-mythos-v3.mp3?v=f463236cc5ca"), false);
   assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/nlm-uvod-v3.mp3"), false, "„nlm“ jinde v názvu nestačí");
   assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/slug-nlm.m4a"), true, "jiná přípona, stejná konvence");
+  assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/claude-code-agents-md-jeden-soubor-pokynu-nlm-365929e5f428.mp3"), true, "verze v klíči objektu místo ?v=");
+  assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/slug-nlm-poznamka.mp3"), false, "za -nlm- musí být 12hex verze");
   assert.equal(jeNotebookLmDeepDive(undefined), false);
   assert.equal(jeNotebookLmDeepDive("javascript:alert(1)"), false);
 });

@@ -27,9 +27,13 @@ const VERZE_HASH = String.raw`\?v=[0-9a-f]{12}`;
 
 // Kolo 42: přejmenovaný slug drží audio na původním klíči R2 (AUDIO_R2_KLIC),
 // dokud se soubor nepřejmenuje i tam — jinak by přehrávač šel na 404.
+// Verze smí být v query (`-nlm.mp3?v=<hash>`) nebo v klíči objektu
+// (`-nlm-<hash>.mp3`): query forma se na CDN edge cachovala jako 404.
 function audioUrl(slug, vydani) {
   const klic = AUDIO_R2_KLIC.get(slug) ?? slug;
-  return new RegExp(`^https://audio\\.realtech\\.cz/${klic}-${vydani}\\.mp3${VERZE_HASH}$`);
+  return new RegExp(
+    `^https://audio\\.realtech\\.cz/${klic}-${vydani}(?:\\.mp3${VERZE_HASH}|-[0-9a-f]{12}\\.mp3)$`,
+  );
 }
 
 test('každý článek má publikovatelný audio přehled v R2', () => {
