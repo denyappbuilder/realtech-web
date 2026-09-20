@@ -6,7 +6,7 @@ date: "2026-09-20T10:04:00+02:00"
 zprava: true
 image: "/images/clanky/claude-code-agents-md-jeden-soubor-pokynu.jpg"
 audio:
-  url: "https://audio.realtech.cz/claude-code-agents-md-jeden-soubor-pokynu-nlm-365929e5f428.mp3"
+  url: "https://audio.realtech.cz/claude-code-agents-md-jeden-soubor-pokynu-nlm.mp3?v=365929e5f428"
   duration: 1292
 ---
 
