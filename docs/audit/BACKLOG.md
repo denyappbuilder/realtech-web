@@ -4,6 +4,38 @@ Výchozí audit: [AUDIT.md](AUDIT.md), commit `061540c3f4ac7de31dcdca90a5894a480
 
 Dopad1–5 a pracnost1–5 jsou expertní pořadové odhady, ne naměřený růst návštěvnosti ani kalendářní dny. Pořadí je programově seřazeno sestupně podle dopad/pracnost; při shodě stabilní ID. Riziko a závislosti mohou změnit schválenou sekvenci. **B10 je technický prerequisite prvního implementačního PR**, i když poměrem není první.
 
+## Skutečný stav k 20. 9. 2026 00:00 (aktuální; níže historické zápisy z 19. 9.)
+
+Zdroj: merged PR v repu, `docs/audit/changelog/<ID>.md`, produkce marker `1ded1126` → `050715c7`.
+
+**Hotové, živě na produkci**
+| ID | Co | PR |
+|---|---|---|
+| B01 | VideoObject.contentUrl | #473 |
+| B02 | hierarchie nadpisů | #474 |
+| B04 | komentáře (giscus) až po kliknutí, bez preconnectu; aria-busy fix; privacy text pravdivě (komentáře po kliknutí, X hned) | #487, #491, #492 |
+| B05 | IndexNow až po ověřeném produkčním nasazení | #475 |
+| B06 | malé WebP varianty + oprava PNG hero (částečné, viz B06 níže) | #477 |
+| B10 | strict astro check + build gate | #472 |
+| B18 | IndexNow jen změněné URL (baseline = poslední úspěšný produkční běh; jen šablony ⇒ 0 URL) | #486 — ověřeno živě: 0/0/0/6/9/9/5 URL, vše HTTP 200 |
+| B19 | YouTube výzva za úvodním odstavcem (s videem „Přehrát video“, bez videa „Odebírat kanál“); video nahoře už platí přes hero fasádu | #481 |
+| B11 (část) | LINKMAP: 37 z 39 navržených interních odkazů v 10 článcích (2 přeskočeny — duplicitní cíl z téhož článku) | #480 dokument, #489, #494, #495, #496 |
+| pravidla | RULES.md: pravidlo pro úpravu existujících testů | #485 |
+
+**Uzavřené bez opravy (rozhodnutí Daniela 19. 9.)**
+- **B07** — neprovádět, stačí RSS autodiscovery (Maky #337 nechce klikací RSS; viz §7).
+- **B09** — „měřeno, bez levné opravy“. LCP mobil (produkce, medián): 2 098 / 2 360 / 2 999 / 3 794 / 3 976 ms u 5 článků; příčina = 75 KB render-blocking CSS + soutěž o pásmo s preloadovanými fonty; experiment kritického CSS (beasties) LCP zhoršil o 150–300 ms (#488 zavřen, #490 changelog).
+- **B20** — vyřešeno v rámci B04 (#487): prázdná plocha pod „Komentáře“ byla `min-height: 340px` lazy iframu; teď placeholder bez výšky.
+- **B21 (audio preload)** — bez změny: `preload="metadata"` stahuje před kliknutím 0–63 KB (< 200 KB práh), délka jde z dat článku; `none` už bylo (#285) a Kolo 36 (#437) ho vědomě vrátilo.
+
+**Zaparkované**
+- **B04 — X embedy click-to-load**: test-x-embed.mjs a rehype-x-embed.js nesou rozhodnutí Makyho (#364, 30. 8.: „click-to-load bránu Maky zrušil“). Čeká na Danielův rozhovor s Makym. Privacy text zatím pravdivě říká, že X se načítá hned.
+
+**Zbývá (neschváleno / nezahájeno)**
+- B03 (výchozí metrika), B08 (funnel web→YouTube — B19 je první krok), B11 zbytek (LINKMAP pro dalších 108 článků), B12, B13, B14, B15, B16, B17, B06 okrajové vady (viz níže).
+
+---
+
 ## Dodatek B10 — 19. 9. 2026
 
 Původní tabulka a stav výše jsou snapshot dokončeného auditu. B10 je nyní lokálně opravené a ověřené, dosud bez commit/PR; přesná evidence a popsaná výjimka raw HTML parity kvůli schválenému null guardu jsou v [CHANGELOG.md](CHANGELOG.md). Původní auditní manifest neověřuje tuto pozdější aktualizaci backlogu. Ostatní implementace zůstávají nezahájené.
@@ -29,17 +61,17 @@ Lokálně implementována oprava PNG source/preload + JPG srcset derivace a při
 
 | Pořadí | ID | Oblast | Dopad | Pracnost | Poměr |
 |---:|---|---|---:|---:|---:|
-| 1 | B01 | Opravit význam VideoObject.contentUrl | 4 | 1 | 4.00 |
-| 2 | B02 | Srovnat hierarchii nadpisů tří článků | 3 | 1 | 3.00 |
+| 1 | B01 ✅ #473 | Opravit význam VideoObject.contentUrl | 4 | 1 | 4.00 |
+| 2 | B02 ✅ #474 | Srovnat hierarchii nadpisů tří článků | 3 | 1 | 3.00 |
 | 3 | B03 | Doložit organickou a konverzní výchozí metriku | 5 | 2 | 2.50 |
-| 4 | B04 | Sjednotit načítání třetích stran s vysvětlením soukromí | 5 | 2 | 2.50 |
-| 5 | B05 | Zprovoznit doložitelnou IndexNow návaznost na produkční deploy | 4 | 2 | 2.00 |
-| 6 | B06 | Dodat malé obrazové varianty pro skutečné sloty karet | 4 | 2 | 2.00 |
-| 7 | B07 | Zviditelnit existující RSS v patičce | 2 | 1 | 2.00 |
+| 4 | B04 ✅ #487/#491/#492 (X ⏸ Maky) | Sjednotit načítání třetích stran s vysvětlením soukromí | 5 | 2 | 2.50 |
+| 5 | B05 ✅ #475 | Zprovoznit doložitelnou IndexNow návaznost na produkční deploy | 4 | 2 | 2.00 |
+| 6 | B06 ✅ #477 (část) | Dodat malé obrazové varianty pro skutečné sloty karet | 4 | 2 | 2.00 |
+| 7 | B07 | **Neprovádět — stačí autodiscovery** (rozhodnutí 19. 9.) | 2 | 1 | 2.00 |
 | 8 | B08 | Definovat a ověřit web→YouTube funnel v existujícím stacku | 4 | 2 | 2.00 |
-| 9 | B09 | Změřit příčinu a snížit mobilní LCP článků | 5 | 3 | 1.67 |
-| 10 | B10 | Zavést skutečný astro check před implementačními PR | 5 | 3 | 1.67 |
-| 11 | B11 | Redakčně posílit relevantní kontextové odkazy | 4 | 3 | 1.33 |
+| 9 | B09 ⛔ uzavřeno bez opravy (#490) | Změřit příčinu a snížit mobilní LCP článků | 5 | 3 | 1.67 |
+| 10 | B10 ✅ #472 | Zavést skutečný astro check před implementačními PR | 5 | 3 | 1.67 |
+| 11 | B11 🔶 LINKMAP 37 odkazů (#489–#496) | Redakčně posílit relevantní kontextové odkazy | 4 | 3 | 1.33 |
 | 12 | B12 | Ověřit skutečná metadata čtrnácti videí | 3 | 3 | 1.00 |
 | 13 | B13 | Zkrátit objevitelnost šesti hlubších článků | 2 | 2 | 1.00 |
 | 14 | B14 | Ověřit cyklus aktualizace obrázků a cache | 2 | 2 | 1.00 |
@@ -114,7 +146,11 @@ Lokálně implementována oprava PNG source/preload + JPG srcset derivace a při
 - **Rozhodnutí/závislost:** Technická oblast po schválení; bez nové závislosti.
 - **Navržená větev:** `improve/responsive-images`. Samostatný PR dané oblasti; nic nemergovat.
 
-### 7. B07 — Zviditelnit existující RSS v patičce
+### 7. B07 — neprovádět, stačí autodiscovery
+
+- **Rozhodnutí Daniela 19. 9. 2026:** Neimplementovat viditelný RSS odkaz, nevytvářet PR; lokální návrh odkazu a nový test zahozeny. Původní ochranný test zůstává beze změny. Níže uvedený původní návrh je historický a není platným zadáním.
+- **Původ konkrétního testu na řádku 33:** commit [`fc507f710513b4a5db27a275a7025913561689e8`](https://github.com/denyappbuilder/realtech-web/commit/fc507f710513b4a5db27a275a7025913561689e8), 26. 8. 2026, commitový čas `2026-08-26T09:21:36-07:00`, zpráva **„fix(web): pryč viditelné RSS odkazy z archivu a patičky (#337)“**. Tělo zprávy: „Maky nechce klikací RSS na webu. H1 Všechny články zůstává, feed /rss.xml i rel=alternate v <head> taky — jen tlačítka z UI.“ Diff tohoto commitu přidává právě negativní footer RSS test a pozitivní head autodiscovery kontrolu; nejde o nahodilý starý test. Samotný soubor vznikl již v `06fd14785fbc65f2df31157cd23b5636b87dcef1` (#333), ne však tato RSS kontrola.
+- **Živě ověřeno 19. 9. 2026:** homepage `https://realtech.cz/`, archiv `https://realtech.cz/clanky/` a článek `https://realtech.cz/clanky/chatgpt-ve-wordu-zdarma-checklist-osvc/` mají každý právě jeden skutečný `<head>` odkaz `<link rel="alternate" type="application/rss+xml" title="REALTECH CZ" href="/rss.xml">`. Ověřeno parsováním načteného produkčního HTML, nikoli jen zdrojovou šablonou. Evidence: `state/realtech-batch2-20260919/B07/autodiscovery-live.json`.
 
 - **Popis:** Jeden textový odkaz RSS do existující patičky/odběru; žádný nový blok/redesign.
 - **Důvod/důkaz:** RSS autodiscovery141/141 a50 validních feed položek; na5/5 browser vzorcích0 viditelných RSS odkazů (AUDIT §2,4).
@@ -223,6 +259,22 @@ Lokálně implementována oprava PNG source/preload + JPG srcset derivace a při
 - **Ověření a cílový výsledek:** Bez CSP violation u všech schválených funkcí, zachovat ochrany, monitorovat jen existujícími prostředky; žádná účtová CF změna.
 - **Rozhodnutí/závislost:** Samostatné schválení po prioritních oblastech; nejde o rychlou jednorázovou změnu řetězce.
 - **Navržená větev:** `improve/csp-hardening`. Samostatný PR dané oblasti; nic nemergovat.
+
+## Nové položky od Daniela — pouze backlog, 19. 9. 2026
+
+### B19 — Kompaktní YouTube CTA po úvodu a související video nahoře
+
+- **Stav: HOTOVO — #481 (19. 9. 2026), viz changelog/B19.md.** Původní zápis níže je historický.
+- **Podnět uživatele:** CTA na YouTube je jen na konci článku. Toto je vstupní pozorování, nikoli nový plošný audit všech článků.
+- **Budoucí práce:** Navrhnout kompaktní CTA po úvodu; u článků s existujícím souvisejícím videem navrhnout jeho embed nahoře. Nevymýšlet video ani vazbu k článku, nepřidávat embed tam, kde video neexistuje.
+- **Budoucí ověření:** Mobil/desktop, čitelnost úvodu, nenarušení layoutu a stávajícího CTA; zachování lazy/click-to-load a soukromí, žádný autoplay ani nové měření bez schválení. Koordinovat s B04/B08/B12. Dnes pouze zápis, žádná změna UI/obsahu.
+
+### B20 — Prázdná plocha pod „Komentáře“ na desktopu
+
+- **Stav: VYŘEŠENO v B04 — #487 (19. 9. 2026).** Příčina: `min-height: 340px` na kontejneru lazy iframu; teď nízký placeholder, výška až po kliknutí. Původní zápis níže je historický.
+- **Podnět uživatele:** Pod nadpisem „Komentáře“ je na desktopu velká prázdná plocha. Příčina ani univerzálnost zatím nezjištěna.
+- **Budoucí práce:** Ověřit naživo před načtením, během načítání a po načtení komentářů, včetně nedostupné/blokované služby; zaznamenat URL, viewport, screenshot a skutečné rozměry. Pokud se potvrdí zbytečně rezervované místo, navrhnout sbalení do načtení komentářů, bez zakrytí chybového stavu nebo přístupného ovládání.
+- **Budoucí ověření:** Desktop i mobil, úspěšné načtení, pomalá síť, blokace/selhání, klávesnice a případné layout shifts. Koordinovat s B04. Dnes pouze backlog — živé šetření ani oprava této položky nezahájeny.
 
 ## Rozhodnutí pro Daniela
 
