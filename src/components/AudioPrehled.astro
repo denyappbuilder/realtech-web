@@ -1,5 +1,6 @@
 ---
 import { audioPrehledPohled } from '../lib/audio-prehled.js';
+import { formatVelikost, velikostAudia } from '../lib/audio-velikost.js';
 
 interface Props {
   audio?: {
@@ -11,6 +12,9 @@ interface Props {
 }
 
 const pohled = audioPrehledPohled(Astro.props.audio, Astro.site);
+// Kolo 45: skutečná velikost souboru (HEAD při buildu, audio-velikost.js).
+// Bez sítě / po timeoutu undefined — řada se vykreslí bez čísla.
+const velikostText = pohled ? formatVelikost(await velikostAudia(pohled.src)) : undefined;
 ---
 {pohled && (
   <section class="audio-prehled" aria-labelledby="audio-prehled-nadpis">
@@ -41,9 +45,13 @@ const pohled = audioPrehledPohled(Astro.props.audio, Astro.site);
         a věta, že přehrávač jen streamuje. Soubor je na audio.realtech.cz
         (jiný origin), `download` tam prohlížeč nemusí ctít — odkaz se proto
         otvírá na nové kartě, ať čtenář nepřijde o článek. Žádná kratší
-        verze se nevymýšlí (kolo 36). */}
+        verze se nevymýšlí (kolo 36).
+        Kolo 45: hned za odkazem skutečná velikost souboru (Content-Length
+        z R2 při buildu) — Deep Dive má 21–31 MB a čtenář to před klikem
+        neviděl. Žádný odhad: bez změřené hodnoty se číslo nevykreslí. */}
     <p class="audio-prehled-akce">
       <a class="audio-prehled-stahnout" href={pohled.src} download target="_blank" rel="noopener">Stáhnout MP3 <span aria-hidden="true">↓</span></a>
+      {velikostText && <span class="audio-prehled-velikost">{velikostText}</span>}
       <span class="audio-prehled-akce-note">{pohled.delkaText} na poslech offline. Přehrávač jen streamuje, celý soubor stáhne až tenhle odkaz.</span>
     </p>
     {pohled.prepis && (
