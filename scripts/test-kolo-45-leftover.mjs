@@ -18,6 +18,11 @@
 //    stejným časem vydání (20. 9. 2026 10:04) pak řadilo pořadí, v jakém
 //    content layer soubory načetl. Archiv, RSS, témata i „Novější →“ mají
 //    id jako poslední rozřešení — teď všude tentýž komparátor.
+// P1 Checklist v článku: GFM `- [ ]` (Custom GPT, 12 položek) šel ven jako
+//    `<input type="checkbox" disabled>` bez popisku — axe „label“ critical,
+//    čtečka u každé odrážky „políčko, nezaškrtnuto, neaktivní“, v textu UA
+//    formulářový prvek bez stylu. rehype-checklist.js dává dekorativní
+//    .task-box (aria-hidden), zaškrtnuté „Hotovo:“ pro čtečku.
 // P2 Mrtvé CSS: `.reading-entry > a` (odkaz je od #462 v .article-credit),
 //    `.related .card-body h2` (related karty jsou h3), featured h3 (featured
 //    je h2), `.newsletter .mono` (žádný .mono v newsletteru).
@@ -28,6 +33,7 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { articleOutline } from '../src/lib/article-outline.js';
 import { compareArticlesByDateDescThenId } from '../src/lib/article-order.js';
+import { nahradCheckboxy, rehypeChecklist, TEXT_HOTOVO, TRIDA_BOXU, TRIDA_BOXU_HOTOVO } from '../src/lib/rehype-checklist.js';
 
 const koren = join(dirname(fileURLToPath(import.meta.url)), '..');
 const cti = (rel) => readFileSync(join(koren, rel), 'utf8');
@@ -136,6 +142,54 @@ test('kolo 45: dva články se stejným časem vydání mají stálé pořadí (
   // Živý stav: oba články z 20. 9. 2026 mají v repu stejný `date` do minuty.
   const datum = (slug) => cti(`src/content/clanky/${slug}.md`).match(/^date:\s*"?([^"\n]+)"?/m)?.[1];
   assert.equal(datum(a.id), datum(b.id), 'test dokumentuje důvod změny; když se data rozejdou, klidně smaž tento assert');
+});
+
+// ── P1: checklist bez formulářového <input> ───────────────────────────────────
+
+const li = (...children) => ({ type: 'element', tagName: 'li', properties: { className: ['task-list-item'] }, children });
+const checkbox = (checked) => ({ type: 'element', tagName: 'input', properties: { type: 'checkbox', disabled: true, ...(checked ? { checked: true } : {}) }, children: [] });
+const text = (value) => ({ type: 'text', value });
+
+test('kolo 45: rehypeChecklist nahradí checkbox v <li> dekorativním boxem, zaškrtnutý dostane „Hotovo:“ pro čtečku', () => {
+  const tree = {
+    type: 'root',
+    children: [
+      { type: 'element', tagName: 'p', properties: {}, children: [text('Úvod.')] },
+      { type: 'element', tagName: 'ul', properties: { className: ['contains-task-list'] }, children: [
+        li(checkbox(false), text(' '), { type: 'element', tagName: 'strong', properties: {}, children: [text('Sepiš si GPT.')] }),
+        li(checkbox(true), text(' Hotová položka.')),
+      ] },
+      { type: 'raw', value: '<blockquote class="twitter-tweet"></blockquote>' },
+    ],
+  };
+  const pocetDeti = tree.children.length;
+  assert.equal(nahradCheckboxy(tree), 2);
+  assert.equal(tree.children.length, pocetDeti, 'plugin nemění tree.children — X embed počítá indexy odstavců');
+  const [prvni, druha] = tree.children[1].children;
+  assert.deepEqual(prvni.children[0], { type: 'element', tagName: 'span', properties: { className: [TRIDA_BOXU], ariaHidden: 'true' }, children: [] });
+  assert.equal(prvni.children[1].value, ' ', 'text za políčkem zůstává');
+  assert.equal(druha.children[0].properties.className.join(' '), `${TRIDA_BOXU} ${TRIDA_BOXU_HOTOVO}`);
+  assert.deepEqual(druha.children[1], { type: 'element', tagName: 'span', properties: { className: ['sr-only'] }, children: [text(TEXT_HOTOVO)] });
+  assert.equal(druha.children[2].value, ' Hotová položka.');
+  assert.equal(JSON.stringify(tree).includes('"tagName":"input"'), false, 'žádný <input> v článku');
+  assert.equal(nahradCheckboxy(tree), 0, 'druhý průchod nic nemění');
+  // Checkbox mimo <li> (ruční HTML) se nechává být.
+  const mimo = { type: 'root', children: [{ type: 'element', tagName: 'p', properties: {}, children: [checkbox(false)] }] };
+  assert.equal(nahradCheckboxy(mimo), 0);
+  assert.equal(typeof rehypeChecklist(), 'function');
+});
+
+test('kolo 45: rehypeChecklist je v astro.config poslední a CSS kreslí box místo odrážky', () => {
+  const config = cti('astro.config.mjs');
+  assert.match(config, /import \{ rehypeChecklist \} from '\.\/src\/lib\/rehype-checklist\.js';/);
+  assert.match(config, /rehypePlugins: \[rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky, rehypeChecklist\]/);
+  assert.match(pravidlo(global, '.article-body .contains-task-list'), /list-style:\s*none/);
+  assert.match(pravidlo(global, '.article-body .task-list-item'), /padding-left/);
+  const boxCss = pravidlo(global, '.article-body .task-box');
+  assert.match(boxCss, /border:\s*1\.5px solid var\(--line-strong/);
+  assert.match(boxCss, /background:\s*var\(--surface\)/);
+  assert.match(pravidlo(global, '.article-body .task-box-checked'), /background:\s*var\(--signal-fill\)/);
+  assert.doesNotMatch(global, /input\[type="?checkbox"?\]/, 'checkbox v článku se nestyluje — v HTML není');
 });
 
 // ── P2: mrtvé CSS ─────────────────────────────────────────────────────────────

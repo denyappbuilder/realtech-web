@@ -728,6 +728,25 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .article-body p { margin: 0 0 1.1em; }
 .article-body ul, .article-body ol { margin: 0 0 1.1em 1.4em; }
 .article-body li { margin-bottom: 0.4em; }
+/* Kolo 45: GFM checklist (`- [ ]`). remark-gfm dává <input type=checkbox
+   disabled> — rehype-checklist.js ho mění na dekorativní .task-box (bez
+   popisku formulářový prvek v textu, axe „label“; čtečka četla „políčko,
+   neaktivní“ u každé odrážky). Box místo odrážky, ve stejném kitu jako
+   pole: --line-strong rámeček, 4px poloměr, --surface. */
+.article-body .contains-task-list { list-style: none; margin-left: 0; }
+.article-body .task-list-item { position: relative; padding-left: 1.9em; }
+.article-body .task-box {
+  position: absolute; left: 0; top: 0.32em;
+  width: 1.05em; height: 1.05em;
+  border: 1.5px solid var(--line-strong, var(--ink-soft)); border-radius: 4px;
+  background: var(--surface);
+}
+.article-body .task-box-checked { background: var(--signal-fill); border-color: var(--signal-fill); }
+.article-body .task-box-checked::after {
+  content: ''; position: absolute; left: 0.3em; top: 0.1em;
+  width: 0.28em; height: 0.55em;
+  border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
 .article-body a { color: var(--signal-dark); text-decoration: underline; text-underline-offset: 2px; }
 .article-body blockquote {
   border-left: 3px solid var(--signal);

@@ -77,7 +77,7 @@ test('článek bez odstavce výzvu nedostane', () => {
 });
 
 test('s xPosts: pořadí odstavec → karta X → výzva (výzva zapsaná v konfiguraci před X embedem)', () => {
-  assert.match(CONFIG, /rehypePlugins: \[rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky\]/);
+  assert.match(CONFIG, /rehypePlugins: \[rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky(?:, rehypeChecklist)?\]/);
   const tree = strom(p(LEDE), p('Druhý.'));
   const f = file({ xPosts: ['https://x.com/realtech/status/1234567890'] });
   rehypeCtaInline()(tree, f);
