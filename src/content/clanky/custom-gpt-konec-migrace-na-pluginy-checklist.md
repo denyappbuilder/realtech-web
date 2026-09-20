@@ -6,7 +6,7 @@ date: "2026-09-20T10:04:00+02:00"
 zprava: true
 image: "/images/clanky/custom-gpt-konec-migrace-na-pluginy-checklist.jpg"
 audio:
-  url: "https://audio.realtech.cz/custom-gpt-konec-migrace-na-pluginy-checklist-nlm.mp3?v=b4c94e83b135"
+  url: "https://audio.realtech.cz/custom-gpt-konec-migrace-na-pluginy-checklist-nlm-b4c94e83b135.mp3"
   duration: 1489
 ---
 
