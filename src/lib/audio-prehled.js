@@ -67,8 +67,10 @@ export function audioSrc(url, site) {
  * konvence názvu souboru `<slug>-nlm.mp3` v R2 — stejnou kotvu drží
  * scripts/test-audio-last10.mjs a test-audio-transcript-readable.mjs.
  * Krátké TTS přehledy (`-v3.mp3`, 1–5 min) jsou všechno ostatní.
- * Od 20. 9. 2026 se verze nese v klíči objektu (`<slug>-nlm-<12 hex>.mp3`),
- * ne v `?v=` — query-string forma je na edge cachovaná jako 404.
+ *
+ * Verze souboru může být buď v query (`-nlm.mp3?v=<hash>`), nebo přímo
+ * v klíči objektu (`-nlm-<hash>.mp3`) — query-string forma se na edge
+ * cachovala jako 404, proto nové články nesou verzi v názvu souboru.
  */
 export function jeNotebookLmDeepDive(url) {
   if (!jeAudioUrl(url)) return false;

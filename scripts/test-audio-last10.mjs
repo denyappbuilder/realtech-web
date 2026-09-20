@@ -24,16 +24,15 @@ function frontmatter(slug) {
 }
 
 const VERZE_HASH = String.raw`\?v=[0-9a-f]{12}`;
-// Od 20. 9. 2026 nese verzi klíč objektu (`<slug>-nlm-<12 hex>.mp3`) —
-// `?v=` forma je na edge cachovaná jako 404, nová audia už ji nepoužívají.
-const VERZE_V_KLICI = String.raw`-[0-9a-f]{12}\.mp3`;
 
 // Kolo 42: přejmenovaný slug drží audio na původním klíči R2 (AUDIO_R2_KLIC),
 // dokud se soubor nepřejmenuje i tam — jinak by přehrávač šel na 404.
+// Verze smí být v query (`-nlm.mp3?v=<hash>`) nebo v klíči objektu
+// (`-nlm-<hash>.mp3`): query forma se na CDN edge cachovala jako 404.
 function audioUrl(slug, vydani) {
   const klic = AUDIO_R2_KLIC.get(slug) ?? slug;
   return new RegExp(
-    `^https://audio\\.realtech\\.cz/${klic}-${vydani}(?:\\.mp3${VERZE_HASH}|${VERZE_V_KLICI})$`,
+    `^https://audio\\.realtech\\.cz/${klic}-${vydani}(?:\\.mp3${VERZE_HASH}|-[0-9a-f]{12}\\.mp3)$`,
   );
 }
 
