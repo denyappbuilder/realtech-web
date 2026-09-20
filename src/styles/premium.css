@@ -46,7 +46,17 @@ nav.main a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 
 nav.main a:hover::after, nav.main a[aria-current]::after { transform: scaleX(1); }
 header.site .yt-btn { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 24px; }
 header.site .yt-btn:hover { border-color: var(--ink-soft); }
-.search-trigger, .theme-toggle { border-radius: 50%; }
+/* Kolo 47: totéž červené tlačítko mělo dva tvary — v hlavičce a pod „video
+   není“ (kolo 44) pilulka 24px, ve videobaru, výzvě za prvním odstavcem
+   (B19) a v autorském boxu 8px z globálního --radius; v boxu stálo hranaté
+   „Odebírat na YouTube“ hned vedle pilulky „Víc o nás“ (živě 20. 9. 2026).
+   DESIGN.md `rounded.control` = 24px pro ovládací prvky; jedna hodnota pro
+   celou třídu, header si drží vlastní obrysovou variantu výš. */
+.yt-btn { border-radius: 24px; padding-inline: 20px; }
+/* Kolo 47: `border-radius: 50%` dělá kruh jen ze čtverce — ⌘K tlačítko je
+   101×44 (ikona + kbd), takže mělo elipsovité konce vedle pilulky YouTube.
+   999px = pilulka v jakémkoli poměru, u 44×44 přepínače pořád kruh. */
+.search-trigger, .theme-toggle { border-radius: 999px; }
 .btn-primary, .btn-ghost { border-radius: 24px; padding-inline: 22px; }
 .btn-primary { font-weight: 500; }
 .btn-ghost { background: transparent; }
@@ -136,6 +146,11 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
    všechny karty zmizely. Tichá ploška ve stejném kitu jako pole hledání:
    --surface + --line, 12px radius, padding-block 40px, text na střed.
    `hidden` řídí dál skript / edge (display: none z UA se nesahá). */
+/* Kolo 47: „Načítám index článků…“ zůstalo holý odstavec 0.9rem s 12px
+   paddingem, zatímco „Nic nenalezeno“ dostalo v kole 43 plošku — dva stavy
+   téhož místa ve dvou kitech. Stejná ploška pro oba (selektor .filter-empty
+   drží vlastní řádek kvůli test-kolo-43). */
+[data-archive] .filter-loading,
 [data-archive] .filter-empty {
   margin-top: 8px; padding: 40px 24px; text-align: center;
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-field);
@@ -146,6 +161,12 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 [data-archive] .card-body h2 { font-size: 1.25rem; line-height: 1.3; }
 [data-archive] .card-thumb { border-radius: var(--media-radius); }
 .featured-lead > .card:first-child .card-body { padding: 36px; justify-content: center; }
+/* Kolo 47: na stránce tématu nese každý náhled štítek téže kategorie
+   („AI Report“ 15× pod nadpisem AI Report, živě 20. 9. 2026) — informace
+   je v h1 i v .lower-third nad ním. Štítek zůstává v markupu (archiv,
+   úvodka, related ho potřebují), tady se jen nekreslí; „Zpráva“ a délka
+   videa u náhledu zůstávají. */
+.featured-lead .card-thumb .lt .k { display: none; }
 
 /* Kolo 42: „Souvisí s tématem“ na hubu — kurátorovaný odkaz na článek z jiné
    kategorie (tema-souvisi.js). Tichý seznam pod mřížkou, ne další karty:
@@ -192,8 +213,34 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .article-body h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.85rem; line-height: 1.25; letter-spacing: -0.025em; margin-top: 2.2em; padding-top: 0; border: 0; }
 .article-body h3 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.35rem; line-height: 1.35; }
 .article-body p { margin-bottom: 1.4em; }
-.article-body blockquote { background: transparent; border-left: 1px solid var(--line); padding: 4px 0 4px 24px; color: var(--ink-soft); }
+/* Kolo 47: 1px --line na --bg byl u citátu neviditelný (živě 20. 9. 2026,
+   Grok Voice) — stejný „hairline bez kontrastu“, kvůli kterému kolo 43
+   zavedlo --line-strong pro oddělovače ve čtecím sloupci. */
+.article-body blockquote { background: transparent; border-left: 2px solid var(--line-strong); padding: 4px 0 4px 24px; color: var(--ink-soft); }
 .article-body a { text-underline-offset: 4px; text-decoration-thickness: 1px; }
+/* Kolo 47: hlavička tabulky byla poslední Plex Mono verzálkový štítek
+   s prostrkáním ve čtecím sloupci (kolo 43 přepsalo .mono, .card-meta,
+   štítky karet i hledání na reading-face) a k tomu 2px linka v --ink —
+   v darku bílý pruh přes celou šířku tabulky. Stejná škála jako popisky
+   chrome (0.8rem / 600 / reading-face) a oddělovač --line-strong; zebra,
+   tučný první sloupec a --bg podklad hlavičky z global.css zůstávají. */
+.article-body th {
+  font-family: var(--reading-face); font-size: 0.8rem; font-weight: 600; letter-spacing: 0; text-transform: none;
+  color: var(--ink-soft); border-bottom: 1px solid var(--line-strong);
+}
+/* Kolo 47: inline `code` mělo ve světlém režimu podklad --bg = barva
+   stránky (tělo článku je od editorial vrstvy bez karty), takže ho
+   odlišoval jen 1px rámeček — v článku s 20+ výrazy (AGENTS.md, /config)
+   samé krabičky; v darku naopak --panel + rámeček. Jeden vzhled v obou
+   tématech: tón z --ink bez rámečku. Specificita (0,3,1) = dark override
+   `:root[data-theme="dark"] .article-body code` z global.css; tady je
+   později v kaskádě, takže platí v obou tématech. */
+.article-page .article-layout .article-body code { background: color-mix(in srgb, var(--ink) 8%, transparent); border: 0; padding: 0.12em 0.45em; }
+.article-page .article-layout .article-body pre code { background: none; padding: 0; }
+/* Kolo 47: výzva za prvním odstavcem (B19) vznikla z videobaru před kolem
+   43 — 10px a --line; audio, videobar i autorský box mezitím přešly na
+   12px / --line-strong. Stejný kit, ať v článku nestojí dva druhy panelů. */
+.article-cta-inline { border-color: var(--line-strong); border-radius: var(--radius-field); padding: 12px 16px; }
 .article-aside { background: transparent; border: 0; border-radius: 0; padding: 0 0 0 24px; border-left: 1px solid var(--line); }
 .article-contents a { border-radius: 6px; font-size: 0.88rem; }
 .article-contents a[aria-current] { background: var(--surface); }
@@ -239,6 +286,34 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .ab-body p strong { color: var(--ink); }
 .author-box .btn-ghost { border-color: var(--line); color: var(--ink-soft); }
 .author-box .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+/* Kolo 47: navigace Starší/Novější byla poslední blok článku mimo kit —
+   8px --radius, --line a titulek v Archivo 750 (broadcast řez, který
+   round 3 všude nahradil 650/100 %). Stejné pole jako audio/autor
+   (12px, --line-strong) a stejný titulek jako rail/„Souvisí s tématem“. */
+.an-item { border-color: var(--line-strong); border-radius: var(--radius-field); padding: 16px 20px; }
+.an-item:hover { border-color: var(--ink-soft); }
+.an-item .mono { color: var(--ink-soft); font-size: 0.8rem; margin-bottom: 8px; }
+.an-title { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1rem; line-height: 1.35; letter-spacing: -0.015em; }
+/* Kolo 47: komentáře (B04) — ploška „Zobrazit komentáře“ 8px/--line a
+   tlačítko 8px, zatímco všechna ostatní tlačítka webu jsou pilulky 24px
+   (.btn-primary/.btn-ghost, kolo 43) a panely 12px. Kostra načítání iframe
+   stejný poloměr. Chování (min-height až po aktivaci) z global.css zůstává. */
+.komentare-placeholder { border-color: var(--line-strong); border-radius: var(--radius-field); padding: 16px 20px; }
+.komentare-nacist { border-radius: 24px; padding-inline: 22px; }
+.komentare.komentare-aktivni .giscus:empty,
+.komentare.komentare-aktivni .giscus:has(> .giscus-frame--loading) { border-radius: var(--radius-field); }
+/* Kolo 47: <details> (mobilní osnova, přepis audia) kreslil trojúhelník
+   prohlížeče — jediný UA marker v kitu. Vlastní šipka z currentColor, na
+   [open] otočená dolů; transition vypíná globální reduced-motion vypínač,
+   otočení je stav. Nativní <details> bez JS zůstává (kolo 45). */
+.article-contents-mobile summary, .audio-prehled-prepis summary { list-style: none; display: flex; align-items: center; gap: 10px; }
+.article-contents-mobile summary::-webkit-details-marker, .audio-prehled-prepis summary::-webkit-details-marker { display: none; }
+.article-contents-mobile summary::before, .audio-prehled-prepis summary::before {
+  content: ''; flex-shrink: 0; width: 7px; height: 7px; margin-inline: 3px 2px;
+  border: solid currentColor; border-width: 0 1.5px 1.5px 0;
+  transform: rotate(-45deg); transition: transform 200ms var(--editorial-ease);
+}
+.article-contents-mobile[open] > summary::before, .audio-prehled-prepis[open] > summary::before { transform: rotate(45deg); }
 /* Kolo 46: na desktopu měl článek tři levé hrany — hlava (880px, auto
    okraje) začínala 96px vpravo od textu, cover a audio karta (760px, auto
    okraje) o dalších 60px dál; první odstavec pak proti perexu nad sebou
@@ -260,7 +335,11 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
    levé hrany mřížky „Zatím mrkni na tohle“ pod ním (živě 19. 9. 2026, 1280px).
    Stejná hlava jako archiv / O nás: editorial 650, levá hrana wrapu, měřítko
    textu přes max-width, ne přes užší wrap. */
-.notfound { max-width: 1120px; padding-block: 64px 0; }
+/* Kolo 47: .notfound sedí uvnitř .article-page, která už dává 64px shora —
+   64 + 64 = 128px nad „Chyba 404“ (živě 20. 9. 2026, 1280px: nadpis na
+   y≈200 proti y≈115 v archivu; na 390px 32 + 36 = 68px). Stejná hrana
+   shora jako archiv a hub: odsazení nese jen .article-page. */
+.notfound { max-width: 1120px; padding-block: 0; }
 .notfound .mono { color: var(--ink-soft); font-size: 0.85rem; font-weight: 600; }
 .notfound h1 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 1.1; letter-spacing: -0.035em; max-width: 24ch; margin: 12px 0 20px; }
 .notfound .lead { font-size: 1.25rem; line-height: 1.65; max-width: 54ch; }
@@ -341,7 +420,8 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
   .reading-entry { display: block; align-self: start; margin: 0 0 24px; background: var(--bg); z-index: 20; }
   .article-contents-mobile { margin-top: 0; }
   .article-contents-mobile summary { padding-inline: 4px; }
-  .article-contents-mobile summary span { float: right; font-variant-numeric: tabular-nums; }
+  /* Kolo 47: summary je flex (vlastní šipka), float by se neuplatnil. */
+  .article-contents-mobile summary span { margin-left: auto; font-variant-numeric: tabular-nums; }
   .article-contents-mobile nav { max-height: min(55dvh, calc(100dvh - var(--reading-header-height, 96px) - 80px)); }
   @media (min-height: 481px) {
     .reading-entry { position: sticky; top: var(--reading-header-height, 96px); }
@@ -402,6 +482,7 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
   [data-archive] .search-form { gap: 8px; }
   [data-archive] .search-input { min-height: 52px; padding-inline: 14px; }
   [data-archive] .chip { padding-inline: 12px; }
+  [data-archive] .filter-loading,
   [data-archive] .filter-empty { padding: 32px 18px; }
   [data-archive] .card { border-bottom: 1px solid var(--line); border-radius: 0; padding: 24px 0; }
   [data-archive] .card-body { padding: 0; gap: 12px; }
@@ -430,7 +511,7 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
   .audio-prehled, .article-videobar { padding: 18px; }
   .article-videobar-bez-videa { padding: 20px 0 0; margin-top: 32px; }
   .about.about-wide { padding-top: 36px; padding-bottom: 52px; }
-  .notfound { padding-top: 36px; }
+  .notfound { padding-top: 0; }
   .notfound h1 { font-size: 2.5rem; }
   .notfound .lead { font-size: 1.1rem; }
   .notfound-more { margin-top: 44px; }

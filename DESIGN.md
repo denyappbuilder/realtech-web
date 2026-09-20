@@ -106,7 +106,7 @@ Opaque header, flat cards, no hover lift or card shadows. Modal retains its exis
 
 ## Shapes
 
-16px main media/card corners; 12px archive fields, audio/video surfaces, share buttons and the archive empty state (`--radius-field` in `premium.css`); 10px compact fields and mobile archive thumbnails; 8px rail thumbnails; 4px small category badges. Pills are reserved for controls/category filters. Reading prose and desktop aside have no card enclosure; audio and video surfaces keep a 1px `--line` border so they read as panels, not floating islands.
+16px main media/card corners; 12px archive fields, audio/video surfaces, share buttons, the archive empty/loading states and every remaining reading-column panel (inline YouTube prompt, author box, older/newer navigation, comments placeholder — `--radius-field` in `premium.css`); 10px compact fields and mobile archive thumbnails; 8px rail thumbnails; 4px small category badges. Pills (24px, `rounded.control`) are reserved for controls: category filters, `.btn-primary`/`.btn-ghost`, every `.yt-btn`, the comments button, and the ⌘K/theme controls (999px so the keyboard-hint pill and the 44px circle share one rule). Reading prose and desktop aside have no card enclosure; reading-column panels and in-text separators (blockquote rule, table header rule) use `--line-strong`, fields and cards keep `--line`. Native `<details>` markers are replaced by a currentColor chevron.
 
 ## Components
 
