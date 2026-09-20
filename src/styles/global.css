@@ -1103,6 +1103,12 @@ footer.site ul a:hover { color: var(--ink); }
   color: var(--signal);
   letter-spacing: -0.01em;
 }
+/* Kolo 45: poslední text v --signal — dark #E5322D na #0F1216 je 4,31:1;
+   v darku --signal-dark (5,47:1) jako .logo .tech (kolo 22). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .stat strong { color: var(--signal-dark); }
+}
+:root[data-theme="dark"] .stat strong { color: var(--signal-dark); }
 .stat span {
   font-size: 0.85rem;
   color: var(--ink-soft);
