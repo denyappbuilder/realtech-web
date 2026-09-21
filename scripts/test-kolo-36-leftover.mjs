@@ -42,6 +42,7 @@ test("kolo 36: -nlm.mp3 je NotebookLM Deep Dive, -v3.mp3 krátký přehled", () 
   assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/slug-nlm.m4a"), true, "jiná přípona, stejná konvence");
   assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/claude-code-agents-md-jeden-soubor-pokynu-nlm-365929e5f428.mp3"), true, "verze v klíči objektu místo ?v=");
   assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/slug-nlm-poznamka.mp3"), false, "za -nlm- musí být 12hex verze");
+  assert.equal(jeNotebookLmDeepDive("https://audio.realtech.cz/chatgpt-images-2-5-sablony-sketch-mobil-5-tipu-nlm-10c0134e1919b.mp3"), true, "hash prodloužený po edge-cache 404 (13 hex) je pořád verze");
   assert.equal(jeNotebookLmDeepDive(undefined), false);
   assert.equal(jeNotebookLmDeepDive("javascript:alert(1)"), false);
 });

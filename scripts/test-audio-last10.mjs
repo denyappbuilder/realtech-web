@@ -29,10 +29,12 @@ const VERZE_HASH = String.raw`\?v=[0-9a-f]{12}`;
 // dokud se soubor nepřejmenuje i tam — jinak by přehrávač šel na 404.
 // Verze smí být v query (`-nlm.mp3?v=<hash>`) nebo v klíči objektu
 // (`-nlm-<hash>.mp3`): query forma se na CDN edge cachovala jako 404.
+// Hash v klíči má aspoň 12 hex znaků — po edge-cache 404 se nový upload
+// odliší prodloužením hashe (`…1919b.mp3`), stejně jako jeNotebookLmDeepDive.
 function audioUrl(slug, vydani) {
   const klic = AUDIO_R2_KLIC.get(slug) ?? slug;
   return new RegExp(
-    `^https://audio\\.realtech\\.cz/${klic}-${vydani}(?:\\.mp3${VERZE_HASH}|-[0-9a-f]{12}\\.mp3)$`,
+    `^https://audio\\.realtech\\.cz/${klic}-${vydani}(?:\\.mp3${VERZE_HASH}|-[0-9a-f]{12,}\\.mp3)$`,
   );
 }
 
