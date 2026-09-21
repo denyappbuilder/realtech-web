@@ -71,10 +71,12 @@ export function audioSrc(url, site) {
  * Verze souboru může být buď v query (`-nlm.mp3?v=<hash>`), nebo přímo
  * v klíči objektu (`-nlm-<hash>.mp3`) — query-string forma se na edge
  * cachovala jako 404, proto nové články nesou verzi v názvu souboru.
+ * Hash má aspoň 12 hex znaků; když se klíč na edge cachoval jako 404,
+ * nový upload dostane hash prodloužený o další hex znak (`…1919b.mp3`).
  */
 export function jeNotebookLmDeepDive(url) {
   if (!jeAudioUrl(url)) return false;
-  return /-nlm(?:-[0-9a-f]{12})?\.[a-z0-9]+$/i.test(new URL(url, 'https://realtech.cz').pathname);
+  return /-nlm(?:-[0-9a-f]{12,})?\.[a-z0-9]+$/i.test(new URL(url, 'https://realtech.cz').pathname);
 }
 
 /**
