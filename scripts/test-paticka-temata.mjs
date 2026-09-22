@@ -1,7 +1,9 @@
 // Patička, sloupec Web: hlavička odkazuje na hub /temata/, ale v patičce
-// odkaz chyběl (živě 26. 8. 2026: YouTube, Články, O nás, Kontakt,
-// RealTvorba — Témata nikde). Sloupec Témata vedle vypisuje jen jednotlivé
-// kategorie, na samotný hub se z patičky nedalo dostat.
+// odkaz chyběl (živě 26. 8. 2026: YouTube, Články, O nás, Kontakt a odkaz
+// na tehdejší produkt — Témata nikde). Sloupec Témata vedle vypisuje jen
+// jednotlivé kategorie, na samotný hub se z patičky nedalo dostat.
+// Od 22. 9. 2026 sloupec Web žádný produktový odkaz nenese (viz
+// test-realtvorba-signup.mjs).
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -28,6 +30,10 @@ test("Témata stojí mezi Články a O nás — stejné pořadí jako v hlavičc
   const oNas = sloupecWeb.indexOf('href="/o-nas/"');
   assert.ok(clanky !== -1 && temata !== -1 && oNas !== -1, "sloupci Web chybí některá z položek");
   assert.ok(clanky < temata && temata < oNas, "Témata nejsou mezi Články a O nás");
+});
+
+test("sloupec Web v patičce nenese odkaz na produkt (RealTvorba)", () => {
+  assert.doesNotMatch(sloupecWeb, /realtvorba/i, "sloupec Web v patičce zase propaguje produkt");
 });
 
 test("patička nenabízí klikací RSS — feed zůstává v <head> pro čtečky", () => {

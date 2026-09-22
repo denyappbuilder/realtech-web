@@ -23,13 +23,16 @@ const paticka = base.match(/<footer class="site">[\s\S]*?<\/footer>/)?.[0] ?? ""
 const sloupecWeb =
   paticka.match(/<span class="mono f-nav-head">Web<\/span>[\s\S]*?<\/ul>/)?.[0] ?? "";
 
-test("gdpr: patička (sloupec Web) vede na /gdpr/ hned za Kontaktem", () => {
+test("gdpr: patička (sloupec Web) vede na /gdpr/ hned za Kontaktem jako poslední položka", () => {
   assert.match(sloupecWeb, /<li><a href="\/gdpr\/">Ochrana údajů<\/a><\/li>/);
   const kontakt = sloupecWeb.indexOf('href="/o-nas/#kontakt"');
   const gdprOdkaz = sloupecWeb.indexOf('href="/gdpr/"');
-  const rtv = sloupecWeb.indexOf("href={RTV}");
-  assert.ok(kontakt !== -1 && gdprOdkaz !== -1 && rtv !== -1, "sloupci Web chybí položka");
-  assert.ok(kontakt < gdprOdkaz && gdprOdkaz < rtv, "Ochrana údajů nestojí mezi Kontaktem a RealTvorbou");
+  assert.ok(kontakt !== -1 && gdprOdkaz !== -1, "sloupci Web chybí položka");
+  assert.ok(kontakt < gdprOdkaz, "Ochrana údajů nestojí za Kontaktem");
+  const polozky = sloupecWeb.match(/<li>/g) ?? [];
+  const posledni = sloupecWeb.lastIndexOf("<li>");
+  assert.equal(polozky.length, 6, `sloupec Web má ${polozky.length} položek, čekalo se 6`);
+  assert.ok(posledni !== -1 && sloupecWeb.indexOf('href="/gdpr/"') > posledni, "Ochrana údajů není poslední položka sloupce Web");
   assert.doesNotMatch(paticka, /mailto:info@realtech\.cz/, "kolo 26: mailto v patičce CF přepisuje na 404");
 });
 
