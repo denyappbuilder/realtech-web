@@ -306,6 +306,20 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .ab-body p strong { color: var(--ink); }
 .author-box .btn-ghost { border-color: var(--line); color: var(--ink-soft); }
 .author-box .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+/* Kolo 48: měkká výzva Herohero (HeroheroCta.astro) — konec článku a pás na
+   úvodce před newsletterem. Stejný kit jako výzva „video není“ (kolo 44):
+   hairline --line-strong nahoře, věta --ink-soft, obrysová pilulka. Žádný
+   panel ani barva navíc — třetí krok trychtýře nemá křičet. V článku drží
+   760px čtecí sloupec (a levou hranu wrapu od 901px, viz níž). */
+.herohero-cta { display: flex; align-items: center; justify-content: space-between; gap: 20px 32px; flex-wrap: wrap; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid var(--line-strong); }
+.herohero-cta-text { flex: 1 1 320px; min-width: 0; max-width: 60ch; }
+.herohero-cta .mono { color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; }
+.herohero-cta h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.25; letter-spacing: -0.025em; margin-bottom: 10px; text-wrap: balance; }
+.herohero-cta-text > p:last-child { margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.6; }
+.herohero-cta .btn-ghost { flex-shrink: 0; border-color: var(--line); color: var(--ink); }
+.herohero-cta .btn-ghost:hover { border-color: var(--ink-soft); }
+.article-page .herohero-cta { max-width: 760px; }
+.articles .herohero-cta { margin-top: 88px; padding-top: 44px; }
 /* Kolo 47: navigace Starší/Novější byla poslední blok článku mimo kit —
    8px --radius, --line a titulek v Archivo 750 (broadcast řez, který
    round 3 všude nahradil 650/100 %). Stejné pole jako audio/autor
@@ -346,7 +360,7 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 @media (min-width: 901px) {
   .article-page .article-head,
   .article-hero, .video-embed, .audio-prehled, .article-videobar,
-  .article-share, .author-box, .related, .article-nav, .komentare, .article-back { margin-left: 0; }
+  .article-share, .author-box, .herohero-cta, .related, .article-nav, .komentare, .article-back { margin-left: 0; }
 }
 
 /* About, legal and end matter: the same publication, not a second UI kit. */
@@ -498,6 +512,7 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
   .topic-navigation > div { column-gap: 18px; }
   .video-strip { margin-top: 52px; }
   .guides-section { padding-block: 36px; }
+  .articles .herohero-cta { margin-top: 52px; padding-top: 28px; }
   .articles.hub, [data-archive].hub { padding-top: 36px; }
   [data-archive] .archive-heading h1, .hub .section-head h1 { font-size: 2.5rem; }
   [data-archive] .search-form { gap: 8px; }

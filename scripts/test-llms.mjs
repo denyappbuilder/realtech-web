@@ -55,12 +55,14 @@ Web je statický (Astro). Níže je kompletní seznam 0 článků rozdělený po
 - [RSS feed](https://realtech.cz/rss.xml): plné texty článků s popisky a obrázky
 - [Sitemap](https://realtech.cz/sitemap-index.xml): mapa webu
 - [O nás](https://realtech.cz/o-nas/): kdo za webem stojí
+- [Herohero](https://realtech.cz/herohero/): návody a hlubší obsah — připravujeme
 
 
 
 ## Jinde
 
 - [YouTube kanál](https://www.youtube.com/@realtech-cz): videa REALTECH CZ
+- [Herohero](https://herohero.co/realtechcz): profil pro podporovatele (připravujeme)
 - Kontakt: info@realtech.cz
 `,
   );
@@ -129,6 +131,7 @@ Web je statický (Astro). Níže je kompletní seznam 4 článků rozdělený po
 - [RSS feed](https://realtech.cz/rss.xml): plné texty článků s popisky a obrázky
 - [Sitemap](https://realtech.cz/sitemap-index.xml): mapa webu
 - [O nás](https://realtech.cz/o-nas/): kdo za webem stojí
+- [Herohero](https://realtech.cz/herohero/): návody a hlubší obsah — připravujeme
 
 ## AI
 
@@ -143,6 +146,7 @@ Web je statický (Astro). Níže je kompletní seznam 4 článků rozdělený po
 ## Jinde
 
 - [YouTube kanál](https://www.youtube.com/@realtech-cz): videa REALTECH CZ
+- [Herohero](https://herohero.co/realtechcz): profil pro podporovatele (připravujeme)
 - Kontakt: info@realtech.cz
 `,
   );

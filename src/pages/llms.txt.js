@@ -35,12 +35,14 @@ Web je statický (Astro). Níže je kompletní seznam ${clanky.length} článků
 - [RSS feed](${site}/rss.xml): plné texty článků s popisky a obrázky
 - [Sitemap](${site}/sitemap-index.xml): mapa webu
 - [O nás](${site}/o-nas/): kdo za webem stojí
+- [Herohero](${site}/herohero/): návody a hlubší obsah — připravujeme
 
 ${sekce.join('\n\n')}
 
 ## Jinde
 
 - [YouTube kanál](https://www.youtube.com/@realtech-cz): videa REALTECH CZ
+- [Herohero](https://herohero.co/realtechcz): profil pro podporovatele (připravujeme)
 - Kontakt: info@realtech.cz
 `;
 

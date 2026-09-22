@@ -1,0 +1,35 @@
+---
+/**
+ * Kolo 48: měkká výzva na /herohero/ — jeden markup i text pro obě místa,
+ * kde stojí: konec článku (pod autorským boxem) a pás na úvodce (za
+ * průvodci, před newsletterem). Stejný kit jako výzva „video není“ (kolo
+ * 44): hairline nahoře, věta v --ink-soft, obrysová pilulka — žádný banner.
+ *
+ * Herohero se zatím připravuje. Text nesmí slibovat hotový obsah, ceny,
+ * úrovně podpory ani termín — co na Herohero bude a co ne, říká jen
+ * src/pages/herohero.astro. Sem patří jedna věta a odkaz na tu stránku;
+ * externí profil (herohero.co/realtechcz) je až tam.
+ */
+interface Props {
+  /** Volitelný nadpis (úvodka). Bez něj je blok jen věta + odkaz (článek). */
+  nadpis?: string;
+  /** Věta výzvy; výchozí je varianta pro konec článku. */
+  text?: string;
+  /** Text odkazu na /herohero/. */
+  odkaz?: string;
+}
+const {
+  nadpis,
+  text = 'Hledáš návody? Na Herohero je připravujeme.',
+  odkaz = 'Co chystáme',
+} = Astro.props;
+const nadpisId = nadpis ? 'herohero-cta-nadpis' : undefined;
+---
+<aside class="herohero-cta" aria-labelledby={nadpisId} aria-label={nadpis ? undefined : 'Herohero'}>
+  <div class="herohero-cta-text">
+    <p class="mono">Herohero · připravujeme</p>
+    {nadpis && <h2 id={nadpisId}>{nadpis}</h2>}
+    <p>{text}</p>
+  </div>
+  <a href="/herohero/" class="btn-ghost">{odkaz} <span aria-hidden="true">→</span></a>
+</aside>

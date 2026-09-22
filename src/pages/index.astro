@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import HeroheroCta from '../components/HeroheroCta.astro';
 import { slugify } from '../lib/slugify.js';
 import { articleLead } from '../lib/article-lead.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
@@ -284,18 +285,13 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
         {rest.map((article) => <ArticleCard article={article} sizes={KARTA_SIZES_HOME_COMPACT} />)}
       </div>
 
-      {pruvodci.length > 0 && (
-        <div class="video-strip guides-section">
-          <div class="section-head">
-            <h2>Průvodci a srovnání</h2>
-            <a href="/temata/">Všechna témata →</a>
-          </div>
-          <div class="grid">
-            {pruvodci.map((article) => <ArticleCard article={article} />)}
-          </div>
-        </div>
-      )}
-
+      {/*
+        Kolo 48: web je trychtýř YouTube → články → Herohero. „Nejnovější
+        videa“ stojí hned pod posledními reporty (dřív až za průvodci), aby
+        nové video bylo druhá cesta z úvodky, ne poslední pásek před
+        newsletterem. Náhledy zůstávají lazy sddefault — nad ohybem nic
+        nepřibývá, LCP je dál cover hero článku (preload v <head> výš).
+      */}
       {videos.length > 0 && (
         <div class="video-strip films-section">
           <div class="section-head">
@@ -328,7 +324,28 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
         </div>
       )}
 
+      {pruvodci.length > 0 && (
+        <div class="video-strip guides-section">
+          <div class="section-head">
+            <h2>Průvodci a srovnání</h2>
+            <a href="/temata/">Všechna témata →</a>
+          </div>
+          <div class="grid">
+            {pruvodci.map((article) => <ArticleCard article={article} />)}
+          </div>
+        </div>
+      )}
 
+      {/*
+        Kolo 48: třetí krok trychtýře — jeden klidný pás před newsletterem
+        (ten dává Base za <main>). Žádný banner, žádné ceny ani sliby:
+        Herohero zatím připravujeme a říká to i text (HeroheroCta.astro).
+      */}
+      <HeroheroCta
+        nadpis="Návody a hlubší obsah chystáme na Herohero."
+        text="Web i YouTube zůstávají zdarma. Herohero bude místo pro podporovatele a návody, které se do videa nevejdou — zatím ho připravujeme."
+        odkaz="Co chystáme na Herohero"
+      />
     </div>
   </section>
 
