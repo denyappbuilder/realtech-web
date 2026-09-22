@@ -399,6 +399,19 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
     spoustecHledani.title = `Hledat (${zkratka})`;
   }
 
+  // Kolo 49: pod 580px navigace roluje (šest položek, viz global.css) —
+  // když se aktivní položka nevejde, doroluje se k ní hned po načtení.
+  // Jen scrollLeft samotné řady: scrollIntoView by při načtení s kotvou
+  // (/o-nas/#kontakt) mohl hnout i stránkou.
+  const aktivniPolozka = document.querySelector<HTMLElement>('nav.main a[aria-current]');
+  const radaNavigace = aktivniPolozka?.closest<HTMLElement>('nav.main');
+  if (aktivniPolozka && radaNavigace && radaNavigace.scrollWidth > radaNavigace.clientWidth) {
+    const polozka = aktivniPolozka.getBoundingClientRect();
+    const rada = radaNavigace.getBoundingClientRect();
+    if (polozka.right > rada.right) radaNavigace.scrollLeft += polozka.right - rada.right + 12;
+    else if (polozka.left < rada.left) radaNavigace.scrollLeft -= rada.left - polozka.left + 12;
+  }
+
   const toggle = document.getElementById('theme-toggle');
   // První nátěr drží media theme-color (--bg light #F6F7F9 / dark #0F1216).
   // Po přepnutí musí chrome (Safari, Android) sledovat ruční téma, ne OS.

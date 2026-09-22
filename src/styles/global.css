@@ -937,6 +937,8 @@ footer.site ul a:hover { color: var(--ink); }
   /* Dvě předvídatelné řady: značka + akce a pod nimi rolovatelná navigace.
      Všechny ovládací prvky drží 44px dotykový cíl, přesto header zůstane pod 96px. */
   header.site .wrap {
+    --hdr-pad: 24px;
+    --nav-item-pad: 7px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
@@ -952,17 +954,37 @@ footer.site ul a:hover { color: var(--ink); }
   header.site .header-actions > * { min-height: 44px; }
   header.site .search-trigger,
   header.site .theme-toggle { width: 44px; height: 44px; }
+  /* Kolo 49: šest položek (kolo 48 přidalo Herohero) se do 342px obsahu
+     wrapu nevešlo — na 390px měřil <ul> 402px, „O nás“ stálo celé za
+     okrajem a na /o-nas/ nebyla aktivní položka vůbec vidět; na 360px
+     zbylo z „O nás“ jen „O“ bez náznaku, že navigace roluje (živě 22. 9.
+     2026). Řada jde od hrany displeje k hraně (záporný okraj = padding
+     wrapu) s vlastním 16/10px odsazením a 44px cíle zůstávají: 0.95rem +
+     7px + 4px mezera = 402px obsahu, vejde se od 441px; pod 440px 0.9rem +
+     5px bez mezery = 342px (od 368px: 375, 390, 393, 412, 430); pod 370px
+     8px odsazení (360px). Kde se přesto nevejde (320px), ukáže stín na
+     okraji, že se dá rolovat — čistě CSS: dva krycí pruhy v --surface rolují
+     s obsahem (attachment: local) a stín pod nimi stojí (scroll); u kraje
+     rolování ho pruh zakryje. Skript v Base.astro pak jen doroluje na
+     aktivní položku. */
   header.site nav.main {
     grid-area: nav;
-    width: 100%;
+    width: auto;
+    margin-inline: calc(-1 * var(--hdr-pad));
+    padding-inline: 16px 10px;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     scrollbar-width: thin;
+    background:
+      linear-gradient(to right, var(--surface) 40%, transparent) left / 32px 100% no-repeat local,
+      linear-gradient(to left, var(--surface) 40%, transparent) right / 32px 100% no-repeat local,
+      linear-gradient(to right, color-mix(in srgb, var(--ink) 14%, transparent), transparent) left / 14px 100% no-repeat scroll,
+      linear-gradient(to left, color-mix(in srgb, var(--ink) 14%, transparent), transparent) right / 14px 100% no-repeat scroll;
   }
   header.site nav.main ul { width: max-content; min-width: 100%; gap: 4px; }
   header.site nav.main a {
     min-height: 44px;
-    padding: 0 10px;
+    padding: 0 var(--nav-item-pad);
     display: flex;
     align-items: center;
   }
@@ -1030,6 +1052,17 @@ footer.site ul a:hover { color: var(--ink); }
   .article-body th,
   .article-body td { padding: 9px 12px; min-width: 6em; }
 }
+@media (max-width: 440px) {
+  /* Kolo 16: pět položek s padding 10px měřilo 349px, na 375px (obsah 327px)
+     i 390px se „O nás" seklo — bez náznaku, že navigace roluje, a na /o-nas/
+     s půlkou červeného podtržení aktivní položky. 7px = 319px, vejde se.
+     Kolo 49: šest položek — 0.9rem (jako dosud pod 370px) + 5px bez mezery
+     = 342px + 26px odsazení řady; celé od 368px, tj. i 375, 390, 393 a 412
+     (řada je od kola 49 přes celou šířku displeje, viz ≤580px). */
+  header.site .wrap { --nav-item-pad: 5px; }
+  header.site nav.main ul { gap: 0; }
+  header.site nav.main a { font-size: 0.9rem; }
+}
 @media (max-width: 400px) {
   /* Kolo 15: na 375px (iPhone SE/13 mini) měřilo logo 132px, akce 200px a mezera
      8px = 340 > 327px obsahu. „CZ" se kreslilo pod tlačítko hledání; 371–400px
@@ -1038,17 +1071,14 @@ footer.site ul a:hover { color: var(--ink); }
   header.site .logo .cz { font-size: 0.5rem; }
   header.site .header-actions { gap: 4px; }
   header.site .yt-btn { padding-inline: 10px; }
-  /* Kolo 16: pět položek s padding 10px měřilo 349px, na 375px (obsah 327px)
-     i 390px se „O nás" seklo — bez náznaku, že navigace roluje, a na /o-nas/
-     s půlkou červeného podtržení aktivní položky. 7px = 319px, vejde se. */
-  header.site nav.main a { padding-inline: 7px; }
 }
 @media (max-width: 370px) {
   /* I na 320–360px se první řada vejde bez překryvu nebo zmenšení 44px cílů. */
-  header.site .wrap { padding-inline: 8px; column-gap: 4px; }
+  header.site .wrap { --hdr-pad: 8px; padding-inline: 8px; column-gap: 4px; }
   header.site .yt-btn { padding-inline: 6px; gap: 6px; font-size: 0.75rem; }
-  /* 320px má na navigaci 304px: 0.9rem + 6px = ~297px, poslední položka celá. */
-  header.site nav.main a { padding-inline: 6px; font-size: 0.9rem; }
+  /* Kolo 49: 342px + 16px odsazení — na 360px celé, na 320px roluje se
+     stínem na okraji (viz ≤580px). */
+  header.site nav.main { padding-inline: 8px; }
 }
 
 .video-embed {

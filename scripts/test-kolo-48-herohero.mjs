@@ -230,5 +230,6 @@ test('kolo 48: .herohero-cta jen v premium.css — kit výzvy „video není“ 
     'od 901px levá hrana wrapu jako ostatní bloky čtecího sloupce (kolo 46)',
   );
   const mobil = premium.match(/@media \(max-width: 580px\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? '';
-  assert.match(mobil, /\.articles \.herohero-cta \{ margin-top: 52px; padding-top: 28px; \}/, 'na mobilu stejné 52px jako .video-strip');
+  // Kolo 49: padding-top pásu na úvodce řeší `.guides-section + .herohero-cta` (test-kolo-49-leftover).
+  assert.match(mobil, /\.articles \.herohero-cta \{ margin-top: 52px; \}/, 'na mobilu stejné 52px jako .video-strip');
 });
