@@ -319,7 +319,14 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .herohero-cta .btn-ghost { flex-shrink: 0; border-color: var(--line); color: var(--ink); }
 .herohero-cta .btn-ghost:hover { border-color: var(--ink-soft); }
 .article-page .herohero-cta { max-width: 760px; }
-.articles .herohero-cta { margin-top: 88px; padding-top: 44px; }
+.articles .herohero-cta { margin-top: 88px; }
+/* Kolo 49: na úvodce stojí pás hned za „Průvodci a srovnání“, které mají
+   vlastní border-block — hairline pásu pod ním dělala dvě linky nad sebou
+   s 88px (mobil 52px) prázdna mezi nimi (živě 22. 9. 2026). Za průvodci
+   dělí pás jejich spodní linka; vlastní hairline si pás nechává jen tam,
+   kde před ním žádná není (článek, úvodka bez průvodců). Rytmus: 52px
+   padding průvodců + 88px = stejných 140px jako nad jejich horní linkou. */
+.guides-section + .herohero-cta { border-top: 0; padding-top: 0; }
 /* Kolo 47: navigace Starší/Novější byla poslední blok článku mimo kit —
    8px --radius, --line a titulek v Archivo 750 (broadcast řez, který
    round 3 všude nahradil 650/100 %). Stejné pole jako audio/autor
@@ -379,7 +386,11 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .notfound .lead { font-size: 1.25rem; line-height: 1.65; max-width: 54ch; }
 .notfound-more { margin-top: 64px; }
 .about.about-wide { max-width: 1120px; padding-top: 64px; padding-bottom: 88px; }
-.about h1 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 1.1; letter-spacing: -0.035em; max-width: 17ch; margin-bottom: 28px; }
+/* Kolo 49: hero i hlava článku lámou h1 s text-wrap: balance, O nás, /herohero/
+   a /gdpr/ ne — „Návody a hlubší obsah / chystáme na / Herohero.“ nechávalo
+   na 1440px poslední slovo samotné (živě 22. 9. 2026). Stejné pravidlo pro
+   celý kit nadpisů stránek. */
+.about h1 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: clamp(2.25rem, 4.5vw, 3.75rem); line-height: 1.1; letter-spacing: -0.035em; max-width: 17ch; margin-bottom: 28px; text-wrap: balance; }
 .about > p { max-width: 64ch; font-size: 1.25rem; line-height: 1.65; }
 .about-layout { gap: 64px; margin-top: 48px; }
 .about-main p { font-size: 1.1rem; line-height: 1.8; }
@@ -512,7 +523,7 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
   .topic-navigation > div { column-gap: 18px; }
   .video-strip { margin-top: 52px; }
   .guides-section { padding-block: 36px; }
-  .articles .herohero-cta { margin-top: 52px; padding-top: 28px; }
+  .articles .herohero-cta { margin-top: 52px; }
   .articles.hub, [data-archive].hub { padding-top: 36px; }
   [data-archive] .archive-heading h1, .hub .section-head h1 { font-size: 2.5rem; }
   [data-archive] .search-form { gap: 8px; }
