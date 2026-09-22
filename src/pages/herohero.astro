@@ -1,0 +1,108 @@
+---
+import Base from '../layouts/Base.astro';
+
+/**
+ * /herohero/ — Kolo 48. Poctivá stránka „zatím připravujeme“.
+ *
+ * Web má vést čtenáře trychtýřem YouTube → články → Herohero; Herohero
+ * (návody, hlubší obsah, podpora) je hlavní cesta k monetizaci. Zatím na
+ * něm ale nic hotového není — a tahle stránka to říká narovinu. Co sem
+ * NEPATŘÍ: vymyšlené ceny a úrovně podpory, počty podporovatelů, termín
+ * spuštění, „zapiš se na čekací listinu“ ani seznam návodů, které
+ * neexistují. Až bude první návod hotový, mění se tahle stránka — ne
+ * dřív. Značka se píše Herohero (jedno slovo).
+ *
+ * Bez preconnectYtimg/preconnectAudio — stránka žádný náhled z i.ytimg.com
+ * ani mp3 nenese (test-preconnect).
+ */
+const HEROHERO = 'https://herohero.co/realtechcz';
+const YT = 'https://www.youtube.com/@realtech-cz';
+const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
+
+const popis = 'Návody a hlubší obsah REALTECH CZ chystáme na Herohero. Zatím připravujeme — články na webu i videa na YouTube zůstávají zdarma.';
+const orgId = `${Astro.site?.href}#org`;
+const heroheroUrl = new URL('/herohero/', Astro.site).href;
+const pageLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Herohero — připravujeme',
+  description: popis,
+  url: heroheroUrl,
+  inLanguage: 'cs',
+  about: { '@id': orgId },
+  publisher: { '@id': orgId },
+  isPartOf: { '@type': 'WebSite', url: Astro.site?.href, name: 'REALTECH CZ' },
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'Herohero', item: heroheroUrl },
+  ],
+};
+---
+<Base title="Herohero — návody připravujeme — REALTECH CZ" description={popis}>
+  <script type="application/ld+json" set:html={JSON.stringify(pageLd)} slot="head" is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
+  <section class="about about-wide wrap">
+    <div class="lower-third">
+      <span class="tag">Herohero</span>
+      <span class="tag tag-zprava">Připravujeme</span>
+    </div>
+    <h1>Návody a hlubší obsah chystáme na Herohero.</h1>
+    <p>
+      REALTECH CZ zůstává, jak ho znáš: novinky a analýzy tady na webu, videa na YouTube —
+      zdarma. Herohero připravujeme jako místo pro ty, kdo chtějí jít dál: návody krok za
+      krokem a možnost podpořit to, co děláme. Zatím tam nic hotového není.
+    </p>
+
+    <div class="about-layout">
+      <div class="about-main">
+        <h2>Co tam bude</h2>
+        <p>
+          Návody, které se do videa nevejdou: jak věci nastavit, rozjet a používat — od AI
+          nástrojů po hardware, který sami testujeme. Konkrétní témata teprve skládáme.
+          Až bude první návod hotový, dáme vědět tady, na YouTube i v newsletteru.
+        </p>
+
+        <h2>Co se nemění</h2>
+        <p>
+          Články na realtech.cz i videa na YouTube zůstávají volně dostupné. Herohero je
+          cesta pro podporovatele a pro návody navíc — ne zámek na tom, co už tu je.
+        </p>
+
+        <h2>Kde to sledovat</h2>
+        <p>
+          Profil na Herohero už je založený, obsah do něj teprve chystáme. Když nechceš nic
+          propásnout, sleduj kanál nebo si zatím přečti, co je nového.
+        </p>
+
+        <div class="hero-actions">
+          <a href={HEROHERO} class="btn-primary">Profil na Herohero</a>
+          <a href={YT_SUB} class="btn-ghost">Odebírat na YouTube</a>
+          <a href="/clanky/" class="btn-ghost">Přečíst články</a>
+        </div>
+      </div>
+
+      <aside class="about-aside">
+        <p class="mono">Stav</p>
+        <ul class="about-aside-meta">
+          <li><strong>Připravujeme</strong> — zatím bez návodů</li>
+          <li>Profil: <a href={HEROHERO}>herohero.co/realtechcz</a></li>
+        </ul>
+        <p class="mono">Kam dál</p>
+        <ul class="about-aside-meta">
+          <li><a href={YT}>YouTube kanál</a></li>
+          <li><a href="/clanky/">Všechny články</a></li>
+          <li><a href="/o-nas/">O nás</a></li>
+        </ul>
+        <p class="mono">Proč Herohero</p>
+        <p class="about-aside-quote">
+          Návody chtějí čas a klid, který se do rychlé novinky nevejde. Podpora na Herohero
+          ten čas zaplatí — a web s YouTube zůstanou pro všechny.
+        </p>
+      </aside>
+    </div>
+  </section>
+</Base>

@@ -13,6 +13,7 @@ import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import AudioPrehled from '../../components/AudioPrehled.astro';
 import Giscus from '../../components/Giscus.astro';
+import HeroheroCta from '../../components/HeroheroCta.astro';
 import { jsonLdText, pripojAudioKClanku, vytvorAudioObject } from '../../lib/audio-prehled.js';
 import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
 import { preloadHeroObrazku } from '../../lib/hero-preload.js';
@@ -435,6 +436,14 @@ const breadcrumbLd = {
           </div>
         </div>
       </div>
+
+      {/*
+        Kolo 48: jediná měkká výzva na /herohero/ v článku — až za autorským
+        boxem, ne v textu ani mezi hero a prvním odstavcem (Z1003 platí i
+        tady). Sdílená komponenta s úvodkou; výchozí věta „Hledáš návody?
+        Na Herohero je připravujeme.“ nic neslibuje.
+      */}
+      <HeroheroCta />
 
       {related.length > 0 && (
         <div class="related">

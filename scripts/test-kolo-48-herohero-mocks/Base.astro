@@ -1,0 +1,10 @@
+---
+// Stub layoutu pro test-kolo-48-herohero: skutečný Base.astro tahá fonty
+// (?url), CSS a astro:content — v Node se nespustí. Stránka se testuje bez
+// chrome webu; title a description jdou do data-* atributů, oba sloty dovnitř.
+const { title, description } = Astro.props;
+---
+<div data-base-stub data-title={title} data-description={description}>
+  <div data-slot="head"><slot name="head" /></div>
+  <main id="obsah"><slot /></main>
+</div>

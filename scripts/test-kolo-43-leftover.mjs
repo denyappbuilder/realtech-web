@@ -95,9 +95,11 @@ test('kolo 43: --line-strong je o krok tmavší jen pro oddělovače sekcí — 
   // Kolo 46: autorský box je panel ve čtecím sloupci jako audio/videobar — stejný rámeček.
   // Kolo 47: zbylé panely čtecího sloupce (výzva B19, navigace Starší/Novější, komentáře)
   // a oddělovače v textu (citát, hlavička tabulky) — dřív 1px --line, které na --bg nebylo vidět.
+  // Kolo 48: měkká výzva Herohero (článek + úvodka) = tentýž hairline jako výzva bez videa.
   assert.deepEqual(selektory.sort(), [
     '.audio-prehled, .article-videobar', '.article-videobar-bez-videa', '.author-box', '.related', '.tema-souvisi',
     '.article-body blockquote', '.article-body th', '.article-cta-inline', '.an-item', '.komentare-placeholder',
+    '.herohero-cta',
   ].sort(), `--line-strong jen na oddělovačích sekcí a panelech čtecího sloupce, je: ${selektory}`);
   assert.match(pravidlo(premium, '[data-archive] .filter-empty'), /var\(--line\)/, 'pole archivu drží --line');
   assert.match(mobil, /header\.site nav\.main \{[^}]*var\(--line\)/, 'header drží --line');

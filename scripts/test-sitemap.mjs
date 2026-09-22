@@ -120,6 +120,9 @@ test('statické URL dostanou nejnovější datum ze všech článků', async () 
     'https://realtech.cz/',
     'https://realtech.cz/clanky/',
     'https://realtech.cz/o-nas/',
+    // Kolo 48: /herohero/ je statická stránka bez vlastního lastmod —
+    // sitemap ji nefiltruje (jen /vitej/) a dostane datum nejnovějšího článku.
+    'https://realtech.cz/herohero/',
   ]) {
     assert.equal(serialize(options, url).lastmod, '2026-03-04T00:00:00.000Z');
   }

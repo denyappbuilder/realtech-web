@@ -256,6 +256,11 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         <li><a href="/clanky/" aria-current={current('/clanky/')}>Články</a></li>
         <li><a href="/temata/" aria-current={current('/temata/')}>Témata</a></li>
         <li><a href={YT}>Videa</a></li>
+        {/* Kolo 48: trychtýř YouTube → články → Herohero. Herohero stojí za
+            Videa a před O nás; Videa zůstávají odkazem na kanál. Pod 400px
+            šest položek přesáhne šířku a navigace roluje (overflow-x: auto
+            od kola 16) — to je záměr, ne zmenšovat 44px cíle. */}
+        <li><a href="/herohero/" aria-current={current('/herohero/')}>Herohero</a></li>
         <li><a href="/o-nas/" aria-current={current('/o-nas/')}>O nás</a></li>
       </ul>
     </nav>
@@ -348,6 +353,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
           <li><a href={YT}>YouTube</a></li>
           <li><a href="/clanky/">Články</a></li>
           <li><a href="/temata/">Témata</a></li>
+          <li><a href="/herohero/">Herohero</a></li>
           <li><a href="/o-nas/">O nás</a></li>
           {/*
             Kolo 26: mailto v patičce Cloudflare přepisoval na
