@@ -170,7 +170,8 @@ test('kolo 46: klientský skript archivu hledá čip ke kategorii z URL stejně 
 test('kolo 46: na ≥ 901px sedí hlava, cover, audio, sdílení, autor, related i navigace článku na levé hraně wrapu', () => {
   const desktop = blok(premium, /@media \(min-width: 901px\)/);
   assert.ok(desktop, 'premium.css: blok @media (min-width: 901px) chybí');
-  const hrana = desktop.match(/\.article-page \.article-head,\s*\.article-hero, \.video-embed, \.audio-prehled, \.article-videobar,\s*\.article-share, \.author-box, \.related, \.article-nav, \.komentare, \.article-back \{([^}]*)\}/)?.[1];
+  // Kolo 48: měkká výzva Herohero (.herohero-cta) sedí ve čtecím sloupci za autorským boxem — stejná hrana.
+  const hrana = desktop.match(/\.article-page \.article-head,\s*\.article-hero, \.video-embed, \.audio-prehled, \.article-videobar,\s*\.article-share, \.author-box, \.herohero-cta, \.related, \.article-nav, \.komentare, \.article-back \{([^}]*)\}/)?.[1];
   assert.ok(hrana, 'společné pravidlo levé hrany chybí');
   assert.match(hrana, /^\s*margin-left:\s*0;\s*$/, 'jen margin-left — šířky (760px, kolo 22) a svislý rytmus se nemění');
   // Šířky zůstávají: global.css (kolo 22) i premium hlava.

@@ -31,7 +31,8 @@ test("gdpr: patička (sloupec Web) vede na /gdpr/ hned za Kontaktem jako posledn
   assert.ok(kontakt < gdprOdkaz, "Ochrana údajů nestojí za Kontaktem");
   const polozky = sloupecWeb.match(/<li>/g) ?? [];
   const posledni = sloupecWeb.lastIndexOf("<li>");
-  assert.equal(polozky.length, 6, `sloupec Web má ${polozky.length} položek, čekalo se 6`);
+  // Kolo 48: sedmá položka Herohero (mezi Témata a O nás), Ochrana údajů zůstává poslední.
+  assert.equal(polozky.length, 7, `sloupec Web má ${polozky.length} položek, čekalo se 7`);
   assert.ok(posledni !== -1 && sloupecWeb.indexOf('href="/gdpr/"') > posledni, "Ochrana údajů není poslední položka sloupce Web");
   assert.doesNotMatch(paticka, /mailto:info@realtech\.cz/, "kolo 26: mailto v patičce CF přepisuje na 404");
 });
