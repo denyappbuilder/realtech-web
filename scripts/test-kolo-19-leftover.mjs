@@ -96,7 +96,7 @@ test("kolo 19: odkazy v odstavcích O nás mají barvu i podtržení", () => {
   // Test má smysl jen dokud v odstavcích O nás odkazy bez třídy opravdu jsou.
   const main = oNas.slice(oNas.indexOf('class="about-main"'), oNas.indexOf('class="about-aside"'));
   const proste = main.match(/<a href="[^"]+">/g) ?? [];
-  assert.ok(proste.length >= 3, `O nás má v textu ${proste.length} prostých odkazů, čekaly se aspoň 3 (RealTvorba ×2, e-mail)`);
+  assert.ok(proste.length >= 2, `O nás má v textu ${proste.length} prostých odkazů, čekaly se aspoň 2 (e-mail, Ochrana údajů)`);
 });
 
 // ── Hledání (⌘K): dialog má zavírací tlačítko ───────────────────────────
