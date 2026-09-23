@@ -68,9 +68,12 @@ header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl
   padding: 56px; gap: 56px;
 }
 .newsletter h2 {
+  overflow-wrap: anywhere; hyphens: auto;
   font-family: var(--rd-display); font-weight: 800; font-stretch: 118%; letter-spacing: -0.035em;
   font-size: clamp(2rem, 3.6vw, 3.4rem); line-height: 1; color: var(--bg);
 }
+.newsletter > .wrap > * { min-width: 0; }
+.newsletter .nl-form input { min-width: 0; }
 .newsletter p, .newsletter .nl-note { color: color-mix(in srgb, var(--bg) 72%, var(--ink)); }
 .newsletter .nl-note a { color: var(--bg); }
 .newsletter .nl-form input { background: var(--bg); color: var(--ink); border: 0; border-radius: 6px; }
@@ -110,14 +113,9 @@ header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl
 .article-body h3 { font-family: var(--rd-display); font-weight: 700; font-stretch: 108%; }
 .article-body a { text-decoration-color: var(--signal); text-decoration-thickness: 1.5px; }
 .audio-prehled { border-radius: 6px; }
-/* Hlava článku už nese přehrávač — karta audia pod coverem by byla druhý
-   přehrávač hned pod prvním. Karta zůstává (délka, stažení MP3, velikost,
-   přepis), jen bez duplicitního nativního přehrávače a popisu. Bez JS
-   (RtPlayer je pak odkaz na MP3) i u článků bez hlavy s přehrávačem se
-   nemění nic. */
-html.rt-js .article-page:has(.head-player) .audio-prehled audio,
-html.rt-js .article-page:has(.head-player) .audio-prehled-popis { display: none; }
-html.rt-js .article-page:has(.head-player) .audio-prehled { padding-block: 16px; }
+/* Karta Audio přehled zůstává celá: nativní přehrávač nese posun, hlasitost
+   a rychlost (Deep Dive má ~25 min) a přepis. Signaturní přehrávač v hlavě
+   je rychlý start, ne náhrada (review kola 52). */
 .related { border-top: 2px solid var(--ink); }
 
 @media (max-width: 900px) {
@@ -128,11 +126,18 @@ html.rt-js .article-page:has(.head-player) .audio-prehled { padding-block: 16px;
   .hero p.lead { font-size: 1.05rem; margin-bottom: 20px; }
   .rt-player { flex-wrap: wrap; }
   .rt-wave { order: 3; flex: 1 0 100%; height: 28px; }
-  .newsletter > .wrap { padding: 32px 24px; gap: 24px; margin-inline: 16px; width: auto; }
+  .newsletter > .wrap { padding: 32px 20px; gap: 24px; margin-inline: 12px; grid-template-columns: minmax(0, 1fr); }
   .mimo-ai { margin-top: 56px; }
 }
 @media (max-width: 580px) {
-  .nl-btn { padding-inline: 12px; font-size: 0.9rem; }
+  .nl-btn { padding-inline: 10px; font-size: 0.875rem; }
+  /* Pět prvků v řadě (logo, hledání, téma, Odebírat, YouTube): na 390px
+     se „CZ“ dotýkalo lupy. Akce drží 44px cíle, jen se zúží mezery. */
+  header.site .header-actions { gap: 0; }
+  header.site .search-trigger, header.site .theme-toggle { min-width: 44px; width: 44px; padding-inline: 0; justify-content: center; }
+  header.site .logo .cz { display: none; }
+  header.site .search-trigger .st-kbd { display: none; }
+  header.site .yt-btn { padding-inline: 6px; }
   .hero h1, .hero h1.h1-dlouhy { font-size: 2.2rem; line-height: 1.02; }
   .article-head h1 { font-size: 2rem; }
   .article-head p.lead { font-size: 1.1rem; }

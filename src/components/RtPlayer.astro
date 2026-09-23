@@ -17,7 +17,7 @@ interface Props {
 }
 
 const { audio, seed, label = 'Poslechni si', class: trida } = Astro.props;
-const pohled = audioPrehledPohled(audio as never, Astro.site);
+const pohled = audioPrehledPohled(audio, Astro.site);
 let s = [...seed].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 233280, 7);
 const sloupce = Array.from({ length: 56 }, (_, i) => {
   s = (s * 9301 + 49297) % 233280;
@@ -26,7 +26,7 @@ const sloupce = Array.from({ length: 56 }, (_, i) => {
 ---
 {pohled && (
   <div class:list={['rt-player', trida]} data-rt-player>
-    <a class="rt-play" href={pohled.src} data-rt-play aria-label={`${label}: audio přehled, ${pohled.delkaText}`}>
+    <a class="rt-play" href={pohled.src} data-rt-play aria-label={`Přehrát audio přehled, ${pohled.delkaText}`}>
       <svg class="rt-ico-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.8v12.4c0 .6.7 1 1.2.7l10-6.2c.5-.3.5-1.1 0-1.4l-10-6.2C3.7.8 3 1.2 3 1.8z" /></svg>
       <svg class="rt-ico-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2h3v12h-3zM9.5 2h3v12h-3z" /></svg>
     </a>
@@ -45,7 +45,6 @@ const sloupce = Array.from({ length: 56 }, (_, i) => {
     const s = Math.floor(t % 60);
     return `${m}:${String(s).padStart(2, '0')}`;
   };
-  document.documentElement.classList.add('rt-js');
   document.querySelectorAll<HTMLElement>('[data-rt-player]').forEach((box) => {
     const btn = box.querySelector<HTMLAnchorElement>('[data-rt-play]');
     const audio = box.querySelector<HTMLAudioElement>('[data-rt-audio]');
@@ -56,10 +55,12 @@ const sloupce = Array.from({ length: 56 }, (_, i) => {
     btn.setAttribute('role', 'button');
     btn.setAttribute('aria-pressed', 'false');
     btn.addEventListener('click', (e) => {
+      // Ctrl/⌘/Shift/prostřední klik = otevřít MP3 v nové kartě, jako u odkazu.
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       e.preventDefault();
       if (audio.paused) {
         document.querySelectorAll<HTMLAudioElement>('[data-rt-audio]').forEach((a) => a !== audio && a.pause());
-        void audio.play();
+        audio.play().catch(() => { window.location.href = btn.href; });
       } else audio.pause();
     });
     btn.addEventListener('keydown', (e) => {
@@ -79,12 +80,13 @@ const sloupce = Array.from({ length: 56 }, (_, i) => {
       bars.forEach((b, i) => b.classList.toggle('on', i < hotovo));
       if (time) time.textContent = `${fmt(audio.currentTime)} / ${puvodni}`;
     });
-    // Klik do vlnovky = posun (jen myš; klávesnice má nativní přehrávač v článku).
+    // Klik do vlnovky = posun (jen myš; posun klávesnicí nabízí nativní
+    // přehrávač v kartě Audio přehled, ta zůstává celá).
     box.querySelector('.rt-wave')?.addEventListener('click', (e) => {
       const w = e.currentTarget as HTMLElement;
       const r = w.getBoundingClientRect();
       const p = ((e as MouseEvent).clientX - r.left) / r.width;
-      if (!audio.duration) { void audio.play(); return; }
+      if (!audio.duration) { audio.play().catch(() => {}); return; }
       audio.currentTime = Math.max(0, Math.min(1, p)) * audio.duration;
     });
   });

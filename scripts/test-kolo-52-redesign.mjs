@@ -12,7 +12,9 @@ const css = cti("src/styles/redesign.css");
 test("kolo 52: přehrávač nestahuje MP3 před kliknutím a bez JS zůstává odkaz", () => {
   assert.match(player, /<audio preload="none"/, "preload musí být none — úvodka nesmí tahat MP3");
   assert.match(player, /<a class="rt-play" href=\{pohled\.src\}/, "bez JS musí tlačítko vést na MP3");
-  assert.match(player, /aria-label=\{`\$\{label\}: audio přehled/, "tlačítko potřebuje jméno pro čtečku");
+  assert.match(player, /aria-label=\{`Přehrát audio přehled, \$\{pohled\.delkaText\}`\}/, "tlačítko potřebuje jméno pro čtečku");
+  assert.match(player, /audio\.play\(\)\.catch\(\(\) => \{ window\.location\.href = btn\.href; \}\)/, "odmítnuté přehrávání musí spadnout na odkaz MP3");
+  assert.match(player, /e\.button !== 0 \|\| e\.metaKey \|\| e\.ctrlKey/, "ctrl/⌘/prostřední klik otevírá MP3 jako odkaz");
   assert.match(player, /setAttribute\('aria-pressed'/, "stav přehrávání musí být v aria-pressed");
   assert.match(player, /class="rt-wave" aria-hidden="true"/, "vlnovka je dekorace");
 });
@@ -45,4 +47,15 @@ test("kolo 52: redesign používá jen tokeny webu, takže tmavý režim drží"
   assert.deepEqual([...new Set(barvy)], ["#fff"], "jediná natvrdo barva je bílá na červeném tlačítku");
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(css, /\.rt-play\s*\{[^}]*height: var\(--rd-play\)/, "tlačítko 52px ≥ 44px cíl");
+});
+
+test("kolo 52: newsletter na 320px nepřetéká (review: slovo v h2 a formulář roztáhly stránku na 326px)", () => {
+  assert.match(css, /\.newsletter > \.wrap > \* \{ min-width: 0; \}/, "položky mřížky newsletteru musí umět být užší než obsah");
+  assert.match(css, /\.newsletter h2 \{\s*overflow-wrap: anywhere; hyphens: auto;/, "dlouhé slovo v nadpisu se musí umět zlomit");
+  assert.match(css, /\.newsletter > \.wrap \{[^}]*grid-template-columns: minmax\(0, 1fr\)/, "mobilní sloupec newsletteru minmax(0, 1fr)");
+});
+
+test("kolo 52: karta Audio přehled zůstává celá — nativní přehrávač se neschovává", () => {
+  const bezKomentaru = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  assert.doesNotMatch(bezKomentaru, /\.audio-prehled[^{]*audio[^{]*\{[^}]*display:\s*none/, "posun, hlasitost a rychlost nesmí zmizet");
 });
