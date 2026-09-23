@@ -57,13 +57,27 @@ const breadcrumbLd = {
       krokem a možnost podpořit to, co děláme. Zatím tam nic hotového není.
     </p>
 
+    {/* Kolo 51: výzvy stály až pod třemi odstavci (na 390px pod první
+        obrazovkou) a „primární“ Herohero kreslil premium jako podtržený
+        text, slabší než dvě obrysové pilulky vedle. Teď hned pod perexem:
+        Herohero plná pilulka, YouTube obrysová, články jen odkaz v poznámce. */}
+    <div class="herohero-akce">
+      <div class="hero-actions">
+        <a href={HEROHERO} class="btn-primary">Profil na Herohero</a>
+        <a href={YT_SUB} class="btn-ghost">Odebírat na YouTube</a>
+      </div>
+      <p class="herohero-akce-note">
+        Profil je založený, návody do něj teprve chystáme. Do té doby
+        <a href="/clanky/">čti články na webu</a> — zdarma jako dosud.
+      </p>
+    </div>
+
     <div class="about-layout">
       <div class="about-main">
         <h2>Co tam bude</h2>
         <p>
           Návody, které se do videa nevejdou: jak věci nastavit, rozjet a používat — od AI
           nástrojů po hardware, který sami testujeme. Konkrétní témata teprve skládáme.
-          Až bude první návod hotový, dáme vědět tady, na YouTube i v newsletteru.
         </p>
 
         <h2>Co se nemění</h2>
@@ -74,15 +88,10 @@ const breadcrumbLd = {
 
         <h2>Kde to sledovat</h2>
         <p>
-          Profil na Herohero už je založený, obsah do něj teprve chystáme. Když nechceš nic
-          propásnout, sleduj kanál nebo si zatím přečti, co je nového.
+          Až bude první návod hotový, dáme vědět na YouTube, tady na webu i
+          v <a href="#newsletter">newsletteru</a>. Když nechceš nic propásnout, odebírej kanál
+          nebo si nech posílat e-maily.
         </p>
-
-        <div class="hero-actions">
-          <a href={HEROHERO} class="btn-primary">Profil na Herohero</a>
-          <a href={YT_SUB} class="btn-ghost">Odebírat na YouTube</a>
-          <a href="/clanky/" class="btn-ghost">Přečíst články</a>
-        </div>
       </div>
 
       <aside class="about-aside">

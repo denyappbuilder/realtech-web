@@ -5,7 +5,7 @@ import { marked } from 'marked';
 import { articleOutline } from '../src/lib/article-outline.js';
 
 const articles = [
-  ['chatgpt-ve-wordu-zdarma-checklist-osvc', 8],
+  ['chatgpt-ve-wordu-zdarma-checklist', 8],
   ['claude-cowork-docs-slides-checklist', 6],
   ['openai-misalignment-reports-pet-pravidel-agenti', 7],
 ];

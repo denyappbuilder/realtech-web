@@ -54,7 +54,7 @@ Zároveň je to první moment, kdy Claude nejenom radí, ale **vytváří výstu
 - Nech výchozí nastavení, kdy se Claude před akcí ptá. Režim „pracuj dál a ozvi se" je fajn pro interní věci, ne pro cokoliv, co míří ke klientovi.
 - Než dokument nebo slidy sdílíš odkazem nebo pošleš exportem, projdi je člověk. Anthropic sám říká, že poslední slovo máš ty – ber to doslova.
 - Zkontroluj konkrétně: ceny, termíny, názvy klienta, právní formulace, sliby o tom, co dodáš. Přesně tam AI nejčastěji doplní něco, co vypadá věrohodně, ale nemáš to podložené.
-- Pokud ve firmě používáš [šablony nabídek nebo schvalovací proces](/clanky/chatgpt-ve-wordu-zdarma-checklist-osvc/), výstup z Claude do něj zapadá stejně jako výstup od juniora: musí projít kontrolou.
+- Pokud ve firmě používáš [šablony nabídek nebo schvalovací proces](/clanky/chatgpt-ve-wordu-zdarma-checklist/), výstup z Claude do něj zapadá stejně jako výstup od juniora: musí projít kontrolou.
 
 **3. Export není náhrada Workspace ani Office jako systému**
 

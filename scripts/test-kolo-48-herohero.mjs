@@ -68,7 +68,8 @@ test('kolo 48: /herohero/ se vykreslí — štítek Připravujeme, primární CT
   assert.match(html, /<h1>[^<]*Herohero[^<]*<\/h1>/);
   assert.match(html, new RegExp(`<a href="${HEROHERO.replace(/[./]/g, '\\$&')}" class="btn-primary">`), 'primární CTA vede na veřejný profil');
   assert.match(html, new RegExp(`<a href="${YT_SUB.replace(/[.?/]/g, '\\$&')}" class="btn-ghost">Odebírat na YouTube</a>`));
-  assert.match(html, /<a href="\/clanky\/" class="btn-ghost">Přečíst články<\/a>/);
+  // Kolo 51: články jsou třetí krok — odkaz v poznámce pod výzvami, ne třetí pilulka.
+  assert.match(html, /<p class="herohero-akce-note">[^<]*<a href="\/clanky\/">čti články na webu<\/a>/);
   assert.match(html, /"@type":"WebPage"[^<]*"url":"https:\/\/realtech\.cz\/herohero\/"/, 'JSON-LD WebPage s URL stránky');
   assert.match(html, /"@type":"BreadcrumbList"[^<]*"name":"Herohero"/, 'breadcrumb končí na Herohero');
   assert.match(html, /class="about about-wide wrap"/, 'stejný layout jako O nás — žádný nový kit');

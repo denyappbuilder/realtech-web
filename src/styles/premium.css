@@ -333,6 +333,14 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
    kde před ním žádná není (článek, úvodka bez průvodců). Rytmus: 52px
    padding průvodců + 88px = stejných 140px jako nad jejich horní linkou. */
 .guides-section + .herohero-cta { border-top: 0; padding-top: 0; }
+/* Kolo 51: /herohero/ je stránka jedné výzvy — tam .hero-actions .btn-primary
+   zůstává plná pilulka z global.css (jinde v .hero-actions podtržený text).
+   Hover míchá --ink s --bg, takže funguje v obou tématech. */
+.herohero-akce .hero-actions .btn-primary { background: var(--ink); color: var(--bg); padding: 12px 22px; border-radius: var(--radius-control); text-decoration: none; }
+:root .herohero-akce .hero-actions .btn-primary:hover { background: color-mix(in srgb, var(--ink) 86%, var(--bg)); color: var(--bg); }
+.herohero-akce .herohero-akce-note { margin: 14px 0 0; font-size: 0.92rem; }
+.herohero-akce-note a { color: var(--signal-dark); text-decoration: underline; text-underline-offset: 2px; }
+.herohero-akce-note a:hover { color: var(--ink); }
 /* Kolo 47: navigace Starší/Novější byla poslední blok článku mimo kit —
    8px --radius, --line a titulek v Archivo 750 (broadcast řez, který
    round 3 všude nahradil 650/100 %). Stejné pole jako audio/autor

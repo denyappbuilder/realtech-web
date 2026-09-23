@@ -137,8 +137,8 @@ test('kolo 50: řada „video není“ je věta + textový odkaz, ne druhé tla�
 
 // ── P2: OSVČ ─────────────────────────────────────────────────────────────────
 
-test('kolo 50: titulek Word článku a perex Gemini/Workspace bez OSVČ framingu (slug beze změny)', () => {
-  const word = cti('src/content/clanky/chatgpt-ve-wordu-zdarma-checklist-osvc.md');
+test('kolo 50: titulek Word článku a perex Gemini/Workspace bez OSVČ framingu (slug přejmenován v kole 51)', () => {
+  const word = cti('src/content/clanky/chatgpt-ve-wordu-zdarma-checklist.md');
   const gemini = cti('src/content/clanky/gemini-workspace-konektory-hubspot-quickbooks-checklist.md');
   const fm = (md, pole) => md.match(new RegExp(`^${pole}: "(.*)"$`, 'm'))?.[1] ?? '';
   assert.equal(fm(word, 'title'), 'ChatGPT ve Wordu zdarma: doplněk vs Copilot a checklist před odesláním');

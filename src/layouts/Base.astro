@@ -103,6 +103,9 @@ const {
 } = Astro.props;
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
+// Handle na X se nerozlišuje velikostí písmen; velkými by ho čtečka četla
+// jako jedno slovo (kolo 22) — proto malými.
+const X_HANDLE = '@realtechcz';
 const path = Astro.url.pathname;
 const current = (href: string) =>
   (href === '/' ? path === '/' : path === href || path.startsWith(href)) ? 'page' : undefined;
@@ -177,6 +180,7 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
   <meta property="og:site_name" content="REALTECH CZ" />
   <meta property="og:locale" content="cs_CZ" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content={X_HANDLE} />
   <meta name="twitter:title" content={socialniTitulek} />
   <meta name="twitter:description" content={popisSeo} />
   <meta name="twitter:image" content={ogImage} />
