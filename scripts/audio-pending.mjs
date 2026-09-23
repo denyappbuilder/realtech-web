@@ -1,6 +1,7 @@
 export const AUDIO_PENDING = new Set([
   // 2026-09-23: publikováno bez podcastu na výslovné přání Deny (SKIPPED_BY_DENY).
   'grok-bot-astra-tym-agentu',
+  'vlastni-web-s-ai-github-cloudflare-pages',
 ]);
 
 /**
