@@ -1,0 +1,93 @@
+---
+/*
+ * Kolo 52 (redesign „Poslouchej, čti, odeber“): signaturní přehrávač webu.
+ * Velké červené tlačítko + vlnovka. Vlnovka je dekorace odvozená z id
+ * článku (deterministická, stejná při každém buildu), nese jen průběh.
+ * Soubor se nestahuje, dokud čtenář neklikne: <audio preload="none">.
+ * Bez JS zůstává odkaz na MP3 (tlačítko je <a>, skript z něj dělá přehrávač).
+ */
+import { audioPrehledPohled } from '../lib/audio-prehled.js';
+
+interface Props {
+  audio?: { url: string; duration: string | number };
+  seed: string;
+  /** Popisek vedle délky, např. „Poslechni si“. */
+  label?: string;
+  class?: string;
+}
+
+const { audio, seed, label = 'Poslechni si', class: trida } = Astro.props;
+const pohled = audioPrehledPohled(audio, Astro.site);
+let s = [...seed].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 233280, 7);
+const sloupce = Array.from({ length: 56 }, (_, i) => {
+  s = (s * 9301 + 49297) % 233280;
+  return 20 + Math.round((s / 233280) * 80 * Math.abs(Math.sin(i / 6 + 0.4)));
+});
+---
+{pohled && (
+  <div class:list={['rt-player', trida]} data-rt-player>
+    <a class="rt-play" href={pohled.src} data-rt-play aria-label={`Přehrát audio přehled, ${pohled.delkaText}`}>
+      <svg class="rt-ico-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.8v12.4c0 .6.7 1 1.2.7l10-6.2c.5-.3.5-1.1 0-1.4l-10-6.2C3.7.8 3 1.2 3 1.8z" /></svg>
+      <svg class="rt-ico-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2h3v12h-3zM9.5 2h3v12h-3z" /></svg>
+    </a>
+    <span class="rt-wave" aria-hidden="true">{sloupce.map((v) => <i style={`height:${v}%`}></i>)}</span>
+    <span class="rt-meta">
+      <strong>{label}</strong>
+      <time class="rt-time" datetime={pohled.iso} data-rt-time>{pohled.delkaText}</time>
+    </span>
+    <audio preload="none" src={pohled.src} data-rt-audio></audio>
+  </div>
+)}
+
+<script>
+  const fmt = (t: number) => {
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
+  };
+  document.querySelectorAll<HTMLElement>('[data-rt-player]').forEach((box) => {
+    const btn = box.querySelector<HTMLAnchorElement>('[data-rt-play]');
+    const audio = box.querySelector<HTMLAudioElement>('[data-rt-audio]');
+    const time = box.querySelector<HTMLElement>('[data-rt-time]');
+    const bars = [...box.querySelectorAll<HTMLElement>('.rt-wave i')];
+    if (!btn || !audio) return;
+    const puvodni = time?.textContent ?? '';
+    btn.setAttribute('role', 'button');
+    btn.setAttribute('aria-pressed', 'false');
+    btn.addEventListener('click', (e) => {
+      // Ctrl/⌘/Shift/prostřední klik = otevřít MP3 v nové kartě, jako u odkazu.
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      if (audio.paused) {
+        document.querySelectorAll<HTMLAudioElement>('[data-rt-audio]').forEach((a) => a !== audio && a.pause());
+        audio.play().catch(() => { window.location.href = btn.href; });
+      } else audio.pause();
+    });
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === ' ') { e.preventDefault(); btn.click(); }
+    });
+    const stav = () => {
+      const hraje = !audio.paused;
+      box.classList.toggle('is-playing', hraje);
+      btn.setAttribute('aria-pressed', String(hraje));
+    };
+    audio.addEventListener('play', stav);
+    audio.addEventListener('pause', stav);
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration) return;
+      const p = audio.currentTime / audio.duration;
+      const hotovo = Math.round(p * bars.length);
+      bars.forEach((b, i) => b.classList.toggle('on', i < hotovo));
+      if (time) time.textContent = `${fmt(audio.currentTime)} / ${puvodni}`;
+    });
+    // Klik do vlnovky = posun (jen myš; posun klávesnicí nabízí nativní
+    // přehrávač v kartě Audio přehled, ta zůstává celá).
+    box.querySelector('.rt-wave')?.addEventListener('click', (e) => {
+      const w = e.currentTarget as HTMLElement;
+      const r = w.getBoundingClientRect();
+      const p = ((e as MouseEvent).clientX - r.left) / r.width;
+      if (!audio.duration) { audio.play().catch(() => {}); return; }
+      audio.currentTime = Math.max(0, Math.min(1, p)) * audio.duration;
+    });
+  });
+</script>

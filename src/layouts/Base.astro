@@ -21,6 +21,7 @@ import '../styles/fonts-plex.css';
 import '../styles/global.css';
 import '../styles/editorial.css';
 import '../styles/premium.css';
+import '../styles/redesign.css';
 /*
  * Kolo 44: preload dvou woff2 Plex Sans 400 (latin + latin-ext), kterými je
  * vysázený všechen běžný text (perex, karty, tělo článku, navigace).
@@ -303,6 +304,9 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
         <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
         <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
+      {/* Kolo 52: jedna hlavní výzva = newsletter. YouTube zůstává jako
+          ikona vedle (trychtýř kola 48 platí, jen nesoupeří dvě tlačítka). */}
+      <a href="#newsletter" class="nl-btn">Odebírat</a>
       <a href={YT_SUB} class="yt-btn" aria-label="Odebírat na YouTube">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
         <span class="yt-label">YouTube</span>
