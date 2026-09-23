@@ -102,15 +102,15 @@ test("kolo 29: .nl-done:focus bez rámečku — není to ovládací prvek", () =
 
 // ── P2: sdílení na Facebook má popisek ───────────────────────────────────
 
-test("kolo 29: oba odkazy Facebook mají aria-label „Sdílet na Facebooku“ (aside i patka článku)", () => {
+test("kolo 29: odkaz Facebook má aria-label „Sdílet na Facebooku“", () => {
   const facebook = clanek.match(/<a class="share-btn" href=\{`https:\/\/www\.facebook\.com\/sharer[^>]*>Facebook<\/a>/g) ?? [];
-  assert.equal(facebook.length, 2, "aside + .article-share");
+  assert.equal(facebook.length, 1, "kolo 50: jedno sdílení (aside)");
   for (const odkaz of facebook) {
     assert.match(odkaz, /aria-label="Sdílet na Facebooku"/, odkaz);
     assert.match(odkaz, /target="_blank" rel="noopener"/, "nové okno + noopener zůstává");
   }
   const x = clanek.match(/aria-label="Sdílet na X"/g) ?? [];
-  assert.equal(x.length, 2, "X má popisek z dřívějška, oba");
+  assert.equal(x.length, 1, "X má popisek z dřívějška");
 });
 
 // ── P0: sdílení na desktopu jen jednou ───────────────────────────────────
@@ -129,28 +129,24 @@ function blokMedia(dotaz) {
   return "";
 }
 
-test("kolo 29: .article-share se skrývá přesně tam, kde je aside sticky (≥ 901px a ≥ 640px na výšku)", () => {
+// Kolo 50: kola 29/34 přepínala dvě kopie (aside / .article-share pod
+// textem) podle výšky okna. Teď je v HTML jediná, v aside; test hlídá, že
+// se kreslí v každém okně a druhá kopie se nevrátí.
+test("kolo 29 → 50: jedno „Sdílej dál“ v markupu (aside), kreslí se v každém okně", () => {
   const sticky = blokMedia("\\(min-width: 901px\\) and \\(min-height: 640px\\)");
   assert.ok(sticky, "chybí @media (min-width: 901px) and (min-height: 640px)");
   assert.match(sticky, /\.article-aside\s*\{\s*position:\s*sticky;\s*top:\s*81px;?\s*\}/, "sticky aside z kola 19 zůstává");
-  const skryti = css.match(/@media\s*\(min-width: 901px\) and \(min-height: 640px\)\s*\{\s*\.article-share\s*\{\s*display:\s*none;?\s*\}\s*\}/);
-  assert.ok(skryti, "tři tlačítka sdílení pod textem byla na desktopu totéž podruhé — chybí blok, který .article-share skryje");
-  // Stejná specificita jako základní .article-share { display: flex } —
-  // kdyby blok stál dřív (třeba u sticky aside), základní pravidlo by ho
-  // přebilo a na 1280px by zůstalo šest tlačítek (první pokus kola 29).
-  assert.ok(skryti.index > css.search(/\n\.article-share\s*\{/), "skrytí musí stát v CSS až ZA základním pravidlem .article-share");
+  assert.equal((clanek.match(/class="share-btns"/g) ?? []).length, 1, "jedna sada tlačítek");
+  assert.doesNotMatch(clanek, /class="article-share"/, "druhá kopie pod textem se nevrací");
+  assert.doesNotMatch(css.replace(/\/\*[\s\S]*?\*\//g, ""), /\.article-share\b/, "CSS mrtvé kopie je pryč");
+  assert.doesNotMatch(css, /\.article-aside-share\s*\{[^}]*display:\s*none/, "sdílení v aside se nikde neschovává");
   const tablet = blokMedia("\\(max-width: 900px\\)");
-  assert.match(tablet, /\.article-aside\s*\{\s*display:\s*none;?\s*\}/, "pod 901px je jediná cesta .article-share (kolo 19)");
-  assert.doesNotMatch(tablet, /\.article-share\s*\{[^}]*display:\s*none/, "pod 901px .article-share zůstává — aside tam není");
-  const zakladni = css.match(/\n\.article-share\s*\{([^}]*)\}/)?.[1] ?? "";
-  assert.match(zakladni, /max-width:\s*760px/, "základní (neodsazené) pravidlo .article-share v CSS chybí");
-  assert.doesNotMatch(zakladni, /display:\s*none/, "základní pravidlo nesmí sdílení skrýt všude");
-  assert.equal((clanek.match(/class="share-btns"/g) ?? []).length, 2, "markup nese obě místa — vybírá CSS podle viewportu");
+  assert.match(tablet, /\.article-aside > :not\(\.article-aside-share\)\s*\{\s*display:\s*none;?\s*\}/, "pod 901px z aside zůstává jen sdílení");
 });
 
 test("kolo 29: Kopírovat odkaz má stálé jméno — „Zkopírováno ✓“ v textu hlásí živá oblast", () => {
   const kopirovat = clanek.match(/<button class="share-btn copy-link"[^>]*>Kopírovat odkaz<\/button>/g) ?? [];
-  assert.equal(kopirovat.length, 2);
+  assert.equal(kopirovat.length, 1);
   for (const tlacitko of kopirovat) assert.match(tlacitko, /aria-label="Kopírovat odkaz na článek"/);
   assert.match(clanek, /<p class="sr-only" role="status" aria-live="polite" data-copy-status><\/p>/, "živá oblast z kola 22 zůstává");
   assert.match(clanek, /ohlasKopii\('Odkaz na článek zkopírován'\)/);

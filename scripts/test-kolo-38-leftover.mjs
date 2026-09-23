@@ -311,11 +311,11 @@ test("kolo 38: globální vypínač reduced-motion platí i pro .live-dot a .x-f
 
 // ── P2: Kopírovat odkaz bez JS ───────────────────────────────────────────
 
-test("kolo 38: článek bez JS schová button.copy-link a u obou .share-btns nese <noscript> odkaz na článek", () => {
+test("kolo 38: článek bez JS schová button.copy-link a u .share-btns nese <noscript> odkaz na článek", () => {
   assert.match(clanek, /<noscript slot="head"><style is:inline>button\.copy-link\{display:none\}<\/style><\/noscript>/);
   const dvojice = clanek.match(/<button class="share-btn copy-link"[^>]*>Kopírovat odkaz<\/button>\s*<noscript><a class="share-btn" href=\{articleUrl\}>Odkaz na článek<\/a><\/noscript>/g) ?? [];
-  assert.equal(dvojice.length, 2, "aside i .article-share pod textem (kolo 29/34)");
-  assert.equal((clanek.match(/class="share-btn copy-link"/g) ?? []).length, 2, "tlačítka pro skript zůstávají");
+  assert.equal(dvojice.length, 1, "kolo 50: jedno sdílení (aside)");
+  assert.equal((clanek.match(/class="share-btn copy-link"/g) ?? []).length, 1, "tlačítko pro skript zůstává");
   const body = clanek.match(/<div class="article-page">[\s\S]*<\/Base>/)?.[0] ?? "";
   for (const noscript of body.matchAll(/<noscript>([\s\S]*?)<\/noscript>/g)) {
     assert.doesNotMatch(noscript[1], /<style/, "<style> v <noscript> mimo <head> validátor neuznává");

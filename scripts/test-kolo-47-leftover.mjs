@@ -60,23 +60,22 @@ const mobil = blok(premium, /@media \(max-width: 580px\)/);
 
 // ── P1: jedna pilulka pro každé červené YouTube tlačítko ─────────────────────
 
-test('kolo 47: .yt-btn má v premium.css jeden poloměr 24px (DESIGN.md rounded.control) — hlavička, videobar, výzva B19 i autorský box', () => {
+test('kolo 47: .yt-btn má jeden poloměr 24px (DESIGN.md rounded.control) — hlavička, videobar, výzva B19 i autorský box', () => {
   const yt = pravidlo(premium, '.yt-btn');
   assert.ok(yt, 'premium.css: základní .yt-btn chybí');
-  assert.match(yt, /border-radius:\s*var\(--radius-control\)/);
+  // Kolo 50: poloměr nese základní .yt-btn v global.css, premium už jen padding.
+  assert.match(pravidlo(global, '.yt-btn'), /border-radius:\s*var\(--radius-control\)/);
+  assert.doesNotMatch(yt, /border-radius/);
   assert.match(yt, /padding-inline:\s*20px/, 'pilulka potřebuje o krok víc vodorovného paddingu než 8px roh (18px)');
   assert.doesNotMatch(yt, /background|color:/, 'výplň --signal-fill a bílý text zůstávají z global.css (test-kolo-19)');
   // Žádná další výjimka tvaru: ani autor (kolo 46 hlídá), ani videobar/výzva.
   assert.doesNotMatch(premium, /\.(author-box|article-videobar|article-cta-inline) \.yt-btn\s*\{[^}]*border-radius/);
-  assert.match(pravidlo(premium, '.article-videobar-bez-videa .yt-btn'), /border-radius:\s*var\(--radius-control\)/, 'kolo 44 zůstává, teď už jen potvrzuje základ');
   assert.match(pravidlo(premium, 'header.site .yt-btn'), /border-radius:\s*var\(--radius-control\)/);
   assert.match(pravidlo(premium, '.btn-primary, .btn-ghost'), /border-radius:\s*var\(--radius-control\)/, 'stejná pilulka jako ostatní ovládací prvky (kolo 43)');
   // Header: obrysová varianta (chrome) vs. plná červená v článku (hlavní výzva) — záměrně dva
   // stavy jedné třídy, jeden tvar. Zdůvodnění u pravidla (kolo 44), ne náhoda.
   assert.match(pravidlo(premium, 'header.site .yt-btn'), /background:\s*transparent[^}]*border:\s*1px solid var\(--line\)/);
   assert.match(cti('src/styles/premium.css'), /Červené\s*\n?\s*„Odebírat na YouTube“ zůstává — je to hlavní výzva článku, ne chrome/);
-  // global.css beze změny: 8px základ a --signal-fill drží starší testy.
-  assert.match(pravidlo(global, '.yt-btn'), /border-radius:\s*var\(--radius\)/);
   assert.match(pravidlo(global, '.yt-btn'), /background:\s*var\(--signal-fill\)/);
   // Úzký mobil: header.site .yt-btn (vyšší specificita) dál řídí šířku 44px a padding 0.
   assert.match(blok(premium, /@media \(max-width: 360px\)/), /header\.site \.yt-btn \{ width: 44px; padding: 0;/);
@@ -245,10 +244,10 @@ test('kolo 47: škála poloměrů je pět tokenů (badge 4 / thumb 8 / field 12 
   assert.match(root, /--radius-field:\s*12px/);
   assert.match(root, /--media-radius:\s*16px/);
   assert.match(root, /--radius-control:\s*24px/);
-  // Jediná číselná hodnota mimo tokeny: 0 (reset) a 8px obalu tabulky na mobilu, který zamyká test-kolo-45.
+  // Jediná číselná hodnota mimo tokeny: 0 (reset). Kolo 50: i 8px obalu tabulky na mobilu je --radius-field.
   const natvrdo = [...premium.matchAll(/border-radius:\s*([^;]+);/g)].map((m) => m[1].trim()).filter((v) => !/^var\(--(radius-(badge|thumb|field|control)|media-radius)\)$/.test(v) && v !== '0');
-  assert.deepEqual(natvrdo, ['8px'], `hodnoty mimo škálu: ${natvrdo}`);
-  assert.match(pravidlo(blok(premium, /@media \(max-width: 580px\)/), '.article-layout .article-body .table-wrap'), /border-radius:\s*8px/, 'jediná výjimka — kolo 45');
+  assert.deepEqual(natvrdo, [], `hodnoty mimo škálu: ${natvrdo}`);
+  assert.match(pravidlo(blok(premium, /@media \(max-width: 580px\)/), '.article-layout .article-body .table-wrap'), /border-radius:\s*var\(--radius-field\)/);
   // 10px „compact“ stupeň padl: newsletter na field, mobilní náhled archivu na thumb (jako řádky úvodky).
   assert.match(pravidlo(premium, '.nl-form input'), /border-radius:\s*var\(--radius-field\)/);
   assert.match(pravidlo(premium, '.nl-form button'), /border-radius:\s*var\(--radius-field\)/);
@@ -299,7 +298,7 @@ test('kolo 47: autorský box — global.css jen layout, barvy jediné finále v 
   assert.doesNotMatch(global, /\.author-box::before|\.ab-logo \.real|\.ab-body p strong|\.author-box \.btn-ghost:hover/);
   const blokAb = global.slice(global.indexOf('.author-box {'), global.indexOf('.video-strip {'));
   assert.doesNotMatch(blokAb, /#fff|#A9B2BF|var\(--panel\)|color-mix/i);
-  assert.match(pravidlo(global, '.ab-logo .tech'), /color:\s*var\(--signal\)/, 'dark override na --signal-dark zůstává (kolo 45)');
+  assert.match(pravidlo(global, '.ab-logo .tech'), /color:\s*var\(--signal-text\)/, 'v darku --signal-dark přes token (kolo 50)');
   assert.match(pravidlo(premium, '.author-box'), /background:\s*var\(--surface\)[^}]*color:\s*var\(--ink\)/);
   assert.doesNotMatch(premium, /\.author-box::before/);
 });
@@ -344,8 +343,11 @@ test('kolo 47: typografie — premium.css je jediná vrstva nadpisů: každý ed
   assert.doesNotMatch(editorial, /'Archivo Variable'/, 'editorial.css .article-contents h2 nese už jen margin — písmo dává premium (kolo 43)');
   assert.match(pravidlo(editorial, '.article-contents h2'), /^\s*margin-bottom:\s*12px;\s*$/);
   // Rozsah přepisu: každý selektor, který global.css sází v Archivu (mimo značku), má v premium --editorial-face.
-  const globalArchivo = [...global.matchAll(/([^{}]+)\{([^{}]*'Archivo Variable'[^{}]*)\}/g)].map((m) => m[1].trim()).filter((s) => !/^\.logo|^\.ab-logo/.test(s));
+  // Kolo 50: global.css sází nadpisy už jen přes var(--editorial-face); surové Archivo zbylo u značky.
+  const globalArchivo = [...global.matchAll(/([^{}]+)\{([^{}]*var\(--editorial-face\)[^{}]*)\}/g)].map((m) => m[1].trim());
   assert.ok(globalArchivo.length >= 12, `global.css základ nadpisů: ${globalArchivo.length}`);
+  const surove = [...global.matchAll(/([^{}]+)\{([^{}]*'Archivo Variable'[^{}]*)\}/g)].map((m) => m[1].trim().split('\n').pop().trim());
+  assert.deepEqual(surove.sort(), ['.ab-logo', '.logo'], 'surové Archivo jen u značky');
   const premiumEditorial = [...premium.matchAll(/([^{}]+)\{([^{}]*var\(--editorial-face\)[^{}]*)\}/g)].map((m) => m[1]).join('\n');
   for (const sel of globalArchivo) {
     const klic = sel.split(',')[0].trim().split(/\s+/).pop();
@@ -353,18 +355,19 @@ test('kolo 47: typografie — premium.css je jediná vrstva nadpisů: každý ed
   }
 });
 
-test('kolo 47: jedno „Sdílej dál“ v každém okně — aside ≥ 901px & ≥ 640px výšky, jinak řada pod textem (kolo 29/34 beze změny)', () => {
-  assert.match(global, /@media \(min-width: 901px\) and \(min-height: 640px\) \{\s*\.article-share \{ display: none; \}/);
-  assert.match(global, /@media \(min-width: 901px\) and \(max-height: 639px\) \{\s*\.article-aside-share \{ display: none; \}/);
-  assert.match(pravidlo(blok(global, /@media \(max-width: 900px\)/), '.article-aside'), /display:\s*none/);
+test('kolo 47: jedno „Sdílej dál“ v každém okně — od kola 50 i jedno v markupu (test-kolo-29/34/50)', () => {
+  assert.doesNotMatch(global, /\.article-share\b/);
+  assert.doesNotMatch(global, /\.article-aside-share \{ display: none; \}/);
+  assert.match(blok(global, /@media \(max-width: 900px\)/), /\.article-aside > :not\(\.article-aside-share\) \{ display: none; \}/);
 });
 
 // ── Zváženo a ponecháno ─────────────────────────────────────────────────────
 
-test('kolo 47: štítky ve hledání červené (kolo 44); video pásek sddefault (test-video-strip-nahled); lower-third základ + tisk v global.css', () => {
+test('kolo 47: štítky ve hledání červené (kolo 44); video pásek (test-video-strip-nahled); lower-third základ + tisk v global.css', () => {
   assert.match(pravidlo(global, '.si-cat'), /background:\s*var\(--signal-fill\)/);
   assert.doesNotMatch(pravidlo(premium, '.si-cat'), /background/);
-  assert.match(cti('src/pages/index.astro'), /sddefault\.jpg/, 'hq720 není u každého videa zaručený; maxres = 490 KB na tři náhledy (komentář v index.astro)');
+  // Kolo 50: hq720 jako WebP (~85 KB), sddefault jako fallback bez 720p — build ověřuje hlavičkou.
+  assert.match(cti('src/lib/video-pasek-nahled.js'), /'sddefault'/, 'hq720 není u každého videa zaručený');
   // Lower-third: premium má jediné finále (soft text), global drží kontrakt tisku (kolo 21) a testy kolo 15/19/34/Z10023.
   const final = pravidlo(premium, '.lower-third .tag, .lower-third .time, .article-head .lower-third .time');
   assert.match(final, /background:\s*transparent;\s*border:\s*0;\s*padding:\s*0/);

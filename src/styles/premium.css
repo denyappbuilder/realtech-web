@@ -61,8 +61,9 @@ header.site .yt-btn:hover { border-color: var(--ink-soft); }
    (B19) a v autorském boxu 8px z globálního --radius; v boxu stálo hranaté
    „Odebírat na YouTube“ hned vedle pilulky „Víc o nás“ (živě 20. 9. 2026).
    DESIGN.md `rounded.control` = 24px pro ovládací prvky; jedna hodnota pro
-   celou třídu, header si drží vlastní obrysovou variantu výš. */
-.yt-btn { border-radius: var(--radius-control); padding-inline: 20px; }
+   celou třídu, header si drží vlastní obrysovou variantu výš.
+   Kolo 50: poloměr nese už základní .yt-btn v global.css; tady jen padding. */
+.yt-btn { padding-inline: 20px; }
 /* Kolo 47: `border-radius: 50%` dělá kruh jen ze čtverce — ⌘K tlačítko je
    101×44 (ikona + kbd), takže mělo elipsovité konce vedle pilulky YouTube.
    Stejný control token jako všechna tlačítka: 24px na 44px vysokém prvku
@@ -138,7 +139,6 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .guides-section .card { background: transparent; border-radius: 0; }
 .guides-section .card-thumb { border-radius: var(--media-radius); overflow: hidden; }
 .guides-section .card-body { padding: 24px 0 0; }
-.vc-thumb { border: 0; border-radius: var(--media-radius); }
 .vc-title { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; font-size: 1.15rem; line-height: 1.35; padding-top: 18px; }
 
 /* Archive and topic introductions share the same readable hierarchy. */
@@ -262,16 +262,13 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 .article-aside { background: transparent; border: 0; border-radius: 0; padding: 0 0 0 24px; border-left: 1px solid var(--line); }
 .article-contents a { font-size: 0.88rem; }
 .article-contents a[aria-current] { background: var(--surface); }
-/* Kolo 43: jedna škála popisků chrome — nadpis obsahu, „V článku“, „Sdílej dál“
-   (aside i pod textem), „Nejnovější reporty“ a „Další témata“ na hubu tématu.
-   Reading-face 0.85rem / 600 / --ink; global dával spodnímu sdílení a chipům
-   0.75rem --ink-faint s prostrkáním, aside 0.85rem — dvě váhy vedle sebe. */
-.article-contents h2, .article-aside .mono, .article-share .mono, .topics .mono {
+/* Kolo 43: jedna škála popisků chrome — nadpis obsahu, „V článku“, „Sdílej dál“,
+   „Nejnovější reporty“ a „Další témata“ na hubu tématu.
+   Reading-face 0.85rem / 600 / --ink; global dával chipům 0.75rem
+   --ink-faint s prostrkáním, aside 0.85rem — dvě váhy vedle sebe. */
+.article-contents h2, .article-aside .mono, .topics .mono {
   font-family: var(--reading-face); font-size: 0.85rem; font-weight: 600; color: var(--ink); letter-spacing: 0;
 }
-/* Sdílení na 12px jako ostatní pole ve čtecím sloupci (audio, hledání), ne
-   globální --radius 8px; chipy témat zůstávají 24px controls. */
-.share-btn { border-radius: var(--radius-field); }
 /* Kolo 43: --surface je od --bg jen o schod (dark #171B21 na #0F1216) — bez
    1px --line bloky plavaly jako nedokončené panely. Rámeček z global.css zpět. */
 .audio-prehled, .article-videobar { border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--radius-field); padding: 24px; }
@@ -280,13 +277,22 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
    Kolo 44: žádná karta, jen hairline nad řadou (stejný oddělovač jako
    .related), text --ink-soft a obrysové tlačítko jako v hlavičce webu.
    Výzva na kanál zůstává (test-z1003-promo-blok), jen netlačí. */
+/* Kolo 50: obrysová pilulka s logem YouTube tu byla druhá výzva hned nad
+   autorským boxem (plné „Odebírat na YouTube“). Řada je jen věta 0.85rem
+   a textový odkaz — řádek na sebe neupozorňuje, cesta na kanál zůstává.
+   44px zásah přes padding se záporným marginem jako .audio-prehled-stahnout. */
 .article-videobar-bez-videa {
-  padding: 24px 0 0; margin-top: 40px;
+  padding: 16px 0 0; margin-top: 40px;
   background: transparent; border: 0; border-top: 1px solid var(--line-strong); border-radius: 0;
+  justify-content: flex-start; gap: 4px 16px;
 }
-.article-videobar-bez-videa .mono { font-size: 0.9rem; }
-.article-videobar-bez-videa .yt-btn { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-control); }
-.article-videobar-bez-videa .yt-btn:hover { background: transparent; border-color: var(--ink-soft); }
+.article-videobar-bez-videa .mono { font-size: 0.85rem; }
+.article-videobar-odkaz {
+  padding-block: 12px; margin-block: -12px;
+  color: var(--signal-dark); font-size: 0.85rem; font-weight: 600;
+  text-decoration: underline; text-underline-offset: 3px; white-space: nowrap;
+}
+.article-videobar-odkaz:hover { color: var(--ink); }
 .audio-prehled h2 { font-family: var(--editorial-face); font-weight: 650; font-stretch: 100%; }
 /* Kolo 43: „Další reporty“ = stejný oddělovač sekce jako .tema-souvisi na hubu. */
 .related { padding-top: 32px; border-top: 1px solid var(--line-strong); }
@@ -367,7 +373,7 @@ a.tag:hover { background: transparent; text-decoration: underline; text-underlin
 @media (min-width: 901px) {
   .article-page .article-head,
   .article-hero, .video-embed, .audio-prehled, .article-videobar,
-  .article-share, .author-box, .herohero-cta, .related, .article-nav, .komentare, .article-back { margin-left: 0; }
+  .author-box, .herohero-cta, .related, .article-nav, .komentare, .article-back { margin-left: 0; }
 }
 
 /* About, legal and end matter: the same publication, not a second UI kit. */
@@ -480,6 +486,11 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
      okraj displeje (390px: scrollWidth 492). width: 100% = šířka sloupce,
      max-width dál stropuje na 700px a auto okraje centrují jen do 900px. */
   .article-layout .article-body { width: 100%; max-width: 700px; margin-inline: auto; }
+  /* Kolo 50: z aside tu zůstává jen „Sdílej dál“ (global.css) — řada
+     popisek + tlačítka pod textem ve stejném sloupci jako tělo. */
+  .article-aside { width: 100%; max-width: 700px; margin: 40px auto 0; padding: 0; border-left: 0; }
+  .article-aside-share { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 16px; }
+  .article-aside-share .mono { margin: 0; }
   .article-page .article-head { max-width: 760px; }
   .article-head .lower-third { flex-wrap: wrap; overflow: visible; }
   .newsletter .wrap { gap: 32px; }
@@ -552,7 +563,7 @@ footer.site .f-bottom .mono { font-size: 0.75rem; }
      (padding 0). Tabulka pak trčela 20px před text na obě strany, 4px od
      hrany displeje, bez bočních linek. Zpátky do sloupce s rámečkem jako
      na desktopu; obal roluje sám. */
-  .article-layout .article-body .table-wrap { margin-inline: 0; border-inline: 1px solid var(--line); border-radius: 8px; }
+  .article-layout .article-body .table-wrap { margin-inline: 0; border-inline: 1px solid var(--line); border-radius: var(--radius-field); }
   .article-body h2 { font-size: 1.5rem; }
   .article-body h3 { font-size: 1.2rem; }
   .audio-prehled, .article-videobar { padding: 18px; }

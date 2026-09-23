@@ -1,5 +1,5 @@
 ---
-title: "ChatGPT ve Wordu zdarma: doplněk vs Copilot a checklist pro OSVČ"
+title: "ChatGPT ve Wordu zdarma: doplněk vs Copilot a checklist před odesláním"
 description: "OpenAI spustil oficiální doplněk ChatGPT for Word i pro Free. Jak se liší od Copilotu, kam tečou data a co zkontrolovat, než dokument pošleš klientovi."
 category: "AI Report"
 date: "2026-09-19T08:00:00+02:00"

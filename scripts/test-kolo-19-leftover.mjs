@@ -143,12 +143,13 @@ test("kolo 19: aside článku je na desktopu sticky pod hlavičkou, jen když se
   assert.match(telo(".article-aside"), /min-width:\s*0/, "základní pravidlo .article-aside se nezměnilo");
 });
 
-test("kolo 19: pod 901px se aside článku nekreslí — všechno z něj už na stránce je", () => {
+test("kolo 19: pod 901px se z aside článku kreslí jen sdílení — meta, obsah a nejnovější už na stránce jsou", () => {
   const tablet = blokMedia("\\(max-width: 900px\\)");
-  assert.match(tablet, /\.article-aside\s*\{\s*display:\s*none;?\s*\}/, "aside na mobilu/tabletu zůstává a opakuje meta, sdílení i Další reporty");
+  // Kolo 50: sdílení je v HTML jen v aside, takže z něj pod 901px zůstává právě ono.
+  assert.match(tablet, /\.article-aside > :not\(\.article-aside-share\)\s*\{\s*display:\s*none;?\s*\}/, "aside na mobilu/tabletu opakuje meta a Další reporty");
   assert.match(tablet, /\.article-layout\s*\{[^}]*grid-template-columns:\s*1fr/, "Z10069 skládání do jednoho sloupce zůstává");
   const clanek = cti("src/pages/clanky/[...id].astro");
-  for (const trida of ["article-share", "related", "lower-third"]) {
+  for (const trida of ["article-aside-share", "related", "lower-third"]) {
     assert.match(clanek, new RegExp(`class="${trida}"`), `${trida} musí v šabloně zůstat — aside na mobilu nahrazuje`);
   }
 });

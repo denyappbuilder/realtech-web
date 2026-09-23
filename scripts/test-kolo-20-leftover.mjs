@@ -47,10 +47,9 @@ test('kolo 20: hub /temata/ má h2 a srcset sizes', () => {
 });
 
 test('kolo 20: logo TECH v darku bere --signal-dark (≥4,5:1)', () => {
-  assert.match(
-    css,
-    /:root\[data-theme="dark"\] \.logo \.tech[\s\S]*?color:\s*var\(--signal-dark\)/,
-  );
+  // Kolo 50: přes token --signal-text (světlý = --signal, dark = --signal-dark).
+  assert.match(css, /\.logo \.tech \{ color: var\(--signal-text\); \}/);
+  assert.match(css, /:root\[data-theme="dark"\] \{[^}]*--signal-text:\s*var\(--signal-dark\)/);
   assert.ok(kontrast('#F0554F', '#171B21') >= 4.5);
 });
 

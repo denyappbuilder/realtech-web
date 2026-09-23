@@ -171,7 +171,7 @@ test('kolo 46: na ≥ 901px sedí hlava, cover, audio, sdílení, autor, related
   const desktop = blok(premium, /@media \(min-width: 901px\)/);
   assert.ok(desktop, 'premium.css: blok @media (min-width: 901px) chybí');
   // Kolo 48: měkká výzva Herohero (.herohero-cta) sedí ve čtecím sloupci za autorským boxem — stejná hrana.
-  const hrana = desktop.match(/\.article-page \.article-head,\s*\.article-hero, \.video-embed, \.audio-prehled, \.article-videobar,\s*\.article-share, \.author-box, \.herohero-cta, \.related, \.article-nav, \.komentare, \.article-back \{([^}]*)\}/)?.[1];
+  const hrana = desktop.match(/\.article-page \.article-head,\s*\.article-hero, \.video-embed, \.audio-prehled, \.article-videobar,\s*\.author-box, \.herohero-cta, \.related, \.article-nav, \.komentare, \.article-back \{([^}]*)\}/)?.[1];
   assert.ok(hrana, 'společné pravidlo levé hrany chybí');
   assert.match(hrana, /^\s*margin-left:\s*0;\s*$/, 'jen margin-left — šířky (760px, kolo 22) a svislý rytmus se nemění');
   // Šířky zůstávají: global.css (kolo 22) i premium hlava.
@@ -203,8 +203,8 @@ test('kolo 46: .author-box sedí na --surface s --line-strong a 12px jako audio/
   assert.match(pravidlo(premium, '.author-box .btn-ghost'), /border-color:\s*var\(--line\)/);
   assert.doesNotMatch(premium, /\.author-box \.yt-btn/, 'hlavní výzva článku zůstává plná --signal-fill z global.css');
   assert.match(pravidlo(global, '.yt-btn'), /background:\s*var\(--signal-fill\)/);
-  // Logo TECH v boxu: --signal na světlé ploše (4,6:1 při 1.3rem/900), v darku --signal-dark už z kola 20/22.
-  assert.match(global, /:root\[data-theme="dark"\] \.logo \.tech,\n:root\[data-theme="dark"\] \.ab-logo \.tech \{\n\s*color: var\(--signal-dark\);/);
+  // Logo TECH v boxu: --signal na světlé ploše (4,6:1 při 1.3rem/900), v darku --signal-dark — od kola 50 přes token --signal-text.
+  assert.match(global, /\.ab-logo \.tech \{ color: var\(--signal-text\); \}/);
   const clanek = bezKomentaru(cti('src/pages/clanky/[...id].astro'));
   assert.match(clanek, /<div class="author-box">/, 'markup beze změny (test-b19, test-giscus, test-kolo-23)');
 });
@@ -231,7 +231,7 @@ test('kolo 46: tlačítka mimo formulář mají výslovné type="button" (⌘K, 
   assert.match(archiv, /<button class="chip active" data-cat="" aria-pressed="true" type="button">Vše<\/button>/);
   assert.match(archiv, /<button class="chip" data-cat=\{category\} aria-pressed="false" type="button">\{category\}<\/button>/);
   const clanek = bezKomentaru(cti('src/pages/clanky/[...id].astro'));
-  assert.equal((clanek.match(/<button class="share-btn copy-link" data-url=\{[^}]+\} aria-label="Kopírovat odkaz na článek" type="button">Kopírovat odkaz<\/button>/g) ?? []).length, 2, 'aside i pod textem');
+  assert.equal((clanek.match(/<button class="share-btn copy-link" data-url=\{[^}]+\} aria-label="Kopírovat odkaz na článek" type="button">Kopírovat odkaz<\/button>/g) ?? []).length, 1, 'kolo 50: jedno sdílení (aside)');
   // Žádné <button> bez type v layoutu, komponentách ani stránkách.
   for (const soubor of ['src/layouts/Base.astro', 'src/components/ArticleArchivePage.astro', 'src/components/SearchModal.astro', 'src/components/Giscus.astro', 'src/pages/clanky/[...id].astro']) {
     const zdroj = bezKomentaru(cti(soubor));

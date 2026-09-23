@@ -42,7 +42,8 @@ test("kolo 15: .notfound nesmí vynulovat vodorovné odsazení z .wrap (Z10254 z
 
 test("kolo 15: h1 a perex 404 mají typografii webu, ne UA výchozí", () => {
   const h1 = telo(".notfound h1");
-  assert.match(h1, /Archivo Variable/, "404 h1 pořád padá na Plex Sans 2em bold");
+  // Kolo 50: rodinu dává token --editorial-face (Archivo Variable + fallback, premium.css).
+  assert.match(h1, /font-family:\s*var\(--editorial-face\)/, "404 h1 pořád padá na Plex Sans 2em bold");
   assert.match(h1, /font-stretch/);
   assert.match(telo(".notfound .lead"), /var\(--ink-soft\)/, "perex 404 je prostý odstavec");
   assert.doesNotMatch(ctyristactyri, /style="margin-top/, "inline margin patří do třídy");
@@ -89,7 +90,7 @@ test("kolo 15: štítek délky videa bere --panel, ne rgba light panelu", () => 
 
 test("kolo 15: čísla na O nás drží Archivo jako ostatní titulky", () => {
   const stat = telo(".stat strong");
-  assert.match(stat, /'Archivo Variable',\s*'Archivo'/);
+  assert.match(stat, /font-family:\s*var\(--editorial-face\)/, "kolo 50: Archivo přes token");
   assert.match(stat, /font-stretch:\s*108%/);
   assert.doesNotMatch(stat, /letter-spacing:\s*0\.5px/, "kladný proklad je leftover");
 });

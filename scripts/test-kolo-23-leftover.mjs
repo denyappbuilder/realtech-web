@@ -133,7 +133,11 @@ test('kolo 23: rámeček na --panel má vlastní token --line-panel, v darku sv�
   }
   const tisk = blok(/@media print\s*\{/);
   assert.match(tisk, /--line-panel:\s*#bbb/, 'tisk přepisuje i nový token');
-  for (const selektor of ['.hero-visual', '.article-hero', '.video-embed', '.vc-thumb']) {
+  // Kolo 50: .vc-thumb bez rámečku — premium ho od round 3 nuloval (border: 0)
+  // a global rámeček byl mrtvá vrstva; plocha --panel zůstává.
+  assert.match(pravidlo(css, '.vc-thumb'), /background:\s*var\(--panel\)/);
+  assert.doesNotMatch(pravidlo(css, '.vc-thumb'), /border:/);
+  for (const selektor of ['.hero-visual', '.article-hero', '.video-embed']) {
     const telo = pravidlo(css, selektor);
     assert.match(telo, /background:\s*var\(--panel\)/, `${selektor} sedí na --panel`);
     assert.match(telo, /border:\s*1px solid var\(--line-panel\)/, `${selektor} musí brát --line-panel`);

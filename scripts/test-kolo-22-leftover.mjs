@@ -115,7 +115,7 @@ test('kolo 22: tisk doplňuje href jen k absolutním http(s) odkazům', () => {
 test('kolo 22: tlačítko sdílení „X“ má aria-label, kopírování hlásí výsledek živou oblastí', () => {
   // Kolo 44: intent míří rovnou na x.com/intent/post (twitter.com/intent/tweet jen přesměrovával).
   const x = clanek.match(/<a class="share-btn" href=\{`https:\/\/x\.com\/intent\/post[^>]*>X<\/a>/g) ?? [];
-  assert.equal(x.length, 2, 'aside i patička článku mají tlačítko X');
+  assert.equal(x.length, 1, 'kolo 50: jedno „Sdílej dál“ (aside) — tlačítko X jednou');
   for (const tag of x) assert.match(tag, /aria-label="Sdílet na X"/);
 
   assert.match(clanek, /<p class="sr-only" role="status" aria-live="polite" data-copy-status><\/p>/);

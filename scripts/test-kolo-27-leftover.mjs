@@ -142,26 +142,18 @@ test("kolo 27: základní .hero h1 drží strop 3.1rem (Z10138) i balance", () =
 
 // ── P2: fallback font se size-adjust proti CLS při swapu Archiva ─────────
 
-test("kolo 27: @font-face 'Archivo Hero Fallback' = lokální Arial Bold se size-adjust", () => {
-  const face = css.match(/@font-face\s*\{([^}]*font-family:\s*'Archivo Hero Fallback'[^}]*)\}/)?.[1] ?? "";
-  assert.ok(face, "@font-face 'Archivo Hero Fallback' v CSS chybí");
-  assert.match(face, /src:\s*local\('Arial Bold'\),\s*local\('Arial'\)/, "Arial Bold první — local('Arial') by na 870 dostal syntetický bold s jinou šířkou");
-  assert.match(face, /local\('Roboto Bold'\)/, "Android nemá Arial, Roboto je tam systémový sans");
-  assert.match(face, /font-weight:\s*100 1000\s*;/, "rozsah vah, ať fallback platí i pro 870");
-  const adjust = Number(face.match(/size-adjust:\s*([\d.]+)%/)?.[1]);
-  assert.ok(adjust >= 115 && adjust <= 120, `size-adjust ${adjust}% — Archivo 870/110 % je proti Arial Bold 1,1765×`);
-  assert.doesNotMatch(face, /url\(/, "fallback je jen local(), žádné další stahování");
-});
-
-test("kolo 27: fallback bere jen .hero h1, ne karty ani článek", () => {
-  const h1 = pravidlo(css, ".hero h1");
-  assert.match(
-    h1,
-    /font-family:\s*'Archivo Variable',\s*'Archivo Hero Fallback',\s*'Archivo',\s*sans-serif\s*;/,
-    "fallback musí být hned za Archivo Variable, aby ho prohlížeč použil po dobu swapu",
-  );
-  const vyskyty = css.match(/'Archivo Hero Fallback'/g) ?? [];
-  assert.equal(vyskyty.length, 2, "jen @font-face + .hero h1 — karty (750/105 %) mají poměr 1,057 a 117,6 % by je rozhodilo");
+// Kolo 50: premium round 3 přepsal hero h1 na --editorial-face (650/100 %)
+// s vlastním 'Archivo Editorial Fallback' — 'Archivo Hero Fallback'
+// (870/110 %) z global.css se od té doby nepoužíval. Mrtvá vrstva je pryč,
+// CLS při swapu hlídá fallback tokenu.
+test("kolo 27 → 50: hero h1 bere --editorial-face; mrtvý 'Archivo Hero Fallback' je pryč", () => {
+  assert.match(pravidlo(css, ".hero h1"), /font-family:\s*var\(--editorial-face\)\s*;/);
+  assert.doesNotMatch(css, /Archivo Hero Fallback/);
+  const premium = readFileSync(join(koren, "src/styles/premium.css"), "utf8");
+  assert.match(premium, /--editorial-face:\s*'Archivo Variable',\s*'Archivo Editorial Fallback'/);
+  const face = premium.match(/@font-face\s*\{([^}]*font-family:\s*'Archivo Editorial Fallback'[^}]*)\}/)?.[1] ?? "";
+  assert.match(face, /size-adjust:\s*[\d.]+%/, "fallback tokenu drží šířku při swapu");
+  assert.doesNotMatch(face, /url\(/, "jen local()");
 });
 
 // ── Cache /images/* beze změny ───────────────────────────────────────────

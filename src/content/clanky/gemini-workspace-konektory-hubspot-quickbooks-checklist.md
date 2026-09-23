@@ -1,6 +1,6 @@
 ---
 title: "Gemini ve Workspace napojí HubSpot i QuickBooks: checklist konektorů"
-description: "Gemini v Google Workspace od 15. 9. napojí HubSpot, QuickBooks, Mailchimp a další. Checklist pro OSVČ: co zapnout a co zatím nezapisovat."
+description: "Gemini v Google Workspace od 15. 9. napojí HubSpot, QuickBooks, Mailchimp a další. Checklist pro běžné uživatele Workspace: co zapnout a co zatím nezapisovat."
 category: "AI Report"
 date: "2026-09-21T06:06:31+02:00"
 zprava: true

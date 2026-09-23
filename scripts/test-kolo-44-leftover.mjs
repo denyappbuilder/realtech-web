@@ -154,7 +154,7 @@ test('kolo 44: AKTUALIZOVÁNO je <time datetime>, sdílení na X jde na x.com/in
   // Kolo 47: „Aktualizováno“ větou — kit od kola 43 nemá text-transform, verzálky byly natvrdo v markupu.
   assert.match(clanek, /\{updated && updatedStr && <time class="time" datetime=\{updated\.toISOString\(\)\.slice\(0, 10\)\}>Aktualizováno \{updatedStr\}<\/time>\}/);
   assert.doesNotMatch(clanek, /<span class="time">(AKTUALIZOVÁNO|Aktualizováno)/);
-  assert.equal((clanek.match(/https:\/\/x\.com\/intent\/post\?text=/g) ?? []).length, 2, 'aside i patička článku');
+  assert.equal((clanek.match(/https:\/\/x\.com\/intent\/post\?text=/g) ?? []).length, 1, 'kolo 50: jedno sdílení (aside)');
   assert.doesNotMatch(clanek, /twitter\.com\/intent/);
 });
 
@@ -206,13 +206,14 @@ test('kolo 44: audio přehled má viditelné stažení MP3 a říká, že přehr
   assert.match(pravidlo(global, '.audio-prehled-akce'), /color:\s*var\(--ink-soft\)/);
 });
 
-test('kolo 44: videobar u článku bez videa je tichá řada — bez karty, hairline, obrysové tlačítko', () => {
+test('kolo 44: videobar u článku bez videa je tichá řada — bez karty, hairline, bez tlačítka', () => {
   const tichy = pravidlo(premium, '.article-videobar-bez-videa');
   assert.match(tichy, /background:\s*transparent/);
   assert.match(tichy, /border:\s*0; border-top:\s*1px solid var\(--line-strong\); border-radius:\s*0/);
-  const tlacitko = pravidlo(premium, '.article-videobar-bez-videa .yt-btn');
-  assert.match(tlacitko, /background:\s*transparent/, 'žádná plná červená výplň pod textem článku');
-  assert.match(tlacitko, /border:\s*1px solid var\(--line\)/);
+  // Kolo 50: obrysová pilulka s logem YouTube byla druhá výzva hned nad autorským
+  // boxem — teď textový odkaz (test-kolo-50-leftover).
+  assert.doesNotMatch(premium, /\.article-videobar-bez-videa \.yt-btn/, 'žádné tlačítko pod textem článku');
+  assert.match(pravidlo(premium, '.article-videobar-odkaz'), /color:\s*var\(--signal-dark\)/);
   // Varianta s videem drží kartu z kola 43.
   assert.match(pravidlo(premium, '.audio-prehled, .article-videobar'), /border:\s*1px solid var\(--line-strong\)/);
 });
