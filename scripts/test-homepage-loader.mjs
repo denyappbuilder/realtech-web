@@ -50,7 +50,7 @@ export async function load(url, context, nextLoad) {
   const renderReturn = 'return $$render`';
   const captureReturn = [
     'return {',
-    '  all, pruvodci, hero, candidates, rail, rest, categories, videos,',
+    '  all, pruvodci, hero, candidates, rail, rest, categories, videos, videaPasek,',
     '  dateStr, heroVideoId, heroThumb, heroSrcset, heroWebp, heroWebpSrcset,',
     '  heroHasWebp, heroLcpSrc, heroPreload, heroOg, jsonLd, preconnectYtimg,',
     '};',

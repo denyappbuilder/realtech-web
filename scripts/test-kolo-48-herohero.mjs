@@ -142,7 +142,8 @@ test('kolo 48: úvodka drží LCP — preload hero coveru a ytimg preconnect bez
   assert.match(uvodka, /const heroPreload = preloadHeroObrazku\(/);
   assert.match(uvodka, /\{heroPreload && \([\s\S]*?rel="preload"[\s\S]*?as="image"[\s\S]*?fetchpriority="high"[\s\S]*?slot="head"/);
   assert.match(uvodka, /const preconnectYtimg = videos\.length > 0;/);
-  assert.match(uvodka, /i\.ytimg\.com\/vi\/\$\{v\.id\}\/sddefault\.jpg`\}[^>]*loading="lazy"/);
+  // Kolo 50: náhled pásku skládá video-pasek-nahled.js (hq720 WebP, sddefault jen bez 720p).
+  assert.match(uvodka, /<img src=\{v\.nahled\.jpg\}[^>]*loading="lazy"/);
   assert.equal((uvodka.match(/fetchpriority="high"/g) ?? []).length, 2, 'fetchpriority=high jen preload + hero <img>');
   // Homepage loader musí novou komponentu nahradit stejně jako Base/ArticleCard,
   // jinak by test-homepage spadl na importu .astro.

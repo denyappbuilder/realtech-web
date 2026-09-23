@@ -10,6 +10,7 @@ import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
 import { nahledRailu, webpSrcsetZDerivatu, HERO_RAIL_SIZES, HOMEPAGE_HERO_SIZES, KARTA_SIZES, KARTA_SIZES_HOME_COMPACT } from '../lib/karta-nahled.js';
 import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
+import { videaSNahledem } from '../lib/video-pasek-nahled.js';
 
 // Kolo 45: stejný komparátor jako archiv, RSS, témata a chrono navigace
 // článku (b.date - a.date, při shodě id). Dva články se stejným časem
@@ -122,6 +123,7 @@ try {
   }
 } catch { /* fallthrough na snapshot */ }
 if (videos.length === 0) videos = videosSnapshot;
+const videaPasek = await videaSNahledem(videos);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -155,7 +157,7 @@ const jsonLd = {
     },
   ],
 };
-// Video strip tahá i.ytimg.com/sddefault.jpg. Hero Flight 14 má lokální
+// Video strip tahá i.ytimg.com/vi_webp/…/hq720.webp. Hero Flight 14 má lokální
 // cover a homepage mp3 nenačítá — audio preconnect sem nepatří.
 const preconnectYtimg = videos.length > 0;
 // og:image úvodky je cover hero článku — og:image:alt nese jeho titulek,
@@ -289,17 +291,17 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
         Kolo 48: web je trychtýř YouTube → články → Herohero. „Nejnovější
         videa“ stojí hned pod posledními reporty (dřív až za průvodci), aby
         nové video bylo druhá cesta z úvodky, ne poslední pásek před
-        newsletterem. Náhledy zůstávají lazy sddefault — nad ohybem nic
-        nepřibývá, LCP je dál cover hero článku (preload v <head> výš).
+        newsletterem. Náhledy jsou lazy — nad ohybem nic nepřibývá, LCP je
+        dál cover hero článku (preload v <head> výš).
       */}
-      {videos.length > 0 && (
+      {videaPasek.length > 0 && (
         <div class="video-strip films-section">
           <div class="section-head">
             <h2>Nejnovější videa</h2>
             <a href="https://www.youtube.com/@realtech-cz">Celý kanál →</a>
           </div>
           <div class="video-grid">
-            {videos.map((v) => (
+            {videaPasek.map((v) => (
               <a class="video-card" href={`https://www.youtube.com/watch?v=${v.id}`}>
                 {/*
                   Náhled videa je dekorace: jméno odkazu dává viditelný
@@ -307,14 +309,14 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
                   jen s aria-hidden — jinak by alt={v.title} zdvojil jméno
                   odkazu („Titulek Titulek").
 
-                  sddefault (640×480), ne maxresdefault: tři malé thumby
-                  (~350 px) stahovaly živě ~490 KB v 1280×720. sddefault má
-                  4:3 pruhy 60 px nahoře a dole, ale .vc-thumb je 16:9
-                  s object-fit: cover — ořez odstraní přesně ty pruhy.
-                  hqdefault ne: po stejném ořezu zbyde měkkých 480×270.
+                  Kolo 50: hq720 (nativní 16:9) jako WebP, JPEG jen fallback;
+                  sddefault jen u videa bez 720p (video-pasek-nahled.js).
                 */}
                 <span class="vc-thumb">
-                  <img src={`https://i.ytimg.com/vi/${v.id}/sddefault.jpg`} alt="" aria-hidden="true" width="640" height="480" loading="lazy" decoding="async" />
+                  <picture>
+                    <source srcset={v.nahled.webp} type="image/webp" />
+                    <img src={v.nahled.jpg} alt="" aria-hidden="true" width={v.nahled.width} height={v.nahled.height} loading="lazy" decoding="async" />
+                  </picture>
                   <span class="vc-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
                 </span>
                 <span class="vc-title">{v.title}</span>

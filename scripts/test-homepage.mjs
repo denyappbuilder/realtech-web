@@ -322,12 +322,42 @@ test('použitelný YouTube RSS odfiltruje Shorts, omezí videa a dekóduje XML e
     { id: 'ddddddddddd', title: 'Třetí běžné video' },
   ]);
   assert.equal(result.preconnectYtimg, true, 'video strip tahá i.ytimg.com — homepage musí předpojit ytimg');
-  assert.equal(fetchCalls.length, 1);
+  const rss = fetchCalls.filter(([url]) => url.includes('/feeds/videos.xml'));
+  assert.equal(rss.length, 1);
   assert.equal(
-    fetchCalls[0][0],
+    rss[0][0],
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCwWvw3SkWgfDinhnAHpceeA',
   );
-  assert.ok(fetchCalls[0][1].signal instanceof AbortSignal);
+  assert.ok(rss[0][1].signal instanceof AbortSignal);
+  // Kolo 50: po RSS jen HEAD na hq720 každého vybraného videa.
+  const hlavicky = fetchCalls.filter(([url]) => !url.includes('/feeds/videos.xml'));
+  assert.deepEqual(
+    hlavicky.map(([url, volby]) => [url, volby.method]),
+    ['aaaaaaaaaaa', 'ccccccccccc', 'ddddddddddd'].map((id) => [`https://i.ytimg.com/vi/${id}/hq720.jpg`, 'HEAD']),
+  );
+  assert.deepEqual(result.videaPasek.map((v) => v.nahled.width), [1280, 1280, 1280]);
+});
+
+test('kolo 50: video bez hq720 (404) padá v pásku na sddefault 640×480, ostatní drží hq720', async (t) => {
+  const xml = `
+    <feed>
+      <entry><yt:videoId>hdhdhdhdhdh</yt:videoId><title>HD video</title></entry>
+      <entry><yt:videoId>sdsdsdsdsds</yt:videoId><title>Staré SD video</title></entry>
+    </feed>
+  `;
+  const result = await executeHomepage(t, [], async (url) => (
+    url.includes('/feeds/videos.xml')
+      ? rssResponse(xml)
+      : { ok: !url.includes('sdsdsdsdsds'), status: url.includes('sdsdsdsdsds') ? 404 : 200 }
+  ));
+  assert.deepEqual(result.videaPasek.map((v) => v.nahled), [
+    { webp: 'https://i.ytimg.com/vi_webp/hdhdhdhdhdh/hq720.webp', jpg: 'https://i.ytimg.com/vi/hdhdhdhdhdh/hq720.jpg', width: 1280, height: 720 },
+    { webp: 'https://i.ytimg.com/vi_webp/sdsdsdsdsds/sddefault.webp', jpg: 'https://i.ytimg.com/vi/sdsdsdsdsds/sddefault.jpg', width: 640, height: 480 },
+  ]);
+  assert.deepEqual(result.videos, [
+    { id: 'hdhdhdhdhdh', title: 'HD video' },
+    { id: 'sdsdsdsdsds', title: 'Staré SD video' },
+  ], 'videos (a JSON-LD / preconnect z nich) zůstávají beze změny');
 });
 
 test('share image je OG hero článku, když soubor existuje', async (t) => {
@@ -397,6 +427,8 @@ test('nepoužitelný nebo chybový YouTube RSS vždy použije lokální snapshot
       resetHomepageMocks();
       const result = await executeHomepage(subtest, [], fetchImplementation);
       assert.deepEqual(result.videos, snapshot);
+      assert.ok(result.videaPasek.every((v) => v.nahled.jpg.endsWith('/hq720.jpg')),
+        'chyba sítě nebo HTTP bez 404 hq720 neshodí — snapshot videa ho mají');
       assert.equal(result.preconnectYtimg, snapshot.length > 0,
         'snapshot videí tahá i.ytimg.com — homepage musí předpojit ytimg');
     });
