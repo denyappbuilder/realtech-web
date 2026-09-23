@@ -16,7 +16,7 @@
   .hero-rail { margin-top: 32px; padding-top: 18px; }
   .hero-rail-label { margin-bottom: 16px; }
   .hero-rail-item { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 14px; padding: 0; border: 0; align-items: start; }
-  .hero-rail-item img { width: 80px; height: 96px; object-fit: cover; border-radius: 4px; }
+  .hero-rail-item img { width: 80px; height: 96px; object-fit: cover; }
   .hero-rail-title { display: block; -webkit-line-clamp: unset; overflow: visible; font-size: 0.98rem; line-height: 1.3; }
   .hero-rail-item time { margin-top: 10px; }
 }
@@ -27,7 +27,7 @@
 .archive-heading p { color: var(--ink-soft); font-size: 1.05rem; }
 [data-archive] .filter-bar { display: flex; flex-direction: column; align-items: stretch; gap: 16px; margin-bottom: 16px; }
 [data-archive] .search-form { order: -1; display: flex; gap: 8px; width: 100%; max-width: 680px; }
-[data-archive] .search-input { flex: 1; min-width: 0; width: 100%; border-radius: var(--radius); font-size: 1rem; caret-color: var(--signal); }
+[data-archive] .search-input { flex: 1; min-width: 0; width: 100%; font-size: 1rem; }
 [data-archive] .search-form button { cursor: pointer; border: 0; font: inherit; font-weight: 600; background: var(--signal-fill); color: #fff; }
 [data-archive] .search-form .btn-primary:hover { background: var(--signal-fill-hover); color: #fff; }
 /* Kolo 47: vlastní vrstva čipů archivu (4px, bez rámečku a podkladu, hover
@@ -41,7 +41,7 @@
 .filter-retry { cursor: pointer; margin-block: 16px; }
 [data-archive] .card { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; }
 [data-archive] .card:hover { transform: none; box-shadow: none; }
-[data-archive] .card-thumb { border-radius: var(--radius); overflow: hidden; }
+[data-archive] .card-thumb { overflow: hidden; }
 [data-archive] .card-body { padding: 18px 0 22px; }
 [data-archive] .card-body h2 { font-size: 1.2rem; line-height: 1.25; }
 
@@ -55,7 +55,7 @@
    surové 'Archivo Variable' 1.05rem tu leželo mrtvé. */
 .article-contents h2 { margin-bottom: 12px; }
 .article-contents ol, .article-contents-mobile ol { list-style: none; padding: 0; margin: 0; }
-.article-contents a, .article-contents-mobile nav a { display: block; min-height: 44px; padding: 10px 8px; color: var(--ink-soft); line-height: 1.4; font-size: 0.92rem; border-radius: 4px; overflow-wrap: anywhere; }
+.article-contents a, .article-contents-mobile nav a { display: block; min-height: 44px; padding: 10px 8px; color: var(--ink-soft); line-height: 1.4; font-size: 0.92rem; border-radius: var(--radius-badge); overflow-wrap: anywhere; }
 .article-contents a:hover, .article-contents-mobile nav a:hover { color: var(--signal-dark); background: var(--bg); }
 .article-contents a[aria-current], .article-contents-mobile a[aria-current] { color: var(--signal-dark); font-weight: 600; background: var(--bg); }
 .contents-subsection { padding-left: 16px; }

@@ -385,7 +385,8 @@ test('článek vkládá <Giscus /> pod autorský box, „Další reporty“ a ch
   const nav = PAGE.indexOf('<nav class="article-nav"');
   const zpet = PAGE.indexOf('<div class="article-back">');
   const telo = PAGE.indexOf('<Content />');
-  const sdileni = PAGE.indexOf('<div class="article-share">');
+  // Kolo 50: „Sdílej dál“ je jen v aside hned za tělem (.article-share pod textem padlo).
+  const sdileni = PAGE.indexOf('<div class="article-aside-share">');
   assert.ok(telo > 0 && sdileni > telo && autorskyBox > sdileni, 'předpoklad o pořadí šablony');
   assert.ok(giscus > autorskyBox, 'komentáře až za autorským boxem');
   // Kolo 23: lazy iframe s vlastní výškou odsouval „Další reporty“ a navigaci.

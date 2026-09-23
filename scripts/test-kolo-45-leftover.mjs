@@ -97,7 +97,8 @@ test('kolo 45: obal tabulky pod 580px stojí ve sloupci — karta s paddingem 20
   assert.ok(obal, '.article-layout .article-body .table-wrap v @media (max-width: 580px) premium.css chybí');
   assert.match(obal, /margin-inline:\s*0/);
   assert.match(obal, /border-inline:\s*1px solid var\(--line\)/);
-  assert.match(obal, /border-radius:\s*8px/, 'stejný poloměr jako .article-body .table-wrap v global.css');
+  assert.match(obal, /border-radius:\s*var\(--radius-field\)/, 'kolo 50: stejný token jako .article-body .table-wrap v global.css');
+  assert.match(pravidlo(global, '.article-body .table-wrap'), /border-radius:\s*var\(--radius-field\)/);
   // Důvod: editorial vrstva bere tělu článku padding; global.css pravidlo (kolo 17) zůstává, jen ho premium přebije.
   assert.match(pravidlo(editorial, '.article-layout .article-body'), /padding:\s*0/);
   assert.match(pravidlo(blok(global, /@media \(max-width: 580px\)/), '.article-body .table-wrap'), /margin-inline:\s*-20px/, 'global.css se neupravuje (test-kolo-17-leftover)');
@@ -278,12 +279,14 @@ test('kolo 45: stav filtru archivu — edge píše do počtu filtrovaný text, d
 });
 
 test('kolo 45: .stat strong v darku bere --signal-dark jako logo; --signal jako barva textu jinde nezůstává', () => {
-  assert.match(global, /:root:not\(\[data-theme="light"\]\) \.stat strong \{ color: var\(--signal-dark\); \}/);
-  assert.match(global, /:root\[data-theme="dark"\] \.stat strong \{ color: var\(--signal-dark\); \}/);
-  const textoveSignal = [...global.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
-    .filter((m) => /(?<![-\w])color:\s*var\(--signal\)\s*;/.test(m[2]))
+  // Kolo 50: dva dark přepisy u každého selektoru nahradil token --signal-text
+  // (světlý = --signal, oba dark bloky = --signal-dark).
+  const textoveToken = [...global.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
+    .filter((m) => /(?<![-\w])color:\s*var\(--signal-text\)\s*;/.test(m[2]))
     .map((m) => m[1].trim().split('\n').pop().trim());
-  assert.deepEqual(textoveSignal.sort(), ['.ab-logo .tech', '.logo .tech', '.stat strong'].sort(), 'každý text v --signal má dark override na --signal-dark');
+  assert.deepEqual(textoveToken.sort(), ['.ab-logo .tech', '.logo .tech', '.stat strong'].sort());
+  assert.equal((global.match(/--signal-text:\s*var\(--signal-dark\)/g) ?? []).length, 2, 'OS dark i ruční dark');
+  assert.doesNotMatch(global, /(?<![-\w])color:\s*var\(--signal\)\s*;/, 'text přímo v --signal nezůstává');
   for (const css of [premium, editorial]) assert.doesNotMatch(css, /(?<![-\w])color:\s*var\(--signal\)\s*[;}]/, 'premium/editorial nepřidávají text v --signal');
 });
 

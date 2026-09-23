@@ -27,6 +27,7 @@ const koren = join(dirname(fileURLToPath(import.meta.url)), '..');
 const cti = (rel) => readFileSync(join(koren, rel), 'utf8');
 const bezKomentaru = (zdroj) => zdroj.replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
 const premium = cti('src/styles/premium.css');
+const global = cti('src/styles/global.css');
 const clanek = bezKomentaru(cti('src/pages/clanky/[...id].astro'));
 const tema = bezKomentaru(cti('src/components/TemaPage.astro'));
 const notfound = bezKomentaru(cti('src/pages/404.astro'));
@@ -42,7 +43,7 @@ const mobil = premium.match(/@media \(max-width: 580px\) \{([\s\S]*?)\n\}/)?.[1]
 // ── P1: UI popisky bez `//` ─────────────────────────────────────────────────
 
 test('kolo 43: žádný UI popisek nezačíná `// ` — Sdílej dál, Další témata, Chyba 404', () => {
-  assert.match(clanek, /<div class="article-share">\s*<span class="mono">Sdílej dál<\/span>/);
+  assert.match(clanek, /<div class="article-aside-share">\s*<p class="mono">Sdílej dál<\/p>/, 'kolo 50: jediné sdílení v aside');
   assert.match(tema, /<nav class="topics" aria-label="Další témata">\s*<span class="mono">Další témata<\/span>/);
   assert.match(notfound, /<span class="mono">Chyba 404<\/span>/);
   for (const [cesta, zdroj] of [['clanky/[...id].astro', clanek], ['TemaPage.astro', tema], ['404.astro', notfound]]) {
@@ -107,15 +108,17 @@ test('kolo 43: --line-strong je o krok tmavší jen pro oddělovače sekcí — 
 
 // ── P2: share radius + jedna škála popisků ──────────────────────────────────
 
-test('kolo 43: .share-btn na --radius-field; popisky chrome jedna škála 0.85rem / 600 / --ink', () => {
-  assert.match(pravidlo(premium, '.share-btn'), /border-radius:\s*var\(--radius-field\)/);
-  const popisky = premium.match(/^\.article-contents h2, \.article-aside \.mono, \.article-share \.mono, \.topics \.mono \{([^}]*)\}/m)?.[1] ?? '';
+test('kolo 43: .share-btn na tokenu škály; popisky chrome jedna škála 0.85rem / 600 / --ink', () => {
+  // Kolo 50: sdílení jsou tlačítka → control (pilulka jako .btn-ghost, čipy, YouTube), v global.css.
+  assert.match(pravidlo(global, '.share-btn'), /border-radius:\s*var\(--radius-control\)/);
+  assert.doesNotMatch(premium, /^\.share-btn\s*\{/m, 'žádný druhý přepis poloměru v premium');
+  const popisky = premium.match(/^\.article-contents h2, \.article-aside \.mono, \.topics \.mono \{([^}]*)\}/m)?.[1] ?? '';
   assert.ok(popisky, 'společné pravidlo popisků chybí');
   assert.match(popisky, /font-family:\s*var\(--reading-face\)/);
   assert.match(popisky, /font-size:\s*0\.85rem/);
   assert.match(popisky, /font-weight:\s*600/);
   assert.match(popisky, /color:\s*var\(--ink\)/);
-  assert.match(popisky, /letter-spacing:\s*0/, 'global dává .article-share .mono 0.08em — premium ruší');
+  assert.match(popisky, /letter-spacing:\s*0/, 'global .mono dává 0.05em — premium ruší');
   assert.doesNotMatch(premium, /^\.article-contents h2\s*\{[^}]*font-size:\s*0\.95rem/m, 'stará 0.95rem výjimka');
 });
 

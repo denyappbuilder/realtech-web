@@ -82,7 +82,8 @@ const tisk = mediaBloky("print");
 test("kolo 30: tisk skrývá aside článku i chipy témat", () => {
   assert.equal(tisk.length, 1, "očekávám jeden @media print blok");
   const skryte = tisk[0].match(/([^{}]+)\{\s*display:\s*none\s*!important;?\s*\}/)?.[1] ?? "";
-  for (const selektor of [".article-aside", ".topics", ".article-share", ".related", ".komentare"]) {
+  // Kolo 50: .article-share padlo — sdílení je jen v .article-aside.
+  for (const selektor of [".article-aside", ".topics", ".related", ".komentare"]) {
     assert.ok(
       skryte.split(",").map((s) => s.trim()).includes(selektor),
       `${selektor} chybí v seznamu display: none pro tisk`,

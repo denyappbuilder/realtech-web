@@ -87,36 +87,33 @@ test("kolo 34: hero úvodky nese chip „Zpráva“ hned za kategorií, stejně 
 
 // ── P1: na desktopu je vidět přesně jedna skupina sdílení ────────────────
 
-test("kolo 34: aside má sdílení v obalu .article-aside-share, .article-share pod textem zůstává", () => {
+test("kolo 34: aside má sdílení v obalu .article-aside-share — od kola 50 jediné v článku", () => {
   const aside = clanek.match(/<aside class="article-aside">([\s\S]*?)<\/aside>/)?.[1] ?? "";
   assert.ok(aside, "aside článku chybí");
   assert.match(
     aside,
     /<div class="article-aside-share">\s*<p class="mono">Sdílej dál<\/p>\s*<div class="share-btns">[\s\S]*?<\/div>\s*<\/div>/,
-    "popisek i tlačítka v jednom obalu — CSS skrývá celek, ne jen tlačítka",
+    "popisek i tlačítka v jednom obalu — CSS řídí celek, ne jen tlačítka",
   );
-  assert.equal((clanek.match(/class="share-btns"/g) ?? []).length, 2, "markup nese obě místa — vybírá CSS (kolo 29)");
-  // Kolo 43: popisek bez „//“ — stejný text jako v aside, ne code-comment chrome.
-  assert.match(clanek, /<div class="article-share">\s*<span class="mono">Sdílej dál<\/span>/);
+  assert.equal((clanek.match(/class="share-btns"/g) ?? []).length, 1, "kolo 50: jedna sada, druhá kopie pod textem padla");
   // První .mono v aside je „V článku“ přímo v aside; „Sdílej dál“ je první
   // v obalu a nesmí přijít o odstup — proto přímý potomek.
   assert.match(css, /\.article-aside > \.mono:first-child \{ margin-top: 0; \}/);
   assert.doesNotMatch(css, /\.article-aside \.mono:first-child/, "obecný :first-child by srazil odstup „Sdílej dál“ v obalu");
 });
 
-test("kolo 34: výšky desktopu se dělí na 640px — sticky aside skryje .article-share, nižší okno skryje sdílení v aside", () => {
-  const vysoke = css.match(/@media\s*\(min-width: 901px\) and \(min-height: 640px\)\s*\{\s*\.article-share\s*\{\s*display:\s*none;?\s*\}\s*\}/);
-  assert.ok(vysoke, "skrytí .article-share z kola 29 zůstává");
-  const nizke = css.match(/@media\s*\(min-width: 901px\) and \(max-height: 639px\)\s*\{\s*\.article-aside-share\s*\{\s*display:\s*none;?\s*\}\s*\}/);
-  assert.ok(nizke, "chybí doplněk: pod 640px na výšku se skrývá .article-aside-share");
-  // Doplněk dotazu: min-height 640 ∪ max-height 639 = všechny celočíselné
-  // výšky, průnik prázdný — v žádné výšce obě skupiny, v každé jedna.
+test("kolo 34 → 50: desktop pod 640px na výšku — aside sticky není, sdílení se drží dole ve sloupci vedle textu", () => {
+  const nizke = blokMedia("\\(min-width: 901px\\) and \\(max-height: 639px\\)");
+  assert.ok(nizke, "chybí @media (min-width: 901px) and (max-height: 639px)");
+  assert.match(nizke, /\.article-aside \{ align-self: stretch; display: flex; flex-direction: column; \}/, "aside přes celou výšku textu");
+  const sdileni = nizke.match(/\.article-aside-share\s*\{([^}]*)\}/)?.[1] ?? "";
+  assert.match(sdileni, /order:\s*1;\s*margin-top:\s*auto/, "na konec sloupce, tj. ke konci článku");
+  assert.match(sdileni, /position:\s*sticky;\s*bottom:\s*0/, "při čtení stojí u spodní hrany okna");
+  assert.match(sdileni, /background:\s*var\(--bg\)/, "přes obsah aside, který pod ním odjíždí");
+  assert.doesNotMatch(sdileni, /display:\s*none/);
+  // Vysoké okno: sticky celý aside z kola 19.
   const sticky = blokMedia("\\(min-width: 901px\\) and \\(min-height: 640px\\)");
-  assert.match(sticky, /\.article-aside\s*\{\s*position:\s*sticky;\s*top:\s*81px;?\s*\}/, "sticky aside sedí přesně s výškou, kde .article-share mizí");
-  assert.ok(nizke.index > css.search(/\n\.article-share\s*\{/), "oba dotazy stojí za základním .article-share");
-  const tablet = blokMedia("\\(max-width: 900px\\)");
-  assert.match(tablet, /\.article-aside\s*\{\s*display:\s*none;?\s*\}/, "pod 901px je jediná cesta .article-share (kolo 19)");
-  assert.doesNotMatch(tablet, /\.article-aside-share/, "pod 901px obal nic neřeší — aside tam není celý");
+  assert.match(sticky, /\.article-aside\s*\{\s*position:\s*sticky;\s*top:\s*81px;?\s*\}/);
 });
 
 // ── P2: serverový title přepínače ────────────────────────────────────────

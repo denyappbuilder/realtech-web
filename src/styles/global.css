@@ -15,6 +15,11 @@
      tématech a hover ztmavuje, ne zesvětluje. Dark bloky ji nepřepisují. */
   --signal-fill: #D42622;
   --signal-fill-hover: #B7211D;
+  /* Kolo 50: červený TEXT (logo TECH, čísla .stat). Ve světlém = --signal;
+     v darku má --signal #E5322D na --bg/--surface jen 4,31/3,97:1, tak text
+     bere --signal-dark #F0554F (5,03–5,47:1). Dřív to dělaly dva dark
+     přepisy u každého selektoru (kola 20 a 45). */
+  --signal-text: var(--signal);
   --panel: #14171C;
   /* Kolo 23: rámeček bloků s výplní --panel (.hero-visual, .article-hero,
      .video-embed, .vc-thumb). Ve světlém = --line (tmavý panel na světlém
@@ -42,6 +47,7 @@
     --panel: #1D232C;
     --line-panel: #3A4350;
     --signal-dark: #F0554F;
+    --signal-text: var(--signal-dark);
     color-scheme: dark;
   }
 }
@@ -56,6 +62,7 @@
   --panel: #1D232C;
   --line-panel: #3A4350;
   --signal-dark: #F0554F;
+  --signal-text: var(--signal-dark);
   color-scheme: dark;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -146,7 +153,7 @@ header.site .wrap {
   white-space: nowrap;
 }
 .logo .real { color: var(--ink); }
-.logo .tech { color: var(--signal); }
+.logo .tech { color: var(--signal-text); }
 .logo .cz {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.65rem; font-weight: 500;
@@ -155,19 +162,6 @@ header.site .wrap {
   letter-spacing: 0.1em;
 }
 
-/* Kolo 20: logo TECH v darku — --signal #E5322D na --surface má 3,97:1
-   (AA normal 4,5; large text 3,0 těsně prochází). --signal-dark #F0554F
-   dá 5,03:1, stejně jako odkazy .signal-dark. Light beze změny (#D42622). */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .logo .tech,
-  :root:not([data-theme="light"]) .ab-logo .tech {
-    color: var(--signal-dark);
-  }
-}
-:root[data-theme="dark"] .logo .tech,
-:root[data-theme="dark"] .ab-logo .tech {
-  color: var(--signal-dark);
-}
 nav.main ul { display: flex; gap: 28px; list-style: none; }
 nav.main a {
   font-size: 0.88rem; font-weight: 500; color: var(--ink-soft);
@@ -177,7 +171,7 @@ nav.main a {
 nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: var(--signal); }
 .yt-btn {
   background: var(--signal-fill); color: #fff;
-  padding: 9px 18px; border-radius: var(--radius);
+  padding: 9px 18px; border-radius: var(--radius-control);
   font-size: 0.85rem; font-weight: 600;
   min-height: 44px;
   transition: background 0.15s;
@@ -244,7 +238,7 @@ nav.main a:hover, nav.main a[aria-current] { color: var(--ink); border-color: va
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
-    font-family: 'Archivo Variable', 'Archivo Karta Fallback', 'Archivo', sans-serif;
+    font-family: var(--editorial-face);
     font-weight: 750;
     font-stretch: 105%;
     font-size: 0.95rem;
@@ -281,42 +275,8 @@ a.tag:hover { background: var(--signal-fill-hover); }
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.7rem; padding: 5px 12px; letter-spacing: 0.06em;
 }
-/* Kolo 27: Archivo 870/110 % je o 17,6 % širší než Arial Bold (šířka
-   titulků z úvodky v DOM při 100px a letter-spacing -0.025em: 1,1765;
-   Liberation Sans Bold = metriky Arial Bold). Než se woff2 stáhne
-   (font-display: swap), kreslil se titulek v Arialu o 1–2 řádky kratší a při
-   swapu odskočil perex, CTA i cover — živě 7. 9. 2026 CLS 0.037 na 1280px,
-   0.022 na 390px, jediný zdroj posunu na úvodce. size-adjust srovná šířku,
-   takže počet řádků sedí už před swapem. Jen pro hero h1: karty (750/105 %)
-   mají poměr 1,057 a společný fallback by je rozhodil na druhou stranu. */
-@font-face {
-  font-family: 'Archivo Hero Fallback';
-  src: local('Arial Bold'), local('Arial'), local('Roboto Bold'), local('Roboto'), local('Liberation Sans Bold');
-  font-weight: 100 1000;
-  size-adjust: 117.6%;
-}
-/* Kolo 28: totéž pro ostatní Archivo titulky nad ohybem. Kolo 27 srovnalo
-   jen hero úvodky; h1 článku (850/108 %) swapoval dál a cover — LCP
-   článku — pod ním živě 7. 9. 2026 poskočil o +31 px (768), +40 px (1024),
-   +49 px (1280) a −24 px (390) na KAŽDÉM článku. Poměr šířek k Arial Bold
-   (Liberation Sans Bold) změřený v DOM při 100px na všech 98 titulcích:
-   850/108 % ls −0.02em = medián 1,146 (1,12–1,18) → 114,6 %; karty
-   750/105 % ls −0.01em = medián 1,059 (1,04–1,09) → 105,9 % (proto vlastní
-   rodina — kolo 27 to předvídalo). Stejné 850/108 % má i h1 O nás a 404. */
-@font-face {
-  font-family: 'Archivo Clanek Fallback';
-  src: local('Arial Bold'), local('Arial'), local('Roboto Bold'), local('Roboto'), local('Liberation Sans Bold');
-  font-weight: 100 1000;
-  size-adjust: 114.6%;
-}
-@font-face {
-  font-family: 'Archivo Karta Fallback';
-  src: local('Arial Bold'), local('Arial'), local('Roboto Bold'), local('Roboto'), local('Liberation Sans Bold');
-  font-weight: 100 1000;
-  size-adjust: 105.9%;
-}
 .hero h1 {
-  font-family: 'Archivo Variable', 'Archivo Hero Fallback', 'Archivo', sans-serif;
+  font-family: var(--editorial-face);
   font-weight: 870;
   font-stretch: 110%;
   font-size: clamp(2.1rem, 4.8vw, 3.1rem);
@@ -359,7 +319,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 .btn-primary {
   background: var(--ink); color: var(--bg);
-  padding: 12px 24px; border-radius: var(--radius);
+  padding: 12px 24px; border-radius: var(--radius-control);
   font-weight: 600; font-size: 0.92rem;
   transition: background 0.15s;
   display: inline-flex; align-items: center; gap: 8px;
@@ -367,7 +327,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 }
 .btn-primary:hover { background: color-mix(in srgb, #000 22%, var(--ink)); }
 .btn-ghost {
-  padding: 12px 24px; border-radius: var(--radius);
+  padding: 12px 24px; border-radius: var(--radius-control);
   border: 1px solid var(--line); background: var(--surface);
   font-weight: 600; font-size: 0.92rem; color: var(--ink-soft);
   transition: border-color 0.15s, color 0.15s;
@@ -377,7 +337,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
 .hero-visual {
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
+  border-radius: var(--media-radius);
   background: var(--panel);
   position: relative; overflow: hidden;
   border: 1px solid var(--line-panel);
@@ -405,7 +365,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 }
 .section-head h1,
 .section-head h2 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 108%;
+  font-family: var(--editorial-face); font-weight: 800; font-stretch: 108%;
   font-size: 1.35rem; letter-spacing: -0.01em;
   text-wrap: balance;
 }
@@ -428,7 +388,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--media-radius);
   overflow: hidden;
   position: relative;
   display: flex; flex-direction: column;
@@ -460,7 +420,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .card-body h2,
 .card-body h3 {
-  font-family: 'Archivo Variable', 'Archivo Karta Fallback', 'Archivo', sans-serif; font-weight: 750; font-stretch: 105%;
+  font-family: var(--editorial-face); font-weight: 750; font-stretch: 105%;
   font-size: 1.08rem; line-height: 1.25; letter-spacing: -0.01em;
 }
 .card-body h2 a,
@@ -542,7 +502,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   border: 1px solid var(--line);
 }
 .article-head h1 {
-  font-family: 'Archivo Variable', 'Archivo Clanek Fallback', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: var(--editorial-face); font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.8rem, 3.6vw, 2.8rem); line-height: 1.08;
   letter-spacing: -0.02em; margin-bottom: 16px;
   text-wrap: balance;
@@ -559,7 +519,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   background: var(--surface);
   color: var(--ink);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-field);
   padding: 16px 20px;
 }
 .audio-prehled-head {
@@ -571,7 +531,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   margin-bottom: 12px;
 }
 .audio-prehled h2 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif;
+  font-family: var(--editorial-face);
   font-weight: 800;
   font-stretch: 105%;
   font-size: 1.1rem;
@@ -628,7 +588,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   max-width: 760px; margin: 28px auto 0;
   background: var(--surface); color: var(--ink);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-field);
   padding: 16px 20px;
   display: flex; align-items: center; justify-content: space-between;
   gap: 16px; flex-wrap: wrap;
@@ -641,7 +601,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   margin: 0 0 1.4em;
   background: var(--surface); color: var(--ink);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-field);
   padding: 10px 14px;
   display: flex; align-items: center; justify-content: space-between;
   gap: 12px; flex-wrap: wrap;
@@ -659,7 +619,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .article-body {
   min-width: 0;
   background: var(--surface); border: 1px solid var(--line);
-  border-radius: 14px; padding: clamp(24px, 5vw, 48px);
+  border-radius: var(--radius-field); padding: clamp(24px, 5vw, 48px);
   font-size: 1.05rem;
   line-height: 1.7;
 }
@@ -673,7 +633,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   min-width: 0;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--radius-field);
   padding: 20px 22px;
 }
 /* Kolo 19: aside drží krok s textem. Bez toho odjelo „Sdílej dál“
@@ -711,7 +671,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .article-aside-related a { transition: color 0.15s; }
 .article-aside-related a:hover { color: var(--signal-dark); }
 .article-body h2 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
+  font-family: var(--editorial-face); font-weight: 800; font-stretch: 105%;
   font-size: 1.4rem; letter-spacing: -0.01em;
   margin: 2em 0 0.6em;
   padding-top: 0.6em;
@@ -719,7 +679,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 }
 .article-body h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
 .article-body h3 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 750;
+  font-family: var(--editorial-face); font-weight: 750;
   font-size: 1.1rem; margin: 1.6em 0 0.5em;
 }
 .article-body p { margin: 0 0 1.1em; }
@@ -735,7 +695,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .article-body .task-box {
   position: absolute; left: 0; top: 0.32em;
   width: 1.05em; height: 1.05em;
-  border: 1.5px solid var(--line-strong, var(--ink-soft)); border-radius: 4px;
+  border: 1.5px solid var(--line-strong, var(--ink-soft)); border-radius: var(--radius-badge);
   background: var(--surface);
 }
 .article-body .task-box-checked { background: var(--signal-fill); border-color: var(--signal-fill); }
@@ -753,15 +713,15 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .article-body code {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.85em;
   background: var(--bg); border: 1px solid var(--line);
-  border-radius: 4px; padding: 0.1em 0.4em;
+  border-radius: var(--radius-badge); padding: 0.1em 0.4em;
 }
 .article-body pre {
   background: var(--panel); color: #E8ECF1;
-  border-radius: 8px; padding: 18px 20px; overflow-x: auto;
+  border-radius: var(--radius-field); padding: 18px 20px; overflow-x: auto;
   margin: 0 0 1.2em; font-size: 0.85rem;
 }
 .article-body pre code { background: none; border: none; padding: 0; color: inherit; }
-.article-body img { max-width: 100%; border-radius: 8px; }
+.article-body img { max-width: 100%; border-radius: var(--media-radius); }
 .article-body hr { border: none; border-top: 1px solid var(--line); margin: 2em 0; }
 /* Kolo 17: markdown tabulky (srovnání modelů, ceny, specifikace). Bez stylů
    šly články na seznamy. Obal .table-wrap vkládá rehype plugin
@@ -773,7 +733,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   scrollbar-width: thin;
   margin: 1.4em 0;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-field);
   background: var(--surface);
 }
 .article-body table {
@@ -822,7 +782,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
   display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
 }
 .newsletter h2 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: var(--editorial-face); font-weight: 850; font-stretch: 108%;
   font-size: 1.8rem; letter-spacing: -0.015em; line-height: 1.1;
   margin: 10px 0 12px;
   text-wrap: balance;
@@ -830,7 +790,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .newsletter p { color: var(--ink-soft); font-size: 0.95rem; max-width: 46ch; }
 .nl-form { display: flex; gap: 10px; }
 .nl-form input {
-  flex: 1; padding: 13px 16px; border-radius: var(--radius);
+  flex: 1; padding: 13px 16px; border-radius: var(--radius-field);
   border: 1px solid var(--line);
   background: var(--bg);
   color: var(--ink);
@@ -841,7 +801,7 @@ a.tag:hover { background: var(--signal-fill-hover); }
 .nl-form input:focus { outline: 2px solid var(--signal); outline-offset: 1px; }
 .nl-form button {
   background: var(--signal-fill); color: #fff; border: none; cursor: pointer;
-  padding: 13px 22px; border-radius: var(--radius);
+  padding: 13px 22px; border-radius: var(--radius-field);
   font-family: inherit; font-weight: 600; font-size: 0.9rem;
   min-height: 44px;
   display: inline-flex; align-items: center;
@@ -894,17 +854,12 @@ footer.site ul a:hover { color: var(--ink); }
   .newsletter .wrap { grid-template-columns: 1fr; gap: 28px; }
   .article-layout { grid-template-columns: 1fr; }
   /* Kolo 19: aside vznikl pro desktopovou díru vedle těla (Z10069). Pod
-     901px se skládal POD text a všechno v něm už na stránce je: kategorie,
-     datum a čtení nese .lower-third nahoře, tři tlačítka sdílení stojí
-     200px níž v .article-share a tři „Další reporty“ jsou hned pod tím
-     karty .related (stejné pole `related`). Živě 4. 9. 2026 na 390px
-     ~330px duplicit mezi koncem článku a výzvou na kanál; čtečka slyšela
-     šest tlačítek sdílení.
-     Kolo 40: aside teď vypisuje „Nejnovější reporty“ mimo `related`
-     (na desktopu se tři odkazy opakovaly i tam) — pod 901px zůstává
-     skrytý, meta a sdílení by se dál opakovaly a mobil má chronologii
-     v .article-nav. */
-  .article-aside { display: none; }
+     901px se skládá POD text a kategorii, datum i čtení už nese
+     .lower-third nahoře; obsah článku má mobil v .reading-entry.
+     Kolo 40: „Nejnovější reporty“ pod 901px ne — mobil má chronologii
+     v .article-nav. Kolo 50: sdílení je v HTML jen v aside, takže z něj
+     zůstává právě ono — přímo pod textem, kde dřív stálo .article-share. */
+  .article-aside > :not(.article-aside-share) { display: none; }
   header.site .wrap {
     flex-wrap: wrap; height: auto;
     padding-top: 10px; padding-bottom: 10px; row-gap: 8px;
@@ -1086,7 +1041,7 @@ footer.site ul a:hover { color: var(--ink); }
   margin: 28px auto 0;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--line-panel);
-  border-radius: var(--radius);
+  border-radius: var(--media-radius);
   overflow: hidden;
   background: var(--panel);
 }
@@ -1107,26 +1062,20 @@ footer.site ul a:hover { color: var(--ink); }
 .stat {
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-field);
   padding: 16px 18px;
 }
 .stat strong {
   display: block;
   /* Kolo 15: jediný Archivo nadpis s kladným prokladem (+0.5px) a bez
      font-stretch — čísla teď sedí k ostatním titulkům. */
-  font-family: 'Archivo Variable', 'Archivo', sans-serif;
+  font-family: var(--editorial-face);
   font-size: 1.7rem;
   font-weight: 800;
   font-stretch: 108%;
-  color: var(--signal);
+  color: var(--signal-text);
   letter-spacing: -0.01em;
 }
-/* Kolo 45: poslední text v --signal — dark #E5322D na #0F1216 je 4,31:1;
-   v darku --signal-dark (5,47:1) jako .logo .tech (kolo 22). */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .stat strong { color: var(--signal-dark); }
-}
-:root[data-theme="dark"] .stat strong { color: var(--signal-dark); }
 .stat span {
   font-size: 0.85rem;
   color: var(--ink-soft);
@@ -1145,7 +1094,7 @@ footer.site ul a:hover { color: var(--ink); }
   margin: 28px auto 0;
   aspect-ratio: 16 / 9;
   border: 1px solid var(--line-panel);
-  border-radius: var(--radius);
+  border-radius: var(--media-radius);
   overflow: hidden;
   background: var(--panel);
 }
@@ -1164,7 +1113,7 @@ footer.site ul a:hover { color: var(--ink); }
 /* Kolo 15: h1 a perex 404 žily na UA výchozím stylu (Plex Sans 2em bold,
    700 se ani nenačítá). Titulek bere Archivo jako O nás, perex jako hero. */
 .notfound h1 {
-  font-family: 'Archivo Variable', 'Archivo Clanek Fallback', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: var(--editorial-face); font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.05;
   margin: 14px 0 12px;
   text-wrap: balance;
@@ -1226,7 +1175,7 @@ footer.site ul a:hover { color: var(--ink); }
 .filter-bar .search-form { display: contents; }
 .search-input {
   font-family: inherit; font-size: 0.88rem;
-  padding: 8px 16px; border-radius: 999px;
+  padding: 8px 16px; border-radius: var(--radius-control);
   border: 1px solid var(--line); background: var(--surface); color: var(--ink);
   min-width: 210px;
   min-height: 44px;
@@ -1240,7 +1189,7 @@ footer.site ul a:hover { color: var(--ink); }
 .chip {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem;
   letter-spacing: 0.05em; text-transform: uppercase;
-  padding: 7px 14px; border-radius: 999px; cursor: pointer;
+  padding: 7px 14px; border-radius: var(--radius-control); cursor: pointer;
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
   transition: border-color 0.15s, color 0.15s, background 0.15s;
   display: inline-flex; align-items: center;
@@ -1283,34 +1232,25 @@ footer.site ul a:hover { color: var(--ink); }
 }
 
 /* ── Article share ───────────────────── */
-.article-share {
-  max-width: 760px; margin: 28px auto 0;
-  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-}
-.article-share .mono { color: var(--ink-faint); font-size: 0.75rem; letter-spacing: 0.08em; }
-/* Kolo 29: když aside sedí u textu celou dobu (sticky, stejný dotaz jako
-   u .article-aside výš), jsou tři tlačítka sdílení pod textem totéž podruhé
-   (živě 7. 9. 2026 na 1280px: šest tlačítek; pod 900px aside nekreslíme).
-   Jedna cesta: aside. Na nižším okně aside sticky není a odjede — tam
-   zůstává sdílení pod textem. Pravidlo MUSÍ stát až za základním
-   .article-share { display: flex } — stejná specificita, rozhoduje pořadí. */
-@media (min-width: 901px) and (min-height: 640px) {
-  .article-share { display: none; }
-}
-/* Kolo 34: pod 640px na výšku (notebook s lištami, 1280×600) se aside
-   nekreslí sticky a kolo 29 nechalo .article-share — jenže aside i s jeho
-   „Sdílej dál“ zůstal, takže na ≥ 901px byla dvě sdílení zase vidět
-   (živě 9. 9. 2026: šest tlačítek, nahoře v aside a dole pod textem).
-   Doplněk k dotazu výš: v každé výšce desktopu je vidět přesně JEDNA
-   skupina — sticky aside (≥ 640px) nebo .article-share pod textem
-   (< 640px, aside tam odjede s hlavou článku). Pod 901px aside není. */
+/* Kolo 50: „Sdílej dál“ je v HTML jednou, v aside (.article-aside-share).
+   Kola 29/34 držela druhou kopii .article-share pod textem a přepínala
+   display podle výšky okna — vidět byla vždy jedna, ale v markupu dvě sady
+   (čtečka bez CSS, režim čtení, audit přes curl). Kde se jediná sada kreslí:
+   ≥ 901px a ≥ 640px na výšku v sticky aside (kolo 19); ≥ 901px pod 640px
+   aside sticky není, tak se sada drží dole ve sloupci vedle textu (níž);
+   pod 901px z aside zůstane jen ona, pod textem (@media 900px výš). */
 @media (min-width: 901px) and (max-height: 639px) {
-  .article-aside-share { display: none; }
+  .article-aside { align-self: stretch; display: flex; flex-direction: column; }
+  .article-aside-share {
+    order: 1; margin-top: auto;
+    position: sticky; bottom: 0;
+    padding-block: 16px; background: var(--bg);
+  }
 }
 .share-btns { display: flex; gap: 8px; flex-wrap: wrap; }
 .share-btn {
   font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
-  padding: 8px 16px; border-radius: var(--radius);
+  padding: 8px 16px; border-radius: var(--radius-control);
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
   transition: border-color 0.15s, color 0.15s;
   display: inline-flex; align-items: center;
@@ -1347,7 +1287,7 @@ footer.site ul a:hover { color: var(--ink); }
   min-width: 0;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--radius-field);
   padding: 20px 22px;
 }
 .about-aside .mono {
@@ -1375,7 +1315,7 @@ footer.site ul a:hover { color: var(--ink); }
   line-height: 1.45;
 }
 .about h1 {
-  font-family: 'Archivo Variable', 'Archivo Clanek Fallback', 'Archivo', sans-serif; font-weight: 850; font-stretch: 108%;
+  font-family: var(--editorial-face); font-weight: 850; font-stretch: 108%;
   font-size: clamp(1.9rem, 4.5vw, 2.6rem); letter-spacing: -0.02em; line-height: 1.05;
   margin: 12px 0 18px;
 }
@@ -1402,7 +1342,7 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .about-main li a:hover { color: var(--ink); }
 .about h2 {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 800; font-stretch: 105%;
+  font-family: var(--editorial-face); font-weight: 800; font-stretch: 105%;
   font-size: 1.25rem; margin: 2em 0 0.6em;
 }
 .about h2::before { content: "// "; color: var(--signal-dark); }
@@ -1443,14 +1383,14 @@ footer.site ul a:hover { color: var(--ink); }
 .komentare-placeholder {
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
   padding: 12px 14px;
-  border: 1px solid var(--line); border-radius: var(--radius);
+  border: 1px solid var(--line); border-radius: var(--radius-field);
   background: var(--surface);
 }
 .komentare-placeholder a { color: var(--ink-soft); text-decoration: underline; font-size: 0.9rem; }
 .komentare-placeholder a:hover { color: var(--ink); }
 .komentare-nacist {
   min-height: 44px; padding: 9px 18px;
-  border: 1px solid var(--ink); border-radius: var(--radius);
+  border: 1px solid var(--ink); border-radius: var(--radius-control);
   background: var(--ink); color: var(--bg);
   font: inherit; font-weight: 600; font-size: 0.9rem; cursor: pointer;
 }
@@ -1461,7 +1401,7 @@ footer.site ul a:hover { color: var(--ink); }
 .komentare.komentare-aktivni .giscus:empty,
 .komentare.komentare-aktivni .giscus:has(> .giscus-frame--loading) {
   border: 1px dashed var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-field);
   background: var(--surface);
 }
 .komentare .giscus-frame { border: 0; }
@@ -1481,7 +1421,7 @@ footer.site ul a:hover { color: var(--ink); }
 /* ── Theme toggle ────────────────────── */
 .header-actions { display: flex; align-items: center; gap: 10px; }
 .theme-toggle {
-  width: 44px; height: 44px; border-radius: var(--radius);
+  width: 44px; height: 44px; border-radius: var(--radius-control);
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
   cursor: pointer; display: grid; place-items: center;
   transition: border-color 0.15s, color 0.15s;
@@ -1514,7 +1454,7 @@ footer.site ul a:hover { color: var(--ink); }
   font-weight: 900; font-stretch: 115%; font-size: 1.3rem;
   white-space: nowrap;
 }
-.ab-logo .tech { color: var(--signal); }
+.ab-logo .tech { color: var(--signal-text); }
 .ab-body { flex: 1; min-width: 260px; }
 .ab-body p { font-size: 0.92rem; margin-bottom: 14px; }
 .ab-actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -1532,9 +1472,8 @@ footer.site ul a:hover { color: var(--ink); }
 .video-card { display: block; }
 .vc-thumb {
   display: block; position: relative;
-  aspect-ratio: 16/9; border-radius: 14px; overflow: hidden;
+  aspect-ratio: 16/9; border-radius: var(--media-radius); overflow: hidden;
   background: var(--panel);
-  border: 1px solid var(--line-panel);
 }
 .vc-thumb img {
   position: absolute; inset: 0;
@@ -1553,7 +1492,7 @@ footer.site ul a:hover { color: var(--ink); }
 .vc-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 2px; }
 .vc-title {
   display: block; margin-top: 12px;
-  font-family: 'Archivo Variable', 'Archivo Karta Fallback', 'Archivo', sans-serif;
+  font-family: var(--editorial-face);
   font-weight: 750; font-stretch: 105%;
   font-size: 0.98rem; line-height: 1.3; letter-spacing: -0.01em;
   transition: color 0.15s;
@@ -1570,7 +1509,7 @@ footer.site ul a:hover { color: var(--ink); }
 }
 .an-item {
   display: block; padding: 14px 18px;
-  border: 1px solid var(--line); border-radius: var(--radius);
+  border: 1px solid var(--line); border-radius: var(--radius-field);
   background: var(--surface);
   transition: border-color 0.15s;
 }
@@ -1578,7 +1517,7 @@ footer.site ul a:hover { color: var(--ink); }
 .an-next { text-align: right; }
 .an-item .mono { color: var(--ink-faint); display: block; margin-bottom: 6px; }
 .an-title {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif;
+  font-family: var(--editorial-face);
   font-weight: 750; font-size: 0.9rem; line-height: 1.3;
   display: block;
 }
@@ -1600,7 +1539,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 /* ── Vyhledávání (⌘K) ────────────────── */
 .search-trigger {
   display: inline-flex; align-items: center; gap: 8px;
-  min-height: 44px; padding: 0 12px; border-radius: var(--radius);
+  min-height: 44px; padding: 0 12px; border-radius: var(--radius-control);
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-faint);
   cursor: pointer; transition: border-color 0.15s, color 0.15s;
 }
@@ -1611,7 +1550,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 .search-trigger svg { width: 16px; height: 16px; fill: currentColor; }
 .st-kbd {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
-  border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  border: 1px solid var(--line); border-radius: var(--radius-badge); padding: 1px 5px;
   color: var(--ink-faint);
 }
 @media (max-width: 900px) { .st-kbd { display: none; } }
@@ -1626,7 +1565,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 .search-box {
   width: 100%; max-width: 640px;
   background: var(--surface); border: 1px solid var(--line);
-  border-radius: 14px; overflow: hidden;
+  border-radius: var(--media-radius); overflow: hidden;
   box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
 }
 .search-head {
@@ -1651,7 +1590,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 #search-q::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
 .search-esc-kbd, .search-foot kbd {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem;
-  border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px;
+  border: 1px solid var(--line); border-radius: var(--radius-badge); padding: 2px 6px;
   color: var(--ink-faint);
 }
 /* Kolo 19: zavírací tlačítko dialogu. 44px cíl, ale záporný svislý margin
@@ -1687,10 +1626,10 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
 .si-cat {
   font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em;
   text-transform: uppercase; background: var(--signal-fill); color: #fff;
-  padding: 3px 7px; border-radius: 3px; white-space: nowrap;
+  padding: 3px 7px; border-radius: var(--radius-badge); white-space: nowrap;
 }
 .si-title {
-  font-family: 'Archivo Variable', 'Archivo', sans-serif; font-weight: 700;
+  font-family: var(--editorial-face); font-weight: 700;
   font-size: 0.95rem; line-height: 1.25;
 }
 .si-date { color: var(--ink-faint); font-size: 0.68rem; white-space: nowrap; }
@@ -1752,7 +1691,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
      s tlačítky — na papíře nic z toho nefunguje. Mrtvý selektor staré
      horní lišty (v markupu už není) ze seznamu pryč. */
   header.site, .newsletter, footer.site,
-  .article-share, .related, .author-box, .article-nav, .article-back,
+  .related, .author-box, .article-nav, .article-back,
   .article-videobar, .article-cta-inline, .audio-prehled, .read-progress, .video-embed, .x-embed, .komentare,
   .filter-bar, #art-search, .archive-pagination,
   .article-aside, .topics,
@@ -1932,7 +1871,7 @@ a.chip { display: inline-flex; align-items: center; }
 .x-embed { margin: 0 0 24px; }
 .x-facade {
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-field);
   overflow: hidden;
   background: var(--surface);
 }
@@ -1989,7 +1928,7 @@ a.chip { display: inline-flex; align-items: center; }
   min-height: 44px;
   padding: 9px 18px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-control);
   color: var(--ink);
   font-weight: 600;
   text-decoration: none;

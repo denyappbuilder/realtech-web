@@ -62,64 +62,19 @@ function kliknuti(currentTarget) {
 
 // ── P1: fallback fonty proti CLS mimo hero ───────────────────────────────
 
-test("kolo 28: 'Archivo Clanek Fallback' = lokální Arial Bold se size-adjust ≈ 114 %", () => {
-  const face = fontFace("Archivo Clanek Fallback");
-  assert.ok(face, "@font-face 'Archivo Clanek Fallback' v CSS chybí");
-  assert.match(face, /src:\s*local\('Arial Bold'\),\s*local\('Arial'\)/, "Arial Bold první, jako u hero fallbacku");
-  assert.match(face, /local\('Roboto Bold'\)/, "Android nemá Arial");
-  assert.match(face, /local\('Liberation Sans Bold'\)/, "Linux (PageSpeed) má Liberation = metriky Arialu");
-  assert.match(face, /font-weight:\s*100 1000\s*;/);
-  const adjust = Number(face.match(/size-adjust:\s*([\d.]+)%/)?.[1]);
-  assert.ok(adjust >= 113 && adjust <= 115.5, `size-adjust ${adjust}% — Archivo 850/108 % je proti Arial Bold medián 1,146× (98 titulků)`);
-  assert.doesNotMatch(face, /url\(/, "fallback je jen local(), nic se nestahuje");
-});
-
-test("kolo 28: 'Archivo Karta Fallback' má vlastní size-adjust ≈ 105,6 % (750/105 %)", () => {
-  const face = fontFace("Archivo Karta Fallback");
-  assert.ok(face, "@font-face 'Archivo Karta Fallback' v CSS chybí");
-  assert.match(face, /src:\s*local\('Arial Bold'\),\s*local\('Arial'\)/);
-  assert.match(face, /font-weight:\s*100 1000\s*;/);
-  const adjust = Number(face.match(/size-adjust:\s*([\d.]+)%/)?.[1]);
-  assert.ok(adjust >= 105 && adjust <= 106.5, `size-adjust ${adjust}% — karty 750/105 % jsou proti Arial Bold medián 1,059× (98 titulků)`);
-  const hero = Number(fontFace("Archivo Hero Fallback").match(/size-adjust:\s*([\d.]+)%/)?.[1]);
-  const clanek = Number(fontFace("Archivo Clanek Fallback").match(/size-adjust:\s*([\d.]+)%/)?.[1]);
-  assert.ok(hero > clanek && clanek > adjust, "tři rodiny, tři poměry: hero 870/110 > článek 850/108 > karta 750/105");
-});
-
-test("kolo 28: fallback článku berou všechny h1 s Archivo 850/108 % (článek, O nás, 404)", () => {
-  for (const selektor of [".article-head h1", ".about h1", ".notfound h1"]) {
-    const r = pravidlo(css, selektor);
-    assert.ok(r, `${selektor} v CSS chybí`);
-    assert.match(
-      r,
-      /font-family:\s*'Archivo Variable',\s*'Archivo Clanek Fallback',\s*'Archivo',\s*sans-serif\s*;/,
-      `${selektor}: fallback musí být hned za Archivo Variable`,
-    );
-    assert.match(r, /font-weight:\s*850\s*;/, `${selektor} má jinou váhu než 850 — poměr 114,3 % by neseděl`);
-    assert.match(r, /font-stretch:\s*108%\s*;/, `${selektor} má jinou šířku než 108 % — poměr 114,3 % by neseděl`);
+// Kolo 50: h1 článku, O nás, 404, titulky karet, rail a video strip mají od
+// premium round 3 --editorial-face 650/100 % s 'Archivo Editorial Fallback'.
+// 'Archivo Clanek Fallback' (850/108 %) a 'Archivo Karta Fallback'
+// (750/105 %) z global.css už nic nekreslily — pryč i se stackem natvrdo.
+test("kolo 28 → 50: nadpisy berou --editorial-face; mrtvé fallbacky Clanek/Karta jsou pryč", () => {
+  for (const selektor of [".article-head h1", ".about h1", ".notfound h1", ".card-body h2, .card-body h3"]) {
+    assert.match(pravidlo(css, selektor), /font-family:\s*var\(--editorial-face\)\s*;/, selektor);
   }
-  const vyskyty = css.match(/'Archivo Clanek Fallback'/g) ?? [];
-  assert.equal(vyskyty.length, 4, "@font-face + 3 selektory; jiná váha/šířka potřebuje jiný poměr");
-});
-
-test("kolo 28: fallback karet berou titulky karet, rail úvodky a video strip (750/105 %)", () => {
-  const karta = pravidlo(css, ".card-body h2, .card-body h3");
-  assert.match(karta, /font-family:\s*'Archivo Variable',\s*'Archivo Karta Fallback',\s*'Archivo',\s*sans-serif\s*;/);
-  assert.match(karta, /font-weight:\s*750;\s*font-stretch:\s*105%/);
   for (const selektor of [".hero-rail-title", ".vc-title"]) {
-    const r = pravidloSamostatne(css, selektor);
-    assert.ok(r, `${selektor} v CSS chybí`);
-    assert.match(r, /'Archivo Variable',\s*'Archivo Karta Fallback',\s*'Archivo',\s*sans-serif/, selektor);
-    assert.match(r, /font-weight:\s*750\s*;/, `${selektor} musí zůstat 750, jinak poměr nesedí`);
-    assert.match(r, /font-stretch:\s*105%\s*;/, `${selektor} musí zůstat 105 %, jinak poměr nesedí`);
+    assert.match(pravidloSamostatne(css, selektor), /font-family:\s*var\(--editorial-face\)\s*;/, selektor);
   }
-  const vyskyty = css.match(/'Archivo Karta Fallback'/g) ?? [];
-  assert.equal(vyskyty.length, 4, "@font-face + karty + rail + video strip");
-});
-
-test("kolo 28: hero h1 drží svůj fallback z kola 27 (jiný poměr, jiná rodina)", () => {
-  assert.match(pravidlo(css, ".hero h1"), /'Archivo Variable',\s*'Archivo Hero Fallback',\s*'Archivo',\s*sans-serif/);
-  assert.doesNotMatch(pravidlo(css, ".hero h1"), /Clanek Fallback|Karta Fallback/);
+  assert.doesNotMatch(css, /Archivo (Clanek|Karta|Hero) Fallback/);
+  assert.doesNotMatch(css, /@font-face/, "global.css už žádný fallback nedeklaruje — font-face patří fonts-*.css a premium.css");
 });
 
 test("kolo 28: body font stack má Arial, Roboto a Liberation Sans před system-ui", () => {
