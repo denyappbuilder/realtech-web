@@ -4,7 +4,7 @@ description: "OpenAI spustil oficiální doplněk ChatGPT for Word i pro Free. J
 category: "AI Report"
 date: "2026-09-19T08:00:00+02:00"
 zprava: true
-image: "/images/clanky/chatgpt-ve-wordu-zdarma-checklist-osvc.jpg"
+image: "/images/clanky/chatgpt-ve-wordu-zdarma-checklist.jpg"
 audio:
   url: "https://audio.realtech.cz/chatgpt-ve-wordu-zdarma-checklist-osvc-nlm.mp3?v=7a3c784bd81a"
   duration: 1535
