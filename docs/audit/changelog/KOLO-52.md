@@ -27,3 +27,4 @@ Nový test: `scripts/test-kolo-52-redesign.mjs` (6 testů).
 - Doporučení přijata: nativní přehrávač v kartě se neschovává (posun, hlasitost, rychlost), `play().catch` padá na odkaz MP3, ctrl/⌘/prostřední klik otevírá MP3, jméno tlačítka „Přehrát audio přehled, 2:10“, bez `as never`.
 - Hlavička ≤ 580 px: mezery akcí 0, 44px ikony, bez „CZ“ u loga, bez ⌘K štítku (dotýkaly se).
 - Regresní testy přidány do test-kolo-52-redesign.mjs (8 testů).
+- Re-review (ec27ac9): YouTube ikona v hlavičce 28×44 na 361–580 px. Oprava: min-width 44px všude, na mobilu 44×44. Změřeno CDP 320/360/390/480/580/700/1280: všechny akce hlavičky 44×44, scrollWidth = šířka okna.

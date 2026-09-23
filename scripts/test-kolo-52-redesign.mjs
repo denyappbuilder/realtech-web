@@ -59,3 +59,8 @@ test("kolo 52: karta Audio přehled zůstává celá — nativní přehrávač s
   const bezKomentaru = css.replace(/\/\*[\s\S]*?\*\//g, "");
   assert.doesNotMatch(bezKomentaru, /\.audio-prehled[^{]*audio[^{]*\{[^}]*display:\s*none/, "posun, hlasitost a rychlost nesmí zmizet");
 });
+
+test("kolo 52: ikonová akce v hlavičce drží 44px cíl (re-review: YouTube ikona měla 28×44)", () => {
+  assert.match(css, /header\.site \.yt-btn \{[^}]*min-width: 44px/, "desktop/tablet");
+  assert.match(css, /header\.site \.yt-btn \{ width: 44px; min-width: 44px;/, "mobil ≤ 580px");
+});

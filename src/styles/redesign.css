@@ -17,7 +17,7 @@ header.site .logo .tech { color: var(--signal-text); }
   font-weight: 600; font-size: 0.95rem; white-space: nowrap;
 }
 .nl-btn:hover { background: var(--ink); color: var(--bg); }
-header.site .yt-btn { border: 0; padding-inline: 10px; }
+header.site .yt-btn { border: 0; padding-inline: 10px; min-width: 44px; justify-content: center; }
 header.site .yt-btn .yt-label { display: none; }
 header.site .yt-btn svg { color: var(--signal); fill: currentColor; }
 header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl-btn { flex: none; }
@@ -137,7 +137,7 @@ header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl
   header.site .search-trigger, header.site .theme-toggle { min-width: 44px; width: 44px; padding-inline: 0; justify-content: center; }
   header.site .logo .cz { display: none; }
   header.site .search-trigger .st-kbd { display: none; }
-  header.site .yt-btn { padding-inline: 6px; }
+  header.site .yt-btn { width: 44px; min-width: 44px; padding: 0; justify-content: center; }
   .hero h1, .hero h1.h1-dlouhy { font-size: 2.2rem; line-height: 1.02; }
   .article-head h1 { font-size: 2rem; }
   .article-head p.lead { font-size: 1.1rem; }
