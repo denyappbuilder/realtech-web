@@ -13,6 +13,7 @@ import { formatCalendarDateCs } from '../../lib/calendarDate.js';
 import { compareArticlesByDateDescThenId } from '../../lib/article-order.js';
 import AudioPrehled from '../../components/AudioPrehled.astro';
 import Giscus from '../../components/Giscus.astro';
+import RtPlayer from '../../components/RtPlayer.astro';
 import HeroheroCta from '../../components/HeroheroCta.astro';
 import { jsonLdText, pripojAudioKClanku, vytvorAudioObject } from '../../lib/audio-prehled.js';
 import { heroObrazekClanku } from '../../lib/hero-obrazek.js';
@@ -236,6 +237,7 @@ const breadcrumbLd = {
           <a class="article-read-link" href="#article-text">Přejít rovnou na text <span aria-hidden="true">↓</span></a>
         </div>
         <p class="lead">{articleLead(description, article.body)}</p>
+        {audio && <RtPlayer audio={audio} seed={article.id} label="Audio přehled" class="head-player" />}
       </div>
 
       {/*

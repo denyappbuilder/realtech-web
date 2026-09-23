@@ -12,6 +12,7 @@ const replacements = new Map([
   ['../layouts/Base.astro', new URL('astro-component.mjs', mocksUrl).href],
   ['../components/ArticleCard.astro', new URL('astro-component.mjs', mocksUrl).href],
   ['../components/HeroheroCta.astro', new URL('astro-component.mjs', mocksUrl).href],
+  ['../components/RtPlayer.astro', new URL('astro-component.mjs', mocksUrl).href],
   ['../data/videos.json', new URL('videos-snapshot.mjs', mocksUrl).href],
 ]);
 

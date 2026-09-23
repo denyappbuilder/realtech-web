@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import HeroheroCta from '../components/HeroheroCta.astro';
+import RtPlayer from '../components/RtPlayer.astro';
 import { slugify } from '../lib/slugify.js';
 import { articleLead } from '../lib/article-lead.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
@@ -41,6 +42,12 @@ const railCards = rail;
 // <img src=-640.webp> — byl to jediný náhled na webu bez srcset.
 const railPolozky = rail.map((article) => ({ article, nahled: nahledRailu(article.data) }));
 const categories = [...new Set(all.map((c) => c.data.category))];
+// Kolo 52: „Mimo AI“ — tři nejnovější články mimo AI Report / AI Agenti,
+// které už nejsou v heru ani v prvních devíti kartách. Vizuálně vyrovnává
+// převahu AI (60 % obsahu) a dává Mobilům, Vesmíru, Sítím a Dronům místo.
+const AI_KATEGORIE = new Set(['AI Report', 'AI Agenti']);
+const naUvodce = new Set([hero?.id, ...candidates.map((c) => c.id)]);
+const mimoAi = all.filter((c) => !AI_KATEGORIE.has(c.data.category) && !naUvodce.has(c.id)).slice(0, 3);
 
 const dateStr = hero ? formatCalendarDateCs(hero.data.date) : undefined;
 // Kolo 27: od 90 znaků dostal h1 menší desktopový stupeň (.h1-dlouhy v CSS).
@@ -195,6 +202,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
             </div>
             <h1 class:list={[{ 'h1-dlouhy': heroTitulekDlouhy }]}><a href={`/clanky/${hero.id}/`}>{hero.data.title}</a></h1>
             <p class="lead">{articleLead(hero.data.description, hero.body)}</p>
+            {hero.data.audio && <RtPlayer audio={hero.data.audio} seed={hero.id} class="hero-player" />}
             <div class="hero-actions">
               <a href={`/clanky/${hero.id}/`} class="btn-primary">{heroCta}</a>
               {hero.data.video && (
@@ -236,7 +244,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
         </div>
         {rail.length > 0 && (
           <aside class="hero-rail" aria-label="Další reporty">
-            <p class="hero-rail-label mono">Další reporty</p>
+            <p class="hero-rail-label mono">Dnes a včera</p>
             <ol class="hero-rail-list">
               {railPolozky.map(({ article, nahled }) => (
                 <li>
@@ -286,6 +294,18 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
         {railCards.map((article, index) => <ArticleCard article={article} class="card-rail-mobile" sizes={index === 0 ? KARTA_SIZES : KARTA_SIZES_HOME_COMPACT} />)}
         {rest.map((article) => <ArticleCard article={article} sizes={KARTA_SIZES_HOME_COMPACT} />)}
       </div>
+
+      {mimoAi.length > 0 && (
+        <div class="mimo-ai">
+          <div class="section-head">
+            <h2>Mimo AI</h2>
+            <a href="/temata/">Všechna témata →</a>
+          </div>
+          <div class="grid mimo-ai-grid">
+            {mimoAi.map((article) => <ArticleCard article={article} sizes={KARTA_SIZES_HOME_COMPACT} />)}
+          </div>
+        </div>
+      )}
 
       {/*
         Kolo 48: web je trychtýř YouTube → články → Herohero. „Nejnovější

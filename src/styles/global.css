@@ -1668,6 +1668,7 @@ footer.site .f-nav ul { display: flex; flex-direction: column; gap: 8px; }
   :root { --kotva-odstup: 106px; }
 }
 #obsah,
+#newsletter,
 .about h2,
 .article-body h2,
 .article-body h3 { scroll-margin-top: var(--kotva-odstup); }

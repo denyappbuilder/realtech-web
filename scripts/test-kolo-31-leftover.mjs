@@ -72,7 +72,7 @@ test("kolo 31: každý cíl fragmentu odkazovaný z Base opravdu existuje a má 
   assert.match(oNas, /<section class="about about-wide wrap">/, ".about h2 v CSS míří na tenhle obal");
   // Žádný další #fragment v Base bez odstupu (mimo protokoly a ⌘K).
   const fragmenty = [...base.matchAll(/href="([^"#]*)#([^"]+)"/g)].map((m) => m[2]);
-  assert.deepEqual([...new Set(fragmenty)].sort(), ["kontakt", "obsah"], "nový cíl fragmentu v Base musí dostat scroll-margin-top");
+  assert.deepEqual([...new Set(fragmenty)].sort(), ["kontakt", "newsletter", "obsah"], "nový cíl fragmentu v Base musí dostat scroll-margin-top");
 });
 
 // ── Pruh čtení ────────────────────────────────────────────────────────────
