@@ -79,7 +79,7 @@ test('kolo 47: .yt-btn má jeden poloměr 24px (DESIGN.md rounded.control) — h
   assert.match(pravidlo(global, '.yt-btn'), /background:\s*var\(--signal-fill\)/);
   // Úzký mobil: header.site .yt-btn (vyšší specificita) dál řídí šířku 44px a padding 0.
   assert.match(blok(premium, /@media \(max-width: 360px\)/), /header\.site \.yt-btn \{ width: 44px; padding: 0;/);
-  assert.match(cti('DESIGN.md'), /^\s*control: "24px"/m, 'token, o který se poloměr opírá');
+  assert.match(cti('DESIGN.md'), /^\s*control: "6px"/m, 'token, o který se poloměr opírá');
 });
 
 test('kolo 47: ⌘K a přepínač tématu berou control token (pilulka / kruh), ne 50 % (elipsa na 101×44) ani 999px mimo škálu', () => {
@@ -240,10 +240,10 @@ test('kolo 47: na stránce tématu se štítek téže kategorie na náhledech ne
 test('kolo 47: škála poloměrů je pět tokenů (badge 4 / thumb 8 / field 12 / media 16 / control 24) — premium.css bez hodnot natvrdo', () => {
   const root = pravidlo(premium, ':root');
   assert.match(root, /--radius-badge:\s*4px/);
-  assert.match(root, /--radius-thumb:\s*8px/);
-  assert.match(root, /--radius-field:\s*12px/);
-  assert.match(root, /--media-radius:\s*16px/);
-  assert.match(root, /--radius-control:\s*24px/);
+  assert.match(root, /--radius-thumb:\s*4px/);
+  assert.match(root, /--radius-field:\s*6px/);
+  assert.match(root, /--media-radius:\s*6px/);
+  assert.match(root, /--radius-control:\s*6px/);
   // Jediná číselná hodnota mimo tokeny: 0 (reset). Kolo 50: i 8px obalu tabulky na mobilu je --radius-field.
   const natvrdo = [...premium.matchAll(/border-radius:\s*([^;]+);/g)].map((m) => m[1].trim()).filter((v) => !/^var\(--(radius-(badge|thumb|field|control)|media-radius)\)$/.test(v) && v !== '0');
   assert.deepEqual(natvrdo, [], `hodnoty mimo škálu: ${natvrdo}`);
@@ -259,7 +259,7 @@ test('kolo 47: škála poloměrů je pět tokenů (badge 4 / thumb 8 / field 12 
   assert.doesNotMatch(pravidlo(premium, '.article-contents a'), /border-radius/, 'editorial 4px zůstává jediný — premium 6px přepis pryč');
   const design = cti('DESIGN.md');
   assert.doesNotMatch(design, /compact-control/, 'DESIGN.md bez 10px stupně');
-  for (const t of ['badge: "4px"', 'thumbnail: "8px"', 'field: "12px"', 'media: "16px"', 'control: "24px"']) assert.ok(design.includes(t), `DESIGN.md: ${t}`);
+  for (const t of ['badge: "4px"', 'thumbnail: "4px"', 'field: "6px"', 'media: "6px"', 'control: "6px"']) assert.ok(design.includes(t), `DESIGN.md: ${t}`);
 });
 
 test('kolo 47: nadpis sekce bez linky a červeného akcentu — global.css bez .section-head::after, premium bez display: none přepisu', () => {

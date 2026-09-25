@@ -472,3 +472,26 @@ test(
     assert.match(html, /<span class="si-cat">&lt;b&gt;AI&lt;\/b&gt;<\/span>/);
   },
 );
+
+test('kolo 53: skloňovaný dotaz bez přesné shody najde článek přes kmen slova', () => {
+  const modal = nactiModal({
+    hledatelne: [
+      polozka({ s: 'raketa', t: 'Raketa Starship míří na orbitu' }),
+      polozka({ s: 'drony', t: 'Drony DJI v Česku' }),
+      polozka({ s: 'jine', t: 'Nový telefon' }),
+    ],
+  });
+  assert.deepEqual(slugy(modal.search('raketě')), ['raketa'], '„raketě“ → kmen „raket“');
+  assert.deepEqual(slugy(modal.search('dronů')), ['drony'], '„dronů“ → kmen „dron“');
+});
+
+test('kolo 53: kmen je jen záloha — přesná shoda má přednost a nerozšiřuje výsledky', () => {
+  const modal = nactiModal({
+    hledatelne: [
+      polozka({ s: 'presne', t: 'Starlink v Česku' }),
+      polozka({ s: 'kmen', t: 'Starlinky na obloze' }),
+    ],
+  });
+  assert.deepEqual(slugy(modal.search('starlink')), ['presne', 'kmen']);
+  assert.deepEqual(slugy(modal.search('ceskem')), [], 'krátké dotazy pod 5 znaků se neřežou; bez shody prázdno');
+});

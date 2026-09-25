@@ -216,7 +216,7 @@ test('drobečky mají tři pozice a poslední nese kanonickou URL článku', asy
   assert.equal(breadcrumbLd['@type'], 'BreadcrumbList');
   assert.deepEqual(breadcrumbLd.itemListElement, [
     { '@type': 'ListItem', position: 1, name: 'Novinky', item: 'https://realtech.cz/' },
-    { '@type': 'ListItem', position: 2, name: 'Články', item: 'https://realtech.cz/clanky/' },
+    { '@type': 'ListItem', position: 2, name: 'Hardware', item: 'https://realtech.cz/temata/hardware/' },
     { '@type': 'ListItem', position: 3, name: 'Titulek článku', item: 'https://realtech.cz/clanky/ukazka/' },
   ]);
   const posledni = breadcrumbLd.itemListElement.at(-1);
@@ -335,4 +335,12 @@ test('YouTube článek předpojí ytimg jen bez lokálního coveru, článek jen
   assert.equal(tichy.preconnectYtimg, false);
   assert.equal(tichy.preconnectAudio, false);
   assert.equal(tichy.preconnectGiscus, false);
+});
+
+test('kolo 53: NewsArticle nese articleSection = kategorie článku', async () => {
+  const { jsonLd } = await nactiStranku({
+    article: clanek({ id: 'ukazka', category: 'Vesmír' }),
+    cesta: '/clanky/ukazka/',
+  });
+  assert.equal(jsonLd.articleSection, 'Vesmír');
 });

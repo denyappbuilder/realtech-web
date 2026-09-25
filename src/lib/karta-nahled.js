@@ -10,9 +10,9 @@ import { youtubeId } from './youtube.js';
  *
  * Mřížka .grid: 1 col ≤580, 2 col ≤900, 3 col desktop (~341px z 1072).
  */
-export const KARTA_SIZES = '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw';
+export const KARTA_SIZES = '(max-width: 580px) calc(100vw - 48px), (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
 // Supporting homepage reports use compact rows only on phones.
-export const KARTA_SIZES_HOME_COMPACT = '(max-width: 360px) 72px, (max-width: 580px) 96px, (max-width: 900px) 50vw, 33vw';
+export const KARTA_SIZES_HOME_COMPACT = '(max-width: 360px) 72px, (max-width: 580px) 96px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
 
 // Desktop hero crops a 16:9 photo to the full copy height: its 579px slot
 // needs more source pixels than its width alone implies. Use the available
@@ -56,7 +56,7 @@ export const KARTA_SIZES_ARCHIVE = '(max-width: 360px) 128px, (max-width: 580px)
  * na 1120px wrapu 582px. S obecnými 33vw bral na DPR 1,5 (Windows 150 %)
  * 640w do 873px slotu — měkký obrázek.
  */
-export const KARTA_SIZES_FEATURED = '(max-width: 580px) 100vw, (max-width: 1168px) 55vw, 582px';
+export const KARTA_SIZES_FEATURED = '(max-width: 580px) calc(100vw - 48px), (max-width: 1168px) 55vw, 582px';
 
 /**
  * Karty „Další reporty“ pod článkem (.related .grid): 3 col v 760px

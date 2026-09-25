@@ -57,7 +57,8 @@ const printBlok = (() => {
 // ── Preload výpisů = <source> karty ────────────────────────────────────────
 
 test('kolo 21: jedna konstanta sizes pro kartu i preload; featured a related mají vlastní slot', () => {
-  assert.equal(KARTA_SIZES, '(max-width: 580px) 100vw, (max-width: 900px) 50vw, 33vw');
+  // Kolo 53: skutečná šířka slotu (.wrap 24px okraje, gap 24px, strop 341px) místo 100vw/50vw/33vw.
+  assert.equal(KARTA_SIZES, '(max-width: 580px) calc(100vw - 48px), (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px');
   assert.match(karta, /import \{ KARTA_SIZES, nahledKarty \} from '\.\.\/lib\/karta-nahled\.js'/);
   assert.match(karta, /sizes\?:\s*string/);
   assert.match(karta, /sizes = KARTA_SIZES/);

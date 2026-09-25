@@ -25,6 +25,9 @@ export function videoPasekNahled(id, { hd = true } = {}) {
     jpg: `${YTIMG}/vi/${id}/${nazev}.jpg`,
     width: hd ? 1280 : 640,
     height: hd ? 720 : 480,
+    // Kolo 53: slot pásku je 341 px (mobil ~342 px). mqdefault (320×180,
+    // nativní 16:9) stačí pro DPR 1, hq720 zůstává pro DPR 2 a širší.
+    webpSrcset: hd ? `${YTIMG}/vi_webp/${id}/mqdefault.webp 320w, ${YTIMG}/vi_webp/${id}/${nazev}.webp 1280w` : undefined,
   };
 }
 

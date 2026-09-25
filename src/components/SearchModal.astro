@@ -199,12 +199,26 @@
     syncCombobox(true);
   }
 
+  // Kolo 53: čeština skloňuje — „raketě“ nenašlo „raketa“, „dronů“ ne „drony“.
+  // Když přesné termíny nenajdou nic, zkusí se znovu s kmeny (u slov od 5
+  // znaků se uřízne 1–2 znaky koncovky). Jen záloha při nule, pořadí
+  // přesných výsledků se nemění.
+  function kmen(t: string) {
+    if (t.length < 5) return t;
+    return t.slice(0, t.length >= 7 ? -2 : -1);
+  }
+
   function search(q: string) {
+    const presne = hledej(q, false);
+    return totalResults > 0 ? presne : hledej(q, true);
+  }
+
+  function hledej(q: string, sKmeny: boolean) {
     totalResults = 0;
     if (!index) return [];
     const nq = norm(q.trim());
     if (!nq) return [];
-    const terms = nq.split(/\s+/);
+    const terms = nq.split(/\s+/).map((t) => (sKmeny ? kmen(t) : t));
     const matches = index
       .map((it) => {
         const hayTitle = norm(it.t);

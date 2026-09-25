@@ -17,7 +17,7 @@ export async function GET(context) {
     site: context.site,
     // atom:link rel=self — RSS best practice (validátor bez něj warnuje),
     // čtečky podle něj poznají kanonickou adresu feedu.
-    xmlns: { atom: 'http://www.w3.org/2005/Atom' },
+    xmlns: { atom: 'http://www.w3.org/2005/Atom', dc: 'http://purl.org/dc/elements/1.1/' },
     items: clanky.map((c) => {
       const hasParentSegment = c.data.image?.split(/[\\/]/).includes('..');
       const mime = c.data.image ? mimeTypeProEnclosure(c.data.image) : undefined;
@@ -58,6 +58,8 @@ export async function GET(context) {
         categories: [c.data.category],
         enclosure,
         content: html,
+        // Kolo 53: autor položky (čtečky ho ukazují u článku).
+        customData: '<dc:creator>REALTECH CZ</dc:creator>',
       };
     }),
     customData: [

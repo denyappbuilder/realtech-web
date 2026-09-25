@@ -351,8 +351,8 @@ test('kolo 50: video bez hq720 (404) padá v pásku na sddefault 640×480, ostat
       : { ok: !url.includes('sdsdsdsdsds'), status: url.includes('sdsdsdsdsds') ? 404 : 200 }
   ));
   assert.deepEqual(result.videaPasek.map((v) => v.nahled), [
-    { webp: 'https://i.ytimg.com/vi_webp/hdhdhdhdhdh/hq720.webp', jpg: 'https://i.ytimg.com/vi/hdhdhdhdhdh/hq720.jpg', width: 1280, height: 720 },
-    { webp: 'https://i.ytimg.com/vi_webp/sdsdsdsdsds/sddefault.webp', jpg: 'https://i.ytimg.com/vi/sdsdsdsdsds/sddefault.jpg', width: 640, height: 480 },
+    { webp: 'https://i.ytimg.com/vi_webp/hdhdhdhdhdh/hq720.webp', jpg: 'https://i.ytimg.com/vi/hdhdhdhdhdh/hq720.jpg', width: 1280, height: 720, webpSrcset: 'https://i.ytimg.com/vi_webp/hdhdhdhdhdh/mqdefault.webp 320w, https://i.ytimg.com/vi_webp/hdhdhdhdhdh/hq720.webp 1280w' },
+    { webp: 'https://i.ytimg.com/vi_webp/sdsdsdsdsds/sddefault.webp', jpg: 'https://i.ytimg.com/vi/sdsdsdsdsds/sddefault.jpg', width: 640, height: 480, webpSrcset: undefined },
   ]);
   assert.deepEqual(result.videos, [
     { id: 'hdhdhdhdhdh', title: 'HD video' },

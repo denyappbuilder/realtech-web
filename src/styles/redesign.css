@@ -148,3 +148,92 @@ header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl
 }
 @media (prefers-reduced-motion: reduce) { .rt-play { transition: none; } }
 @media print { .rt-player { display: none; } }
+
+
+/* ==== Kolo 53: dotažení redesignu do všech typů stránek ==== */
+
+/* Záložní font velkých nadpisů. Redesign sází Archivo 800 / 114–118 %,
+   což je ~1,22× širší než Arial Bold. Starý fallback (96,67 %, pro 650/100 %)
+   nechal nadpis před načtením fontu o třetinu nižší → CLS 0,047 na desktopu
+   (posouval se rail pod hero). Změřeno: 122 % dává na 320–1280 px stejnou
+   výšku nadpisu úvodky, článku i railu. Titulky karet (700/106 %) mají vlastní. */
+@font-face {
+  font-family: 'Archivo Display Fallback';
+  src: local('Arial Bold'), local('Roboto Bold'), local('Liberation Sans Bold');
+  font-weight: 750 900;
+  size-adjust: 122%;
+}
+@font-face {
+  font-family: 'Archivo Card Fallback';
+  src: local('Arial Bold'), local('Roboto Bold'), local('Liberation Sans Bold');
+  font-weight: 600 749;
+  size-adjust: 110%;
+}
+:root { --rd-display: 'Archivo Variable', 'Archivo Display Fallback', 'Archivo Card Fallback', Arial, sans-serif; }
+
+/* Jedna podoba tlačítek: obdélník 6px (token --radius-control), primární
+   červené, sekundární s rámečkem inkoustu. Žádné pilulky. */
+.btn-primary { background: var(--signal-fill); color: #fff; border: 0; font-weight: 600; }
+.btn-primary:hover { background: var(--signal-fill-hover); color: #fff; }
+.btn-ghost { border: 1.5px solid var(--ink); color: var(--ink); font-weight: 600; }
+.btn-ghost:hover { background: var(--ink); color: var(--bg); }
+/* Hero úvodky má textovou výzvu (šipka), ne tlačítko — premium ji tak kreslí dál. */
+.hero-actions .btn-primary, :root .hero-actions .btn-primary:hover { background: transparent; color: var(--signal-dark); }
+.herohero-akce .hero-actions .btn-primary { background: var(--signal-fill); color: #fff; }
+
+/* Filtry archivu a „Další témata“: textová lišta s podtržením aktivní
+   položky (jako hlavní navigace), ne bílé pilulky s rámečkem. */
+[data-archive] .chip, .topics .chip {
+  background: transparent; border: 0; border-bottom: 2px solid transparent; border-radius: 0;
+  padding-inline: 2px; color: var(--ink-soft); font-weight: 500;
+}
+[data-archive] .chip:hover, .topics .chip:hover { color: var(--ink); border-bottom-color: var(--line-strong); background: transparent; }
+[data-archive] .chip[aria-pressed="true"], [data-archive] .chip.active { color: var(--ink); background: transparent; border-bottom-color: var(--signal); }
+[data-archive] .filter-bar { gap: 8px 22px; }
+[data-archive] .search-input { background: transparent; border: 0; border-bottom: 2px solid var(--ink); border-radius: 0; }
+[data-archive] .search-input:focus-visible { outline-offset: 4px; }
+
+/* Bloky pod textem článku: horní 2px linka místo bílých karet s rámečkem. */
+.author-box, .komentare-placeholder, .article-cta-inline, .article-videobar:not(.article-videobar-bez-videa) {
+  background: transparent; border: 0; border-top: 2px solid var(--ink); border-radius: 0; padding-inline: 0;
+}
+.article-cta-inline { padding-block: 14px; }
+.author-box { padding-block: 24px 0; }
+.an-item { border: 0; border-top: 2px solid var(--ink); border-radius: 0; background: transparent; padding: 14px 0 0; }
+.an-item:hover .an-title { text-decoration: underline; text-decoration-color: var(--signal); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.an-title { font-family: var(--rd-display); font-weight: 700; font-stretch: 106%; font-size: 1.05rem; }
+/* Herohero pruh v článku: jen horní vlasová linka, bez druhé 2px pod ní (Další reporty). */
+.article-page .herohero-cta { border-bottom: 0; padding-bottom: 0; }
+.article-page .herohero-cta ~ .related { border-top: 2px solid var(--ink); margin-top: 40px; }
+/* Karta Audio přehled: plochá, sedí pod přehrávačem jako jeho detail. */
+.audio-prehled { background: transparent; border: 0; border-top: 1px solid var(--line-strong); border-radius: 0; padding: 16px 0 0; }
+
+/* Hub témat: náhled nahoru, 2px linka, titulek nejnovějšího jako odkaz. */
+.temata-hub .card { display: flex; flex-direction: column; border-top: 2px solid var(--ink); padding-top: 16px; }
+.temata-hub .card-thumb { order: -1; margin-bottom: 4px; }
+.temata-hub .card-body { padding: 12px 0 0; }
+.temata-hub .card-body h2 { font-family: var(--rd-display); font-weight: 800; font-stretch: 112%; letter-spacing: -0.02em; }
+.temata-hub .topic-latest { border-top: 0; padding-top: 4px; color: var(--ink); font-weight: 600; font-size: 1rem; line-height: 1.35; }
+.temata-hub .topic-latest span { color: var(--ink-faint); font-weight: 400; font-size: 0.8rem; }
+
+/* Úvodka: jedna dělicí linka kolem témat, hero obrázek zarovnaný nahoru. */
+.topic-navigation { border-top: 0; }
+.hero-visual { align-self: start; }
+
+/* Newsletter sedí přesně v mřížce obsahu (dřív 80–1200 vs 104–1176). */
+.newsletter { padding-inline: 24px; }
+.newsletter > .wrap { max-width: 1072px; }
+.newsletter h2 { hyphens: manual; text-wrap: balance; }
+
+/* Patička: bez mrtvého místa pod copyrightem. */
+footer.site { padding-bottom: 24px; }
+footer.site .f-top { padding-bottom: 24px; margin-bottom: 16px; }
+
+/* O nás: čísla v inkoustu a Archivu, červená zůstává jen akcentem. */
+.stats .stat strong { color: var(--ink); font-family: var(--rd-display); font-weight: 800; font-stretch: 112%; }
+
+@media (max-width: 580px) {
+  /* Štítek přes malý náhled zakrýval skoro celou fotku. */
+  .card-thumb .lt { display: none; }
+  .newsletter { padding-inline: 0; }
+}
