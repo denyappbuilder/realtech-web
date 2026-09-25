@@ -199,6 +199,21 @@ header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl
 [data-archive] .search-input { background: transparent; border: 0; border-bottom: 2px solid var(--ink); border-radius: 0; }
 [data-archive] .search-input:focus-visible { outline-offset: 4px; }
 
+/* Kolo 54: čipy filtru archivu a témat jsou Plex Sans 500 / 13,6 px — ten
+   je o ~3,5 % širší než Arial 500. Před načtením fontu se „Vesmír“ na 390 px
+   vešel do 1. řádku a po swapu spadl do 2. (CLS 0,0268 na /clanky/ mobil,
+   3 ze 3 běhů). Záložní řez jen pro čipy (jedna váha → jedna rodina, jiné
+   texty ho nevidí). size-adjust změřen zalamováním čipů /clanky/,
+   /clanky/strana/2/ a /temata/vesmir/ na 320–1280 px: shoda s Plex jen
+   v okně 104,5–105,5 % (103,5 % láme 390 px, 106,5 % láme 480 px). */
+@font-face {
+  font-family: 'Plex Chip Fallback';
+  src: local('Arial'), local('Roboto'), local('Liberation Sans');
+  font-weight: 500;
+  size-adjust: 105%;
+}
+[data-archive] .chip, .topics .chip { font-family: 'IBM Plex Sans', 'Plex Chip Fallback', Arial, sans-serif; }
+
 /* Bloky pod textem článku: horní 2px linka místo bílých karet s rámečkem. */
 .author-box, .komentare-placeholder, .article-cta-inline, .article-videobar:not(.article-videobar-bez-videa) {
   background: transparent; border: 0; border-top: 2px solid var(--ink); border-radius: 0; padding-inline: 0;

@@ -169,8 +169,10 @@ test('NewsArticle drží povinná pole, autory a vydavatele', async () => {
       ['Person', 'Sam', undefined, 'https://realtech.cz/o-nas/'],
     ],
   );
+  // Kolo 54: @id = Organization z úvodky a O nás (jedna entita).
   assert.deepEqual(jsonLd.publisher, {
     '@type': 'Organization',
+    '@id': 'https://realtech.cz/#org',
     name: 'REALTECH CZ',
     url: 'https://realtech.cz/',
     logo: {
