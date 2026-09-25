@@ -14,10 +14,12 @@ export const KARTA_SIZES = '(max-width: 580px) calc(100vw - 48px), (max-width: 9
 // Supporting homepage reports use compact rows only on phones.
 export const KARTA_SIZES_HOME_COMPACT = '(max-width: 360px) 72px, (max-width: 580px) 96px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
 
-// Desktop hero crops a 16:9 photo to the full copy height: its 579px slot
-// needs more source pixels than its width alone implies. Use the available
-// 1280w original; mobile stays uncropped with the 640/960w derivatives.
-export const HOMEPAGE_HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), 1280px';
+// Kolo 54: hero úvodky už obrázek na výšku textu neořezává — redesign
+// (redesign.css .hero-visual { aspect-ratio: 16 / 9 }) ho kreslí jako 16:9
+// ve druhém sloupci: změřeno 399 px při 901, 460 px při 1024, 508 px od
+// 1280 px okna. Dřívější `1280px` (ořez do 579px výšky) stahoval na DPR 1
+// plný 1280w WebP (30,7 KB) místo 640w (10,4 KB).
+export const HOMEPAGE_HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), (max-width: 1120px) 45vw, 508px';
 
 /**
  * WebP srcset z derivátů, které v public/ opravdu leží: `-640.webp 640w`,
@@ -64,7 +66,7 @@ export const KARTA_SIZES_FEATURED = '(max-width: 580px) calc(100vw - 48px), (max
  * desktop bral 1280w plný WebP na tři 236px náhledy (živě 5. 9. 2026,
  * DPR 2: 3× 43–91 KB místo 3× ~20 KB).
  */
-export const KARTA_SIZES_RELATED = '(max-width: 700px) 100vw, (max-width: 808px) 30vw, 241px';
+export const KARTA_SIZES_RELATED = '(max-width: 700px) calc(100vw - 48px), (max-width: 808px) 30vw, 241px';
 
 /**
  * Kolo 42: náhled v hero railu úvodky (.hero-rail-item img, premium.css:

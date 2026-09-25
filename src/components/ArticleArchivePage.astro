@@ -43,11 +43,16 @@ const kartaPreload = prvni
       : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, sizes: KARTA_SIZES_ARCHIVE })
   : null;
 
+// Kolo 54: jeden popis pro <meta name="description"> i CollectionPage —
+// dřív JSON-LD nesl jiný text („Kompletní archiv…“) než meta.
+const popisArchivu = 'Všechny články a analýzy REALTECH CZ — AI, drony, Starlink, mobily a hardware bez marketingových řečí.'
+  + (page > 1 ? ` Strana ${page}.` : '');
+
 const collectionLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: page === 1 ? 'Všechny články' : `Všechny články – strana ${page}`,
-  description: 'Kompletní archiv novinek a analýz REALTECH CZ.',
+  description: popisArchivu,
   url: new URL(pagePath(page), Astro.site).href,
   inLanguage: 'cs',
   mainEntity: {
@@ -70,6 +75,9 @@ const breadcrumbLd = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
     { '@type': 'ListItem', position: 2, name: 'Články', item: new URL('/clanky/', Astro.site).href },
+    // Kolo 54: strana 2+ končila drobečkem „Články“ (URL /clanky/), ne
+    // stránkou samotnou.
+    ...(page > 1 ? [{ '@type': 'ListItem', position: 3, name: `Strana ${page}`, item: new URL(pagePath(page), Astro.site).href }] : []),
   ],
 };
 

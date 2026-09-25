@@ -94,7 +94,10 @@ a { color: inherit; text-decoration: none; }
 strong, b { font-weight: 600; }
 ::selection { background: var(--signal); color: #fff; }
 /* summary: <details> přepisu audia je jediný další ovládací prvek s fokusem
-   z klávesnice — bez něj měl UA modrý rámeček místo signální. */
+   z klávesnice — bez něj měl UA modrý rámeček místo signální.
+   Kolo 54: totéž nativní <audio> v kartě Audio přehled (živě UA
+   `rgb(0,95,204) auto`) — samostatné pravidlo, ať seznam výše drží testy. */
+audio:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
 a:focus-visible, button:focus-visible, summary:focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: 3px;

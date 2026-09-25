@@ -135,8 +135,11 @@ const jsonLd = pripojAudioKClanku({
   articleSection: category,
   image: [ogImage ?? new URL('/og-default.jpg', Astro.site).href],
   author: autori,
+  // Kolo 54: @id spojuje vydavatele s Organization z úvodky a O nás
+  // (index.astro, o-nas.astro) — jedna entita místo tří anonymních.
   publisher: {
     '@type': 'Organization',
+    '@id': `${Astro.site?.href}#org`,
     name: 'REALTECH CZ',
     url: Astro.site?.href,
     logo: { '@type': 'ImageObject', url: new URL('/apple-touch-icon.png', Astro.site).href, width: 180, height: 180 },

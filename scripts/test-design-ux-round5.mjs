@@ -5,7 +5,8 @@ import * as images from '../src/lib/karta-nahled.js';
 
 test('compact home thumbnails advertise their real slot without changing the hero', () => {
   assert.equal(images.KARTA_SIZES_HOME_COMPACT, '(max-width: 360px) 72px, (max-width: 580px) 96px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px');
-  assert.equal(images.HOMEPAGE_HERO_SIZES, '(max-width: 900px) calc(100vw - 48px), 1280px');
+  // Kolo 54: hero je 16:9 ve 2. sloupci (redesign.css), slot 399–508 px — ne ořez 579px.
+  assert.equal(images.HOMEPAGE_HERO_SIZES, '(max-width: 900px) calc(100vw - 48px), (max-width: 1120px) 45vw, 508px');
 });
 const read = (path) => readFileSync(new URL(`../src/${path}`, import.meta.url), 'utf8');
 

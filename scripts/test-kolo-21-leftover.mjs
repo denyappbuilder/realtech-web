@@ -69,7 +69,8 @@ test('kolo 21: jedna konstanta sizes pro kartu i preload; featured a related maj
   assert.match(KARTA_SIZES_FEATURED, /582px$/);
   // Related pod článkem: 3 col v 760px = 241px.
   assert.match(KARTA_SIZES_RELATED, /241px$/);
-  assert.match(KARTA_SIZES_RELATED, /^\(max-width: 700px\) 100vw/, '.related .grid padá na 1 col pod 701px');
+  // Kolo 54: 1 col pod 701px = šířka .wrap bez 2×24px okrajů, ne 100vw.
+  assert.match(KARTA_SIZES_RELATED, /^\(max-width: 700px\) calc\(100vw - 48px\)/, '.related .grid padá na 1 col pod 701px');
 });
 
 test('kolo 21: preload první karty nese imagesrcset/imagesizes ze srcsetu karty', () => {

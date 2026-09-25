@@ -151,17 +151,21 @@ test("kolo 37: fonts-archivo.css = přesně latin-ext + latin z fontsource wdth.
   assert.equal(puvodni.length, 2);
   for (const [i, blok] of nase.entries()) {
     const vzor = puvodni[i];
-    for (const p of ["font-family", "font-style", "font-display", "font-weight", "font-stretch", "unicode-range"]) {
+    for (const p of ["font-family", "font-style", "font-display", "unicode-range"]) {
       assert.equal(vlastnost(blok, p), vlastnost(vzor, p), `${p} v bloku ${i + 1} se liší od fontsource`);
     }
-    const soubor = vlastnost(vzor, "src").match(/\/files\/([^)'"]+)/)?.[1];
+    // Kolo 54: woff2 je výseč os z téhož souboru balíčku (scripts/archivo-instance.py,
+    // src/assets/fonts/), wght 600–900 / wdth 100–125 % místo 100–900 / 62–125 %.
+    assert.equal(vlastnost(blok, "font-weight"), "600 900");
+    assert.equal(vlastnost(blok, "font-stretch"), "100% 125%");
+    const soubor = vlastnost(vzor, "src").match(/\/files\/(archivo-[^)'"]+)-wdth-normal\.woff2/)?.[1];
     assert.ok(soubor);
     assert.equal(
       vlastnost(blok, "src"),
-      `url('@fontsource-variable/archivo/files/${soubor}') format('woff2-variations')`,
-      "woff2 jde přímo z balíčku — žádná kopie v public/",
+      `url('../assets/fonts/${soubor}-wght600-900-wdth100-125.woff2') format('woff2-variations')`,
+      "výseč jde přes Vite (hash v _astro/) — žádná kopie v public/",
     );
   }
   assert.match(nase[0], /latin-ext/, "latin-ext první — priorita překrývajících se unicode-range (U+0304, U+0308, U+0329)");
-  assert.match(nase[1], /archivo-latin-wdth-normal/);
+  assert.match(nase[1], /archivo-latin-wght600/);
 });
