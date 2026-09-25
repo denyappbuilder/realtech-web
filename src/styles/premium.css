@@ -4,11 +4,11 @@
 :root {
   --editorial-face: 'Archivo Variable', 'Archivo Editorial Fallback', Arial, sans-serif;
   --reading-face: 'IBM Plex Sans', Arial, Roboto, 'Liberation Sans', sans-serif;
-  --media-radius: 16px;
+  --media-radius: 6px;
   /* Kolo 43: pole/plošky uvnitř čtecího sloupce (audio, videobar, share,
      archivní hledání) — DESIGN.md `rounded.field`. Globální --radius 8px
      zůstává starším prvkům, tady se nepřepisuje plošně. */
-  --radius-field: 12px;
+  --radius-field: 6px;
   /* Kolo 47: celá škála poloměrů jako tokeny (DESIGN.md `rounded`) — dřív
      v premium.css natvrdo 4/8/10/12/16/24/999px. Pět stupňů podle role:
      badge (štítek na náhledu, kbd), thumb (náhled v řádku/railu), field
@@ -17,8 +17,8 @@
      přepínače a ⌘K bez zvláštního 50 % / 999px). 10px „compact“ stupeň
      padl: newsletter jde na field, mobilní náhled archivu na thumb. */
   --radius-badge: 4px;
-  --radius-thumb: 8px;
-  --radius-control: 24px;
+  --radius-thumb: 4px;
+  --radius-control: 6px;
   /* Kolo 43: --line (#E2E6EB na #F6F7F9) je pro dělicí linku sekce a rámeček
      panelu ve čtecím sloupci moc tichá — vizuální audit ji četl jako „hairline
      bez kontrastu“. O krok tmavší varianta JEN pro oddělovače sekcí

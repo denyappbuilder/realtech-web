@@ -125,7 +125,7 @@ test("GET mapuje metadata, kategorie a odkazy a absolutizuje kořenové href a s
   assert.equal(options.title, "REALTECH CZ");
   assert.equal(options.description, "Tech novinky a analýzy bez marketingových řečí.");
   assert.strictEqual(options.site, site);
-  assert.deepEqual(options.xmlns, { atom: "http://www.w3.org/2005/Atom" });
+  assert.deepEqual(options.xmlns, { atom: "http://www.w3.org/2005/Atom", dc: "http://purl.org/dc/elements/1.1/" });
   assert.match(options.customData, /^<language>cs<\/language>/);
   assert.ok(options.customData.includes(
     '<atom:link href="https://realtech.cz/rss.xml" rel="self" type="application/rss+xml"/>',
@@ -142,6 +142,7 @@ test("GET mapuje metadata, kategorie a odkazy a absolutizuje kořenové href a s
   assert.equal(item.pubDate.toISOString(), "2025-04-05T06:07:08.000Z");
   assert.equal(item.link, "/clanky/mapovani/");
   assert.deepEqual(item.categories, ["Hardware"]);
+  assert.equal(item.customData, "<dc:creator>REALTECH CZ</dc:creator>", "kolo 53: autor položky");
   assert.match(item.content, /href="https:\/\/realtech\.cz\/clanky\/cil\/"/);
   assert.match(item.content, /src="https:\/\/realtech\.cz\/images\/inline\.jpg"/);
   assert.match(item.content, /href="https:\/\/example\.com\/cil"/);

@@ -162,7 +162,11 @@
     q = q.trim();
     if (allResults) {
       allResults.hidden = !q;
-      allResults.href = q ? `/clanky/?q=${encodeURIComponent(q)}` : '/clanky/';
+      // Kolo 53: výsledek přes kmeny posílá do archivu kmenový dotaz
+      // („raketě“ → „raket“) — archiv hledá podřetězcem, takže najde totéž,
+      // co modal ukázal (review: jinak „Všechny výsledky (N)“ → 0 v archivu).
+      const qArchiv = kmenovyDotaz && kmenovyDotaz.zdroj === q ? kmenovyDotaz.kmeny : q;
+      allResults.href = q ? `/clanky/?q=${encodeURIComponent(qArchiv)}` : '/clanky/';
       allResults.textContent = items.length ? `Všechny výsledky (${totalResults || items.length})` : 'Hledat v archivu';
     }
     if (!q || !items.length) {
@@ -199,12 +203,37 @@
     syncCombobox(true);
   }
 
+  // Kolo 53: čeština skloňuje — „raketě“ nenašlo „raketa“, „dronů“ ne „drony“.
+  // Když přesné termíny nenajdou nic, zkusí se znovu s kmeny (u slov od 5
+  // znaků se uřízne 1–2 znaky koncovky). Jen záloha při nule, pořadí
+  // přesných výsledků se nemění.
+  function kmen(t: string) {
+    if (t.length < 5) return t;
+    return t.slice(0, t.length >= 7 ? -2 : -1);
+  }
+
+  // Poslední dotaz, který našel výsledky jen přes kmeny (pro odkaz do archivu).
+  let kmenovyDotaz: { zdroj: string; kmeny: string } | null = null;
+
   function search(q: string) {
+    kmenovyDotaz = null;
+    const presne = hledej(q, false);
+    if (totalResults > 0) return presne;
+    const nq = norm(q.trim());
+    const kmeny = nq.split(/\s+/).map(kmen).join(' ');
+    // Žádné slovo se nezkrátilo → druhý průchod by byl totožný.
+    if (!nq || kmeny === nq) return presne;
+    const sKmeny = hledej(q, true);
+    if (totalResults > 0) kmenovyDotaz = { zdroj: q.trim(), kmeny };
+    return sKmeny;
+  }
+
+  function hledej(q: string, sKmeny: boolean) {
     totalResults = 0;
     if (!index) return [];
     const nq = norm(q.trim());
     if (!nq) return [];
-    const terms = nq.split(/\s+/);
+    const terms = nq.split(/\s+/).map((t) => (sKmeny ? kmen(t) : t));
     const matches = index
       .map((it) => {
         const hayTitle = norm(it.t);

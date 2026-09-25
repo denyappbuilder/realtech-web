@@ -131,6 +131,8 @@ const jsonLd = pripojAudioKClanku({
   dateModified: (updated ?? date).toISOString(),
   inLanguage: 'cs',
   mainEntityOfPage: articleUrl,
+  // Kolo 53: rubrika článku pro Google News / Discover.
+  articleSection: category,
   image: [ogImage ?? new URL('/og-default.jpg', Astro.site).href],
   author: autori,
   publisher: {
@@ -154,7 +156,9 @@ const breadcrumbLd = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
-    { '@type': 'ListItem', position: 2, name: 'Články', item: new URL('/clanky/', Astro.site).href },
+    // Kolo 53: druhý drobeček je téma článku (hub /temata/<slug>/), ne
+    // obecný archiv — hub dostane interní signál a Google ukáže rubriku.
+    { '@type': 'ListItem', position: 2, name: category, item: new URL(`/temata/${slugify(category)}/`, Astro.site).href },
     { '@type': 'ListItem', position: 3, name: title, item: articleUrl },
   ],
 };
@@ -536,6 +540,10 @@ const breadcrumbLd = {
         }).catch(() => {});
       });
       h.appendChild(a);
+      // Kolo 53: kotva uvnitř <h2> přidávala do jména nadpisu „Odkaz na
+      // sekci …“ (čtečka i seznam nadpisů četly název dvakrát). Jméno
+      // nadpisu = jeho text; kotva zůstává fokusovatelná se svým popiskem.
+      h.setAttribute('aria-label', nazevSekce);
     });
 
     const sectionLinks = [...document.querySelectorAll<HTMLAnchorElement>('[data-section-link]')];

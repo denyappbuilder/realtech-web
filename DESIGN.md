@@ -47,10 +47,10 @@ typography:
 rounded:
   badge: "4px"
   outline: "6px"
-  thumbnail: "8px"
-  field: "12px"
-  media: "16px"
-  control: "24px"
+  thumbnail: "4px"
+  field: "6px"
+  media: "6px"
+  control: "6px"
 spacing:
   small: "12px"
   content: "24px"
@@ -105,7 +105,7 @@ Opaque header, flat cards, no hover lift or card shadows. Modal retains its exis
 
 ## Shapes
 
-Five radius tokens in `premium.css`, one per role: `--radius-badge` 4px (thumbnail labels, kbd), `--radius-thumb` 8px (rail and compact-row thumbnails, mobile archive rows), `--radius-field` 12px (archive fields, newsletter field/submit, audio/video surfaces, archive empty/loading states, code blocks and table wrappers in the article body, and every reading-column panel — inline YouTube prompt, author box, older/newer navigation, comments placeholder, X embed), `--media-radius` 16px (covers, cards, video thumbnails, in-text images, modal) and `--radius-control` 24px (pills: category filters, `.btn-primary`/`.btn-ghost`, every `.yt-btn`, share buttons, the comments button, and the ⌘K/theme controls — on a 44px element 24px is a full arc, so the same token yields the keyboard-hint pill and the circle). The former 10px compact stop is gone. Since round 50 `global.css` uses the same tokens as `premium.css` — no hard-coded 8/10/14px radii remain; the legacy `--radius` 8px is left only on the skip link's corner. Reading prose and desktop aside have no card enclosure; reading-column panels and in-text separators (blockquote rule, table header rule) use `--line-strong`, fields and cards keep `--line`. Native `<details>` markers are replaced by a currentColor chevron.
+Five radius tokens in `premium.css`, one per role. Since round 53 (redesign „Poslouchej, čti, odeber“) they are flattened to the new language: `--radius-badge` 4px, `--radius-thumb` 4px, `--radius-field` 6px, `--media-radius` 6px and `--radius-control` 6px. Controls are no longer pills — buttons, filter chips, share buttons, comments button and ⌘K/theme controls are 6px rectangles like the header „Odebírat“ action; the only circle is the red audio play button. Roles are unchanged: badge (thumbnail labels, kbd), thumb (rail and compact-row thumbnails), field (archive fields, newsletter, audio/video surfaces, reading-column panels, code/table wrappers), media (covers, cards, video thumbnails, in-text images, modal), control (every button-like element). The former 10px compact stop is gone. Since round 50 `global.css` uses the same tokens as `premium.css` — no hard-coded 8/10/14px radii remain; the legacy `--radius` 8px is left only on the skip link's corner. Reading prose and desktop aside have no card enclosure; reading-column panels and in-text separators (blockquote rule, table header rule) use `--line-strong`, fields and cards keep `--line`. Native `<details>` markers are replaced by a currentColor chevron.
 
 ## Components
 
