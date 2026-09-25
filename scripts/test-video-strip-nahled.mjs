@@ -33,7 +33,7 @@ const karta = readFileSync(
 test('pásek videí na úvodce: <picture> s WebP zdrojem a JPEG fallbackem, rozměry z náhledu, dekorace pro čtečku', () => {
   assert.match(
     index,
-    /<span class="vc-thumb">\s*<picture>\s*<source srcset=\{v\.nahled\.webpSrcset \?\? v\.nahled\.webp\} sizes="[^"]+" type="image\/webp" \/>\s*<img src=\{v\.nahled\.jpg\} alt="" aria-hidden="true" width=\{v\.nahled\.width\} height=\{v\.nahled\.height\} loading="lazy" decoding="async" \/>\s*<\/picture>/,
+    /<span class="vc-thumb">\s*<picture>\s*<source srcset=\{v\.nahled\.webp\} type="image\/webp" \/>\s*<img src=\{v\.nahled\.jpg\} alt="" aria-hidden="true" width=\{v\.nahled\.width\} height=\{v\.nahled\.height\} loading="lazy" decoding="async" \/>\s*<\/picture>/,
   );
   assert.match(index, /\{videaPasek\.map\(\(v\) => \(/);
   assert.doesNotMatch(index, /sddefault\.jpg|maxresdefault\.jpg`\} alt=""/, 'URL náhledu pásku skládá jen video-pasek-nahled.js');
@@ -50,14 +50,12 @@ test('videoPasekNahled: hq720 WebP + JPEG 1280×720, bez HD sddefault 640×480',
     jpg: 'https://i.ytimg.com/vi/dyU7RAa5l0Y/hq720.jpg',
     width: 1280,
     height: 720,
-    webpSrcset: 'https://i.ytimg.com/vi_webp/dyU7RAa5l0Y/mqdefault.webp 320w, https://i.ytimg.com/vi_webp/dyU7RAa5l0Y/hq720.webp 1280w',
   });
   assert.deepEqual(videoPasekNahled('dyU7RAa5l0Y', { hd: false }), {
     webp: 'https://i.ytimg.com/vi_webp/dyU7RAa5l0Y/sddefault.webp',
     jpg: 'https://i.ytimg.com/vi/dyU7RAa5l0Y/sddefault.jpg',
     width: 640,
     height: 480,
-    webpSrcset: undefined,
   });
 });
 

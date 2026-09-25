@@ -493,5 +493,18 @@ test('kolo 53: kmen je jen záloha — přesná shoda má přednost a nerozšiř
     ],
   });
   assert.deepEqual(slugy(modal.search('starlink')), ['presne', 'kmen']);
-  assert.deepEqual(slugy(modal.search('ceskem')), [], 'krátké dotazy pod 5 znaků se neřežou; bez shody prázdno');
+  assert.deepEqual(slugy(modal.search('ceskem')), [], 'ani kmen „ceske“ nic nenajde → prázdno');
+  assert.deepEqual(slugy(modal.search('mars')), [], 'slovo pod 5 znaků se neřeže');
+});
+
+test('kolo 53: „Všechny výsledky“ po shodě přes kmen vede archiv na kmenový dotaz', () => {
+  const modal = nactiModal({
+    hledatelne: [polozka({ s: 'raketa', t: 'Raketa Starship míří na orbitu' })],
+  });
+  const kmenove = modal.search('raketě');
+  modal.render(kmenove, 'raketě');
+  assert.equal(modal.allResults.href, '/clanky/?q=raket', 'archiv hledá podřetězcem — kmen najde totéž co modal');
+  const presne = modal.search('raketa');
+  modal.render(presne, 'raketa');
+  assert.equal(modal.allResults.href, '/clanky/?q=raketa', 'přesná shoda nese dotaz beze změny');
 });

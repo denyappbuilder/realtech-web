@@ -237,7 +237,7 @@ test('kolo 47: na stránce tématu se štítek téže kategorie na náhledech ne
 
 // ── Doplnění z nezávislého design auditu (kolo-47, 20. 9. 2026 ~15:10) ────────
 
-test('kolo 47: škála poloměrů je pět tokenů (badge 4 / thumb 8 / field 12 / media 16 / control 24) — premium.css bez hodnot natvrdo', () => {
+test('kolo 47: škála poloměrů je pět tokenů (kolo 53: badge 4 / thumb 4 / field 6 / media 6 / control 6) — premium.css bez hodnot natvrdo', () => {
   const root = pravidlo(premium, ':root');
   assert.match(root, /--radius-badge:\s*4px/);
   assert.match(root, /--radius-thumb:\s*4px/);

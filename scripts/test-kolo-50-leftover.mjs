@@ -117,8 +117,7 @@ test('kolo 50: sada se kreslí v každém okně — sticky aside, dole ve sloupc
 test('kolo 50: pásek videí bere hq720 WebP s JPEG fallbackem (test-video-strip-nahled, test-homepage)', () => {
   const index = cti('src/pages/index.astro');
   assert.match(index, /const videaPasek = await videaSNahledem\(videos\);/);
-  // Kolo 53: srcset mqdefault 320w + hq720 1280w (slot 341 px), fallback webp bez srcsetu (sddefault).
-  assert.match(index, /<source srcset=\{v\.nahled\.webpSrcset \?\? v\.nahled\.webp\} sizes="\(max-width: 580px\) calc\(100vw - 48px\), 341px" type="image\/webp" \/>/);
+  assert.match(index, /<source srcset=\{v\.nahled\.webp\} type="image\/webp" \/>/);
   assert.doesNotMatch(index, /sddefault\.jpg`/);
 });
 

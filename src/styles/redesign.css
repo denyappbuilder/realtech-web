@@ -156,7 +156,11 @@ header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl
    což je ~1,22× širší než Arial Bold. Starý fallback (96,67 %, pro 650/100 %)
    nechal nadpis před načtením fontu o třetinu nižší → CLS 0,047 na desktopu
    (posouval se rail pod hero). Změřeno: 122 % dává na 320–1280 px stejnou
-   výšku nadpisu úvodky, článku i railu. Titulky karet (700/106 %) mají vlastní. */
+   výšku nadpisu úvodky, článku i railu.
+   Titulky karet a railu (700 / 106–108 %) jsou jen ~1,05× širší než Arial
+   Bold. Oba řezy MUSÍ být jedna rodina: prohlížeč vybírá nejdřív rodinu,
+   pak váhu — druhá rodina v seznamu by se pro 700 nikdy nepoužila a 700
+   by dostala 122 % (review kola 53: +17 % šířky, zalamování, CLS). */
 @font-face {
   font-family: 'Archivo Display Fallback';
   src: local('Arial Bold'), local('Roboto Bold'), local('Liberation Sans Bold');
@@ -164,12 +168,12 @@ header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl
   size-adjust: 122%;
 }
 @font-face {
-  font-family: 'Archivo Card Fallback';
+  font-family: 'Archivo Display Fallback';
   src: local('Arial Bold'), local('Roboto Bold'), local('Liberation Sans Bold');
   font-weight: 600 749;
-  size-adjust: 110%;
+  size-adjust: 105%;
 }
-:root { --rd-display: 'Archivo Variable', 'Archivo Display Fallback', 'Archivo Card Fallback', Arial, sans-serif; }
+:root { --rd-display: 'Archivo Variable', 'Archivo Display Fallback', Arial, sans-serif; }
 
 /* Jedna podoba tlačítek: obdélník 6px (token --radius-control), primární
    červené, sekundární s rámečkem inkoustu. Žádné pilulky. */
@@ -180,16 +184,18 @@ header.site .search-trigger, header.site .theme-toggle, header.site .yt-btn, .nl
 /* Hero úvodky má textovou výzvu (šipka), ne tlačítko — premium ji tak kreslí dál. */
 .hero-actions .btn-primary, :root .hero-actions .btn-primary:hover { background: transparent; color: var(--signal-dark); }
 .herohero-akce .hero-actions .btn-primary { background: var(--signal-fill); color: #fff; }
+/* premium.css má :root … :hover v inkoustu (kolo 51) — tady stejná specificita, hover zůstává červený. */
+:root .herohero-akce .hero-actions .btn-primary:hover { background: var(--signal-fill-hover); color: #fff; }
 
 /* Filtry archivu a „Další témata“: textová lišta s podtržením aktivní
    položky (jako hlavní navigace), ne bílé pilulky s rámečkem. */
 [data-archive] .chip, .topics .chip {
   background: transparent; border: 0; border-bottom: 2px solid transparent; border-radius: 0;
-  padding-inline: 2px; color: var(--ink-soft); font-weight: 500;
+  padding-inline: 8px; min-width: 44px; justify-content: center; color: var(--ink-soft); font-weight: 500;
 }
 [data-archive] .chip:hover, .topics .chip:hover { color: var(--ink); border-bottom-color: var(--line-strong); background: transparent; }
 [data-archive] .chip[aria-pressed="true"], [data-archive] .chip.active { color: var(--ink); background: transparent; border-bottom-color: var(--signal); }
-[data-archive] .filter-bar { gap: 8px 22px; }
+[data-archive] .filter-bar { gap: 8px 10px; }
 [data-archive] .search-input { background: transparent; border: 0; border-bottom: 2px solid var(--ink); border-radius: 0; }
 [data-archive] .search-input:focus-visible { outline-offset: 4px; }
 
@@ -233,7 +239,8 @@ footer.site .f-top { padding-bottom: 24px; margin-bottom: 16px; }
 .stats .stat strong { color: var(--ink); font-family: var(--rd-display); font-weight: 800; font-stretch: 112%; }
 
 @media (max-width: 580px) {
-  /* Štítek přes malý náhled zakrýval skoro celou fotku. */
-  .card-thumb .lt { display: none; }
+  /* Štítek přes malý náhled (kompaktní řádky úvodky a archivu) zakrýval
+     skoro celou fotku. Velké karty na plnou šířku ho nechávají. */
+  .latest-reports > .card:not(:first-child) .card-thumb .lt, [data-archive] .card-thumb .lt { display: none; }
   .newsletter { padding-inline: 0; }
 }

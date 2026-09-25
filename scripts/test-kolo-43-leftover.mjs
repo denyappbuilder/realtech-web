@@ -54,7 +54,7 @@ test('kolo 43: žádný UI popisek nezačíná `// ` — Sdílej dál, Další t
 // ── P1: rámeček na audio přehledu a videobaru ───────────────────────────────
 
 test('kolo 43: premium vrací 1px rámeček na .audio-prehled / .article-videobar, radius přes --radius-field', () => {
-  assert.match(pravidlo(premium, ':root'), /--radius-field:\s*6px/, 'token pole 12px (DESIGN.md rounded.field)');
+  assert.match(pravidlo(premium, ':root'), /--radius-field:\s*6px/, 'token pole 6px (DESIGN.md rounded.field, kolo 53)');
   const blok = pravidlo(premium, '.audio-prehled, .article-videobar');
   assert.ok(blok, 'společné pravidlo .audio-prehled, .article-videobar chybí');
   assert.match(blok, /border:\s*1px solid var\(--line-strong\)/, 'rámeček zpět — bez něj plovoucí panel');
