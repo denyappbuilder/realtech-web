@@ -375,7 +375,7 @@ test('přepnutí tématu před načtením lazy iframu přepíše theme v src (zp
 
 // ── 4. Šablona článku, CSS, CSP, dokumentace ─────────────────────────
 
-test('článek vkládá <Giscus /> pod autorský box, „Další reporty“ a chronologickou navigaci', () => {
+test('článek vkládá <Giscus /> pod „Další reporty“, autorský box a chronologickou navigaci', () => {
   assert.match(PAGE, /^import Giscus from '\.\.\/\.\.\/components\/Giscus\.astro';$/m);
   assert.equal((PAGE.match(/<Giscus \/>/g) ?? []).length, 1);
 
@@ -383,16 +383,16 @@ test('článek vkládá <Giscus /> pod autorský box, „Další reporty“ a ch
   const giscus = PAGE.indexOf('<Giscus />');
   const related = PAGE.indexOf('{related.length > 0 && (\n        <div class="related">');
   const nav = PAGE.indexOf('<nav class="article-nav"');
-  const zpet = PAGE.indexOf('<div class="article-back">');
   const telo = PAGE.indexOf('<Content />');
   // Kolo 50: „Sdílej dál“ je jen v aside hned za tělem (.article-share pod textem padlo).
   const sdileni = PAGE.indexOf('<div class="article-aside-share">');
-  assert.ok(telo > 0 && sdileni > telo && autorskyBox > sdileni, 'předpoklad o pořadí šablony');
+  assert.ok(telo > 0 && sdileni > telo && related > sdileni && autorskyBox > related, 'předpoklad o pořadí šablony (kolo 56: related před autorem)');
   assert.ok(giscus > autorskyBox, 'komentáře až za autorským boxem');
   // Kolo 23: lazy iframe s vlastní výškou odsouval „Další reporty“ a navigaci.
   assert.ok(giscus > related, 'komentáře až za „Další reporty“');
   assert.ok(giscus > nav, 'komentáře až za chronologickou navigací');
-  assert.ok(zpet > giscus, 'komentáře před „Zpět na články“');
+  // Kolo 56: „Zpět na články“ zrušeno — komentáře jsou poslední blok článku.
+  assert.doesNotMatch(PAGE, /class="article-back"/);
 });
 
 test('komponenta: sekce s id a aria-labelledby, skript uvnitř podmínky', () => {

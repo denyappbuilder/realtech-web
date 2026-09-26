@@ -3,11 +3,17 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
+import { slugify } from '../lib/slugify.js';
+import { POPISY_TEMAT } from '../lib/tema-popis.js';
 
 // Kolo 45: totéž pořadí jako úvodka a archiv (id rozhoduje shodný čas vydání).
 const latest = (await getCollection('clanky', ({ data }) => !data.draft))
   .sort(compareArticlesByDateDescThenId)
   .slice(0, 3);
+// Kolo 56: 404 nabízí hledání a témata — starý nebo překlepnutý odkaz
+// obvykle nese klíčová slova (audit: 0 odkazů na témata, žádné pole).
+// Seznam témat = POPISY_TEMAT (stejný zdroj jako hub /temata/).
+const temata = Object.keys(POPISY_TEMAT);
 ---
 <Base
   title="404 — REALTECH CZ"
@@ -20,9 +26,21 @@ const latest = (await getCollection('clanky', ({ data }) => !data.draft))
       <span class="mono">Chyba 404</span>
       <h1>Tahle stránka neexistuje.</h1>
       <p class="lead">Buď jsme ji smazali, nebo nikdy nebyla. Marketingová řeč by řekla „pracujeme na tom“ — my říkáme: zkus to jinudy.</p>
+      {/* Kolo 56: GET na archiv (/clanky/?q=) — funguje i bez JS. Skript
+          níž předvyplní slova z chybné adresy (slug → mezery). */}
+      <form class="notfound-search" action="/clanky/" method="get" role="search">
+        <label for="notfound-q">Hledat v článcích</label>
+        <div class="notfound-search-row">
+          <input id="notfound-q" class="search-input" type="search" name="q" autocomplete="off" enterkeyhint="search" />
+          <button type="submit" class="btn-primary">Hledat</button>
+        </div>
+      </form>
+      <nav class="notfound-temata" aria-label="Témata">
+        <span class="mono">Témata</span>
+        {temata.map((t) => <a href={`/temata/${slugify(t)}/`}>{t}</a>)}
+      </nav>
       <div class="hero-actions">
-        <a href="/" class="btn-primary">Na hlavní stránku</a>
-        <a href="/clanky/" class="btn-ghost">Všechny články</a>
+        <a href="/" class="btn-ghost">Na hlavní stránku</a>
       </div>
     </div>
     <div class="wrap notfound-more">
@@ -35,4 +53,15 @@ const latest = (await getCollection('clanky', ({ data }) => !data.draft))
       </div>
     </div>
   </div>
+  <script is:inline>
+    // Slova z adresy (např. /clanky/starlink-mini-tset/ → „starlink mini tset“).
+    (() => {
+      const pole = document.getElementById('notfound-q');
+      if (!pole) return;
+      const slova = decodeURIComponent(location.pathname)
+        .split('/').filter(Boolean).pop() || '';
+      const dotaz = slova.replace(/\.[a-z0-9]+$/i, '').replace(/[-_+]+/g, ' ').trim();
+      if (dotaz && !/^(clanky|temata|strana|\d+)$/.test(dotaz)) pole.value = dotaz.slice(0, 80);
+    })();
+  </script>
 </Base>

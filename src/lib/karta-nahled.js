@@ -14,12 +14,12 @@ export const KARTA_SIZES = '(max-width: 580px) calc(100vw - 48px), (max-width: 9
 // Supporting homepage reports use compact rows only on phones.
 export const KARTA_SIZES_HOME_COMPACT = '(max-width: 360px) 72px, (max-width: 580px) 96px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
 
-// Kolo 54: hero úvodky už obrázek na výšku textu neořezává — redesign
-// (redesign.css .hero-visual { aspect-ratio: 16 / 9 }) ho kreslí jako 16:9
-// ve druhém sloupci: změřeno 399 px při 901, 460 px při 1024, 508 px od
-// 1280 px okna. Dřívější `1280px` (ořez do 579px výšky) stahoval na DPR 1
-// plný 1280w WebP (30,7 KB) místo 640w (10,4 KB).
-export const HOMEPAGE_HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), (max-width: 1120px) 45vw, 508px';
+// Kolo 56: hero úvodky na desktopu zase vyplňuje výšku textového sloupce
+// (redesign.css, dřív 321 px prázdna pod obrázkem). Sloupec 508 × ~600 px
+// je užší než 16:9, object-fit: cover potřebuje šířku výška × 16/9 ≈
+// 1070 px → na desktopu 1280w. Mobil zůstává 16:9 bez ořezu.
+// (Kolo 54 mělo 45vw / 508px pro 16:9 bez ořezu.)
+export const HOMEPAGE_HERO_SIZES = '(max-width: 900px) calc(100vw - 48px), 1080px';
 
 /**
  * WebP srcset z derivátů, které v public/ opravdu leží: `-640.webp 640w`,

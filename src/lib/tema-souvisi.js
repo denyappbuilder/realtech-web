@@ -15,6 +15,11 @@
  * @type {Record<string, string[]>}
  */
 export const SOUVISI_S_TEMATEM = {
+  // Kolo 56: průvodci Starlinku sedí ve Vesmíru a Sítích napříč — audit
+  // našel „Kdo porazí Starlink“ na 11. místě z 12 ve Vesmíru a průvodce
+  // Starlink v Česku v Sítích až na 5. místě za zprávou dne.
+  'Vesmír': ['starlink-v-cesku-pruvodce', 'starlink-mini-vs-standard'],
+  'Sítě': ['starlink-konkurenti'],
   Hardware: ['rtx-spark-windows-pc-rijen-2026-lokalni-ai-na-co-koukat'],
   'AI Agenti': [
     'claude-code-agents-md-jeden-soubor-pokynu',

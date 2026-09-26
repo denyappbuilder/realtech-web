@@ -123,15 +123,10 @@ test('kolo 50: pásek videí bere hq720 WebP s JPEG fallbackem (test-video-strip
 
 // ── P1: tichá řada „video není“ ──────────────────────────────────────────────
 
-test('kolo 50: řada „video není“ je věta + textový odkaz, ne druhé tlačítko nad autorským boxem', () => {
-  const vetev = clanek.slice(clanek.indexOf('{!video && xEmbedy.length === 0 && ('), clanek.indexOf('<div class="author-box">'));
-  assert.match(vetev, /<a href="https:\/\/www\.youtube\.com\/@realtech-cz\?sub_confirmation=1" class="article-videobar-odkaz">Odebírat kanál <span aria-hidden="true">→<\/span><\/a>/);
-  assert.doesNotMatch(vetev, /yt-btn|<svg/);
-  const odkaz = pravidlo(premium, '.article-videobar-odkaz');
-  assert.match(odkaz, /padding-block:\s*12px;\s*margin-block:\s*-12px/, '44px zásah bez zvednutí řady');
-  assert.match(odkaz, /font-size:\s*0\.85rem/);
-  assert.match(pravidlo(premium, '.article-videobar-bez-videa .mono'), /font-size:\s*0\.85rem/);
-  // Hlavní YouTube cesta článku zůstává plné tlačítko v autorském boxu.
+// Kolo 56: řada „video není“ zrušena; hlavní YouTube cesta po textu je
+// plné tlačítko v autorském boxu.
+test('kolo 50/56: po textu jediná YouTube výzva — tlačítko v autorském boxu', () => {
+  assert.doesNotMatch(clanek, /article-videobar-bez-videa|article-videobar-odkaz/);
   assert.match(clanek, /<div class="ab-actions">\s*<a href="https:\/\/www\.youtube\.com\/@realtech-cz\?sub_confirmation=1" class="yt-btn">/);
 });
 

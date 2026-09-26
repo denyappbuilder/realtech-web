@@ -632,10 +632,10 @@ test('Flight 14 má právě jeden xPost, žádné video ve frontmatteru a žádn
   assert.doesNotMatch(FLIGHT14, /<iframe\b|<blockquote\b|widgets\.js|platform\.twitter\.com|twimg\.com/i);
 });
 
-test('článek s embedem X a bez videa nedostane výzvu „K tomuhle článku video není“', () => {
-  assert.match(PAGE, /\{!video && xEmbedy\.length === 0 && \(/);
-  const vetev = PAGE.slice(PAGE.indexOf('{!video && xEmbedy.length === 0 && ('));
-  assert.match(vetev, /K tomuhle článku video není/);
+// Kolo 56: pruh „K tomuhle článku video není“ zrušen pro všechny články
+// (YouTube nese výzva za úvodem a autorský box) — u článku s X tedy taky není.
+test('článek s embedem X ani jiný článek nedostane výzvu „K tomuhle článku video není“', () => {
+  assert.doesNotMatch(PAGE, /K tomuhle článku video není/);
 });
 
 // ── 6. YouTube cesta zůstává beze změny ──────────────────────────────

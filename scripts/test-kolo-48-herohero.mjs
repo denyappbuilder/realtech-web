@@ -153,7 +153,7 @@ test('kolo 48: úvodka drží LCP — preload hero coveru a ytimg preconnect bez
 
 // ── 4. Článek ─────────────────────────────────────────────────────────────
 
-test('kolo 48: článek má jedinou měkkou výzvu Herohero — za autorským boxem, před „Další reporty“, ne v textu', () => {
+test('kolo 48/56: článek má jedinou měkkou výzvu Herohero — za „Další reporty“ a autorským boxem, ne v textu', () => {
   assert.match(clanek, /import HeroheroCta from '\.\.\/\.\.\/components\/HeroheroCta\.astro';/);
   assert.equal((clanek.match(/<HeroheroCta\b/g) ?? []).length, 1, 'právě jedna výzva');
   const telo = clanek.indexOf('class="article-body"');
@@ -161,7 +161,8 @@ test('kolo 48: článek má jedinou měkkou výzvu Herohero — za autorským bo
   const herohero = clanek.indexOf('<HeroheroCta />');
   const related = clanek.indexOf('{related.length > 0 && (');
   assert.ok(telo !== -1 && autor !== -1 && herohero !== -1 && related !== -1, 'šabloně článku chybí blok');
-  assert.ok(telo < autor && autor < herohero && herohero < related, 'výzva stojí až za autorským boxem a před souvisejícími');
+  // Kolo 56: nejdřív další čtení, pak autor, pak Herohero.
+  assert.ok(telo < related && related < autor && autor < herohero, 'výzva stojí za souvisejícími a autorským boxem');
   assert.doesNotMatch(clanek, /herohero\.co/, 'externí profil je až na /herohero/');
 });
 

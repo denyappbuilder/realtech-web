@@ -7,7 +7,8 @@ import { preloadHeroObrazku } from '../src/lib/hero-preload.js';
 // Kolo 54: od redesignu (kolo 52) je hero úvodky 16:9 ve 2. sloupci, žádný
 // ořez na výšku textu — slot změřen 399 px (901), 460 px (1024), 508 px (1280+).
 test('homepage cover sizes follow the measured 16:9 slot, preserving mobile sizes', () => {
-  assert.equal(thumbnails.HOMEPAGE_HERO_SIZES, '(max-width: 900px) calc(100vw - 48px), (max-width: 1120px) 45vw, 508px');
+  // Kolo 56: výřez cover na výšku textového sloupce potřebuje ~1080 px šířky.
+  assert.equal(thumbnails.HOMEPAGE_HERO_SIZES, '(max-width: 900px) calc(100vw - 48px), 1080px');
 });
 
 test('cover-aware size is shared by homepage source, fallback and preload', () => {
