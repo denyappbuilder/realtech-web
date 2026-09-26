@@ -24,8 +24,16 @@ const { category, page } = Astro.props;
 
 const popis = popisTematu(category);
 
-const clanky = (await getCollection('clanky', ({ data }) => !data.draft && data.category === category))
+// Kolo 56: evergreen průvodce tématu stojí na straně 1 hned za nejnovějším
+// článkem (featured karta zůstává nejnovější zprávě) — průvodci se dřív
+// ztráceli na konci mřížky (Starlink v Česku 5./6. v Sítích). Strana 2+
+// drží čistou chronologii: evergreen se jen přesune, nezdvojí.
+const chronologicky = (await getCollection('clanky', ({ data }) => !data.draft && data.category === category))
   .sort(compareArticlesByDateDescThenId);
+const pruvodci = chronologicky.slice(1).filter((c) => c.data.evergreen);
+const clanky = chronologicky.length > 1
+  ? [chronologicky[0], ...pruvodci, ...chronologicky.slice(1).filter((c) => !c.data.evergreen)]
+  : chronologicky;
 // Stránkování zrcadlí archiv (ArticleArchivePage): strana 1 na
 // /temata/{slug}/, strana 2+ na /temata/{slug}/strana/{n}/. Bez něj
 // AI Report (37 článků) posílal všechny karty v jednom HTML a

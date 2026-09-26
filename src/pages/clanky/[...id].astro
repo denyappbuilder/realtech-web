@@ -22,6 +22,7 @@ import { KARTA_SIZES_RELATED } from '../../lib/karta-nahled.js';
 import { autoriClanku } from '../../lib/autori.js';
 import { articleOutline } from '../../lib/article-outline.js';
 import { articleLead } from '../../lib/article-lead.js';
+import { pripravSouvisejici } from '../../lib/souvisejici.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -41,10 +42,10 @@ const updatedStr = formatCalendarDateCs(updated);
 
 const videoId = youtubeId(video);
 // Samotnou fasádu embedu X vkládá do HTML článku rehype plugin
-// (src/lib/rehype-x-embed.js) — tady xEmbedy jen rozhoduje, jestli se smí
-// ukázat výzva „K tomuhle článku video není“. Stejný parser jako plugin,
-// flatMap místo filter s type-predikátem: frontmatter běží v testech jako
-// čistý JS modul (test-clanek-jsonld-loader).
+// (src/lib/rehype-x-embed.js) — tady xEmbedy rozhoduje o preconnectu
+// a widgets.js v <head>. Stejný parser jako plugin, flatMap místo filter
+// s type-predikátem: frontmatter běží v testech jako čistý JS modul
+// (test-clanek-jsonld-loader).
 const xEmbedy = (xPosts ?? []).flatMap((url) => xPostEmbed(url) ?? []);
 const {
   src: heroSrc,
@@ -72,12 +73,12 @@ const ogImage = fs.existsSync(`public${brandedOg}`)
   : videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
   : image ? new URL(image, Astro.site).href : undefined;
 
-const others = (await getCollection('clanky', ({ data, id }) => !data.draft && id !== article.id))
+const vsechnyClanky = await getCollection('clanky', ({ data }) => !data.draft);
+const others = vsechnyClanky.filter((c) => c.id !== article.id)
   .sort(compareArticlesByDateDescThenId);
-const related = [
-  ...others.filter((c) => c.data.category === category),
-  ...others.filter((c) => c.data.category !== category),
-].slice(0, 3);
+// Kolo 56: „Další reporty“ podle obsahu (src/lib/souvisejici.js), ne tři
+// nejnovější z kategorie — ty obsadily 236 z 393 slotů celého webu.
+const related = pripravSouvisejici(vsechnyClanky)(article, others, 3);
 // Kolo 40: aside vedle textu (≥ 901px) vypisoval totéž pole `related`
 // jako mřížka „Další reporty“ pod textem — živě 16. 9. 2026 na 1280px
 // tytéž tři odkazy dvakrát na jedné stránce (pod 901px aside nekreslíme,
@@ -133,7 +134,17 @@ const jsonLd = pripojAudioKClanku({
   mainEntityOfPage: articleUrl,
   // Kolo 53: rubrika článku pro Google News / Discover.
   articleSection: category,
-  image: [ogImage ?? new URL('/og-default.jpg', Astro.site).href],
+  // Kolo 56: Google (Article / Discover) chce obrázek ≥ 1200 px a víc
+  // poměrů stran. Značkový OG je 1200×630 (1,9:1) s logem; čistý cover
+  // 1280×720 (16:9) bez textu přidává druhý poměr. Existenci coveru hlídá
+  // validate-content.mjs (neexistující `image` shodí build), proto tu
+  // žádný fs dotaz navíc. Jen lokální JPG — ytimg a PNG zůstávají mimo.
+  image: [
+    ogImage ?? new URL('/og-default.jpg', Astro.site).href,
+    ...(image?.endsWith('.jpg') && ogImage && ogImage !== new URL(image, Astro.site).href
+      ? [new URL(image, Astro.site).href]
+      : []),
+  ],
   author: autori,
   // Kolo 54: @id spojuje vydavatele s Organization z úvodky a O nás
   // (index.astro, o-nas.astro) — jedna entita místo tří anonymních.
@@ -311,8 +322,10 @@ const breadcrumbLd = {
         </div>
       )}
 
-      <AudioPrehled audio={audio} />
-
+      {/* Kolo 56: plná karta Audio přehled (nativní ovládání, přepis, MP3)
+          se stěhuje pod text — nad ním byly na mobilu dva přehrávače a text
+          začínal na y≈1245. V hlavě zůstává RtPlayer (poslech jedním
+          klikem); karta s přepisem a stažením patří k dočtenému článku. */}
       <div class="article-layout">
         {outline.length > 0 && (
           <div class="reading-entry">
@@ -397,30 +410,30 @@ const breadcrumbLd = {
         </aside>
       </div>
 
+      <AudioPrehled audio={audio} />
+
       {/*
-        Článek BEZ videa dosud nenabízel ke kanálu nic konkrétního — jen obecné
-        „kdo jsme" v `author-box` na konci. A takových článků je většina.
-        ⚠️ Text musí říkat KONKRÉTNĚ, co na kanálu je. První verze zněla
-        „na kanálu ale měříme totéž v obraze" a Deny se hned zeptal, co to
-        znamená — nic. Vágní věta v tónu značky je pořád vágní věta.
-        Hardcoded počet videí (kdysi 82 z YouTube API) zastará hned po dalším
-        vydání — proto jen říkáme, že na kanálu jsou další videa o technice a AI.
-        Převzato z návrhu Claude Design z 30. 7. 2026 — `reference/design-2026-07/`,
-        varianta „video není".
-        Z1003: pruh nesmí sedět mezi hero a prvním odstavcem — působí to jako
-        vložená reklama a přerušuje čtení. Výzva zůstává, ale až po textu.
-        Článek s embedem X video má (jen ne naše) — „K tomuhle článku video
-        není" by lhal, proto se výzva u xPosts neukazuje.
+        Kolo 56: konec článku podle cesty čtenáře (audit 26. 9. 2026):
+        nejdřív další čtení (související podle obsahu), pak kdo to píše
+        (autorský box s odběrem YouTube), Herohero, chronologie, diskuze.
+        Dřív stály mezi textem a souvisejícími tři výzvy k odběru a related
+        přišly na mobilu až +715 px pod textem.
+        Z1003: pruh nesmí sedět mezi hero a prvním odstavcem — platí dál,
+        žádná výzva před textem. Zrušeno: pruh „video není / Odebírat kanál“ (kolo 50) — YouTube
+        nese výzva za úvodem (B19, rehype-cta-inline) i autorský box; a
+        tlačítko „← Zpět na články“ (duplikovalo „Všechny →“ i navigaci).
       */}
-      {/*
-        Kolo 50: bez tlačítka — hned pod řádkem stojí autorský box s červeným
-        „Odebírat na YouTube“ a obrysová pilulka s logem YouTube tu dělala
-        druhou výzvu za sebou. Jen věta a textový odkaz na odběr.
-      */}
-      {!video && xEmbedy.length === 0 && (
-        <div class="article-videobar article-videobar-bez-videa">
-          <span class="mono">K tomuhle článku video není. Na kanálu máme další videa o technice a AI.</span>
-          <a href="https://www.youtube.com/@realtech-cz?sub_confirmation=1" class="article-videobar-odkaz">Odebírat kanál <span aria-hidden="true">→</span></a>
+      {related.length > 0 && (
+        <div class="related">
+          <div class="section-head">
+            <h2>Další reporty</h2>
+            <a href="/clanky/">Všechny →</a>
+          </div>
+          <div class="grid">
+            {/* .related .grid je 3 col v 760px (241px karta) — obecné sizes 33vw
+                by na retině tahaly 1280w plný WebP na tři malé náhledy (kolo 21). */}
+            {related.map((c) => <ArticleCard article={c} sizes={KARTA_SIZES_RELATED} />)}
+          </div>
         </div>
       )}
 
@@ -447,20 +460,6 @@ const breadcrumbLd = {
         Na Herohero je připravujeme.“ nic neslibuje.
       */}
       <HeroheroCta />
-
-      {related.length > 0 && (
-        <div class="related">
-          <div class="section-head">
-            <h2>Další reporty</h2>
-            <a href="/clanky/">Všechny →</a>
-          </div>
-          <div class="grid">
-            {/* .related .grid je 3 col v 760px (241px karta) — obecné sizes 33vw
-                by na retině tahaly 1280w plný WebP na tři malé náhledy (kolo 21). */}
-            {related.map((c) => <ArticleCard article={c} sizes={KARTA_SIZES_RELATED} />)}
-          </div>
-        </div>
-      )}
 
       <nav class="article-nav" aria-label="Další čtení">
         {older ? (
@@ -489,9 +488,6 @@ const breadcrumbLd = {
       */}
       <Giscus />
 
-      <div class="article-back">
-        <a href="/clanky/" class="btn-ghost">← Zpět na články</a>
-      </div>
 
     </div>
   </div>

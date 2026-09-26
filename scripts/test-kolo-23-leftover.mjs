@@ -45,15 +45,15 @@ const cspDirektiva = (jmeno) => {
 
 // ── 1) Komentáře až za „Další reporty“ a chronologickou navigací ────────────
 
-test('kolo 23: <Giscus /> stojí za .related i .article-nav, před „Zpět na články“', () => {
+test('kolo 23: <Giscus /> stojí za .related i .article-nav a je posledním blokem', () => {
   const autorskyBox = clanek.indexOf('<div class="author-box">');
   const related = clanek.indexOf('<div class="related">');
   const nav = clanek.indexOf('<nav class="article-nav"');
   const komentare = clanek.indexOf('<Giscus />');
-  const zpet = clanek.indexOf('<div class="article-back">');
-  assert.ok(autorskyBox > 0 && related > autorskyBox && nav > related, 'předpoklad o pořadí šablony');
+  // Kolo 56: related před autorským boxem, „Zpět na články“ zrušeno.
+  assert.ok(related > 0 && autorskyBox > related && nav > autorskyBox, 'předpoklad o pořadí šablony');
   assert.ok(komentare > nav, 'lazy iframe s vlastní výškou nesmí odsouvat „Další reporty“ ani navigaci');
-  assert.ok(zpet > komentare, 'komentáře jsou poslední blok před „Zpět na články“');
+  assert.doesNotMatch(clanek, /class="article-back"/);
   assert.equal((clanek.match(/<Giscus \/>/g) ?? []).length, 1);
   assert.match(giscus, /<section class="komentare" id="komentare"/, 'kotva #komentare zůstává');
 });

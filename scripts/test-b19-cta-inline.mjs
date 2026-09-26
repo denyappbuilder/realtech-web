@@ -98,8 +98,9 @@ test('CSS: výzva sedí na stejném povrchu jako tělo článku (Z1003), tiskne 
   assert.match(CSS, /@media print \{[\s\S]*\.article-cta-inline/);
 });
 
-test('spodní výzvy zůstávají: videobar s videem, pruh bez videa, author-box', () => {
+// Kolo 56: pruh bez videa zrušen — odběr po textu nese autorský box.
+test('spodní výzvy zůstávají: videobar s videem a author-box s odběrem', () => {
   assert.match(PAGE, /\{video && \(\s*<div class="article-videobar">/);
-  assert.match(PAGE, /\{!video && xEmbedy\.length === 0 && \(\s*<div class="article-videobar article-videobar-bez-videa">/);
+  assert.doesNotMatch(PAGE, /article-videobar-bez-videa/);
   assert.match(PAGE, /class="author-box"/);
 });

@@ -217,7 +217,10 @@ test('kolo 46: ItemList hubu tématu nese i cross-linky „Souvisí s tématem�
   assert.match(tema, /numberOfItems: clanky\.length \+ souvisiVse\.length,/);
   assert.match(tema, /\.\.\.souvisi\.map\(\(c, i\) => \(\{\s*'@type': 'ListItem',\s*position: clanky\.length \+ i \+ 1,/, 'pozice až za poslední článek tématu (i za stranou 2+)');
   // Kategorie článků se nemění (kolo 42/45: jedna kategorie); do mřížky nejdou.
-  assert.match(tema, /const clanky = \(await getCollection\('clanky', \(\{ data \}\) => !data\.draft && data\.category === category\)\)/);
+  // Kolo 56: mřížka pořád jen z vlastní kategorie; evergreen průvodci
+  // se jen přeřadí na stranu 1 (chronologicky → clanky).
+  assert.match(tema, /const chronologicky = \(await getCollection\('clanky', \(\{ data \}\) => !data\.draft && data\.category === category\)\)/);
+  assert.match(tema, /const clanky = chronologicky\.length > 1/);
   assert.match(tema, /\{articles\.map\(\(article, index\) => \(\s*<ArticleCard/, 'mřížka jen z articles');
   for (const slug of ['claude-code-agents-md-jeden-soubor-pokynu', 'custom-gpt-konec-migrace-na-pluginy-checklist']) {
     assert.match(cti(`src/content/clanky/${slug}.md`), /^category: "AI Report"$/m);

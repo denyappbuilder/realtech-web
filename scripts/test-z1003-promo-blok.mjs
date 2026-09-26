@@ -40,46 +40,21 @@ test("Z1003: videobar nesmí být tmavý panel uprostřed světlého článku", 
   );
 });
 
-test("Z1003: výzva bez videa nesmí sedět mezi hero a prvním odstavcem", () => {
+// Kolo 56: pruh „video není“ po textu zrušen (YouTube nese výzva za úvodem,
+// B19, a autorský box). Z1003 dál platí: žádná výzva mezi hero a textem.
+test("Z1003: mezi hero a prvním odstavcem nestojí žádná YouTube výzva", () => {
   const telo = clanek.indexOf('class="article-body"');
-  const bezVidea = clanek.indexOf("{!video && xEmbedy.length === 0 && (");
   assert.notEqual(telo, -1, "šablona ztratila tělo článku");
-  assert.notEqual(bezVidea, -1, "šablona ztratila větev bez videa");
-  assert.ok(
-    bezVidea > telo,
-    "výzva bez videa pořád leží před tělem článku a přerušuje čtení",
-  );
+  assert.doesNotMatch(clanek.slice(0, telo), /sub_confirmation=1|Odebírat kanál/, "výzva k odběru před textem přerušuje čtení");
+  assert.doesNotMatch(clanek, /K tomuhle článku video není/, "pruh zrušen v kole 56");
 });
 
-test("Z1003: výzva bez videa nesmí tvrdit zastaralé číslo videí", () => {
-  const bezVidea = clanek.indexOf("{!video && xEmbedy.length === 0 && (");
-  const konecVetve = clanek.indexOf("{related.length > 0 && (", bezVidea);
-  assert.notEqual(bezVidea, -1, "šablona ztratila větev bez videa");
-  assert.notEqual(konecVetve, -1, "šablona ztratila konec výzvy bez videa");
-  const vyza = clanek.slice(bezVidea, konecVetve);
-  assert.match(
-    vyza,
-    /K tomuhle článku video není/,
-    "výzva musí pořád říct, že u článku video není",
-  );
-  assert.match(
-    vyza,
-    /technice a AI/,
-    "výzva musí pořád říct, co na kanálu je",
-  );
-  assert.doesNotMatch(
-    vyza,
-    /\b82\b/,
-    "hardcoded 82 ve výzvě zastará hned po dalším videu",
-  );
-  assert.match(
-    clanek,
-    /Z1003: pruh nesmí sedět mezi hero a prvním odstavcem/,
-    "komentář musí dál držet Z1003 — výzva až po textu",
-  );
-  assert.doesNotMatch(
-    clanek,
-    /30\. 7\. 2026:\s*82/,
-    "komentář pořád kotví zastaralé číslo z API",
-  );
+test("Z1003: YouTube výzva po textu nesmí tvrdit zastaralé číslo videí", () => {
+  const telo = clanek.indexOf('class="article-body"');
+  const autor = clanek.slice(clanek.indexOf('<div class="author-box">'), clanek.indexOf('<HeroheroCta />'));
+  assert.ok(autor.length > 0);
+  assert.match(autor, /sub_confirmation=1/, "odběr kanálu po textu nese autorský box");
+  assert.doesNotMatch(autor, /\b82\b/, "hardcoded 82 zastará hned po dalším videu");
+  assert.ok(clanek.indexOf('<div class="author-box">') > telo);
+  assert.match(clanek, /Z1003: pruh nesmí sedět mezi hero a prvním odstavcem/, "komentář musí dál držet Z1003 — výzva až po textu");
 });

@@ -88,7 +88,8 @@ test('značkový OG přebije YouTube náhled i cover — generuje se i pro video
   });
 
   assert.equal(ogImage, 'https://realtech.cz/images/og/ukazka.jpg');
-  assert.deepEqual(jsonLd.image, ['https://realtech.cz/images/og/ukazka.jpg']);
+  // Kolo 56: vedle značkového OG (1,9:1) i čistý 16:9 cover pro Google.
+  assert.deepEqual(jsonLd.image, ['https://realtech.cz/images/og/ukazka.jpg', 'https://realtech.cz/images/clanky/ukazka.jpg']);
   assert.deepEqual(dotazy(), ['public/images/og/ukazka.jpg']);
 });
 
@@ -104,7 +105,8 @@ test('video článek bez značkového OG spadne na syrový YouTube maxresdefault
   });
 
   assert.equal(ogImage, 'https://i.ytimg.com/vi/abcdefghijk/maxresdefault.jpg');
-  assert.deepEqual(jsonLd.image, ['https://i.ytimg.com/vi/abcdefghijk/maxresdefault.jpg']);
+  // Kolo 56: lokální 16:9 cover se přidá i k ytimg náhledu.
+  assert.deepEqual(jsonLd.image, ['https://i.ytimg.com/vi/abcdefghijk/maxresdefault.jpg', 'https://realtech.cz/images/clanky/ukazka.jpg']);
 });
 
 test('bez videa vyhraje značkový OG z /images/og/ nad coverem z frontmatteru', async () => {
@@ -114,7 +116,7 @@ test('bez videa vyhraje značkový OG z /images/og/ nad coverem z frontmatteru',
   });
 
   assert.equal(ogImage, 'https://realtech.cz/images/og/ukazka.jpg');
-  assert.deepEqual(jsonLd.image, ['https://realtech.cz/images/og/ukazka.jpg']);
+  assert.deepEqual(jsonLd.image, ['https://realtech.cz/images/og/ukazka.jpg', 'https://realtech.cz/images/clanky/ukazka.jpg'], 'kolo 56: + čistý 16:9 cover');
   assert.deepEqual(dotazy(), ['public/images/og/ukazka.jpg']);
 });
 

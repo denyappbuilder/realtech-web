@@ -65,12 +65,11 @@ test('kolo 43: premium vrací 1px rámeček na .audio-prehled / .article-videoba
 
 // Kolo 44: varianta bez videa je ještě tišší — bez karty, jen hairline nad
 // řadou a obrysové tlačítko (test-kolo-44-leftover.mjs). Výzva zůstává.
-test('kolo 43: článek bez videa má vlastní modifikátor, varianta s videem beze změny, výzva zůstává', () => {
-  assert.match(clanek, /\{!video && xEmbedy\.length === 0 && \(\s*<div class="article-videobar article-videobar-bez-videa">/);
+// Kolo 56: pruh bez videa zrušen (konec článku: related → autor → Herohero).
+test('kolo 43: varianta s videem beze změny; odběr u článku bez videa nese autorský box', () => {
   assert.match(clanek, /\{video && \(\s*<div class="article-videobar">/, 'varianta s videem beze změny');
-  assert.ok(pravidlo(premium, '.article-videobar-bez-videa'), 'modifikátor v premium.css chybí');
-  assert.doesNotMatch(pravidlo(premium, '.article-videobar-bez-videa'), /display:\s*none/);
-  assert.match(clanek, /K tomuhle článku video není[\s\S]*?Odebírat kanál/, 'YT výzva u článku bez videa zůstává');
+  assert.doesNotMatch(clanek, /article-videobar-bez-videa/);
+  assert.match(clanek, /<div class="ab-actions">\s*<a href="https:\/\/www\.youtube\.com\/@realtech-cz\?sub_confirmation=1" class="yt-btn">/);
 });
 
 // ── P1: tema-souvisi rytmus ─────────────────────────────────────────────────

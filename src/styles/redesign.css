@@ -266,3 +266,92 @@ footer.site .f-top { padding-bottom: 24px; margin-bottom: 16px; }
    - odkaz „nebo otevřít diskuzi na GitHubu →“ 220 × 23 (samostatný, ne v textu). */
 a.tag { min-width: 44px; justify-content: flex-start; }
 .komentare-placeholder a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* ==== Kolo 56: design (audit art-directora 26. 9. 2026) ==== */
+
+/* 1) Tmavý režim: newsletter byl inverzní deska --ink (rgb 232,236,241,
+      1072 × 377 px) — nejsvětlejší plocha webu těsně před patičkou na
+      každé stránce. Ve tmě je to --surface s vlasovou linkou, jako ostatní
+      bloky; světlý režim zůstává tmavý blok z kola 52. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .newsletter > .wrap { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
+  :root:not([data-theme="light"]) .newsletter h2 { color: var(--ink); }
+  :root:not([data-theme="light"]) .newsletter p, :root:not([data-theme="light"]) .newsletter .nl-note { color: var(--ink-soft); }
+  :root:not([data-theme="light"]) .newsletter .nl-note a, :root:not([data-theme="light"]) .newsletter .nl-done { color: var(--ink); }
+  :root:not([data-theme="light"]) .newsletter .nl-form input { background: var(--bg); border: 1px solid var(--line-strong); }
+}
+:root[data-theme="dark"] .newsletter > .wrap { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
+:root[data-theme="dark"] .newsletter h2 { color: var(--ink); }
+:root[data-theme="dark"] .newsletter p, :root[data-theme="dark"] .newsletter .nl-note { color: var(--ink-soft); }
+:root[data-theme="dark"] .newsletter .nl-note a, :root[data-theme="dark"] .newsletter .nl-done { color: var(--ink); }
+:root[data-theme="dark"] .newsletter .nl-form input { background: var(--bg); border: 1px solid var(--line-strong); }
+
+/* 2) Míra textu článku: 700 px sloupec × Plex 18 px = medián 85 znaků na
+      řádek (měřeno po znacích na produkci). Čtecí rozsah je 60–75. Text
+      dostane 19 px / 1.7 a strop 33em (627 px) → medián ~71 zn.; obrázky,
+      tabulky a embedy drží šířku sloupce. */
+@media (min-width: 901px) {
+  .article-layout .article-body { font-size: 1.1875rem; line-height: 1.7; }
+  .article-body > :is(p, ul, ol, blockquote, h2, h3, h4, dl) { max-width: 33em; }
+}
+
+/* 3) Hero úvodky na desktopu: obrázek 16:9 nahoře (286 px) vedle textu
+      607 px nechal pod sebou 321 px prázdna. Obrázek teď vyplní výšku
+      sloupce s textem (ořez cover, střed motivu). sizes v karta-nahled.js
+      počítá s delší stranou výřezu. */
+@media (min-width: 901px) {
+  .hero-grid { align-items: stretch; }
+  .hero-visual { align-self: stretch; aspect-ratio: auto; min-height: 320px; position: relative; }
+  .hero-visual picture, .hero-visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+}
+
+/* 4) Rytmus sekcí úvodky: mezery 16/48/88/88/88/0 px mimo stupnici
+      4–64. Jedna sekční mezera 64 px (mobil 48 px). */
+:root { --rd-section: 64px; }
+.mimo-ai, .video-strip { margin-top: var(--rd-section); }
+.topic-navigation { margin-top: 32px; }
+@media (max-width: 900px) {
+  :root { --rd-section: 48px; }
+  .mimo-ai { margin-top: var(--rd-section); }
+}
+
+/* 5) Drobná metadata: štítek kategorie na kartách 10,4 px (0.65rem) —
+      pod hranicí čitelnosti. Minimum 12 px. */
+.card-thumb .lt .k, .card-thumb .lt .z, .card-thumb .lt .t { font-size: 0.75rem; }
+
+/* 6) Nadpisy stránek (archiv, témata, O nás, Herohero, GDPR, 404) byly
+      650 / 100 %, článek a úvodka 800 / 114 %. Jedna display role všude. */
+.hub .section-head h1, .about h1, .notfound h1 {
+  font-family: var(--rd-display); font-weight: 800; font-stretch: 114%; letter-spacing: -0.035em; line-height: 1.02;
+  font-size: clamp(2.1rem, 4.4vw, 3.6rem); text-wrap: balance;
+}
+@media (max-width: 580px) { .hub .section-head h1, .about h1, .notfound h1 { font-size: 2rem; } }
+
+/* 7) Konec článku (kolo 56 nové pořadí related → autor → Herohero): nad
+      „Další reporty“ stály dvě 2px linky 34 px pod sebou (.related +
+      .section-head), totéž u komentářů. Jedna linka na blok. */
+.article-page .related { border-top: 0; margin-top: 56px; }
+.article-page .related .section-head, .komentare .section-head { margin-top: 0; }
+.komentare-placeholder { border-top-width: 1px; border-top-color: var(--line-strong); }
+.article-page .related ~ .author-box { margin-top: 48px; }
+
+/* 8) 404: hledání (GET /clanky/?q=) a témata — dřív jen dvě tlačítka. */
+.notfound-search { margin-top: 32px; max-width: 560px; }
+.notfound-search label { display: block; font-weight: 600; margin-bottom: 8px; }
+.notfound-search-row { display: flex; gap: 12px; align-items: stretch; }
+.notfound-search .search-input {
+  flex: 1; min-width: 0; min-height: 48px; font: inherit; font-size: 1.05rem; color: var(--ink);
+  background: transparent; border: 0; border-bottom: 2px solid var(--ink); border-radius: 0; padding: 8px 2px;
+}
+.notfound-search .search-input:focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
+.notfound-search .btn-primary { min-height: 48px; padding-inline: 20px; border-radius: var(--radius-control); }
+.notfound-temata { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin-top: 24px; }
+.notfound-temata .mono { color: var(--ink-faint); margin-right: 4px; }
+.notfound-temata a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
+.notfound-temata a:hover { text-decoration-color: var(--signal); }
+.notfound .hero-actions { margin-top: 24px; }
+
+/* 9) Karta Audio přehled pod textem článku (kolo 56): šířka čtecího
+      sloupce, odstup od posledního odstavce. */
+.article-layout + .audio-prehled { max-width: 700px; margin-top: 48px; }
+

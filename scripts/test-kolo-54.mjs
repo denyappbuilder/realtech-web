@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import test from "node:test";
-import { HOMEPAGE_HERO_SIZES, KARTA_SIZES_RELATED } from "../src/lib/karta-nahled.js";
+import { KARTA_SIZES_RELATED } from "../src/lib/karta-nahled.js";
 import { videoPasekNahled } from "../src/lib/video-pasek-nahled.js";
 
 // Kolo 54: technický audit 25. 9. 2026 (Playwright 390/1280 × DPR 1/2,
@@ -26,11 +26,8 @@ test("kolo 54: pásek videí zůstává na hq720 bez sddefault srcsetu (ořez te
   assert.match(index, /<source srcset=\{v\.nahled\.webp\} type="image\/webp" \/>/);
 });
 
-test("kolo 54: hero úvodky sizes = změřený 16:9 slot (≤ 508 px), ne 1280px ořezu", () => {
-  assert.equal(HOMEPAGE_HERO_SIZES, "(max-width: 900px) calc(100vw - 48px), (max-width: 1120px) 45vw, 508px");
-  assert.match(cti("src/styles/redesign.css"), /\.hero-visual \{[^}]*aspect-ratio: 16 \/ 9/, "sizes platí jen pro 16:9 hero; ořez by chtěl víc pixelů");
-});
-
+// Kolo 56 nahradilo: hero úvodky na desktopu zase vyplňuje výšku textového
+// sloupce (ořez cover), sizes je 1080px — hlídá test-kolo-56.mjs.
 test("kolo 54: Archivo je výseč os wght 600–900 / wdth 100–125 % (−93 KB na stránku)", () => {
   const css = cti("src/styles/fonts-archivo.css");
   for (const sada of ["latin-ext", "latin"]) {
