@@ -208,24 +208,36 @@
   // znaků se uřízne 1–2 znaky koncovky). Jen záloha při nule, pořadí
   // přesných výsledků se nemění.
   function kmen(t: string) {
-    if (t.length < 5) return t;
+    // Kolo 55: slovo s číslicí je název modelu/verze („gpt-5“, „m8“) —
+    // zkrácené „gpt-“ by našlo i GPT-6. Neskloňuje se, neřeže se.
+    if (t.length < 5 || /\d/.test(t)) return t;
     return t.slice(0, t.length >= 7 ? -2 : -1);
   }
 
   // Poslední dotaz, který našel výsledky jen přes kmeny (pro odkaz do archivu).
   let kmenovyDotaz: { zdroj: string; kmeny: string } | null = null;
 
+  // Kolo 55: kmen už není jen záloha při nule. Živě 26. 9. 2026 našlo
+  // „raketa“ 3 články a „raketě“ 6, „dronů“ 1 (jediný článek s tvarem
+  // „dronů“) místo rubriky Drony — přesná shoda existovala, takže se kmeny
+  // nezkoušely. Kmenový průchod je vždy nadmnožina přesného (kmen je
+  // předpona slova); použije se, když najde víc, a přesné shody v něm
+  // dostávají vyšší skóre, takže zůstávají nahoře.
   function search(q: string) {
     kmenovyDotaz = null;
     const presne = hledej(q, false);
-    if (totalResults > 0) return presne;
+    const presnyPocet = totalResults;
     const nq = norm(q.trim());
     const kmeny = nq.split(/\s+/).map(kmen).join(' ');
     // Žádné slovo se nezkrátilo → druhý průchod by byl totožný.
     if (!nq || kmeny === nq) return presne;
     const sKmeny = hledej(q, true);
-    if (totalResults > 0) kmenovyDotaz = { zdroj: q.trim(), kmeny };
-    return sKmeny;
+    if (totalResults > presnyPocet) {
+      kmenovyDotaz = { zdroj: q.trim(), kmeny };
+      return sKmeny;
+    }
+    totalResults = presnyPocet;
+    return presne;
   }
 
   function hledej(q: string, sKmeny: boolean) {
@@ -233,14 +245,18 @@
     if (!index) return [];
     const nq = norm(q.trim());
     if (!nq) return [];
-    const terms = nq.split(/\s+/).map((t) => (sKmeny ? kmen(t) : t));
+    const slova = nq.split(/\s+/);
     const matches = index
       .map((it) => {
         const hayTitle = norm(it.t);
         const hayRest = norm(`${it.d} ${it.k} ${it.b}`);
         let score = 0;
-        for (const t of terms) {
-          if (hayTitle.includes(t)) score += 10;
+        for (const slovo of slova) {
+          const t = sKmeny ? kmen(slovo) : slovo;
+          // Kolo 55: přesný tvar slova má přednost před shodou jen kmenem.
+          if (sKmeny && hayTitle.includes(slovo)) score += 12;
+          else if (hayTitle.includes(t)) score += 10;
+          else if (sKmeny && hayRest.includes(slovo)) score += 4;
           else if (hayRest.includes(t)) score += 3;
           else return null;
         }

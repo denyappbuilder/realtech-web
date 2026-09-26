@@ -508,3 +508,30 @@ test('kolo 53: „Všechny výsledky“ po shodě přes kmen vede archiv na kmen
   modal.render(presne, 'raketa');
   assert.equal(modal.allResults.href, '/clanky/?q=raketa', 'přesná shoda nese dotaz beze změny');
 });
+
+test('kolo 55: kmen doplní přesnou shodu, když najde víc — přesné tvary zůstávají nahoře', () => {
+  // Živě 26. 9. 2026: „dronů“ našlo 1 článek (jediný s tvarem „dronů“) a
+  // rubrika Drony zůstala mimo; „raketa“ 3 vs. „raketě“ 6.
+  const modal = nactiModal({
+    hledatelne: [
+      polozka({ s: 'drony-zakaz', t: 'Drony DJI v USA končí', p: '2026-09-01' }),
+      polozka({ s: 'srovnani', t: 'Srovnání dronů do 10 tisíc', p: '2026-08-01' }),
+      polozka({ s: 'jine', t: 'Nový telefon', p: '2026-09-10' }),
+    ],
+  });
+  assert.deepEqual(slugy(modal.search('dronů')), ['srovnani', 'drony-zakaz'], 'přesný tvar první, kmen „dron“ přidá rubriku');
+  assert.deepEqual(slugy(modal.search('drony')), ['drony-zakaz', 'srovnani']);
+  modal.render(modal.search('dronů'), 'dronů');
+  assert.equal(modal.allResults.href, '/clanky/?q=dron', 'archiv dostane kmen, najde stejnou sadu');
+});
+
+test('kolo 55: slovo s číslicí se nekrátí (gpt-5 nesmí najít gpt-6)', () => {
+  const modal = nactiModal({
+    hledatelne: [
+      polozka({ s: 'gpt5', t: 'GPT-5 zlevňuje', p: '2026-09-01' }),
+      polozka({ s: 'gpt6', t: 'GPT-6 je venku', p: '2026-09-10' }),
+    ],
+  });
+  assert.deepEqual(slugy(modal.search('gpt-5')), ['gpt5']);
+});
+
