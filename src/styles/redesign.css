@@ -259,3 +259,10 @@ footer.site .f-top { padding-bottom: 24px; margin-bottom: 16px; }
   .latest-reports > .card:not(:first-child) .card-thumb .lt, [data-archive] .card-thumb .lt { display: none; }
   .newsletter { padding-inline: 0; }
 }
+
+/* ==== Kolo 55 ==== */
+/* Cíle pod 24 px (WCAG 2.5.8), změřeno na produkci 320–1280 px:
+   - štítek rubriky v hlavě článku „Sítě“ 23 × 44 (min-height bez min-width),
+   - odkaz „nebo otevřít diskuzi na GitHubu →“ 220 × 23 (samostatný, ne v textu). */
+a.tag { min-width: 44px; justify-content: flex-start; }
+.komentare-placeholder a { display: inline-flex; align-items: center; min-height: 44px; }
