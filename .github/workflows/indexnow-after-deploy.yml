@@ -30,7 +30,7 @@ jobs:
       # Do not consume artifacts or run a PR/fork's scripts in workflow_run.
       - name: Validate trusted run and current main before checkout
         id: source
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
