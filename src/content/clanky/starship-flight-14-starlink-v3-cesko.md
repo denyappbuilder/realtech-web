@@ -6,6 +6,9 @@ category: "Sítě"
 date: "2026-09-25T21:58:00+02:00"
 zprava: true
 image: "/images/clanky/starship-flight-14-starlink-v3-cesko.jpg"
+audio:
+  url: "https://audio.realtech.cz/starship-flight-14-starlink-v3-cesko-nlm-9575563ea19a.mp3"
+  duration: 1639
 ---
 
 **SpaceX chce nejdříve v pondělí vynést na oběžnou dráhu 26 satelitů Starlink V3, které v ní mají zůstat a zapojit se do sítě. Každý z nich má přidat kapacitu 1 Tb/s. Pro tvůj domácí talíř v Česku to ale hned nic neznamená. Rozebíráme, co je potvrzené, co jsou zatím jen sliby a jak si změnu změříš sám.**
