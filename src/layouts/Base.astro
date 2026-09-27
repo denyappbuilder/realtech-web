@@ -492,7 +492,23 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
       nlForm.replaceChildren(hotovo);
       hotovo.focus();
     } catch {
-      nlForm.submit();
+      // Kolo 57: dřív catch hned volal nlForm.submit() — čtenář bez
+      // vysvětlení odešel z článku na stránku Kitu a tlačítko viselo na
+      // „Odesílám…“. Teď první selhání ukáže chybu u pole a vrátí tlačítko;
+      // až druhé (síť/CORS trvale) pošle formulář klasicky na Kit, kde
+      // odběr dokončí bez skriptu.
+      if (nlForm.dataset.selhalo) { nlForm.submit(); return; }
+      nlForm.dataset.selhalo = '1';
+      btn.disabled = false;
+      btn.textContent = 'Odebírat e-mailem';
+      let chyba = nlForm.parentElement?.querySelector<HTMLElement>('.nl-chyba');
+      if (!chyba) {
+        chyba = document.createElement('p');
+        chyba.className = 'nl-chyba';
+        chyba.setAttribute('role', 'alert');
+        nlForm.after(chyba);
+      }
+      chyba.textContent = 'Odeslání se nepovedlo. Zkus to znovu — napodruhé tě pošleme přímo na formulář Kitu.';
     }
   });
 </script>

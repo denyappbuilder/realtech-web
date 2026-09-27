@@ -25,8 +25,8 @@ test('kolo 56: konec článku — související hned za textem, pak autor, Heroh
 
 test('kolo 56: související články podle obsahu (souvisejici.js), ne tři nejnovější z kategorie', () => {
   const zdroj = cti('src/pages/clanky/[...id].astro');
-  assert.match(zdroj, /import \{ pripravSouvisejici \} from '\.\.\/\.\.\/lib\/souvisejici\.js'/);
-  assert.match(zdroj, /const related = pripravSouvisejici\(vsechnyClanky\)\(article, others, 3\);/);
+  assert.match(zdroj, /import \{ (?:pripravPokracovani, )?pripravSouvisejici \} from '\.\.\/\.\.\/lib\/souvisejici\.js'/);
+  assert.match(zdroj, /const related = pripravSouvisejici\(vsechnyClanky\)\(article, others\.filter/);
 });
 
 test('kolo 56: 404 nabízí hledání (GET, bez JS) a témata', () => {

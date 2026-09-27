@@ -89,7 +89,8 @@ test("kolo 29: úspěch newsletteru je role=status s fokusem, ne innerHTML", () 
   assert.match(uspech, /hotovo\.tabIndex = -1;/, "fokus programově, ne další zastávka tabulátoru");
   assert.match(uspech, /hotovo\.textContent = '✓ Skoro hotovo — mrkni do mailu a potvrď odběr\.';/, "text beze změny");
   assert.match(uspech, /nlForm\.replaceChildren\(hotovo\);/);
-  assert.match(skriptBase, /catch \{\s*nlForm\.submit\(\);/, "únik bez fetch API zůstává");
+  // Kolo 57: únik na Kit zůstává, ale až při druhém selhání (první = chyba u pole).
+  assert.match(skriptBase, /catch \{[\s\S]*?if \(nlForm\.dataset\.selhalo\) \{ nlForm\.submit\(\); return; \}/, "únik bez fetch API zůstává");
 });
 
 test("kolo 29: .nl-done:focus bez rámečku — není to ovládací prvek", () => {

@@ -355,3 +355,52 @@ a.tag { min-width: 44px; justify-content: flex-start; }
       sloupce, odstup od posledního odstavce. */
 .article-layout + .audio-prehled { max-width: 700px; margin-top: 48px; }
 
+/* ==== Kolo 57 ==== */
+
+/* 1) „Co se dělo dál“ pod textem: novější články, které na tenhle odkazují.
+      Časová osa — datum nalevo, titulek vpravo, jedna linka nahoře. */
+.co-dal { max-width: 700px; margin-top: 48px; padding-top: 16px; border-top: 2px solid var(--ink); }
+.co-dal h2 { font-family: var(--rd-display); font-stretch: 112%; font-size: 1.25rem; font-weight: 800; line-height: 1.2; margin: 0 0 8px; }
+.co-dal ol { list-style: none; margin: 0; padding: 0; }
+.co-dal li { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.co-dal time { font-size: 0.8125rem; font-variant-numeric: tabular-nums; color: var(--ink-faint); }
+.co-dal a { font-weight: 650; line-height: 1.35; color: var(--ink); text-decoration: none; }
+.co-dal a:hover { text-decoration: underline; text-decoration-color: var(--signal); text-underline-offset: 3px; }
+@media (max-width: 560px) {
+  .co-dal li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+.co-dal li:last-child { border-bottom: 0; }
+.co-dal + .audio-prehled { margin-top: 40px; }
+
+/* 2) Mikro-metadata ≥ 12 px. Štítek kategorie v mobilních výpisech
+      (úvodka „Poslední reporty“, archiv) měl 0.65rem = 10,4 px a řádek
+      data v archivu totéž — pod hranicí čitelnosti (audit kola 56,
+      15× na /clanky/). Kontrast byl v pořádku, velikost ne. */
+@media (max-width: 580px) {
+  .latest-reports > .card:not(:first-child) .card-thumb .lt .k,
+  [data-archive] .card-thumb .lt .k { font-size: 0.75rem; padding: 3px 6px; }
+  [data-archive] .card-meta { font-size: 0.75rem; }
+}
+
+/* 3) Newsletter: chyba odeslání u pole (dřív odchod na Kit bez vysvětlení). */
+/* Barva textu newsletteru (světlý režim = tmavá deska, tmavý = surface):
+   červená na tmavé desce by měla ~3,9:1 < AA, proto zděděná barva a
+   červená jen jako linka vlevo. */
+.nl-chyba { margin: 8px 0 0; padding-left: 10px; border-left: 3px solid var(--signal); font-size: 0.875rem; font-weight: 600; color: inherit; }
+
+/* 4) Hlavička na mobilu: hledání a přepínač režimu byly 44×44 boxy
+      s 1px linkou, „Odebírat“ 1,5px rám, YouTube bez rámu — tři různé
+      váhy vedle sebe. Rám zůstává jen hlavní akci (Odebírat); ikonová
+      tlačítka jsou bez rámu jako YouTube, 44px cíl i focus ring drží. */
+@media (max-width: 580px) {
+  header.site .search-trigger, header.site .theme-toggle { border-color: transparent; background: transparent; }
+  header.site .search-trigger:hover, header.site .theme-toggle:hover { background: var(--surface); }
+}
+
+/* 5) Rytmus sekcí úvodky na stupnici tokenů: 88/52 px (mimo stupnici
+      4–64) → 64/48 px. Sekce video, Mimo AI a Herohero stejně. */
+.video-strip, .mimo-ai, .articles .herohero-cta { margin-top: 64px; }
+@media (max-width: 900px) {
+  .video-strip, .mimo-ai, .articles .herohero-cta { margin-top: 48px; }
+}
+

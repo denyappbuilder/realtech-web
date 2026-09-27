@@ -214,6 +214,38 @@
     return t.slice(0, t.length >= 7 ? -2 : -1);
   }
 
+  function shodaSPreklepem(term: string, text: string) {
+    // Kolo 57: záloha, když přesná shoda nenajde nic („starlink mini tset“ →
+    // 0 výsledků). Slovo dotazu od 4 znaků smí mít 1 překlep (od 8 znaků 2):
+    // záměna, vynechání, přidání písmene nebo prohození sousedních (OSA).
+    // Porovnává se s celým slovem textu i s jeho začátkem stejné délky, takže
+    // sedí i skloňované tvary („strlinku“). Slova s číslicí (modely, verze)
+    // se neohýbají — „gpt-5“ nesmí najít „gpt-6“.
+    if (term.length < 4 || /\d/.test(term)) return false;
+    const max = term.length >= 8 ? 2 : 1;
+    const osa = (a: string, b: string) => {
+      const d: number[][] = [];
+      for (let i = 0; i <= a.length; i++) d.push([i]);
+      for (let j = 1; j <= b.length; j++) d[0][j] = j;
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const cena = a[i - 1] === b[j - 1] ? 0 : 1;
+          d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cena);
+          if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+            d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+          }
+        }
+      }
+      return d[a.length][b.length];
+    };
+    for (const slovo of text.split(/[^a-z0-9]+/)) {
+      if (slovo.length < 4 || /\d/.test(slovo)) continue;
+      if (Math.abs(slovo.length - term.length) <= max && osa(term, slovo) <= max) return true;
+      if (slovo.length > term.length && osa(term, slovo.slice(0, term.length)) <= max) return true;
+    }
+    return false;
+  }
+
   // Poslední dotaz, který našel výsledky jen přes kmeny (pro odkaz do archivu).
   let kmenovyDotaz: { zdroj: string; kmeny: string } | null = null;
 
@@ -230,17 +262,25 @@
     const nq = norm(q.trim());
     const kmeny = nq.split(/\s+/).map(kmen).join(' ');
     // Žádné slovo se nezkrátilo → druhý průchod by byl totožný.
-    if (!nq || kmeny === nq) return presne;
-    const sKmeny = hledej(q, true);
-    if (totalResults > presnyPocet) {
-      kmenovyDotaz = { zdroj: q.trim(), kmeny };
-      return sKmeny;
+    if (!nq) return presne;
+    if (kmeny !== nq) {
+      const sKmeny = hledej(q, true);
+      if (totalResults > presnyPocet) {
+        kmenovyDotaz = { zdroj: q.trim(), kmeny };
+        return sKmeny;
+      }
+      totalResults = presnyPocet;
     }
-    totalResults = presnyPocet;
+    // Kolo 57: nic přesně ani přes kmeny → tolerance překlepu („tset“,
+    // „strlink“, „antropic“). Archiv (odkaz „Všechny výsledky“) má tutéž
+    // zálohu, takže tam dotaz najde totéž.
+    if (presnyPocet === 0) return hledej(q, 'preklep');
     return presne;
   }
 
-  function hledej(q: string, sKmeny: boolean) {
+  function hledej(q: string, rezim: boolean | 'preklep') {
+    const sKmeny = rezim === true;
+    const preklep = rezim === 'preklep';
     totalResults = 0;
     if (!index) return [];
     const nq = norm(q.trim());
@@ -258,6 +298,8 @@
           else if (hayTitle.includes(t)) score += 10;
           else if (sKmeny && hayRest.includes(slovo)) score += 4;
           else if (hayRest.includes(t)) score += 3;
+          else if (preklep && shodaSPreklepem(slovo, hayTitle)) score += 2;
+          else if (preklep && shodaSPreklepem(slovo, hayRest)) score += 1;
           else return null;
         }
         return { it, score };

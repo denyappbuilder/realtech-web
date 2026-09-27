@@ -104,12 +104,56 @@ export function platnyIndex(candidate) {
  */
 export function filtrujIndex(index, { kat, q }) {
   const nq = normalizuj(q.trim());
-  return index.filter((it) => {
+  const vyber = (preklep) => index.filter((it) => {
     if (kat && it.k !== kat) return false;
     if (!nq) return true;
     const haystack = normalizuj(`${it.t} ${it.d} ${it.k} ${it.b}`);
-    return nq.split(/\s+/).every((term) => haystack.includes(term));
+    return nq.split(/\s+/).every((term) => haystack.includes(term) || (preklep && shodaSPreklepem(term, haystack)));
   });
+  const presne = vyber(false);
+  // Kolo 57: tolerance překlepu jen jako záloha při nule (klient totéž).
+  return presne.length || !nq ? presne : vyber(true);
+}
+
+/**
+ * Kolo 57: shoda slova dotazu s textem s tolerancí překlepu. TOTÉŽ tělo
+ * je v klientském skriptu ArticleArchivePage.astro a SearchModal.astro
+ * (bez importů kvůli vm testům) — test-kolo-57.mjs hlídá shodu textu.
+ *
+ * @param {string} term  normalizované slovo dotazu
+ * @param {string} text  normalizovaný text
+ * @returns {boolean}
+ */
+export function shodaSPreklepem(term, text) {
+  // Kolo 57: záloha, když přesná shoda nenajde nic („starlink mini tset“ →
+  // 0 výsledků). Slovo dotazu od 4 znaků smí mít 1 překlep (od 8 znaků 2):
+  // záměna, vynechání, přidání písmene nebo prohození sousedních (OSA).
+  // Porovnává se s celým slovem textu i s jeho začátkem stejné délky, takže
+  // sedí i skloňované tvary („strlinku“). Slova s číslicí (modely, verze)
+  // se neohýbají — „gpt-5“ nesmí najít „gpt-6“.
+  if (term.length < 4 || /\d/.test(term)) return false;
+  const max = term.length >= 8 ? 2 : 1;
+  const osa = (a, b) => {
+    const d = [];
+    for (let i = 0; i <= a.length; i++) d.push([i]);
+    for (let j = 1; j <= b.length; j++) d[0][j] = j;
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cena = a[i - 1] === b[j - 1] ? 0 : 1;
+        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cena);
+        if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+          d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+        }
+      }
+    }
+    return d[a.length][b.length];
+  };
+  for (const slovo of text.split(/[^a-z0-9]+/)) {
+    if (slovo.length < 4 || /\d/.test(slovo)) continue;
+    if (Math.abs(slovo.length - term.length) <= max && osa(term, slovo) <= max) return true;
+    if (slovo.length > term.length && osa(term, slovo.slice(0, term.length)) <= max) return true;
+  }
+  return false;
 }
 
 /**
