@@ -194,6 +194,38 @@ const vypisOg = ogObrazekClanku(articles[0]);
 
   {page === 1 && (
     <script>
+      function shodaSPreklepem(term: string, text: string) {
+        // Kolo 57: záloha, když přesná shoda nenajde nic („starlink mini tset“ →
+        // 0 výsledků). Slovo dotazu od 4 znaků smí mít 1 překlep (od 8 znaků 2):
+        // záměna, vynechání, přidání písmene nebo prohození sousedních (OSA).
+        // Porovnává se s celým slovem textu i s jeho začátkem stejné délky, takže
+        // sedí i skloňované tvary („strlinku“). Slova s číslicí (modely, verze)
+        // se neohýbají — „gpt-5“ nesmí najít „gpt-6“.
+        if (term.length < 4 || /\d/.test(term)) return false;
+        const max = term.length >= 8 ? 2 : 1;
+        const osa = (a: string, b: string) => {
+          const d: number[][] = [];
+          for (let i = 0; i <= a.length; i++) d.push([i]);
+          for (let j = 1; j <= b.length; j++) d[0][j] = j;
+          for (let i = 1; i <= a.length; i++) {
+            for (let j = 1; j <= b.length; j++) {
+              const cena = a[i - 1] === b[j - 1] ? 0 : 1;
+              d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cena);
+              if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+                d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+              }
+            }
+          }
+          return d[a.length][b.length];
+        };
+        for (const slovo of text.split(/[^a-z0-9]+/)) {
+          if (slovo.length < 4 || /\d/.test(slovo)) continue;
+          if (Math.abs(slovo.length - term.length) <= max && osa(term, slovo) <= max) return true;
+          if (slovo.length > term.length && osa(term, slovo.slice(0, term.length)) <= max) return true;
+        }
+        return false;
+      }
+
       const chips = [...document.querySelectorAll('.cat-filter .chip')];
       const grid = document.getElementById('articles-grid');
       const empty = document.querySelector('.filter-empty');
@@ -437,16 +469,17 @@ const vypisOg = ogObrazekClanku(articles[0]);
         if (version !== applyVersion) return;
         odstranKartyZIndexu();
 
-        const slugs = new Set(
-          (index ?? [])
-            .filter((it) => {
-              if (category && it.k !== category) return false;
-              if (!nq) return true;
-              const haystack = norm(`${it.t} ${it.d} ${it.k} ${it.b}`);
-              return nq.split(/\s+/).every((term) => haystack.includes(term));
-            })
-            .map((it) => it.s),
-        );
+        const vyber = (preklep: boolean) => (index ?? [])
+          .filter((it) => {
+            if (category && it.k !== category) return false;
+            if (!nq) return true;
+            const haystack = norm(`${it.t} ${it.d} ${it.k} ${it.b}`);
+            return nq.split(/\s+/).every((term) => haystack.includes(term) || (preklep && shodaSPreklepem(term, haystack)));
+          });
+        // Kolo 57: překlep jen jako záloha při nule — shodně s edge (filtrujIndex).
+        let vybrane = vyber(false);
+        if (!vybrane.length && nq) vybrane = vyber(true);
+        const slugs = new Set(vybrane.map((it) => it.s));
         const naStrane = new Set<string>();
         let shown = 0;
         cards().forEach((card) => {

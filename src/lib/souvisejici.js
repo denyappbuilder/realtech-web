@@ -107,3 +107,25 @@ export function pripravSouvisejici(vsechny) {
     return [...podleSkore, ...doplnek].slice(0, pocet);
   };
 }
+
+/**
+ * Kolo 57: „Co se dělo dál“ — NOVĚJŠÍ články, které na čtený článek odkazují.
+ * Novější zpráva odkaz zpět má (Flight 14 → Flight 13), starší o svém
+ * pokračování nevěděla: čtenář z Googlu na starém článku skončil u zastaralé
+ * informace. Zpětné odkazy se počítají při buildu z těl článků, takže staré
+ * texty se nepřepisují (obsah = Grokbot). Nejnovější první, max `pocet`.
+ *
+ * @template {{ id: string, body?: string, data: { date: Date } }} A
+ * @param {A[]} vsechny
+ * @returns {(a: A, pocet?: number) => A[]}
+ */
+export function pripravPokracovani(vsechny) {
+  const odkazyZ = new Map(vsechny.map((a) => [a.id, odkazy(a.body)]));
+  return function pokracovani(a, pocet = 3) {
+    return vsechny
+      .filter((c) => c.id !== a.id && c.data.date.getTime() > a.data.date.getTime() && odkazyZ.get(c.id).has(a.id))
+      .sort((x, y) => y.data.date.getTime() - x.data.date.getTime() || x.id.localeCompare(y.id))
+      .slice(0, pocet);
+  };
+}
+

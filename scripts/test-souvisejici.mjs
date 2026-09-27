@@ -61,5 +61,6 @@ test('kolo 56: nad skutečnou kolekcí žádný článek neobsadí víc než 10 
 
 test('kolo 56: šablona článku bere related z pripravSouvisejici', () => {
   const s = readFileSync(new URL('../src/pages/clanky/[...id].astro', import.meta.url), 'utf8');
-  assert.match(s, /const related = pripravSouvisejici\(vsechnyClanky\)\(article, others, 3\);/);
+  // Kolo 57: kandidáti bez článků z „Co se dělo dál“ (neopakovat).
+  assert.match(s, /const related = pripravSouvisejici\(vsechnyClanky\)\(article, others\.filter\(\(c\) => !pokracovaniIds\.has\(c\.id\)\), 3\);/);
 });

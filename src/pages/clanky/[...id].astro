@@ -22,7 +22,7 @@ import { KARTA_SIZES_RELATED } from '../../lib/karta-nahled.js';
 import { autoriClanku } from '../../lib/autori.js';
 import { articleOutline } from '../../lib/article-outline.js';
 import { articleLead } from '../../lib/article-lead.js';
-import { pripravSouvisejici } from '../../lib/souvisejici.js';
+import { pripravPokracovani, pripravSouvisejici } from '../../lib/souvisejici.js';
 
 export async function getStaticPaths() {
   const clanky = await getCollection('clanky', ({ data }) => !data.draft);
@@ -78,7 +78,11 @@ const others = vsechnyClanky.filter((c) => c.id !== article.id)
   .sort(compareArticlesByDateDescThenId);
 // Kolo 56: „Další reporty“ podle obsahu (src/lib/souvisejici.js), ne tři
 // nejnovější z kategorie — ty obsadily 236 z 393 slotů celého webu.
-const related = pripravSouvisejici(vsechnyClanky)(article, others, 3);
+// Kolo 57: „Co se dělo dál“ = novější články, které sem odkazují (61 ze
+// 131 článků je má). Do related se neopakují.
+const pokracovani = pripravPokracovani(vsechnyClanky)(article, 3);
+const pokracovaniIds = new Set(pokracovani.map((c) => c.id));
+const related = pripravSouvisejici(vsechnyClanky)(article, others.filter((c) => !pokracovaniIds.has(c.id)), 3);
 // Kolo 40: aside vedle textu (≥ 901px) vypisoval totéž pole `related`
 // jako mřížka „Další reporty“ pod textem — živě 16. 9. 2026 na 1280px
 // tytéž tři odkazy dvakrát na jedné stránce (pod 901px aside nekreslíme,
@@ -409,6 +413,20 @@ const breadcrumbLd = {
           )}
         </aside>
       </div>
+
+      {pokracovani.length > 0 && (
+        <nav class="co-dal" aria-labelledby="co-dal-nadpis">
+          <h2 id="co-dal-nadpis">Co se dělo dál</h2>
+          <ol>
+            {pokracovani.map((c) => (
+              <li>
+                <time datetime={c.data.date.toISOString().slice(0, 10)}>{formatCalendarDateCs(c.data.date)}</time>
+                <a href={`/clanky/${c.id}/`}>{c.data.title}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
 
       <AudioPrehled audio={audio} />
 
