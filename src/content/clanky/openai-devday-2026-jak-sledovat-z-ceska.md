@@ -6,6 +6,9 @@ category: "AI Report"
 date: "2026-09-27"
 zprava: true
 image: "/images/clanky/openai-devday-2026-jak-sledovat-z-ceska.jpg"
+audio:
+  url: "https://audio.realtech.cz/openai-devday-2026-jak-sledovat-z-ceska-nlm-3fa67d2050a5.mp3"
+  duration: 1719
 ---
 
 **OpenAI DevDay 2026 je v úterý 29. září 2026 v San Francisku. Ty ho můžeš sledovat z gauče: úvodní keynote se streamuje zdarma a pro všechny a začíná v 19:00 pražského času. Ukážeme ti, jak si nastavit připomínku, co z programu poběží v noci a proč si při sledování psát spíš otázky než seznam novinek.**
