@@ -56,6 +56,7 @@ Web poběží na `http://localhost:4321`. Změny v souborech se projeví okamži
      duration: 143                  # sekundy, ISO-8601 nebo MM:SS
      transcript: "..."              # volitelné
    featured: true                   # volitelné — úvodka ho ignoruje; hero = poslední vydaný (date vč. času)
+   pinnedUntil: "2026-09-29"        # volitelné — dočasně první na úvodce, /vitej/ a 404; den včetně, max 7 dní po date
    draft: true                      # volitelné — draft se nepublikuje
    ---
 

@@ -4,6 +4,7 @@ seoTitle: "OpenAI DevDay 2026 z Česka: čas, stream a program"
 description: "OpenAI DevDay 2026 je 29. 9. Keynote startuje v 19:00 pražského času a streamuje se zdarma. Jak se připravit, harmonogram a DevDay Exchanges v Evropě."
 category: "AI Report"
 date: "2026-09-27"
+pinnedUntil: "2026-09-29"
 zprava: true
 image: "/images/clanky/openai-devday-2026-jak-sledovat-z-ceska.jpg"
 audio:

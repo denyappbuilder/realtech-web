@@ -80,6 +80,10 @@ const clanky = defineCollection({
       .optional(),
     image: z.string().optional(),
     featured: z.boolean().default(false),
+    // Dočasný pin na první místo úvodky (hero), /vitej/ a 404 — den včetně,
+    // nejvýš PIN_MAX_DNI po `date` (validate-content.mjs). Archiv, RSS
+    // a témata zůstávají chronologické.
+    pinnedUntil: calendarDate.optional(),
     zprava: z.boolean().default(false),
     evergreen: z.boolean().default(false),
     updated: calendarDate.optional(),

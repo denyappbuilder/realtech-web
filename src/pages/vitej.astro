@@ -3,15 +3,16 @@ import { getCollection } from 'astro:content';
 import { KARTA_SIZES, nahledKarty } from '../lib/karta-nahled.js';
 import { youtubeId } from '../lib/youtube.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
+import { compareArticlesByDateDescThenId, pripnuteNapred } from '../lib/article-order.js';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 
 const YT = 'https://www.youtube.com/@realtech-cz';
 const YT_SUB = 'https://www.youtube.com/@realtech-cz?sub_confirmation=1';
 
-const latest = (await getCollection('clanky', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+const latest = pripnuteNapred(
+  (await getCollection('clanky', ({ data }) => !data.draft)).sort(compareArticlesByDateDescThenId),
+).slice(0, 3);
 
 // LCP na /vitej/ je náhled první karty (dostává priority, stránka nemá hero
 // obrázek), ale živě šla stránka ven bez preloadu v <head> — prohlížeč

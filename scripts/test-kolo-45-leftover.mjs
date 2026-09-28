@@ -145,7 +145,7 @@ test('kolo 45: živé články z 20. 9. 2026 (### + ## Zdroje) — validate-cont
 test('kolo 45: úvodka, 404 a llms.txt řadí sdíleným komparátorem jako archiv, RSS a chrono navigace', () => {
   for (const soubor of ['src/pages/index.astro', 'src/pages/404.astro', 'src/pages/llms.txt.js']) {
     const zdroj = bezKomentaru(cti(soubor));
-    assert.match(zdroj, /import \{ compareArticlesByDateDescThenId \} from '\.\.\/lib\/article-order\.js';/, `${soubor}: import komparátoru`);
+    assert.match(zdroj, /import \{ compareArticlesByDateDescThenId(?:, \w+)* \} from '\.\.\/lib\/article-order\.js';/, `${soubor}: import komparátoru`);
     assert.match(zdroj, /\.sort\(compareArticlesByDateDescThenId\)/, `${soubor}: řazení komparátorem`);
     assert.doesNotMatch(zdroj, /\.sort\(\(a, b\) => b\.data\.date\.valueOf\(\) - a\.data\.date\.valueOf\(\)\)/, `${soubor}: inline řazení jen podle data`);
   }
