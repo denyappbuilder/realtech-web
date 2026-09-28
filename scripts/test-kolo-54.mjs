@@ -15,7 +15,7 @@ test("kolo 54: karty „Mimo AI“ nejsou kompaktní řádky — berou KARTA_SIZ
 });
 
 test("kolo 54: související karty pod článkem na mobilu = šířka wrapu bez okrajů, ne 100vw", () => {
-  assert.match(KARTA_SIZES_RELATED, /^\(max-width: 700px\) calc\(100vw - 48px\), /);
+  assert.match(KARTA_SIZES_RELATED, /^\(max-width: 580px\) 96px, \(max-width: 700px\) calc\(100vw - 48px\), /);
 });
 
 // Pásek videí: sddefault 640w vyzkoušen a vrácen — u vlastních náhledů

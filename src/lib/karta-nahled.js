@@ -66,7 +66,8 @@ export const KARTA_SIZES_FEATURED = '(max-width: 580px) calc(100vw - 48px), (max
  * desktop bral 1280w plný WebP na tři 236px náhledy (živě 5. 9. 2026,
  * DPR 2: 3× 43–91 KB místo 3× ~20 KB).
  */
-export const KARTA_SIZES_RELATED = '(max-width: 700px) calc(100vw - 48px), (max-width: 808px) 30vw, 241px';
+// Kolo 59: ≤ 580 px je related kompaktní řádek s 96px náhledem (redesign.css).
+export const KARTA_SIZES_RELATED = '(max-width: 580px) 96px, (max-width: 700px) calc(100vw - 48px), (max-width: 808px) 30vw, 241px';
 
 /**
  * Kolo 42: náhled v hero railu úvodky (.hero-rail-item img, premium.css:
