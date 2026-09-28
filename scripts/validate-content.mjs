@@ -21,6 +21,7 @@ import { parseCalendarDate, parsePublishDate } from '../src/lib/calendarDate.js'
 import { chybaTvaruImage } from '../src/lib/image-cesta.js';
 import { jeAudioUrl, parseAudioDuration } from '../src/lib/audio-prehled.js';
 import { xPostEmbed } from '../src/lib/x-post.js';
+import { PIN_MAX_DNI } from '../src/lib/article-order.js';
 
 const DIR = 'src/content/clanky';
 const IMG = 'public/images/clanky';
@@ -179,6 +180,17 @@ for (const f of files) {
   }
   if (parsedUpdated && parsedUpdated > today) {
     errors.push(`${slug}: updated ${updatedStr} je v budoucnosti`);
+  }
+
+  const pinnedStr = fm.match(/^pinnedUntil:\s*["']?(\d{4}-\d{2}-\d{2})/m)?.[1];
+  const parsedPinned = pinnedStr ? parseCalendarDate(pinnedStr) : undefined;
+  if (parsedDate && parsedPinned) {
+    const dniPinu = (parsedPinned - parsedDate) / (24 * 60 * 60 * 1000);
+    if (dniPinu < 0 || dniPinu > PIN_MAX_DNI) {
+      errors.push(
+        `${slug}: pinnedUntil ${pinnedStr} musí být 0–${PIN_MAX_DNI} dní po date ${dateStr}`,
+      );
+    }
   }
 }
 

@@ -2,14 +2,14 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { compareArticlesByDateDescThenId } from '../lib/article-order.js';
+import { compareArticlesByDateDescThenId, pripnuteNapred } from '../lib/article-order.js';
 import { slugify } from '../lib/slugify.js';
 import { POPISY_TEMAT } from '../lib/tema-popis.js';
 
 // Kolo 45: totéž pořadí jako úvodka a archiv (id rozhoduje shodný čas vydání).
-const latest = (await getCollection('clanky', ({ data }) => !data.draft))
-  .sort(compareArticlesByDateDescThenId)
-  .slice(0, 3);
+const latest = pripnuteNapred(
+  (await getCollection('clanky', ({ data }) => !data.draft)).sort(compareArticlesByDateDescThenId),
+).slice(0, 3);
 // Kolo 56: 404 nabízí hledání a témata — starý nebo překlepnutý odkaz
 // obvykle nese klíčová slova (audit: 0 odkazů na témata, žádné pole).
 // Seznam témat = POPISY_TEMAT (stejný zdroj jako hub /temata/).
