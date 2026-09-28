@@ -11,7 +11,7 @@ test('kolo 59: mobilní článek — zhuštěné odstupy nad textem, nic se nesk
   const m = blok.match(/@media \(max-width: 580px\) \{([\s\S]*?)\n\}/)[1];
   assert.match(m, /\.article-page \{ padding-top: 12px; \}/);
   assert.match(m, /\.article-page \.article-layout \{ margin-top: 24px; \}/);
-  assert.doesNotMatch(m, /display:\s*none/.source.includes('lt') ? /\.(?:rt-player|article-hero|reading-entry|drobky)[^{]*\{[^}]*display:\s*none/ : /x^/, 'přehrávač, cover, osnova i drobky zůstávají');
+  assert.doesNotMatch(m, /\.(?:rt-player|article-hero|video-embed|reading-entry|drobky|lead)[^{]*\{[^}]*display:\s*none/, 'přehrávač, cover, osnova, perex i drobky zůstávají');
 });
 
 test('kolo 59: související na mobilu = kompaktní řádky 96px, sizes tomu odpovídá', () => {
