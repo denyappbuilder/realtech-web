@@ -6,6 +6,9 @@ category: "AI Agenti"
 date: "2026-09-28"
 zprava: true
 image: "/images/clanky/claude-devet-smycek-amplituda-agent-checklist.jpg"
+audio:
+  url: "https://audio.realtech.cz/claude-devet-smycek-amplituda-agent-checklist-nlm-e68773821703.mp3"
+  duration: 676
 ---
 
 **Anthropic 25. září 2026 oznámil, že Claude dostal jedno zadání a pak několik dní skoro bez dohledu počítal rozptylovou amplitudu na devět smyček. Dosavadní rekord byl osm smyček. Výsledek nezávisle ověřil fyzik Lance Dixon ze SLAC a Stanfordu. Nejde o novou fyziku ani o recenzovaný článek, je to ale dobrá případová studie. Ukazuje, co musíš mít připravené, když chceš nechat AI agenta pracovat samotného celé dny.**
