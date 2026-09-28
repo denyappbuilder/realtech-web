@@ -419,3 +419,33 @@ a.tag { min-width: 44px; justify-content: flex-start; }
 /* 2) Odkaz ven v menu (Videa → YouTube). */
 nav.main .ext { margin-left: 3px; font-size: 0.8em; color: var(--ink-faint); }
 
+/* ==== Kolo 59: design audit 28. 9. 2026 (Atlas) ==== */
+/* Mobilní článek: text začínal na 1045–1206 px (390×844) — nad ním drobky,
+   hlava, přehrávač, cover a osnova s odstupy 28/36/48 px. Zhuštění odstupů
+   (obsah beze změny, nic se neskrývá) posune text o ~90 px výš. */
+@media (max-width: 580px) {
+  .article-page { padding-top: 12px; }
+  .article-page .drobky { margin-bottom: 0; }
+  .article-head .lower-third { margin-bottom: 12px; }
+  .article-head .article-credit { margin-top: 8px; }
+  .article-head p.lead { margin-top: 12px; }
+  .article-head .head-player { margin-top: 16px; padding-top: 12px; }
+  .article-head .rt-player { row-gap: 10px; }
+  .article-page .article-hero, .article-page .video-embed { margin-top: 20px; }
+  .article-page .article-videobar { margin-top: 12px; }
+  .article-page .article-layout { margin-top: 24px; }
+  .article-page .reading-entry { margin-bottom: 16px; }
+
+  /* Související na mobilu: tři karty přes celou šířku měly 991 px (3 × 287)
+     a s autorem, audiem a Herohero dělaly z konce článku 16–19 výzev pod
+     sebou. Kompaktní řádky jako „Další reporty“ na úvodce (96px náhled +
+     titulek): ~360 px. KARTA_SIZES_RELATED má pro ≤ 580 px 96px. */
+  .article-page .related .grid { row-gap: 0; }
+  .article-page .related .card { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; padding-block: 16px; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
+  .article-page .related .card:first-child { border-top: 0; padding-top: 4px; }
+  .article-page .related .card-thumb { border-radius: var(--radius-thumb); align-self: start; }
+  .article-page .related .card-thumb .lt { display: none; }
+  .article-page .related .card-body { padding: 0; gap: 8px; }
+  .article-page .related .card-body h3 { font-size: 1rem; line-height: 1.35; }
+}
+
