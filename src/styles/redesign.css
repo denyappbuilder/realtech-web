@@ -404,3 +404,18 @@ a.tag { min-width: 44px; justify-content: flex-start; }
   .video-strip, .mimo-ai, .articles .herohero-cta { margin-top: 48px; }
 }
 
+/* ==== Kolo 58 ==== */
+
+/* 1) Viditelná drobečková navigace (článek, téma). */
+.drobky { margin: 0 0 16px; font-size: 0.875rem; }
+.drobky ol { display: flex; flex-wrap: wrap; align-items: center; list-style: none; margin: 0; padding: 0; }
+.drobky li { display: inline-flex; align-items: center; min-width: 0; }
+.drobky li + li::before { content: "›"; margin: 0 8px; color: var(--ink-faint); }
+.drobky a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.drobky a:hover { color: var(--ink); text-decoration-color: var(--signal); }
+.drobky [aria-current] { color: var(--ink); font-weight: 600; }
+.article-page .drobky { max-width: 760px; margin-bottom: 4px; }
+
+/* 2) Odkaz ven v menu (Videa → YouTube). */
+nav.main .ext { margin-left: 3px; font-size: 0.8em; color: var(--ink-faint); }
+

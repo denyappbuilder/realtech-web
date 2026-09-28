@@ -35,7 +35,7 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content, headings } = await render(article);
 const outline = articleOutline(headings);
-const { title, seoTitle, description, category, date, video, videoLength, zprava, image, updated, audio, xPosts } = article.data;
+const { title, seoTitle, description, category, date, video, videoLength, videoUploaded, zprava, image, updated, audio, xPosts } = article.data;
 const readMinutes = readingTime(article.body);
 const dateStr = formatCalendarDateCs(date);
 const updatedStr = formatCalendarDateCs(updated);
@@ -115,7 +115,7 @@ const videoLd = videoId && {
   name: title,
   description,
   thumbnailUrl: [`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`],
-  uploadDate: date.toISOString(),
+  uploadDate: (videoUploaded ?? date).toISOString(),
   duration: isoDuration(videoLength),
   embedUrl: `https://www.youtube-nocookie.com/embed/${videoId}`,
   inLanguage: 'cs',
@@ -243,6 +243,15 @@ const breadcrumbLd = {
           tlačítka Kopírovat odkaz i kotvy nadpisů (skript níž). */}
       <p class="sr-only" role="status" aria-live="polite" data-copy-status></p>
 
+      {/* Kolo 58: viditelné drobečky Novinky › Téma (JSON-LD breadcrumbLd
+          nese totéž + titulek; titulek je hned pod nimi jako h1, v drobcích
+          by se opakoval). */}
+      <nav class="drobky" aria-label="Drobečková navigace">
+        <ol>
+          <li><a href="/">Novinky</a></li>
+          <li><a href={`/temata/${slugify(category)}/`}>{category}</a></li>
+        </ol>
+      </nav>
       <div class="article-head">
         <div class="lower-third">
           <a class="tag" href={`/temata/${slugify(category)}/`}>{category}</a>
@@ -365,7 +374,7 @@ const breadcrumbLd = {
           */}
           <Content />
         </div>
-        <aside class="article-aside">
+        <aside class="article-aside" aria-label="O článku">
           {outline.length > 0 && (
             <nav class="article-contents" aria-label="Obsah článku">
               <h2>Obsah článku</h2>

@@ -85,6 +85,8 @@ const breadcrumbLd = {
     { '@type': 'ListItem', position: 1, name: 'Novinky', item: Astro.site?.href },
     { '@type': 'ListItem', position: 2, name: 'Témata', item: new URL('/temata/', Astro.site).href },
     { '@type': 'ListItem', position: 3, name: category, item: temaUrl },
+    // Kolo 58: strana 2+ končí vlastní URL jako archiv (ArticleArchivePage).
+    ...(page > 1 ? [{ '@type': 'ListItem', position: 4, name: `Strana ${page}`, item: new URL(pagePath(page), Astro.site).href }] : []),
   ],
 };
 
@@ -92,7 +94,8 @@ const collectionLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: page === 1 ? category : `${category} – strana ${page}`,
-  description: popis,
+  // Kolo 58: stejný text jako <meta name=description> (strana 2+ s „Strana N.“).
+  description: page > 1 ? `${popis} Strana ${page}.` : popis,
   url: new URL(pagePath(page), Astro.site).href,
   inLanguage: 'cs',
   mainEntity: {
@@ -138,12 +141,23 @@ const vypisOg = ogObrazekClanku(articles[0]);
       slot="head"
     />
   )}
+  <link rel="alternate" type="application/rss+xml" title={`REALTECH CZ — ${category}`} href={`/temata/${slugify(category)}/rss.xml`} slot="head" />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} slot="head" is:inline />
   <script type="application/ld+json" set:html={JSON.stringify(collectionLd)} slot="head" is:inline />
   {page > 1 && <link rel="prev" href={new URL(pagePath(page - 1), Astro.site)} slot="head" />}
   {page < totalPages && <link rel="next" href={new URL(pagePath(page + 1), Astro.site)} slot="head" />}
   <section class="articles hub">
     <div class="wrap">
+      {/* Kolo 58: viditelná drobečková navigace ze stejných dat jako
+          breadcrumbLd (dřív jen v JSON-LD). Poslední článek = aktuální
+          stránka, aria-current. */}
+      <nav class="drobky" aria-label="Drobečková navigace">
+        <ol>
+          <li><a href="/">Novinky</a></li>
+          <li><a href="/temata/">Témata</a></li>
+          <li><span aria-current="page">{category}</span></li>
+        </ol>
+      </nav>
       <div class="lower-third">
         <span class="tag">{category}</span>
         {/* Kolo 32: natvrdo „{n} článků“ dávalo živě 8. 9. 2026 na

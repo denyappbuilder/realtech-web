@@ -257,10 +257,11 @@ const ogSize = ogImage.hostname.endsWith('ytimg.com')
     </a>
     <nav class="main" aria-label="Hlavní navigace">
       <ul>
-        <li><a href="/" aria-current={current('/')}>Novinky</a></li>
+        {/* Kolo 58: „Novinky“ → / zrušeny — logo vede na totéž a pod 580 px
+            šest položek rolovalo. Logo zůstává bez aria-current (test kola 22/28 drží jeho tvar). */}
         <li><a href="/clanky/" aria-current={current('/clanky/')}>Články</a></li>
         <li><a href="/temata/" aria-current={current('/temata/')}>Témata</a></li>
-        <li><a href={YT}>Videa</a></li>
+        <li><a href={YT} aria-label="Videa na YouTube (jiný web)">Videa<span class="ext" aria-hidden="true">↗</span></a></li>
         {/* Kolo 48: trychtýř YouTube → články → Herohero. Herohero stojí za
             Videa a před O nás; Videa zůstávají odkazem na kanál. Pod 400px
             šest položek přesáhne šířku a navigace roluje (overflow-x: auto

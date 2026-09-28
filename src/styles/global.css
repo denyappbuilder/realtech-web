@@ -159,7 +159,9 @@ header.site .wrap {
 .logo .tech { color: var(--signal-text); }
 .logo .cz {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem; font-weight: 500;
+  /* Kolo 58: 400, ne 500 — „CZ“ v logu byl jediný text v Plex Mono 500
+     (sonda 20 stránek 27. 9.), celý 15KB soubor kvůli dvěma znakům. */
+  font-size: 0.65rem; font-weight: 400;
   color: var(--ink-faint);
   margin-left: 4px;
   letter-spacing: 0.1em;

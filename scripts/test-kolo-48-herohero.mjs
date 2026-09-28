@@ -97,13 +97,14 @@ test('kolo 48: /herohero/ nic nevymýšlí — bez cen, úrovní podpory, počt�
 test('kolo 48: hlavní navigace nese Herohero → /herohero/ s aria-current, za Videa a před O nás; Videa zůstávají YouTube', () => {
   const nav = bezKomentaru(base.match(/<nav class="main"[\s\S]*?<\/nav>/)?.[0] ?? '');
   assert.match(nav, /<a href="\/herohero\/" aria-current=\{current\('\/herohero\/'\)\}>Herohero<\/a>/);
-  const videa = nav.indexOf('>Videa</a>');
+  const videa = nav.indexOf('>Videa<');
   const herohero = nav.indexOf('href="/herohero/"');
   const oNas = nav.indexOf('href="/o-nas/"');
   assert.ok(videa !== -1 && herohero !== -1 && oNas !== -1, 'navigaci chybí položka');
   assert.ok(videa < herohero && herohero < oNas, 'Herohero má stát mezi Videa a O nás');
-  assert.match(nav, /<a href=\{YT\}>Videa<\/a>/, 'Videa dál vedou na kanál');
-  assert.equal((nav.match(/<li>/g) ?? []).length, 6, 'šest položek: Novinky, Články, Témata, Videa, Herohero, O nás');
+  assert.match(nav, /<a href=\{YT\}[^>]*>Videa<span class="ext" aria-hidden="true">↗<\/span><\/a>/, 'Videa dál vedou na kanál');
+  // Kolo 58: „Novinky“ zrušeny (duplikát loga), zbývá pět položek.
+  assert.equal((nav.match(/<li>/g) ?? []).length, 5, 'pět položek: Články, Témata, Videa, Herohero, O nás');
 });
 
 test('kolo 48: sloupec Web v patičce nese Herohero mezi Témata a O nás; žádná RealTvorba', () => {

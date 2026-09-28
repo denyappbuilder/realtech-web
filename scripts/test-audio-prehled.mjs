@@ -75,7 +75,7 @@ test('přehrávač je přístupný, bez autoplay a s nativním přepisem', () =>
   assert.match(KOMPONENTA, /<h2 id="audio-prehled-nadpis">Audio přehled<\/h2>/);
   assert.match(
     KOMPONENTA,
-    /<audio controls preload="metadata" src=\{pohled\.src\} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">/,
+    /<audio controls preload="none" src=\{pohled\.src\} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">/,
     'nativní <audio> musí mít vlastní jméno — aria-labelledby na section ho nepojmenuje',
   );
   assert.match(KOMPONENTA, /<a href=\{pohled\.src\}>Stáhnout audio přehled<\/a>/);
@@ -86,11 +86,12 @@ test('přehrávač je přístupný, bez autoplay a s nativním přepisem', () =>
   assert.doesNotMatch(PAGE, /AI hlas|uměl[aá] inteligence|ElevenLabs|Sal/i);
 });
 
-// Kolo 36: metadata místo none — nativní UI ukáže délku bez stažení celého
-// souboru. auto zůstává zakázané (tahalo by 17minutový MP3 každému čtenáři).
-test('reálná komponenta načte před kliknutím jen metadata, ne celý soubor', () => {
-  assert.match(KOMPONENTA, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="metadata"[^>]*\bsrc=\{pohled\.src\}[^>]*\baria-label="Audio přehled článku"[^>]*>/);
-  assert.doesNotMatch(KOMPONENTA, /<audio\b[^>]*\bpreload="(?:none|auto)"/i);
+// Kolo 58: none místo metadata (kolo 36) — karta je pod textem a metadata
+// tahala ~57 KB MP3 souběžně s LCP. Délku ukazuje hlavička karty. auto zakázané.
+test('reálná komponenta před kliknutím nestahuje nic z MP3', () => {
+  assert.match(KOMPONENTA, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="none"[^>]*\bsrc=\{pohled\.src\}[^>]*\baria-label="Audio přehled článku"[^>]*>/);
+  assert.doesNotMatch(KOMPONENTA, /<audio\b[^>]*\bpreload="(?:metadata|auto)"/i);
+  assert.match(KOMPONENTA, /<time datetime=\{pohled\.iso\}>\{pohled\.delkaText\}<\/time>/, 'délka zůstává viditelná v hlavičce karty');
 });
 
 test('styly berou existující tokeny a tisk přehrávač schová', () => {
