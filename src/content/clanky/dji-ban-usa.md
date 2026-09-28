@@ -5,6 +5,7 @@ category: "Drony"
 date: "2026-07-02"
 video: "https://youtu.be/7-S7D2y6IHo"
 videoLength: "9:39"
+videoUploaded: "2026-04-24"
 image: "/images/clanky/dji-ban-usa.jpg"
 audio:
   url: "https://audio.realtech.cz/dji-ban-usa-v3.mp3?v=8fe33285f944"

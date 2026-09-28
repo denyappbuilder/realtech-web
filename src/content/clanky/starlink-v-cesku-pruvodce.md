@@ -5,6 +5,8 @@ category: "Sítě"
 evergreen: true
 date: "2026-07-20"
 video: "https://youtu.be/l-S4MR27JaE"
+videoLength: "5:17"
+videoUploaded: "2025-12-07"
 image: "/images/clanky/starlink-v-cesku-pruvodce.jpg"
 audio:
   url: "https://audio.realtech.cz/starlink-v-cesku-pruvodce-v3.mp3?v=28873b135211"

@@ -5,6 +5,7 @@ category: "Vesmír"
 date: "2026-07-02"
 video: "https://youtu.be/3Z6VkTiKrDc"
 videoLength: "7:59"
+videoUploaded: "2026-03-29"
 image: "/images/clanky/proc-je-spacex-tak-napred.jpg"
 audio:
   url: "https://audio.realtech.cz/proc-je-spacex-tak-napred-v3.mp3?v=0af000dc31bc"

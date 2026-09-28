@@ -99,9 +99,11 @@ test("kolo 36: mezi „Délka“ a <time> je explicitní textový uzel", () => {
 
 // ── P2: <audio preload="metadata"> ───────────────────────────────────────
 
-test("kolo 36: přehrávač načte jen metadata — délku ukáže bez stažení souboru", () => {
-  assert.match(audio, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="metadata"[^>]*\bsrc=\{pohled\.src\}[^>]*>/);
-  assert.doesNotMatch(audio, /preload="(?:none|auto)"/, "none nechává délku prázdnou, auto tahá celý MP3");
+// Kolo 58: metadata → none (karta pod textem, délka v hlavičce karty).
+test("kolo 36/58: přehrávač před kliknutím nestahuje MP3, délka je v hlavičce karty", () => {
+  assert.match(audio, /<audio\b[^>]*\bcontrols\b[^>]*\bpreload="none"[^>]*\bsrc=\{pohled\.src\}[^>]*>/);
+  assert.doesNotMatch(audio, /preload="(?:metadata|auto)"/, "metadata tahala ~57 KB, auto celý MP3");
+  assert.match(audio, /\{pohled\.delkaText\}/);
   assert.doesNotMatch(audio, /autoplay/i);
 });
 

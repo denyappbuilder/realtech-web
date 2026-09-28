@@ -205,7 +205,7 @@ test('kolo 45: rehypeChecklist nahradí checkbox v <li> dekorativním boxem, za�
 test('kolo 45: rehypeChecklist je v astro.config poslední a CSS kreslí box místo odrážky', () => {
   const config = cti('astro.config.mjs');
   assert.match(config, /import \{ rehypeChecklist \} from '\.\/src\/lib\/rehype-checklist\.js';/);
-  assert.match(config, /rehypePlugins: \[rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky, rehypeChecklist\]/);
+  assert.match(config, /rehypePlugins: \[rehypeAsciiHeadingIds, rehypeCtaInline, rehypeXEmbedy, rehypeTabulky, rehypeChecklist(?:, rehypeOsnovaUrovne)?\]/);
   assert.match(pravidlo(global, '.article-body .contains-task-list'), /list-style:\s*none/);
   assert.match(pravidlo(global, '.article-body .task-list-item'), /padding-left/);
   const boxCss = pravidlo(global, '.article-body .task-box');
@@ -255,7 +255,7 @@ test('kolo 45: AudioPrehled ukazuje změřenou velikost za „Stáhnout MP3“, 
   assert.match(audio, /const velikostText = pohled \? formatVelikost\(await velikostAudia\(pohled\.src\)\) : undefined;/);
   assert.match(audio, /Stáhnout MP3 <span aria-hidden="true">↓<\/span><\/a>\s*\{velikostText && <span class="audio-prehled-velikost">\{velikostText\}<\/span>\}\s*<span class="audio-prehled-akce-note">/);
   assert.doesNotMatch(audio, /\d+\s*MB/i, 'žádná velikost natvrdo (kolo 36/44)');
-  assert.match(audio, /preload="metadata"/, 'přehrávač dál jen streamuje');
+  assert.match(audio, /preload="none"/, 'přehrávač dál jen streamuje (kolo 58: none)');
   assert.match(pravidlo(global, '.audio-prehled-velikost'), /tabular-nums/);
 });
 

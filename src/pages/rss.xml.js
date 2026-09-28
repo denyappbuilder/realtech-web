@@ -7,13 +7,29 @@ import { mimeTypeProEnclosure } from '../lib/rss-enclosure-mime.js';
 import { youtubeId } from '../lib/youtube.js';
 
 export async function GET(context) {
-  const clanky = (await getCollection('clanky', ({ data }) => !data.draft))
+  return rssFeed(context, {
+    title: 'REALTECH CZ',
+    description: 'Tech novinky a analýzy bez marketingových řečí.',
+    self: '/rss.xml',
+  });
+}
+
+/**
+ * Kolo 58: sdílený builder feedu — hlavní /rss.xml i feedy témat
+ * /temata/<slug>/rss.xml (src/pages/temata/[slug]/rss.xml.js). Stejné
+ * položky, enclosure i plný text; téma jen filtruje kategorii.
+ *
+ * @param {{ site: URL }} context
+ * @param {{ title: string, description: string, self: string, category?: string }} feed
+ */
+export async function rssFeed(context, { title, description, self, category }) {
+  const clanky = (await getCollection('clanky', ({ data }) => !data.draft && (!category || data.category === category)))
     .sort(compareArticlesByDateDescThenId)
     .slice(0, 50);
 
   return rss({
-    title: 'REALTECH CZ',
-    description: 'Tech novinky a analýzy bez marketingových řečí.',
+    title,
+    description,
     site: context.site,
     // atom:link rel=self — RSS best practice (validátor bez něj warnuje),
     // čtečky podle něj poznají kanonickou adresu feedu.
@@ -64,7 +80,7 @@ export async function GET(context) {
     }),
     customData: [
       '<language>cs</language>',
-      `<atom:link href="${new URL('/rss.xml', context.site).href}" rel="self" type="application/rss+xml"/>`,
+      `<atom:link href="${new URL(self, context.site).href}" rel="self" type="application/rss+xml"/>`,
       // Čas buildu stačí — feed se mění jen publikací, a ta jde přes build.
       // toUTCString() je validní RFC-822 formát, který RSS 2.0 vyžaduje.
       `<lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,

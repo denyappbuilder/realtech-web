@@ -64,6 +64,9 @@ const clanky = defineCollection({
     date: publishDate,
     video: z.string().url().optional(),
     videoLength: z.string().optional(),
+    // Kolo 58: den nahrání videa na YouTube (VideoObject.uploadDate). Bez něj
+    // JSON-LD bral datum článku — u průvodce Starlink o 7 měsíců později.
+    videoUploaded: calendarDate.optional(),
     // `video` je jen YouTube (fasáda, videobar, VideoObject JSON-LD).
     // `xPosts` = oficiální click-to-load embed příspěvků z X — status URL
     // na x.com/twitter.com. Soubor videa zůstává u X, nikdy nerehostujeme.

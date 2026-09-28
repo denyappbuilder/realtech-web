@@ -164,7 +164,7 @@ test('kolo 51: /herohero/ — výzvy hned pod perexem, Herohero plná pilulka, Y
   assert.match(blok, /<p class="herohero-akce-note">[\s\S]*Profil je založený, návody do něj teprve chystáme\.[\s\S]*<a href="\/clanky\/">čti články na webu<\/a>/);
   assert.equal((stranka.match(/class="hero-actions"/g) ?? []).length, 1, 'jedna řada výzev');
   assert.equal((stranka.match(/class="btn-/g) ?? []).length, 2, 'dvě tlačítka, články jen odkaz');
-  const main = stranka.slice(layout, stranka.indexOf('<aside class="about-aside">'));
+  const main = stranka.slice(layout, stranka.indexOf('<aside class="about-aside"'));
   assert.match(main, /<a href="#newsletter">newsletteru<\/a>/, 'newsletter (Kit) v patičce každé stránky — odkaz na kotvu');
   assert.doesNotMatch(main, /hero-actions|btn-/, 'pod odstavci už žádná druhá řada tlačítek');
 });

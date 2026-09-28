@@ -5,6 +5,8 @@ category: "AI Report"
 date: "2026-09-23T18:40:00+02:00"
 zprava: true
 video: "https://www.youtube.com/watch?v=M0YHgbt1Tec"
+videoLength: "3:49"
+videoUploaded: "2026-09-23"
 image: "/images/clanky/vlastni-web-s-ai-github-cloudflare-pages.jpg"
 ---
 

@@ -33,10 +33,12 @@ const velikostText = pohled ? formatVelikost(await velikostAudia(pohled.src)) : 
         krátký přehled jen to hlavní — text volí audioPrehledPohled podle
         souboru (-nlm.mp3). Je i popisem přehrávače pro čtečku. */}
     <p class="audio-prehled-popis" id="audio-prehled-popis">{pohled.popis}</p>
-    {/* Kolo 36: preload="metadata" — nativní ovládání ukáže délku hned
-        (jen hlavička souboru), zatímco none ji nechávalo prázdnou do kliknutí.
-        auto ne: tahalo by celý 17minutový MP3 každému čtenáři. */}
-    <audio controls preload="metadata" src={pohled.src} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">
+    {/* Kolo 58: preload="none" — od kola 56 karta leží pod textem článku,
+        a metadata přesto stahovala ~57 KB MP3 souběžně s LCP obrázkem
+        (živě 27. 9.: request v 215 ms). Délku čtenář vidí v hlavičce karty
+        („Délka 2:34“ z frontmatteru), nativní ukazatel ji nepotřebuje.
+        auto dál ne: tahalo by celý soubor. (Kolo 36 mělo metadata.) */}
+    <audio controls preload="none" src={pohled.src} aria-label="Audio přehled článku" aria-describedby="audio-prehled-popis">
       <a href={pohled.src}>Stáhnout audio přehled</a>
     </audio>
     {/* Kolo 44: Deep Dive má ~25 minut a ~24 MB — odkaz ke stažení byl jen

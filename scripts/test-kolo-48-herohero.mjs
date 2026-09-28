@@ -97,13 +97,14 @@ test('kolo 48: /herohero/ nic nevymýšlí — bez cen, úrovní podpory, počt�
 test('kolo 48: hlavní navigace nese Herohero → /herohero/ s aria-current, za Videa a před O nás; Videa zůstávají YouTube', () => {
   const nav = bezKomentaru(base.match(/<nav class="main"[\s\S]*?<\/nav>/)?.[0] ?? '');
   assert.match(nav, /<a href="\/herohero\/" aria-current=\{current\('\/herohero\/'\)\}>Herohero<\/a>/);
-  const videa = nav.indexOf('>Videa</a>');
+  const videa = nav.indexOf('>Videa<');
   const herohero = nav.indexOf('href="/herohero/"');
   const oNas = nav.indexOf('href="/o-nas/"');
   assert.ok(videa !== -1 && herohero !== -1 && oNas !== -1, 'navigaci chybí položka');
   assert.ok(videa < herohero && herohero < oNas, 'Herohero má stát mezi Videa a O nás');
-  assert.match(nav, /<a href=\{YT\}>Videa<\/a>/, 'Videa dál vedou na kanál');
-  assert.equal((nav.match(/<li>/g) ?? []).length, 6, 'šest položek: Novinky, Články, Témata, Videa, Herohero, O nás');
+  assert.match(nav, /<a href=\{YT\}[^>]*>Videa<span class="ext" aria-hidden="true">↗<\/span><\/a>/, 'Videa dál vedou na kanál');
+  // Kolo 58: „Novinky“ zrušeny (duplikát loga), zbývá pět položek.
+  assert.equal((nav.match(/<li>/g) ?? []).length, 5, 'pět položek: Články, Témata, Videa, Herohero, O nás');
 });
 
 test('kolo 48: sloupec Web v patičce nese Herohero mezi Témata a O nás; žádná RealTvorba', () => {
@@ -193,8 +194,8 @@ test('kolo 48: HeroheroCta — výchozí věta pro článek, volitelný nadpis p
 // ── 5. O nás ──────────────────────────────────────────────────────────────
 
 test('kolo 48: O nás — jedna věta s odkazem na /herohero/ v „Co tady najdeš“ a položka v „Kam dál“; žádná RealTvorba', () => {
-  const main = onas.match(/<div class="about-main">[\s\S]*?<aside class="about-aside">/)?.[0] ?? '';
-  const aside = onas.match(/<aside class="about-aside">[\s\S]*?<\/aside>/)?.[0] ?? '';
+  const main = onas.match(/<div class="about-main">[\s\S]*?<aside class="about-aside"[^>]*>/)?.[0] ?? '';
+  const aside = onas.match(/<aside class="about-aside"[^>]*>[\s\S]*?<\/aside>/)?.[0] ?? '';
   assert.match(main, /chystáme na <a href="\/herohero\/">Herohero<\/a> — zatím\s+připravujeme, web i YouTube zůstávají zdarma\./);
   assert.match(aside, /<li><a href="\/herohero\/">Herohero \(připravujeme\)<\/a><\/li>/);
   assert.equal((onas.match(/href="\/herohero\/"/g) ?? []).length, 2, 'dva odkazy: věta + Kam dál');

@@ -5,6 +5,8 @@ category: "AI Report"
 date: "2026-09-23T10:47:26+02:00"
 zprava: true
 video: "https://www.youtube.com/watch?v=IODYMOl9r9Q"
+videoLength: "7:52"
+videoUploaded: "2026-09-22"
 image: "/images/clanky/grok-bot-astra-tym-agentu.jpg"
 ---
 

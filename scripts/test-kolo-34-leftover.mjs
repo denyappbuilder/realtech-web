@@ -88,7 +88,7 @@ test("kolo 34: hero úvodky nese chip „Zpráva“ hned za kategorií, stejně 
 // ── P1: na desktopu je vidět přesně jedna skupina sdílení ────────────────
 
 test("kolo 34: aside má sdílení v obalu .article-aside-share — od kola 50 jediné v článku", () => {
-  const aside = clanek.match(/<aside class="article-aside">([\s\S]*?)<\/aside>/)?.[1] ?? "";
+  const aside = clanek.match(/<aside class="article-aside"[^>]*>([\s\S]*?)<\/aside>/)?.[1] ?? "";
   assert.ok(aside, "aside článku chybí");
   assert.match(
     aside,

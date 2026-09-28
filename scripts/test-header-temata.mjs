@@ -19,7 +19,7 @@ test("hlavní navigace odkazuje na hub /temata/ s aria-current jako ostatní pol
 test("Témata stojí mezi Články a Videa", () => {
   const clanky = nav.indexOf('href="/clanky/"');
   const temata = nav.indexOf('href="/temata/"');
-  const videa = nav.indexOf(">Videa</a>");
+  const videa = nav.indexOf(">Videa<");
   assert.ok(clanky !== -1 && temata !== -1 && videa !== -1, "navigaci chybí některá z položek");
   assert.ok(clanky < temata && temata < videa, "Témata nejsou mezi Články a Videa");
 });
