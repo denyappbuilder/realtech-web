@@ -156,7 +156,7 @@ test('kolo 40: s málo články je aside prázdný a blok se nevykreslí', async
 });
 
 test('kolo 40: šablona — aside vypisuje asideNejnovejsi, mřížka .related dál related; oba popisky se liší', () => {
-  const aside = clanek.match(/<aside class="article-aside">([\s\S]*?)<\/aside>/)?.[1] ?? '';
+  const aside = clanek.match(/<aside class="article-aside"[^>]*>([\s\S]*?)<\/aside>/)?.[1] ?? '';
   assert.match(aside, /<ul class="article-aside-related">\s*\{asideNejnovejsi\.map\(/, 'aside musí mapovat asideNejnovejsi');
   assert.doesNotMatch(aside, /related\.map\(/, 'aside nesmí znovu mapovat related');
   assert.doesNotMatch(aside, /Další reporty/, 'stejný popisek pro dva různé seznamy by mátl');

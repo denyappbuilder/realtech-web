@@ -194,8 +194,8 @@ test('kolo 48: HeroheroCta — výchozí věta pro článek, volitelný nadpis p
 // ── 5. O nás ──────────────────────────────────────────────────────────────
 
 test('kolo 48: O nás — jedna věta s odkazem na /herohero/ v „Co tady najdeš“ a položka v „Kam dál“; žádná RealTvorba', () => {
-  const main = onas.match(/<div class="about-main">[\s\S]*?<aside class="about-aside">/)?.[0] ?? '';
-  const aside = onas.match(/<aside class="about-aside">[\s\S]*?<\/aside>/)?.[0] ?? '';
+  const main = onas.match(/<div class="about-main">[\s\S]*?<aside class="about-aside"[^>]*>/)?.[0] ?? '';
+  const aside = onas.match(/<aside class="about-aside"[^>]*>[\s\S]*?<\/aside>/)?.[0] ?? '';
   assert.match(main, /chystáme na <a href="\/herohero\/">Herohero<\/a> — zatím\s+připravujeme, web i YouTube zůstávají zdarma\./);
   assert.match(aside, /<li><a href="\/herohero\/">Herohero \(připravujeme\)<\/a><\/li>/);
   assert.equal((onas.match(/href="\/herohero\/"/g) ?? []).length, 2, 'dva odkazy: věta + Kam dál');

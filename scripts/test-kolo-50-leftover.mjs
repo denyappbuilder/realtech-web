@@ -89,7 +89,7 @@ test('kolo 50: „Sdílej dál“ je v HTML článku jednou — v aside, s popis
   assert.equal((clanek.match(/Sdílej dál/g) ?? []).length, 1);
   assert.equal((clanek.match(/class="share-btns"/g) ?? []).length, 1);
   assert.doesNotMatch(clanek, /class="article-share"/);
-  const aside = clanek.match(/<aside class="article-aside">([\s\S]*?)<\/aside>/)?.[1] ?? '';
+  const aside = clanek.match(/<aside class="article-aside"[^>]*>([\s\S]*?)<\/aside>/)?.[1] ?? '';
   assert.match(aside, /<div class="article-aside-share">\s*<p class="mono">Sdílej dál<\/p>/);
   for (const label of ['Sdílet na X', 'Sdílet na Facebooku', 'Kopírovat odkaz na článek']) {
     assert.equal((clanek.match(new RegExp(`aria-label="${label}"`, 'g')) ?? []).length, 1, label);
