@@ -89,8 +89,10 @@
     'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), ' +
     'textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+  // Kolo 60: „gpt 5“ / „gpt5“ = „gpt-5“ — stejně jako hledejVIndexu v archivu.
   const norm = (s: string) =>
-    s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/([a-z])[\s-]*(?=\d)/g, '$1-');
 
   // Titulek i kategorie jdou do innerHTML. Bez escapování by `<` v obsahu
   // rozbilo výpis a mohlo vložit cizí značku (Z10027 / WEB-SEARCH-003).

@@ -48,6 +48,25 @@ export function webpSrcsetZDerivatu(fullWebp, exists = (cesta) => fs.existsSync(
   return parts.join(', ');
 }
 
+/**
+ * Kolo 60: AVIF srcset ze stejného WebP srcsetu — každý kandidát
+ * `X.webp Nw` se přepíše na `X.avif Nw`, ale jen když AVIF soubor leží
+ * v public/ u VŠECH kandidátů. Chybí-li kterýkoli (nový cover před
+ * prebuildem, test s mockem fs), vrací null a <picture> zůstane u WebP.
+ * Stejné šířky = stejný výběr kandidáta v prohlížeči i v preloadu.
+ *
+ * @param {string | null | undefined} webpSrcset
+ * @param {(cesta: string) => boolean} exists
+ * @returns {string | null}
+ */
+export function avifSrcsetZWebp(webpSrcset, exists = (cesta) => fs.existsSync(cesta)) {
+  if (!webpSrcset) return null;
+  const kandidati = webpSrcset.split(',').map((c) => c.trim().split(/\s+/));
+  const avif = kandidati.map(([url, w]) => [url.replace(/\.webp$/, '.avif'), w]);
+  if (avif.some(([url], i) => url === kandidati[i][0] || !exists(`public${url}`))) return null;
+  return avif.map(([url, w]) => `${url} ${w}`).join(', ');
+}
+
 // Mobile boxes are 72/96px square: object-fit: cover needs 16/9 times
 // their width from the landscape source (128/171px), before DPR scaling.
 export const KARTA_SIZES_ARCHIVE = '(max-width: 360px) 128px, (max-width: 580px) 171px, (max-width: 900px) calc((100vw - 72px) / 2), (max-width: 1120px) calc((100vw - 96px) / 3), 341px';
@@ -88,7 +107,7 @@ export const HERO_RAIL_SIZES = '100px';
  *
  * @param {{ image?: string | null, video?: string | null }} data
  * @param {(cesta: string) => boolean} [exists]
- * @returns {{ src: string, width: number, height: number, webp: string | null, webpSrcset: string | null } | null}
+ * @returns {{ src: string, width: number, height: number, webp: string | null, webpSrcset: string | null, avifSrcset: string | null } | null}
  */
 export function nahledRailu({ image, video }, exists = (cesta) => fs.existsSync(cesta)) {
   const nahled = nahledKarty(image, exists);
@@ -99,6 +118,7 @@ export function nahledRailu({ image, video }, exists = (cesta) => fs.existsSync(
       height: nahled.thumbH,
       webp: nahled.hasWebp ? nahled.thumbWebp : null,
       webpSrcset: nahled.hasWebp ? nahled.thumbWebpSrcset : null,
+      avifSrcset: nahled.hasWebp ? nahled.thumbAvifSrcset : null,
     };
   }
   const videoId = youtubeId(video);
@@ -109,6 +129,7 @@ export function nahledRailu({ image, video }, exists = (cesta) => fs.existsSync(
     height: 720,
     webp: null,
     webpSrcset: null,
+    avifSrcset: null,
   };
 }
 
@@ -153,12 +174,14 @@ export function nahledKarty(image, exists = (cesta) => fs.existsSync(cesta)) {
   const fullWebp = jeJpg ? image.replace(/\.jpg$/, '.webp') : null;
   const hasFullWebp = Boolean(fullWebp && pouzilSmall && hasWebp && exists(`public${fullWebp}`));
   const thumbWebpSrcset = hasFullWebp ? webpSrcsetZDerivatu(fullWebp, exists) : null;
+  const thumbAvifSrcset = avifSrcsetZWebp(thumbWebpSrcset, exists);
   return {
     localThumb,
     thumbW: pouzilSmall ? 640 : 1280,
     thumbH: pouzilSmall ? 360 : 720,
     thumbWebp,
     thumbWebpSrcset,
+    thumbAvifSrcset,
     hasWebp,
     // Stejný důvod jako hero: <img src> musí být WebP, jinak LCP první
     // karty na /clanky/ stáhne -640.jpg i když -640.webp leží vedle.

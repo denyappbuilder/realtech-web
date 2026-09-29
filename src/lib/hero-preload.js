@@ -21,12 +21,20 @@
  *   srcset?: string,
  *   webp?: string | null,
  *   webpSrcset?: string | null,
+ *   avifSrcset?: string | null,
  *   sizes?: string,
  * }} hero — přesně to, co dostane <picture> (viz hero-obrazek.js / homepage).
  * @returns {{ href: string, imagesrcset?: string, imagesizes?: string, type?: string } | null}
  */
-export function preloadHeroObrazku({ src, srcset, webp, webpSrcset, sizes } = {}) {
+export function preloadHeroObrazku({ src, srcset, webp, webpSrcset, avifSrcset, sizes } = {}) {
   if (!src) return null;
+
+  // Kolo 60: <picture> nabízí AVIF před WebP → preload musí mířit na AVIF,
+  // jinak by prohlížeč s AVIF stáhl LCP dvakrát. type=image/avif: prohlížeč
+  // bez AVIF preload přeskočí a vezme WebP z <source>.
+  if (avifSrcset && webpSrcset && webp) {
+    return { href: webp.replace(/\.webp$/, '.avif'), imagesrcset: avifSrcset, imagesizes: sizes, type: 'image/avif' };
+  }
 
   if (webpSrcset && webp) {
     return { href: webp, imagesrcset: webpSrcset, imagesizes: sizes, type: 'image/webp' };

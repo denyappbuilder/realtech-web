@@ -42,9 +42,17 @@ export function srcsetProIndex(data) {
   return nahled.thumbWebpSrcset ?? undefined;
 }
 
+/** Kolo 60: AVIF srcset stejných šířek (klíč `ia`), jen když leží všechny soubory. */
+export function avifSrcsetProIndex(data) {
+  const nahled = nahledKarty(data.image);
+  const videoId = youtubeId(data.video);
+  if (videoId && !nahled.hasLocalThumb) return undefined;
+  return nahled.thumbAvifSrcset ?? undefined;
+}
+
 // Vyhledávací index pro ⌘K modal a filtr /clanky/ — malý (metadata,
 // začátek textu, cesta k náhledu), načítá se až při prvním hledání / filtru.
-// Klíče (s, t, d, k, b, p, m, i, is, z, v) čtou SearchModal.astro,
+// Klíče (s, t, d, k, b, p, m, i, is, ia, z, v) čtou SearchModal.astro,
 // ArticleArchivePage.astro i functions/clanky/index.js (filtr bez JS);
 // volitelné i/is/z/v se do JSON dostanou, jen když článek hodnotu má
 // (JSON.stringify undefined vynechá).
@@ -78,6 +86,7 @@ export async function GET() {
     m: readingTime(c.body),
     i: nahledProIndex(c.data),
     is: srcsetProIndex(c.data),
+    ia: avifSrcsetProIndex(c.data),
     z: c.data.zprava ? 1 : undefined,
     v: c.data.videoLength || undefined,
   }));

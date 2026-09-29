@@ -40,7 +40,7 @@ const prvniNahled = nahledKarty(prvni?.data.image);
 const kartaPreload = prvni
   ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
       ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
-      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, sizes: KARTA_SIZES_ARCHIVE })
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, avifSrcset: prvniNahled.thumbAvifSrcset ?? undefined, sizes: KARTA_SIZES_ARCHIVE })
   : null;
 
 // Kolo 54: jeden popis pro <meta name="description"> i CollectionPage —
@@ -226,6 +226,46 @@ const vypisOg = ogObrazekClanku(articles[0]);
         return false;
       }
 
+      function hledejVIndexu(index: PolozkaIndexu[], q: string, kat: string) {
+        // Kolo 60: archiv řadil jen chronologicky a kmeny neznal — /clanky/?q=
+        // vracel méně a jinak než ⌘K („starlinku“ 4 vs 11, „agenti“ 14 vs 26,
+        // „dronů“ 1 vs 3; živě 29. 9. 2026). Teď TOTÉŽ tělo na edge, v archivu
+        // i v ⌘K: skóre titulek 10/12, zbytek 3/4, překlep 2/1, shoda → novější.
+        // „gpt 5“, „gpt5“ i „gpt-5“ = „gpt-5“ (písmeno + číslice spojí pomlčka),
+        // jinak se dotaz rozpadl na „gpt“ a samotné „5“ (13 výsledků, první GPT-6).
+        const priprav = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          .replace(/([a-z])[\s-]*(?=\d)/g, '$1-');
+        const kmen = (t: string) => (t.length < 5 || /\d/.test(t) ? t : t.slice(0, t.length >= 7 ? -2 : -1));
+        const vKategorii = index.filter((it) => !kat || it.k === kat);
+        const nq = priprav(q.trim());
+        if (!nq) return vKategorii;
+        const slova = nq.split(/\s+/);
+        const kolo = (rezim: 'presne' | 'kmen' | 'preklep') => vKategorii
+          .map((it) => {
+            const titulek = priprav(it.t);
+            const zbytek = priprav(`${it.d} ${it.k} ${it.b}`);
+            let skore = 0;
+            for (const slovo of slova) {
+              const t = rezim === 'kmen' ? kmen(slovo) : slovo;
+              if (rezim === 'kmen' && titulek.includes(slovo)) skore += 12;
+              else if (titulek.includes(t)) skore += 10;
+              else if (rezim === 'kmen' && zbytek.includes(slovo)) skore += 4;
+              else if (zbytek.includes(t)) skore += 3;
+              else if (rezim === 'preklep' && shodaSPreklepem(slovo, titulek)) skore += 2;
+              else if (rezim === 'preklep' && shodaSPreklepem(slovo, zbytek)) skore += 1;
+              else return null;
+            }
+            return { it, skore };
+          })
+          .filter((r): r is { it: PolozkaIndexu; skore: number } => r !== null)
+          .sort((a, b) => b.skore - a.skore || String(b.it.p ?? '').localeCompare(String(a.it.p ?? '')))
+          .map((r) => r.it);
+        const presne = kolo('presne');
+        const sKmeny = slova.map(kmen).join(' ') !== nq ? kolo('kmen') : presne;
+        const nejlepsi = sKmeny.length > presne.length ? sKmeny : presne;
+        return nejlepsi.length ? nejlepsi : kolo('preklep');
+      }
+
       const chips = [...document.querySelectorAll('.cat-filter .chip')];
       const grid = document.getElementById('articles-grid');
       const empty = document.querySelector('.filter-empty');
@@ -243,7 +283,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       // karty (jako <img src> SSR karty), is = srcset WebP 640w+1280w pro
       // <source> (kolo 37), z = 1 u krátké zprávy, v = délka videa.
       // i/is/z/v jsou volitelné.
-      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; m?: number; i?: string; is?: string; z?: 1; v?: string };
+      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; m?: number; i?: string; is?: string; ia?: string; z?: 1; v?: string };
       // sizes <source> SSR karet (KARTA_SIZES_ARCHIVE) — server ho dává na
       // mřížku, aby karta z indexu vybírala derivát stejně jako karta vedle.
       const sizesKaret = grid?.getAttribute('data-sizes') ?? '';
@@ -314,6 +354,13 @@ const vypisOg = ogObrazekClanku(articles[0]);
         if (it.i) {
           const picture = document.createElement('picture');
           if (/\.webp$/.test(it.i)) {
+            if (it.ia && it.is) {
+              const avif = document.createElement('source');
+              avif.setAttribute('srcset', it.ia);
+              avif.setAttribute('sizes', sizesKaret);
+              avif.setAttribute('type', 'image/avif');
+              picture.append(avif);
+            }
             const source = document.createElement('source');
             source.setAttribute('srcset', it.is ?? it.i);
             if (it.is) source.setAttribute('sizes', sizesKaret);
@@ -403,6 +450,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
             && (item.m === undefined || (Number.isFinite(item.m) && item.m > 0))
             && (item.i === undefined || typeof item.i === 'string')
             && (item.is === undefined || typeof item.is === 'string')
+            && (item.ia === undefined || typeof item.ia === 'string')
             && (item.z === undefined || item.z === 1)
             && (item.v === undefined || typeof item.v === 'string')
           )) throw new Error('Archiv: neplatný index článků.');
@@ -469,16 +517,8 @@ const vypisOg = ogObrazekClanku(articles[0]);
         if (version !== applyVersion) return;
         odstranKartyZIndexu();
 
-        const vyber = (preklep: boolean) => (index ?? [])
-          .filter((it) => {
-            if (category && it.k !== category) return false;
-            if (!nq) return true;
-            const haystack = norm(`${it.t} ${it.d} ${it.k} ${it.b}`);
-            return nq.split(/\s+/).every((term) => haystack.includes(term) || (preklep && shodaSPreklepem(term, haystack)));
-          });
-        // Kolo 57: překlep jen jako záloha při nule — shodně s edge (filtrujIndex).
-        let vybrane = vyber(false);
-        if (!vybrane.length && nq) vybrane = vyber(true);
+        // Kolo 60: stejné skóre, kmeny i překlep jako edge (filtrujIndex) a ⌘K.
+        const vybrane = hledejVIndexu(index ?? [], query, category);
         const slugs = new Set(vybrane.map((it) => it.s));
         const naStrane = new Set<string>();
         let shown = 0;
@@ -491,8 +531,8 @@ const vypisOg = ogObrazekClanku(articles[0]);
             if (slug) naStrane.add(slug);
           }
         });
-        for (const it of index ?? []) {
-          if (!slugs.has(it.s) || naStrane.has(it.s)) continue;
+        for (const it of vybrane) {
+          if (naStrane.has(it.s)) continue;
           grid?.append(kartaZIndexu(it));
           shown++;
         }

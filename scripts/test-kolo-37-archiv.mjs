@@ -58,7 +58,8 @@ test("kolo 37: parametryFiltru ořeže mezery a délku, prázdné = bez filtru",
 test("kolo 37: filtrujIndex = shoda klientského apply(): kategorie přesně, dotaz bez diakritiky v t/d/k/b", () => {
   assert.deepEqual(filtrujIndex(INDEX, { kat: "Drony", q: "" }).map((it) => it.s), ["jen-webp", "bez-nahledu"]);
   assert.deepEqual(filtrujIndex(INDEX, { kat: "", q: "STARLÍNK" }).map((it) => it.s), ["na-strane-1"], "diakritika a velikost písmen nerozhodují");
-  assert.deepEqual(filtrujIndex(INDEX, { kat: "Drony", q: "dronu" }).map((it) => it.s), ["bez-nahledu"], "kategorie a dotaz zároveň");
+  // Kolo 60: archiv má kmeny jako ⌘K — „dronu“ → „dron“ trefí i kategorii Drony; přesný tvar v textu (skóre 4) nad kmenem (3).
+  assert.deepEqual(filtrujIndex(INDEX, { kat: "Drony", q: "dronu" }).map((it) => it.s), ["bez-nahledu", "jen-webp"], "kategorie a dotaz zároveň");
   assert.deepEqual(filtrujIndex(INDEX, { kat: "Drony", q: "starlink" }), [], "dotaz mimo kategorii = nic");
   assert.equal(filtrujIndex(INDEX, { kat: "", q: "" }).length, INDEX.length);
 });

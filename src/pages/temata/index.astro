@@ -38,6 +38,7 @@ const kartaPreload = prvniHub?.nahled.hasLocalThumb
       src: prvniHub.nahled.localThumb,
       webp: prvniHub.nahled.hasWebp ? prvniHub.nahled.thumbWebp : undefined,
       webpSrcset: prvniHub.nahled.thumbWebpSrcset ?? undefined,
+      avifSrcset: prvniHub.nahled.thumbAvifSrcset ?? undefined,
       sizes: KARTA_SIZES,
     })
   : null;
@@ -110,6 +111,9 @@ const collectionLd = {
             {t.nahled.localThumb && (
               <div class={`card-thumb th-${t.slug}`}>
                 <picture>
+                  {t.nahled.hasWebp && t.nahled.thumbAvifSrcset && (
+                    <source srcset={t.nahled.thumbAvifSrcset} sizes={KARTA_SIZES} type="image/avif" />
+                  )}
                   {t.nahled.hasWebp && t.nahled.thumbWebpSrcset && (
                     <source srcset={t.nahled.thumbWebpSrcset} sizes={KARTA_SIZES} type="image/webp" />
                   )}

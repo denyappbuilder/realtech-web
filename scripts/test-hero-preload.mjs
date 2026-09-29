@@ -81,7 +81,7 @@ test('šablona článku dává do <head> právě jeden preload hero obrázku', (
   assert.match(clanek, /from '\.\.\/\.\.\/lib\/hero-preload\.js'/);
   assert.match(
     clanek,
-    /const heroPreload = preloadHeroObrazku\(\{\s*src: heroLcpSrc,\s*srcset: heroWebp \? undefined : heroSrcset,\s*webp: heroWebp,\s*webpSrcset: heroWebpSrcset,\s*sizes: heroSizes,\s*\}\)/,
+    /const heroPreload = preloadHeroObrazku\(\{\s*src: heroLcpSrc,\s*srcset: heroWebp \? undefined : heroSrcset,\s*webp: heroWebp,\s*webpSrcset: heroWebpSrcset,\s*(?:avifSrcset: heroAvifSrcset,\s*)?sizes: heroSizes,\s*\}\)/,
     'preload musí počítat ze STEJNÝCH hodnot, které dostane <picture>',
   );
   assert.match(
@@ -102,7 +102,7 @@ test('homepage dává do <head> právě jeden preload hero obrázku', () => {
   assert.match(uvodka, /from '\.\.\/lib\/hero-preload\.js'/);
   assert.match(
     uvodka,
-    /const heroPreload = preloadHeroObrazku\(\{\s*src: heroLcpSrc,\s*srcset: heroHasWebp \? undefined : heroSrcset,\s*webp: heroHasWebp \? heroWebp : undefined,\s*webpSrcset: heroWebpSrcset,\s*sizes: HERO_SIZES,\s*\}\)/,
+    /const heroPreload = preloadHeroObrazku\(\{\s*src: heroLcpSrc,\s*srcset: heroHasWebp \? undefined : heroSrcset,\s*webp: heroHasWebp \? heroWebp : undefined,\s*webpSrcset: heroWebpSrcset,\s*(?:avifSrcset: heroAvifSrcset,\s*)?sizes: HERO_SIZES,\s*\}\)/,
     'homepage smí preloadovat WebP jen když ho <picture> opravdu použije',
   );
   assert.match(
@@ -130,7 +130,7 @@ test('homepage dává do <head> právě jeden preload hero obrázku', () => {
 // konstanta sizes), jinak na DPR>1 preloaduje -640.webp a <picture> si
 // vybere plný .webp (živě 5. 9. 2026 na /clanky/, /temata/, /temata/{slug}/).
 const VYBER_PRELOADU_KARTY =
-  /preloadHeroObrazku\(prvniVideoId && !prvniNahled\.hasLocalThumb\s*\?\s*\{ src: `https:\/\/i\.ytimg\.com\/vi\/\$\{prvniVideoId\}\/maxresdefault\.jpg` \}\s*:\s*\{ src: prvniNahled\.localThumb, webp: prvniNahled\.hasWebp \? prvniNahled\.thumbWebp : undefined, webpSrcset: prvniNahled\.thumbWebpSrcset \?\? undefined, sizes: KARTA_SIZES(?:_FEATURED|_ARCHIVE)? \}\)/;
+  /preloadHeroObrazku\(prvniVideoId && !prvniNahled\.hasLocalThumb\s*\?\s*\{ src: `https:\/\/i\.ytimg\.com\/vi\/\$\{prvniVideoId\}\/maxresdefault\.jpg` \}\s*:\s*\{ src: prvniNahled\.localThumb, webp: prvniNahled\.hasWebp \? prvniNahled\.thumbWebp : undefined, webpSrcset: prvniNahled\.thumbWebpSrcset \?\? undefined, (?:avifSrcset: prvniNahled\.thumbAvifSrcset \?\? undefined, )?sizes: KARTA_SIZES(?:_FEATURED|_ARCHIVE)? \}\)/;
 const LINK_PRELOADU_KARTY =
   /\{kartaPreload && \(\s*<link\s+rel="preload"\s+as="image"\s+href=\{kartaPreload\.href\}\s+imagesrcset=\{kartaPreload\.imagesrcset\}\s+imagesizes=\{kartaPreload\.imagesizes\}\s+type=\{kartaPreload\.type\}\s+fetchpriority="high"\s+slot="head"\s+\/>\s*\)\}/;
 
@@ -245,7 +245,7 @@ test('hub /temata/ preloaduje první kartu — ze stejných helperů jako karta'
   );
   assert.match(
     hub,
-    /preloadHeroObrazku\(\{\s*src: prvniHub\.nahled\.localThumb,\s*webp: prvniHub\.nahled\.hasWebp \? prvniHub\.nahled\.thumbWebp : undefined,\s*webpSrcset: prvniHub\.nahled\.thumbWebpSrcset \?\? undefined,\s*sizes: KARTA_SIZES,\s*\}\)/,
+    /preloadHeroObrazku\(\{\s*src: prvniHub\.nahled\.localThumb,\s*webp: prvniHub\.nahled\.hasWebp \? prvniHub\.nahled\.thumbWebp : undefined,\s*webpSrcset: prvniHub\.nahled\.thumbWebpSrcset \?\? undefined,\s*(?:avifSrcset: prvniHub\.nahled\.thumbAvifSrcset \?\? undefined,\s*)?sizes: KARTA_SIZES,\s*\}\)/,
     'preload musí mířit na tentýž soubor jako <picture> první karty',
   );
   assert.match(

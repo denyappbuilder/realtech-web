@@ -9,7 +9,7 @@ import { slugify } from '../lib/slugify.js';
 import { articleLead } from '../lib/article-lead.js';
 import { preloadHeroObrazku } from '../lib/hero-preload.js';
 import { formatCalendarDateCs } from '../lib/calendarDate.js';
-import { nahledRailu, webpSrcsetZDerivatu, HERO_RAIL_SIZES, HOMEPAGE_HERO_SIZES, KARTA_SIZES, KARTA_SIZES_HOME_COMPACT } from '../lib/karta-nahled.js';
+import { avifSrcsetZWebp, nahledRailu, webpSrcsetZDerivatu, HERO_RAIL_SIZES, HOMEPAGE_HERO_SIZES, KARTA_SIZES, KARTA_SIZES_HOME_COMPACT } from '../lib/karta-nahled.js';
 import { compareArticlesByDateDescThenId, pripnuteNapred } from '../lib/article-order.js';
 import { videaSNahledem } from '../lib/video-pasek-nahled.js';
 
@@ -92,6 +92,7 @@ const heroHasWebp = !!heroWebp && fs.existsSync(`public${heroWebp}`);
 const heroWebpSrcset = heroHasWebp && heroWebpSmall && fs.existsSync(`public${heroWebpSmall}`)
   ? webpSrcsetZDerivatu(heroWebp, (cesta) => fs.existsSync(cesta))
   : undefined;
+const heroAvifSrcset = avifSrcsetZWebp(heroWebpSrcset, (cesta) => fs.existsSync(cesta));
 // fetchpriority=high na <img> spekulativně stáhne src dřív než <source>.
 // Když WebP existuje, src musí být WebP — jinak LCP zůstane .jpg.
 const heroLcpSrc = heroHasWebp ? heroWebp : heroThumb;
@@ -108,6 +109,7 @@ const heroPreload = preloadHeroObrazku({
   srcset: heroHasWebp ? undefined : heroSrcset,
   webp: heroHasWebp ? heroWebp : undefined,
   webpSrcset: heroWebpSrcset,
+  avifSrcset: heroAvifSrcset,
   sizes: HERO_SIZES,
 });
 
@@ -235,6 +237,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
           <a href={hero.data.video ?? `/clanky/${hero.id}/`} class="hero-visual" tabindex="-1" aria-hidden="true">
             {heroThumb && (
               <picture>
+                {heroAvifSrcset && <source srcset={heroAvifSrcset} sizes={HERO_SIZES} type="image/avif" />}
                 {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={HERO_SIZES} type="image/webp" />}
                 {!heroWebpSrcset && heroHasWebp && <source srcset={heroWebp} type="image/webp" />}
                 <img src={heroLcpSrc} srcset={heroHasWebp ? undefined : heroSrcset} sizes={(!heroHasWebp && heroSrcset) ? HERO_SIZES : undefined} alt={hero.data.title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
@@ -260,6 +263,7 @@ const heroOgAlt = heroOg ? hero.data.title : undefined;
                     */}
                     {nahled && (
                       <picture>
+                        {nahled.avifSrcset && <source srcset={nahled.avifSrcset} sizes={HERO_RAIL_SIZES} type="image/avif" />}
                         {nahled.webpSrcset && <source srcset={nahled.webpSrcset} sizes={HERO_RAIL_SIZES} type="image/webp" />}
                         {!nahled.webpSrcset && nahled.webp && <source srcset={nahled.webp} type="image/webp" />}
                         <img src={nahled.src} alt="" aria-hidden="true" width={nahled.width} height={nahled.height} loading="lazy" decoding="async" />

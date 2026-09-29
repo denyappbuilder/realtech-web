@@ -110,3 +110,17 @@
 # ho Cloudflare mimo repo). Starší umístění /security.txt vracelo 404
 # (živě 7. 9. 2026) — RFC ho dovoluje jen jako redirect na .well-known.
 /security.txt /.well-known/security.txt 301
+
+# Kolo 60: konvenční cesty hledání a štítků (zkoušejí je čtenáři i crawleři)
+# vracely 404. Hledání žije v archivu /clanky/?q= (query Pages zachová),
+# kategorie jsou témata /temata/{slug}/. Neznámý slug skončí na 404 tématu.
+/hledat /clanky/ 301
+/hledat/ /clanky/ 301
+/search /clanky/ 301
+/search/ /clanky/ 301
+/kategorie/:slug /temata/:slug/ 301
+/kategorie/:slug/ /temata/:slug/ 301
+/tag/:slug /temata/:slug/ 301
+/tag/:slug/ /temata/:slug/ 301
+/tema/:slug /temata/:slug/ 301
+/tema/:slug/ /temata/:slug/ 301

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import { KARTA_SIZES_ARCHIVE, nahledKarty, webpSrcsetZDerivatu } from '../src/lib/karta-nahled.js';
+import { KARTA_SIZES_ARCHIVE, avifSrcsetZWebp, nahledKarty, webpSrcsetZDerivatu } from '../src/lib/karta-nahled.js';
 import { preloadHeroObrazku } from '../src/lib/hero-preload.js';
 
 // Exercise the homepage's actual derivation block without an Astro fixture build.
@@ -11,7 +11,7 @@ function homepage(image, files, video) {
   const block = source.slice(source.indexOf('const heroImage ='), source.indexOf('const heroOgSoubor ='));
   return vm.runInNewContext(`${block}; ({ heroSrcset, heroHasWebp, heroWebp, heroWebpSrcset, heroLcpSrc })`, {
     hero: { data: { image } }, heroVideoId: video,
-    fs: { existsSync: (p) => files.includes(p) }, webpSrcsetZDerivatu,
+    fs: { existsSync: (p) => files.includes(p) }, webpSrcsetZDerivatu, avifSrcsetZWebp,
   });
 }
 

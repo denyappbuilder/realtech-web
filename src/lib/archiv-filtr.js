@@ -72,7 +72,7 @@ export function kanonickaKategorie(kat, kategorie) {
 /**
  * Položka search-index.json (tvar drží search-index.json.js).
  * @typedef {{ s: string, t: string, d: string, k: string, b: string, p: string,
- *   m?: number, i?: string, is?: string, z?: 1, v?: string }} PolozkaIndexu
+ *   m?: number, i?: string, is?: string, ia?: string, z?: 1, v?: string }} PolozkaIndexu
  */
 
 /**
@@ -89,30 +89,68 @@ export function platnyIndex(candidate) {
     && (item.m === undefined || (Number.isFinite(item.m) && item.m > 0))
     && (item.i === undefined || typeof item.i === 'string')
     && (item.is === undefined || typeof item.is === 'string')
+    && (item.ia === undefined || typeof item.ia === 'string')
     && (item.z === undefined || item.z === 1)
     && (item.v === undefined || typeof item.v === 'string'));
 }
 
 /**
- * Výběr z indexu — shoda 1:1 s klientským apply(): kategorie přesně,
- * všechna slova dotazu bez diakritiky v titulku, popisu, kategorii a
- * začátku textu. Pořadí indexu (nejnovější první) se drží.
+ * Výběr z indexu — shoda 1:1 s klientským apply() archivu i s ⌘K
+ * (hledejVIndexu, text funkce hlídá test-kolo-60-hledani.mjs). Bez dotazu
+ * jen kategorie a pořadí indexu (nejnovější první); s dotazem podle skóre.
  *
  * @param {PolozkaIndexu[]} index
  * @param {{ kat: string, q: string }} filtr
  * @returns {PolozkaIndexu[]}
  */
 export function filtrujIndex(index, { kat, q }) {
-  const nq = normalizuj(q.trim());
-  const vyber = (preklep) => index.filter((it) => {
-    if (kat && it.k !== kat) return false;
-    if (!nq) return true;
-    const haystack = normalizuj(`${it.t} ${it.d} ${it.k} ${it.b}`);
-    return nq.split(/\s+/).every((term) => haystack.includes(term) || (preklep && shodaSPreklepem(term, haystack)));
-  });
-  const presne = vyber(false);
-  // Kolo 57: tolerance překlepu jen jako záloha při nule (klient totéž).
-  return presne.length || !nq ? presne : vyber(true);
+  return hledejVIndexu(index, q, kat);
+}
+
+/**
+ * @param {PolozkaIndexu[]} index
+ * @param {string} q
+ * @param {string} kat
+ * @returns {PolozkaIndexu[]}
+ */
+export function hledejVIndexu(index, q, kat) {
+  // Kolo 60: archiv řadil jen chronologicky a kmeny neznal — /clanky/?q=
+  // vracel méně a jinak než ⌘K („starlinku“ 4 vs 11, „agenti“ 14 vs 26,
+  // „dronů“ 1 vs 3; živě 29. 9. 2026). Teď TOTÉŽ tělo na edge, v archivu
+  // i v ⌘K: skóre titulek 10/12, zbytek 3/4, překlep 2/1, shoda → novější.
+  // „gpt 5“, „gpt5“ i „gpt-5“ = „gpt-5“ (písmeno + číslice spojí pomlčka),
+  // jinak se dotaz rozpadl na „gpt“ a samotné „5“ (13 výsledků, první GPT-6).
+  const priprav = (s) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/([a-z])[\s-]*(?=\d)/g, '$1-');
+  const kmen = (t) => (t.length < 5 || /\d/.test(t) ? t : t.slice(0, t.length >= 7 ? -2 : -1));
+  const vKategorii = index.filter((it) => !kat || it.k === kat);
+  const nq = priprav(q.trim());
+  if (!nq) return vKategorii;
+  const slova = nq.split(/\s+/);
+  const kolo = (rezim) => vKategorii
+    .map((it) => {
+      const titulek = priprav(it.t);
+      const zbytek = priprav(`${it.d} ${it.k} ${it.b}`);
+      let skore = 0;
+      for (const slovo of slova) {
+        const t = rezim === 'kmen' ? kmen(slovo) : slovo;
+        if (rezim === 'kmen' && titulek.includes(slovo)) skore += 12;
+        else if (titulek.includes(t)) skore += 10;
+        else if (rezim === 'kmen' && zbytek.includes(slovo)) skore += 4;
+        else if (zbytek.includes(t)) skore += 3;
+        else if (rezim === 'preklep' && shodaSPreklepem(slovo, titulek)) skore += 2;
+        else if (rezim === 'preklep' && shodaSPreklepem(slovo, zbytek)) skore += 1;
+        else return null;
+      }
+      return { it, skore };
+    })
+    .filter((r) => r !== null)
+    .sort((a, b) => b.skore - a.skore || String(b.it.p ?? '').localeCompare(String(a.it.p ?? '')))
+    .map((r) => r.it);
+  const presne = kolo('presne');
+  const sKmeny = slova.map(kmen).join(' ') !== nq ? kolo('kmen') : presne;
+  const nejlepsi = sKmeny.length > presne.length ? sKmeny : presne;
+  return nejlepsi.length ? nejlepsi : kolo('preklep');
 }
 
 /**
@@ -220,6 +258,8 @@ export function kartaHtml(it, sizes) {
     const [w, h] = rozmeryNahledu(it.i);
     casti.push('<picture>');
     if (/\.webp$/.test(it.i)) {
+      // Kolo 60: AVIF před WebP, jen se srcsetem (index `ia`) — jako SSR karta.
+      if (it.ia && it.is) casti.push(`<source srcset="${escapeHtml(it.ia)}" sizes="${escapeHtml(sizes)}" type="image/avif">`);
       casti.push(
         it.is
           ? `<source srcset="${escapeHtml(it.is)}" sizes="${escapeHtml(sizes)}" type="image/webp">`

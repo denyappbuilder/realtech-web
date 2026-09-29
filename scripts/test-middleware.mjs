@@ -134,3 +134,16 @@ test(
 test("localhost pokračuje přes context.next()", async () => {
   await assertPassThrough("http://localhost:4321/");
 });
+
+test("kolo 60: velká písmena v /clanky/ a /temata/ → 301 na malá, query beze změny", async () => {
+  await assertRedirect("https://realtech.cz/Clanky/", "https://realtech.cz/clanky/");
+  await assertRedirect("https://realtech.cz/clanky/Claude-Sonnet-5-5-Kdy-Prejit/?q=A", "https://realtech.cz/clanky/claude-sonnet-5-5-kdy-prejit/?q=A");
+  await assertRedirect("https://realtech.cz/TEMATA/AI-Report/strana/2/", "https://realtech.cz/temata/ai-report/strana/2/");
+});
+
+test("kolo 60: malá písmena, kódované znaky a jiné sekce projdou beze změny", async () => {
+  await assertPassThrough("https://realtech.cz/clanky/starlink-v-cesku-pruvodce/");
+  await assertPassThrough("https://realtech.cz/clanky/%C4%8Dl%C3%A1nek/");
+  await assertPassThrough("https://realtech.cz/images/clanky/Cover.jpg");
+  await assertPassThrough("https://realtech.cz/clanky/?q=Starlink");
+});
