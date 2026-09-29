@@ -40,7 +40,7 @@ const prvniNahled = nahledKarty(prvni?.data.image);
 const kartaPreload = prvni
   ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
       ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
-      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, sizes: KARTA_SIZES_ARCHIVE })
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, avifSrcset: prvniNahled.thumbAvifSrcset ?? undefined, sizes: KARTA_SIZES_ARCHIVE })
   : null;
 
 // Kolo 54: jeden popis pro <meta name="description"> i CollectionPage —
@@ -243,7 +243,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
       // karty (jako <img src> SSR karty), is = srcset WebP 640w+1280w pro
       // <source> (kolo 37), z = 1 u krátké zprávy, v = délka videa.
       // i/is/z/v jsou volitelné.
-      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; m?: number; i?: string; is?: string; z?: 1; v?: string };
+      type PolozkaIndexu = { s: string; t: string; d: string; k: string; b: string; p: string; m?: number; i?: string; is?: string; ia?: string; z?: 1; v?: string };
       // sizes <source> SSR karet (KARTA_SIZES_ARCHIVE) — server ho dává na
       // mřížku, aby karta z indexu vybírala derivát stejně jako karta vedle.
       const sizesKaret = grid?.getAttribute('data-sizes') ?? '';
@@ -314,6 +314,13 @@ const vypisOg = ogObrazekClanku(articles[0]);
         if (it.i) {
           const picture = document.createElement('picture');
           if (/\.webp$/.test(it.i)) {
+            if (it.ia && it.is) {
+              const avif = document.createElement('source');
+              avif.setAttribute('srcset', it.ia);
+              avif.setAttribute('sizes', sizesKaret);
+              avif.setAttribute('type', 'image/avif');
+              picture.append(avif);
+            }
             const source = document.createElement('source');
             source.setAttribute('srcset', it.is ?? it.i);
             if (it.is) source.setAttribute('sizes', sizesKaret);
@@ -403,6 +410,7 @@ const vypisOg = ogObrazekClanku(articles[0]);
             && (item.m === undefined || (Number.isFinite(item.m) && item.m > 0))
             && (item.i === undefined || typeof item.i === 'string')
             && (item.is === undefined || typeof item.is === 'string')
+            && (item.ia === undefined || typeof item.ia === 'string')
             && (item.z === undefined || item.z === 1)
             && (item.v === undefined || typeof item.v === 'string')
           )) throw new Error('Archiv: neplatný index článků.');

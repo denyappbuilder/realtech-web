@@ -53,6 +53,7 @@ const {
   srcset: heroSrcset,
   webp: heroWebp,
   webpSrcset: heroWebpSrcset,
+  avifSrcset: heroAvifSrcset,
   sizes: heroSizes,
 } = heroObrazekClanku(image, videoId);
 // LCP hero (obrázek i YouTube facade) se objevuje až v <body> — jediný
@@ -63,6 +64,7 @@ const heroPreload = preloadHeroObrazku({
   srcset: heroWebp ? undefined : heroSrcset,
   webp: heroWebp,
   webpSrcset: heroWebpSrcset,
+  avifSrcset: heroAvifSrcset,
   sizes: heroSizes,
 });
 // Brandovaný OG generuje prebuild i pro video články (z YouTube náhledu),
@@ -285,6 +287,7 @@ const breadcrumbLd = {
       {!videoId && heroSrc && (
         <div class="article-hero">
           <picture>
+            {heroAvifSrcset && <source srcset={heroAvifSrcset} sizes={heroSizes} type="image/avif" />}
             {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
             {!heroWebpSrcset && heroWebp && <source srcset={heroWebp} type="image/webp" />}
             <img src={heroLcpSrc} srcset={heroWebp ? undefined : heroSrcset} sizes={(!heroWebp && heroSrcset) ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />
@@ -306,6 +309,7 @@ const breadcrumbLd = {
           >
             {heroSrc && (
               <picture>
+                {heroAvifSrcset && <source srcset={heroAvifSrcset} sizes={heroSizes} type="image/avif" />}
                 {heroWebpSrcset && <source srcset={heroWebpSrcset} sizes={heroSizes} type="image/webp" />}
                 {!heroWebpSrcset && heroWebp && <source srcset={heroWebp} type="image/webp" />}
                 <img src={heroLcpSrc} srcset={heroWebp ? undefined : heroSrcset} sizes={(!heroWebp && heroSrcset) ? heroSizes : undefined} alt={title} width="1280" height="720" loading="eager" decoding="async" fetchpriority="high" />

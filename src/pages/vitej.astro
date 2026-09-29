@@ -25,7 +25,7 @@ const prvniNahled = nahledKarty(prvni?.data.image);
 const kartaPreload = prvni
   ? preloadHeroObrazku(prvniVideoId && !prvniNahled.hasLocalThumb
       ? { src: `https://i.ytimg.com/vi/${prvniVideoId}/maxresdefault.jpg` }
-      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, sizes: KARTA_SIZES })
+      : { src: prvniNahled.localThumb, webp: prvniNahled.hasWebp ? prvniNahled.thumbWebp : undefined, webpSrcset: prvniNahled.thumbWebpSrcset ?? undefined, avifSrcset: prvniNahled.thumbAvifSrcset ?? undefined, sizes: KARTA_SIZES })
   : null;
 ---
 <Base

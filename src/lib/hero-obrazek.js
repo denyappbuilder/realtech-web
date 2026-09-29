@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { webpSrcsetZDerivatu } from './karta-nahled.js';
+import { avifSrcsetZWebp, webpSrcsetZDerivatu } from './karta-nahled.js';
 
 /**
  * Hero obrázek článku bez videa.
@@ -65,6 +65,7 @@ export function heroObrazekClanku(image, videoId, exists = (cesta) => fs.existsS
     srcset,
     webp: hasWebp ? webp : undefined,
     webpSrcset,
+    avifSrcset: avifSrcsetZWebp(webpSrcset, exists) ?? undefined,
     sizes: CLANEK_HERO_SIZES,
   };
 }

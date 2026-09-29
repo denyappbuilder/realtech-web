@@ -72,7 +72,7 @@ export function kanonickaKategorie(kat, kategorie) {
 /**
  * Položka search-index.json (tvar drží search-index.json.js).
  * @typedef {{ s: string, t: string, d: string, k: string, b: string, p: string,
- *   m?: number, i?: string, is?: string, z?: 1, v?: string }} PolozkaIndexu
+ *   m?: number, i?: string, is?: string, ia?: string, z?: 1, v?: string }} PolozkaIndexu
  */
 
 /**
@@ -89,6 +89,7 @@ export function platnyIndex(candidate) {
     && (item.m === undefined || (Number.isFinite(item.m) && item.m > 0))
     && (item.i === undefined || typeof item.i === 'string')
     && (item.is === undefined || typeof item.is === 'string')
+    && (item.ia === undefined || typeof item.ia === 'string')
     && (item.z === undefined || item.z === 1)
     && (item.v === undefined || typeof item.v === 'string'));
 }
@@ -220,6 +221,8 @@ export function kartaHtml(it, sizes) {
     const [w, h] = rozmeryNahledu(it.i);
     casti.push('<picture>');
     if (/\.webp$/.test(it.i)) {
+      // Kolo 60: AVIF před WebP, jen se srcsetem (index `ia`) — jako SSR karta.
+      if (it.ia && it.is) casti.push(`<source srcset="${escapeHtml(it.ia)}" sizes="${escapeHtml(sizes)}" type="image/avif">`);
       casti.push(
         it.is
           ? `<source srcset="${escapeHtml(it.is)}" sizes="${escapeHtml(sizes)}" type="image/webp">`

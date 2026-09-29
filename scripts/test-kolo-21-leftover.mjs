@@ -98,10 +98,10 @@ test('kolo 21: archiv, téma, hub i vitej posílají thumbWebpSrcset + sizes do 
     ['vitej', vitej, 'KARTA_SIZES'],
     ['téma', tema, 'KARTA_SIZES_FEATURED'],
   ]) {
-    assert.match(zdroj, new RegExp(`webpSrcset: prvniNahled\\.thumbWebpSrcset \\?\\? undefined, sizes: ${sizes} \\}`), `${nazev}: preload bez srcsetu karty`);
+    assert.match(zdroj, new RegExp(`webpSrcset: prvniNahled\\.thumbWebpSrcset \\?\\? undefined, (?:avifSrcset: prvniNahled\\.thumbAvifSrcset \\?\\? undefined, )?sizes: ${sizes} \\}`), `${nazev}: preload bez srcsetu karty`);
     assert.match(zdroj, link, `${nazev}: <link rel=preload> bez imagesrcset/imagesizes`);
   }
-  assert.match(hub, /webpSrcset: prvniHub\.nahled\.thumbWebpSrcset \?\? undefined,\s*sizes: KARTA_SIZES,/);
+  assert.match(hub, /webpSrcset: prvniHub\.nahled\.thumbWebpSrcset \?\? undefined,\s*(?:avifSrcset: prvniHub\.nahled\.thumbAvifSrcset \?\? undefined,\s*)?sizes: KARTA_SIZES,/);
   assert.match(hub, link);
   assert.match(hub, /<source srcset=\{t\.nahled\.thumbWebpSrcset\} sizes=\{KARTA_SIZES\} type="image\/webp" \/>/, 'hub musí sdílet konstantu, ne inline řetězec');
 });
