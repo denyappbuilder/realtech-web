@@ -107,7 +107,7 @@ export const HERO_RAIL_SIZES = '100px';
  *
  * @param {{ image?: string | null, video?: string | null }} data
  * @param {(cesta: string) => boolean} [exists]
- * @returns {{ src: string, width: number, height: number, webp: string | null, webpSrcset: string | null } | null}
+ * @returns {{ src: string, width: number, height: number, webp: string | null, webpSrcset: string | null, avifSrcset: string | null } | null}
  */
 export function nahledRailu({ image, video }, exists = (cesta) => fs.existsSync(cesta)) {
   const nahled = nahledKarty(image, exists);

@@ -226,6 +226,7 @@ test('kolo 42: nahledRailu — lokální cover s WebP srcset, YouTube fallback, 
     height: 360,
     webp: '/images/clanky/x-640.webp',
     webpSrcset: '/images/clanky/x-640.webp 640w, /images/clanky/x-960.webp 960w, /images/clanky/x.webp 1280w',
+    avifSrcset: null, // kolo 60: AVIF soubory v mocku nejsou
   });
   // Cover v repu chybí, video je → YouTube maxresdefault (jako ArticleCard), ne 404 na neexistující cover.
   assert.deepEqual(nahledRailu({ image: '/images/clanky/neni.jpg', video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }, exists), {
@@ -234,6 +235,7 @@ test('kolo 42: nahledRailu — lokální cover s WebP srcset, YouTube fallback, 
     height: 720,
     webp: null,
     webpSrcset: null,
+    avifSrcset: null,
   });
   assert.equal(nahledRailu({ image: '/images/clanky/neni.jpg' }, exists), null);
   assert.equal(nahledRailu({}, exists), null);
