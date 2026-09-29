@@ -43,6 +43,8 @@ if (!konfigurace && import.meta.env.DEV) varujGiscus(import.meta.env);
       data-category-id={konfigurace.categoryId}
     ></div>
     <noscript>
+      {/* Kolo 60: bez JS „Zobrazit komentáře“ nic nedělalo — tlačítko schovat, zůstane odkaz na GitHub. */}
+      <style is:inline>[data-komentare-nacist]{display:none}</style>
       <p class="komentare-note">
         Komentáře potřebují JavaScript. Diskuze k článkům najdeš
         <a href={giscusDiskuzeUrl(konfigurace.repo)} rel="noopener">přímo na GitHubu</a>.

@@ -449,3 +449,33 @@ nav.main .ext { margin-left: 3px; font-size: 0.8em; color: var(--ink-faint); }
   .article-page .related .card-body h3 { font-size: 1rem; line-height: 1.35; }
 }
 
+/* ==== Kolo 60: robustnost a okrajové stavy (audit 29. 9. 2026) ==== */
+/* WCAG 2.4.11 Focus Not Obscured: Shift+Tab na článku posouval fokus pod
+   sticky hlavičku (390: „Odebírat e-mailem“ y6–58 pod 96px headerem; 1280:
+   sdílení 0–1 px pod 77px). scroll-padding posouvá i scroll po fokusu. */
+html { scroll-padding-top: calc(var(--reading-header-height, 96px) + 12px); }
+
+/* WCAG 1.4.12 + 1.4.10: s rozšířenými mezerami textu se na 320 px nevešlo
+   „marketingových“ v h1 /o-nas/ (scrollWidth 370). */
+.about h1, .hub .section-head h1, .notfound h1, .article-head h1 { overflow-wrap: break-word; max-width: min(17ch, 100%); }
+.article-head h1 { max-width: none; }
+
+/* Režim vysokého kontrastu: podtržení aktivní položky menu (::after
+   s background) se přebarvilo na Canvas a zmizelo — aktivní položka byla
+   k nerozeznání. Totéž ukazatel čtení. */
+@media (forced-colors: active) {
+  nav.main a[aria-current]::after { background: CanvasText; forced-color-adjust: none; }
+  nav.main a[aria-current] { text-decoration: underline 2px; text-underline-offset: 6px; }
+  .read-progress span { background: Highlight; forced-color-adjust: none; }
+}
+
+/* Tisk: odkazy „Co se dělo dál“, drobečky a Herohero na papíře nic neznamenají
+   (Starlink: poslední A4 list jen s Herohero výzvou). */
+@media print { .herohero-cta, .co-dal, .drobky { display: none !important; } }
+
+/* WCAG 2.5.8: odkazy patičky a meta v asidu měly na desktopu 18–19 px
+   (splněno jen výjimkou rozestupu) — teď 24 px, výška sloupce se nemění. */
+@media (min-width: 901px) {
+  footer.site .f-nav a, .about-aside-meta a, .article-aside-meta a { display: inline-flex; align-items: center; min-height: 24px; }
+  footer.site .f-nav ul { gap: 2px; }
+}
