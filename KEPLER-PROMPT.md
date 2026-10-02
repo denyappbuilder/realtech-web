@@ -59,4 +59,4 @@ Ke každému článku patří cover `public/images/clanky/<slug>.jpg` (1280×720
    - [ ] Fakta odpovídají scénáři
    - [ ] Frontmatter kompletní
    - [ ] Žádné `DOPLNIT` komentáře nezůstaly nevyřešené
-4. **Jeden článek = jeden PR. Nikdy nepushuj přímo na main.** Merge dělá Daniel po kontrole.
+4. **Jeden článek = jeden PR. Nikdy nepushuj přímo na main.** Od převzetí správy 2. 10. 2026 publikační kontrolu a merge zajišťuje Kepler podle aktuálního mandátu v `docs/audit/RULES.md`: ověřená fakta, zelené kontroly přesného SHA, přiměřené review a ověřený produkční deploy. Nevyřešené `DOPLNIT` ani neověřená metadata se nepublikují.
