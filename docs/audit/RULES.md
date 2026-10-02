@@ -2,7 +2,20 @@
 
 Konsolidace přímých pokynů Daniela, stav 19. 9. 2026. Platí pro všechny běhy pracující na tomto webu. Novější výslovný pokyn má přednost; historický audit/backlog ani starý handoff sám o sobě není povolením k implementaci, merge nebo deployi. Dokument nezavádí nové pravomoci a nepřenáší sem pravidla jiných projektů.
 
-## Uzavření 19. 9. — nejnovější rozhodnutí
+## Aktuální správa — převzetí Keplerem, 2. 10. 2026
+
+Daniel v přímém chatu zadal kompletní převzetí realtech.cz a potvrdil „převezmi vše, postup nechávám na tobě“ / „ano vše“ po dotazu na technickou i redakční správu včetně publikace, merge a nasazování.
+
+- **Vlastník správy webu: Kepler.** Rozsah: technický provoz a údržba, SEO/UX, redakční zpracování a publikace ověřených článků, řízení backlogu, PR, review a nasazování. Nahrazuje předchozí roli Grokbota jako správce tohoto webu.
+- Běžné změny webu lze po splnění kontrol publikovat/mergovat bez jednotlivého příkazu „merge #číslo“. Zachovány malé izolované PR, test/check/build, review přiměřené riziku, preview vizuálních změn, `gh pr merge --merge` a ověření produkce pro přesný SHA. Žádný push přímo do main, force/admin bypass ani publikace neověřených faktů.
+- Konkrétní produktová rozhodnutí a ochranné testy trvají; B07 se neprovádí, stačí RSS autodiscovery. Celkové převzetí není povolení rušit vědomé produktové zákazy nebo přepisovat cizí rozpracovanou práci.
+- Zásadní redesign, placené služby/náklady, secrets, práva/přístupy, DNS, auth/platby/DB a destruktivní kroky vyžadují konkrétní souhlas. Žádné automatické odebrání přístupů dosavadnímu správci.
+- Pouze realtech.cz; nepřebírá se YouTube účet, Facebook, podcast ani konzervovaná RealTvorba appka/šablony. Žádné nové crony ani nepřetržitý monitoring bez samostatného výslovného zadání.
+- Mandát a technické předání jsou různé věci: potvrzení dosavadního správce ještě není doložené. Do vyjasnění souběžných writerů nepřebírat jejich rozpracované zdroje ani spouštět souběžné produkční změny. Při selhání produkčního nasazení STOP a konkrétní report.
+
+Tato sekce má přednost před historickými zákazy pokračování a individuálními merge approvals níže. Ostatní bezpečnostní, důkazní a produktové hranice zůstávají. Časově omezené uzávěrky níže nejsou aktuální provozní plán.
+
+## Historie: uzavření 19. 9.
 
 1. Žádný nový agent/běh. Dokončit pouze níže popsané předání; po závěrečném reportu ukončit pracovní běhy a nic dalšího nezačínat.
 2. B06: **validátor ani prebuild neměnit, fallback nedělat**. Hotové a otestované malé obrazové varianty a opravu PNG označeného jako WebP publikovat v PR. Pokud nelze dokončit do 15 minut od uzavíracího pokynu, pushnout jako draft PR s konkrétním zbytkem a skončit. Zákaz fallbacku nahrazuje předchozí požadavek na render fallback; validační chyba chybějícího obrázku se neoslabuje.
